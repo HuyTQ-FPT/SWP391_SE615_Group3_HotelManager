@@ -1,10 +1,5 @@
-/HotelManger/build/
-/HotelManger/nbproject/private/
-HotelManger/nbproject/private/private.properties
-HotelManger/nbproject/private/private.xml
-<<<<<<< HEAD
-HotelManger/nbproject/private/private.properties
-/CopyPRN/nbproject/private/
-=======
+/HotelManager/build/
+/HotelManager/nbproject/private/
+HotelManager/nbproject/private/private.properties
+HotelManager/nbproject/private/private.xml
 
->>>>>>> 750712b8b2827ecfe9cc79968ad7d1ab5ce8f000
