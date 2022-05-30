@@ -10,5 +10,12 @@ package Entity;
  * @author Admin
  */
 public class OrderDetail {
-    
+    BillID int,
+	RoomID int,
+	Checkin datetime,
+	Checkout datetime, 
+	RoomPrice money,
+	ServiceID int, 
+	DetailServicePrice money, 
+	Note NVARCHAR(max),
 }

@@ -10,5 +10,14 @@ package Entity;
  * @author Admin
  */
 public class Order {
-    
+    BillID int IDENTITY PRIMARY KEY,
+	UserID int, 
+	Quantity int,
+	Child int,
+	Adult int,
+	Total money,
+	Note NVARCHAR(max),
+	[Status] int, 
+	[Date] datetime, 
+	StatusDate datetime,
 }

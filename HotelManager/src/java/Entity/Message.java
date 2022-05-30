@@ -9,6 +9,10 @@ package Entity;
  *
  * @author Admin
  */
-public class Customer {
-    
+public class Message {
+    MessageID int IDENTITY PRIMARY KEY,
+	AccountID int,
+	MessageTo NVARCHAR(max),
+	MessageFrom NVARCHAR(max),
+	[Date] datetime,
 }

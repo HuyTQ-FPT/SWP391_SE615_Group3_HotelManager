@@ -9,6 +9,6 @@ package Dao.impl;
  *
  * @author Admin
  */
-public class CustomerDAOImpl {
+public class DeviceDAOImpl {
     
 }

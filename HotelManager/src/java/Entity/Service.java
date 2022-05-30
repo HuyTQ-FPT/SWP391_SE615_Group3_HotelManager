@@ -10,5 +10,10 @@ package Entity;
  * @author Admin
  */
 public class Service {
-    
+    ServiceID int IDENTITY PRIMARY KEY, 
+	ServiceName NVARCHAR(max),
+	ServiceImage nvarchar(max), 
+	ServiceDes NVARCHAR(max),
+	ServiceNote NVARCHAR(max),
+	ServicePrice money,
 }

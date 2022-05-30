@@ -10,5 +10,8 @@ package Entity;
  * @author Admin
  */
 public class Account {
-    
+    AccountID int IDENTITY PRIMARY KEY, 
+	[RoleID] int,
+	[user] VARCHAR(50)NOT NULL,
+	[password] VARCHAR(50)NOT NULL,
 }

@@ -9,12 +9,10 @@ package Entity;
  *
  * @author Admin
  */
-public class Blog {
-    BlogID int IDENTITY PRIMARY KEY,
-	AccountID int ,
-	BlogAuthor varchar(50),
-	BlogDescription NVARCHAR(max),
-	BlogImage nvarchar(max),
-	BlogDate datetime,
-	BlogTitle NVARCHAR(max),
+public class Device {
+    DeviceID int IDENTITY PRIMARY KEY,
+	DeviceName nvarchar(50),
+	DeviceCate int,
+	Price money,
+	[Status] int,
 }

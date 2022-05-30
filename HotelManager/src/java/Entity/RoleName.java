@@ -10,5 +10,6 @@ package Entity;
  * @author Admin
  */
 public class RoleName {
-    
+    RoleID int IDENTITY PRIMARY KEY, 
+	RoleName NVARCHAR(max),
 }

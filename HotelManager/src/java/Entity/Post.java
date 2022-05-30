@@ -10,5 +10,11 @@ package Entity;
  * @author Admin
  */
 public class Post {
-    
+    PostID int IDENTITY PRIMARY KEY,
+	AccountID int ,
+	PostAuthor varchar(50),
+	PostDescription NVARCHAR(max),
+	PostImage nvarchar(max),
+	PostDate datetime,
+	BlogTitle NVARCHAR(max),
 }
