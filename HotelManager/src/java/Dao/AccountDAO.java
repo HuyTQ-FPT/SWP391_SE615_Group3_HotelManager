@@ -5,10 +5,27 @@
  */
 package Dao;
 
+import Entity.Account;
+import java.util.Vector;
+
 /**
  *
  * @author Admin
  */
-public class AccountDAO {
-    
+public interface AccountDAO {
+
+    public Vector<Account> getAccountList(int aID);
+
+    public Account getAccount(String aName, String aPass);
+
+    public void insertAccount(int aRole, String aName, String aPass);
+
+    public void updateAccount(int aID, String aName);
+
+    public void deleteAccount(String aName);
+
+    public Account checkAccount(String aName);
+
+    public Vector<Account> getAccountByRole(int aRole);
+
 }
