@@ -15,7 +15,7 @@ import java.util.Vector;
 public interface BlogDAO {
     public Blog getBlogList(int bID);
     public void insertBlog(int aID, Blog newBlog);
-    public void updateBlog(int bID, Blog newBlog);
+    public void updateBlog(int bID, Blog updateBlog);
     public void deleteBlog(int bID);
     public Vector<Blog> getAllBlog();
     

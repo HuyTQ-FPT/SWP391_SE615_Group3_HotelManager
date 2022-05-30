@@ -5,10 +5,16 @@
  */
 package Dao;
 
+import Entity.Post;
+import java.util.Vector;
+
 /**
  *
  * @author Admin
  */
-public class PostDAO {
-    
+public interface PostDAO {
+    public Vector<Post> getAllPost();
+    public void insertPost(int pID,Post insertPost);
+    public void updatePost(int pID,Post updatePost);
+    public void deletePost(int pID);
 }

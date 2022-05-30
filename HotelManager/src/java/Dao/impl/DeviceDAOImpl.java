@@ -9,6 +9,6 @@ package Dao.impl;
  *
  * @author Admin
  */
-public interface DeviceDAOImpl {
+public class DeviceDAOImpl {
     
 }

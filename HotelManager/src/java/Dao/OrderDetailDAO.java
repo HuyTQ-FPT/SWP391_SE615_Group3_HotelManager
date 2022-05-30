@@ -9,6 +9,6 @@ package Dao;
  *
  * @author Admin
  */
-public class OrderDetailDAO {
+public interface OrderDetailDAO {
     
 }

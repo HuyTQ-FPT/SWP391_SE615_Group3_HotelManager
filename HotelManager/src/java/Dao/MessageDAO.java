@@ -5,10 +5,16 @@
  */
 package Dao;
 
+import Entity.Message;
+import java.util.Vector;
+
 /**
  *
  * @author Admin
  */
-public class MessageDAO {
-    
+public interface MessageDAO {
+    public Vector<Message> getAllImage();
+    public void insertMessage(int mID ,Message insertMessage);
+    public void updateMessage(int mID ,Message updateMessage);
+    public void deleteMessage(int mID);
 }
