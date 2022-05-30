@@ -4,129 +4,132 @@
     Author     : admin
 --%>
 
+<%@page import="Entity.Image"%>
+<%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Hoang Hon &mdash; Hotel</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <title>Hoang Hon &mdash; Hotel</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Work+Sans:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-   <link rel="stylesheet" href="css/bootstrap.min_1_1.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/animate.css">
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
-    
-    
-    
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-  
-    <link rel="stylesheet" href="css/aos.css">
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Work+Sans:300,400,700" rel="stylesheet">
+        <link rel="stylesheet" href="fonts/icomoon/style.css">
+        <link rel="stylesheet" href="css/bootstrap.min_1_1.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/magnific-popup.css">
+        <link rel="stylesheet" href="css/jquery-ui.css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <link rel="stylesheet" href="css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="css/animate.css">
 
-    <link rel="stylesheet" href="css/style.css">
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
+
+
+
+        <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+        <link rel="stylesheet" href="css/aos.css">
+
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
         <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/datepicker.css" />
         <link rel="stylesheet" href="css/tooplate-style.css">
-  </head>
-  <style>
-      .login{
-          position: fixed;
-          right: 120px;
-      }
-      .register{
-          position: fixed;
-          right: 40px;
-      }
-  </style>
-  <body>
-  
-  <div class="site-wrap">
+    </head>
+    <style>
+        .login{
+            position: fixed;
+            right: 120px;
+        }
+        .register{
+            position: fixed;
+            right: 40px;
+        }
+    </style>
+    <body>
+        <% Vector<Image> vector = (Vector<Image>) request.getAttribute("vector");
+        %>
+        <div class="site-wrap">
 
-    <div class="site-mobile-menu">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div>
-      </div>
-      <div class="site-mobile-menu-body"></div>
-    </div> <!-- .site-mobile-menu -->
-    
-    
-    <div class="site-navbar-wrap js-site-navbar bg-white">
-      
-      <div class="container">
-        <div class="site-navbar bg-light">
-          <div class="py-1">
-            <div class="row align-items-center">
-              <div class="col-2">
-                <h2 class="mb-0 site-logo"><a href="index.html">Hoang Hon</a></h2>
-              </div>
-              <div class="col-10">
-                <nav class="site-navigation text-right" role="navigation">
-                  <div class="container">
-                    
-                    <div class="d-inline-block d-lg-none  ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu h3"></span></a></div>
-                    <ul class="site-menu js-clone-nav d-none d-lg-block">
-                        <li class="active"> 
-                            <a href="Search.jsp">
-                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAeRJREFUSEvllu0tRFEQht+tABWgAlSAClABOqACVIAKUMHqABXQASpABeSROTI593wuN/vDSTab7J25z8y8M3N2ojmdyZy46gFvSVqTtCjpXdKTpIdZA6+BVySdSDrIAAjgVtKZpJeeIErgI0nnHS/D/rLVPge+lrTvXnJjmd1bmSk3pd+N7PA7bIGnwD7TV3s5eubOugW1bAbHki5q8BiMps/mBJSXoiOHLHckYRMayz/jtwBfrWkeg32JNwwAlCrQZMDDAXrqdCXIR3uINLmG/DaJwZ8Zx1hzX0lf2mBHUEulcnswzXJnxnumm/dFN5qL8aGpgCyYFFSHceL3qTltm32S78G+qYg26JcL3ENCoEjx1tJkHoxe6JiSIAfHh0Ml+HCCXCyV8Hzg/5uMU8H4jFNy/fj0aFzqlfDMl99PRTFjHqIrDVMdh0wUvvuL90DrHLdk6+e4qG+qifzmYjwoV627eQ/asjzw/7Dvol9tVwOnSWq7mtkFymmSqfV2QjsWBxc/mZDhpi2M1GrkhsIne/7qPqa8BOav0iK85R8IS4AxodtTh0ZinVIJsr9yRll4DexB7HI6lzKjOfqntG+C94BbRirYVOFjgQnAwwclHxMc4HwPOnxs8Ezj1KNpt+3/y/gLRZhwH/pUPqMAAAAASUVORK5CYII="
-                                  />
-                            </a>                           
-                        </li>
-                      <li class="active">
-                        <a href="index.html">Trang chủ</a>
-                      </li>
-                      <li class="has-children">
-                        <a href="rooms.html">Phòng</a>
-                        <ul class="dropdown arrow-top">
-                          <li><a href="rooms.html">Hiện có</a></li>
-                          <li><a href="rooms.html">Phòng đơn</a></li>
-                          <li><a href="rooms.html">Phòng đôi</a></li>
-                          <li><a href="rooms.html">Phòng gia đình</a></li> 
-                          <li class="has-children">
-                            <a href="rooms.html">Dịch vụ</a>
-                            <ul class="dropdown">
-                              <li><a href="rooms.html">Phòng cao cấp</a></li>
-                              <li><a href="rooms.html">Tắm hơi</a></li>
-                              <li><a href="rooms.html">Ăn uống</a></li> 
-                              
-                            </ul>
-                          </li>
+            <div class="site-mobile-menu">
+                <div class="site-mobile-menu-header">
+                    <div class="site-mobile-menu-close mt-3">
+                        <span class="icon-close2 js-menu-toggle"></span>
+                    </div>
+                </div>
+                <div class="site-mobile-menu-body"></div>
+            </div> <!-- .site-mobile-menu -->
 
-                        </ul>
-                      </li>
-                      <li><a href="events.html">Sự kiện</a></li>
-                      <li><a href="about.html">Thông tin</a></li>
-                      <li><a href="contact.html">Liên hệ</a></li>
-                      <%
-                          if(session.getAttribute("login")==null){
-                      %>
-                      <li class="login"><a href="Login.jsp">Login</a></li>
-                      <li class="register"><a href="Register.jsp">Register</a></li>
-                      <% }else{%>
-                      <li class="login"><a href="Login.jsp">Log out</a></li>
-                      <%}%>
-                    </ul>
-                  </div>
-                </nav>
-              </div>
+
+            <div class="site-navbar-wrap js-site-navbar bg-white">
+
+                <div class="container">
+                    <div class="site-navbar bg-light">
+                        <div class="py-1">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <h2 class="mb-0 site-logo"><a href="index.html">Hoang Hon</a></h2>
+                                </div>
+                                <div class="col-10">
+                                    <nav class="site-navigation text-right" role="navigation">
+                                        <div class="container">
+
+                                            <div class="d-inline-block d-lg-none  ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu h3"></span></a></div>
+                                            <ul class="site-menu js-clone-nav d-none d-lg-block">
+                                                <li class="active"> 
+                                                    <a href="Search.jsp">
+                                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAeRJREFUSEvllu0tRFEQht+tABWgAlSAClABOqACVIAKUMHqABXQASpABeSROTI593wuN/vDSTab7J25z8y8M3N2ojmdyZy46gFvSVqTtCjpXdKTpIdZA6+BVySdSDrIAAjgVtKZpJeeIErgI0nnHS/D/rLVPge+lrTvXnJjmd1bmSk3pd+N7PA7bIGnwD7TV3s5eubOugW1bAbHki5q8BiMps/mBJSXoiOHLHckYRMayz/jtwBfrWkeg32JNwwAlCrQZMDDAXrqdCXIR3uINLmG/DaJwZ8Zx1hzX0lf2mBHUEulcnswzXJnxnumm/dFN5qL8aGpgCyYFFSHceL3qTltm32S78G+qYg26JcL3ENCoEjx1tJkHoxe6JiSIAfHh0Ml+HCCXCyV8Hzg/5uMU8H4jFNy/fj0aFzqlfDMl99PRTFjHqIrDVMdh0wUvvuL90DrHLdk6+e4qG+qifzmYjwoV627eQ/asjzw/7Dvol9tVwOnSWq7mtkFymmSqfV2QjsWBxc/mZDhpi2M1GrkhsIne/7qPqa8BOav0iK85R8IS4AxodtTh0ZinVIJsr9yRll4DexB7HI6lzKjOfqntG+C94BbRirYVOFjgQnAwwclHxMc4HwPOnxs8Ezj1KNpt+3/y/gLRZhwH/pUPqMAAAAASUVORK5CYII="
+                                                             />
+                                                    </a>                           
+                                                </li>
+                                                <li class="active">
+                                                    <a href="index.html">Trang chủ</a>
+                                                </li>
+                                                <li class="has-children">
+                                                    <a href="rooms.html">Phòng</a>
+                                                    <ul class="dropdown arrow-top">
+                                                        <li><a href="rooms.html">Hiện có</a></li>
+                                                        <li><a href="rooms.html">Phòng đơn</a></li>
+                                                        <li><a href="rooms.html">Phòng đôi</a></li>
+                                                        <li><a href="rooms.html">Phòng gia đình</a></li> 
+                                                        <li class="has-children">
+                                                            <a href="rooms.html">Dịch vụ</a>
+                                                            <ul class="dropdown">
+                                                                <li><a href="rooms.html">Phòng cao cấp</a></li>
+                                                                <li><a href="rooms.html">Tắm hơi</a></li>
+                                                                <li><a href="rooms.html">Ăn uống</a></li> 
+
+                                                            </ul>
+                                                        </li>
+
+                                                    </ul>
+                                                </li>
+                                                <li><a href="events.html">Sự kiện</a></li>
+                                                <li><a href="about.html">Thông tin</a></li>
+                                                <li><a href="contact.html">Liên hệ</a></li>
+                                                    <%
+                                                        if (session.getAttribute("login") == null) {
+                                                    %>
+                                                <li class="login"><a href="Login.jsp">Login</a></li>
+                                                <li class="register"><a href="Register.jsp">Register</a></li>
+                                                    <% } else {%>
+                                                <li class="login"><a href="Login.jsp">Log out</a></li>
+                                                    <%}%>
+                                            </ul>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    
-    <div class="slide-one-item home-slider owl-carousel">
+
+
+            <div class="slide-one-item home-slider owl-carousel">
                 <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
                     <div class="container">
                         <div class="row align-items-center justify-content-center">
@@ -215,79 +218,82 @@
                         </div>
                     </div>
                     <div class="row">
+                        <%for (Image v : vector){%>
                         <div class="col-md-6 col-lg-4 mb-5">
                             <div class="hotel-room text-center">
-                                <a  href="#" class="d-block mb-0 thumbnail"><img src="img/img-img.jpg" alt="Image" class="img-fluid"></a>
+                                <a  href="#" class="d-block mb-0 thumbnail"><img src="images/anhphong/<%= v.getImage1()%>" 
+                                     alt="Image" class="img-fluid"></a>
                                 <div class="hotel-room-body">
                                     <h3 class="heading mb-0"><a href="#">Phòng thường</a></h3>
                                     <strong class="price">350.000đ / một đêm</strong>
-                                     <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                        </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            <div class="hotel-room text-center">
-                                <a href="#" class="d-block mb-0 thumbnail"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-                                <div class="hotel-room-body">
-                                    <h3 class="heading mb-0"><a href="#">Phòng gia đình</a></h3>
-                                    <strong class="price">500.000đ / một đêm</strong>
-                                     <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            <div class="hotel-room text-center">
-                                <a href="#" class="d-block mb-0 thumbnail"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-                                <div class="hotel-room-body">
-                                    <h3 class="heading mb-0"><a href="#">Phòng đơn</a></h3>
-                                    <strong class="price">250.000đ / một đêm</strong>
-                                     <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            <div class="hotel-room text-center">
-                                <a href="#" class="d-block mb-0 thumbnail"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-                                <div class="hotel-room-body">
-                                    <h3 class="heading mb-0"><a href="#">Phòng đôi</a></h3>
-                                    <strong class="price">300.000đ / Một đêm</strong>
-                                     <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            <div class="hotel-room text-center">
-                                <a href="#" class="d-block mb-0 thumbnail"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-                                <div class="hotel-room-body">
-                                    <h3 class="heading mb-0"><a href="#">Phòng cao cấp</a></h3>
-                                    <strong class="price">800.000đ / Một đêm</strong>
-                                     <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            <div class="hotel-room text-center">
-                                <a href="#" class="d-block mb-0 thumbnail"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-                                <div class="hotel-room-body">
-                                    <h3 class="heading mb-0"><a href="#">Phòng đơn</a></h3>
-                                    <strong class="price">100.000đ / Một đêm</strong>
-                                     <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
+                                <%}%> 
+                        <!--                        <div class="col-md-6 col-lg-4 mb-5">
+                                                    <div class="hotel-room text-center">
+                                                        <a href="#" class="d-block mb-0 thumbnail"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
+                                                        <div class="hotel-room-body">
+                                                            <h3 class="heading mb-0"><a href="#">Phòng gia đình</a></h3>
+                                                            <strong class="price">500.000đ / một đêm</strong>
+                                                            <div class="add-to-cart">
+                                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg-4 mb-5">
+                                                    <div class="hotel-room text-center">
+                                                        <a href="#" class="d-block mb-0 thumbnail"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+                                                        <div class="hotel-room-body">
+                                                            <h3 class="heading mb-0"><a href="#">Phòng đơn</a></h3>
+                                                            <strong class="price">250.000đ / một đêm</strong>
+                                                            <div class="add-to-cart">
+                                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        
+                                                <div class="col-md-6 col-lg-4 mb-5">
+                                                    <div class="hotel-room text-center">
+                                                        <a href="#" class="d-block mb-0 thumbnail"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
+                                                        <div class="hotel-room-body">
+                                                            <h3 class="heading mb-0"><a href="#">Phòng đôi</a></h3>
+                                                            <strong class="price">300.000đ / Một đêm</strong>
+                                                            <div class="add-to-cart">
+                                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg-4 mb-5">
+                                                    <div class="hotel-room text-center">
+                                                        <a href="#" class="d-block mb-0 thumbnail"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
+                                                        <div class="hotel-room-body">
+                                                            <h3 class="heading mb-0"><a href="#">Phòng cao cấp</a></h3>
+                                                            <strong class="price">800.000đ / Một đêm</strong>
+                                                            <div class="add-to-cart">
+                                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg-4 mb-5">
+                                                    <div class="hotel-room text-center">
+                                                        <a href="#" class="d-block mb-0 thumbnail"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+                                                        <div class="hotel-room-body">
+                                                            <h3 class="heading mb-0"><a href="#">Phòng đơn</a></h3>
+                                                            <strong class="price">100.000đ / Một đêm</strong>
+                                                            <div class="add-to-cart">
+                                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
                     </div>
                 </div>
             </div>
