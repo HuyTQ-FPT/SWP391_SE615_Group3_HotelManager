@@ -5,10 +5,13 @@
  */
 package Dao;
 
+import Entity.RoleName;
+import java.util.Vector;
+
 /**
  *
  * @author Admin
  */
-public class RoleNameDAO {
-    
+public interface RoleNameDAO {
+      public Vector<RoleName> getAllRoleName();
 }

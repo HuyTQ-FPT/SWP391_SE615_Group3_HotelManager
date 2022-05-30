@@ -5,10 +5,17 @@
  */
 package Dao;
 
+import Entity.Image;
+import java.util.Vector;
+
 /**
  *
  * @author Admin
  */
-public class ImageDAO {
+public interface ImageDAO {
+    public Vector<Image> getAllImage();
+    public void insertImage(int riID ,Image insertImage);
+    public void updateImage(int riID ,Image updateImage);
+    public void deleteImage(int riID);
     
 }

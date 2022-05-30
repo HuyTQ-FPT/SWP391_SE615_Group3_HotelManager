@@ -20,7 +20,7 @@ public interface AccountDAO {
 
     public void insertAccount(int aRole, String aName, String aPass);
 
-    public void updateAccount(int aID, String aName);
+    public void updateAccount(int aID, String aPassword);
 
     public void deleteAccount(String aName);
 
