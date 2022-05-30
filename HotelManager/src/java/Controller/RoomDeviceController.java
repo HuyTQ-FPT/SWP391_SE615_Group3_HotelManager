@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Admin
  */
 @WebServlet(name = "RoomNameController", urlPatterns = {"/RoomNameController"})
-public class RoomNameController extends HttpServlet {
+public class RoomDeviceController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

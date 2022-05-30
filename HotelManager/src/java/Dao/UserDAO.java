@@ -5,10 +5,19 @@
  */
 package Dao;
 
-/**
- *
- * @author Admin
- */
-public class UserDAO {
+import Entity.User;
+import java.util.Vector;
+
+
+public interface UserDAO {
     
+    public Vector<User> getUserList();
+
+    public void insertUser(User User);
+
+    public void updateUser(User User);
+
+    public void deleteUser(int uid);
+    
+    public User getUser(int uid);
 }

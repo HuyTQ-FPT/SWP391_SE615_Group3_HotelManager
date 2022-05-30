@@ -5,10 +5,23 @@
  */
 package Dao;
 
+import Entity.RoomCategory;
+import java.util.Vector;
+
 /**
  *
  * @author Admin
  */
-public class RoomCategoryDAO {
+public interface RoomCategoryDAO {
     
+    public Vector<RoomCategory> getRoomCategoryList();
+
+    public RoomCategory getAccount(int cateid);
+
+    public void insertRoomCategory(RoomCategory RoomCategory);
+
+    public void updateRoomCategory(RoomCategory RoomCategory);
+
+    public void deleteRoomCategory(int cateid);
+
 }

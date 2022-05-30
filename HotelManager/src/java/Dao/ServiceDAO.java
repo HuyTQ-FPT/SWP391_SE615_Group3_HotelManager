@@ -5,10 +5,22 @@
  */
 package Dao;
 
+import Entity.Service;
+import java.util.Vector;
+
 /**
  *
  * @author Admin
  */
-public class ServiceDAO {
-    
+public interface ServiceDAO {
+    public Vector<Service> getServiceList();
+
+    public Service getService(int sid);
+
+    public void insertService(Service Service);
+
+    public void updateService(Service Service);
+
+    public void deleteService(int sid);
+
 }

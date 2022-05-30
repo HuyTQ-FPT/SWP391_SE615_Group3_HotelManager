@@ -10,7 +10,7 @@ package Entity;
  * @author Admin
  */
 public class Image {
-    private int RoomimgaeID;
+    private int RoomimageID;
 	private String image1 ;
 	private String image2;
 	private String image3 ;
@@ -19,8 +19,8 @@ public class Image {
     public Image() {
     }
 
-    public Image(int RoomimgaeID, String image1, String image2, String image3, String image4) {
-        this.RoomimgaeID = RoomimgaeID;
+    public Image(int RoomimageID, String image1, String image2, String image3, String image4) {
+        this.RoomimageID = RoomimageID;
         this.image1 = image1;
         this.image2 = image2;
         this.image3 = image3;
@@ -28,11 +28,11 @@ public class Image {
     }
 
     public int getRoomimgaeID() {
-        return RoomimgaeID;
+        return RoomimageID;
     }
 
     public void setRoomimgaeID(int RoomimgaeID) {
-        this.RoomimgaeID = RoomimgaeID;
+        this.RoomimageID = RoomimgaeID;
     }
 
     public String getImage1() {
