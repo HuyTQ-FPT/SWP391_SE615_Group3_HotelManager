@@ -101,7 +101,7 @@
         
         
         
-        <form action="ControllerLogin?do=CheckLogin" method="post">
+        <form action="LoginController?do=CheckLogin" method="post">
             <div class="card">
                 <div class="logo">
                     <p>Login</p>

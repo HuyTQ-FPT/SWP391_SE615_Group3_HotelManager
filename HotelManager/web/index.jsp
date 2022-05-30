@@ -104,8 +104,14 @@
                       <li><a href="events.html">Sự kiện</a></li>
                       <li><a href="about.html">Thông tin</a></li>
                       <li><a href="contact.html">Liên hệ</a></li>
+                      <%
+                          if(session.getAttribute("login")==null){
+                      %>
                       <li class="login"><a href="Login.jsp">Login</a></li>
                       <li class="register"><a href="Register.jsp">Register</a></li>
+                      <% }else{%>
+                      <li class="login"><a href="Login.jsp">Log out</a></li>
+                      <%}%>
                     </ul>
                   </div>
                 </nav>

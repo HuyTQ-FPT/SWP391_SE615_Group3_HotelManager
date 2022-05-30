@@ -10,6 +10,20 @@ package Entity;
  * @author Admin
  */
 public class RoleName {
-    RoleID int IDENTITY PRIMARY KEY, 
-	RoleName NVARCHAR(max),
+    private int RoleID ;
+	private String RoleName ;
+
+    public RoleName() {
+    }
+
+    public RoleName(int RoleID, String RoleName) {
+        this.RoleID = RoleID;
+        this.RoleName = RoleName;
+    }
+
+    @Override
+    public String toString() {
+        return "RoleName{" + "RoleID=" + RoleID + ", RoleName=" + RoleName + '}';
+    }
+        
 }

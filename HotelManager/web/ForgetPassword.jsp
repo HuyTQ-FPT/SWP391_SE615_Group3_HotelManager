@@ -25,19 +25,16 @@
         <section class="signup">
             <div class="container">
                 <div class="signup-content">
-                    <form action="LoginController?do=CheckRegister" method="post" id="signup-form" class="signup-form">
+                    <form action="LoginController?do=CheckForgetPassword" method="post" id="signup-form" class="signup-form">
                         <h2 class="form-title">Create account</h2>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="NameID"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-input" name="username" placeholder="Username"/>
+                            <input type="text" class="form-input" name="name" id="name" placeholder="Username"/>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-input" name="email" placeholder="Email"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <input type="password" class="form-input" name="password" id="password" placeholder="New Password"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group lastt">
@@ -48,11 +45,11 @@
                             </div>        
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Submit"/>
                         </div>                       
                     </form>
                     <p class="loginhere">
-                        Have already an account ? <a href="LoginController?do=ForgetPassword" class="loginhere-link">Quên mật khẩu</a>
+                        Have already an account ? <a href="ControllerLogin" class="loginhere-link">Login here</a>
                     </p>
                 </div>
             </div>

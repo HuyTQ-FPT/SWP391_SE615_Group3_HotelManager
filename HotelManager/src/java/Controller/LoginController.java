@@ -5,13 +5,16 @@
  */
 package Controller;
 
+import Dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,16 +36,29 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            HttpSession session = request.getSession();
+            //AccountDAO dao =new AccountDAO();
+            String service = request.getParameter("do");
+            if (service == null) {
+                service = "Login";
+            }
+            if (service.equals("Login")) {
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
+            if (service.equals("CheckLogin")) {
+                System.out.println("oke");
+                session.setAttribute("login","login");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+            if (service.equals("CheckRegister")) {
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
+            if (service.equals("ForgetPassword")) {
+                request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+            }
+            if (service.equals("CheckForgetPassword")) {
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
         }
     }
 
