@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
     <!-- Main css -->
-    <link rel="stylesheet" href="css/style_2.css">
+    <link rel="stylesheet" href="css/style_2_1.css">
 </head>
 <style>
     
@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="signup-content">
                     <form action="LoginController?do=CheckForgetPassword" method="post" id="signup-form" class="signup-form">
-                        <h2 class="form-title">Create account</h2>
+                        <h2 class="form-title">Forget Password</h2>
                         <div class="form-group">
                             <input type="text" class="form-input" name="name" id="name" placeholder="Username"/>
                         </div>
@@ -49,7 +49,7 @@
                         </div>                       
                     </form>
                     <p class="loginhere">
-                        Have already an account ? <a href="ControllerLogin" class="loginhere-link">Login here</a>
+                        Have already an account ? <a href="LoginController" class="loginhere-link">Login here</a>
                     </p>
                 </div>
             </div>

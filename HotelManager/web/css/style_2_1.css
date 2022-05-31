@@ -1,57 +1,57 @@
-/* @extend display-flex; */
+ @extend display-flex; 
 display-flex, .display-flex, .display-flex-center {
   display: flex;
   display: -webkit-flex; }
 
-/* @extend list-type-ulli; */
+ @extend list-type-ulli; 
 list-type-ulli {
   list-style-type: none;
   margin: 0;
   padding: 0; }
 
-/* Montserrat-300 - latin */
+ Montserrat-300 - latin 
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 300;
   src: url("../fonts/montserrat/Montserrat-Light.ttf");
-  /* IE9 Compat Modes */ }
+   IE9 Compat Modes  }
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 400;
   src: url("../fonts/montserrat/Montserrat-Regular.ttf");
-  /* IE9 Compat Modes */ }
+   IE9 Compat Modes  }
 @font-face {
   font-family: 'Montserrat';
   font-style: italic;
   font-weight: 400;
   src: url("../fonts/montserrat/Montserrat-Italic.ttf");
-  /* IE9 Compat Modes */ }
+   IE9 Compat Modes  }
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 500;
   src: url("../fonts/montserrat/Montserrat-Medium.ttf");
-  /* IE9 Compat Modes */ }
+   IE9 Compat Modes  }
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 600;
   src: url("../fonts/montserrat/Montserrat-SemiBold.ttf");
-  /* IE9 Compat Modes */ }
+   IE9 Compat Modes  }
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 700;
   src: url("../fonts/montserrat/Montserrat-Bold.ttf");
-  /* IE9 Compat Modes */ }
+   IE9 Compat Modes  }
 @font-face {
   font-family: 'Montserrat';
   font-style: italic;
   font-weight: 700;
   src: url("../fonts/montserrat/Montserrat-BoldItalic.ttf");
-  /* IE9 Compat Modes */ }
+   IE9 Compat Modes  }
 @font-face {
   font-family: 'Montserrat';
   font-style: italic;
@@ -137,8 +137,7 @@ body {
   color: #222;
   font-weight: 400;
   font-family: 'Montserrat';
-   background-image: url("../images/hero_2.jpg");
-  /*background-image: linear-gradient(to right, buttontext , yellow);*/
+  background-image: url("../images/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   -moz-background-size: cover;
@@ -149,6 +148,7 @@ body {
   padding: 115px 0; }
 
 .container {
+  opacity: 0.87;
   width: 660px;
   position: relative;
   margin: 0 auto; }
@@ -211,7 +211,7 @@ body {
   padding: 17px 20px;
   box-sizing: border-box;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 800;
   color: #222; }
   .form-input::-webkit-input-placeholder {
     color: #999; }
@@ -230,7 +230,7 @@ body {
   .form-input:-moz-placeholder {
     font-weight: 500; }
   .form-input:focus {
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     -webkit-border-image-source: -webkit-linear-gradient(to right, #9face6, #74ebd5);
     -moz-border-image-source: -moz-linear-gradient(to right, #9face6, #74ebd5);
     -o-border-image-source: -o-linear-gradient(to right, #9face6, #74ebd5);
@@ -357,4 +357,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
   .signup-content {
     padding: 50px 25px; } }
 
-/*# sourceMappingURL=style.css.map */
+
+::placeholder{
+    color:black !important;
+}

@@ -1,127 +1,71 @@
-<%-- 
-    Document   : Login
-    Created on : Feb 26, 2022, 1:34:33 PM
-    Author     : Admin
---%>
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Login Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <style>
-        *{
-            padding: 0px;
-            margin: 0px;
-            box-sizing: border-box;
-        }
-        body{
-            background-image: url(images/hero_1.jpg);
-            background-repeat: no-repeat;
-            background-size: cover;
-            
-        }
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
-        .card{
-            border-radius: 10px;
-            padding: 30px;
-            background: rgba(255,255,255,0.86);
-            position: fixed;
-            top: -60px;
-            left: 650px;
-            transform: scale(1.8);
-            margin-top: 300px;
-            color: #286D6B;
-            height: fit-content;
-            width: fit-content;
-            cursor: pointer;
-        }
-        .logo p{
-            width: fit-content;
-            font-size: 30px;
-            box-shadow: 0px 0px 1px 1px rgb(31, 30, 8);
-            padding-bottom: 4px;
-            margin-bottom: 30px;
-        }
-        .logo p:hover{
-            font-weight: bold;
-        }
-        .username{
-            display: flex;
-            border-bottom: 1px solid green;
-            padding: 5px;
-        }
-        .password{
-            display: flex;
-            padding: 5px;
-            border-bottom: 1px solid green;
-        }
-        .username input{
-            margin-left: 10px;
-            border: none;
-            background: none;
-            outline: none;
-            color: #1C566A;
-        }
-        input :-ms-input-placeholder{
-            color: rgb(224, 20, 20);
-        }
-        .password input{
-            margin-left: 10px;
-            border: none;
-            background: none;
-            outline: none;
-            color: #1C566A;
-        }
-        .sign_in button{
-            margin-top: 30px;
-            width: 100%;
-            border: 1px solid rgb(7, 139, 247);
-            outline: none;
-            background: none;
-            color: white;
-            height: 30px;
-            font-size: 18px;
-            background-color: #0B1218;
-            cursor: pointer;
-            transition: 0.2s;
-            opacity: 0.8;
-        }
-        .sign_in button:hover{
-            opacity: 0.6;
-            box-shadow: 0px 0px 1px 2px white;
-            font-size: 17px;
-        }
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="css/style_1_1.css">
 
-    </style>
-    <body>
-        
-        
-        
-        <form action="LoginController?do=CheckLogin" method="post">
-            <div class="card">
-                <div class="logo">
-                    <p>Login</p>
-                </div>
-                <div class="username">
-                    <i class='bx bxs-user'></i>
-                    <input name="username" type="text" placeholder="username" value="">
-                </div>
-                <div class="password">
-                    <i class='bx bxs-lock-alt'></i>
-                    <input name="password" type="password" placeholder="password" value="">
-                </div>
-                <br>
-                <h4 id="er" style="color: white;font-size: 10px; position: fixed;">${requestScope.error}</h4>
-                <div class="sign_in">
-                    <button type="submit" name="sign_in">Sign in</button>
-                </div>
-            </div>
-        </form>       
-    </body>
-    
-    
+	</head>
+	<body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Login Admin</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+		      	<h3 class="mb-4 text-center">Have an account?</h3>
+                        <form action="LoginController?do=CheckLogin" class="signin-form" method="post">
+		      		<div class="form-group">
+                                    <input name="username" type="text" class="form-control" placeholder="Username" required>
+		      		</div>
+	            <div class="form-group">
+                        <input id="password-field" name="password" type="password" class="form-control" placeholder="Password" required>
+	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+	            </div>
+                             <h4 id="er" style="color: red;font-size: 15px; position: fixed;">${requestScope.error}</h4>
+                            <br>
+                   
+	            <div class="form-group">
+	            	<button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+	            </div>
+	            <div class="form-group d-md-flex">
+	            	<div class="w-50">
+		            	<label class="checkbox-wrap checkbox-primary">Remember Me
+									  <input type="checkbox" checked>
+									  <span class="checkmark"></span>
+									</label>
+								</div>
+								<div class="w-50 text-md-right">
+									<a href="LoginController?do=ForgetPassword" style="color: #fff">Forgot Password</a>
+								</div>
+	            </div>
+	          </form>
+	          <!--<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>-->
+<!--	          <div class="social d-flex text-center">
+	          	<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+	          	<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+	          </div>-->
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="js/jquery.min_1.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min_1_1.js"></script>
+  <script src="js/main_1.js"></script>
+
+	</body>
 </html>
+
