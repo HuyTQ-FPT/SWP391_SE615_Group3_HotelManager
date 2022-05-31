@@ -626,6 +626,7 @@ video {
   color: #D10024;
   opacity: 0;
   visibility: hidden;
+  
 }
 
 .hotel-room-body .add-to-cart .add-to-cart-btn:hover {
@@ -650,4 +651,7 @@ padding-left: 100px
 }
 #inputCheckOut{
     width:300px;
+}
+.add-to-cart-btn{
+    margin-left: 8px;
 }
