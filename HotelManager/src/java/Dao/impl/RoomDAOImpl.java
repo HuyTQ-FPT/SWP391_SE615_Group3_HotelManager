@@ -40,7 +40,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 String Comment = rs.getString(9);
                 int Rate = rs.getInt(10);
                 String Note = rs.getString(11);
-                String cateroom = rs.getString(24);
+                String cateroom = rs.getString(19);
                 Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note,cateroom);
                 vector.add(im);
             }
