@@ -4,6 +4,7 @@
     Author     : admin
 --%>
 
+<%@page import="Entity.Room"%>
 <%@page import="Entity.Image"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -46,7 +47,7 @@
         }
     </style>
     <body>
-        <% Vector<Image> vector = (Vector<Image>) request.getAttribute("vector");
+        <% Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
         %>
         <div class="site-wrap">
 
@@ -211,14 +212,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <%for (Image v : vector){%>
+                        <%for (Room v : vector){%>
                         <div class="col-md-6 col-lg-4 mb-5">
                             <div class="hotel-room text-center">
-                                <a  href="#" class="d-block mb-0 thumbnail"><img src="images/anhphong/<%= v.getImage1()%>" 
+                                <a  href="#" class="d-block mb-0 thumbnail"><img src="images/anhphong/<%= v.getImage()%>" 
                                      alt="Image" class="img-fluid"></a>
                                 <div class="hotel-room-body">
-                                    <h3 class="heading mb-0"><a href="#">Phòng thường</a></h3>
-                                    <strong class="price">350.000đ / một đêm</strong>
+                                    <h3 class="heading mb-0"><a href="#"><%=v.getCateroom() %></a></h3>
+                                    <strong class="price"><%=v.getRoomprice() %>/ một đêm</strong>
                                     <div class="add-to-cart">
                                         <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
                                     </div>

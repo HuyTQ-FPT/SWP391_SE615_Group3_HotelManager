@@ -15,29 +15,31 @@ public class Room {
     String Roomname;
     String Roomdesc;
     int RoomcateID;
-    int RoomimgaeID;
+    String image;
     double Roomprice;
     int NumberPerson;
     float Square;
     String Comment;
-    int  Rate;
+    int Rate;
     String Note;
+    String cateroom;
 
-    public Room() {
-    }
-
-    public Room(int RoomID, String Roomname, String Roomdesc, int RoomcateID, int RoomimgaeID, double Roomprice, int NumberPerson, float Square, String Comment, int Rate, String Note) {
+    public Room(int RoomID, String Roomname, String Roomdesc, int RoomcateID, String image, double Roomprice, int NumberPerson, float Square, String Comment, int Rate, String Note, String cateroom) {
         this.RoomID = RoomID;
         this.Roomname = Roomname;
         this.Roomdesc = Roomdesc;
         this.RoomcateID = RoomcateID;
-        this.RoomimgaeID = RoomimgaeID;
+        this.image = image;
         this.Roomprice = Roomprice;
         this.NumberPerson = NumberPerson;
         this.Square = Square;
         this.Comment = Comment;
         this.Rate = Rate;
         this.Note = Note;
+        this.cateroom = cateroom;
+    }
+
+    public Room() {
     }
 
     public int getRoomID() {
@@ -72,12 +74,12 @@ public class Room {
         this.RoomcateID = RoomcateID;
     }
 
-    public int getRoomimgaeID() {
-        return RoomimgaeID;
+    public String getImage() {
+        return image;
     }
 
-    public void setRoomimgaeID(int RoomimgaeID) {
-        this.RoomimgaeID = RoomimgaeID;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public double getRoomprice() {
@@ -128,11 +130,17 @@ public class Room {
         this.Note = Note;
     }
 
-    
+    public String getCateroom() {
+        return cateroom;
+    }
+
+    public void setCateroom(String cateroom) {
+        this.cateroom = cateroom;
+    }
 
     @Override
     public String toString() {
-        return "Room{" + "RoomID=" + RoomID + ", Roomname=" + Roomname + ", Roomdesc=" + Roomdesc + ", RoomcateID=" + RoomcateID + ", RoomimgaeID=" + RoomimgaeID + ", Roomprice=" + Roomprice +", NumberPerson=" + NumberPerson +", Square=" + Square +", Comment=" + Comment +", Rate=" + Rate +", Note=" + Note +'}';//To change body of generated methods, choose Tools | Templates.
+        return "Room{" + "RoomID=" + RoomID + ", Roomname=" + Roomname + ", Roomdesc=" + Roomdesc + ", RoomcateID=" + RoomcateID + ", image=" + image + ", Roomprice=" + Roomprice + ", NumberPerson=" + NumberPerson + ", Square=" + Square + ", Comment=" + Comment + ", Rate=" + Rate + ", Note=" + Note + "Cateroom=" + cateroom +'}';//To change body of generated methods, choose Tools | Templates.
     }
-      
+
 }
