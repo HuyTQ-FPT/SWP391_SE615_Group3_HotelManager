@@ -4,6 +4,7 @@
     Author     : admin
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page import="Entity.Room"%>
 <%@page import="Entity.Image"%>
 <%@page import="java.util.Vector"%>
@@ -48,6 +49,7 @@
     </style>
     <body>
         <% Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
+        Vector<Room> vector2 = (Vector<Room>) request.getAttribute("vector2");
         %>
         <div class="site-wrap">
 
@@ -398,96 +400,18 @@
                         </div>
                     </div>
                     <div class="nonloop-block-15 owl-carousel">
+                        <%for (Room e : vector2) {%>
                         <div class="media-with-text p-md-5">
                             <div class="img-border-sm mb-4">
                                 <a href="#" class="popup-vimeo image-play">
-                                    <img src="images/img_1.jpg" alt="" class="img-fluid">
+                                    <img src="images/anhphong/<%=e.getImage() %>" alt="" class="img-fluid">
                                 </a>
                             </div>
                             <h2 class="heading mb-0"><a href="#">Lorem Ipsum Dolor Sit Amet</a></h2>
                             <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores culpa qui aliquam placeat nobis veritatis tempora natus rerum obcaecati.</p>
+                            <p><%=e.getRoomdesc()%></p>
                         </div>         
-                        <div class="media-with-text p-md-4">
-                            <div class="img-border-sm mb-4">
-                                <a href="#" class="popup-vimeo image-play">
-                                    <img src="images/img_2.jpg" alt="" class="img-fluid">
-                                </a>
-                            </div>
-                            <h2 class="heading mb-0"><a href="#">Lorem Ipsum Dolor Sit Amet</a></h2>
-                            <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores culpa qui aliquam placeat nobis veritatis tempora natus rerum obcaecati.</p>
-                        </div>          
-                        <div class="media-with-text p-md-4">
-                            <div class="img-border-sm mb-4">
-                                <a href="#" class="popup-vimeo image-play">
-                                    <img src="images/img_3.jpg" alt="" class="img-fluid">
-                                </a>
-                            </div>
-                            <h2 class="heading mb-0"><a href="#">Lorem Ipsum Dolor Sit Amet</a></h2>
-                            <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores culpa qui aliquam placeat nobis veritatis tempora natus rerum obcaecati.</p>
-                        </div>
-                        <div class="media-with-text p-md-4">
-                            <div class="img-border-sm mb-4">
-                                <a href="#" class="popup-vimeo image-play">
-                                    <img src="images/img_1.jpg" alt="" class="img-fluid">
-                                </a>
-                            </div>
-                            <h2 class="heading mb-0"><a href="#">Lorem Ipsum Dolor Sit Amet</a></h2>
-                            <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores culpa qui aliquam placeat nobis veritatis tempora natus rerum obcaecati.</p>
-                        </div>        
-                        <div class="media-with-text p-md-4">
-                            <div class="img-border-sm mb-4">
-                                <a href="#" class="popup-vimeo image-play">
-                                    <img src="images/img_2.jpg" alt="" class="img-fluid">
-                                </a>
-                            </div>
-                            <h2 class="heading mb-0"><a href="#">Lorem Ipsum Dolor Sit Amet</a></h2>
-                            <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores culpa qui aliquam placeat nobis veritatis tempora natus rerum obcaecati.</p>
-                        </div>          
-                        <div class="media-with-text p-md-4">
-                            <div class="img-border-sm mb-4">
-                                <a href="#" class="popup-vimeo image-play">
-                                    <img src="images/img_3.jpg" alt="" class="img-fluid">
-                                </a>
-                            </div>
-                            <h2 class="heading mb-0"><a href="#">Lorem Ipsum Dolor Sit Amet</a></h2>
-                            <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores culpa qui aliquam placeat nobis veritatis tempora natus rerum obcaecati.</p>
-                        </div>           
-                        <div class="media-with-text p-md-4">
-                            <div class="img-border-sm mb-4">
-                                <a href="#" class="popup-vimeo image-play">
-                                    <img src="images/img_1.jpg" alt="" class="img-fluid">
-                                </a>
-                            </div>
-                            <h2 class="heading mb-0"><a href="#">Lorem Ipsum Dolor Sit Amet</a></h2>
-                            <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores culpa qui aliquam placeat nobis veritatis tempora natus rerum obcaecati.</p>
-                        </div>          
-                        <div class="media-with-text p-md-4">
-                            <div class="img-border-sm mb-4">
-                                <a href="#" class="popup-vimeo image-play">
-                                    <img src="images/img_2.jpg" alt="" class="img-fluid">
-                                </a>
-                            </div>
-                            <h2 class="heading mb-0"><a href="#">Lorem Ipsum Dolor Sit Amet</a></h2>
-                            <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores culpa qui aliquam placeat nobis veritatis tempora natus rerum obcaecati.</p>
-                        </div>
-                        <div class="media-with-text p-md-4">
-                            <div class="img-border-sm mb-4">
-                                <a href="#" class="popup-vimeo image-play">
-                                    <img src="images/img_3.jpg" alt="" class="img-fluid">
-                                </a>
-                            </div>
-                            <h2 class="heading mb-0"><a href="#">Lorem Ipsum Dolor Sit Amet</a></h2>
-                            <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores culpa qui aliquam placeat nobis veritatis tempora natus rerum obcaecati.</p>
-                        </div>
+                        <%}%>
                     </div>
                 </div>
             </div>

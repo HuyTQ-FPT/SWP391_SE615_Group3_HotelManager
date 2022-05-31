@@ -18,6 +18,7 @@ import java.util.Vector;
 public interface RoomDAO{
     
     public Vector<Room> getRoomList();
+    public Vector<Room> getRoomList2();
 
     public Room getRoom(int roomid);
 

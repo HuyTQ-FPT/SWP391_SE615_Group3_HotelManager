@@ -45,7 +45,9 @@ public class RoomController extends HttpServlet {
             String service = request.getParameter("do");
             if (service == null) {
                 Vector<Room> vector = dao.getRoomList();
+                Vector<Room> vector2 = dao.getRoomList2();
                 request.setAttribute("vector", vector);
+                request.setAttribute("vector2", vector2);
                 RequestDispatcher dispath = request.getRequestDispatcher("index.jsp");
                 dispath.forward(request, response);
             }
