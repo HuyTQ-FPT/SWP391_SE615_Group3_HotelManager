@@ -28,7 +28,7 @@
                     <form action="LoginController?do=CheckRegister" method="post" id="signup-form" class="signup-form">
                         <h2 class="form-title">Create account</h2>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="NameID"/>
+                            <input type="text" class="form-input" name="name" id="name" placeholder="YourName"/>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-input" name="username" placeholder="Username"/>

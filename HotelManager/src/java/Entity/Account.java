@@ -24,6 +24,12 @@ public class Account {
         this.user = user;
         this.password = password;
     }
+    public Account(int RoleID, String user, String password) {
+        this.AccountID = AccountID;
+        this.RoleID = RoleID;
+        this.user = user;
+        this.password = password;
+    }
 
     public int getAccountID() {
         return AccountID;

@@ -32,7 +32,7 @@
                         <input id="password-field" name="password" type="password" class="form-control" placeholder="Password" required>
 	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 	            </div>
-                             <h4 id="er" style="color: red;font-size: 15px; position: fixed;">${requestScope.error}</h4>
+                             <h4 id="er" style="color: pink;font-size: 15px; position: fixed;">${requestScope.error}</h4>
                             <br>
                    
 	            <div class="form-group">

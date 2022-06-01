@@ -6,9 +6,16 @@
 package Controller;
 
 import Dao.AccountDAO;
+import Dao.impl.AccountDAOImpl;
+import Entity.Account;
+import context.DBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,21 +30,14 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
-            //AccountDAO dao =new AccountDAO();
+            AccountDAO dao =new AccountDAOImpl();
+            DBContext dao1 = new DBContext();
             String service = request.getParameter("do");
             if (service == null) {
                 service = "Login";
@@ -46,15 +46,70 @@ public class LoginController extends HttpServlet {
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
             if (service.equals("CheckLogin")) {
-                System.out.println("oke");
-                session.setAttribute("login","login");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+                System.out.println(service);
+
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                System.out.println(username);
+                System.out.println(password);
+                ResultSet rs = dao1.getData("select * from Account where [user]='" + username + "' and [password]='" + password + "'");
+                if (rs.next() == true) {
+                    session.setAttribute("login", "login");
+                    System.out.println(rs.getString(2));
+                    if(rs.getString(2).equals("1"))
+                        response.sendRedirect("HomeController");
+                    else if(rs.getString(2).equals("2"))
+                        request.getRequestDispatcher("ManagerProduct.jsp").forward(request, response);
+                    else
+                        request.getRequestDispatcher("indexAdmin.html").forward(request, response);                             
+                } else {
+                    String error ="Incorrect username or Password";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                }
             }
             if (service.equals("CheckRegister")) {
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                String email = request.getParameter("email");
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                String re_password = request.getParameter("re_password");
+                String name = request.getParameter("name");
+                
+                if(name.length()<1){
+                    String error ="YourName must not emty";
+                    request.setAttribute("errorpass", error);
+                    request.getRequestDispatcher("Register.jsp").forward(request, response);
+                }
+                if(email.length()<1){
+                    String error ="Email must not emty";
+                    request.setAttribute("errorpass", error);
+                    request.getRequestDispatcher("Register.jsp").forward(request, response);
+                }
+                if(username.length()<4 || password.length()<8){
+                    String error ="Passwords and Username more than 8 characters";
+                    request.setAttribute("errorpass", error);
+                    request.getRequestDispatcher("Register.jsp").forward(request, response);
+                }
+                if(!password.equalsIgnoreCase(re_password)){
+                    String error ="Re-Passwords incorrect";
+                    request.setAttribute("errorpass", error);
+                    request.getRequestDispatcher("Register.jsp").forward(request, response);
+                }               
+                int n=dao.Register(new Account(1, username, password),name,email);
+                if(n>0){
+                    response.sendRedirect("Login.jsp");
+                } else{
+                    String error ="Username already exists";
+                    request.setAttribute("error", error);
+                    request.getRequestDispatcher("Register.jsp").forward(request, response);
+                }
             }
             if (service.equals("ForgetPassword")) {
                 request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+            }
+            if (service.equals("logout")) {
+                session.removeAttribute("login");
+                response.sendRedirect("HomeController");
             }
             if (service.equals("CheckForgetPassword")) {
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
@@ -74,7 +129,11 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -88,7 +147,11 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

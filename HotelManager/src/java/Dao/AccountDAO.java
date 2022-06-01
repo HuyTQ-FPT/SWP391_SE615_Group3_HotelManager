@@ -27,5 +27,7 @@ public interface AccountDAO {
     public Account checkAccount(String aName);
 
     public Vector<Account> getAccountByRole(int aRole);
+    
+    public int Register(Account ac, String name,String email );
 
 }

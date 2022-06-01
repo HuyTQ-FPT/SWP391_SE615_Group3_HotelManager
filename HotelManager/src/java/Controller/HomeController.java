@@ -5,9 +5,7 @@
  */
 package Controller;
 
-import Dao.impl.ImageDAOImpl;
 import Dao.impl.RoomDAOImpl;
-import Entity.Image;
 import Entity.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "RoomController", urlPatterns = {"/RoomController"})
-public class RoomController extends HttpServlet {
+@WebServlet(name = "HomeController", urlPatterns = {"/HomeController"})
+public class HomeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,12 +36,17 @@ public class RoomController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            
-        } catch (Exception ex) {
-            ex.printStackTrace();
+           RoomDAOImpl dao = new RoomDAOImpl();
+            String service = request.getParameter("do");
+            if (service == null) {
+                Vector<Room> vector = dao.getRoomList();
+                Vector<Room> vector2 = dao.getRoomList2();
+                request.setAttribute("vector", vector);
+                request.setAttribute("vector2", vector2);
+                RequestDispatcher dispath = request.getRequestDispatcher("index.jsp");
+                dispath.forward(request, response);
+            }
         }
     }
 

@@ -49,7 +49,7 @@
     </style>
     <body>
         <% Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
-        Vector<Room> vector2 = (Vector<Room>) request.getAttribute("vector2");
+           Vector<Room> vector2 = (Vector<Room>) request.getAttribute("vector2");
         %>
         <div class="site-wrap">
 
@@ -115,7 +115,7 @@
                                                 <li class="login"><a href="Login.jsp">Login</a></li>
                                                 <li class="register"><a href="Register.jsp">Register</a></li>
                                                     <% } else {%>
-                                                <li class="login"><a href="Login.jsp">Log out</a></li>
+                                                <li class="login"><a href="LoginController?do=logout">Log out</a></li>
                                                     <%}%>
                                             </ul>
                                         </div>
