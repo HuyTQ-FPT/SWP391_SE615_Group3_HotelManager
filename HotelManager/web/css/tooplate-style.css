@@ -588,7 +588,6 @@ video {
   right: 1px;
   bottom: 1px;
   padding: 20px;
-  background: #1e1f29;
   text-align: center;
   -webkit-transform: translateY(0%);
   -ms-transform: translateY(0%);
@@ -598,8 +597,18 @@ video {
   z-index: 2;
   width: 348px;
   margin-left: 15px;
+  height: 80px;
+  
 }
 
+.add-to-cart-btnn{
+    display:inline-block;
+    text-align: center;
+    float:right;
+}
+.fa fa-bars{
+    height:200px;
+}
 
 
 .hotel-room-body .add-to-cart .add-to-cart-btn {
@@ -655,3 +664,21 @@ padding-left: 100px
 .add-to-cart-btn{
     margin-left: 8px;
 }
+.add-to-cart .fa fa-bars>i{
+   margin-left: 300px;  
+}
+.hotel-room .text-center{
+    width:1200px;
+    height: 800px;
+}
+.img-fluid{
+    width:348px;
+}
+
+.add-to-cart .add-to-cart-btnn>i {
+  font-weight: 700;
+  margin-top:10px;
+  margin-right:10px;
+}
+
+
