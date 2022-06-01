@@ -112,7 +112,7 @@
                                                     <%
                                                         if (session.getAttribute("login") == null) {
                                                     %>
-                                                <li class="login"><a href="Login.jsp">Login</a></li>
+                                                <li class="login"><a href="LoginController">Login</a></li>
                                                 <li class="register"><a href="Register.jsp">Register</a></li>
                                                     <% } else {%>
                                                 <li class="login"><a href="LoginController?do=logout">Log out</a></li>

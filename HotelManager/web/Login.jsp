@@ -12,6 +12,17 @@
 	<link rel="stylesheet" href="css/style_1_1.css">
 
 	</head>
+        <%
+            String user="";
+        if(request.getAttribute("user")!=null){
+             user =(String)request.getAttribute("user");
+        }
+            String pass="";
+        if(request.getAttribute("user")!=null){
+             pass =(String)request.getAttribute("pass");
+        }
+
+        %>
 	<body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
 	<section class="ftco-section">
 		<div class="container">
@@ -26,10 +37,10 @@
 		      	<h3 class="mb-4 text-center">Have an account?</h3>
                         <form action="LoginController?do=CheckLogin" class="signin-form" method="post">
 		      		<div class="form-group">
-                                    <input name="username" type="text" class="form-control" placeholder="Username" required>
+                                    <input name="username" type="text" class="form-control" placeholder="Username" value="<%=user%>" required>
 		      		</div>
 	            <div class="form-group">
-                        <input id="password-field" name="password" type="password" class="form-control" placeholder="Password" required>
+                        <input id="password-field" name="password" type="password" class="form-control" placeholder="Password" value="<%=pass%>" required>
 	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 	            </div>
                              <h4 id="er" style="color: pink;font-size: 15px; position: fixed;">${requestScope.error}</h4>
@@ -40,14 +51,25 @@
 	            </div>
 	            <div class="form-group d-md-flex">
 	            	<div class="w-50">
-		            	<label class="checkbox-wrap checkbox-primary">Remember Me
-									  <input type="checkbox" checked>
+		            	<label class="checkbox-wrap checkbox-primary">Remember me
+                                    <input name="remember" type="checkbox" checked value="Remember me">
 									  <span class="checkmark"></span>
 									</label>
 								</div>
 								<div class="w-50 text-md-right">
 									<a href="LoginController?do=ForgetPassword" style="color: #fff">Forgot Password</a>
 								</div>
+							
+	            </div>
+	            <div class="form-group d-md-flex">
+	            	<div class="w-50">
+		            	<label class="checkbox-wrap checkbox-primary">																	 
+									</label>
+								</div>
+								<div class="w-50 text-md-right">
+									<a href="LoginController?do=ChangePassword" style="color: #fff">Change Password</a>
+								</div>
+							
 	            </div>
 	          </form>
 	          <!--<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>-->

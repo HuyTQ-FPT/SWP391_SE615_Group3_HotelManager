@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,24 +37,40 @@ public class LoginController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
-            AccountDAO dao =new AccountDAOImpl();
+            AccountDAOImpl dao =new AccountDAOImpl();
             DBContext dao1 = new DBContext();
             String service = request.getParameter("do");
             if (service == null) {
                 service = "Login";
             }
             if (service.equals("Login")) {
+                Cookie c[] = request.getCookies();
+                for (Cookie o : c) {
+                    if(o.getName().equals("user")){
+                        request.setAttribute("user", o.getValue());
+                    }
+                    if(o.getName().equals("pass")){
+                        request.setAttribute("pass", o.getValue());
+                    }
+                }
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
             if (service.equals("CheckLogin")) {
                 System.out.println(service);
-
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
                 System.out.println(username);
                 System.out.println(password);
                 ResultSet rs = dao1.getData("select * from Account where [user]='" + username + "' and [password]='" + password + "'");
                 if (rs.next() == true) {
+                    if(request.getParameterValues("remember")!=null){
+                        Cookie user = new Cookie("user",username);
+                        Cookie pass = new Cookie("pass",password);
+                        user.setMaxAge(60*60*24*7);
+                        pass.setMaxAge(60*60*24*7);
+                        response.addCookie(pass);
+                        response.addCookie(user);
+                    }
                     session.setAttribute("login", "login");
                     System.out.println(rs.getString(2));
                     if(rs.getString(2).equals("1"))
@@ -65,7 +82,7 @@ public class LoginController extends HttpServlet {
                 } else {
                     String error ="Incorrect username or Password";
                     request.setAttribute("error", error);
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                    response.sendRedirect("LoginController");
                 }
             }
             if (service.equals("CheckRegister")) {
@@ -104,10 +121,40 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
             }
-            if (service.equals("ForgetPassword")) {
-                request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+            if (service.equals("ChangePassword")) {
+                request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
             }
-            if (service.equals("logout")) {
+            if (service.equals("CheckChangePassword")) {
+                String error ="";
+                String username = request.getParameter("name");
+                String oldpassword = request.getParameter("oldpassword");
+                String newpassword = request.getParameter("password");
+                String re_password = request.getParameter("re_password");
+                ResultSet rs = dao1.getData("select * from Account where [user]='" + username + "' and [password]='" + oldpassword + "'");
+                if (rs.next() == true) {
+                    if(newpassword.equals(re_password)){
+                        dao.updateAccount(rs.getInt(1), re_password);
+                        response.sendRedirect("LoginController");
+                    }                        
+                    else {
+                         error ="re_password not same new_password";
+                        request.setAttribute("errorpass", error);
+                        request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+                    }
+                }
+                else{
+                    error ="username or password incorrect";
+                    request.setAttribute("errorpass", error);
+                    request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+                }                                   
+            }
+            if (service.equals("logout")){
+                Cookie user = new Cookie("user","");
+                        Cookie pass = new Cookie("pass","");
+                        user.setMaxAge(0);
+                        pass.setMaxAge(0);
+                        response.addCookie(pass);
+                        response.addCookie(user);
                 session.removeAttribute("login");
                 response.sendRedirect("HomeController");
             }

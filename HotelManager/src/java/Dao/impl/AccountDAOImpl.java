@@ -10,6 +10,7 @@ import Entity.Account;
 import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
 /**
@@ -35,7 +36,18 @@ public class AccountDAOImpl extends DBContext implements AccountDAO{
 
     @Override
     public void updateAccount(int aID, String aPassword) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sqlPre = "update Account set [password]=? where AccountID=?";
+
+        try {
+            PreparedStatement pre = conn.prepareStatement(sqlPre);
+            pre.setString(1, aPassword);
+            pre.setInt(2, aID);
+
+            //run
+            pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
