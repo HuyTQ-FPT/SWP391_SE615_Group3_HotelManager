@@ -87,37 +87,37 @@
                                                     </a>                           
                                                 </li>
                                                 <li class="active">
-                                                    <a href="index.html">Trang chủ</a>
+                                                    <a style="font-family: PlayFair Display" href="index.html">Trang chủ</a>
                                                 </li>
                                                 <li class="has-children">
-                                                    <a href="rooms.html">Phòng</a>
+                                                    <a style="font-family: PlayFair Display" href="rooms.html">Phòng</a>
                                                     <ul class="dropdown arrow-top">
-                                                        <li><a href="rooms.html">Hiện có</a></li>
-                                                        <li><a href="rooms.html">Phòng đơn</a></li>
-                                                        <li><a href="rooms.html">Phòng đôi</a></li>
-                                                        <li><a href="rooms.html">Phòng gia đình</a></li> 
+                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Hiện có</a></li>
+                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng đơn</a></li>
+                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng đôi</a></li>
+                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng gia đình</a></li> 
                                                         <li class="has-children">
-                                                            <a href="rooms.html">Dịch vụ</a>
+                                                            <a style="font-family: PlayFair Display" href="rooms.html">Dịch vụ</a>
                                                             <ul class="dropdown">
-                                                                <li><a href="rooms.html">Phòng cao cấp</a></li>
-                                                                <li><a href="rooms.html">Tắm hơi</a></li>
-                                                                <li><a href="rooms.html">Ăn uống</a></li> 
+                                                                <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng cao cấp</a></li>
+                                                                <li><a style="font-family: PlayFair Display" href="rooms.html">Tắm hơi</a></li>
+                                                                <li><a style="font-family: PlayFair Display" href="rooms.html">Ăn uống</a></li> 
 
                                                             </ul>
                                                         </li>
 
                                                     </ul>
                                                 </li>
-                                                <li><a href="events.html">Sự kiện</a></li>
-                                                <li><a href="about.html">Thông tin</a></li>
-                                                <li><a href="contact.html">Liên hệ</a></li>
+                                                <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>
+                                                <li><a style="font-family: PlayFair Display" href="about.html">Thông tin</a></li>
+                                                <li><a style="font-family: PlayFair Display" href="contact.html">Liên hệ</a></li>
                                                     <%
                                                         if (session.getAttribute("login") == null) {
                                                     %>
-                                                <li class="login"><a href="LoginController">Login</a></li>
-                                                <li class="register"><a href="Register.jsp">Register</a></li>
+                                                <li class="login"><a style="font-family: PlayFair Display" href="LoginController">Login</a></li>
+                                                <li class="register"><a style="font-family: PlayFair Display" href="Register.jsp">Register</a></li>
                                                     <% } else {%>
-                                                <li class="login"><a href="LoginController?do=logout">Log out</a></li>
+                                                <li class="login"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Log out</a></li>
                                                     <%}%>
                                             </ul>
                                         </div>
