@@ -219,10 +219,10 @@
                         <%for (Room v : vector) {%>
                         <div class="col-md-6 col-lg-4 mb-5">
                             <div class="hotel-room text-center">
-                                <a  href="#" class="d-block mb-0 thumbnail"><img src="images/anhphong/<%= v.getImage()%>" 
+                                <a  href="#" class="d-block mb-0 thumbnail"><img style="width: 350px; height: 250px;" src="images/anhphong/<%= v.getImage()%>" 
                                                                                  alt="Image" class="img-fluid"></a>
                                 <div class="hotel-room-body">
-                                    <h3 class="heading mb-0"><a href="#"><%=v.getCateroom()%></a></h3>
+                                    <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
                                     <strong class="price"><%=v.getRoomprice()%>/ một đêm</strong>
                                     <div class="add-to-cart">
                                         <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>

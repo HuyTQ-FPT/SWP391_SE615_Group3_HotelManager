@@ -687,6 +687,14 @@ padding-left: 100px
     font-weight: 400;
     font-size: 1rem;
     font-family: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
 }
-
+.bg-light{
+    margin-bottom: 0px;
+}
+.site-section{
+    padding: 50px;
+    width: 100%;
+}
+.site-section .mb-5{
+    margin: auto;
+}
