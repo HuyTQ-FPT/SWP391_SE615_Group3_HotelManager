@@ -17,7 +17,7 @@ import java.util.Vector;
  *
  * @author Admin
  */
-public class AccountDAOImpl extends DBContext implements AccountDAO{
+public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
     public Vector<Account> getAccountList(int aID) {
@@ -35,18 +35,21 @@ public class AccountDAOImpl extends DBContext implements AccountDAO{
     }
 
     @Override
-    public void updateAccount(int aID, String aPassword) {
-        String sqlPre = "update Account set [password]=? where AccountID=?";
-
+    public void updateAccount(String aUser, String aPassword) {
+        String sql = "UPDATE [SWPgroup3].[dbo].[Account]\n"
+                + "   SET [password] =?\n"
+                + " WHERE [user]=?";
         try {
-            PreparedStatement pre = conn.prepareStatement(sqlPre);
+
+            PreparedStatement pre = conn.prepareStatement(sql);
+
             pre.setString(1, aPassword);
-            pre.setInt(2, aID);
+            pre.setString(2, aUser);
 
             //run
             pre.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -57,7 +60,20 @@ public class AccountDAOImpl extends DBContext implements AccountDAO{
 
     @Override
     public Account checkAccount(String aName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String xSql = "select * from [Account] where [user]=?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(xSql);
+            ps.setString(1, aName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Account(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -66,28 +82,28 @@ public class AccountDAOImpl extends DBContext implements AccountDAO{
     }
 
     @Override
-    public int Register(Account ac,String name, String email) {
+    public int Register(Account ac, String name, String email) {
         int n = 0;
-        String sql = "insert into Account(RoleID, [user],[password]) values(1,?,?)";       
-        String sql1 = "insert into [User](AccountID,UserName, UserEmail) values(?,?,?)";       
+        String sql = "insert into Account(RoleID, [user],[password]) values(1,?,?)";
+        String sql1 = "insert into [User](AccountID,UserName, UserEmail) values(?,?,?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             PreparedStatement pre1 = conn.prepareStatement(sql1);
             pre.setString(1, ac.getUser());
-            pre.setString(2, ac.getPassword());                       
+            pre.setString(2, ac.getPassword());
             n = pre.executeUpdate();
-            ResultSet rs = getData("select top(1)* from Account\n" +
-"order by AccountID desc ");
-            while(rs.next()){
-            pre1.setInt(1, rs.getInt(1));
+            ResultSet rs = getData("select top(1)* from Account\n"
+                    + "order by AccountID desc ");
+            while (rs.next()) {
+                pre1.setInt(1, rs.getInt(1));
             }
             pre1.setString(2, name);
-            pre1.setString(3, email); 
+            pre1.setString(3, email);
             pre1.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return n;
     }
-    
+
 }
