@@ -139,7 +139,7 @@ public class LoginController extends HttpServlet {
 
                     String message = "Mật khẩu mới của bạn là:" + newPass + "\n"
                             + "Nếu bạn muốn đổi mật khẩu click vào link này:" + "http://localhost:8080/HotelManager/ChangePassword.jsp";
-                    sm.send(email, "Your new pass word!!!!", message, "hieulbmhe151429@fpt.edu.vn", "lebaminhhieu");
+                    sm.send(email, "Your new pass word!!!!", message, sm.getFromEmail(), sm.getPassword());
                     dao.updateAccount(user, newPass);
                     String mess = "Send gmail sucsess!!!";
                     request.setAttribute("mess", mess);

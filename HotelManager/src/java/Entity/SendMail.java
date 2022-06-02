@@ -20,8 +20,21 @@ public class SendMail {
     private static final String digits = "0123456789"; // 0-9
     private static final String ALPHA_NUMERIC = alpha + alphaUpperCase + digits;
     private static Random generator = new Random();
+     final String fromEmail = "hieulbmhe151429@fpt.edu.vn";
+    final String password = "lebaminhhieu";
 
-  
+    public SendMail() {
+    }
+
+    public String getFromEmail() {
+        return fromEmail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    
+
     public void send(String to, String sub,
             String message1, final String user, final String pass) {
         //create an instance of Properties Class   
@@ -70,9 +83,8 @@ public class SendMail {
             e.printStackTrace();
         }
     }
-    
-    
-      public String randomAlphaNumeric(int numberOfCharactor) {
+
+    public String randomAlphaNumeric(int numberOfCharactor) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < numberOfCharactor; i++) {
             int number = randomNumber(ALPHA_NUMERIC.length() - 1);
