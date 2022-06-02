@@ -9,17 +9,17 @@ package Entity;
  *
  * @author Admin
  */
-public class Message {
+public class message {
     private int MessageID;
 	private int AccountID ;
 	private String MessageTo;
 	private String MessageFrom ;
 	private String Date;
 
-    public Message() {
+    public message() {
     }
 
-    public Message(int MessageID, int AccountID, String MessageTo, String MessageFrom, String Date) {
+    public message(int MessageID, int AccountID, String MessageTo, String MessageFrom, String Date) {
         this.MessageID = MessageID;
         this.AccountID = AccountID;
         this.MessageTo = MessageTo;

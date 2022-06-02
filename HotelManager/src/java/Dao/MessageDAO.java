@@ -5,7 +5,7 @@
  */
 package Dao;
 
-import Entity.Message;
+import Entity.message;
 import java.util.Vector;
 
 /**
@@ -13,8 +13,8 @@ import java.util.Vector;
  * @author Admin
  */
 public interface MessageDAO {
-    public Vector<Message> getAllImage();
-    public void insertMessage(int mID ,Message insertMessage);
-    public void updateMessage(int mID ,Message updateMessage);
+    public Vector<message> getAllImage();
+    public void insertMessage(int mID ,message insertMessage);
+    public void updateMessage(int mID ,message updateMessage);
     public void deleteMessage(int mID);
 }
