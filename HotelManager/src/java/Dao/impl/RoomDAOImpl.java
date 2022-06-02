@@ -17,7 +17,7 @@ import java.util.Vector;
  *
  * @author Admin
  */
-public class RoomDAOImpl extends DBContext implements RoomDAO {
+public class RoomDAOImpl extends DBContext implements RoomDAO{
 
     @Override
     public Vector<Room> getRoomList() {

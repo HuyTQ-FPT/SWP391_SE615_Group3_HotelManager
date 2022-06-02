@@ -29,6 +29,54 @@ public class Service {
         this.ServicePrice = ServicePrice;
     }
 
+    public int getServiceID() {
+        return ServiceID;
+    }
+
+    public void setServiceID(int ServiceID) {
+        this.ServiceID = ServiceID;
+    }
+
+    public String getServiceName() {
+        return ServiceName;
+    }
+
+    public void setServiceName(String ServiceName) {
+        this.ServiceName = ServiceName;
+    }
+
+    public String getServiceImage() {
+        return ServiceImage;
+    }
+
+    public void setServiceImage(String ServiceImage) {
+        this.ServiceImage = ServiceImage;
+    }
+
+    public String getServiceDes() {
+        return ServiceDes;
+    }
+
+    public void setServiceDes(String ServiceDes) {
+        this.ServiceDes = ServiceDes;
+    }
+
+    public String getServiceNote() {
+        return ServiceNote;
+    }
+
+    public void setServiceNote(String ServiceNote) {
+        this.ServiceNote = ServiceNote;
+    }
+
+    public double getServicePrice() {
+        return ServicePrice;
+    }
+
+    public void setServicePrice(double ServicePrice) {
+        this.ServicePrice = ServicePrice;
+    }
+
     @Override
     public String toString() {
         return "Service{" + "ServiceID=" + ServiceID + ", ServiceName=" + ServiceName + ", ServiceImage=" + ServiceImage + ", ServiceDes=" + ServiceDes + ", ServiceNote=" + ServiceNote + ", ServicePrice=" + ServicePrice + '}';

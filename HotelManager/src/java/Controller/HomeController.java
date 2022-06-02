@@ -6,7 +6,9 @@
 package Controller;
 
 import Dao.impl.RoomDAOImpl;
+import Dao.impl.ServiceDAOImpl;
 import Entity.Room;
+import Entity.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -38,12 +40,16 @@ public class HomeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
            RoomDAOImpl dao = new RoomDAOImpl();
+           ServiceDAOImpl dao1=new ServiceDAOImpl();
             String service = request.getParameter("do");
             if (service == null) {
                 Vector<Room> vector = dao.getRoomList();
                 Vector<Room> vector2 = dao.getRoomList2();
+                Vector<Service> vector3 = dao1.getServiceList();
+                
                 request.setAttribute("vector", vector);
                 request.setAttribute("vector2", vector2);
+                request.setAttribute("vector3", vector3);
                 RequestDispatcher dispath = request.getRequestDispatcher("index.jsp");
                 dispath.forward(request, response);
             }
