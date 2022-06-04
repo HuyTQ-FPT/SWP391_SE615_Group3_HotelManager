@@ -39,17 +39,34 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-           RoomDAOImpl dao = new RoomDAOImpl();
-           ServiceDAOImpl dao1=new ServiceDAOImpl();
+            RoomDAOImpl dao = new RoomDAOImpl();
+            ServiceDAOImpl dao1 = new ServiceDAOImpl();
             String service = request.getParameter("do");
             if (service == null) {
-                Vector<Room> vector = dao.getRoomList();
-                Vector<Room> vector2 = dao.getRoomList2();
+                //danh sách phòng
+                Vector<Room> vector = dao.getRoomList("select top (6) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
+                        + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                        + "where Room.Status =0 \n");
+                // thông tin phòng--> ALl
+                Vector<Room> vector2 = dao.getRoomList("select * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
+                        + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                        + "where Room.Status =0\n");
+                // tính năng
                 Vector<Service> vector3 = dao1.getServiceList();
-                
+                // phân trang phòng trống
+                Vector<Room> vector4 = null;
+                int n = dao.getPageByPageStatus();
+                String page = request.getParameter("page");
+                if (page == null) {
+                    vector4 = dao.getRoomByPageStatus(1);
+                } else {
+                    vector4 = dao.getRoomByPageStatus(Integer.parseInt(page));
+                }
+                request.setAttribute("n", n);
                 request.setAttribute("vector", vector);
                 request.setAttribute("vector2", vector2);
                 request.setAttribute("vector3", vector3);
+                request.setAttribute("vector4", vector4);
                 RequestDispatcher dispath = request.getRequestDispatcher("index.jsp");
                 dispath.forward(request, response);
             }

@@ -15,10 +15,17 @@ import java.util.Vector;
  *
  * @author Admin
  */
-public interface RoomDAO{
-    
-    public Vector<Room> getRoomList();
-    public Vector<Room> getRoomList2();
+public interface RoomDAO {
+
+    public Vector<Room> getRoomList(String sql);
+
+    public int getPage();
+
+    public Vector<Room> getRoomByPage(int n);
+
+    public Vector<Room> getRoomByPageStatus(int n);
+
+    public int getPageByPageStatus();
 
     public Room getRoom(int roomid);
 
@@ -29,5 +36,5 @@ public interface RoomDAO{
     public void deleteRoom(int roomid);
 
     public Vector<Room> getRoomListbyPrice(int from, int to);
-    
+
 }
