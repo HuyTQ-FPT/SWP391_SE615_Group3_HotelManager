@@ -30,10 +30,10 @@
                                                     </a>                           
                                                 </li>
                                                 <li class="active">
-                                                    <a style="font-family: PlayFair Display" href="index.html">Trang chủ</a>
+                                                    <a style="font-family: PlayFair Display" href="HomeController">Trang chủ</a>
                                                 </li>
                                                 <li class="has-children">
-                                                    <a style="font-family: PlayFair Display" href="rooms.html">Phòng</a>
+                                                    <a style="font-family: PlayFair Display" href="RoomController?page=1">Phòng</a>
                                                     <ul class="dropdown arrow-top">
                                                         <li><a style="font-family: PlayFair Display" href="rooms.html">Hiện có</a></li>
                                                         <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng đơn</a></li>
