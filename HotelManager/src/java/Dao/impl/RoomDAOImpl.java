@@ -9,6 +9,7 @@ import Dao.RoomDAO;
 import Entity.Image;
 import Entity.Room;
 import context.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,6 @@ import java.util.Vector;
  * @author Admin
  */
 public class RoomDAOImpl extends DBContext implements RoomDAO {
-
     @Override
     public Vector<Room> getRoomList(String sql) {
         Vector<Room> vector = new Vector<Room>();
@@ -48,8 +48,18 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Room getRoom(int roomid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Room getRoom(String roomid) {
+        String query = "select * from Room where RoomID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, roomid);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Room(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getDouble(6), rs.getInt(7), rs.getFloat(8), rs.getString(9), rs.getInt(10), rs.getString(11), rs.getString(12));
+            }
+        } catch (Exception e) {
+        }
+           return null;
     }
 
     @Override
@@ -135,9 +145,10 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
     public static void main(String[] args) {
         RoomDAOImpl dao= new RoomDAOImpl();
-        Vector<Room> vector= dao.getRoomByPageStatus(5);
+        Vector<Room> vector= dao.getRoomList("select * from Room");
+        Room rooom = dao.getRoom("1");
         for (Room room : vector) {
-            System.out.println(vector);
+            System.out.println(room);
         }
         
     }

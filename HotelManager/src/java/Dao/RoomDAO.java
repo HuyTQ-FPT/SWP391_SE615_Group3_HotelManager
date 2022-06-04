@@ -27,7 +27,7 @@ public interface RoomDAO {
 
     public int getPageByPageStatus();
 
-    public Room getRoom(int roomid);
+    public Room getRoom(String roomid);
 
     public void insertRoom(Room Room);
 

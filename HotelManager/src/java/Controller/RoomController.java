@@ -41,6 +41,7 @@ public class RoomController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             RoomDAOImpl dao = new RoomDAOImpl();
+            ImageDAOImpl daos = new ImageDAOImpl();
             String service = request.getParameter("do");
             if (service == null) {
                 int n = dao.getPage();
@@ -57,14 +58,23 @@ public class RoomController extends HttpServlet {
                 String adult = request.getParameter("adult");
                 String room = request.getParameter("room");
                 String children = request.getParameter("children");
-                int n = (Integer.parseInt(adult) + Integer.parseInt(children))/2;
+                int n = (Integer.parseInt(adult) + Integer.parseInt(children)) / 2;
 
                 Vector<Room> vector = dao.getRoomList("select * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
                         + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
-                        + "where NumberPerson>= "+n);
+                        + "where NumberPerson>= " + n);
                 request.setAttribute("vector", vector);
                 RequestDispatcher dispatch = request.getRequestDispatcher("searchRoom.jsp");
                 dispatch.forward(request, response);
+            }
+            if (service.equals("roomdetail")) {
+                String RoomID = request.getParameter("roomid");
+                Vector<Image> img = daos.getImageByid(RoomID);
+//        out.println("<h1>Servlet PostController at " + RoomID + "</h1>");
+                Room rooom = dao.getRoom(RoomID);
+                request.setAttribute("Room", rooom);
+                request.setAttribute("img", img);
+                request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -43,7 +43,7 @@ public class ImageController extends HttpServlet {
             ImageDAOImpl dao = new ImageDAOImpl();
             String service = request.getParameter("do");
             if (service == null) {
-                Vector<Image> vector = dao.getAllImage();
+                Vector<Image> vector = dao.getImageByid("1");
                 request.setAttribute("vector", vector);
                 RequestDispatcher dispath = request.getRequestDispatcher("index.jsp");
                 dispath.forward(request, response);
