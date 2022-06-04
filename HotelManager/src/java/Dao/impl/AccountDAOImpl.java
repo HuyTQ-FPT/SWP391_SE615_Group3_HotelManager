@@ -26,7 +26,20 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
     public Account getAccount(String aName, String aPass) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM [SWPgroup3].[dbo].[Account] where [user]=? and [password]=?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, aName);
+            pre.setString(2, aPass);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                return new Account(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -35,7 +48,8 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     }
 
     @Override
-    public void updateAccount(String aUser, String aPassword) {
+    public int updateAccount(String aUser, String aPassword) {
+        int n = 0;
         String sql = "UPDATE [SWPgroup3].[dbo].[Account]\n"
                 + "   SET [password] =?\n"
                 + " WHERE [user]=?";
@@ -47,10 +61,11 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
             pre.setString(2, aUser);
 
             //run
-            pre.executeUpdate();
+            n = pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return n;
     }
 
     @Override

@@ -28,7 +28,7 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Login Admin</h2>
+					<h2 class="heading-section">Login User</h2>
 				</div>
 			</div>
 			<div class="row justify-content-center">
@@ -57,7 +57,7 @@
 									</label>
 								</div>
 								<div class="w-50 text-md-right">
-									<a href="LoginController?do=ForgetPassword" style="color: #fff">Forgot Password</a>
+									<a href="LoginController?do=ForgetPassword1" style="color: #fff">Forgot Password</a>
 								</div>
 							
 	            </div>
@@ -67,7 +67,7 @@
 									</label>
 								</div>
 								<div class="w-50 text-md-right">
-									<a href="LoginController?do=ChangePassword" style="color: #fff">Change Password</a>
+									<a href="LoginController?do=ChangePassword1" style="color: #fff">Change Password</a>
 								</div>
 							
 	            </div>

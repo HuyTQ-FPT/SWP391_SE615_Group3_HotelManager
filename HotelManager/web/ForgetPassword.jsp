@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -27,8 +28,13 @@
                     <div class="signup-content">
                         <form action="LoginController?do=ForgetPassword" method="post" id="signup-form" class="signup-form">
                             <h2 class="form-title">Forget Password</h2>
-                               <h4 id="er" style="color: red;font-size: 15px;">${requestScope.error}</h4>
-                               <h4 id="er" style="color: red;font-size: 15px;">${requestScope.mess}</h4>
+                            <C:if ${requestScope.error==null} >
+                            <h4 id="er" style="color: red;font-size: 15px;">${requestScope.error}</h4>
+                            </C:if>
+                            <h4 id="er" style="color: red;font-size: 15px;">${requestScope.mess}</h4>
+                            <h4 id="er" style="color: red;font-size: 15px;">${requestScope.eEmail}</h4>
+                            <h4 id="er" style="color: red;font-size: 15px;">${requestScope.exampleEmail}</h4>
+
                             <div class="form-group">
                                 <input type="text" class="form-input" name="name" id="name" placeholder="Username" required/>
                             </div>

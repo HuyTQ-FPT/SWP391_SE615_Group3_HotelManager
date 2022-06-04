@@ -132,19 +132,32 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
 
                 } else {
+                    if (email.matches("^[a-zA-Z]\\w+@(\\w+.)+(\\w+)$")) {
+                        SendMail sm = new SendMail();
+                        String newPass = sm.randomAlphaNumeric(8);
+                        request.setAttribute("newpass", newPass);
 
-                    SendMail sm = new SendMail();
-                    String newPass = sm.randomAlphaNumeric(8);
-                    request.setAttribute("newpass", newPass);
+                        String message = "Mật khẩu mới của bạn là:" + newPass + "\n"
+                                + "Nếu bạn muốn đổi mật khẩu click vào link này:" + "http://localhost:8080/HotelManager/ChangePassword.jsp";
+                        sm.send(email, "Your new pass word!!!!", message, sm.getFromEmail(), sm.getPassword());
+                        dao.updateAccount(user, newPass);
+                        String mess = "Send gmail sucsess!!!";
+                        request.setAttribute("mess", mess);
+                        request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+                    } else {
+                        String eEmail = "Not found email!!";
+                        String exampleEmail = "Example: hiue@gmail.com|hieu@fpt.edu.vn";
+                        request.setAttribute("eEmail", eEmail);
+                        request.setAttribute("exampleEmail", exampleEmail);
 
-                    String message = "Mật khẩu mới của bạn là:" + newPass + "\n"
-                            + "Nếu bạn muốn đổi mật khẩu click vào link này:" + "http://localhost:8080/HotelManager/ChangePassword.jsp";
-                    sm.send(email, "Your new pass word!!!!", message, sm.getFromEmail(), sm.getPassword());
-                    dao.updateAccount(user, newPass);
-                    String mess = "Send gmail sucsess!!!";
-                    request.setAttribute("mess", mess);
-                    request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+                        request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+
+                    }
+
                 }
+            }
+            if (service.equals("ForgetPassword1")) {
+                request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
             }
             if (service.equals("ChangePassword")) {
                 String error = "";
@@ -167,6 +180,9 @@ public class LoginController extends HttpServlet {
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                 }
+            }
+            if (service.equals("ChangePassword1")) {
+                request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
             }
             if (service.equals("logout")) {
                 Cookie user = new Cookie("user", "");
