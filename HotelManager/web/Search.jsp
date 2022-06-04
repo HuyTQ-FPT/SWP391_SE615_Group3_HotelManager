@@ -130,11 +130,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab1">
                             <form method="POST" action="#">
-                                <div class="input-group">
-                                    <label class="label">Going to</label>
-                                    <input class="input--style-1" type="text" name="address" placeholder="Destination, hotel name" required="required">
-                                    <i class="zmdi zmdi-pin input-group-symbol"></i>
-                                </div>
+                               
                                 <div class="row row-space">
                                     <div class="col-2">
                                         <div class="input-group">

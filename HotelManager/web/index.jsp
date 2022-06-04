@@ -225,7 +225,9 @@
                                     <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
                                     <strong class="price"><%=v.getRoomprice()%>/ một đêm</strong>
                                     <div class="add-to-cart">
-                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                        <form action="#">
+                                        <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -265,13 +267,13 @@
                 </div>
                 <div class="row no-gutters">
                     <div class="col-md-6 col-lg-4">
-                        <a href="images/img_1.jpg" class="image-popup img-opacity"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>                        
+                        <a href="#" class="image-popup img-opacity"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>                        
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <a href="images/img_2.jpg" class="image-popup img-opacity"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
+                        <a href="#" class="image-popup img-opacity"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <a href="images/img_3.jpg" class="image-popup img-opacity"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+                        <a href="#" class="image-popup img-opacity"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
                     </div>            
                 </div>
                 <div class="row mt-5">
@@ -302,8 +304,9 @@
                     <%for (Room e : vector2) {%>
                     <div class="media-with-text p-md-5">
                         <div class="img-border-sm mb-4">
+                            
                             <a href="#" class="popup-vimeo image-play">
-                                <img src="images/anhphong/<%=e.getImage()%>" alt="" class="img-fluid">
+                                <img style="width: 350px; height: 200px;" src="images/anhphong/<%=e.getImage()%>" alt="Image" class="img-fluid">
                             </a>
                         </div>
                         <h2 class="heading mb-0"><a href="#">Lorem Ipsum Dolor Sit Amet</a></h2>

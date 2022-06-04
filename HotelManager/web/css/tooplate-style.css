@@ -624,7 +624,6 @@ video {
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
-
 .hotel-room-body .add-to-cart .add-to-cart-btn>i {
   position: absolute;
   left: 0;
@@ -649,6 +648,7 @@ video {
   opacity: 1;
   visibility: visible;
 }
+
 .hotel-room{
     height: 400px;
 }
@@ -692,9 +692,16 @@ padding-left: 100px
     margin-bottom: 0px;
 }
 .site-section{
-    padding: 50px;
+    padding: 50px ;
     width: 100%;
+    
+    
 }
 .site-section .mb-5{
     margin: auto;
+  
+}
+
+.site-section .bg-light{
+    background-color: #D10024;
 }
