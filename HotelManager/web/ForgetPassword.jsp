@@ -28,9 +28,7 @@
                     <div class="signup-content">
                         <form action="LoginController?do=ForgetPassword" method="post" id="signup-form" class="signup-form">
                             <h2 class="form-title">Forget Password</h2>
-                            <C:if ${requestScope.error==null} >
                             <h4 id="er" style="color: red;font-size: 15px;">${requestScope.error}</h4>
-                            </C:if>
                             <h4 id="er" style="color: red;font-size: 15px;">${requestScope.mess}</h4>
                             <h4 id="er" style="color: red;font-size: 15px;">${requestScope.eEmail}</h4>
                             <h4 id="er" style="color: red;font-size: 15px;">${requestScope.exampleEmail}</h4>
