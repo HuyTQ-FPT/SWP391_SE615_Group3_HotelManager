@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
         <link rel="stylesheet" href="css/aos.css">
         <link rel="stylesheet" href="css/style.css">
- <link rel="stylesheet" href="css/tooplate-style.css">
+        <link rel="stylesheet" href="css/tooplate-style.css">
 
         <!--fontawesome css-->
         <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -152,12 +152,17 @@
                         <div class="md-prod-page">
                             <div class="md-prod-page-in">
                                 <div class="display-container">
-                                    
-                                    <c:forEach items="${img}" var="c">
-                                        <img class="mySlides" src="images/anhphong/${c.image1}">
-                                        <img class="mySlides" src="images/anhphong/${c.image2}">
-                                        <img class="mySlides" src="images/anhphong/${c.image3}">
-                                    </c:forEach>
+                                    <c:if test="${sessionScope.isroomde!=null}">
+                                        <c:forEach items="${img}" var="c">
+                                            <img class="mySlides" src="images/anhphong/${c.image1}">
+                                            <img class="mySlides" src="images/anhphong/${c.image2}">
+                                            <img class="mySlides" src="images/anhphong/${c.image3}">
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${sessionScope.isroomde==null}">
+                                    <img class="mySlides" src="images/anhdevice/${se.serviceImage}">
+                                    </c:if>
+
                                     <button class="image-button button-left" onclick="plusDivs(-1)">&#10094;</button>
                                     <button class="image-button button-right" onclick="plusDivs(1)">&#10095;</button>
                                 </div>
@@ -201,7 +206,12 @@
                             <div class="description-box">
                                 <div class="dex-a">
                                     <h4>Description</h4>
-                                    <p>${Room.roomdesc}</p>
+                                    <c:if test="${sessionScope.isroomde!=null}">
+                                        <p>${Room.roomdesc}</p>
+                                    </c:if>
+                                     <c:if test="${sessionScope.isroomde==null}">
+                                        <p>${se.serviceDes}</p>
+                                    </c:if>
                                     <br>
                                     <p>Small: H 25 cm / &Oslash; 12 cm</p>
                                     <p>Large H 24 cm / &Oslash; 25 cm</p>
@@ -427,24 +437,28 @@
 
         <script src="js/main.js"></script>
         <script>
-var slideIndex = 1;
-showDivs(slideIndex);
+                                        var slideIndex = 1;
+                                        showDivs(slideIndex);
 
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
+                                        function plusDivs(n) {
+                                            showDivs(slideIndex += n);
+                                        }
 
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  if (n > x.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
-  }
-  x[slideIndex-1].style.display = "block";  
-}
-</script>
+                                        function showDivs(n) {
+                                            var i;
+                                            var x = document.getElementsByClassName("mySlides");
+                                            if (n > x.length) {
+                                                slideIndex = 1
+                                            }
+                                            if (n < 1) {
+                                                slideIndex = x.length
+                                            }
+                                            for (i = 0; i < x.length; i++) {
+                                                x[i].style.display = "none";
+                                            }
+                                            x[slideIndex - 1].style.display = "block";
+                                        }
+        </script>
 
     </body>
 </html>

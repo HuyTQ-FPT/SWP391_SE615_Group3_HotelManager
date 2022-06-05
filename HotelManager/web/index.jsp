@@ -193,8 +193,10 @@
                         <%for (Service s : vector3) {%>
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <div class="text-center p-4 item">
+                                <a href="ServiceController?do=servicedetail&ServiceID=<%=s.getServiceID() %>">
                                 <img style="width:250px; height: 200px" src="images/anhdevice/<%=s.getServiceImage()%>">
                                 <h2 style="font-weight: bold; padding-top: 20px; font-family: 'Times New Roman'; font-size: 22px; color: orangered;padding-left: 28px; "class="h5"><%=s.getServiceName()%></h2>
+                                </a>
                             </div>
                         </div>
                         <%}%>

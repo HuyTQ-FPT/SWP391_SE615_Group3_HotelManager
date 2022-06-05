@@ -15,7 +15,7 @@ import java.util.Vector;
 public interface ServiceDAO {
     public Vector<Service> getServiceList();
 
-    public Service getService(int sid);
+    public Service getServicedetail(String sid);
 
     public void insertService(Service Service);
 

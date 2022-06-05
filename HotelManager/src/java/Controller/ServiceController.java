@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import Dao.impl.ServiceDAOImpl;
+import Entity.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,15 +37,15 @@ public class ServiceController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServiceController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServiceController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            HttpSession session = request.getSession();
+            String doo = request.getParameter("do");
+            String ServiceID = request.getParameter("ServiceID");
+            if (doo.equals("servicedetail")) {
+                ServiceDAOImpl dao = new ServiceDAOImpl();
+                Service se = dao.getServicedetail(ServiceID);
+                request.setAttribute("se", se);
+                request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
+            }
         }
     }
 

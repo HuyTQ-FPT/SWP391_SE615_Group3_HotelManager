@@ -8,6 +8,7 @@ package Dao.impl;
 import Dao.ServiceDAO;
 import Entity.Service;
 import context.DBContext;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
@@ -41,15 +42,25 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO{
     }
      public static void main(String[] args) {
         ServiceDAOImpl dao = new ServiceDAOImpl();
-        Vector<Service> vector = dao.getServiceList();
-        for (Service room : vector) {
-            System.out.println(room);
-        }
+         Service se = dao.getServicedetail("1");
+//        for (Service room : vector) {
+            System.out.println(se);
+//        }
     }
 
     @Override
-    public Service getService(int sid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Service getServicedetail(String sid) {
+        String query = "  select * from Service where ServiceID =?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, sid);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Service(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getDouble(6));
+            }
+        } catch (Exception e) {
+        }
+           return null;
     }
 
     @Override

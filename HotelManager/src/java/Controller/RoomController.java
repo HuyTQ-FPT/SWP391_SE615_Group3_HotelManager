@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,6 +41,7 @@ public class RoomController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
             RoomDAOImpl dao = new RoomDAOImpl();
             ImageDAOImpl daos = new ImageDAOImpl();
             String service = request.getParameter("do");
@@ -74,7 +76,9 @@ public class RoomController extends HttpServlet {
                 Room rooom = dao.getRoom(RoomID);
                 request.setAttribute("Room", rooom);
                 request.setAttribute("img", img);
+                session.setAttribute("isroomde", "isroomde");
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
+                session.removeAttribute("isroomde");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
