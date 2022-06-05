@@ -40,8 +40,7 @@ public class BlogController extends HttpServlet {
             BlogDAOImpl dao = new BlogDAOImpl();
             Vector<Blog> b = dao.getBlog("select * from Blog ");
             request.setAttribute("b", b);
-             request.getRequestDispatcher("about.html").forward(request, response);
-
+             request.getRequestDispatcher("Blog.jsp").forward(request, response);
         }
     }
 
