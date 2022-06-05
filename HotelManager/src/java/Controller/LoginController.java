@@ -103,6 +103,11 @@ public class LoginController extends HttpServlet {
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
+                if (!email.endsWith("@gmail.com") && email.equalsIgnoreCase("@gmail.com")) {
+                    String error = "Email example:ABC@gmail.com";
+                    request.setAttribute("errorpass", error);
+                    request.getRequestDispatcher("Register.jsp").forward(request, response);
+                }
                 if (username.length() < 4 || password.length() < 8) {
                     String error = "Passwords and Username more than 8 characters";
                     request.setAttribute("errorpass", error);

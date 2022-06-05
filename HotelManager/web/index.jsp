@@ -4,6 +4,7 @@
     Author     : admin
 --%>
 
+<%@page import="Entity.Account"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Entity.Service"%>
 <%@page import="java.sql.ResultSet"%>
@@ -41,6 +42,81 @@
         <link rel="stylesheet" href="css/tooplate-style.css">
     </head>
     <style>
+        .card{
+            display: none;
+            opacity: 0.9;
+            z-index: 3;
+    width: 150px;
+    height: 250px;
+    text-align: center;
+    background-color: #1F2123;
+    color: white;
+    position: relative;
+    position: fixed;
+    top: 75px;
+    right: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+.card_img img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 5px solid #A53E3E;
+    background-size: cover;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: 0.4s;
+    transition-delay: 0.1s;
+    transform: rotate(30deg);
+}
+.card_name{
+    margin-top: 10px;
+    color: #A53E3E;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+.card_logo a{
+    color: white;
+    margin: 0px 10px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.4s;
+    text-decoration: none;
+}
+.card_button button{
+    margin-top: 10px;
+    width: 50%;
+    height: 30px;
+    border-radius: 3px;
+    border: 2px solid #A53E3E;
+    color: white;
+    background-color: #A53E3E;
+    cursor: pointer;
+    transition: 0.4s;
+    font-size: 10px;
+}
+.card_button button:hover{
+    background-color:#913939;
+    font-size: 11px;
+}
+.card_logo a:hover{
+    color: #A53E3E;
+}
+.card_img img:hover{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 5px solid #A53E3E;
+    background-size: cover;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: 0.4s;
+    transition-delay: 0.1s;
+    transform: rotate(0deg);
+}
+
         .login{
             position: fixed;
             right: 120px;
@@ -49,13 +125,17 @@
             position: fixed;
             right: 40px;
         }
+        .user{
+            position: fixed;
+            right: 100px;
+        }
     </style>
     <body>
         <% Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
             Vector<Room> vector2 = (Vector<Room>) request.getAttribute("vector2");
             Vector<Service> vector3 = (Vector<Service>) request.getAttribute("vector3");
             Vector<Room> vector4 = (Vector<Room>) request.getAttribute("vector4");
-
+            Account a = (Account)session.getAttribute("login");
         %>
         <div class="site-wrap">
 
@@ -70,7 +150,32 @@
 
 
             <jsp:include page="header.jsp"></jsp:include>
+            <div class="card" id="team" onmousemove="less()">
+                    <div class="card_img">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                    </div>
 
+                    <div class="card_name">
+                        <p><%=a.getUser()%></p>
+                    </div>
+
+                    <div class="card_logo">
+                        <a href="https://www.youtube.com/">
+                            <i class='bx bxl-facebook-circle'></i>
+                        </a>
+                        <a href="https://www.youtube.com/">
+                            <i class='bx bxl-youtube' ></i>
+                        </a>
+                        <a href="https://www.youtube.com/">
+                            <i class='bx bxl-github' ></i>
+                        </a>
+                    </div>
+
+                    <div class="card_button">
+                        <a href="UserController"><button>Edit Profile</button></a>                       
+                    </div>
+                    
+            </div>  
 
             <div class="slide-one-item home-slider owl-carousel">
                 <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">

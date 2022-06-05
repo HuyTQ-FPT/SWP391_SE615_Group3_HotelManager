@@ -37,6 +37,86 @@ public class User {
         this.ImgCMT = ImgCMT;
     }
 
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
+    }
+
+    public int getAccountID() {
+        return AccountID;
+    }
+
+    public void setAccountID(int AccountID) {
+        this.AccountID = AccountID;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
+    }
+
+    public String getUserPhone() {
+        return UserPhone;
+    }
+
+    public void setUserPhone(String UserPhone) {
+        this.UserPhone = UserPhone;
+    }
+
+    public String getUserEmail() {
+        return UserEmail;
+    }
+
+    public void setUserEmail(String UserEmail) {
+        this.UserEmail = UserEmail;
+    }
+
+    public int getUserGender() {
+        return UserGender;
+    }
+
+    public void setUserGender(int UserGender) {
+        this.UserGender = UserGender;
+    }
+
+    public String getUserImage() {
+        return UserImage;
+    }
+
+    public void setUserImage(String UserImage) {
+        this.UserImage = UserImage;
+    }
+
+    public String getUserAdress() {
+        return UserAdress;
+    }
+
+    public void setUserAdress(String UserAdress) {
+        this.UserAdress = UserAdress;
+    }
+
+    public String getCMT() {
+        return CMT;
+    }
+
+    public void setCMT(String CMT) {
+        this.CMT = CMT;
+    }
+
+    public String getImgCMT() {
+        return ImgCMT;
+    }
+
+    public void setImgCMT(String ImgCMT) {
+        this.ImgCMT = ImgCMT;
+    }
+
     @Override
     public String toString() {
         return "User{" + "UserID=" + UserID + ", AccountID=" + AccountID + ", UserName=" + UserName + ", UserPhone=" + UserPhone + ", UserEmail=" + UserEmail + ", UserGender=" + UserGender + ", UserImage=" + UserImage + ", UserAdress=" + UserAdress + ", CMT=" + CMT + ", ImgCMT=" + ImgCMT + '}';
