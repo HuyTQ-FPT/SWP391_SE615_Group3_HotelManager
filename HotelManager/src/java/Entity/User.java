@@ -37,17 +37,7 @@ public class User {
         this.ImgCMT = ImgCMT;
     }
 
-    public User(int AccountID, String UserName, String UserPhone, String UserEmail, int UserGender, String UserImage, String UserAdress, String CMT, String ImgCMT) {
-        this.AccountID = AccountID;
-        this.UserName = UserName;
-        this.UserPhone = UserPhone;
-        this.UserEmail = UserEmail;
-        this.UserGender = UserGender;
-        this.UserImage = UserImage;
-        this.UserAdress = UserAdress;
-        this.CMT = CMT;
-        this.ImgCMT = ImgCMT;
-    }
+  
 
   
 

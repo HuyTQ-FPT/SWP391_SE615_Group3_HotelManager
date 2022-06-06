@@ -77,7 +77,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
                 + "      ,[UserPhone] = ?\n"
                 + "      ,[UserEmail] = ?\n"
                 + "      ,[UserGender] = ?\n"
-                + "      ,[UserImage] = ?\n"
+                + "      ,[Birthday] = ?\n"
                 + "      ,[UserAdress] = ?\n"
                 + "      ,[CMT] = ?\n"
                 + "      ,[ImgCMT] = ?\n"
@@ -90,7 +90,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
             pre.setString(3, User.getUserPhone());
             pre.setString(4, User.getUserEmail());
             pre.setInt(5, User.getUserGender());
-            pre.setString(6, User.getUserImage());
+            pre.setString(6, User.getBirthday());
             pre.setString(7, User.getUserAdress());
             pre.setString(8, User.getCMT());
             pre.setString(9, User.getImgCMT());
