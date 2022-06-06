@@ -8,6 +8,8 @@ package Dao.impl;
 import Dao.UserDAO;
 import Entity.User;
 import context.DBContext;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Vector;
 
 /**
@@ -28,7 +30,26 @@ public class UserDAOImpl extends DBContext implements UserDAO{
 
     @Override
     public void updateUser(User User) {
-        
+        String sqlPre = "update [User] set UserName =?, UserAdress=?, ImgCMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
+
+        try {
+            //System.out.println(sql);
+//        create statement: execute sql
+            PreparedStatement pre = conn.prepareStatement(sqlPre);
+            pre.setString(1, User.getUserName());
+            pre.setString(2, User.getUserAdress());
+            pre.setString(3, User.getImgCMT());
+            pre.setString(4, User.getUserEmail());
+            pre.setString(5, User.getUserPhone());
+            pre.setInt(6, User.getUserGender());
+            pre.setString(7, User.getBirthday());
+            pre.setInt(8, User.getUserID());
+
+            //run
+            pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
