@@ -4,6 +4,8 @@
     Author     : Admin
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,6 +40,13 @@
 }
     </style>
     <body>
+        <%ResultSet rs =(ResultSet)request.getAttribute("viewupdateprofile");
+        String er =(String)request.getAttribute("error").toString();
+        String s="";
+        if(!er.equals("")){
+            s="Please input infomation update";
+        }
+        %>
         <div class="container">
 		<div class="main-body">
 			<div class="row">
@@ -47,11 +56,13 @@
 							<div class="d-flex flex-column align-items-center text-center">
 								<img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
 								<div class="mt-3">
-									<h4>John Doe</h4>
+									<%while (rs.next()) {                                            
+                                    %>
+                                    <h4><%=rs.getString(3)%></h4>
 									<p class="text-secondary mb-1">Full Stack Developer</p>
-									<p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+									<p class="text-muted font-size-sm">22 years old</p>
 									<button class="btn btn-primary">Follow</button>
-									<button class="btn btn-outline-primary">Message</button>
+									<button class="btn btn-outline">Message</button>
 								</div>
 							</div>
 							<hr class="my-4">
@@ -83,13 +94,16 @@
 				<div class="col-lg-8">
 					<div class="card">
                                             <form action="UserController?do=Updateprofile" method="post">
+                                                <input type="hidden" name="uid" value="<%=rs.getInt(5)%>">
+                                                <input type="hidden" name="username" value="<%=rs.getString(3)%>">
+                                                <input type="hidden" name="password" value="<%=rs.getString(4)%>">
 						<div class="card-body">
 							<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Full Name</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-                                                                    <input type="text" name="name" class="form-control" value="John Doe">
+                                                                    <input type="text" name="name" class="form-control" value="<%=rs.getString(7)%>">
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -97,7 +111,7 @@
 									<h6 class="mb-0">Email</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-                                                                    <input type="text" name="email" class="form-control" value="john@example.com">
+                                                                    <input type="text" name="email" class="form-control" value="<%=rs.getString(8)%>">
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -105,15 +119,15 @@
 									<h6 class="mb-0">Phone</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-                                                                    <input type="text" name="phone" class="form-control" value="(239) 816-9029">
+                                                                    <input type="text" name="phone" class="form-control" value="<%=rs.getString(9)%>">
 								</div>
 							</div>
 							<div class="row mb-3">
 								<div class="col-sm-3">
-									<h6 class="mb-0">CMT</h6>
+									<h6 class="mb-0">CMND</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-                                                                    <input type="text" name="cmt" class="form-control" value="(320) 380-4539">
+                                                                    <input type="text" name="cmt" class="form-control" value="<%=rs.getString(13)%>">
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -121,9 +135,29 @@
 									<h6 class="mb-0">Address</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-                                                                    <input type="text" name="address" class="form-control" value="Bay Area, San Francisco, CA">
+                                                                    <input type="text" name="address" class="form-control" value="<%=rs.getString(12)%>">
 								</div>
 							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Gender</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+                                                                    <input type="text" name="gender" class="form-control" value="<%=rs.getInt(10)%>">
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Birthday</h6>
+								</div>
+								<div class="col-sm-9 text-secondary">
+                                         
+                                                                    <input type="date" name="bod" class="form-control" value="<%=rs.getString(11)%>">
+								</div>
+							</div>
+	
+                                                                <h4 id="er" style="color: red;font-size: 15px; position: fixed;"><%=s%></h4>
+                            <br>
 							<div class="row">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-9 text-secondary">
@@ -131,37 +165,10 @@
 								</div>
 							</div>
 						</div>
+                                                <%}%>
                                             </form>
 					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="card">
-								<div class="card-body">
-									<h5 class="d-flex align-items-center mb-3">Project Status</h5>
-									<p>Web Design</p>
-									<div class="progress mb-3" style="height: 5px">
-										<div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-									<p>Website Markup</p>
-									<div class="progress mb-3" style="height: 5px">
-										<div class="progress-bar bg-danger" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-									<p>One Page</p>
-									<div class="progress mb-3" style="height: 5px">
-										<div class="progress-bar bg-success" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-									<p>Mobile Template</p>
-									<div class="progress mb-3" style="height: 5px">
-										<div class="progress-bar bg-warning" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-									<p>Backend API</p>
-									<div class="progress" style="height: 5px">
-										<div class="progress-bar bg-info" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+		
 				</div>
 			</div>
 		</div>

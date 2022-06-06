@@ -70,7 +70,7 @@
     cursor: pointer;
     transition: 0.4s;
     transition-delay: 0.1s;
-    transform: rotate(30deg);
+    transform: rotate(20deg);
 }
 .card_name{
     margin-top: 10px;
@@ -106,8 +106,8 @@
     color: #A53E3E;
 }
 .card_img img:hover{
-    width: 80px;
-    height: 80px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     border: 5px solid #A53E3E;
     background-size: cover;
@@ -150,7 +150,7 @@
 
 
             <jsp:include page="header.jsp"></jsp:include>
-            <div class="card" id="team" onmousemove="less()">
+            <div class="card" id="team">
                     <div class="card_img">
                         <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
                     </div>
@@ -604,13 +604,6 @@
                                     });
                                     function show() {
                 if (document.getElementById("team").style.display == "none") {
-                    document.getElementById("team").style.display = "block";
-                } else {
-                    document.getElementById("team").style.display = "none";
-                }
-            }
-            function less() {
-                if (document.getElementById("team").style.display == "block") {
                     document.getElementById("team").style.display = "block";
                 } else {
                     document.getElementById("team").style.display = "none";

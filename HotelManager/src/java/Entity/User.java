@@ -11,27 +11,27 @@ package Entity;
  */
 public class User {
     private int UserID;
-    private int AccountID;
-    private String UserName;
-    private String UserPhone;
-    private String UserEmail;
-    private int UserGender;
-    private String UserImage;
-    private String UserAdress;
-    private String CMT;
-    private String ImgCMT;
+	private int AccountID ;
+	private String UserName;
+	private String UserPhone;
+	private String UserEmail ;
+	private int UserGender;
+	private String Birthday ;
+	private String UserAdress;
+	private String CMT ;
+	private String ImgCMT;
 
     public User() {
     }
 
-    public User(int UserID, int AccountID, String UserName, String UserPhone, String UserEmail, int UserGender, String UserImage, String UserAdress, String CMT, String ImgCMT) {
+    public User(int UserID, int AccountID, String UserName, String UserPhone, String UserEmail, int UserGender, String Birthday, String UserAdress, String CMT, String ImgCMT) {
         this.UserID = UserID;
         this.AccountID = AccountID;
         this.UserName = UserName;
         this.UserPhone = UserPhone;
         this.UserEmail = UserEmail;
         this.UserGender = UserGender;
-        this.UserImage = UserImage;
+        this.Birthday = Birthday;
         this.UserAdress = UserAdress;
         this.CMT = CMT;
         this.ImgCMT = ImgCMT;
@@ -99,12 +99,12 @@ public class User {
         this.UserGender = UserGender;
     }
 
-    public String getUserImage() {
-        return UserImage;
+    public String getBirthday() {
+        return Birthday;
     }
 
-    public void setUserImage(String UserImage) {
-        this.UserImage = UserImage;
+    public void setUserImage(String Birthday) {
+        this.Birthday = Birthday;
     }
 
     public String getUserAdress() {
@@ -133,7 +133,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "UserID=" + UserID + ", AccountID=" + AccountID + ", UserName=" + UserName + ", UserPhone=" + UserPhone + ", UserEmail=" + UserEmail + ", UserGender=" + UserGender + ", UserImage=" + UserImage + ", UserAdress=" + UserAdress + ", CMT=" + CMT + ", ImgCMT=" + ImgCMT + '}';
+        return "User{" + "UserID=" + UserID + ", AccountID=" + AccountID + ", UserName=" + UserName + ", UserPhone=" + UserPhone + ", UserEmail=" + UserEmail + ", UserGender=" + UserGender + ", UserImage=" + Birthday + ", UserAdress=" + UserAdress + ", CMT=" + CMT + ", ImgCMT=" + ImgCMT + '}';
     }
 
 }

@@ -59,7 +59,7 @@
                                                     <% } else {%>
                                                 <li class="login"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Log out</a></li>
                                                 
-                                                <li class="user"><a id="showmore" onmouseover="show()" style="font-family: PlayFair Display; cursor: pointer;"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></a>
+                                                <li class="user"><a id="showmore" onclick="show()" style="font-family: PlayFair Display; cursor: pointer;"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></a>
                                       
                                                 </li>   
                                                     <%}%>
