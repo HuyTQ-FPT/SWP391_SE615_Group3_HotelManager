@@ -1,4 +1,5 @@
 
+<%@page import="Entity.User"%>
 <%@page import="java.util.Vector"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!DOCTYPE html>
@@ -174,7 +175,7 @@
     </head>
     <body>
         <%
-            //Vector<Customers> vector = (Vector<Customers>) request.getAttribute("list");
+            Vector<User> vector = (Vector<User>) request.getAttribute("vectorU");
         %>
         <!--        <div class="col-sm-8"><a class="managerPro" href="ControllerOrder"><h5>OrderList Manager</h5></a></div>
                 <div class="col-sm-8"><a class="managerCus" href="ControllerProduct"><h5>Products Manager</h5></a></div>-->
@@ -183,8 +184,8 @@
                 <div class="container">
                     <span class="admin"></i>Admin</span>
                     <form action="ControllerLogin_Admin?do=logout" method="post">
-                           <button type="submit" name="log-out" class="log-out">Log Out</button>
-                     </form>
+                        <button type="submit" name="log-out" class="log-out">Log Out</button>
+                    </form>
                     <form action="ControllerCustomer?do=listAllCustomer" class="searchform order-lg-last" method="post">
                         <div class="form-group d-flex">
                             <input name="cusid" type="text" class="form-control pl-3" placeholder="SearchCustomerID">
@@ -206,43 +207,42 @@
             <table class="table table-striped table-hover table-bordered" style="Margin-left:10px;"> 
                 <thead>
                     <tr class="title" >
-                        <th>CustomerID</th>
-                        <th>CompanyName</th>
-                        <th>ContactName</th>
-                        <th>ContactTitle</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>Region</th>
-                        <th>PostalCode</th>
-                        <th>Country</th>
-                        <th>Phone</th>
-                        <th>Fax</th>
+                        <th>UserID</th>
+                        <th>AccountID</th>
                         <th>UserName</th>
-                        <th>PassWord</th>
-                        Insert Customer:<a href="ControllerCustomer?do=insertCustomer" class="view" title="insert Customer" data-toggle="tooltip"><i class="material-icons" style="font-size:23px;">add_circle</i></a>
+                        <th>UserPhone</th>
+                        <th>UserEmail</th>
+                        <th>UserGender</th>
+                    
+                        <th>CMT</th>
+                   
+
                     </tr>
                 </thead>
-                <tbody>                                      
+                <tbody>      
+                    <%for (User u : vector) {%>
+
+
+
                     <tr class="name">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><%= u.getUserID()%></td>
+                        <td><%=u.getAccountID()%></td>
+                        <td><%=u.getUserName()%></td>
+                        <td><%=u.getUserPhone()%></td>
+                        <td><%=u.getUserEmail()%></td>
+                        <td><%=u.getUserGender()%></td>
+                      
+                        <td><%=u.getCMT()%></td>
+                  
+
                         <td style="width:100px;">
                             <!--<a href="ControllerOrder?do=Orderdetail&oid=&status=" class="view" title="insert" data-toggle="tooltip"><i class="material-icons">add_circle</i></a>-->
-                            <a href="ControllerCustomer?do=updateCustomer&idcus=" class="edit" title="Update" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a href="ControllerCustomer?do=deleteCustomer&idcus=" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            <a href="ControllerCustomer?do=updateCustomer&UserID=<%=u.getUserID()%>" class="edit" title="Update" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <!--<a href="ControllerCustomer?do=deleteCustomer&idcus=" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>-->
                         </td>                        
                     </tr> 
+
+                    <%}%>
                 </tbody>
             </table>
         </div> 

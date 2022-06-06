@@ -14,21 +14,22 @@ import java.util.Vector;
  *
  * @author Admin
  */
-public class UserDAOImpl extends DBContext implements UserDAO{
+public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public Vector<User> getUserList() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+       
     }
-
+   
     @Override
     public void insertUser(User User) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
     public void updateUser(User User) {
-        
+
     }
 
     @Override
@@ -40,5 +41,5 @@ public class UserDAOImpl extends DBContext implements UserDAO{
     public User getUser(int uid) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

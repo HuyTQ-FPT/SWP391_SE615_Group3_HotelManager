@@ -20,7 +20,7 @@ public class SendMail {
     private static final String digits = "0123456789"; // 0-9
     private static final String ALPHA_NUMERIC = alpha + alphaUpperCase + digits;
     private static Random generator = new Random();
-     final String fromEmail = "hieulbmhe151429@fpt.edu.vn";
+    final String fromEmail = "hieulbmhe151429@fpt.edu.vn";
     final String password = "lebaminhhieu";
 
     public SendMail() {
@@ -33,7 +33,6 @@ public class SendMail {
     public String getPassword() {
         return password;
     }
-    
 
     public void send(String to, String sub,
             String message1, final String user, final String pass) {
@@ -46,11 +45,11 @@ public class SendMail {
            As shown here in the code. 
            Change accordingly, if your email id is not a gmail id
          */
-        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.host", "smtp.gmail.com");//SMTP Host
         //below mentioned mail.smtp.port is optional
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.port", "587");//TLS Port
+        props.put("mail.smtp.auth", "true");//enable authentication
+        props.put("mail.smtp.starttls.enable", "true");//enable STARTTLS
 
         /* Pass Properties object(props) and Authenticator object   
            for authentication to Session instance 
