@@ -37,10 +37,20 @@ public class BlogController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            BlogDAOImpl dao = new BlogDAOImpl();
-            Vector<Blog> b = dao.getBlog("select * from Blog ");
+            BlogDAOImpl dao = new BlogDAOImpl();          
+             String dos = request.getParameter("do");
+             
+             if(dos.equals("getBlog")){
+                  Vector<Blog> b = dao.getBlog("select * from Blog ");
             request.setAttribute("b", b);
-             request.getRequestDispatcher("Blog.jsp").forward(request, response);
+            request.getRequestDispatcher("Blog.jsp").forward(request, response);              
+             };
+             if(dos.equals("detailBlog")){       
+                String BlogID = request.getParameter("blogID");
+                Vector<Blog> c = dao.getBlog("select * from Blog where [BlogID]='" + BlogID + "'");
+                request.setAttribute("c", c);
+                request.getRequestDispatcher("BlogDetail.jsp").forward(request, response);         
+             }
         }
     }
 

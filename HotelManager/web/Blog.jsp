@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">  
         <link rel="stylesheet" href="css/aos.css">
         <link rel="stylesheet" href="css/style.css">
-
+    
 
         <link rel="stylesheet" href="css/style_2.css" type="text/css">
     </head>
@@ -184,7 +184,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6">                                  
                                         <div class="blog__item">
                                             <div class="blog__item__pic">
-                                                <img style="width:300px" src="images/anhblog/${c.blogImage}" alt="">
+                                                <img style="width: 350px; height: 250px;" src="images/anhblog/${c.blogImage}" alt="">
                                             </div>
                                             <div class="blog__item__text">
                                                 <ul>
@@ -193,7 +193,7 @@
                                                 </ul>
                                                 <h5><a href="#">${c.blogTitleString}</a></h5>
 <!--                                                <p>${c.blogDescription}</p>-->
-                                                <a href="BlogDetail.html" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                                                <a href="BlogController?do=detailBlog&blogID=${c.blogID}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
                                             </div>
                                         </div>                                 
                                 </div>

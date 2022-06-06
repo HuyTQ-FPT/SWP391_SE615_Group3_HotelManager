@@ -49,7 +49,7 @@
                                                     </ul>
                                                 </li>
                                                 <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>
-                                                <li><a style="font-family: PlayFair Display" href="BlogController">Thông tin</a></li>
+                                                <li><a style="font-family: PlayFair Display" href="BlogController?do=getBlog">Thông tin</a></li>
                                                 <li><a style="font-family: PlayFair Display" href="contact.html">Liên hệ</a></li>
                                                     <%
                                                         if (session.getAttribute("login") == null) {

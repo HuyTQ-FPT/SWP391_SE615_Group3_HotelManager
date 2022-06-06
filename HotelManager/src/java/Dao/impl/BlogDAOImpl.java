@@ -42,10 +42,10 @@ public class BlogDAOImpl extends DBContext {
         }
         return vector;
     }
-
+    
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
-        Vector<Blog> b = dao.getBlog("select * from Blog ");
+        Vector b = dao.getBlog("select * from Blog  where [BlogID] = 1");
         System.out.println(b);
     }
 }
