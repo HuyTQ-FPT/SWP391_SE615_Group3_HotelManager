@@ -56,11 +56,8 @@ public class LoginController extends HttpServlet {
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
             if (service.equals("CheckLogin")) {
-                System.out.println(service);
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
-                System.out.println(username);
-                System.out.println(password);
                 ResultSet rs = dao1.getData("select * from Account where [user]='" + username + "' and [password]='" + password + "'");
                 if (rs.next() == true) {
                     if (request.getParameterValues("remember") != null) {
@@ -71,19 +68,21 @@ public class LoginController extends HttpServlet {
                         response.addCookie(pass);
                         response.addCookie(user);
                     }
-                    session.setAttribute("login", "login");
                     System.out.println(rs.getString(2));
                     if (rs.getString(2).equals("1")) {
+                        session.setAttribute("login", new Account(rs.getInt(1),rs.getInt(2), username, password));
                         response.sendRedirect("HomeController");
                     } else if (rs.getString(2).equals("2")) {
+                        session.setAttribute("login", new Account(rs.getInt(1),rs.getInt(2), username, password));
                         request.getRequestDispatcher("ManagerProduct.jsp").forward(request, response);
                     } else {
+                        session.setAttribute("login", new Account(rs.getInt(1),rs.getInt(2), username, password));
                         request.getRequestDispatcher("indexAdmin.html").forward(request, response);
                     }
                 } else {
                     String error = "Incorrect username or Password";
                     request.setAttribute("error", error);
-                    response.sendRedirect("LoginController");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
             }
             if (service.equals("CheckRegister")) {

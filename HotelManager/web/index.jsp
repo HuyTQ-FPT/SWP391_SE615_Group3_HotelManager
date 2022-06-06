@@ -32,6 +32,7 @@
         <link rel="stylesheet" href="css/animate.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
         <link rel="stylesheet" href="css/aos.css">
 
@@ -134,8 +135,7 @@
         <% Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
             Vector<Room> vector2 = (Vector<Room>) request.getAttribute("vector2");
             Vector<Service> vector3 = (Vector<Service>) request.getAttribute("vector3");
-            Vector<Room> vector4 = (Vector<Room>) request.getAttribute("vector4");
-            Account a = (Account)session.getAttribute("login");
+            Vector<Room> vector4 = (Vector<Room>) request.getAttribute("vector4");   
         %>
         <div class="site-wrap">
 
@@ -154,11 +154,12 @@
                     <div class="card_img">
                         <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
                     </div>
-
+            <c:if test="${sessionScope.login!=null}">
                     <div class="card_name">
-                        <p><%=a.getUser()%></p>
+                        <p>${sessionScope.login.getUser()}</p>                        
                     </div>
-
+            </c:if>
+                
                     <div class="card_logo">
                         <a href="https://www.youtube.com/">
                             <i class='bx bxl-facebook-circle'></i>
@@ -601,6 +602,21 @@
                                         // Update the current year in copyright
                                         $('.tm-current-year').text(new Date().getFullYear());
                                     });
+                                    function show() {
+                if (document.getElementById("team").style.display == "none") {
+                    document.getElementById("team").style.display = "block";
+                } else {
+                    document.getElementById("team").style.display = "none";
+                }
+            }
+            function less() {
+                if (document.getElementById("team").style.display == "block") {
+                    document.getElementById("team").style.display = "block";
+                } else {
+                    document.getElementById("team").style.display = "none";
+                }
+            }
         </script>
+        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     </body>
 </html>

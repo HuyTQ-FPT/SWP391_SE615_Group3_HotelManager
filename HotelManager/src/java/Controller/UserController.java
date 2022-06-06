@@ -9,6 +9,7 @@ import Dao.impl.AccountDAOImpl;
 import context.DBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +43,19 @@ public class UserController extends HttpServlet {
             String service = request.getParameter("do");
             if (service == null) {
                 service = "Profile";
+            }
+            if(service.equals("Profile")){
+                
+                ResultSet rs = dao.getData("select u.* from Account a join [User] u\n" +
+"on a.AccountID=u.AccountID\n" +
+"where [User]='user1' and [password]='12345678'");
+                request.getRequestDispatcher("Profile.jsp").forward(request, response);
+            }
+            if(service.equals("Viewupdateprofile")){
+                
+            }
+            if(service.equals("Updateprofile")){
+                
             }
         }
     }

@@ -7,6 +7,7 @@ package Controller;
 
 import Dao.impl.RoomDAOImpl;
 import Dao.impl.ServiceDAOImpl;
+import Entity.Account;
 import Entity.Room;
 import Entity.Service;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,6 +40,7 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
             RoomDAOImpl dao = new RoomDAOImpl();
             ServiceDAOImpl dao1 = new ServiceDAOImpl();
             String service = request.getParameter("do");
