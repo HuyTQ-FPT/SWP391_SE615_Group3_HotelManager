@@ -49,7 +49,9 @@ public class BlogController extends HttpServlet {
                 String BlogID = request.getParameter("blogID");
                 Vector<Blog> c = dao.getBlog("select * from Blog where [BlogID]='" + BlogID + "'");
                 request.setAttribute("c", c);
-                request.getRequestDispatcher("BlogDetail.jsp").forward(request, response);         
+                Vector<Blog> b = dao.getBlog("select * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
+                request.setAttribute("b", b);
+                request.getRequestDispatcher("BlogDetail.jsp").forward(request, response);      
              }
         }
     }

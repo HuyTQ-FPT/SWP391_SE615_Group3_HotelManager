@@ -17,6 +17,7 @@ public interface BlogDAO {
     public void insertBlog(int aID, Blog newBlog);
     public void updateBlog(int bID, Blog updateBlog);
     public void deleteBlog(int bID);
-    public Vector<Blog> getAllBlog();
-    
+    public Vector<Blog> getBlog(String sql);
+     public int getPage();
+      public Vector<Blog> getBlogByPage(int n);
 }

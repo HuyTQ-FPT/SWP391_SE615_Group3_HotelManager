@@ -149,8 +149,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         Room rooom = dao.getRoom("1");
         for (Room room : vector) {
             System.out.println(room);
-        }
-        
+        }      
     }
 
     @Override
@@ -216,4 +215,5 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return vector;
     }
+    
 }
