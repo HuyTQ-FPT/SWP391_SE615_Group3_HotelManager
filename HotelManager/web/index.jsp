@@ -319,7 +319,7 @@
                     <div class="row no-gutters">
                         <%for (Room r : vector4) {%>
                         <div class="col-md-6 col-lg-4">
-                            <a href="#" class="image-popup img-opacity"><img style="width: 400px; height: 250px;" src="images/anhphong/<%=r.getImage()%>" alt="Image" class="img-fluid"></a>                        
+                            <a href="RoomController?do=roomdetail&roomid=<%=r.getRoomID()%>" class="img-opacity"><img style="width: 400px; height: 250px;" src="images/anhphong/<%=r.getImage()%>" alt="Image" class="img-fluid"></a>                        
                         </div>
                         <%}%>
                     </div>
@@ -348,13 +348,15 @@
                         <div class="media-with-text p-md-5">
                             <div class="img-border-sm mb-4">
 
-                                <a href="#" class="popup-vimeo image-play">
+                                <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" class="popup-vimeo image-play">
                                     <img style="width: 250px; height: 200px;" src="images/anhphong/<%=e.getImage()%>" alt="Image" class="img-fluid">
                                 </a>
                             </div>
-                            <h2 class="heading mb-0"><a href="#" style="font-weight: bold; font-size: 25px;color: black;font-family: Didot"><%=e.getCateroom()%></a></h2>
+                                <div>
+                               <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" style="font-weight: bold; font-size: 25px;color: black;font-family: Didot"><%=e.getCateroom()%></a>
                             <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p><%=e.getRoomdesc().substring(0, 100)%>...</p>
+                            <p><%=e.getRoomdesc().substring(0, 100)%>...</p>\
+                                </div>
                         </div>         
                         <%}%>
                     </div>

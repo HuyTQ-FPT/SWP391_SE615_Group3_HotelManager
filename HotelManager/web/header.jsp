@@ -32,10 +32,11 @@
                                                 <li class="has-children">
                                                     <a style="font-family: PlayFair Display" href="RoomController?page=1">Phòng</a>
                                                     <ul class="dropdown arrow-top">
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Hiện có</a></li>
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng đơn</a></li>
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng đôi</a></li>
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng gia đình</a></li> 
+                                                        <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=1">Standard</a></li>
+                                                        <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=2">Superior</a></li>
+                                                        <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=3">Deluxe</a></li>
+                                                        <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=4">Suite</a></li> 
+                                                        <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=5">Connecting room</a></li> 
                                                         <li class="has-children">
                                                             <a style="font-family: PlayFair Display" href="rooms.html">Dịch vụ</a>
                                                             <ul class="dropdown">

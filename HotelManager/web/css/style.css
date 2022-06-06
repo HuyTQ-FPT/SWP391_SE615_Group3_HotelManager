@@ -1422,8 +1422,8 @@ a {
   transition: .2s all ease;
   opacity: 1; }
 
-.img-opacity:hover {
+/*.img-opacity:hover {
   cursor: -webkit-zoom-in;
-  cursor: zoom-in; }
+  cursor: zoom-in; }*/
   .img-opacity:hover img {
     opacity: .5; }

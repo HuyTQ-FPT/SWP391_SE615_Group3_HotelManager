@@ -60,6 +60,15 @@ public class RoomController extends HttpServlet {
                 String adult = request.getParameter("adult");
                 String room = request.getParameter("room");
                 String children = request.getParameter("children");
+                if (adult.isEmpty()) {
+                    adult = "1";
+                }
+                if (children.isEmpty()) {
+                    children = "0";
+                }
+                if (room.isEmpty()) {
+                    room = "1";
+                }
                 int n = (Integer.parseInt(adult) + Integer.parseInt(children)) / 2;
 
                 Vector<Room> vector = dao.getRoomList("select * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
@@ -79,6 +88,15 @@ public class RoomController extends HttpServlet {
                 session.setAttribute("isroomde", "isroomde");
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
                 session.removeAttribute("isroomde");
+            }
+            if (service.equals("CateRoom")) {
+                String cateid = request.getParameter("cate");
+                int id = Integer.parseInt(cateid);
+                Vector<Room> vector = dao.getRoomList("select * from Room Inner JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
+                        + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                        + "where Room.RoomcateID= " + id);
+                request.setAttribute("vector", vector);
+                request.getRequestDispatcher("Sort.jsp").forward(request, response);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
