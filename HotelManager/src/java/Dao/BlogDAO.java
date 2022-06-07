@@ -22,4 +22,5 @@ public interface BlogDAO {
     public Vector<Blog> getBlogByPage(int n);
      public Vector<Blog> getBlogByPagesortnew(int n);
      public Vector<Blog> getBlogByPagesortold(int n);
+   
 }

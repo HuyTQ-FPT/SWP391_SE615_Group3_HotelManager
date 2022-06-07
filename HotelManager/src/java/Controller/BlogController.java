@@ -56,22 +56,21 @@ public class BlogController extends HttpServlet {
                 request.setAttribute("b", b);
             request.getRequestDispatcher("Blog.jsp").forward(request, response);  
              }
-             if(dos.equals("getBlog")){
-//                  Vector<Blog> b = dao.getBlog("select * from Blog ");
-           
-             Vector<Blog> b = null;
-             int n = dao.getPage();
-              request.setAttribute("n", n);
-//              request.setAttribute("vector4", vector4);
-                String page = request.getParameter("page");
-                if (page == null) {
-                    b = dao.getBlogByPage(1);
-                } else {
-                    b = dao.getBlogByPage(Integer.parseInt(page));
-                }
-                 request.setAttribute("b", b);
-            request.getRequestDispatcher("Blog.jsp").forward(request, response);              
-             };
+//             if(dos.equals("getBlog")){
+////                  Vector<Blog> b = dao.getBlog("select * from Blog ");          
+//             Vector<Blog> b = null;
+//             int n = dao.getPage();
+//              request.setAttribute("n", n);
+////              request.setAttribute("vector4", vector4);
+//                String page = request.getParameter("page");
+//                if (page == null) {
+//                    b = dao.getBlogByPage(1);
+//                } else {
+//                    b = dao.getBlogByPage(Integer.parseInt(page));
+//                }
+//                 request.setAttribute("b", b);
+//            request.getRequestDispatcher("Blog.jsp").forward(request, response);              
+//             };
              if(dos.equals("detailBlog")){       
                 String BlogID = request.getParameter("blogID");
                 Vector<Blog> c = dao.getBlog("select * from Blog where [BlogID]='" + BlogID + "'");
@@ -111,6 +110,11 @@ public class BlogController extends HttpServlet {
                  request.setAttribute("b", b);
                  request.setAttribute("a", a);
             request.getRequestDispatcher("Blog.jsp").forward(request, response);       
+              }
+              if(dos.equals("search")){
+                    String author = request.getParameter("search");
+                  Vector<Blog> vector = dao.getBlog("select * from Blog where BlogAuthor = "+ author);
+                  out.println("<h1>Servlet MessageController at " + vector + "</h1>");
               }
         }
     }

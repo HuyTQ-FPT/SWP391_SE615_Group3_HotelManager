@@ -161,8 +161,8 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             ex.printStackTrace();
         }
         return vector;
-        
     }
+    
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
         Vector<Blog> vector = dao.getBlogByPagesortold(1);
