@@ -3,10 +3,9 @@
     Created on : Jun 6, 2022, 1:11:56 AM
     Author     : Admin
 --%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -61,8 +60,8 @@
                                     <h4><%=rs.getString(3)%></h4>
 									<p class="text-secondary mb-1">Full Stack Developer</p>
 									<p class="text-muted font-size-sm">22 years old</p>
-									<button class="btn btn-primary">Follow</button>
-									<button class="btn btn-outline">Message</button>
+									<a href="LoginController?do=ChangePassword1"><button class="btn btn-primary">Đổi mật khẩu</button></a>
+                  
 								</div>
 							</div>
 							<hr class="my-4">
@@ -100,7 +99,7 @@
 						<div class="card-body">
 							<div class="row mb-3">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Full Name</h6>
+									<h6 class="mb-0">Tên của bạn</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
                                                                     <input type="text" name="name" class="form-control" value="<%=rs.getString(7)%>">
@@ -116,7 +115,7 @@
 							</div>
 							<div class="row mb-3">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Phone</h6>
+									<h6 class="mb-0">Số điện thoại</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
                                                                     <input type="text" name="phone" class="form-control" value="<%=rs.getString(9)%>">
@@ -132,7 +131,7 @@
 							</div>
 							<div class="row mb-3">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Address</h6>
+									<h6 class="mb-0">Địa chỉ</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
                                                                     <input type="text" name="address" class="form-control" value="<%=rs.getString(12)%>">
@@ -140,7 +139,7 @@
 							</div>
 							<div class="row mb-3">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Gender</h6>
+									<h6 class="mb-0">Giới tính</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
                                                                     <input type="text" name="gender" class="form-control" value="<%=rs.getInt(10)%>">
@@ -148,7 +147,7 @@
 							</div>
 							<div class="row mb-3">
 								<div class="col-sm-3">
-									<h6 class="mb-0">Birthday</h6>
+									<h6 class="mb-0">Ngày sinh</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
                                          
@@ -161,7 +160,7 @@
 							<div class="row">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-9 text-secondary">
-									<input type="submit" class="btn btn-primary px-4" value="Save Changes">
+									<input type="submit" class="btn btn-primary px-4" value="Lưu">
 								</div>
 							</div>
 						</div>
