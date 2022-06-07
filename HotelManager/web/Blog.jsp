@@ -89,50 +89,33 @@
                                 </div>
                                 <div class="blog__sidebar__item">
                                     <h4>Recent News</h4>
+                                    <c:forEach items="${b}" var="c">
                                     <div class="blog__sidebar__recent">
                                         <a href="#" class="blog__sidebar__recent__item">
                                             <div class="blog__sidebar__recent__item__pic">
-                                                <img src="img/blog/sidebar/sr-1.jpg" alt="">
+                                                <img style="width: 50px; height: 50px;"src="images/anhblog/${c.blogImage}" alt="">
                                             </div>
                                             <div class="blog__sidebar__recent__item__text">
-                                                <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
-                                                <span>MAR 05, 2019</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="blog__sidebar__recent__item">
-                                            <div class="blog__sidebar__recent__item__pic">
-                                                <img src="img/blog/sidebar/sr-2.jpg" alt="">
-                                            </div>
-                                            <div class="blog__sidebar__recent__item__text">
-                                                <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>
-                                                <span>MAR 05, 2019</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="blog__sidebar__recent__item">
-                                            <div class="blog__sidebar__recent__item__pic">
-                                                <img src="img/blog/sidebar/sr-3.jpg" alt="">
-                                            </div>
-                                            <div class="blog__sidebar__recent__item__text">
-                                                <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
-                                                <span>MAR 05, 2019</span>
+                                                <h6>${c.blogTitleString}</h6>
+                                                <span>${c.blogDate}</span>
                                             </div>
                                         </a>
                                     </div>
+                                    </c:forEach>
                                 </div>
-                                <div class="blog__sidebar__item">
-                                    <h4>Search By</h4>
-                                    <div class="blog__sidebar__item__tags">
-                                        <a href="#">Apple</a>
-                                        <a href="#">Beauty</a>
-                                        <a href="#">Vegetables</a>
-                                        <a href="#">Fruit</a>
-                                        <a href="#">Healthy Food</a>
-                                        <a href="#">Lifestyle</a>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
+                        
                         <div class="col-lg-8 col-md-7">
+                            <div class="label">
+                                    <label>
+                                        <a href="BlogController?do=sortnew">Newest</a>
+                                    </label>
+                                    <label>
+                                        <a href="BlogController?do=sortold">Oldest</a>
+                                    </label>
+                            </div>
                             <div class="row">
                                  <c:forEach items="${b}" var="c">
                                 <div class="col-lg-6 col-md-6 col-sm-6">                                  
@@ -155,14 +138,34 @@
                                 <div class="col-lg-12">
                                        
                         <div class="col-md-12 text-center">
+                             <c:if test="${a==1}">
                             <div class="site-block-27">
                                 <ul>
                                     <c:forEach begin="1" end="${n}" var="c">
                                   <li><a href="BlogController?page=${c}">${c}</a></li>
                                     </c:forEach>
                                     </ul>
-                                 </div>                     
-                                      </div>                              
+                                 </div>    
+                             </c:if>
+                             <c:if test="${a==2}">
+                            <div class="site-block-27">
+                                <ul>
+                                    <c:forEach begin="1" end="${n}" var="c">
+                                  <li><a href="BlogController?do=sortnew&page=${c}">${c}</a></li>
+                                    </c:forEach>
+                                    </ul>
+                                 </div>    
+                             </c:if>
+                            <c:if test="${a==3}">
+                            <div class="site-block-27">
+                                <ul>
+                                    <c:forEach begin="1" end="${n}" var="c">
+                                  <li><a href="BlogController?do=sortold&page=${c}">${c}</a></li>
+                                    </c:forEach>
+                                    </ul>
+                                 </div>    
+                             </c:if>
+                        </div>                              
                                 </div>                                          
                             </div>
                         </div>

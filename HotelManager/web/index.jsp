@@ -189,11 +189,11 @@
 
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+                                            <input name="check-in" type="date" class="form-control" id="inputCheckIn" placeholder="Check In">
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                            <input name="check-out" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out">
                                         </div>
                                     </div>
                                     <div class="form-row tm-search-form-row">
