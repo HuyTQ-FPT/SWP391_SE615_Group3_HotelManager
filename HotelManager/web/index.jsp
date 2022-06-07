@@ -128,7 +128,7 @@
         }
         .user{
             position: fixed;
-            right: 80px;
+            right: 90px;
         }
         div.stars {
             width: 270px;

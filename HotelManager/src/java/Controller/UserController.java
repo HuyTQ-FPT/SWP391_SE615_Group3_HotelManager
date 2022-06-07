@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -89,8 +90,10 @@ public class UserController extends HttpServlet {
                 // điều kiện update thành công
                 if(!name.equals("") && (gender==1 ||gender==0) && !bod.equals("") && !email.equals("") && !phone.equals("") && !address.equals("") && !cmt.equals("")){
                    dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt)); 
-                   request.setAttribute("profile",rs);
-                   request.getRequestDispatcher("Profile.jsp").forward(request, response);
+                   Cookie mess = new Cookie("mess", "mess");
+                   mess.setMaxAge(5);
+                   response.addCookie(mess);
+                   response.sendRedirect("UserController");
                 }else{ //update thất bại
                     response.sendRedirect("UserController?do=Viewupdateprofile&er=1");
                     
