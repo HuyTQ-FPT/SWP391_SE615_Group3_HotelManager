@@ -145,12 +145,13 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
     public static void main(String[] args) {
         RoomDAOImpl dao= new RoomDAOImpl();
-        Vector<Room> vector= dao.getRoomList("select * from Room");
-        Room rooom = dao.getRoom("1");
-        for (Room room : vector) {
-            System.out.println(room);
+        Vector<Room> vector = dao.getRoomByPage(1);
+        for (Room blog : vector) {
+            System.out.println(blog);
+        }
         }      
-    }
+    
+
 
     @Override
     public int getPageByPageStatus() {

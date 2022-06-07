@@ -39,10 +39,36 @@ public class BlogController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             BlogDAOImpl dao = new BlogDAOImpl();          
              String dos = request.getParameter("do");
-             
+             if(dos == null){
+//             Vector<Blog> b = dao.getBlog("select * from Blog ");
+            
+             Vector<Blog> b = null;
+             int n = dao.getPage();
+              request.setAttribute("n", n);
+//              request.setAttribute("vector4", vector4);
+                String page = request.getParameter("page");
+                if (page == null) {
+                    b = dao.getBlogByPage(1);
+                } else {
+                    b = dao.getBlogByPage(Integer.parseInt(page));
+                }
+                request.setAttribute("b", b);
+            request.getRequestDispatcher("Blog.jsp").forward(request, response);  
+             }
              if(dos.equals("getBlog")){
-                  Vector<Blog> b = dao.getBlog("select * from Blog ");
-            request.setAttribute("b", b);
+//                  Vector<Blog> b = dao.getBlog("select * from Blog ");
+           
+             Vector<Blog> b = null;
+             int n = dao.getPage();
+              request.setAttribute("n", n);
+//              request.setAttribute("vector4", vector4);
+                String page = request.getParameter("page");
+                if (page == null) {
+                    b = dao.getBlogByPage(1);
+                } else {
+                    b = dao.getBlogByPage(Integer.parseInt(page));
+                }
+                 request.setAttribute("b", b);
             request.getRequestDispatcher("Blog.jsp").forward(request, response);              
              };
              if(dos.equals("detailBlog")){       

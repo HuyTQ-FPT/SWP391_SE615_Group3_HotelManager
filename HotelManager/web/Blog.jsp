@@ -4,6 +4,8 @@
     Author     : Thai Quan
 --%>
 
+<%@page import="Entity.Blog"%>
+<%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -41,7 +43,9 @@
         }
     </style>
     <body>
-
+         <%          
+            Vector<Blog> vector4 = (Vector<Blog>) request.getAttribute("vector4");   
+        %>
         <div class="site-wrap">
 
             <div class="site-mobile-menu">
@@ -198,14 +202,16 @@
                                         </div>                                 
                                 </div>
                     </c:forEach>
+                                  
                                 <div class="col-lg-12">
                                     <div class="product__pagination blog__pagination">
-                                        <a href="#">1</a>
-                                        <a href="#">2</a>
-                                        <a href="#">3</a>
-                                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                                         <c:forEach begin="1" end="${n}" var="c">
+                                             <li><a href="BlogController?page=${c}">${c}</a></li>    
+                                                </c:forEach>
                                     </div>
+                               
                                 </div>
+                                            
                             </div>
                         </div>
                     </div>

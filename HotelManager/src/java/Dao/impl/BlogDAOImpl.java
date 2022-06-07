@@ -78,10 +78,10 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             begin += 3;
             end += 3;
         }
-        String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogID) AS RowNum\n" +
-"               FROM Blog\n" +
-"               ) AS RowNum\n" +
-"                WHERE RowNum BETWEEN" + begin + " AND " + end;
+        String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogID) AS RowNum\n"
+                + "               FROM Blog\n"
+                + "               ) AS RowNum\n"
+                + "                WHERE RowNum BETWEEN " + begin + " AND " + end;
         try {
             ResultSet rs = getData(sql);
             while (rs.next()) {
@@ -103,10 +103,8 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
 
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
-        Vector<Blog> vector = dao.getBlogByPage(2);
-        for (Blog blog : vector) {
-            System.out.println(blog);
-        }
+        int n = dao.getPage();
+        System.out.println(n);
     }
 
     @Override

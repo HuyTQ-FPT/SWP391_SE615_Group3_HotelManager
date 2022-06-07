@@ -184,6 +184,7 @@
                             <div class="col-lg-8 col-md-7 order-md-1 order-1">
                                 <div class="blog__details__text">
                                     <img src="images/anhblog/${c.blogImage}" alt="">
+                                    <h5><p style="font-weight: bold; color: #00bbf3; font-size: 28px;">${c.blogTitleString}</p></h5>
                                     <p>${c.blogDescription}</p>
                                 </div>
                                 <div class="blog__details__content">
@@ -233,8 +234,8 @@
                             </div>
                         </div>
                     </div>                 
-                        <div class="row">
-                               <c:forEach items="${b}" var="c">
+                    <div class="row">
+                        <c:forEach items="${b}" var="c">
                             <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="blog__item">
                                     <div class="blog__item__pic">
@@ -245,13 +246,14 @@
                                             <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
                                             <li><i class="fa fa-comment-o"></i> 5</li>
                                         </ul>
+
                                         <h5><a href="#">${c.blogTitleString}</a></h5>
 <!--                                        <p>${c.blogDescription}</p>-->
                                     </div>
                                 </div>
                             </div>                       
-                    </c:forEach>
-                        </div>
+                        </c:forEach>
+                    </div>
                 </div>
             </section>
 
