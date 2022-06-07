@@ -15,6 +15,8 @@ import java.util.Vector;
 public interface DeviceDAO {
 
     public Vector<Device> getAllDevice();
+    
+    public Vector<Device> getDevicebycateroom(String cateRoom);
 
     public void insertDevice(Device newDevice);
 
