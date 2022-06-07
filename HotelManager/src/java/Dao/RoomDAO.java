@@ -29,7 +29,7 @@ public interface RoomDAO {
     
     public int getPageByPrice();
     
-    public Vector<Room> getRoomByPrice(int n);
+    public Vector<Room> getRelateRoomByCate(String cateid);
 
     public Room getRoom(String roomid);
 

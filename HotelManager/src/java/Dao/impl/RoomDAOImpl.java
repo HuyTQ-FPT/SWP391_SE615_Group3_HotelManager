@@ -226,7 +226,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<Room> getRoomByPrice(int n) {
+    public Vector<Room> getRelateRoomByCate(String cateid) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
