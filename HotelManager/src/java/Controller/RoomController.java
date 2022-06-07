@@ -91,10 +91,16 @@ public class RoomController extends HttpServlet {
                 Vector<Device> de = daode.getDevicebycateroom(cateroom);
                 Vector<Service> vector3 = dao1.getServiceListbyran();
                 Room rooom = dao.getRoom(RoomID);
+                Vector<Room> getroomlist = dao.getRoomList(""
+                        + "select top (4) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID\n"
+                        + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                        + "where Room.Status =0 and Room.RoomcateID = " + cateroom + "\n"
+                        + "ORDER BY NEWID()");
                 request.setAttribute("Room", rooom);
                 request.setAttribute("vector3", vector3);
                 request.setAttribute("de", de);
                 request.setAttribute("img", img);
+                request.setAttribute("getroomlist", getroomlist);
                 session.setAttribute("isroomde", "isroomde");
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
                 session.removeAttribute("isroomde");
