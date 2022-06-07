@@ -33,8 +33,9 @@
                             <h4 id="er" style="color: red;font-size: 15px;">${requestScope.eEmail}</h4>
                             <h4 id="er" style="color: red;font-size: 15px;">${requestScope.exampleEmail}</h4>
 
+
                             <div class="form-group">
-                                <input type="text" class="form-input" name="name" id="name" placeholder="Username" required/>
+                                <input type="text" class="form-input" name="name" id="name" placeholder="Username" required maxlength="51"/>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-input" name="email" placeholder="Email" required/>

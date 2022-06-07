@@ -8,7 +8,8 @@ package Controller;
 import Dao.AccountDAO;
 import Dao.impl.AccountDAOImpl;
 import Entity.Account;
-import Entity.SendMail;
+import util.SendMail;
+import util.randomPassword;
 import context.DBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,13 +71,13 @@ public class LoginController extends HttpServlet {
                     }
                     System.out.println(rs.getString(2));
                     if (rs.getString(2).equals("1")) {
-                        session.setAttribute("login", new Account(rs.getInt(1),rs.getInt(2), username, password));
+                        session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
                         response.sendRedirect("HomeController");
                     } else if (rs.getString(2).equals("2")) {
-                        session.setAttribute("login", new Account(rs.getInt(1),rs.getInt(2), username, password));
+                        session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
                         request.getRequestDispatcher("ManagerProduct.jsp").forward(request, response);
                     } else {
-                        session.setAttribute("login", new Account(rs.getInt(1),rs.getInt(2), username, password));
+                        session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
                         request.getRequestDispatcher("indexAdmin.html").forward(request, response);
                     }
                 } else {
@@ -127,33 +128,38 @@ public class LoginController extends HttpServlet {
                 }
             }
             if (service.equals("ForgetPassword")) {
-                String user = request.getParameter("name");
+                String user = request.getParameter("name").trim();
                 String email = request.getParameter("email");
-                if (dao.checkAccount(user) == null) {
-                    String error = "User not exited!!";
-                    request.setAttribute("error", error);
 
-                    request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
-
+                if (dao.checkAccount(user.trim()) == null) { // Check đầu vào cho user
+                    if (user.length() > 50) { 
+                        String error = "Can't be more than 50 characters!";
+                        request.setAttribute("error", error);
+                        request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+                    } else {
+                        String error = "User not exited!!";
+                        request.setAttribute("error", error);
+                        request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+                    }
                 } else {
-                    if (email.matches("^[a-zA-Z]\\w+@(\\w+.)+(\\w+)$")) {
+                    if (email.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
                         SendMail sm = new SendMail();
-                        String newPass = sm.randomAlphaNumeric(8);
+                        randomPassword rdP = new randomPassword();
+                        String newPass = rdP.randomAlphaNumeric(8);
                         request.setAttribute("newpass", newPass);
 
                         String message = "Mật khẩu mới của bạn là:" + newPass + "\n"
-                                + "Nếu bạn muốn đổi mật khẩu click vào link này:" + "http://localhost:8080/HotelManager/ChangePassword.jsp";
+                                + "Nếu bạn muốn đổi mật khẩu click vào link này:" + "http://localhost:8080/HotelManager/LoginController";
                         sm.send(email, "Your new pass word!!!!", message, sm.getFromEmail(), sm.getPassword());
                         dao.updateAccount(user, newPass);
                         String mess = "Send gmail sucsess!!!";
                         request.setAttribute("mess", mess);
                         request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
                     } else {
-                        String eEmail = "Not found email!!";
-                        String exampleEmail = "Example: hiue@gmail.com|hieu@fpt.edu.vn";
+                        String eEmail = "email incorrect !!!!";
+                        String exampleEmail = "Example: hiue@gmail.com";
                         request.setAttribute("eEmail", eEmail);
                         request.setAttribute("exampleEmail", exampleEmail);
-
                         request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
 
                     }
