@@ -100,11 +100,76 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
-
+     @Override
+    public Vector<Blog> getBlogByPagesortnew(int n) {
+              Vector<Blog> vector = new Vector<Blog>();
+        int begin = 1;
+        int end = 3;
+        for (int i = 2; i <= n; i++) {
+            begin += 3;
+            end += 3;
+        }
+        String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogDate desc) AS RowNum\n" +
+"                               FROM Blog\n" +
+"                              ) AS RowNum\n" +
+"                              WHERE RowNum BETWEEN " + begin + " AND " + end;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                int AccountID = rs.getInt(2);
+                String BlogAuthor = rs.getString(3);
+                String BlogDescription = rs.getString(4);
+                String BlogImage = rs.getString(5);
+                String BlogDate = rs.getString(6);
+                String BlogTitleString = rs.getString(7);
+                Blog im = new Blog(id, AccountID, BlogAuthor, BlogDescription, BlogImage, BlogDate, BlogTitleString);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;      
+    }
+    @Override
+    public Vector<Blog> getBlogByPagesortold(int n) {
+              Vector<Blog> vector = new Vector<Blog>();
+        int begin = 1;
+        int end = 3;
+        for (int i = 2; i <= n; i++) {
+            begin += 3;
+            end += 3;
+        }
+        String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogDate asc) AS RowNum\n" +
+"                               FROM Blog\n" +
+"                              ) AS RowNum\n" +
+"                              WHERE RowNum BETWEEN " + begin + " AND " + end;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                int AccountID = rs.getInt(2);
+                String BlogAuthor = rs.getString(3);
+                String BlogDescription = rs.getString(4);
+                String BlogImage = rs.getString(5);
+                String BlogDate = rs.getString(6);
+                String BlogTitleString = rs.getString(7);
+                Blog im = new Blog(id, AccountID, BlogAuthor, BlogDescription, BlogImage, BlogDate, BlogTitleString);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;
+        
+    }
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
-        int n = dao.getPage();
-        System.out.println(n);
+        Vector<Blog> vector = dao.getBlogByPagesortold(1);
+        for (Blog blog : vector) {
+            System.out.println(blog);
+        }
+       
     }
 
     @Override
