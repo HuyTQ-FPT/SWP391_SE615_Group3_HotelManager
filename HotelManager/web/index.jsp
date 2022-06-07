@@ -274,9 +274,16 @@
                                     <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
                                     <strong class="price"><%=v.getRoomprice()%>/ một đêm</strong>
                                     <div class="add-to-cart">
+                                        <c:if test="${sessionScope.login==null}">
+                                        <form action="Login.jsp">
+                                            <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                        </form>
+                                        </c:if>
+                                        <c:if test="${sessionScope.login!=null}">
                                         <form action="#">
                                             <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
                                         </form>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -355,7 +362,7 @@
                                 <div>
                                <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" style="font-weight: bold; font-size: 25px;color: black;font-family: Didot"><%=e.getCateroom()%></a>
                             <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p><%=e.getRoomdesc().substring(0, 100)%>...</p>\
+                            <p><%=e.getRoomdesc().substring(0, 100)%>...</p>
                                 </div>
                         </div>         
                         <%}%>

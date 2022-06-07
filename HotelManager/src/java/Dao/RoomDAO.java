@@ -26,6 +26,10 @@ public interface RoomDAO {
     public Vector<Room> getRoomByPageStatus(int n);
 
     public int getPageByPageStatus();
+    
+    public int getPageByPrice();
+    
+    public Vector<Room> getRoomByPrice(int n);
 
     public Room getRoom(String roomid);
 
