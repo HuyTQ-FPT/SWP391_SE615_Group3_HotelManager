@@ -58,57 +58,7 @@
             </div> <!-- .site-mobile-menu -->
 
 
-            <div class="site-navbar-wrap js-site-navbar bg-white">
-
-                <div class="container">
-                    <div class="site-navbar bg-light">
-                        <div class="py-1">
-                            <div class="row align-items-center">
-                                <div class="col-2">
-                                    <h2 class="mb-0 site-logo"><a href="HomeController">Hoang hon</a></h2>
-                                </div>
-                                <div class="col-10">
-                                    <nav class="site-navigation text-right" role="navigation">
-                                        <div class="container">
-
-                                            <div class="d-inline-block d-lg-none  ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu h3"></span></a></div>
-                                            <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                                <li>
-                                                    <a style="font-family: PlayFair Display" href="HomeController">Trang chủ</a>
-                                                </li>
-                                                <li class="has-children">
-                                                    <a style="font-family: PlayFair Display" href="rooms.html">Phòng</a>
-                                                    <ul class="dropdown arrow-top">
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Hiện có</a></li>
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng đơn</a></li>
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng đôi</a></li>
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng gia đình</a></li> 
-                                                        <li class="has-children">
-                                                            <a style="font-family: PlayFair Display" href="rooms.html">Dịch vụ</a>
-                                                            <ul class="dropdown">
-                                                                <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng cao cấp</a></li>
-                                                                <li><a style="font-family: PlayFair Display" href="rooms.html">Tắm hơi</a></li>
-                                                                <li><a style="font-family: PlayFair Display" href="rooms.html">Ăn uống</a></li> 
-
-                                                            </ul>
-                                                        </li>
-
-                                                    </ul>
-                                                </li>
-                                                <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>
-                                                <li class="active"><a style="font-family: PlayFair Display" href="about.html">Thông tin</a></li>
-                                                <li><a style="font-family: PlayFair Display" href="contact.html">Liên hệ</a></li>
-                                                <li class="login"><a style="font-family: PlayFair Display" href="Login.jsp">Login</a></li>
-                                                <li class="register"><a style="font-family: PlayFair Display" href="Register.jsp">Register</a></li>
-                                            </ul>
-                                        </div>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              <jsp:include page="header.jsp"></jsp:include>
 
 
             <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
@@ -192,10 +142,9 @@
                                             </div>
                                             <div class="blog__item__text">
                                                 <ul>
-                                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                                    <li><i class="fa fa-calendar-o"></i>${c.blogDate}</li>                                               
                                                 </ul>
-                                                <h5><a href="#">${c.blogTitleString}</a></h5>
+                                                <h5><a style="font-family: Roboto;" href="#">${c.blogTitleString}</a></h5>
 <!--                                                <p>${c.blogDescription}</p>-->
                                                 <a href="BlogController?do=detailBlog&blogID=${c.blogID}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
                                             </div>
@@ -204,21 +153,22 @@
                     </c:forEach>
                                   
                                 <div class="col-lg-12">
-                                    <div class="product__pagination blog__pagination">
-                                         <c:forEach begin="1" end="${n}" var="c">
-                                             <li><a href="BlogController?page=${c}">${c}</a></li>    
-                                                </c:forEach>
-                                    </div>
-                               
-                                </div>
-                                            
+                                       
+                        <div class="col-md-12 text-center">
+                            <div class="site-block-27">
+                                <ul>
+                                    <c:forEach begin="1" end="${n}" var="c">
+                                  <li><a href="BlogController?page=${c}">${c}</a></li>
+                                    </c:forEach>
+                                    </ul>
+                                 </div>                     
+                                      </div>                              
+                                </div>                                          
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-
-
 
             <footer class="site-footer">
                 <div class="container">

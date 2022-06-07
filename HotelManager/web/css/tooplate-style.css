@@ -711,3 +711,6 @@ padding-left: 100px
 .image-button{border:none;display:inline-block;padding:10px;height:50px;vertical-align:middle;overflow:hidden; color:#fff;background:#000;position:absolute;top:calc(50% - 25px); opacity:0.5;}
 .image-button:hover{color:#000;background-color:#ccc;}
 .display-container{position:relative}
+.col-lg-12 .li{
+    display: inline-block;
+}

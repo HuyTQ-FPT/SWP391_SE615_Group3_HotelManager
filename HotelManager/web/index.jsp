@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : index
     Created on : May 30, 2022, 2:50:07 PM
     Author     : admin
@@ -189,11 +189,11 @@
 
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-in" type="date" class="form-control" id="inputCheckIn" placeholder="Check In">
+                                            <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-out" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                            <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
                                         </div>
                                     </div>
                                     <div class="form-row tm-search-form-row">
@@ -471,7 +471,7 @@
         <!-- https://popper.js.org/ -->
         <script src="js/bootstrap.min.js"></script>
         <!-- https://getbootstrap.com/ -->
-        <script src="js/datepicker.min.js"></script>
+      <script src="js/datepicker.min.js"></script> 
         <!-- https://github.com/qodesmith/datepicker -->
         <script src="js/jquery.singlePageNav.min.js"></script>
         <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
