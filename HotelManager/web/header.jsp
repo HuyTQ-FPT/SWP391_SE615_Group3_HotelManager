@@ -55,10 +55,10 @@
                                                     <%
                                                         if (session.getAttribute("login") == null) {
                                                     %>
-                                                <li class="login"><a style="font-family: PlayFair Display" href="LoginController">Login</a></li>
-                                                <li class="register"><a style="font-family: PlayFair Display" href="Register.jsp">Register</a></li>
+                                                <li class="login"><a style="font-family: PlayFair Display" href="LoginController">Đăng Nhập</a></li>
+                                                <li class="register"><a style="font-family: PlayFair Display" href="Register.jsp">Đăng ký</a></li>
                                                     <% } else {%>
-                                                <li class="login"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Log out</a></li>
+                                                <li class="login"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Đăng xuất</a></li>
                                                 
                                                 <li class="user"><a id="showmore" onclick="show()" style="font-family: PlayFair Display; cursor: pointer;"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></a>
                                       

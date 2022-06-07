@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <html lang="en">
     
@@ -26,22 +27,22 @@
             <div class="container">
                 <div class="signup-content">
                     <form action="LoginController?do=CheckRegister" method="post" id="signup-form" class="signup-form">
-                        <h2 class="form-title">Create account</h2>
+                        <h2 class="form-title">Đăng ký tài khoản</h2>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="YourName"/>
+                            <input type="text" class="form-input" name="name" id="name" placeholder="Tên của bạn"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="username" placeholder="Username"/>
+                            <input type="text" class="form-input" name="username" placeholder="Tên đăng nhập"/>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-input" name="email" placeholder="Email"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <input type="password" class="form-input" name="password" id="password" placeholder="Mật khẩu"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group lastt">
-                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
+                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Nhập lại mật khẩu"/>
                             <div>
                                 <h4 id="er" class="er" style="color: red;font-size: 13px;">${requestScope.errorpass}</h4>
                                 <h4 id="er" class="er" style="color: red;font-size: 13px;">${requestScope.error}</h4>

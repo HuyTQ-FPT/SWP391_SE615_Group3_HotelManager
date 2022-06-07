@@ -1,11 +1,11 @@
+
 <%-- 
     Document   : Profile
     Created on : Jun 4, 2022, 11:45:10 PM
     Author     : admin
 --%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,6 +15,16 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
+    <style>
+        .message{
+            background-color: pink;
+            height: 40px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
     <%ResultSet rs =(ResultSet)request.getAttribute("profile");%>
     <div class="container">
         <div class="main-body">
@@ -39,9 +49,9 @@
                                     <h4><%=rs.getString(3)%></h4>
                                     
                                     <p class="text-secondary mb-1">Full Stack Developer</p>
-                                    <p class="text-muted font-size-sm">22 years old</p>
-                                    <button class="btn btn-primary">Follow</button>
-                                    <button class="btn btn-primary">Message</button>
+                                    <p class="text-muted font-size-sm">22 Tuổi</p>
+                                    <a href="LoginController?do=ChangePassword1"><button class="btn btn-primary">Đổi mật khẩu</button></a>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -76,7 +86,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Full Name</h6>
+                                    <h6 class="mb-0">Tên của bạn</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <%=rs.getString(3)%>
@@ -94,7 +104,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Phone</h6>
+                                    <h6 class="mb-0">Số điện thoại</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <%=rs.getString(5)%>
@@ -112,16 +122,19 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Address</h6>
+                                    <h6 class="mb-0">Địa chỉ</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <%=rs.getString(8)%>
                                 </div>
                             </div>
                             <hr>
+                            <div class="message">
+                                    <h6>Update thanh cong</h6>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-info " target="__blank" href="UserController?do=Viewupdateprofile">Edit</a>
+                                    <a class="btn btn-info " target="__blank" href="UserController?do=Viewupdateprofile">Chỉnh sửa</a>
                                 </div>
                             </div>
                         </div>

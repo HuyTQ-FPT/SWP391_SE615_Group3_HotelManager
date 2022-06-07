@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
   <head>
   	<title>Login Admin</title>
     <meta charset="utf-8">
@@ -37,10 +38,10 @@
 		      	<h3 class="mb-4 text-center">Have an account?</h3>
                         <form action="LoginController?do=CheckLogin" class="signin-form" method="post">
 		      		<div class="form-group">
-                                    <input name="username" type="text" class="form-control" placeholder="Username" value="<%=user%>" required>
+                                    <input name="username" type="text" class="form-control" placeholder="Tên đăng nhập" value="<%=user%>" required>
 		      		</div>
 	            <div class="form-group">
-                        <input id="password-field" name="password" type="password" class="form-control" placeholder="Password" value="<%=pass%>" required>
+                        <input id="password-field" name="password" type="password" class="form-control" placeholder="Mật khẩu" value="<%=pass%>" required>
 	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 	            </div>
                              <h4 id="er" style="color: pink;font-size: 15px; position: fixed;">${requestScope.error}</h4>
@@ -66,10 +67,7 @@
 		            	<label class="checkbox-wrap checkbox-primary">																	 
 									</label>
 								</div>
-								<div class="w-50 text-md-right">
-									<a href="LoginController?do=ChangePassword1" style="color: #fff">Change Password</a>
-								</div>
-							
+															
 	            </div>
 	          </form>
 	          <!--<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>-->

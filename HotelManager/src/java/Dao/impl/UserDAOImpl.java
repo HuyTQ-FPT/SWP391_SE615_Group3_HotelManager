@@ -32,7 +32,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     @Override
     public void updateUser(User User) {
 
-        String sqlPre = "update [User] set UserName =?, UserAdress=?, ImgCMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
+        String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
 
         try {
             //System.out.println(sql);
@@ -40,7 +40,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             PreparedStatement pre = conn.prepareStatement(sqlPre);
             pre.setString(1, User.getUserName());
             pre.setString(2, User.getUserAdress());
-            pre.setString(3, User.getImgCMT());
+            pre.setString(3, User.getCMT());
             pre.setString(4, User.getUserEmail());
             pre.setString(5, User.getUserPhone());
             pre.setInt(6, User.getUserGender());

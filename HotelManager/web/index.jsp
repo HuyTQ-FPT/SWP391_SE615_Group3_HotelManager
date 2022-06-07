@@ -47,80 +47,80 @@
             display: none;
             opacity: 0.9;
             z-index: 3;
-    width: 150px;
-    height: 250px;
-    text-align: center;
-    background-color: #1F2123;
-    color: white;
-    position: relative;
-    position: fixed;
-    top: 75px;
-    right: 40px;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: 0.5s;
-}
-.card_img img{
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: 5px solid #A53E3E;
-    background-size: cover;
-    margin-top: 30px;
-    cursor: pointer;
-    transition: 0.4s;
-    transition-delay: 0.1s;
-    transform: rotate(20deg);
-}
-.card_name{
-    margin-top: 10px;
-    color: #A53E3E;
-    font-size: 15px;
-    margin-bottom: 5px;
-}
-.card_logo a{
-    color: white;
-    margin: 0px 10px;
-    font-size: 15px;
-    cursor: pointer;
-    transition: 0.4s;
-    text-decoration: none;
-}
-.card_button button{
-    margin-top: 10px;
-    width: 50%;
-    height: 30px;
-    border-radius: 3px;
-    border: 2px solid #A53E3E;
-    color: white;
-    background-color: #A53E3E;
-    cursor: pointer;
-    transition: 0.4s;
-    font-size: 10px;
-}
-.card_button button:hover{
-    background-color:#913939;
-    font-size: 11px;
-}
-.card_logo a:hover{
-    color: #A53E3E;
-}
-.card_img img:hover{
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    border: 5px solid #A53E3E;
-    background-size: cover;
-    margin-top: 30px;
-    cursor: pointer;
-    transition: 0.4s;
-    transition-delay: 0.1s;
-    transform: rotate(0deg);
-}
+            width: 150px;
+            height: 250px;
+            text-align: center;
+            background-color: #1F2123;
+            color: white;
+            position: relative;
+            position: fixed;
+            top: 75px;
+            right: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.5s;
+        }
+        .card_img img{
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 5px solid #A53E3E;
+            background-size: cover;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: 0.4s;
+            transition-delay: 0.1s;
+            transform: rotate(20deg);
+        }
+        .card_name{
+            margin-top: 10px;
+            color: #A53E3E;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+        .card_logo a{
+            color: white;
+            margin: 0px 10px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.4s;
+            text-decoration: none;
+        }
+        .card_button button{
+            margin-top: 10px;
+            width: 50%;
+            height: 30px;
+            border-radius: 3px;
+            border: 2px solid #A53E3E;
+            color: white;
+            background-color: #A53E3E;
+            cursor: pointer;
+            transition: 0.4s;
+            font-size: 10px;
+        }
+        .card_button button:hover{
+            background-color:#913939;
+            font-size: 11px;
+        }
+        .card_logo a:hover{
+            color: #A53E3E;
+        }
+        .card_img img:hover{
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 5px solid #A53E3E;
+            background-size: cover;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: 0.4s;
+            transition-delay: 0.1s;
+            transform: rotate(0deg);
+        }
 
         .login{
             position: fixed;
-            right: 120px;
+            right: 110px;
         }
         .register{
             position: fixed;
@@ -128,14 +128,51 @@
         }
         .user{
             position: fixed;
+            right: 80px;
+        }
+        div.stars {
+            width: 270px;
+            display: inline-block;
+            position: absolute;
+            top: 244px;
             right: 100px;
+        }
+
+        input.star { display: none; }
+
+        label.star {
+            float: right;
+            padding: 10px;
+            font-size: 16px;
+            color: #444;
+            transition: all .2s;
+        }
+
+        input.star:checked ~ label.star:before {
+            content: '\f005';
+            color: #FD4;
+            transition: all .25s;
+        }
+
+        input.star-5:checked ~ label.star:before {
+            color: #FE7;
+            text-shadow: 0 0 20px #952;
+        }
+
+        input.star-1:checked ~ label.star:before { color: #F62; }
+
+        label.star:hover { transform: rotate(-15deg) scale(1.3); }
+
+        label.star:before {
+            content: '\f006';
+            font-family: FontAwesome;
         }
     </style>
     <body>
         <% Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
             Vector<Room> vector2 = (Vector<Room>) request.getAttribute("vector2");
             Vector<Service> vector3 = (Vector<Service>) request.getAttribute("vector3");
-            Vector<Room> vector4 = (Vector<Room>) request.getAttribute("vector4");   
+            Vector<Room> vector4 = (Vector<Room>) request.getAttribute("vector4");
         %>
         <div class="site-wrap">
 
@@ -150,32 +187,32 @@
 
 
             <jsp:include page="header.jsp"></jsp:include>
-            <div class="card" id="team">
+                <div class="card" id="team">
                     <div class="card_img">
                         <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
                     </div>
-            <c:if test="${sessionScope.login!=null}">
+                <c:if test="${sessionScope.login!=null}">
                     <div class="card_name">
                         <p>${sessionScope.login.getUser()}</p>                        
                     </div>
-            </c:if>
-                
-                    <div class="card_logo">
-                        <a href="https://www.youtube.com/">
-                            <i class='bx bxl-facebook-circle'></i>
-                        </a>
-                        <a href="https://www.youtube.com/">
-                            <i class='bx bxl-youtube' ></i>
-                        </a>
-                        <a href="https://www.youtube.com/">
-                            <i class='bx bxl-github' ></i>
-                        </a>
-                    </div>
+                </c:if>
 
-                    <div class="card_button">
-                        <a href="UserController"><button>Edit Profile</button></a>                       
-                    </div>
-                    
+                <div class="card_logo">
+                    <a href="https://www.youtube.com/">
+                        <i class='bx bxl-facebook-circle'></i>
+                    </a>
+                    <a href="https://www.youtube.com/">
+                        <i class='bx bxl-youtube' ></i>
+                    </a>
+                    <a href="https://www.youtube.com/">
+                        <i class='bx bxl-github' ></i>
+                    </a>
+                </div>
+
+                <div class="card_button">
+                    <a href="UserController"><button>Edit Profile</button></a>                       
+                </div>
+
             </div>  
 
             <div class="slide-one-item home-slider owl-carousel">
@@ -269,20 +306,34 @@
                         <div class="col-md-6 col-lg-4 mb-5">
                             <div class="hotel-room text-center">
                                 <a  href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>" class="d-block mb-0 thumbnail"><img style="width: 350px; height: 250px;" src="images/anhphong/<%= v.getImage()%>" 
-                                                                                 alt="Image" class="img-fluid"></a>
+                                                                                                                                      alt="Image" class="img-fluid"></a>
+                                <div class="stars">
+                                    <form action="">
+                                        <input class="star star-4" id="star-5+<%=v.getRoomID()%>" type="radio" name="star"/>
+                                        <label class="star star-4" for="star-5+<%=v.getRoomID()%>"></label>
+                                        <input class="star star-4" id="star-4+<%=v.getRoomID()%>" type="radio" name="star"/>
+                                        <label class="star star-4" for="star-4+<%=v.getRoomID()%>"></label>
+                                        <input class="star star-3" id="star-3+<%=v.getRoomID()%>" type="radio" name="star"/>
+                                        <label class="star star-3" for="star-3+<%=v.getRoomID()%>"></label>
+                                        <input class="star star-2" id="star-2+<%=v.getRoomID()%>" type="radio" name="star"/>
+                                        <label class="star star-2" for="star-2+<%=v.getRoomID()%>"></label>
+                                        <input class="star star-1" id="star-1+<%=v.getRoomID()%>" type="radio" name="star"/>
+                                        <label class="star star-1" for="star-1+<%=v.getRoomID()%>"></label>
+                                    </form>
+                                </div>
                                 <div class="hotel-room-body">
                                     <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
                                     <strong class="price"><%=v.getRoomprice()%>/ một đêm</strong>
                                     <div class="add-to-cart">
                                         <c:if test="${sessionScope.login==null}">
-                                        <form action="Login.jsp">
-                                            <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                        </form>
+                                            <form action="Login.jsp">
+                                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                            </form>
                                         </c:if>
                                         <c:if test="${sessionScope.login!=null}">
-                                        <form action="#">
-                                            <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                        </form>
+                                            <form action="#">
+                                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                            </form>
                                         </c:if>
                                     </div>
                                 </div>
@@ -306,9 +357,9 @@
                         <%for (Service s : vector3) {%>
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <div class="text-center p-4 item">
-                                <a href="ServiceController?do=servicedetail&ServiceID=<%=s.getServiceID() %>">
-                                <img style="width:250px; height: 200px" src="images/anhdevice/<%=s.getServiceImage()%>">
-                                <h2 style="font-weight: bold; padding-top: 20px; font-family: 'Times New Roman'; font-size: 22px; color: orangered;padding-left: 28px; "class="h5"><%=s.getServiceName()%></h2>
+                                <a href="ServiceController?do=servicedetail&ServiceID=<%=s.getServiceID()%>">
+                                    <img style="width:250px; height: 200px" src="images/anhdevice/<%=s.getServiceImage()%>">
+                                    <h2 style="font-weight: bold; padding-top: 20px; font-family: 'Times New Roman'; font-size: 22px; color: orangered;padding-left: 28px; "class="h5"><%=s.getServiceName()%></h2>
                                 </a>
                             </div>
                         </div>
@@ -335,8 +386,8 @@
                             <div class="site-block-27">
                                 <ul>
                                     <c:forEach begin="1" end="${n}" var="c">
-                                    <li><a href="HomeController?page=${c}">${c}</a></li>
-                                    </c:forEach>
+                                        <li><a href="HomeController?page=${c}">${c}</a></li>
+                                        </c:forEach>
                                 </ul>
                             </div>
                         </div>
@@ -359,11 +410,11 @@
                                     <img style="width: 250px; height: 200px;" src="images/anhphong/<%=e.getImage()%>" alt="Image" class="img-fluid">
                                 </a>
                             </div>
-                                <div>
-                               <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" style="font-weight: bold; font-size: 25px;color: black;font-family: Didot"><%=e.getCateroom()%></a>
-                            <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
-                            <p><%=e.getRoomdesc().substring(0, 100)%>...</p>
-                                </div>
+                            <div>
+                                <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" style="font-weight: bold; font-size: 25px;color: black;font-family: Didot"><%=e.getCateroom()%></a>
+                                <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
+                                <p><%=e.getRoomdesc().substring(0, 100)%>...</p>
+                            </div>
                         </div>         
                         <%}%>
                     </div>
@@ -485,133 +536,133 @@
         <script src="slick/slick.min.js"></script>
         <!-- http://kenwheeler.github.io/slick/ -->
         <script>
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        var mediaElements = document.querySelectorAll('video, audio'),
-                                                total = mediaElements.length;
+            document.addEventListener('DOMContentLoaded', function () {
+                var mediaElements = document.querySelectorAll('video, audio'),
+                        total = mediaElements.length;
 
-                                        for (var i = 0; i < total; i++) {
-                                            new MediaElementPlayer(mediaElements[i], {
-                                                pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                                                shimScriptAccess: 'always',
-                                                success: function () {
-                                                    var target = document.body.querySelectorAll('.player'),
-                                                            targetTotal = target.length;
-                                                    for (var j = 0; j < targetTotal; j++) {
-                                                        target[j].style.visibility = 'visible';
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    });
-                                    /* Google map
-                                     ------------------------------------------------*/
-                                    var map = '';
-                                    var center;
-                                    function initialize() {
-                                        var mapOptions = {
-                                            zoom: 16,
-                                            center: new google.maps.LatLng(13.7567928, 100.5653741),
-                                            scrollwheel: false
-                                        };
-                                        map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
-                                        google.maps.event.addDomListener(map, 'idle', function () {
-                                            calculateCenter();
-                                        });
-                                        google.maps.event.addDomListener(window, 'resize', function () {
-                                            map.setCenter(center);
-                                        });
-                                    }
-                                    function calculateCenter() {
-                                        center = map.getCenter();
-                                    }
-                                    function loadGoogleMap() {
-                                        var script = document.createElement('script');
-                                        script.type = 'text/javascript';
-                                        script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
-                                        document.body.appendChild(script);
-                                    }
-                                    function setCarousel() {
-                                        if ($('.tm-article-carousel').hasClass('slick-initialized')) {
-                                            $('.tm-article-carousel').slick('destroy');
-                                        }
-                                        if ($(window).width() < 438) {
-                                            // Slick carousel
-                                            $('.tm-article-carousel').slick({
-                                                infinite: false,
-                                                dots: true,
-                                                slidesToShow: 1,
-                                                slidesToScroll: 1
-                                            });
-                                        } else {
-                                            $('.tm-article-carousel').slick({
-                                                infinite: false,
-                                                dots: true,
-                                                slidesToShow: 2,
-                                                slidesToScroll: 1
-                                            });
-                                        }
-                                    }
-                                    function setPageNav() {
-                                        if ($(window).width() > 991) {
-                                            $('#tm-top-bar').singlePageNav({
-                                                currentClass: 'active',
-                                                offset: 79
-                                            });
-                                        } else {
-                                            $('#tm-top-bar').singlePageNav({
-                                                currentClass: 'active',
-                                                offset: 65
-                                            });
-                                        }
-                                    }
-                                    function togglePlayPause() {
-                                        vid = $('.tmVideo').get(0);
-                                        if (vid.paused) {
-                                            vid.play();
-                                            $('.tm-btn-play').hide();
-                                            $('.tm-btn-pause').show();
-                                        } else {
-                                            vid.pause();
-                                            $('.tm-btn-play').show();
-                                            $('.tm-btn-pause').hide();
-                                        }
-                                    }
-                                    $(document).ready(function () {
-                                        $(window).on("scroll", function () {
-                                            if ($(window).scrollTop() > 100) {
-                                                $(".tm-top-bar").addClass("active");
-                                            } else {
-                                                //remove the background property so it comes transparent again (defined in your css)
-                                                $(".tm-top-bar").removeClass("active");
-                                            }
-                                        });
-                                        // Google Map
-                                        loadGoogleMap();
-                                        // Date Picker
-                                        const pickerCheckIn = datepicker('#inputCheckIn');
-                                        const pickerCheckOut = datepicker('#inputCheckOut');
-                                        // Slick carousel
-                                        setCarousel();
-                                        setPageNav();
-                                        $(window).resize(function () {
-                                            setCarousel();
-                                            setPageNav();
-                                        });
-                                        // Close navbar after clicked
-                                        $('.nav-link').click(function () {
-                                            $('#mainNav').removeClass('show');
-                                        });
-                                        // Control video
-                                        $('.tm-btn-play').click(function () {
-                                            togglePlayPause();
-                                        });
-                                        $('.tm-btn-pause').click(function () {
-                                            togglePlayPause();
-                                        });
-                                        // Update the current year in copyright
-                                        $('.tm-current-year').text(new Date().getFullYear());
-                                    });
-                                    function show() {
+                for (var i = 0; i < total; i++) {
+                    new MediaElementPlayer(mediaElements[i], {
+                        pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                        shimScriptAccess: 'always',
+                        success: function () {
+                            var target = document.body.querySelectorAll('.player'),
+                                    targetTotal = target.length;
+                            for (var j = 0; j < targetTotal; j++) {
+                                target[j].style.visibility = 'visible';
+                            }
+                        }
+                    });
+                }
+            });
+            /* Google map
+             ------------------------------------------------*/
+            var map = '';
+            var center;
+            function initialize() {
+                var mapOptions = {
+                    zoom: 16,
+                    center: new google.maps.LatLng(13.7567928, 100.5653741),
+                    scrollwheel: false
+                };
+                map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+                google.maps.event.addDomListener(map, 'idle', function () {
+                    calculateCenter();
+                });
+                google.maps.event.addDomListener(window, 'resize', function () {
+                    map.setCenter(center);
+                });
+            }
+            function calculateCenter() {
+                center = map.getCenter();
+            }
+            function loadGoogleMap() {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
+                document.body.appendChild(script);
+            }
+            function setCarousel() {
+                if ($('.tm-article-carousel').hasClass('slick-initialized')) {
+                    $('.tm-article-carousel').slick('destroy');
+                }
+                if ($(window).width() < 438) {
+                    // Slick carousel
+                    $('.tm-article-carousel').slick({
+                        infinite: false,
+                        dots: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    });
+                } else {
+                    $('.tm-article-carousel').slick({
+                        infinite: false,
+                        dots: true,
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    });
+                }
+            }
+            function setPageNav() {
+                if ($(window).width() > 991) {
+                    $('#tm-top-bar').singlePageNav({
+                        currentClass: 'active',
+                        offset: 79
+                    });
+                } else {
+                    $('#tm-top-bar').singlePageNav({
+                        currentClass: 'active',
+                        offset: 65
+                    });
+                }
+            }
+            function togglePlayPause() {
+                vid = $('.tmVideo').get(0);
+                if (vid.paused) {
+                    vid.play();
+                    $('.tm-btn-play').hide();
+                    $('.tm-btn-pause').show();
+                } else {
+                    vid.pause();
+                    $('.tm-btn-play').show();
+                    $('.tm-btn-pause').hide();
+                }
+            }
+            $(document).ready(function () {
+                $(window).on("scroll", function () {
+                    if ($(window).scrollTop() > 100) {
+                        $(".tm-top-bar").addClass("active");
+                    } else {
+                        //remove the background property so it comes transparent again (defined in your css)
+                        $(".tm-top-bar").removeClass("active");
+                    }
+                });
+                // Google Map
+                loadGoogleMap();
+                // Date Picker
+                const pickerCheckIn = datepicker('#inputCheckIn');
+                const pickerCheckOut = datepicker('#inputCheckOut');
+                // Slick carousel
+                setCarousel();
+                setPageNav();
+                $(window).resize(function () {
+                    setCarousel();
+                    setPageNav();
+                });
+                // Close navbar after clicked
+                $('.nav-link').click(function () {
+                    $('#mainNav').removeClass('show');
+                });
+                // Control video
+                $('.tm-btn-play').click(function () {
+                    togglePlayPause();
+                });
+                $('.tm-btn-pause').click(function () {
+                    togglePlayPause();
+                });
+                // Update the current year in copyright
+                $('.tm-current-year').text(new Date().getFullYear());
+            });
+            function show() {
                 if (document.getElementById("team").style.display == "none") {
                     document.getElementById("team").style.display = "block";
                 } else {

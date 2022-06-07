@@ -36,6 +36,16 @@ public class User {
         this.CMT = CMT;
         this.ImgCMT = ImgCMT;
     }
+    public User(int UserID, String UserName, String UserPhone, String UserEmail, int UserGender, String Birthday, String UserAdress, String CMT ) {
+        this.UserID = UserID;
+        this.UserName = UserName;
+        this.UserPhone = UserPhone;
+        this.UserEmail = UserEmail;
+        this.UserGender = UserGender;
+        this.Birthday = Birthday;
+        this.UserAdress = UserAdress;
+        this.CMT = CMT;
+    }
 
   
 

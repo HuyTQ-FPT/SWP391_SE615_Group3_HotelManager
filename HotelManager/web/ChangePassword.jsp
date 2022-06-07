@@ -26,10 +26,7 @@
             <div class="container">
                 <div class="signup-content">
                     <form action="LoginController?do=ChangePassword" method="post" id="signup-form" class="signup-form">
-                        <h2 class="form-title">Change Password</h2>
-                        <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Username"/>
-                        </div>
+                        <h2 class="form-title">Đổi mật khẩu</h2>
                         <div class="form-group">
                             <input type="password" class="form-input" name="oldpassword" placeholder="Old Password"/>
                         </div>

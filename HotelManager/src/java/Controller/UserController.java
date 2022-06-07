@@ -44,11 +44,11 @@ public class UserController extends HttpServlet {
             AccountDAOImpl dao = new AccountDAOImpl();
             UserDAOImpl dao2 = new UserDAOImpl();
             DBContext dao1 = new DBContext();
-            String service = request.getParameter("do");
-            if (service == null) {
+            String service = request.getParameter("do"); 
+            if (service == null) { 
                 service = "Profile";
             }
-            if(service.equals("Profile")){
+            if(service.equals("Profile")){ //vào trang profile user
                 Account a = (Account)session.getAttribute("login");
                 ResultSet rs = dao.getData("select u.* from Account a join [User] u\n" +
 "on a.AccountID=u.AccountID\n" +
@@ -56,7 +56,7 @@ public class UserController extends HttpServlet {
                 request.setAttribute("profile", rs);
                 request.getRequestDispatcher("Profile.jsp").forward(request, response);
             }
-            if(service.equals("Viewupdateprofile")){
+            if(service.equals("Viewupdateprofile")){ // vào trang updateprofile
                 String s="";
                 if(request.getParameter("er")!=null)
                     request.setAttribute("error", request.getParameter("er"));
@@ -70,7 +70,7 @@ public class UserController extends HttpServlet {
                 request.setAttribute("viewupdateprofile", rs);
                 request.getRequestDispatcher("UpdateProfile.jsp").forward(request, response);
             }
-            if(service.equals("Updateprofile")){
+            if(service.equals("Updateprofile")){ //cập nhập thông tin profile thay đổi
                 System.out.println("oke");
                 int uid = Integer.parseInt(request.getParameter("uid"));
                 String user = request.getParameter("username");
@@ -86,11 +86,12 @@ public class UserController extends HttpServlet {
                 ResultSet rs = dao.getData("select u.* from Account a join [User] u\n" +
 "on a.AccountID=u.AccountID\n" +
 "where [User]='"+user+"' and [password]='"+pass+"'");
-                if(!name.equals("") && !email.equals("") && !phone.equals("") && !address.equals("") && !cmt.equals("")){
-                   dao2.updateUser(new User(uid, 0, name, phone, email, gender, bod, address, cmt, cmt)); 
+                // điều kiện update thành công
+                if(!name.equals("") && (gender==1 ||gender==0) && !bod.equals("") && !email.equals("") && !phone.equals("") && !address.equals("") && !cmt.equals("")){
+                   dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt)); 
                    request.setAttribute("profile",rs);
                    request.getRequestDispatcher("Profile.jsp").forward(request, response);
-                }else{
+                }else{ //update thất bại
                     response.sendRedirect("UserController?do=Viewupdateprofile&er=1");
                     
                 }
