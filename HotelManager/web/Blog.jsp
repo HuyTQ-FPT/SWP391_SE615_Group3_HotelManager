@@ -119,7 +119,7 @@
                                 <div class="topnav"> 
                                     <div class="search-container">
                                         <form action="BlogController" method="get">
-                                              <input type="hidden" name="dos" value="search">
+                                              <input type="hidden" name="do" value="search">
                                             <input type="text" placeholder="Tìm kiếm.." name="search">
                                             <button type="submit">Submit</button>
                                         </form>
