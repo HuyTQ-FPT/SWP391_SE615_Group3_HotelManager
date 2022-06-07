@@ -7,8 +7,10 @@ package Controller;
 
 import Dao.impl.ImageDAOImpl;
 import Dao.impl.RoomDAOImpl;
+import Dao.impl.ServiceDAOImpl;
 import Entity.Image;
 import Entity.Room;
+import Entity.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Stack;
@@ -79,11 +81,14 @@ public class RoomController extends HttpServlet {
                 dispatch.forward(request, response);
             }
             if (service.equals("roomdetail")) {
+                ServiceDAOImpl dao1 = new ServiceDAOImpl();
                 String RoomID = request.getParameter("roomid");
                 Vector<Image> img = daos.getImageByid(RoomID);
 //        out.println("<h1>Servlet PostController at " + RoomID + "</h1>");
+                Vector<Service> vector3 = dao1.getServiceListbyran();
                 Room rooom = dao.getRoom(RoomID);
                 request.setAttribute("Room", rooom);
+                request.setAttribute("vector3", vector3);
                 request.setAttribute("img", img);
                 session.setAttribute("isroomde", "isroomde");
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);

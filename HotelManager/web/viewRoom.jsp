@@ -136,31 +136,55 @@
             <div class="container">
 
                 <div class="row">
+
                     <div class="col-md-2 col-sm-4">
-                        <div class="left-profile-box-m prod-page">
-                            <div class="pro-img">
-                                <img src="images/lag-61.png" alt="#" />
-                            </div>
-                            <div class="pof-text">
-                                <h3>Morgan Mobilya</h3>
-                                <div class="check-box"></div>
-                            </div>
-                            <a href="#">Visit store</a>
-                        </div>
+                        <c:if test="${sessionScope.isroomde!=null}">
+                            <c:forEach items="${vector3}" var="c">
+                                <form>
+                                    <div class="left-profile-box-m prod-page">
+                                        <!--<div class="pro-img">-->
+                                        <img src="images/lag-61.png" alt="#" style="height: 80px;width: 150px" />
+                                        <!--</div>-->
+                                        <div class="pof-text">
+                                            <h4>${c.serviceName}</h4>
+                                            <!--                                <div class="check-box"></div>-->
+                                        </div>
+                                        <a href="#">Visit store</a>
+                                    </div>
+                                </form>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${sessionScope.isroomde==null}">
+                            <c:forEach items="${vector}" var="c">
+                                <form>
+                                    <div class="left-profile-box-m prod-page">
+                                        <!--<div class="pro-img">-->
+                                        <!--<img src="images/lag-61.png" alt="#" />-->
+                                        <!--</div>-->
+                                        <div class="pof-text">
+                                            <h4>${c.cateroom}</h4>
+                                            <!--                                <div class="check-box"></div>-->
+                                        </div>
+                                        <a href="#">Visit store</a>
+                                    </div>
+                                </form>
+                            </c:forEach>
+                        </c:if>
                     </div>
+
                     <div class="col-md-7 col-sm-8">
                         <div class="md-prod-page">
                             <div class="md-prod-page-in">
                                 <div class="display-container">
                                     <c:if test="${sessionScope.isroomde!=null}">
                                         <c:forEach items="${img}" var="c">
-                                            <img class="mySlides" src="images/anhphong/${c.image1}">
-                                            <img class="mySlides" src="images/anhphong/${c.image2}">
-                                            <img class="mySlides" src="images/anhphong/${c.image3}">
+                                            <img class="mySlides" src="images/anhphong/${c.image1}" style="height: 440px;width: 630px">
+                                            <img class="mySlides" src="images/anhphong/${c.image2}" style="height: 440px;width: 630px">
+                                            <img class="mySlides" src="images/anhphong/${c.image3}" style="height: 440px;width: 630px">
                                         </c:forEach>
                                     </c:if>
                                     <c:if test="${sessionScope.isroomde==null}">
-                                    <img class="mySlides" src="images/anhdevice/${se.serviceImage}">
+                                        <img class="mySlides" src="images/anhdevice/${se.serviceImage}">
                                     </c:if>
 
                                     <button class="image-button button-left" onclick="plusDivs(-1)">&#10094;</button>
@@ -169,9 +193,9 @@
                                 <div class="btn-dit-list clearfix">
                                     <div class="left-dit-p">
                                         <div class="prod-btn">
-                                            <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                            <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
-                                            <p>23 likes</p>
+                                            <c:if test="${sessionScope.isroomde!=null}">
+                                                <p>${Room.cateroom}</p>
+                                            </c:if>
                                         </div>
                                     </div>
                                     <div class="right-dit-p">
@@ -209,7 +233,7 @@
                                     <c:if test="${sessionScope.isroomde!=null}">
                                         <p>${Room.roomdesc}</p>
                                     </c:if>
-                                     <c:if test="${sessionScope.isroomde==null}">
+                                    <c:if test="${sessionScope.isroomde==null}">
                                         <p>${se.serviceDes}</p>
                                     </c:if>
                                     <br>

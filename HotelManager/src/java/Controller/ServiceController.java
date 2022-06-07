@@ -5,10 +5,13 @@
  */
 package Controller;
 
+import Dao.impl.RoomDAOImpl;
 import Dao.impl.ServiceDAOImpl;
+import Entity.Room;
 import Entity.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,8 +45,13 @@ public class ServiceController extends HttpServlet {
             String ServiceID = request.getParameter("ServiceID");
             if (doo.equals("servicedetail")) {
                 ServiceDAOImpl dao = new ServiceDAOImpl();
+                RoomDAOImpl daos = new RoomDAOImpl();
+                Vector<Room> vector = daos.getRoomList("select top (6) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
+                        + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                        + "where Room.Status =0 \n");
                 Service se = dao.getServicedetail(ServiceID);
                 request.setAttribute("se", se);
+                request.setAttribute("vector", vector);
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
             }
         }

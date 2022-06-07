@@ -75,7 +75,7 @@
                                 for (Room v : vector) {%>
                         <div class="col-md-6 col-lg-4 mb-5">
                             <div class="hotel-room text-center">
-                                <a href="#" class="d-block mb-0 thumbnail"><img style="width: 350px;height: 250px; "src="images/anhphong/<%=v.getImage() %>" alt="Image" class="img-fluid"></a>
+                                <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>" class="d-block mb-0 thumbnail"><img style="width: 350px;height: 250px; "src="images/anhphong/<%=v.getImage() %>" alt="Image" class="img-fluid"></a>
                                 <div class="hotel-room-body">
                                     <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom() %></a></h3>
                                     <strong class="price">$<%=v.getRoomprice()%> / per night</strong>

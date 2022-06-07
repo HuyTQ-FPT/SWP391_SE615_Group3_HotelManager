@@ -145,13 +145,12 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
     public static void main(String[] args) {
         RoomDAOImpl dao= new RoomDAOImpl();
-        Vector<Room> vector = dao.getRoomByPage(1);
-        for (Room blog : vector) {
-            System.out.println(blog);
-        }
+        Vector<Room> vector= dao.getRoomList("select * from Room");
+        Room rooom = dao.getRoom("1");
+        for (Room room : vector) {
+            System.out.println(room);
         }      
-    
-
+    }
 
     @Override
     public int getPageByPageStatus() {
@@ -215,6 +214,16 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
             ex.printStackTrace();
         }
         return vector;
+    }
+
+    @Override
+    public int getPageByPrice() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Vector<Room> getRoomByPrice(int n) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
