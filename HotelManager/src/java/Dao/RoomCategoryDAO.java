@@ -14,7 +14,7 @@ import java.util.Vector;
  */
 public interface RoomCategoryDAO {
     
-    public Vector<RoomCategory> getRoomCategoryList();
+    public Vector<RoomCategory> getRoomCategoryList(String sql);
 
     public RoomCategory getAccount(int cateid);
 

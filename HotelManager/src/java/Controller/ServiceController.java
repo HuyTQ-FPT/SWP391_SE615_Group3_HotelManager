@@ -5,12 +5,17 @@
  */
 package Controller;
 
+import Dao.impl.DeviceDAOImpl;
+import Dao.impl.RoomCategoryDAOImpl;
 import Dao.impl.RoomDAOImpl;
 import Dao.impl.ServiceDAOImpl;
+import Entity.Device;
 import Entity.Room;
+import Entity.RoomCategory;
 import Entity.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,6 +64,21 @@ public class ServiceController extends HttpServlet {
                 request.setAttribute("vector", getroomlist);
                 request.setAttribute("getroomlist2", getroomlist2);
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
+            }
+            if (doo.equals("getdeviceroom")) {
+                String cateroom = request.getParameter("cateroom");
+                if (cateroom == null) {
+                    cateroom = "1";
+                }
+                String ss = request.getParameter("name");
+                DeviceDAOImpl dao = new DeviceDAOImpl();
+                RoomCategoryDAOImpl roomcate = new RoomCategoryDAOImpl();
+                Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
+                Vector<Device> de = dao.getDevicebycateroom(cateroom);
+                request.setAttribute("de", de);
+                request.setAttribute("romcate", romcate);
+                request.getRequestDispatcher("editroomdevice.jsp").forward(request, response);
+
             }
         }
     }

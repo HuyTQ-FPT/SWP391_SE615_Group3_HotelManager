@@ -23,6 +23,31 @@ public class RoomCategory {
         this.Note = Note;
     }
 
+    public int getRoomcateID() {
+        return RoomcateID;
+    }
+
+    public void setRoomcateID(int RoomcateID) {
+        this.RoomcateID = RoomcateID;
+    }
+
+    public String getCatename() {
+        return Catename;
+    }
+
+    public void setCatename(String Catename) {
+        this.Catename = Catename;
+    }
+
+    public String getNote() {
+        return Note;
+    }
+
+    public void setNote(String Note) {
+        this.Note = Note;
+    }
+    
+
     @Override
     public String toString() {
         return "RoomCategory{" + "RoomcateID=" + RoomcateID + ", Catename=" + Catename + ", Note=" + Note + '}';
