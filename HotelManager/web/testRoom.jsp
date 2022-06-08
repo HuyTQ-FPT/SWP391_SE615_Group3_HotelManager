@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Entity.Room"%>
 <%@page import="java.util.Vector"%>
@@ -39,7 +38,7 @@
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
         <link rel="stylesheet" href="css/aos.css">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
         <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
@@ -64,6 +63,8 @@
             overflow: hidden;
             transition: 0.5s;
         }
+        .checked {
+  color: orange;
         .card_img img{
             width: 70px;
             height: 70px;
@@ -292,7 +293,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <h1> Phòng </h1>
-                            <p>Danh sách các phòng </p>
+                            <p>Danh sách các phòng</p>
                         </div>
                         <!-- End of /.col-md-4 -->
                         <!-- End of /.col-md-8 -->
@@ -322,26 +323,31 @@
                                             <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
                                                 <img src="images/anhphong/<%=v.getImage()%>" alt="">
                                             </a>
-                                            <div class="stars">
-                                                <form action="">
-                                                    <input class="star star-4" id="star-5+<%=v.getRoomID()%>" name="star" value="<%=v.getRate()%>"/>
-                                                    <label class="star star-4" for="star-5+<%=v.getRoomID()%>" ></label>
-                                                    <input class="star star-4" id="star-4+<%=v.getRoomID()%> " value="<%=v.getRate()%>"  name="star"/>
-                                                    <label class="star star-4" for="star-4+<%=v.getRoomID()%>"></label>
-                                                    <input class="star star-3" id="star-3+<%=v.getRoomID()%>" value="<%=v.getRate()%>" name="star"/>
-                                                    <label class="star star-3" for="star-3+<%=v.getRoomID()%>"></label>
-                                                    <input class="star star-2" id="star-2+<%=v.getRoomID()%>" value="<%=v.getRate()%>" name="star"/>
-                                                    <label class="star star-2" for="star-2+<%=v.getRoomID()%>"></label>
-                                                    <input class="star star-1" id="star-1+<%=v.getRoomID()%>" value="<%=v.getRate()%>" name="star"/>
-                                                    <label class="star star-1" for="star-1+<%=v.getRoomID()%>"></label>
-                                                </form>
-                                            </div>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                            <!--                                            <div class="stars">
+                                                                                            <form action="">
+                                                                                                <input class="star star-4" id="star-5+<%=v.getRoomID()%>" name="star" value="<%=v.getRate()%>"/>
+                                                                                                <label class="star star-4" for="star-5+<%=v.getRoomID()%>" ></label>
+                                                                                                <input class="star star-4" id="star-4+<%=v.getRoomID()%> " value="<%=v.getRate()%>"  name="star"/>
+                                                                                                <label class="star star-4" for="star-4+<%=v.getRoomID()%>"></label>
+                                                                                                <input class="star star-3" id="star-3+<%=v.getRoomID()%>" value="<%=v.getRate()%>" name="star"/>
+                                                                                                <label class="star star-3" for="star-3+<%=v.getRoomID()%>"></label>
+                                                                                                <input class="star star-2" id="star-2+<%=v.getRoomID()%>" value="<%=v.getRate()%>" name="star"/>
+                                                                                                <label class="star star-2" for="star-2+<%=v.getRoomID()%>"></label>
+                                                                                                <input class="star star-1" id="star-1+<%=v.getRoomID()%>" value="<%=v.getRate()%>" name="star"/>
+                                                                                                <label class="star star-1" for="star-1+<%=v.getRoomID()%>"></label>
+                                                                                            </form>
+                                                                                        </div>-->
                                             <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
                                                 <h4 style="color: #b09700;font-size: 25px; text-align: center; padding-top: 20px; font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%>-<%=v.getRoomname()%></h4>
                                             </a>
                                             <h1 style="color: red" class="price"> €<%=v.getRoomprice()%></h1>
                                             <div>
-                                                <a class="view-link shutter " href="login.jsp">
+                                                <a class="view-link shutter" href="login.jsp">
                                                     <i class="fa fa-plus-circle "></i>Đặt Phòng</a>
                                             </div>
                                         </div>

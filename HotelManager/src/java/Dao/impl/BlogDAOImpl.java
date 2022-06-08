@@ -162,13 +162,38 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
+    @Override
+     public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String date, String BlogTitle) {
+        String query = "INSERT INTO [dbo].[Blog]\n"
+                + "           ([AccountID]\n"
+                + "           ,[BlogAuthor]\n"
+                + "           ,[BlogDescription]\n"
+                + "           ,[BlogImage]\n"
+                + "           ,[BlogDate]\n"
+                + "           ,[BlogTitle])\n"
+                + "     VALUES \n"
+                + "           (?,?,?,?,?,?)";
+        try {
+            ResultSet rs = null;
+             PreparedStatement pre = conn.prepareStatement(query);
+            pre.setInt(1, AccountID);
+            pre.setString(2, BlogAuthor);
+            pre.setString(3, BlogDescription);
+            pre.setString(4, BlogImage);
+            pre.setString(5, date);
+            pre.setString(6, BlogTitle);
+            rs = pre.executeQuery();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
-        Vector<Blog> vector = dao.getBlogByPagesortold(1);
-        for (Blog blog : vector) {
-            System.out.println(blog);
-        }
+//        Vector<Blog> vector = dao.inSertBlog(3, "Quan", "1 ngày ở Hà Nội", "img1.jpg", "2021-09-26 17:54:32", "Chuyến tham quan vườn Vignanello khó quên ở Lazio");
+//        for (Blog blog : vector) {
+//            System.out.println(blog);
+//        }
        
     }
 

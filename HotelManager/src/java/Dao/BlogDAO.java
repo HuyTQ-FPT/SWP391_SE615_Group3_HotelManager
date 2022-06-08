@@ -22,5 +22,5 @@ public interface BlogDAO {
     public Vector<Blog> getBlogByPage(int n);
      public Vector<Blog> getBlogByPagesortnew(int n);
      public Vector<Blog> getBlogByPagesortold(int n);
-   
+   public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String date, String BlogTitle);
 }

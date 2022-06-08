@@ -36,12 +36,21 @@ public class BlogManagerController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            BlogDAOImpl dao = new BlogDAOImpl();          
-             String dos = request.getParameter("do");
-             if(dos.equals("insertblog")){
-                  request.getRequestDispatcher("addblog.jsp").forward(request, response);
-                  
-             }
+            BlogDAOImpl dao = new BlogDAOImpl();
+            String dos = request.getParameter("do");
+                String sc = "Sucessfully";
+                request.setAttribute("sc", sc);
+                request.setCharacterEncoding("UTF-8");
+                String title = request.getParameter("title");
+                int accountID = 9;
+                String description = request.getParameter("description");
+                String author = request.getParameter("author");
+                String image = request.getParameter("image");
+                 String date = request.getParameter("date");
+                dao.inSertBlog(accountID, author, description, image, date, title);                        
+               request.getRequestDispatcher("addblog.jsp").forward(request, response);
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 

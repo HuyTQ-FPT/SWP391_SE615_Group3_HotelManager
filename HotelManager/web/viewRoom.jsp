@@ -74,10 +74,8 @@
                                                             <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng cao cấp</a></li>
                                                             <li><a style="font-family: PlayFair Display" href="rooms.html">Tắm hơi</a></li>
                                                             <li><a style="font-family: PlayFair Display" href="rooms.html">Ăn uống</a></li> 
-
                                                         </ul>
                                                     </li>
-
                                                 </ul>
                                             </li>
                                             <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>

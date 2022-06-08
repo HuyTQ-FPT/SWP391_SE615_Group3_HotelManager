@@ -131,12 +131,12 @@
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Add Product</h2>
+                <h2 class="tm-block-title d-inline-block">Add Product</h2>             
               </div>
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="" class="tm-edit-product-form">
+                <form action="BlogManagerController" class="tm-edit-product-form">
                   <div class="form-group mb-3">
                     <label
                       for="name"
@@ -144,8 +144,21 @@
                     </label>
                     <input
                       id="name"
-                      name="name"
+                      name="title"
                       type="text"
+                      class="form-control validate"
+                      required
+                    />
+                  </div>
+                    <div class="form-group mb-3">
+                    <label
+                      for="name"
+                      >Date
+                    </label>
+                    <input
+                      id="name"
+                      name="date"
+                      type="date"
                       class="form-control validate"
                       required
                     />
@@ -157,56 +170,39 @@
                     >
                     <textarea
                       class="form-control validate"
-                      rows="3"
+                      rows="3" name="description"
                       required
                     ></textarea>
                   </div>
-                  <div class="form-group mb-3">
+                    <div class="form-group mb-3">
                     <label
-                      for="category"
-                      >Category</label
-                    >
-                    <select
-                      class="custom-select tm-select-accounts"
-                      id="category"
-                    >
-                      <option selected>Select category</option>
-                      <option value="1">New Arrival</option>
-                      <option value="2">Most Popular</option>
-                      <option value="3">Trending</option>
-                    </select>
+                      for="name"
+                      >Author
+                    </label>
+                    <input
+                      id="name"
+                      name="author"
+                      type="text"
+                      class="form-control validate"
+                      required
+                    />
                   </div>
-                  <div class="row">
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="expire_date"
-                            >Expire Date
-                          </label>
-                          <input
-                            id="expire_date"
-                            name="expire_date"
-                            type="text"
-                            class="form-control validate"
-                            data-large-mode="true"
-                          />
-                        </div>
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="stock"
-                            >Units In Stock
-                          </label>
-                          <input
-                            id="stock"
-                            name="stock"
-                            type="text"
-                            class="form-control validate"
-                            required
-                          />
-                        </div>
+                   </div>
+                    <div class="form-group mb-12">
+                    <label
+                      for="name"
+                      >Image
+                    </label>
+                    <input
+                      id="name"
+                      name="image"
+                      type="text"
+                      class="form-control validate"
+                      required
+                    />
                   </div>
-                  
               </div>
-              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+<!--              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
                 <div class="tm-product-img-dummy mx-auto">
                   <i
                     class="fas fa-cloud-upload-alt tm-upload-icon"
@@ -222,7 +218,7 @@
                     onclick="document.getElementById('fileInput').click();"
                   />
                 </div>
-              </div>
+              </div>-->
               <div class="col-12">
                 <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
               </div>
