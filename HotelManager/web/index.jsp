@@ -128,7 +128,7 @@
         }
         .user{
             position: fixed;
-            right: 80px;
+            right: 90px;
         }
         div.stars {
             width: 270px;
@@ -226,11 +226,11 @@
 
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+                                            <input name="check-in" type="date" class="form-control" id="inputCheckIn" placeholder="Check In">
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                            <input name="check-out" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out">
                                         </div>
                                     </div>
                                     <div class="form-row tm-search-form-row">
@@ -305,7 +305,7 @@
                         <%for (Room v : vector) {%>
                         <div class="col-md-6 col-lg-4 mb-5">
                             <div class="hotel-room text-center">
-                                <a  href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>" class="d-block mb-0 thumbnail"><img style="width: 350px; height: 250px;" src="images/anhphong/<%= v.getImage()%>" 
+                                <a  href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>&cateroom=<%=v.getRoomcateID()%>" class="d-block mb-0 thumbnail"><img style="width: 350px; height: 250px;" src="images/anhphong/<%= v.getImage()%>" 
                                                                                                                                       alt="Image" class="img-fluid"></a>
                                 <div class="stars">
                                     <form action="">

@@ -46,12 +46,18 @@ public class ServiceController extends HttpServlet {
             if (doo.equals("servicedetail")) {
                 ServiceDAOImpl dao = new ServiceDAOImpl();
                 RoomDAOImpl daos = new RoomDAOImpl();
-                Vector<Room> vector = daos.getRoomList("select top (6) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
-                        + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
-                        + "where Room.Status =0 \n");
+                Vector<Room> getroomlist = daos.getRoomList("select top (5) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID\n"
+                        + "                        JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                        + "                        where Room.Status =0 \n"
+                        + "			   ORDER BY NEWID()");
+                Vector<Room> getroomlist2 = daos.getRoomList("select top (4) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID\n"
+                        + "                        JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                        + "                        where Room.Status =0 \n"
+                        + "			   ORDER BY NEWID()");
                 Service se = dao.getServicedetail(ServiceID);
                 request.setAttribute("se", se);
-                request.setAttribute("vector", vector);
+                request.setAttribute("vector", getroomlist);
+                request.setAttribute("getroomlist2", getroomlist2);
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
             }
         }

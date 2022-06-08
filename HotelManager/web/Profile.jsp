@@ -14,6 +14,10 @@
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <style>
         .message{
@@ -85,6 +89,15 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="row">
+                                <% Cookie c1[] = request.getCookies();
+                for (Cookie o : c1) {
+                    if (o.getName().equals("mess")) {%>
+                                <div class="container">
+                                    <div class="alert alert-success">
+                                        <strong>Thành công!</strong> Thông tin cá nhân đã được cập nhập
+                                    </div>
+                                </div>
+                                <% }} %>
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Tên của bạn</h6>
                                 </div>
@@ -129,9 +142,6 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="message">
-                                    <h6>Update thanh cong</h6>
-                            </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <a class="btn btn-info " target="__blank" href="UserController?do=Viewupdateprofile">Chỉnh sửa</a>
@@ -189,7 +199,7 @@
                                     <div class="progress mb-3" style="height: 5px">
                                         <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <small>Thang máy</small>
+                                    <small>Thang máy, Wifi, Bồn tắm, Điều hòa</small>
                                     <div class="progress mb-3" style="height: 5px">
                                         <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>

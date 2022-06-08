@@ -16,7 +16,7 @@ public interface RoomDeviceDAO {
     
     public Vector<RoomDevice> getRoomDeviceList();
 
-    public RoomDevice getRoomDevice(int RDid);
+    public RoomDevice getRoomDevice(String cateroomid);
 
     public void insertRoomDevice(RoomDevice RoomDevice);
 

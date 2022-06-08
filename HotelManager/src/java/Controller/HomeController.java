@@ -72,6 +72,8 @@ public class HomeController extends HttpServlet {
                 RequestDispatcher dispath = request.getRequestDispatcher("index.jsp");
                 dispath.forward(request, response);
             }
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
     }
 

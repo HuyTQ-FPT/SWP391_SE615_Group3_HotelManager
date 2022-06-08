@@ -15,16 +15,18 @@ public class Device {
 	private int DeviceCate;
 	private double Price;
 	private int Status;
+        private int Quantity ;
 
     public Device() {
     }
 
-    public Device(int DeviceID, String DeviceName, int DeviceCate, double Price, int Status) {
+    public Device(int DeviceID, String DeviceName, int DeviceCate, double Price, int Status, int Quantity) {
         this.DeviceID = DeviceID;
         this.DeviceName = DeviceName;
         this.DeviceCate = DeviceCate;
         this.Price = Price;
         this.Status = Status;
+        this.Quantity = Quantity;
     }
 
     public int getDeviceID() {
@@ -67,9 +69,17 @@ public class Device {
         this.Status = Status;
     }
 
+    public int getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(int Quantity) {
+        this.Quantity = Quantity;
+    }
+       
     @Override
     public String toString() {
-        return "Device{" + "DeviceID=" + DeviceID + ", DeviceName=" + DeviceName + ", DeviceCate=" + DeviceCate + ", Price=" + Price + ", Status=" + Status + '}';
+        return "Device{" + "DeviceID=" + DeviceID + ", DeviceName=" + DeviceName + ", DeviceCate=" + DeviceCate + ", Price=" + Price + ", Status=" + Status + "Quantity=" + Quantity + '}';
     }
         
 }

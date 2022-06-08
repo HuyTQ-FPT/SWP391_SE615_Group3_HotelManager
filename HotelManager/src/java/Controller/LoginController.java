@@ -207,10 +207,13 @@ public class LoginController extends HttpServlet {
             if (service.equals("logout")) { // xử lý đăng xuất
                 Cookie user = new Cookie("user", "");
                 Cookie pass = new Cookie("pass", "");
+                Cookie mess = new Cookie("mess", "");
                 user.setMaxAge(0);
                 pass.setMaxAge(0);
+                mess.setMaxAge(0);
                 response.addCookie(pass);
                 response.addCookie(user);
+                response.addCookie(mess);
                 session.removeAttribute("login");
                 response.sendRedirect("HomeController");
             }

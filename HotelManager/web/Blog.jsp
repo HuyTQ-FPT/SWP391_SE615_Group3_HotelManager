@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">  
         <link rel="stylesheet" href="css/aos.css">
         <link rel="stylesheet" href="css/style.css">
-    
+        <link href="css/main_1.css" rel="stylesheet" />
 
         <link rel="stylesheet" href="css/style_2.css" type="text/css">
     </head>
@@ -43,8 +43,8 @@
         }
     </style>
     <body>
-         <%          
-            Vector<Blog> vector4 = (Vector<Blog>) request.getAttribute("vector4");   
+        <%
+            Vector<Blog> vector4 = (Vector<Blog>) request.getAttribute("vector4");
         %>
         <div class="site-wrap">
 
@@ -58,84 +58,82 @@
             </div> <!-- .site-mobile-menu -->
 
 
-              <jsp:include page="header.jsp"></jsp:include>
+            <jsp:include page="header.jsp"></jsp:include>
 
 
-            <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-md-7 text-center" data-aos="fade">
-                            <span class="caption mb-3">Suites Hotel &amp; Resort</span>
-                            <h1 class="mb-4">About Us</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>  
-            <section class="blog spad">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-5">
-                            <div class="blog__sidebar">
-
-                                <div class="blog__sidebar__item">
-                                    <h4>Categories</h4>
-                                    <ul>
-                                        <li><a href="#">Phòng đơn</a></li>
-                                        <li><a href="#">Phòng đôi</a></li>
-                                        <li><a href="#">Gia đình</a></li>
-                                        <li><a href="#">Dịch vụ</a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="blog__sidebar__item">
-                                    <h4>Recent News</h4>
-                                    <div class="blog__sidebar__recent">
-                                        <a href="#" class="blog__sidebar__recent__item">
-                                            <div class="blog__sidebar__recent__item__pic">
-                                                <img src="img/blog/sidebar/sr-1.jpg" alt="">
-                                            </div>
-                                            <div class="blog__sidebar__recent__item__text">
-                                                <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
-                                                <span>MAR 05, 2019</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="blog__sidebar__recent__item">
-                                            <div class="blog__sidebar__recent__item__pic">
-                                                <img src="img/blog/sidebar/sr-2.jpg" alt="">
-                                            </div>
-                                            <div class="blog__sidebar__recent__item__text">
-                                                <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>
-                                                <span>MAR 05, 2019</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="blog__sidebar__recent__item">
-                                            <div class="blog__sidebar__recent__item__pic">
-                                                <img src="img/blog/sidebar/sr-3.jpg" alt="">
-                                            </div>
-                                            <div class="blog__sidebar__recent__item__text">
-                                                <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
-                                                <span>MAR 05, 2019</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="blog__sidebar__item">
-                                    <h4>Search By</h4>
-                                    <div class="blog__sidebar__item__tags">
-                                        <a href="#">Apple</a>
-                                        <a href="#">Beauty</a>
-                                        <a href="#">Vegetables</a>
-                                        <a href="#">Fruit</a>
-                                        <a href="#">Healthy Food</a>
-                                        <a href="#">Lifestyle</a>
-                                    </div>
-                                </div>
+                <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+                    <div class="container">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-7 text-center" data-aos="fade">
+                                <span class="caption mb-3">Suites Hotel &amp; Resort</span>
+                                <h1 class="mb-4">About Us</h1>
                             </div>
                         </div>
+                    </div>
+                </div>  
+                <section class="blog spad">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="blog__sidebar">
+
+                                    <div class="blog__sidebar__item">
+                                        <h4>Categories</h4>
+                                        <ul>
+                                            <li><a href="#">Phòng đơn</a></li>
+                                            <li><a href="#">Phòng đôi</a></li>
+                                            <li><a href="#">Gia đình</a></li>
+                                            <li><a href="#">Dịch vụ</a></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="blog__sidebar__item">
+                                        <h4>Recent News</h4>
+                                    <c:forEach items="${b}" var="c">
+                                        <div class="blog__sidebar__recent">
+                                            <a href="#" class="blog__sidebar__recent__item">
+                                                <div class="blog__sidebar__recent__item__pic">
+                                                    <img style="width: 50px; height: 50px;"src="images/anhblog/${c.blogImage}" alt="">
+                                                </div>
+                                                <div class="blog__sidebar__recent__item__text">
+                                                    <h6>${c.blogTitleString}</h6>
+                                                    <span>${c.blogDate}</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+
+                            </div>
+                        </div>
+
                         <div class="col-lg-8 col-md-7">
+                            <div class="label">
+                                <label>
+                                    <a href="BlogController?do=sortnew">Newest</a>
+                                </label>
+                                <label>
+                                    <a href="BlogController?do=sortold">Oldest</a>
+                                </label>
+                              <label>
+                                <div class="topnav"> 
+                                    <div class="search-container">
+                                        <form action="BlogController" method="get">
+                                              <input type="hidden" name="do" value="search">
+                                            <input type="text" placeholder="Tìm kiếm.." name="search">
+                                            <button type="submit">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                   </label>
+                            </div>                          
+
+
+
+
                             <div class="row">
-                                 <c:forEach items="${b}" var="c">
-                                <div class="col-lg-6 col-md-6 col-sm-6">                                  
+                                <c:forEach items="${b}" var="c">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">                                  
                                         <div class="blog__item">
                                             <div class="blog__item__pic">
                                                 <img style="width: 350px; height: 250px;" src="images/anhblog/${c.blogImage}" alt="">
@@ -149,20 +147,40 @@
                                                 <a href="BlogController?do=detailBlog&blogID=${c.blogID}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
                                             </div>
                                         </div>                                 
-                                </div>
-                    </c:forEach>
-                                  
+                                    </div>
+                                </c:forEach>
+
                                 <div class="col-lg-12">
-                                       
-                        <div class="col-md-12 text-center">
-                            <div class="site-block-27">
-                                <ul>
-                                    <c:forEach begin="1" end="${n}" var="c">
-                                  <li><a href="BlogController?page=${c}">${c}</a></li>
-                                    </c:forEach>
-                                    </ul>
-                                 </div>                     
-                                      </div>                              
+
+                                    <div class="col-md-12 text-center">
+                                        <c:if test="${a==1}">
+                                            <div class="site-block-27">
+                                                <ul>
+                                                    <c:forEach begin="1" end="${n}" var="c">
+                                                        <li><a href="BlogController?page=${c}">${c}</a></li>
+                                                        </c:forEach>
+                                                </ul>
+                                            </div>    
+                                        </c:if>
+                                        <c:if test="${a==2}">
+                                            <div class="site-block-27">
+                                                <ul>
+                                                    <c:forEach begin="1" end="${n}" var="c">
+                                                        <li><a href="BlogController?do=sortnew&page=${c}">${c}</a></li>
+                                                        </c:forEach>
+                                                </ul>
+                                            </div>    
+                                        </c:if>
+                                        <c:if test="${a==3}">
+                                            <div class="site-block-27">
+                                                <ul>
+                                                    <c:forEach begin="1" end="${n}" var="c">
+                                                        <li><a href="BlogController?do=sortold&page=${c}">${c}</a></li>
+                                                        </c:forEach>
+                                                </ul>
+                                            </div>    
+                                        </c:if>
+                                    </div>                              
                                 </div>                                          
                             </div>
                         </div>
@@ -253,22 +271,22 @@
 
 
         <script>
-                      document.addEventListener('DOMContentLoaded', function () {
-                          var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
 
-                          for (var i = 0; i < total; i++) {
-                              new MediaElementPlayer(mediaElements[i], {
-                                  pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                                  shimScriptAccess: 'always',
-                                  success: function () {
-                                      var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
-                                      for (var j = 0; j < targetTotal; j++) {
-                                          target[j].style.visibility = 'visible';
-                                      }
-                                  }
-                              });
-                          }
-                      });
+                                        for (var i = 0; i < total; i++) {
+                                            new MediaElementPlayer(mediaElements[i], {
+                                                pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                                                shimScriptAccess: 'always',
+                                                success: function () {
+                                                    var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
+                                                    for (var j = 0; j < targetTotal; j++) {
+                                                        target[j].style.visibility = 'visible';
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
         </script>
 
     </body>

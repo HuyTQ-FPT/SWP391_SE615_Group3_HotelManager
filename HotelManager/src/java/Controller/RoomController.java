@@ -5,9 +5,11 @@
  */
 package Controller;
 
+import Dao.impl.DeviceDAOImpl;
 import Dao.impl.ImageDAOImpl;
 import Dao.impl.RoomDAOImpl;
 import Dao.impl.ServiceDAOImpl;
+import Entity.Device;
 import Entity.Image;
 import Entity.Room;
 import Entity.Service;
@@ -82,14 +84,23 @@ public class RoomController extends HttpServlet {
             }
             if (service.equals("roomdetail")) {
                 ServiceDAOImpl dao1 = new ServiceDAOImpl();
+                DeviceDAOImpl daode = new DeviceDAOImpl();
                 String RoomID = request.getParameter("roomid");
+                String cateroom = request.getParameter("cateroom");
                 Vector<Image> img = daos.getImageByid(RoomID);
-//        out.println("<h1>Servlet PostController at " + RoomID + "</h1>");
+                Vector<Device> de = daode.getDevicebycateroom(cateroom);
                 Vector<Service> vector3 = dao1.getServiceListbyran();
                 Room rooom = dao.getRoom(RoomID);
+                Vector<Room> getroomlist = dao.getRoomList(""
+                        + "select top (4) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID\n"
+                        + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                        + "where Room.Status =0 and Room.RoomcateID = " + cateroom + "\n"
+                        + "ORDER BY NEWID()");
                 request.setAttribute("Room", rooom);
                 request.setAttribute("vector3", vector3);
+                request.setAttribute("de", de);
                 request.setAttribute("img", img);
+                request.setAttribute("getroomlist", getroomlist);
                 session.setAttribute("isroomde", "isroomde");
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
                 session.removeAttribute("isroomde");

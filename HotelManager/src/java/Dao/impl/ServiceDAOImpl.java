@@ -74,7 +74,7 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
 
     @Override
     public Service getServicedetail(String sid) {
-        String query = "  select * from Service where ServiceID =?";
+        String query = "select * from Service where ServiceID =?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, sid);

@@ -143,10 +143,10 @@
                                 <form>
                                     <div class="left-profile-box-m prod-page">
                                         <!--<div class="pro-img">-->
-                                        <img src="images/lag-61.png" alt="#" style="height: 80px;width: 150px" />
+                                        <img src="images/anhdevice/${c.serviceImage}" alt="#" style="height: 80px;width: 150px; margin-top: 10px" />
                                         <!--</div>-->
                                         <div class="pof-text">
-                                            <h4>${c.serviceName}</h4>
+                                            <h4 style="text-align: center">${c.serviceName}</h4>
                                             <!--                                <div class="check-box"></div>-->
                                         </div>
                                         <a href="#">Visit store</a>
@@ -159,10 +159,10 @@
                                 <form>
                                     <div class="left-profile-box-m prod-page">
                                         <!--<div class="pro-img">-->
-                                        <!--<img src="images/lag-61.png" alt="#" />-->
+                                        <img src="images/anhphong/${c.image}" alt="#"style="height: 80px;width: 150px;margin-top: 10px" />
                                         <!--</div>-->
                                         <div class="pof-text">
-                                            <h4>${c.cateroom}</h4>
+                                            <h4 style="text-align: center">${c.cateroom}</h4>
                                             <!--                                <div class="check-box"></div>-->
                                         </div>
                                         <a href="#">Visit store</a>
@@ -177,6 +177,8 @@
                             <div class="md-prod-page-in">
                                 <div class="display-container">
                                     <c:if test="${sessionScope.isroomde!=null}">
+                                        <button class="image-button button-left" onclick="plusDivs(-1)">&#10094;</button>
+                                        <button class="image-button button-right" onclick="plusDivs(1)">&#10095;</button>
                                         <c:forEach items="${img}" var="c">
                                             <img class="mySlides" src="images/anhphong/${c.image1}" style="height: 440px;width: 630px">
                                             <img class="mySlides" src="images/anhphong/${c.image2}" style="height: 440px;width: 630px">
@@ -184,215 +186,152 @@
                                         </c:forEach>
                                     </c:if>
                                     <c:if test="${sessionScope.isroomde==null}">
-                                        <img class="mySlides" src="images/anhdevice/${se.serviceImage}">
+                                        <img class="mySlides" src="images/anhdevice/${se.serviceImage}"style="height: 440px;width: 630px">
                                     </c:if>
-
-                                    <button class="image-button button-left" onclick="plusDivs(-1)">&#10094;</button>
-                                    <button class="image-button button-right" onclick="plusDivs(1)">&#10095;</button>
                                 </div>
                                 <div class="btn-dit-list clearfix">
-                                    <div class="left-dit-p">
-                                        <div class="prod-btn">
-                                            <c:if test="${sessionScope.isroomde!=null}">
-                                                <p>${Room.cateroom}</p>
-                                            </c:if>
-                                        </div>
-                                    </div>
-                                    <div class="right-dit-p">
-                                        <div class="like-list">
-                                            <ul>
-                                                <li>
-                                                    <div class="im-b"><img class="" src="images/list-img-01.png" alt=""></div>
-                                                </li>
-                                                <li>
-                                                    <div class="im-b"><img src="images/list-img-02.png" alt=""></div>
-                                                </li>
-                                                <li>
-                                                    <div class="im-b"><img src="images/list-img-03.png" alt=""></div>
-                                                </li>
-                                                <li>
-                                                    <div class="im-b"><img src="images/list-img-04.png" alt=""></div>
-                                                </li>
-                                                <li>
-                                                    <div class="im-b"><img src="images/list-img-05.png" alt=""></div>
-                                                </li>
-                                                <li>
-                                                    <div class="im-b"><img src="images/list-img-06.png" alt=""></div>
-                                                </li>
-                                                <li>
-                                                    <div class="im-b"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                    <div class="left-dit-p" style="text-align: center">
+                                        <!--<div class="dex-a">-->
+                                        <c:if test="${sessionScope.isroomde!=null}">
+                                            <h4 style="text-align: center">Loại Phòng: ${Room.cateroom}</h4>
+                                        </c:if>
+                                        <c:if test="${sessionScope.isroomde==null}">
+                                            <h4>Dịch Vụ Đi Kèm: ${se.serviceName}</h4>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
                             <div class="description-box">
                                 <div class="dex-a">
-                                    <h4>Description</h4>
-                                    <c:if test="${sessionScope.isroomde!=null}">
-                                        <p>${Room.roomdesc}</p>
-                                    </c:if>
+                                    <h4 style="text-align: center">Mô TẢ</h4>
                                     <c:if test="${sessionScope.isroomde==null}">
                                         <p>${se.serviceDes}</p>
                                     </c:if>
-                                    <br>
-                                    <p>Small: H 25 cm / &Oslash; 12 cm</p>
-                                    <p>Large H 24 cm / &Oslash; 25 cm</p>
-                                </div>
-                                <div class="spe-a">
-                                    <h4>Specifications</h4>
-                                    <ul>
-                                        <li class="clearfix">
-                                            <div class="col-md-4">
-                                                <h5>Measurments</h5>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p>H25 cm / 0 12 cm and H 24 cm / 0 25 cm</p>
-                                            </div>
-                                        </li>
-                                        <li class="clearfix">
-                                            <div class="col-md-4">
-                                                <h5>Material</h5>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p>Material Name</p>
-                                            </div>
-                                        </li>
-                                        <li class="clearfix">
-                                            <div class="col-md-4">
-                                                <h5>Wire</h5>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p>Wire Name</p>
-                                            </div>
-                                        </li>
-                                        <li class="clearfix">
-                                            <div class="col-md-4">
-                                                <h5>Comdition</h5>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p>Brand new</p>
-                                            </div>
-                                        </li>
-                                        <li class="clearfix">
-                                            <div class="col-md-4">
-                                                <h5>SKU number</h5>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p>SKU number</p>
-                                            </div>
-                                        </li>
-                                        <li class="clearfix">
-                                            <div class="col-md-4">
-                                                <h5>Shipping</h5>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p>Shipping worldwide</p>
-                                            </div>
-                                        </li>
-                                        <li class="clearfix">
-                                            <div class="col-md-4">
-                                                <h5>Warranty</h5>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p>1 years</p>
-                                            </div>
-                                        </li>
-                                        <li class="clearfix">
-                                            <div class="col-md-4">
-                                                <h5>Delivery</h5>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <p>Choose country</p>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <c:if test="${sessionScope.isroomde!=null}">
+                                        <p>${Room.roomdesc}</p>
+                                        <br>
+                                        <p>DIỆN TÍCH: ${Room.square}m2</p>
+
+                                        <div class="spe-a">
+                                            <h4>Tiện Ích Phòng</h4>
+                                            <ul>
+                                                <li class="clearfix">
+                                                    <div class="col-md-4">
+                                                        <h5 style="color: red">Đồ dùng</h5>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <h5 style="color: red">Số Lượng</h5>
+                                                    </div>
+                                                </li>
+                                                <c:forEach items="${de}" var="de">
+                                                    <li class="clearfix">
+                                                        <div class="col-md-4">
+                                                            <h5><p>${de.deviceName}</p></h5>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p>${de.quantity}</p>
+                                                        </div>
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
                         <div class="similar-box">
-                            <h2>Similiar products from Morgan Mobilya</h2>
-                            <div class="row cat-pd">
-                                <div class="col-md-6">
-                                    <div class="small-box-c">
-                                        <div class="small-img-b">
-                                            <img class="img-responsive" src="images/tr1.png" alt="#" />
-                                        </div>
-                                        <div class="dit-t clearfix">
-                                            <div class="left-ti">
-                                                <h4>Product</h4>
-                                                <p>By <span>Beko</span> under <span>Lights</span></p>
+                            <c:if test="${sessionScope.isroomde!=null}">
+                                <h2 style="text-align: center">Các Phòng Tương Tự</h2>
+                                <div class="row cat-pd">
+                                    <c:forEach items="${getroomlist}" var="c">
+                                    <div class="col-md-6" style="margin-top: 30px">
+                                        <div class="small-box-c">
+                                            <div class="small-img-b">
+                                                <img class="img-responsive" src="images/tr2.png" alt="#" />
                                             </div>
-                                            <a href="#" tabindex="0">$1220</a>
-                                        </div>
-                                        <div class="prod-btn">
-                                            <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                            <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
-                                            <p>23 likes</p>
+                                            <div class="dit-t clearfix">
+                                                <div class="left-ti">
+                                                    <h4>${c.roomname}</h4>
+                                                    <p>By <span>Beko</span> under <span>Chairs</span></p>
+                                                </div>
+                                                <a href="#" tabindex="0">$1220</a>
+                                            </div>
+                                            <div class="prod-btn">
+                                                <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                                <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
+                                                <p>23 likes</p>
+                                            </div>
                                         </div>
                                     </div>
+                                    </c:forEach>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="small-box-c">
-                                        <div class="small-img-b">
-                                            <img class="img-responsive" src="images/tr2.png" alt="#" />
-                                        </div>
-                                        <div class="dit-t clearfix">
-                                            <div class="left-ti">
-                                                <h4>Product</h4>
-                                                <p>By <span>Beko</span> under <span>Chairs</span></p>
+                            </c:if>
+                            <c:if test="${sessionScope.isroomde==null}">
+                                <h2 style="text-align: center">Phòng Dành Cho Bạn</h2>
+                                <div class="row cat-pd">
+                                    <c:forEach items="${getroomlist2}" var="c">
+                                    <div class="col-md-6" style="margin-top: 30px">
+                                        <div class="small-box-c">
+                                            <div class="small-img-b">
+                                                <img class="img-responsive" src="images/tr2.png" alt="#" />
                                             </div>
-                                            <a href="#" tabindex="0">$1220</a>
-                                        </div>
-                                        <div class="prod-btn">
-                                            <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                            <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
-                                            <p>23 likes</p>
+                                            <div class="dit-t clearfix">
+                                                <div class="left-ti">
+                                                    <h4>${c.roomname}</h4>
+                                                    <p>By <span>Beko</span> under <span>Chairs</span></p>
+                                                </div>
+                                                <a href="#" tabindex="0">$1220</a>
+                                            </div>
+                                            <div class="prod-btn">
+                                                <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                                <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
+                                                <p>23 likes</p>
+                                            </div>
                                         </div>
                                     </div>
+                                    </c:forEach>
                                 </div>
-                            </div>
-                            <div class="row cat-pd">
-                                <div class="col-md-6">
-                                    <div class="small-box-c">
-                                        <div class="small-img-b">
-                                            <img class="img-responsive" src="images/tr3.png" alt="#" />
-                                        </div>
-                                        <div class="dit-t clearfix">
-                                            <div class="left-ti">
-                                                <h4>Product</h4>
-                                                <p>By <span>Beko</span> under <span>Lights</span></p>
-                                            </div>
-                                            <a href="#" tabindex="0">$1220</a>
-                                        </div>
-                                        <div class="prod-btn">
-                                            <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                            <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
-                                            <p>23 likes</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="small-box-c">
-                                        <div class="small-img-b">
-                                            <img class="img-responsive" src="images/tr4.png" alt="#" />
-                                        </div>
-                                        <div class="dit-t clearfix">
-                                            <div class="left-ti">
-                                                <h4>Product</h4>
-                                                <p>By <span>Beko</span> under <span>Chairs</span></p>
-                                            </div>
-                                            <a href="#" tabindex="0">$1220</a>
-                                        </div>
-                                        <div class="prod-btn">
-                                            <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                            <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
-                                            <p>23 likes</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:if>
+                            <!--                            <div class="row cat-pd">
+                                                            <div class="col-md-6">
+                                                                <div class="small-box-c">
+                                                                    <div class="small-img-b">
+                                                                        <img class="img-responsive" src="images/tr3.png" alt="#" />
+                                                                    </div>
+                                                                    <div class="dit-t clearfix">
+                                                                        <div class="left-ti">
+                                                                            <h4>Product</h4>
+                                                                            <p>By <span>Beko</span> under <span>Lights</span></p>
+                                                                        </div>
+                                                                        <a href="#" tabindex="0">$1220</a>
+                                                                    </div>
+                                                                    <div class="prod-btn">
+                                                                        <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                                                        <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
+                                                                        <p>23 likes</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="small-box-c">
+                                                                    <div class="small-img-b">
+                                                                        <img class="img-responsive" src="images/tr4.png" alt="#" />
+                                                                    </div>
+                                                                    <div class="dit-t clearfix">
+                                                                        <div class="left-ti">
+                                                                            <h4>Product</h4>
+                                                                            <p>By <span>Beko</span> under <span>Chairs</span></p>
+                                                                        </div>
+                                                                        <a href="#" tabindex="0">$1220</a>
+                                                                    </div>
+                                                                    <div class="prod-btn">
+                                                                        <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
+                                                                        <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
+                                                                        <p>23 likes</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>-->
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-12">
@@ -461,27 +400,27 @@
 
         <script src="js/main.js"></script>
         <script>
-                                        var slideIndex = 1;
-                                        showDivs(slideIndex);
+                                            var slideIndex = 1;
+                                            showDivs(slideIndex);
 
-                                        function plusDivs(n) {
-                                            showDivs(slideIndex += n);
-                                        }
+                                            function plusDivs(n) {
+                                                showDivs(slideIndex += n);
+                                            }
 
-                                        function showDivs(n) {
-                                            var i;
-                                            var x = document.getElementsByClassName("mySlides");
-                                            if (n > x.length) {
-                                                slideIndex = 1
+                                            function showDivs(n) {
+                                                var i;
+                                                var x = document.getElementsByClassName("mySlides");
+                                                if (n > x.length) {
+                                                    slideIndex = 1
+                                                }
+                                                if (n < 1) {
+                                                    slideIndex = x.length
+                                                }
+                                                for (i = 0; i < x.length; i++) {
+                                                    x[i].style.display = "none";
+                                                }
+                                                x[slideIndex - 1].style.display = "block";
                                             }
-                                            if (n < 1) {
-                                                slideIndex = x.length
-                                            }
-                                            for (i = 0; i < x.length; i++) {
-                                                x[i].style.display = "none";
-                                            }
-                                            x[slideIndex - 1].style.display = "block";
-                                        }
         </script>
 
     </body>

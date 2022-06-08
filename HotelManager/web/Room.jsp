@@ -80,8 +80,16 @@
                                     <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom() %></a></h3>
                                     <strong class="price">$<%=v.getRoomprice()%> / per night</strong>
                                     <div class="add-to-cart" style="padding-top: 32px">
-                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                                  <div class="add-to-cart-btnn"><i class="w3-large fa fa-bars"></i></div>
+                                        <c:if test="${sessionScope.login==null}">
+                                        <form action="Login.jsp">
+                                            <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                        </form>
+                                        </c:if>
+                                        <c:if test="${sessionScope.login!=null}">
+                                        <form action="#">
+                                            <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                        </form>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>

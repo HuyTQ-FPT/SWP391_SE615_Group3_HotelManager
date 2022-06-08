@@ -20,6 +20,7 @@ import java.util.Vector;
  * @author Admin
  */
 public class RoomDAOImpl extends DBContext implements RoomDAO {
+
     @Override
     public Vector<Room> getRoomList(String sql) {
         Vector<Room> vector = new Vector<Room>();
@@ -49,17 +50,19 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 
     @Override
     public Room getRoom(String roomid) {
-        String query = "select * from Room where RoomID = ?";
+        String query = "select * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
+                + "                     JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                + "                   where RoomID = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, roomid);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                return new Room(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getDouble(6), rs.getInt(7), rs.getFloat(8), rs.getString(9), rs.getInt(10), rs.getString(11), rs.getString(12));
+                return new Room(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(14), rs.getDouble(6), rs.getInt(7), rs.getFloat(8), rs.getString(9), rs.getInt(10), rs.getString(11), rs.getString(19));
             }
         } catch (Exception e) {
         }
-           return null;
+        return null;
     }
 
     @Override
@@ -119,7 +122,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         String sql = "with t as(SELECT r.RoomID,r.Roomname,r.Roomdesc, r.RoomcateID,i.image1,r.Roomprice,r.NumberPerson,r.[Square],r.Comment,r.Rate,r.Note,c.Catename,ROW_NUMBER() OVER (order by r.RoomID) \n"
                 + "AS RowNum FROM Room r INNER JOIN [Image] i on i.RoomimgaeID= r.RoomimgaeID \n"
                 + "          JOIN CateRoom c on r.RoomcateID = c.RoomcateID)\n"
-                + "select * from t Where RowNum between "+begin +" AND " +end;
+                + "select * from t Where RowNum between " + begin + " AND " + end;
         try {
             ResultSet rs = getData(sql);
             while (rs.next()) {
@@ -143,18 +146,19 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return vector;
     }
+
     public static void main(String[] args) {
-        RoomDAOImpl dao= new RoomDAOImpl();
-        Vector<Room> vector= dao.getRoomList("select * from Room");
+        RoomDAOImpl dao = new RoomDAOImpl();
+//        Vector<Room> vector= dao.getRoomList("select * from Room");
         Room rooom = dao.getRoom("1");
-        for (Room room : vector) {
-            System.out.println(room);
-        }      
+//        for (Room room : vector) {
+        System.out.println(rooom);
+//        }      
     }
 
     @Override
     public int getPageByPageStatus() {
-         int n = 0;
+        int n = 0;
         String sql = "select COUNT(*) from Room where status=0";
         Vector<Room> vector = new Vector<Room>();
         try {
@@ -179,7 +183,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 
     @Override
     public Vector<Room> getRoomByPageStatus(int n) {
-       Vector<Room> vector = new Vector<Room>();
+        Vector<Room> vector = new Vector<Room>();
         int begin = 1;
         int end = 3;
         for (int i = 2; i <= n; i++) {
@@ -191,7 +195,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 + "          JOIN CateRoom c on r.RoomcateID = c.RoomcateID\n"
                 + "where r.Status=0"
                 + ")\n"
-                + "select * from t Where RowNum between "+begin +" AND " +end;
+                + "select * from t Where RowNum between " + begin + " AND " + end;
         try {
             ResultSet rs = getData(sql);
             while (rs.next()) {
@@ -222,8 +226,8 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<Room> getRoomByPrice(int n) {
+    public Vector<Room> getRelateRoomByCate(String cateid) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
