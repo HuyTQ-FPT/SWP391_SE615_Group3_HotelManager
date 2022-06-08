@@ -288,32 +288,23 @@
                         </div>
                     </div>       
                 </div>
-                <section id="topic-header">
-                    <div class="container" style="padding-top: 30px">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h1> Phòng </h1>
-                                    <p>Danh sách các phòng</p>
-                                </div>
-                                <!-- End of /.col-md-4 -->
-                                <!-- End of /.col-md-8 -->
-                            </div>
-                            <!-- End of /.row -->
-                        </div>
-                        <!-- End of /.container -->
-                    </section>
+            </div>
+                <div style="font-size: 20px;margin-left: 20%; padding-top: 50px;padding-bottom: 30px;" class="col-md-6">
+                    <h2 style="color: red"class="display-4" data-aos="fade-up">Enjoy Your Stay</h2>
+                    <p data-aos="fade-up" data-aos-delay="100" "><span style="color: blue;">Giá cả</span> và <span style="color: blue;">chất lượng</span> ngang bằng nhau chỉ giúp bạn bước chân vào cuộc chơi. <span style="color: blue;">Dịch vụ </span> sẽ giúp bạn chiến thắng cuộc chơi. </p>
+              </div>
                     <!-- End of /#Topic-header -->
 
                     <!-- PRODUCTS Start
                     ================================================== -->
                     <%Vector<Room> vector = (Vector<Room>) request.getAttribute("vector"); %>
-                    <section id="shop">
+                   <section style="background-color: #f6f6f6" id="shop">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-10">
-                                    <div class="products-heading" style="padding-top: 30px">
-                                        <h2 style="font-family: Orbitron">Danh sách các phòng</h2>
-                                    </div>
+                            <div class="products" style="padding-top: 50px;">
+                                <h2 style="font-family: Orbitron;">Danh sách các phòng</h2>
+                            </div>
                                     <!-- End of /.Products-heading -->
                                     <div class="product-grid">
                                         <ul>
