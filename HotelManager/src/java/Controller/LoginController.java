@@ -137,7 +137,7 @@ public class LoginController extends HttpServlet {
                     response.sendRedirect("HomeController");
                 }
             }
-            if (service.equals("ForgetPassword")) {
+            if (service.equals("ForgetPassword")) { // Gửi mật khẩu mới qua gamil
                 String user = request.getParameter("name").trim();
                 String email = request.getParameter("email");
 
