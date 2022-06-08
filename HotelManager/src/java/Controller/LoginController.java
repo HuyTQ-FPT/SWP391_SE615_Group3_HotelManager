@@ -75,7 +75,7 @@ public class LoginController extends HttpServlet {
                         response.sendRedirect("HomeController");
                     } else if (rs.getString(2).equals("2")) {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
-                        request.getRequestDispatcher("ManagerProduct.jsp").forward(request, response);
+                          response.sendRedirect("ReceptionistController");
                     } else {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
                         request.getRequestDispatcher("indexAdmin.html").forward(request, response);

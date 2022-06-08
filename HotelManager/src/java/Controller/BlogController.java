@@ -115,7 +115,7 @@ public class BlogController extends HttpServlet {
               }
               if(dos.equals("search")){
                   String author = request.getParameter("search");
-                  Vector<Blog> vector = dao.getBlog("select * from Blog where BlogAuthor = '"+ author +"'");
+                  Vector<Blog> vector = dao.getBlog("select * from Blog where BlogAuthor like '%"+author+"%'");
                   request.setAttribute("b", vector);
                    request.getRequestDispatcher("Blog.jsp").forward(request, response);
               }

@@ -115,7 +115,7 @@
                                 <label>
                                     <a href="BlogController?do=sortold">Oldest</a>
                                 </label>
-                              <label>
+                                <label style="padding-left:300px;">
                                 <div class="topnav"> 
                                     <div class="search-container">
                                         <form action="BlogController" method="get">
@@ -140,7 +140,7 @@
                                             </div>
                                             <div class="blog__item__text">
                                                 <ul>
-                                                    <li><i class="fa fa-calendar-o"></i>${c.blogDate}</li>                                               
+                                                    <li><i class="fa fa-calendar-o"></i>${c.blogDate} by <label style="color: red">${c.blogAuthor}</label></li>                                               
                                                 </ul>
                                                 <h5><a style="font-family: Roboto;" href="#">${c.blogTitleString}</a></h5>
 <!--                                                <p>${c.blogDescription}</p>-->

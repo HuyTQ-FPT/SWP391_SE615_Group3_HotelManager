@@ -140,7 +140,7 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" + "RoomID=" + RoomID + ", Roomname=" + Roomname + ", Roomdesc=" + Roomdesc + ", RoomcateID=" + RoomcateID + ", image=" + image + ", Roomprice=" + Roomprice + ", NumberPerson=" + NumberPerson + ", Square=" + Square + ", Comment=" + Comment + ", Rate=" + Rate + ", Note=" + Note + "Cateroom=" + cateroom +'}';//To change body of generated methods, choose Tools | Templates.
+        return "Room{" + "RoomID=" + RoomID + ", Roomname=" + Roomname + ", Roomdesc=" + Roomdesc + ", RoomcateID=" + RoomcateID + ", image=" + image + ", Roomprice=" + Roomprice + ", NumberPerson=" + NumberPerson + ", Square=" + Square + ", Comment=" + Comment + ", Rate=" + Rate + ", Note=" + Note + "Cateroom=" + cateroom + '}';//To change body of generated methods, choose Tools | Templates.
     }
 
 }

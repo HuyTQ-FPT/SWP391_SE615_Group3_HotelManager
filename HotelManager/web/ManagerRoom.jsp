@@ -1,4 +1,5 @@
 
+<%@page import="Entity.Room"%>
 <%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
@@ -7,7 +8,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Admin</title>
+        <title>Receptionist</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -172,15 +173,15 @@
     </head>
     <body>
         <%
-            //Vector<Products> vector = (Vector<Products>) request.getAttribute("list");
+            Vector<Room> vector = (Vector<Room>) request.getAttribute("vectorR");
         %>
         <section class="ftco-section">
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
-                    <span class="admin"></i>Admin</span>
-                    <form action="ControllerLogin_Admin?do=logout" method="post">
-                           <button type="submit" name="log-out" class="log-out">Log Out</button>
-                     </form>
+                    <span class="admin"></i>Receptionist</span>
+                    <form action="LoginController?do=logout" method="post">
+                        <button type="submit" name="log-out" class="log-out">Log Out</button>
+                    </form>
                     <form action="ControllerProduct?do=listAllProduct" class="searchform order-lg-last" method="post">
                         <div class="form-group d-flex">
                             <input name="name" type="text" class="form-control pl-3" placeholder="ProductName">
@@ -189,9 +190,9 @@
                     </form>
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active"><a href="ControllerProduct" class="nav-link">Manager<br>Products</a></li>
-                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>
-                            <li class="nav-item "><a href="ControllerCustomer" class="nav-link">Manager<br>Customers</a></li>
+                            <li class="nav-item active"><a href="ControllerProduct" class="nav-link">Manager<br>Rooms</a></li>
+<!--                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>-->
+                            <li class="nav-item "><a href="ReceptionistController?do=Cus" class="nav-link">Manager<br>Customers</a></li>
                         </ul>
                     </div>
                 </div>
@@ -202,33 +203,45 @@
             <table class="table table-striped table-hover table-bordered"> 
                 <thead>
                     <tr class="title">
-                        <th>ProductID</th>
-                        <th>ProductName</th>
-                        <th>SupplierID</th>
-                        <th>CategoryID</th>
-                        <th>QuantityPerUnit</th>
-                        <th>UnitPrice</th>
-                        <th>UnitsInStock</th>
-                        <th>UnitsOnOrder</th>
-                        <th>ReorderLevel</th>
-                        <th>Discontinued</th>
-                        <th>Image</th>
-                        Insert Product:<a href="ControllerProduct?do=insertProduct" class="view" title="insert Product" data-toggle="tooltip"><i class="material-icons" style="font-size:23px;">add_circle</i></a>
+                        <th>RoomID</th>
+                        <th>RoomName</th>
+                        <th>RoomDesc</th>
+                        <th>Roomprice</th>
+                        <th>NumberPerson</th>
+                        <th>Square</th>
+                        <th>Rate</th>
+                        <!--<th>Note</th>-->
+                        <th>Status</th>
+
                     </tr>
                 </thead>
+                <%
+                    for (Room r : vector) {%>
+
+
+
                 <tbody>
                     <tr class="name">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><%=r.getRoomID()%></td>
+                        <td><%=r.getRoomname()%></td>
+                        <td><%=r.getRoomdesc()%></td>
+                        <td><%=r.getRoomprice()%></td>
+                        <td><%=r.getNumberPerson()%></td>
+                        <td><%=r.getSquare()%></td>
+                        <td><%=r.getRate()%></td>
+                        <td>
+                            <form action="ReceptionistController">
+                                <input type="hidden" name="do" value="updateStatus">   
+                                <input type="hidden" name="rid" value="<%= r.getRoomID()%>"> 
+                                <select name="status"  onchange="this.form.submit()">
+                                    <option value="1" <%if (r.getStatus() == 1) {%>selected<%}%>>Phòng trống</option>
+                                    <option value="2" <%if (r.getStatus() == 2) {%>selected<%}%>>Phòng đã được đặt</option>
+                               
+                                </select>   
+                            </form>
+                                
+                        </td>
+
                         <td style="width:100px;">
                             <!--<a href="ControllerProduct?do=insertProduct" class="view" title="inser" data-toggle="tooltip"><i class="material-icons">add_circle</i></a>-->
                             <a href="ControllerProduct?do=updateProduct&pid=" class="edit" title="Update" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -236,6 +249,7 @@
                         </td>                        
                     </tr> 
                 </tbody>
+                <%}%>
             </table>
         </div>   
     </body>
