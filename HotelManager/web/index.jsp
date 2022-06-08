@@ -377,7 +377,7 @@
                     <div class="row no-gutters">
                         <%for (Room r : vector4) {%>
                         <div class="col-md-6 col-lg-4">
-                            <a href="RoomController?do=roomdetail&roomid=<%=r.getRoomID()%>" class="img-opacity"><img style="width: 400px; height: 250px;" src="images/anhphong/<%=r.getImage()%>" alt="Image" class="img-fluid"></a>                        
+                            <a href="RoomController?do=roomdetail&roomid=<%=r.getRoomID()%>&cateroom=<%=r.getRoomcateID()%>" class="img-opacity"><img style="width: 400px; height: 250px;" src="images/anhphong/<%=r.getImage()%>" alt="Image" class="img-fluid"></a>                        
                         </div>
                         <%}%>
                     </div>
