@@ -32,10 +32,10 @@
         <link rel="stylesheet" href="css/tooplate-style.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-   <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-     <link rel="stylesheet" type="text/css" href="css/datepicker.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+        <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/datepicker.css" />
     </head>
     <style>
         .login{
@@ -134,17 +134,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <%Vector<Room> vector = (Vector<Room>)request.getAttribute("vector"); 
-                                for (Room v : vector) {%>
+                        <%Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
+                            for (Room v : vector) {%>
                         <div class="col-md-6 col-lg-4 mb-5">
                             <div class="hotel-room text-center">
-                                <a href="#" class="d-block mb-0 thumbnail"><img style="width: 350px;height: 250px; "src="images/anhphong/<%=v.getImage() %>" alt="Image" class="img-fluid"></a>
+                                <a href="#" class="d-block mb-0 thumbnail"><img style="width: 350px;height: 250px; "src="images/anhphong/<%=v.getImage()%>" alt="Image" class="img-fluid"></a>
                                 <div class="hotel-room-body">
-                                    <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom() %></a></h3>
+                                    <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
                                     <strong class="price">$<%=v.getRoomprice()%> / per night</strong>
                                     <div class="add-to-cart" style="padding-top: 32px">
                                         <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                                  <div class="add-to-cart-btnn"><i class="w3-large fa fa-bars"></i></div>
+                                        <div class="add-to-cart-btnn"><i class="w3-large fa fa-bars"></i></div>
                                     </div>
                                 </div>
                             </div>
@@ -153,15 +153,15 @@
 
                     </div>
 
-<!--                    <div class="row mt-5">
-                        <div class="col-md-12 text-center">
-                            <div class="site-block-27">
-                                <ul>
-                                    
-                                </ul>
-                            </div>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="row mt-5">
+                                            <div class="col-md-12 text-center">
+                                                <div class="site-block-27">
+                                                    <ul>
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>-->
                 </div>
             </div>
 
@@ -251,22 +251,22 @@
 
 
         <script>
-                      document.addEventListener('DOMContentLoaded', function () {
-                          var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
 
-                          for (var i = 0; i < total; i++) {
-                              new MediaElementPlayer(mediaElements[i], {
-                                  pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                                  shimScriptAccess: 'always',
-                                  success: function () {
-                                      var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
-                                      for (var j = 0; j < targetTotal; j++) {
-                                          target[j].style.visibility = 'visible';
-                                      }
-                                  }
-                              });
-                          }
-                      });
+                                        for (var i = 0; i < total; i++) {
+                                            new MediaElementPlayer(mediaElements[i], {
+                                                pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                                                shimScriptAccess: 'always',
+                                                success: function () {
+                                                    var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
+                                                    for (var j = 0; j < targetTotal; j++) {
+                                                        target[j].style.visibility = 'visible';
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
         </script>
 
     </body>

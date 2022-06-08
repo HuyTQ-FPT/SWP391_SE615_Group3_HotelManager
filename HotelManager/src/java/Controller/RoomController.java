@@ -15,6 +15,8 @@ import Entity.Room;
 import Entity.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.Stack;
 import java.util.Vector;
 import javax.servlet.RequestDispatcher;
@@ -55,7 +57,7 @@ public class RoomController extends HttpServlet {
                 Vector<Room> vector = dao.getRoomByPage(Integer.parseInt(page));
                 request.setAttribute("vector", vector);
                 request.setAttribute("n", n);
-                RequestDispatcher dispatch = request.getRequestDispatcher("Room.jsp");
+                RequestDispatcher dispatch = request.getRequestDispatcher("testRoom.jsp");
                 dispatch.forward(request, response);
             }
             if (service.equals("searchRoom")) {
@@ -64,6 +66,16 @@ public class RoomController extends HttpServlet {
                 String adult = request.getParameter("adult");
                 String room = request.getParameter("room");
                 String children = request.getParameter("children");
+
+                SimpleDateFormat format = new SimpleDateFormat("E MMM dd yyyy");
+                Date date1 = (Date) format.parse(checkin);
+                java.sql.Date sDate = new java.sql.Date(date1.getTime());
+                System.out.println(sDate);
+                Date date2 =(Date)  format.parse(checkout);
+                java.sql.Date cDate = new java.sql.Date(date2.getTime());
+                 System.out.println(cDate);
+                
+
                 if (adult.isEmpty()) {
                     adult = "1";
                 }
@@ -73,7 +85,7 @@ public class RoomController extends HttpServlet {
                 if (room.isEmpty()) {
                     room = "1";
                 }
-                int n = (Integer.parseInt(adult) + Integer.parseInt(children)) / 2;
+                int n = (Integer.parseInt(adult) + Integer.parseInt(children)) / Integer.parseInt(room);
 
                 Vector<Room> vector = dao.getRoomList("select * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
                         + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
@@ -112,7 +124,49 @@ public class RoomController extends HttpServlet {
                         + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
                         + "where Room.RoomcateID= " + id);
                 request.setAttribute("vector", vector);
-                request.getRequestDispatcher("Sort.jsp").forward(request, response);
+                request.getRequestDispatcher("SortByCate.jsp").forward(request, response);
+            }
+            if (service.equals("sortByPriceMax")) {
+                int n = dao.getPage();
+                String page = request.getParameter("page");
+                Vector<Room> vector = dao.getRoomByPriceMax(Integer.parseInt(page));
+                request.setAttribute("vector", vector);
+                request.setAttribute("n1", n);
+                RequestDispatcher dispatch = request.getRequestDispatcher("testRoom.jsp");
+                dispatch.forward(request, response);
+            }
+            if (service.equals("sortByPriceMin")) {
+                int n = dao.getPage();
+                String page = request.getParameter("page");
+                Vector<Room> vector = dao.getRoomByPriceMin(Integer.parseInt(page));
+                request.setAttribute("vector", vector);
+                request.setAttribute("n2", n);
+                RequestDispatcher dispatch = request.getRequestDispatcher("testRoom.jsp");
+                dispatch.forward(request, response);
+            }
+            if (service.equals("sortByRate")) {
+                int n = dao.getPage();
+                String page = request.getParameter("page");
+                Vector<Room> vector = dao.getRoomByRate(Integer.parseInt(page));
+                request.setAttribute("vector", vector);
+                request.setAttribute("n3", n);
+                RequestDispatcher dispatch = request.getRequestDispatcher("testRoom.jsp");
+                dispatch.forward(request, response);
+            }
+            if (service.equals("sortByPriceBetween")) {
+                String price1 = request.getParameter("price1");
+                String price2 = request.getParameter("price2");
+                int pri1 = Integer.parseInt(price1);
+                int pri2 = Integer.parseInt(price2);
+
+                int n = dao.getPageByPrice(pri1, pri2);
+                String page = request.getParameter("page");
+
+                Vector<Room> vector = dao.getRoomListbyPrice(Integer.parseInt(page), pri1, pri2);
+                request.setAttribute("n4", n);
+                request.setAttribute("vector", vector);
+                RequestDispatcher dispatch = request.getRequestDispatcher("testRoom.jsp");
+                dispatch.forward(request, response);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

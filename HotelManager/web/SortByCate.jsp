@@ -11,18 +11,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- load stylesheets -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">  
-        <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">              
-        <link rel="stylesheet" href="css/bootstrap.min.css">                               
-        <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
-        <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
-        <link rel="stylesheet" type="text/css" href="css/datepicker.css"/>
-        <link rel="stylesheet" href="css/tooplate-style.css"> 
-
         <link rel="stylesheet" href="csss/font-awesome.min.css">
         <link rel="stylesheet" href="csss/style.css">
         <link rel="stylesheet" href="csss/responsive.css">
+
+
 
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Work+Sans:300,400,700" rel="stylesheet">
         <link rel="stylesheet" href="fonts/icomoon/style.css">
@@ -124,7 +117,7 @@
 
         .login{
             position: fixed;
-            right: 110px;
+            right: 120px;
         }
         .register{
             position: fixed;
@@ -132,44 +125,11 @@
         }
         .user{
             position: fixed;
-            right: 90px;
-        }
-        div.stars {
-            width: 270px;
-            display: inline-block;
-        }
-
-        input.star { display: none; }
-
-        label.star {
-            float: right;
-            padding: 10px;
-            font-size: 20px;
-            color: #444;
-            transition: all .2s;
-        }
-
-        input.star:checked ~ label.star:before {
-            content: '\f005';
-            color: #FD4;
-            transition: all .25s;
-        }
-
-        input.star-5:checked ~ label.star:before {
-            color: #FE7;
-            text-shadow: 0 0 20px #952;
-        }
-
-        input.star-1:checked ~ label.star:before { color: #F62; }
-
-        label.star:hover { transform: rotate(-15deg) scale(1.3); }
-
-        label.star:before {
-            content: '\f006';
-            font-family: FontAwesome;
+            right: 100px;
         }
     </style>
     <body>
+
         <div class="site-wrap">
 
             <div class="site-mobile-menu">
@@ -183,135 +143,110 @@
 
 
             <jsp:include page="header.jsp"></jsp:include>
-                <div class="card" id="team">
-                    <div class="card_img">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
-                    </div>
-                <c:if test="${sessionScope.login!=null}">
-                    <div class="card_name">
-                        <p>${sessionScope.login.getUser()}</p>                        
-                    </div>
-                </c:if>
+                <div class="slide-one-item home-slider owl-carousel">
+                    <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+                        <div class="container">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
+                                    <form action="RoomController" method="get" class="tm-search-form tm-section-pad-2">
+                                        <input type="hidden" name="do" value="searchRoom">
+                                        <div class="form-row tm-search-form-row">
 
-                <div class="card_logo">
-                    <a href="https://www.youtube.com/">
-                        <i class='bx bxl-facebook-circle'></i>
-                    </a>
-                    <a href="https://www.youtube.com/">
-                        <i class='bx bxl-youtube' ></i>
-                    </a>
-                    <a href="https://www.youtube.com/">
-                        <i class='bx bxl-github' ></i>
-                    </a>
-                </div>
-
-                <div class="card_button">
-                    <a href="UserController"><button>Edit Profile</button></a>                       
-                </div>
-
-            </div>  
-
-            <div class="slide-one-item home-slider owl-carousel">
-                <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-                    <div class="container">
-                        <div class="row align-items-center justify-content-center">
-                            <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                                <form action="RoomController" method="get" class="tm-search-form tm-section-pad-2">
-                                    <input type="hidden" name="do" value="searchRoom">
-                                    <div class="form-row tm-search-form-row">
-                                        <div class="form-group tm-form-element tm-form-element-50">
-                                            <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+                                            <div class="form-group tm-form-element tm-form-element-50">
+                                                <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
+                                                <input name="check-in" type="date" class="form-control" id="inputCheckIn" placeholder="Check In">
+                                            </div>
+                                            <div class="form-group tm-form-element tm-form-element-50">
+                                                <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
+                                                <input name="check-out" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                            </div>
                                         </div>
-                                        <div class="form-group tm-form-element tm-form-element-50">
-                                            <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
-                                        </div>
-                                    </div>
-                                    <div class="form-row tm-search-form-row">
-                                        <div class="form-group tm-form-element tm-form-element-2">
-                                            <select name="adult" class="form-control tm-select" id="adult">
-                                                <option value="">Adult</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                            </select>
-                                            <i class="fa fa-2x fa-user tm-form-element-icon"></i>
-                                        </div>
-                                        <div class="form-group tm-form-element tm-form-element-2">
-                                            <select name="children" class="form-control tm-select" id="children">
-                                                <option value="">Children</option>
-                                                <option value="0">0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                            </select>
-                                            <i class="fa fa-user tm-form-element-icon tm-form-element-icon-small"></i>
-                                        </div>
-                                        <div class="form-group tm-form-element tm-form-element-2">
-                                            <select name="room" class="form-control tm-select" id="room">
-                                                <option value="">Room</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                            </select>
-                                            <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
-                                        </div>
-                                        <div class="form-group tm-form-element tm-form-element-2">
-                                            <button type="submit" class="btn btn-primary tm-btn-search">Check
-                                                Availability</button>
-                                        </div>
-                                    </div>                         
-                                </form>
+                                        <div class="form-row tm-search-form-row">
+                                            <div class="form-group tm-form-element tm-form-element-2">
+                                                <select name="adult" class="form-control tm-select" id="adult">
+                                                    <option value="">Adult</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                                <i class="fa fa-2x fa-user tm-form-element-icon"></i>
+                                            </div>
+                                            <div class="form-group tm-form-element tm-form-element-2">
+                                                <select name="children" class="form-control tm-select" id="children">
+                                                    <option value="">Children</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                                <i class="fa fa-user tm-form-element-icon tm-form-element-icon-small"></i>
+                                            </div>
+                                            <div class="form-group tm-form-element tm-form-element-2">
+                                                <select name="room" class="form-control tm-select" id="room">
+                                                    <option value="">Room</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                                <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
+                                            </div>
+                                            <div class="form-group tm-form-element tm-form-element-2">
+                                                <button type="submit" class="btn btn-primary tm-btn-search">Check
+                                                    Availability</button>
+                                            </div>
+                                        </div>                         
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>       
-            </div>
-            <section id="topic-header">
-                <div class="container" style="padding-top: 30px">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h1> Phòng </h1>
-                            <p>Danh sách các phòng </p>
-                        </div>
-                        <!-- End of /.col-md-4 -->
-                        <!-- End of /.col-md-8 -->
-                    </div>
-                    <!-- End of /.row -->
+                    </div>       
                 </div>
-                <!-- End of /.container -->
-            </section>
-            <!-- End of /#Topic-header -->
+                <section id="topic-header">
+                    <div class="container" style="padding-top: 30px">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h1>Shop</h1>
+                                <p>A Bunch Of Products</p>
+                            </div>
+                            <!-- End of /.col-md-4 -->
+                            <!-- End of /.col-md-8 -->
+                        </div>
+                        <!-- End of /.row -->
+                    </div>
+                    <!-- End of /.container -->
+                </section>
+                <!-- End of /#Topic-header -->
 
-            <!-- PRODUCTS Start
-            ================================================== -->
+                <!-- PRODUCTS Start
+                ================================================== -->
             <%Vector<Room> vector = (Vector<Room>) request.getAttribute("vector"); %>
             <section id="shop">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-10">
                             <div class="products-heading" style="padding-top: 30px">
-                                <h2 style="font-family: Orbitron">Danh sách các phòng</h2>
+                                <h2 style="font-family: Orbitron">ALL ROOMS</h2>
                             </div>
                             <!-- End of /.Products-heading -->
                             <div class="product-grid">
@@ -322,27 +257,13 @@
                                             <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
                                                 <img src="images/anhphong/<%=v.getImage()%>" alt="">
                                             </a>
-                                            <div class="stars">
-                                                <form action="">
-                                                    <input class="star star-4" id="star-5+<%=v.getRoomID()%>" name="star" value="<%=v.getRate()%>"/>
-                                                    <label class="star star-4" for="star-5+<%=v.getRoomID()%>" ></label>
-                                                    <input class="star star-4" id="star-4+<%=v.getRoomID()%> " value="<%=v.getRate()%>"  name="star"/>
-                                                    <label class="star star-4" for="star-4+<%=v.getRoomID()%>"></label>
-                                                    <input class="star star-3" id="star-3+<%=v.getRoomID()%>" value="<%=v.getRate()%>" name="star"/>
-                                                    <label class="star star-3" for="star-3+<%=v.getRoomID()%>"></label>
-                                                    <input class="star star-2" id="star-2+<%=v.getRoomID()%>" value="<%=v.getRate()%>" name="star"/>
-                                                    <label class="star star-2" for="star-2+<%=v.getRoomID()%>"></label>
-                                                    <input class="star star-1" id="star-1+<%=v.getRoomID()%>" value="<%=v.getRate()%>" name="star"/>
-                                                    <label class="star star-1" for="star-1+<%=v.getRoomID()%>"></label>
-                                                </form>
-                                            </div>
-                                            <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
-                                                <h4 style="color: #b09700;font-size: 25px; text-align: center; padding-top: 20px; font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%>-<%=v.getRoomname()%></h4>
+                                                <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
+                                                    <h4 style="color: #b09700;font-size: 25px; text-align: center; padding-top: 20px; font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%> -<%=v.getRoomname() %></h4>
                                             </a>
-                                            <h1 style="color: red" class="price"> €<%=v.getRoomprice()%></h1>
+                                            <p class="price"></p>
                                             <div>
-                                                <a class="view-link shutter " href="login.jsp">
-                                                    <i class="fa fa-plus-circle "></i>Đặt Phòng</a>
+                                                    <a class="view-link shutter " href="#">
+                                                        <i class="fa fa-plus-circle "></i>Booking</a>
                                             </div>
                                         </div>
                                         <!-- End of /.products -->
@@ -354,31 +275,9 @@
                                 <div class="col-md-12 text-center">
                                     <div class="site-block-27" >
                                         <ul>
-                                            <c:if test="${!empty n}">
-                                                <c:forEach begin="1" end="${n}" var="c" >
-                                                    <li><a href="RoomController?page=${c}">${c}</a></li>
-                                                    </c:forEach>
-                                                </c:if>
-                                                <c:if test="${!empty n1}">
-                                                    <c:forEach begin="1" end="${n1}" var="c" >
-                                                    <li><a href="RoomController?do=sortByPriceMax&page=${c}">${c}</a></li>
-                                                    </c:forEach>
-                                                </c:if>
-                                                <c:if test="${!empty n2}">
-                                                    <c:forEach begin="1" end="${n2}" var="c" >
-                                                    <li><a href="RoomController?do=sortByPriceMin&page=${c}">${c}</a></li>
-                                                    </c:forEach>
-                                                </c:if>
-                                                <c:if test="${!empty n3}">
-                                                    <c:forEach begin="1" end="${n3}" var="c" >
-                                                    <li><a href="RoomController?do=sortByRate&page=${c}">${c}</a></li>
-                                                    </c:forEach>
-                                                </c:if>
-                                                <c:if test="${!empty n4}">
-                                                    <c:forEach begin="1" end="${n4}" var="c" >
-                                                    <li><a href="RoomController?do=sortByPriceBetween&page=${c}">${c}</a></li>
-                                                    </c:forEach>
-                                                </c:if>
+                                            <c:forEach begin="1" end="${n}" var="c" >
+                                                <li><a href="RoomController?page=${c}">${c}</a></li>
+                                                </c:forEach>
                                         </ul>
                                     </div>
                                 </div>
@@ -390,24 +289,34 @@
                                 <div class="block">
                                     <h4>Catagories</h4>
                                     <div class="list-group" style="width: 250px">
-                                        <%for (Room v : vector) {%>
-                                        <a href="RoomController?do=CateRoom&cate=<%=v.getRoomcateID()%>" class="list-group-item" style="font-size: 15px">
-                                            <i class="fa  fa-dot-circle-o"></i> <%=v.getCateroom()%>
+                                        <a href="RoomController?do=CateRoom&cate=1" class="list-group-item" style="font-size: 15px">
+                                            <i class="fa  fa-dot-circle-o"></i> Standard
                                         </a>
-                                        <%}%>
+                                            <a href="RoomController?do=CateRoom&cate=2" class="list-group-item" style="font-size: 15px">
+                                            <i class="fa  fa-dot-circle-o"></i> Superior
+                                        </a>
+                                            <a href="RoomController?do=CateRoom&cate=3" class="list-group-item" style="font-size: 15px">
+                                            <i class="fa  fa-dot-circle-o"></i> Deluxe
+                                        </a>
+                                            <a href="RoomController?do=CateRoom&cate=4" class="list-group-item" style="font-size: 15px">
+                                            <i class="fa  fa-dot-circle-o"></i> Suite
+                                        </a>
+                                            <a href="RoomController?do=CateRoom&cate=5" class="list-group-item" style="font-size: 15px">
+                                            <i class="fa  fa-dot-circle-o"></i> Connecting room
+                                            </a>
                                     </div>
                                 </div>
                                 <div class="block">
-                                    <h4>Sắp xếp :</h4>
+                                    <h4>Sort by:</h4>
                                     <form action="RoomController" method="get">
-                                        <input type="hidden" name="do" value="sortByPriceBetween"  >
+                                        <input type="hidden" name="do" value="SortBetween"  >
                                         <input type="hidden" name="page" value="1">
                                         <table>
                                             <tr>
-                                                <td>From</td><td><input type="number" name="price1" min="0" max="10000" value=""/></td>
+                                                <td>From</td><td><input type="number" name="price1" min="0" max="500" value=""/></td>
                                             </tr>
                                             <tr>
-                                                <td>To</td><td><input type="number" name="price2" min="0" max="100000" value=""/></td>
+                                                <td>To</td><td><input type="number" name="price2" min="0" max="500" value=""/></td>
                                             </tr>
                                             <tr>
                                                 <td></td><td><input type="submit" value="Find"/></td>
@@ -415,9 +324,9 @@
                                         </table>
                                     </form>
                                     <div class="list-group" style="width: 250px; padding-top: 20px" >
-                                        <a href="RoomController?do=sortByPriceMax&page=1" class="list-group-item"> Giá cao nhất </a>
-                                        <a href="RoomController?do=sortByPriceMin&page=1" class="list-group-item"> Giá thấp nhất </a>
-                                        <a href="RoomController?do=sortByRate&page=1" class="list-group-item"> Đánh giá </a>
+                                        <a href="ControllerProducts?do=sortName&page=1" class="list-group-item"> Giá cao nhất </a>
+                                        <a href="ControllerProducts?do=sortPrice&page=1" class="list-group-item"> Giá thấp nhất </a>
+                                        <a href="ControllerProducts?do=sortYear&page=1" class="list-group-item"> Đánh giá </a>
                                     </div>
                                 </div>
 
