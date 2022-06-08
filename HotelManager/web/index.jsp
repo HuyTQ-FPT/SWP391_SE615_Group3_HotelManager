@@ -158,7 +158,20 @@ Author     : admin
             color: #FE7;
             text-shadow: 0 0 20px #952;
         }
-
+        .checked {
+            color: orange;
+            .card_img img{
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                border: 5px solid #A53E3E;
+                background-size: cover;
+                margin-top: 30px;
+                cursor: pointer;
+                transition: 0.4s;
+                transition-delay: 0.1s;
+                transform: rotate(20deg);
+            }
         input.star-1:checked ~ label.star:before { color: #F62; }
 
         label.star:hover { transform: rotate(-15deg) scale(1.3); }
@@ -306,21 +319,27 @@ Author     : admin
                                                                                                                                                                       alt="Image" class="img-fluid"></a>
                                 <div class="stars">
                                     <form action="">
-                                        <input class="star star-4" id="star-5+<%=v.getRoomID()%>" type="radio" name="star"/>
-                                        <label class="star star-4" for="star-5+<%=v.getRoomID()%>"></label>
-                                        <input class="star star-4" id="star-4+<%=v.getRoomID()%>" type="radio" name="star"/>
+                                        <div class="h" style="font-size: 20px;padding-left: 35%;padding-top: 5px">
+                                                        <c:forEach begin="1" end="<%=v.getRate()%>">
+                                                            <span style="padding-right: 6px"class="fa fa-star checked"></span>
+                                                        </c:forEach>
+
+                                                    </div>
+<!--                                        <input class="star star-4 " id="star-5+<%=v.getRoomID()%>"  name="star"/>
+                                        <label class="star star-4 " for="star-5+<%=v.getRoomID()%>"></label>
+                                        <input class="star star-4" id="star-4+<%=v.getRoomID()%>"  name="star"/>
                                         <label class="star star-4" for="star-4+<%=v.getRoomID()%>"></label>
-                                        <input class="star star-3" id="star-3+<%=v.getRoomID()%>" type="radio" name="star"/>
+                                        <input class="star star-3" id="star-3+<%=v.getRoomID()%>"  name="star"/>
                                         <label class="star star-3" for="star-3+<%=v.getRoomID()%>"></label>
-                                        <input class="star star-2" id="star-2+<%=v.getRoomID()%>" type="radio" name="star"/>
+                                        <input class="star star-2" id="star-2+<%=v.getRoomID()%>" name="star"/>
                                         <label class="star star-2" for="star-2+<%=v.getRoomID()%>"></label>
-                                        <input class="star star-1" id="star-1+<%=v.getRoomID()%>" type="radio" name="star"/>
-                                        <label class="star star-1" for="star-1+<%=v.getRoomID()%>"></label>
+                                        <input class="star star-1" id="star-1+<%=v.getRoomID()%>" name="star"/>
+                                        <label class="star star-1" for="star-1+<%=v.getRoomID()%>"></label>-->
                                     </form>
                                 </div>
                                 <div class="hotel-room-body">
                                     <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
-                                    <strong class="price"><%=v.getRoomprice()%>/ một đêm</strong>
+                                    <strong class="price" style="font-weight: bold; font-size: 14px">€<%=v.getRoomprice()%>/ một đêm</strong>
                                     <div class="add-to-cart">
                                         <c:if test="${sessionScope.login==null}">
                                             <form action="Login.jsp">

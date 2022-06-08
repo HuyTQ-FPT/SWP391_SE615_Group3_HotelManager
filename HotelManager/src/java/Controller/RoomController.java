@@ -68,13 +68,14 @@ public class RoomController extends HttpServlet {
                 String children = request.getParameter("children");
 
                 SimpleDateFormat format = new SimpleDateFormat("E MMM dd yyyy");
+
                 Date date1 = (Date) format.parse(checkin);
                 java.sql.Date sDate = new java.sql.Date(date1.getTime());
                 System.out.println(sDate);
-                Date date2 =(Date)  format.parse(checkout);
+
+                Date date2 = (Date) format.parse(checkout);
                 java.sql.Date cDate = new java.sql.Date(date2.getTime());
-                 System.out.println(cDate);
-                
+                System.out.println(cDate);
 
                 if (adult.isEmpty()) {
                     adult = "1";
@@ -85,7 +86,16 @@ public class RoomController extends HttpServlet {
                 if (room.isEmpty()) {
                     room = "1";
                 }
+                if (Integer.parseInt(room) > Integer.parseInt(adult)) {
+                    String err = "Phòng không thể nhiều hơn số người lớn";
+                    request.setAttribute("err", err);
+                    RequestDispatcher dispatch = request.getRequestDispatcher("searchRoom.jsp");
+                    dispatch.forward(request, response);
+                }
                 int n = (Integer.parseInt(adult) + Integer.parseInt(children)) / Integer.parseInt(room);
+                if (n % 2 != 0) {
+                    n++;
+                }
 
                 Vector<Room> vector = dao.getRoomList("select * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
                         + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
