@@ -247,20 +247,20 @@
                                     <div class="col-md-6" style="margin-top: 30px">
                                         <div class="small-box-c">
                                             <div class="small-img-b">
-                                                <img class="img-responsive" src="images/tr2.png" alt="#" />
+                                                <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
                                             </div>
                                             <div class="dit-t clearfix">
                                                 <div class="left-ti">
-                                                    <h4>${c.roomname}</h4>
-                                                    <p>By <span>Beko</span> under <span>Chairs</span></p>
+                                                    <h4>${c.cateroom}</h4>
+                                                    <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
                                                 </div>
-                                                <a href="#" tabindex="0">$1220</a>
+                                                <a href="#" tabindex="0">${c.roomprice}</a>
                                             </div>
                                             <div class="prod-btn">
-                                                <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                                <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
+                                                <a href="#"><i aria-hidden="true"></i>Book</a>
                                                 <p>23 likes</p>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     </c:forEach>
@@ -273,20 +273,20 @@
                                     <div class="col-md-6" style="margin-top: 30px">
                                         <div class="small-box-c">
                                             <div class="small-img-b">
-                                                <img class="img-responsive" src="images/tr2.png" alt="#" />
+                                                <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
                                             </div>
                                             <div class="dit-t clearfix">
                                                 <div class="left-ti">
-                                                    <h4>${c.roomname}</h4>
-                                                    <p>By <span>Beko</span> under <span>Chairs</span></p>
+                                                    <h4>${c.cateroom}</h4>
+                                                    <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
                                                 </div>
-                                                <a href="#" tabindex="0">$1220</a>
+                                                <a href="#" tabindex="0">${c.roomprice}</a>
                                             </div>
                                             <div class="prod-btn">
-                                                <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                                <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
+                                                <a href="#"><i aria-hidden="true"></i>Book</a>
                                                 <p>23 likes</p>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     </c:forEach>
