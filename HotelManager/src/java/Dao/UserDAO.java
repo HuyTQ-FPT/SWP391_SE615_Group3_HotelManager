@@ -15,18 +15,9 @@ public interface UserDAO {
 
     public void insertUser(User User) throws Exception;
 
-<<<<<<< Updated upstream
-    public void updateUser(User User);
     public void updateUserEcept(User User) throws Exception;
-=======
     public void updateUser(User User) throws Exception;
->>>>>>> Stashed changes
 
     public void deleteUser(int uid) throws Exception;
-    
-<<<<<<< Updated upstream
     public User getUser(int accountID) throws Exception;
-=======
-    public User getUser(int uid) throws Exception;
->>>>>>> Stashed changes
 }

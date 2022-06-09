@@ -64,7 +64,6 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     }
 
     @Override
-<<<<<<< Updated upstream
     public User getUser(int accountID) throws Exception {
         String sql = "select * from [User] where AccountID=?";
         try {
@@ -102,10 +101,6 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         } catch (SQLException ex) {
             throw ex;
         }
-=======
-    public User getUser(int uid) throws Exception{
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
->>>>>>> Stashed changes
-    }
 
+}
 }

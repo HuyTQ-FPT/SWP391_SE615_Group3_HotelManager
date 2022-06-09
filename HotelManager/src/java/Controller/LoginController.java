@@ -78,7 +78,7 @@ public class LoginController extends HttpServlet {
                           response.sendRedirect("ReceptionistController");
                     } else {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
-                        request.getRequestDispatcher("indexAdmin.html").forward(request, response);
+                        request.getRequestDispatcher("indexadmin.jsp").forward(request, response);
                     }
                 } else { 
                     String error = "Tài khoản hoặc mật khẩu không chính xác";
