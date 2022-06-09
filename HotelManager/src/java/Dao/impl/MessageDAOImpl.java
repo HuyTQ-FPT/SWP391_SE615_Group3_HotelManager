@@ -5,10 +5,6 @@
  */
 package Dao.impl;
 
-/**
- *
- * @author Admin
- */
 public class MessageDAOImpl {
     
 }

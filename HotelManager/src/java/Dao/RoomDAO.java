@@ -20,6 +20,10 @@ import java.util.Vector;
 public interface RoomDAO {
 
     public Vector<Room> getRoomList(String sql);
+    public Vector<Room> getRoomListAll(String sql) ;
+    public void updateStatus(int rID, int rStatus) ;
+    public Vector<Room> selectRoom(int status) ; 
+    public Vector<Room> searchRoombyRoomName(String roomName) ;
 
     public int getPage();
 
@@ -48,4 +52,5 @@ public interface RoomDAO {
     public Vector<Room> getRoomByRate(int n);
     
     public Vector<RoomByDate> seachRoom(int a,Date datein,Date dateout); 
+    public Vector<RoomByDate> seachRoom(); 
 }

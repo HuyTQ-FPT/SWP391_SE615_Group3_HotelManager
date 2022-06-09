@@ -20,7 +20,7 @@ import java.util.Vector;
 public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
-    public Vector<Account> getAccountList(int aID) {
+    public Vector<Account> getAccountList(int aID) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -43,12 +43,12 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     }
 
     @Override
-    public void insertAccount(int aRole, String aName, String aPass) {
+    public void insertAccount(int aRole, String aName, String aPass) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int updateAccount(String aUser, String aPassword) {
+    public int updateAccount(String aUser, String aPassword) throws Exception{
         int n = 0;
         String sql = "UPDATE [SWPgroup3].[dbo].[Account]\n"
                 + "   SET [password] =?\n"
@@ -69,7 +69,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     }
 
     @Override
-    public void deleteAccount(String aName) {
+    public void deleteAccount(String aName) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -92,7 +92,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     }
 
     @Override
-    public Vector<Account> getAccountByRole(int aRole) {
+    public Vector<Account> getAccountByRole(int aRole) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -16,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -435,6 +437,117 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         for (RoomByDate roomByDate : vector) {
             System.out.println(roomByDate);
         }
-        
     }
+        @Override
+    public Vector<Room> getRoomListAll(String sql){
+        Vector<Room> vector = new Vector<Room>();
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String des = rs.getString(3);
+                int cateid = rs.getInt(4);
+                String image = rs.getString(5);
+                double Roomprice = rs.getDouble(6);
+                int NumberPerson = rs.getInt(7);
+                float Square = rs.getFloat(8);
+                String Comment = rs.getString(9);
+                int Rate = rs.getInt(10);
+                String Note = rs.getString(11);
+                int status = rs.getInt(12);
+                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, status);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+
+        }
+
+        return vector;
+
+    }
+
+    @Override
+    public void updateStatus(int rID, int rStatus){
+        String sql = "UPDATE [SWPgroup3].[dbo].[Room]\n"
+                + "   SET [Status] = ?\n"
+                + " WHERE [RoomID]=?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, rStatus);
+            pre.setInt(2, rID);
+
+            pre.executeUpdate();
+
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Vector<Room> selectRoom(int status){
+        Vector<Room> vector = new Vector<Room>();
+        String sql = "select * from Room where Status = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, status);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String des = rs.getString(3);
+                int cateid = rs.getInt(4);
+                String image = rs.getString(5);
+                double Roomprice = rs.getDouble(6);
+                int NumberPerson = rs.getInt(7);
+                float Square = rs.getFloat(8);
+                String Comment = rs.getString(9);
+                int Rate = rs.getInt(10);
+                String Note = rs.getString(11);
+                 status = rs.getInt(12);
+                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, status);
+                vector.add(im);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vector;
+    }
+
+    @Override
+    public Vector<Room> searchRoombyRoomName(String roomName){
+           Vector<Room> vector = new Vector<Room>();
+        String sql="select * from Room where Roomname = ?";
+         try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, roomName);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String des = rs.getString(3);
+                int cateid = rs.getInt(4);
+                String image = rs.getString(5);
+                double Roomprice = rs.getDouble(6);
+                int NumberPerson = rs.getInt(7);
+                float Square = rs.getFloat(8);
+                String Comment = rs.getString(9);
+                int Rate = rs.getInt(10);
+                String Note = rs.getString(11);
+               int  status = rs.getInt(12);
+                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, status);
+                vector.add(im);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vector;
+    }
+
+    @Override
+    public Vector<RoomByDate> seachRoom() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+                
 }

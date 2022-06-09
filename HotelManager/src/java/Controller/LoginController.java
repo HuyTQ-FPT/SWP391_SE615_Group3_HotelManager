@@ -34,7 +34,7 @@ import javax.servlet.http.HttpSession;
 public class LoginController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
@@ -81,17 +81,17 @@ public class LoginController extends HttpServlet {
                         request.getRequestDispatcher("indexAdmin.html").forward(request, response);
                     }
                 } else { 
-                    String error = "Incorrect username or Password";
+                    String error = "Tài khoản hoặc mật khẩu không chính xác";
                     request.setAttribute("error", error);
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
             }
             if (service.equals("CheckRegister")) { // kiểm tra đăng ký thành công hay không
-                String email = request.getParameter("email");
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
-                String re_password = request.getParameter("re_password");
-                String name = request.getParameter("name");
+                String email = request.getParameter("email").trim();
+                String username = request.getParameter("username").trim();
+                String password = request.getParameter("password").trim();
+                String re_password = request.getParameter("re_password").trim();
+                String name = request.getParameter("name").trim();
                 
                 ResultSet rs =dao.getData("select * from Account");
                 boolean user=true;
@@ -102,32 +102,32 @@ public class LoginController extends HttpServlet {
                     }
                 }
                 if(!user){
-                    String error = "Username Đã tồn tại";
+                    String error = "Tên đăng nhập đã tồn tại";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
-                else if (name.trim().equals("")) {
-                    String error = "YourName must not emty";
+                else if (name.equals("")) {
+                    String error = "Tên của bạn không được bỏ trống";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
-                else if (email.trim().equals("")) {
-                    String error = "Email must not emty";
+                else if (email.equals("")) {
+                    String error = "Email không được bỏ trống";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
-                else if (!email.trim().endsWith("@gmail.com") || email.trim().equalsIgnoreCase("@gmail.com")) {
-                    String error = "Email example:ABC@gmail.com. Mời nhập lại";
+                else if (!email.endsWith("@gmail.com") || email.equalsIgnoreCase("@gmail.com")) {
+                    String error = "Email:ABC@gmail.com! Mời nhập lại";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
-                else if (username.trim().length() < 4 || password.trim().length() < 8) {
-                    String error = "Passwords and Username more than 8 characters";
+                else if (username.length() < 4 || password.length() < 8) {
+                    String error = "Mật khẩu lớn hơn 8 ký tự và tên dăng nhập lớn hơn 4 ký tự";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
                 else if (!password.equalsIgnoreCase(re_password)) {
-                    String error = "Re-Passwords incorrect";
+                    String error = "Nhập lại mật khẩu không chính xác";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
@@ -138,7 +138,7 @@ public class LoginController extends HttpServlet {
                 }
             }
             if (service.equals("ForgetPassword")) { // Gửi mật khẩu mới qua gamil
-                String user = request.getParameter("name").trim();
+                String user = request.getParameter("name");
                 String email = request.getParameter("email");
 
                 if (dao.checkAccount(user.trim()) == null) { // Check đầu vào cho user
@@ -185,21 +185,25 @@ public class LoginController extends HttpServlet {
             if (service.equals("ChangePassword")) { // đổi mật khẩu 
                 String error = "";
                 Account a =(Account)session.getAttribute("login");
-                String oldpassword = request.getParameter("oldpassword");
-                String newpassword = request.getParameter("password");
-                String re_password = request.getParameter("re_password");
-                ResultSet rs = dao1.getData("select * from Account where [user]='" + a.getUser() + "' and [password]='" + oldpassword + "'");
+                String oldpassword = request.getParameter("oldpassword").trim();
+                String newpassword = request.getParameter("password").trim();
+                String re_password = request.getParameter("re_password").trim();
+                ResultSet rs = dao1.getData("select * from Account where [user]='" + a.getUser().trim() + "' and [password]='" + oldpassword + "'");
                 if (rs.next() == true) {
                     if (newpassword.equals(re_password)) {
                         dao.updateAccount(rs.getString(3), re_password);
                         response.sendRedirect("LoginController");
-                    } else {
-                        error = "re_password not same new_password";
+                    } else if(!newpassword.equals(re_password)){
+                        error = "Mật khẩu mới không khớp nhau";
+                        request.setAttribute("errorpass", error);
+                        request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+                    } else{
+                        error = "Mật khẩu mới lớn hơn 8 ký tự";
                         request.setAttribute("errorpass", error);
                         request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                     }
                 } else {
-                    error = "username or password incorrect";
+                    error = "Mật khẩu cũ không chính xác";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                 }
@@ -239,6 +243,8 @@ public class LoginController extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -256,6 +262,8 @@ public class LoginController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

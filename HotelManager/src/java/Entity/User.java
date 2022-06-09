@@ -10,16 +10,17 @@ package Entity;
  * @author Admin
  */
 public class User {
+
     private int UserID;
-	private int AccountID ;
-	private String UserName;
-	private String UserPhone;
-	private String UserEmail ;
-	private int UserGender;
-	private String Birthday ;
-	private String UserAdress;
-	private String CMT ;
-	private String ImgCMT;
+    private int AccountID;
+    private String UserName;
+    private String UserPhone;
+    private String UserEmail;
+    private int UserGender;
+    private String Birthday;
+    private String UserAdress;
+    private String CMT;
+    private String ImgCMT;
 
     public User() {
     }
@@ -36,7 +37,8 @@ public class User {
         this.CMT = CMT;
         this.ImgCMT = ImgCMT;
     }
-    public User(int UserID, String UserName, String UserPhone, String UserEmail, int UserGender, String Birthday, String UserAdress, String CMT ) {
+
+    public User(int UserID, String UserName, String UserPhone, String UserEmail, int UserGender, String Birthday, String UserAdress, String CMT) {
         this.UserID = UserID;
         this.UserName = UserName;
         this.UserPhone = UserPhone;
@@ -47,9 +49,23 @@ public class User {
         this.CMT = CMT;
     }
 
-  
+    public User(int UserID, String UserName, String UserPhone, String UserEmail, String Birthday, String UserAdress, String CMT) {
+        this.UserID = UserID;
+        this.UserName = UserName;
+        this.UserPhone = UserPhone;
+        this.UserEmail = UserEmail;
+        this.Birthday = Birthday;
+        this.UserAdress = UserAdress;
+        this.CMT = CMT;
+    }
 
-  
+    public User(int UserID, String UserPhone, String UserEmail, String UserAdress, String CMT) {
+        this.UserID = UserID;
+        this.UserPhone = UserPhone;
+        this.UserEmail = UserEmail;
+        this.UserAdress = UserAdress;
+        this.CMT = CMT;
+    }
 
     public int getUserID() {
         return UserID;
