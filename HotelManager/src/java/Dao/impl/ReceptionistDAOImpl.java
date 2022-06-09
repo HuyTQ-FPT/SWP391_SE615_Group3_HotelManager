@@ -96,16 +96,49 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
             pre.setString(9, User.getImgCMT());
             pre.setInt(10, User.getUserID());
 
-             pre.executeUpdate();
+            pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
+
     }
 
     @Override
     public User getReceptionist(int uid) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Vector<User> getSearchNameCustomerListByReceptionist(String uName) {
+        Vector<User> vector = new Vector<>();
+        try {
+            String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
+                    + "u.UserName=?";
+
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int uID = rs.getInt(1);
+                int uAID = rs.getInt(2);
+                String uName1 = rs.getString(3);
+                String uPhone = rs.getString(4);
+                String uEmail = rs.getString(5);
+                int uGender = rs.getInt(6);
+                String uImage = rs.getString(7);
+                String uAdress = rs.getString(8);
+                String uCMT = rs.getString(9);
+                String uImgCmt = rs.getString(10);
+
+                User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, uImage, uAdress, uCMT, uImgCmt);
+                vector.add(u);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vector;
     }
 
 }

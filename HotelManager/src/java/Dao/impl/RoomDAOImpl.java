@@ -154,7 +154,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 //        for (Room room : vector) {
  //       System.out.println(rooom);
         try {
-         Vector<Room> vector =  dao.selectRoom(1);
+         Vector<Room> vector =  dao.searchRoombyRoomName("Room1");
             for (Room room : vector) {
                 System.out.println(room);
                 
@@ -485,6 +485,36 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 int Rate = rs.getInt(10);
                 String Note = rs.getString(11);
                  status = rs.getInt(12);
+                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, status);
+                vector.add(im);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return vector;
+    }
+
+    @Override
+    public Vector<Room> searchRoombyRoomName(String roomName) throws Exception {
+           Vector<Room> vector = new Vector<Room>();
+        String sql="select * from Room where Roomname = ?";
+         try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, roomName);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String des = rs.getString(3);
+                int cateid = rs.getInt(4);
+                String image = rs.getString(5);
+                double Roomprice = rs.getDouble(6);
+                int NumberPerson = rs.getInt(7);
+                float Square = rs.getFloat(8);
+                String Comment = rs.getString(9);
+                int Rate = rs.getInt(10);
+                String Note = rs.getString(11);
+               int  status = rs.getInt(12);
                 Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, status);
                 vector.add(im);
             }

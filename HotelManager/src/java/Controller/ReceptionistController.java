@@ -80,7 +80,7 @@ public class ReceptionistController extends HttpServlet {
                 request.setAttribute("u", u);
                 request.getRequestDispatcher("profileReceptionist.jsp").forward(request, response);
             }
-            if (service.equalsIgnoreCase("ViewupdateRecept")) { // update profile 
+            if (service.equalsIgnoreCase("ViewupdateRecept")) { // chuyen toi update profile 
                 Account ac = (Account) session.getAttribute("login");
                 User u = daoU.getUser(ac.getAccountID());
                 session.setAttribute("u", u);
@@ -88,7 +88,7 @@ public class ReceptionistController extends HttpServlet {
                 request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
 
             }
-            if (service.equalsIgnoreCase("updateRecept")) {
+            if (service.equalsIgnoreCase("updateRecept")) { // update profile 
 
                 String uID = (String) request.getParameter("uid");
                 String username = (String) request.getParameter("Username");
@@ -133,7 +133,7 @@ public class ReceptionistController extends HttpServlet {
                 }
             }
 
-            if (service.equalsIgnoreCase("searchStatus")) {
+            if (service.equalsIgnoreCase("searchStatus")) { // combobox status
                 int status = Integer.parseInt(request.getParameter("status"));
 
                 Vector<Room> vectorR = daoR.selectRoom(status);
@@ -142,6 +142,19 @@ public class ReceptionistController extends HttpServlet {
                 session.setAttribute("status1", status);
 
                 request.getRequestDispatcher("ManagerRoom.jsp").forward(request, response);
+            }
+            if (service.equalsIgnoreCase("searchRoom")) { // tim kiem ten phong
+                String name = request.getParameter("nameRoom").trim();
+                Vector<Room> vectorR = daoR.searchRoombyRoomName(name.toLowerCase());// chuyen thanh chu thuong
+                request.setAttribute("vectorR", vectorR);
+                request.getRequestDispatcher("ManagerRoom.jsp").forward(request, response);
+            }
+            if (service.equalsIgnoreCase("searchName")) { // tim kiem ten phong
+                String name = request.getParameter("Name").trim();
+                Vector<User> vectorU = dao.getSearchNameCustomerListByReceptionist(name);// chuyen thanh chu thuong
+                request.setAttribute("vectorU", vectorU);
+                request.getRequestDispatcher("ManagerCustomer.jsp").forward(request, response);
+
             }
 
         }

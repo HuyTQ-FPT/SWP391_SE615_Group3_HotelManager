@@ -22,6 +22,7 @@ public interface RoomDAO {
     public Vector<Room> getRoomListAll(String sql) throws Exception;
     public void updateStatus(int rID, int rStatus) throws Exception;
     public Vector<Room> selectRoom(int status) throws Exception; 
+      public Vector<Room> searchRoombyRoomName(String roomName) throws Exception;
 
     public int getPage();
 
@@ -50,5 +51,7 @@ public interface RoomDAO {
     public Vector<Room> getRoomByRate(int n);
     
     public Vector<RoomByDate> seachRoom(); 
+    
+    
     
 }

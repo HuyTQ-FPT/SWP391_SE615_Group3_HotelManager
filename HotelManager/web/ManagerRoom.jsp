@@ -259,6 +259,17 @@
             .selectStatus{
                 margin-right: 600px;
             }
+
+            .pagination {
+                display: inline-block;
+            }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
         </style>
     </head>
     <body>
@@ -300,18 +311,19 @@
                     <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Log Out</button>
                     </form>
-                    <form action="ControllerProduct?do=listAllProduct" class="searchform order-lg-last" method="post">
+                    <form action="ReceptionistController?do=searchRoom" class="searchform order-lg-last" method="post">
                         <div class="form-group d-flex" >
-                            <input name="name" type="text" class="form-control pl-3" placeholder="ProductName">
+                            <input name="nameRoom" type="text" class="form-control pl-3" placeholder="Search roomName">
                             <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
                         </div>
                     </form>
                     <form class="selectStatus"  action="ReceptionistController" method="post">
                         <input type="hidden" name="do" value="searchStatus">           
                         <select name="status" style="font-size: 17px; font-weight: bold; margin-left: 30px">
+                           
                             <%  int count = 0;
                                 for (Room r : vector) {
-                                    if (r.getStatus() == 1||r.getStatus()==2) {
+                                    if (r.getStatus() == 1 || r.getStatus() == 2) {
                                         count++;
 
                             %>
@@ -385,7 +397,7 @@
 
                         </td>
 
-                    </tr> 
+                    </tr>
                 <script>
                     function show() {
                         if (document.getElementById("team").style.display == "none") {
@@ -398,6 +410,17 @@
                 </tbody>
                 <%}%>
             </table>
-        </div>   
+        </div> 
+
+<!--        <div class="pagination">
+            <a href="#">&laquo;</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">&raquo;</a>
+        </div>-->
     </body>
 </html>

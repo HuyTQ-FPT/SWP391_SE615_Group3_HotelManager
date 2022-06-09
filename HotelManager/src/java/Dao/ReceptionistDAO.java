@@ -14,6 +14,7 @@ import java.util.Vector;
  */
 public interface ReceptionistDAO {
     public Vector<User> getCustomerListByReceptionist();
+    public Vector<User> getSearchNameCustomerListByReceptionist(String uName) ;
 
     public void insertReceptionist(User User);
 

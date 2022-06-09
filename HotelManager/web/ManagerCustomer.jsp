@@ -299,9 +299,9 @@
                     <form action="ControllerLogin_Admin?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Log Out</button>
                     </form>
-                    <form action="ControllerCustomer?do=listAllCustomer" class="searchform order-lg-last" method="post">
+                    <form action="ReceptionistController?do=searchName" class="searchform order-lg-last" method="post">
                         <div class="form-group d-flex">
-                            <input name="cusid" type="text" class="form-control pl-3" placeholder="SearchCustomerID">
+                            <input name="Name" type="text" class="form-control pl-3" placeholder="searchName">
                             <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
                         </div>
                     </form>
