@@ -192,12 +192,11 @@
                                         <img style="width: 350px; height: 250px;"src="images/anhblog/${c.blogImage}" alt="">
                                     </div>
                                     <div class="blog__item__text">
-                                        <ul>
-                                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                            <li><i class="fa fa-comment-o"></i> 5</li>
-                                        </ul>
+                                         <ul>
+                                                    <li><i class="fa fa-calendar-o"></i>${c.blogDate} by <label style="color: red">${c.blogAuthor}</label></li>                                               
+                                                </ul>
 
-                                        <h5><a href="#">${c.blogTitleString}</a></h5>
+                                        <h5><a href="BlogController?do=detailBlog&blogID=${c.blogID}">${c.blogTitleString}</a></h5>
 <!--                                        <p>${c.blogDescription}</p>-->
                                     </div>
                                 </div>
