@@ -138,7 +138,7 @@ public class LoginController extends HttpServlet {
                 }
             }
             if (service.equals("ForgetPassword")) { // Gửi mật khẩu mới qua gamil
-                String user = request.getParameter("name").trim();
+                String user = request.getParameter("name");
                 String email = request.getParameter("email");
 
                 if (dao.checkAccount(user.trim()) == null) { // Check đầu vào cho user

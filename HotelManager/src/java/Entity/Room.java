@@ -23,6 +23,7 @@ public class Room {
     int Rate;
     String Note;
     String cateroom;
+    int status;
 
     public Room(int RoomID, String Roomname, String Roomdesc, int RoomcateID, String image, double Roomprice, int NumberPerson, float Square, String Comment, int Rate, String Note, String cateroom) {
         this.RoomID = RoomID;
@@ -39,7 +40,31 @@ public class Room {
         this.cateroom = cateroom;
     }
 
+    public Room(int RoomID, String Roomname, String Roomdesc, int RoomcateID, String image, double Roomprice, int NumberPerson, float Square, String Comment, int Rate, String Note, int status) {
+        this.RoomID = RoomID;
+        this.Roomname = Roomname;
+        this.Roomdesc = Roomdesc;
+        this.RoomcateID = RoomcateID;
+        this.image = image;
+        this.Roomprice = Roomprice;
+        this.NumberPerson = NumberPerson;
+        this.Square = Square;
+        this.Comment = Comment;
+        this.Rate = Rate;
+        this.Note = Note;
+
+        this.status = status;
+    }
+
     public Room() {
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getRoomID() {

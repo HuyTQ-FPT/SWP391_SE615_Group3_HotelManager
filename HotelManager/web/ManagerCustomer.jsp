@@ -1,4 +1,3 @@
-
 <%@page import="Entity.User"%>
 <%@page import="java.util.Vector"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Admin</title>
+        <title>Receptionnist</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -164,6 +163,9 @@
                             margin-left: 50px;
                         }*/
             .log-out{
+                position: fixed;
+                right: 100px;
+                top:15px;
                 border-radius: 5px;
                 background-color: #F1BC31;
                 margin-right: 20px;
@@ -171,7 +173,91 @@
             .log-out:hover{
                 transform: scale(0.98);
             }
+            .oke{
+                color: #F1BC31;
+                position: fixed;
+                right: 85px;
+            }
+            .oke:hover{
+                color: white;
+            }
+            .card{
+            display: none;
+            opacity: 0.9;
+            z-index: 3;
+            width: 150px;
+            height: 250px;
+            text-align: center;
+            background-color: #1F2123;
+            color: white;
+            position: relative;
+            position: fixed;
+            top: 45px;
+            right: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.5s;
+        }
+        .card_img img{
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 5px solid #A53E3E;
+            background-size: cover;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: 0.4s;
+            transition-delay: 0.1s;
+            transform: rotate(20deg);
+        }
+        .card_name{
+            margin-top: 10px;
+            color: #A53E3E;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+        .card_logo a{
+            color: white;
+            margin: 0px 10px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.4s;
+            text-decoration: none;
+        }
+        .card_button button{
+            margin-top: 10px;
+            width: 50%;
+            height: 30px;
+            border-radius: 3px;
+            border: 2px solid #A53E3E;
+            color: white;
+            background-color: #A53E3E;
+            cursor: pointer;
+            transition: 0.4s;
+            font-size: 10px;
+        }
+        .card_button button:hover{
+            background-color:#913939;
+            font-size: 11px;
+        }
+        .card_logo a:hover{
+            color: #A53E3E;
+        }
+        .card_img img:hover{
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 5px solid #A53E3E;
+            background-size: cover;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: 0.4s;
+            transition-delay: 0.1s;
+            transform: rotate(0deg);
+        }
         </style>
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     </head>
     <body>
         <%
@@ -180,9 +266,36 @@
         <!--        <div class="col-sm-8"><a class="managerPro" href="ControllerOrder"><h5>OrderList Manager</h5></a></div>
                 <div class="col-sm-8"><a class="managerCus" href="ControllerProduct"><h5>Products Manager</h5></a></div>-->
         <section class="ftco-section">
+            <div class="card" id="team">
+                    <div class="card_img">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                    </div>
+                <c:if test="${sessionScope.login!=null}">
+                    <div class="card_name">
+                        <p>${sessionScope.login.getUser()}</p>                        
+                    </div>
+                </c:if>
+
+                <div class="card_logo">
+                    <a href="https://www.youtube.com/">
+                        <i class='bx bxl-facebook-circle'></i>
+                    </a>
+                    <a href="https://www.youtube.com/">
+                        <i class='bx bxl-youtube' ></i>
+                    </a>
+                    <a href="https://www.youtube.com/">
+                        <i class='bx bxl-github' ></i>
+                    </a>
+                </div>
+
+                <div class="card_button">
+                    <a href="UserController"><button>Edit Profile</button></a>                       
+                </div>
+
+            </div>
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
-                    <span class="admin"></i>Admin</span>
+                    <span class="admin"></i>Receptionist</span>
                     <form action="ControllerLogin_Admin?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Log Out</button>
                     </form>
@@ -194,12 +307,15 @@
                     </form>
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item "><a href="ControllerProduct" class="nav-link">Manager<br>Products</a></li>
-                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>
-                            <li class="nav-item active"><a href="ControllerCustomer" class="nav-link">Manager<br>Customers</a></li>
+                            <li class="nav-item "><a href="ReceptionistController" class="nav-link">Manager<br>Rooms </a></li>
+<!--                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>-->
+                            <li class="nav-item active"><a href="ReceptionistController?do=Cus" class="nav-link">Manager<br>Customers</a></li>
                         </ul>
                     </div>
+                    
                 </div>
+                <div class="oke" onclick="show()"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></div>
+                
             </nav>
 
         </section>
@@ -235,14 +351,19 @@
                         <td><%=u.getCMT()%></td>
                   
 
-                        <td style="width:100px;">
-                            <!--<a href="ControllerOrder?do=Orderdetail&oid=&status=" class="view" title="insert" data-toggle="tooltip"><i class="material-icons">add_circle</i></a>-->
-                            <a href="ControllerCustomer?do=updateCustomer&UserID=<%=u.getUserID()%>" class="edit" title="Update" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <!--<a href="ControllerCustomer?do=deleteCustomer&idcus=" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>-->
-                        </td>                        
+                                           
                     </tr> 
 
                     <%}%>
+                <script>
+                    function show() {
+                if (document.getElementById("team").style.display == "none") {
+                    document.getElementById("team").style.display = "block";
+                } else {
+                    document.getElementById("team").style.display = "none";
+                }
+            }
+                </script>
                 </tbody>
             </table>
         </div> 

@@ -16,8 +16,9 @@ public interface UserDAO {
     public void insertUser(User User);
 
     public void updateUser(User User);
+    public void updateUserEcept(User User) throws Exception;
 
     public void deleteUser(int uid);
     
-    public User getUser(int uid);
+    public User getUser(int accountID) throws Exception;
 }
