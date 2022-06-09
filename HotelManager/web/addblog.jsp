@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -188,7 +189,7 @@
                     />
                   </div>
                    </div>
-                    <div class="form-group mb-12">
+                 <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
                     <label
                       for="name"
                       >Image
