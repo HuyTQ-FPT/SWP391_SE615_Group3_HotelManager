@@ -1,3 +1,4 @@
+<%@page import="Entity.RoomByDate"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Entity.Room"%>
 <%@page import="java.util.Vector"%>
@@ -306,7 +307,7 @@
 
                     <!-- PRODUCTS Start
                     ================================================== -->
-                    <%Vector<Room> vector = (Vector<Room>) request.getAttribute("vector"); %>
+                <%Vector<RoomByDate> vector = (Vector<RoomByDate>) request.getAttribute("vector"); %>
                     <section id="shop">
                         <div class="container">
                             <div class="row">
@@ -317,7 +318,7 @@
                                     <!-- End of /.Products-heading -->
                                     <div class="product-grid">
                                         <ul>
-                                            <%for (Room v : vector) {%>
+                                            <%for (RoomByDate v : vector) {%>
                                             <li>
                                                 <div class="products">
                                                     <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">

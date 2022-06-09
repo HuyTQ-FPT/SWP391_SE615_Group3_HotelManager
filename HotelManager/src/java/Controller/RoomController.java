@@ -12,6 +12,7 @@ import Dao.impl.ServiceDAOImpl;
 import Entity.Device;
 import Entity.Image;
 import Entity.Room;
+import Entity.RoomByDate;
 import Entity.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -88,18 +89,16 @@ public class RoomController extends HttpServlet {
                 }
                 if (Integer.parseInt(room) > Integer.parseInt(adult)) {
                     String err = "Phòng không thể nhiều hơn số người lớn";
-                    request.setAttribute("err", err);
-                    RequestDispatcher dispatch = request.getRequestDispatcher("searchRoom.jsp");
-                    dispatch.forward(request, response);
+                    out.print("<h3 style='font size:15px;'>Phòng không thể nhiều hơn số người lớn </h3>");
+                    return;
+//                    request.setAttribute("err", err);
+//                    response.sendRedirect("HomeController");
                 }
                 int n = (Integer.parseInt(adult) + Integer.parseInt(children)) / Integer.parseInt(room);
                 if (n % 2 != 0) {
                     n++;
                 }
-
-                Vector<Room> vector = dao.getRoomList("select * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
-                        + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
-                        + "where NumberPerson>= " + n);
+                Vector<RoomByDate> vector = dao.seachRoom(n,sDate, cDate);
                 request.setAttribute("vector", vector);
                 RequestDispatcher dispatch = request.getRequestDispatcher("searchRoom.jsp");
                 dispatch.forward(request, response);

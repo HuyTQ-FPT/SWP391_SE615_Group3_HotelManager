@@ -8,6 +8,7 @@ package Dao;
 import Entity.Room;
 import Entity.RoomByDate;
 import context.DBContext;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
@@ -46,5 +47,5 @@ public interface RoomDAO {
     
     public Vector<Room> getRoomByRate(int n);
     
-    public Vector<RoomByDate> seachRoom(); 
+    public Vector<RoomByDate> seachRoom(int a,Date datein,Date dateout); 
 }

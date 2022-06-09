@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
 import java.util.Vector;
 
 /**
@@ -145,15 +146,6 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
-    public static void main(String[] args) {
-        RoomDAOImpl dao = new RoomDAOImpl();
-//        Vector<Room> vector= dao.getRoomList("select * from Room");
-        Room rooom = dao.getRoom("1");
-//        for (Room room : vector) {
-        System.out.println(rooom);
-//        }      
-    }
-
     @Override
     public int getPageByPageStatus() {
         int n = 0;
@@ -231,7 +223,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 + "AS RowNum FROM Room r INNER JOIN [Image] i on i.RoomimgaeID= r.RoomimgaeID \n"
                 + "          JOIN CateRoom c on r.RoomcateID = c.RoomcateID\n"
                 + "where r.Status=0\n"
-                + " and r.Roomprice between "+from+" and "+to+"\n"
+                + " and r.Roomprice between " + from + " and " + to + "\n"
                 + ")\n"
                 + "select * from t Where RowNum between " + begin + " AND " + end;
         try {
@@ -259,8 +251,8 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public int getPageByPrice(int p1,int p2) {
-        int n=0;
+    public int getPageByPrice(int p1, int p2) {
+        int n = 0;
         String sql = "select COUNT(*) from Room Where Roomprice between " + p1 + " and " + p2 + "";
         Vector<Room> vector = new Vector<Room>();
         try {
@@ -401,7 +393,48 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<RoomByDate> seachRoom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Vector<RoomByDate> seachRoom(int a,Date datein, Date dateout) {
+        Vector<RoomByDate> vector = new Vector<RoomByDate>();
+        String sql = "select * from Room r  \n"
+                + "inner join Image i on r.RoomimgaeID=r.RoomimgaeID join CateRoom c on \n"
+                + "r.RoomcateID =c.RoomcateID \n"
+                + "left join DateOfRoom d \n"
+                + "on r.RoomID=d.RoomID \n"
+                + "where((d.DateIn!= " + datein + " and d.DateOut!= " + dateout + ") or (d.DateIn is null and d.DateOut is null)) and r.NumberPerson= "+ a;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String des = rs.getString(3);
+                int cateid = rs.getInt(4);
+                String image = rs.getString(14);
+                double Roomprice = rs.getDouble(6);
+                int NumberPerson = rs.getInt(7);
+                float Square = rs.getFloat(8);
+                String Comment = rs.getString(9);
+                int Rate = rs.getInt(10);
+                String Note = rs.getString(11);
+                String cateroom = rs.getString(19);
+//                Date date1 = rs.getDate(23);
+//                Date date2 = rs.getDate(24);
+                RoomByDate im= new RoomByDate(cateid, name, Comment, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, cateroom, null, null);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;
+    }
+    public static void main(String[] args) {
+        RoomDAOImpl dao = new RoomDAOImpl();
+        Date a=Date.valueOf("2022-05-03");
+        Date b=Date.valueOf("2022-07-03");
+        
+        Vector<RoomByDate> vector =dao.seachRoom(4,a,b);
+        for (RoomByDate roomByDate : vector) {
+            System.out.println(roomByDate);
+        }
+        
     }
 }

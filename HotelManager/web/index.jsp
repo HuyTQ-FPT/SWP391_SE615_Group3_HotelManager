@@ -238,7 +238,12 @@ Author     : admin
                                     <div class="form-row tm-search-form-row">
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
+                                        <c:if test="${empty err}">
                                             <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Check In">
+                                            </c:if>
+                                            <c:if test="${!empty err}">
+                                            <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="${err}">
+                                            </c:if>
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
