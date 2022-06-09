@@ -412,7 +412,7 @@
                                                         <td>From</td><td><input type="number" name="price1" min="0" max="10000" value=""/></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>To</td><td><input type="number" name="price2" min="0" max="100000" value=""/></td>
+                                                        <td>To</td><td><input type="number" name="price2" min="0" max="10000" value=""/></td>
                                                     </tr>
                                                     <tr>
                                                         <td></td><td><input type="submit" value="Find"/></td>
