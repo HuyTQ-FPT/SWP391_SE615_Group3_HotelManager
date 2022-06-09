@@ -5,4 +5,10 @@ HotelManager/nbproject/private/private.xml
 
 /HotelManager1/build/
 /HotelManager1/nbproject/private/
+
 /HotelManager/dist/
+
+*.properties
+*.war
+*.xml
+
