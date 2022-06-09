@@ -28,14 +28,14 @@
                     <form action="LoginController?do=ChangePassword" method="post" id="signup-form" class="signup-form">
                         <h2 class="form-title">Đổi mật khẩu</h2>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="oldpassword" placeholder="Old Password"/>
+                            <input type="password" class="form-input" name="oldpassword" placeholder="Mật khẩu cũ"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="password" id="password" placeholder="New Password"/>
+                            <input type="password" class="form-input" name="password" id="password" placeholder="Mật khẩu mới"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group lastt">
-                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
+                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Nhập lại mật khẩu mới"/>
                             <div>
                                 <h4 id="er" class="er" style="color: red;font-size: 13px;">${requestScope.errorpass}</h4>
                                 <h4 id="er" class="er" style="color: red;font-size: 13px;">${requestScope.error}</h4>

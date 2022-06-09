@@ -22,18 +22,18 @@ import java.util.logging.Logger;
 public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
-    public Vector<User> getUserList() {
+    public Vector<User> getUserList() throws Exception{
         return null;
 
     }
 
     @Override
-    public void insertUser(User User) {
+    public void insertUser(User User) throws Exception{
 
     }
 
     @Override
-    public void updateUser(User User) {
+    public void updateUser(User User) throws Exception{
 
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
 
@@ -59,11 +59,12 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     }
 
     @Override
-    public void deleteUser(int uid) {
+    public void deleteUser(int uid) throws Exception{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
+<<<<<<< Updated upstream
     public User getUser(int accountID) throws Exception {
         String sql = "select * from [User] where AccountID=?";
         try {
@@ -101,6 +102,10 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         } catch (SQLException ex) {
             throw ex;
         }
+=======
+    public User getUser(int uid) throws Exception{
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+>>>>>>> Stashed changes
     }
 
 }
