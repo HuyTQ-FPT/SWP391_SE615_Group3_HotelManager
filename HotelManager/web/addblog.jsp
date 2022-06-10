@@ -190,17 +190,18 @@
                   </div>
                    </div>
                  <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                    <label
-                      for="name"
-                      >Image
-                    </label>
-                    <input
-                      id="name"
-                      name="image"
-                      type="text"
-                      class="form-control validate"
-                      required
-                    />
+                   <div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                      </div>
+                    </div>
+                  </div>
                   </div>
               </div>
 <!--              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
