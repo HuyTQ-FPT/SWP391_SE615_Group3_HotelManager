@@ -8,9 +8,8 @@ package Dao;
 import Entity.User;
 import java.util.Vector;
 
-
 public interface UserDAO {
-    
+
     public Vector<User> getUserList() throws Exception;
 
     public void insertUser(User User) throws Exception;

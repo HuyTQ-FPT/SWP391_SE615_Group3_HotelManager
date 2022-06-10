@@ -75,7 +75,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
     public Account checkAccount(String aName) {
-        String xSql = "select * from [Account] where [user]=?";
+        String xSql = "select * from [Account] where [user1]=?";
 
         try {
             PreparedStatement ps = conn.prepareStatement(xSql);

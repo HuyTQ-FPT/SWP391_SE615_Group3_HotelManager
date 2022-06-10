@@ -270,6 +270,26 @@
                 padding: 8px 16px;
                 text-decoration: none;
             }
+            .supprimer {
+                /*                background-color: transparent;
+                                text-decoration: underline;
+                                border: none;*/
+                color: blue;
+                cursor: pointer;
+                border-radius: 5px;
+                background-color: #F1BC31;
+                padding: 4px 10px;
+            }
+
+            supprimer:focus {
+                outline: none;
+            }
+            .but{
+                cursor: pointer;
+                border-radius: 5px;
+                background-color: #F1BC31;
+                padding: 2px 15px;
+            }
         </style>
     </head>
     <body>
@@ -305,22 +325,22 @@
                 </div>
 
             </div>
-            <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+            <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="padding: 15px">
                 <div class="container">
                     <span class="admin"></i>Receptionist</span>
                     <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Log Out</button>
                     </form>
-                    <form action="ReceptionistController?do=searchRoom" class="searchform order-lg-last" method="post">
-                        <div class="form-group d-flex" >
-                            <input name="nameRoom" type="text" class="form-control pl-3" placeholder="Search roomName">
-                            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
-                        </div>
-                    </form>
+                    <!--                    <form action="ReceptionistController?do=searchRoom" class="searchform order-lg-last" method="post">
+                                            <div class="form-group d-flex" >
+                                                <input name="nameRoom" type="text" class="form-control pl-3" placeholder="Search roomName">
+                                                <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
+                                            </div>
+                                        </form>-->
                     <form class="selectStatus"  action="ReceptionistController" method="post">
                         <input type="hidden" name="do" value="searchStatus">           
-                        <select name="status" style="font-size: 17px; font-weight: bold; margin-left: 30px">
-                           
+                        <select name="status"  style="font-size: 17px; font-weight: bold; margin-left: 30px">
+
                             <%  int count = 0;
                                 for (Room r : vector) {
                                     if (r.getStatus() == 1 || r.getStatus() == 2) {
@@ -337,7 +357,7 @@
                                     }
                                 } %>
                         </select>  
-                        <input class="but" value="Select" type="submit" name="submit">                                    
+                        <input class="but" value="Filter" type="submit" name="submit">                                    
                     </form>
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
@@ -368,6 +388,7 @@
                         <!--<th>Note</th>-->
                         <th>Status</th>
 
+
                     </tr>
                 </thead>
                 <%
@@ -388,17 +409,29 @@
                             <form action="ReceptionistController">
                                 <input type="hidden" name="do" value="updateStatus">   
                                 <input type="hidden" name="rid" value="<%= r.getRoomID()%>"> 
-                                <select name="status"  onchange="this.form.submit()">
+                              
+                                <select name="status"  >
                                     <option value="1" <%if (r.getStatus() == 1) {%>selected<%}%>>Phòng trống</option>
                                     <option value="2" <%if (r.getStatus() == 2) {%>selected<%}%>>Phòng đã được đặt</option>
 
                                 </select>   
+                                    <button class="supprimer" type="submit" name="submit"  onclick="confirmation(this)">Update</button>
                             </form>
-
                         </td>
 
                     </tr>
                 <script>
+                    
+                    //Confinm Up
+                    function confirmation(button) {
+                      
+                        var result = "Do you want to update now?";
+                        if(confirm(result)){
+                            alert("You have successfully updated.");
+                        }
+                       
+
+                    }
                     function show() {
                         if (document.getElementById("team").style.display == "none") {
                             document.getElementById("team").style.display = "block";
@@ -412,15 +445,15 @@
             </table>
         </div> 
 
-<!--        <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">&raquo;</a>
-        </div>-->
+        <!--        <div class="pagination">
+                    <a href="#">&laquo;</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">6</a>
+                    <a href="#">&raquo;</a>
+                </div>-->
     </body>
 </html>

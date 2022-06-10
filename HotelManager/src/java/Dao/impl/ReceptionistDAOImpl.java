@@ -116,12 +116,13 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
                     + "u.UserName=?";
 
             PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, uName);
             ResultSet rs = pre.executeQuery();
 
             while (rs.next()) {
                 int uID = rs.getInt(1);
                 int uAID = rs.getInt(2);
-                String uName1 = rs.getString(3);
+                uName = rs.getString(3);
                 String uPhone = rs.getString(4);
                 String uEmail = rs.getString(5);
                 int uGender = rs.getInt(6);

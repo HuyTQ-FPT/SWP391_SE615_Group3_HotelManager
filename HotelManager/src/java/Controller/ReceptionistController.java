@@ -65,6 +65,9 @@ public class ReceptionistController extends HttpServlet {
                 int Rid = Integer.parseInt(rId);
                 int status1 = Integer.parseInt(status);
                 daoR.updateStatus(Rid, status1);
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('User or password incorrect');");
+                out.println("</script>");
                 response.sendRedirect("ReceptionistController");
             }
             if (service.equalsIgnoreCase("Cus")) { //View List All Customer
@@ -151,6 +154,7 @@ public class ReceptionistController extends HttpServlet {
             }
             if (service.equalsIgnoreCase("searchName")) { // tim kiem ten phong
                 String name = request.getParameter("Name").trim();
+                System.out.println(name);
                 Vector<User> vectorU = dao.getSearchNameCustomerListByReceptionist(name);// chuyen thanh chu thuong
                 request.setAttribute("vectorU", vectorU);
                 request.getRequestDispatcher("ManagerCustomer.jsp").forward(request, response);
