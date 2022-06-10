@@ -164,10 +164,10 @@
 
                                             <tr>
                                                 <th scope="row"><input type="hidden" /></th>
-                                                <td ><input type="text" name="DeviceName" value="${de.deviceName}"></td>
-                                                <td ><input type="number" name="Price" value=""></td>
-                                                <td ><input type="number" name="Status" value=""></td>
-                                                <td ><input type="number" name="Quantity" value=""></td>
+                                                <td ><input class="form-control validate" type="text" name="DeviceName" value="${de.deviceName}"></td>
+                                                <td ><input class="form-control validate" type="number" name="Price" value=""></td>
+                                                <td ><input class="form-control validate" type="number" name="Status" value=""></td>
+                                                <td ><input class="form-control validate" type="number" name="Quantity" value=""></td>
                                         <input type="hidden" name="DeviceID" value="${de.deviceID}">
                                         <input type="hidden" name="RoomcateID" value="${de.roomcateID}">
                                         <td>
@@ -176,7 +176,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <button type="submit" name="do" value="updateroom" class="tm-product-delete-link">
+                                            <button type="submit" name="do" value="updateroomdevice" class="tm-product-delete-link">
                                                 <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
                                             </button>
                                         </td>
@@ -184,9 +184,9 @@
                                         </tbody>
                                     </form>
                                 </c:forEach>
-                                <a
-                                    href="ServiceController?do=insertroom"
-                                    class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
+                                <form action="searchroomdevice" method="get">
+                                    <input class="btn btn-primary btn-block text-uppercase mb-3" type="text" placeholder="Tìm kiếm.." name="search">
+                                </form>
                             </table>
                         </div>
                         <!-- table container -->
@@ -194,22 +194,16 @@
                             <tbody>
                                 <tr>
                                     <th scope="row"><input type="hidden" /></th>
-                            <p style="display: inline-block;"> abc </p>   
+                            <h5 style="display: inline-block; margin-left: 1%; font-family: PlayFair Display; color: white">INSERT ROOM DEVICE</h5>   
                             <span>
-                                <td ><input type="text" name="DeviceName" value=""></td>
-                                <td ><input type="number" name="Price" value=""></td>
-                                <td ><input type="number" name="Status" value=""></td>
-                                <td ><input type="number" name="Quantity" value=""></td>
+                                <td ><input class="form-control validate" type="text" name="DeviceName" value="" placeholder="DeviceName"></td>
+                                <td ><input class="form-control validate" type="number" name="Price" value="" placeholder="Price"></td>
+                                <td ><input class="form-control validate" type="number" name="Status" value="" placeholder="Status"></td>
+                                <td ><input class="form-control validate" type="number" name="Quantity" value="" placeholder="Quantity"></td>
                             </span>
-                            <input type="hidden" name="DeviceID" value="">
-                            <input type="hidden" name="RoomcateID" value="">
+                            <input type="hidden" name="RoomcateID" value="${rooom.roomcateID}">
                             <td>
-                                <a href="ServiceController?do=deleteroom&RoomcateID" class="tm-product-delete-link">
-                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <button type="submit" name="do" value="updateroom" class="tm-product-delete-link">
+                                <button type="submit" name="do" value="insertdeviceroom" class="tm-product-delete-link">
                                     <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
                                 </button>
                             </td>
