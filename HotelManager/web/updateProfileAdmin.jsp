@@ -85,10 +85,10 @@
                                         Accounts <i class="fas fa-angle-down"></i>
                                     </span>
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+<!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="BlogManagerController?do=updateblog">View Profile</a>
 
-                                </div>
+                                </div>-->
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -118,7 +118,7 @@
                                     <span> Settings <i class="fas fa-angle-down"></i> </span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Profile</a>
+                                    <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">Profile</a>
                                     <a class="dropdown-item" href="#">Billing</a>
                                     <a class="dropdown-item" href="#">Customize</a>
                                 </div>
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <%
-                        User user = (User) request.getAttribute("u");
+                        User user = (User) session.getAttribute("u");
                     %>
                     <div class="tm-block-col tm-col-account-settings">
                         <div class="tm-bg-primary-dark tm-block tm-block-settings">
@@ -241,7 +241,7 @@
                                        type="submit"
                                        class="btn btn-primary btn-block text-uppercase"
                                        >
-                                        Edit Account
+                                        Update Account
                                     </a>
                                 </div>
                             </form>
