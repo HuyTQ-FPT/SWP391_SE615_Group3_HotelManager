@@ -112,12 +112,35 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
         return vector;
     }
 
+    @Override
+    public Vector<Device> searchDevicebyname(String mess, String roomcateid) {
+        Vector<Device> vector = new Vector<Device>();
+        String sql = "select * from RoomDevice INNER JOIN Device on RoomDevice.DeviceID = Device.DeviceID\n" +
+"where (RoomDevice.RoomcateID = ?)\n" +
+"and (DeviceName like ? or Price like ? or Quantity like ?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, roomcateid);
+            ps.setString(2, "%" + mess + "%");
+            ps.setString(3, "%" + mess + "%");
+            ps.setString(4, "%" + mess + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Device de = new Device(rs.getInt(2), rs.getInt(1), rs.getString(5), rs.getInt(1), rs.getDouble(7), rs.getInt(8), rs.getInt(3));
+                vector.add(de);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vector;
+    }
+
     public static void main(String[] args) {
         DeviceDAOImpl dao = new DeviceDAOImpl();
 //        dao.updateDeviceinfor("Điều Hòa Nhỏ", "11212", "1", "12");
 //        dao.updateDeviceQuan("2", "12", "1");
-        dao.insertDevice("test", "9999", "1", "1", "2");
-        Vector<Device> de = dao.getDevicebycateroom("1");
+//        dao.insertDevice("test", "9999", "1", "1", "2");
+        Vector<Device> de = dao.searchDevicebyname("22", "1");
         for (Device device : de) {
             System.out.println(device);
         }

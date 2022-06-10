@@ -21,6 +21,8 @@ public interface DeviceDAO {
     public void insertDevice(String name, String price, String status, String RoomcateID, String Quantity);
 
     public void updateDeviceQuan(String quan, String deviceid, String roomcateid);
+    
+    public Vector<Device> searchDevicebyname(String mess, String roomcateid);
 
     public void updateDeviceinfor(String name, String price, String status, String deviceid);
 
