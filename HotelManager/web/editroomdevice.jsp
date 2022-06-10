@@ -184,8 +184,10 @@
                                         </tbody>
                                     </form>
                                 </c:forEach>
-                                <form action="searchroomdevice" method="get">
-                                    <input class="btn btn-primary btn-block text-uppercase mb-3" type="text" placeholder="Tìm kiếm.." name="search">
+                                <form action="ServiceController" method="get">
+                                    <input type="hidden" name="cateroom" value="${rooom.roomcateID}">
+                                    <input type="hidden" name="do" value="searchdeviceroom">
+                                    <input class="btn btn-primary btn-block text-uppercase mb-3" type="text" placeholder="Tìm kiếm.." name="Mess">
                                 </form>
                             </table>
                         </div>
