@@ -194,10 +194,8 @@
                             <tbody>
                                 <tr>
                                     <th scope="row"><input type="hidden" /></th>
-                                
+                            <p style="display: inline-block;"> abc </p>   
                             <span>
-                                
-                                
                                 <td ><input type="text" name="DeviceName" value=""></td>
                                 <td ><input type="number" name="Price" value=""></td>
                                 <td ><input type="number" name="Status" value=""></td>
