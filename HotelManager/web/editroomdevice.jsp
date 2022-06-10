@@ -168,19 +168,19 @@
                                                 <td ><input type="number" name="Price" value=""></td>
                                                 <td ><input type="number" name="Status" value=""></td>
                                                 <td ><input type="number" name="Quantity" value=""></td>
-                                                <input type="hidden" name="DeviceID" value="${de.deviceID}">
-                                                <input type="hidden" name="RoomcateID" value="${de.roomcateID}">
-                                                <td>
-                                                    <a href="ServiceController?do=deleteroom&RoomcateID=${de.roomcateID}&DeviceID=${de.deviceID}" class="tm-product-delete-link">
-                                                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <button type="submit" name="do" value="updateroom" class="tm-product-delete-link">
-                                                        <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                        <input type="hidden" name="DeviceID" value="${de.deviceID}">
+                                        <input type="hidden" name="RoomcateID" value="${de.roomcateID}">
+                                        <td>
+                                            <a href="ServiceController?do=deleteroom&RoomcateID=${de.roomcateID}&DeviceID=${de.deviceID}" class="tm-product-delete-link">
+                                                <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <button type="submit" name="do" value="updateroom" class="tm-product-delete-link">
+                                                <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                            </button>
+                                        </td>
+                                        </tr>
                                         </tbody>
                                     </form>
                                 </c:forEach>
@@ -190,7 +190,34 @@
                             </table>
                         </div>
                         <!-- table container -->
-
+                        <form action="ServiceController" method="get">
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><input type="hidden" /></th>
+                                
+                            <span>
+                                
+                                
+                                <td ><input type="text" name="DeviceName" value=""></td>
+                                <td ><input type="number" name="Price" value=""></td>
+                                <td ><input type="number" name="Status" value=""></td>
+                                <td ><input type="number" name="Quantity" value=""></td>
+                            </span>
+                            <input type="hidden" name="DeviceID" value="">
+                            <input type="hidden" name="RoomcateID" value="">
+                            <td>
+                                <a href="ServiceController?do=deleteroom&RoomcateID" class="tm-product-delete-link">
+                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <button type="submit" name="do" value="updateroom" class="tm-product-delete-link">
+                                    <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                </button>
+                            </td>
+                            </tr>
+                            </tbody>
+                        </form>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">

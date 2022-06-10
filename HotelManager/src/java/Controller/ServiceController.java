@@ -101,6 +101,14 @@ public class ServiceController extends HttpServlet {
 //                out.println("<h1>Servlet RoomcategoryController at " + DeviceID + "va" + RoomcateID + "va" + DeviceName + "va" + Quantity + "</h1>");
                 response.sendRedirect("ServiceController?do=getdeviceroom");
             }
+            if (doo.equals("insertdeviceroom")) {
+                String RoomcateID = request.getParameter("RoomcateID");
+                String DeviceName = request.getParameter("DeviceName");
+                String Price = request.getParameter("Price");
+                String Status = request.getParameter("Status");
+                String Quantity = request.getParameter("Quantity");
+                daoss.insertDevice(DeviceName, Price, Status, RoomcateID, Quantity);
+            }
         }
     }
 

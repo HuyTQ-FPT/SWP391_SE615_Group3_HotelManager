@@ -25,8 +25,22 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
     }
 
     @Override
-    public void insertDevice(Device newDevice) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertDevice(String name, String price, String status, String RoomcateID, String Quantity) {
+        String query = "insert into Device (DeviceName, DeviceCate, Price, [Status]) \n"
+                + "values (?, null, ?, ?);\n"
+                + "insert into RoomDevice (RoomcateID, DeviceID, Quantity) \n"
+                + "values (?, @@identity, ?);";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, name);
+            pre.setString(2, price);
+            pre.setString(3, status);
+            pre.setString(4, RoomcateID);
+            pre.setString(5, Quantity);
+            pre.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -45,6 +59,7 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
             e.printStackTrace();
         }
     }
+
     @Override
     public void updateDeviceinfor(String name, String price, String status, String deviceid) {
         String query = "UPDATE Device\n"
@@ -101,9 +116,8 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
         DeviceDAOImpl dao = new DeviceDAOImpl();
 //        dao.updateDeviceinfor("Điều Hòa Nhỏ", "11212", "1", "12");
 //        dao.updateDeviceQuan("2", "12", "1");
+        dao.insertDevice("test", "9999", "1", "1", "2");
         Vector<Device> de = dao.getDevicebycateroom("1");
-//        dao.deleteDevice("1", "1");
-        
         for (Device device : de) {
             System.out.println(device);
         }

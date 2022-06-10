@@ -18,7 +18,7 @@ public interface DeviceDAO {
 
     public Vector<Device> getDevicebycateroom(String cateRoom);
 
-    public void insertDevice(Device newDevice);
+    public void insertDevice(String name, String price, String status, String RoomcateID, String Quantity);
 
     public void updateDeviceQuan(String quan, String deviceid, String roomcateid);
 
