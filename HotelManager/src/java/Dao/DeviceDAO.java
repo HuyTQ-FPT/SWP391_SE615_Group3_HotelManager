@@ -15,12 +15,14 @@ import java.util.Vector;
 public interface DeviceDAO {
 
     public Vector<Device> getAllDevice();
-    
+
     public Vector<Device> getDevicebycateroom(String cateRoom);
 
     public void insertDevice(Device newDevice);
 
-    public void updateDevice(int dID, Device updateDevice);
+    public void updateDeviceQuan(String quan, String deviceid, String roomcateid);
+
+    public void updateDeviceinfor(String name, String price, String status, String deviceid);
 
     public void deleteDevice(String Roomcateid, String DeviceID);
 }

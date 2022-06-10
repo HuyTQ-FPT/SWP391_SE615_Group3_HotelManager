@@ -43,6 +43,7 @@ public class ServiceController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
@@ -87,7 +88,18 @@ public class ServiceController extends HttpServlet {
                 daoss.deleteDevice(RoomcateID, DeviceID);
                 response.sendRedirect("ServiceController?do=getdeviceroom");
 //                out.println("<h1>Servlet RoomcategoryController at " + DeviceID +"va"+ RoomcateID+ "</h1>");
-
+            }
+            if (doo.equals("updateroom")) {
+                String DeviceID = request.getParameter("DeviceID");
+                String RoomcateID = request.getParameter("RoomcateID");
+                String DeviceName = request.getParameter("DeviceName");
+                String Price = request.getParameter("Price");
+                String Status = request.getParameter("Status");
+                String Quantity = request.getParameter("Quantity");
+                daoss.updateDeviceinfor(DeviceName, Price, Status, DeviceID);
+                daoss.updateDeviceQuan(Quantity, DeviceID, RoomcateID);
+//                out.println("<h1>Servlet RoomcategoryController at " + DeviceID + "va" + RoomcateID + "va" + DeviceName + "va" + Quantity + "</h1>");
+                response.sendRedirect("ServiceController?do=getdeviceroom");
             }
         }
     }

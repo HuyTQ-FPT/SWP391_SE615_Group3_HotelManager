@@ -154,33 +154,39 @@
                                         <th scope="col">Status</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Delete</th>
+                                        <th scope="col">Update</th>
                                         <th scope="col">&nbsp;</th>
                                     </tr>
                                 </thead>
-                                <form action="ServiceController" method="get">
-                                    <tbody>
-                                         <c:forEach items="${de}" var="de">
-                                        <tr>
-                                            <th scope="row"><input type="hidden" /></th>
-                                            <td ><input type="text" name="DeviceName" value="${de.deviceName}"></td>
-                                            <td ><input type="number" name="Price" value=""></td>
-                                            <td ><input type="number" name="Status" value=""></td>
-                                            <td ><input type="number" name="Quantity" value=""></td>
-                                            <td>
-                                                <a href="ServiceController?do=deleteroom&RoomcateID=${de.roomcateID}&DeviceID=${de.deviceID}" class="tm-product-delete-link">
-                                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                          </c:forEach>
-                                    </tbody>
-                                    <a
-                                        href="ServiceController?do=insertroom"
-                                        class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
-                                        <button class="btn btn-primary btn-block text-uppercase" name="do" value="updatedeviceroom">
-                                        Delete selected products
-                                    </button>
-                                </form>
+                                <c:forEach items="${de}" var="de">
+                                    <form action="ServiceController" method="get">
+                                        <tbody>
+
+                                            <tr>
+                                                <th scope="row"><input type="hidden" /></th>
+                                                <td ><input type="text" name="DeviceName" value="${de.deviceName}"></td>
+                                                <td ><input type="number" name="Price" value=""></td>
+                                                <td ><input type="number" name="Status" value=""></td>
+                                                <td ><input type="number" name="Quantity" value=""></td>
+                                                <input type="hidden" name="DeviceID" value="${de.deviceID}">
+                                                <input type="hidden" name="RoomcateID" value="${de.roomcateID}">
+                                                <td>
+                                                    <a href="ServiceController?do=deleteroom&RoomcateID=${de.roomcateID}&DeviceID=${de.deviceID}" class="tm-product-delete-link">
+                                                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <button type="submit" name="do" value="updateroom" class="tm-product-delete-link">
+                                                        <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </form>
+                                </c:forEach>
+                                <a
+                                    href="ServiceController?do=insertroom"
+                                    class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
                             </table>
                         </div>
                         <!-- table container -->
@@ -194,9 +200,9 @@
                             <table class="table tm-table-small tm-product-table">
                                 <tbody>
                                     <c:forEach items="${romcate}" var="r">
-                                    <tr>
-                                        <td class="text-center"><a href="ServiceController?do=getdeviceroom&cateroom=${r.roomcateID}" style="color: red">${r.catename}</a></td>
-                                    </tr>
+                                        <tr>
+                                            <td class="text-center"><a href="ServiceController?do=getdeviceroom&cateroom=${r.roomcateID}" style="color: red">${r.catename}</a></td>
+                                        </tr>
                                     </c:forEach>
                                 </tbody>
                             </table>

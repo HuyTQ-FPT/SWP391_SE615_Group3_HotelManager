@@ -30,8 +30,38 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
     }
 
     @Override
-    public void updateDevice(int dID, Device updateDevice) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateDeviceQuan(String quan, String deviceid, String roomcateid) {
+        String query = "UPDATE RoomDevice\n"
+                + "SET Quantity = ?\n"
+                + "WHERE DeviceID = ? and RoomcateID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, quan);
+            pre.setString(2, deviceid);
+            pre.setString(3, roomcateid);
+            pre.executeUpdate();
+            System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void updateDeviceinfor(String name, String price, String status, String deviceid) {
+        String query = "UPDATE Device\n"
+                + "SET DeviceName = ?,\n"
+                + "Price = ?, Status = ?\n"
+                + "WHERE DeviceID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, name);
+            pre.setString(2, price);
+            pre.setString(3, status);
+            pre.setString(4, deviceid);
+            pre.executeUpdate();
+            System.out.println(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -58,7 +88,7 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
             ps.setString(1, cateRoom);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Device de = new Device( rs.getInt(2),rs.getInt(1), rs.getString(5), rs.getInt(1), rs.getDouble(7), rs.getInt(8), rs.getInt(3));
+                Device de = new Device(rs.getInt(2), rs.getInt(1), rs.getString(5), rs.getInt(1), rs.getDouble(7), rs.getInt(8), rs.getInt(3));
                 vector.add(de);
             }
         } catch (Exception e) {
@@ -69,8 +99,11 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
 
     public static void main(String[] args) {
         DeviceDAOImpl dao = new DeviceDAOImpl();
+//        dao.updateDeviceinfor("Điều Hòa Nhỏ", "11212", "1", "12");
+//        dao.updateDeviceQuan("2", "12", "1");
         Vector<Device> de = dao.getDevicebycateroom("1");
-        dao.deleteDevice("1", "1");
+//        dao.deleteDevice("1", "1");
+        
         for (Device device : de) {
             System.out.println(device);
         }
