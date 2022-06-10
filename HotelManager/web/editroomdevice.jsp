@@ -167,7 +167,7 @@
                                             <td ><input type="number" name="Status" value=""></td>
                                             <td ><input type="number" name="Quantity" value=""></td>
                                             <td>
-                                                <a href="ServiceController?do=deleteroom" class="tm-product-delete-link">
+                                                <a href="ServiceController?do=deleteroom&RoomcateID=${de.roomcateID}&DeviceID=${de.deviceID}" class="tm-product-delete-link">
                                                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
                                                 </a>
                                             </td>
@@ -189,18 +189,13 @@
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
-                        <h2 class="tm-block-title">Product Categories</h2>
+                        <h2 class="tm-block-title">${rooom.cateroom}</h2>
                         <div class="tm-product-table-container">
                             <table class="table tm-table-small tm-product-table">
                                 <tbody>
                                     <c:forEach items="${romcate}" var="r">
                                     <tr>
-                                        <td>${r.catename}</td>
-                                        <td class="text-center">
-                                            <a href="#" class="tm-product-delete-link">
-                                                <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                            </a>
-                                        </td>
+                                        <td class="text-center"><a href="ServiceController?do=getdeviceroom&cateroom=${r.roomcateID}" style="color: red">${r.catename}</a></td>
                                     </tr>
                                     </c:forEach>
                                 </tbody>

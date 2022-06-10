@@ -48,9 +48,10 @@ public class ServiceController extends HttpServlet {
             HttpSession session = request.getSession();
             String doo = request.getParameter("do");
             String ServiceID = request.getParameter("ServiceID");
+            RoomDAOImpl daos = new RoomDAOImpl();
+            ServiceDAOImpl dao = new ServiceDAOImpl();
+            DeviceDAOImpl daoss = new DeviceDAOImpl();
             if (doo.equals("servicedetail")) {
-                ServiceDAOImpl dao = new ServiceDAOImpl();
-                RoomDAOImpl daos = new RoomDAOImpl();
                 Vector<Room> getroomlist = daos.getRoomList("select top (5) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID\n"
                         + "                        JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
                         + "                        where Room.Status =0 \n"
@@ -70,14 +71,22 @@ public class ServiceController extends HttpServlet {
                 if (cateroom == null) {
                     cateroom = "1";
                 }
-                String ss = request.getParameter("name");
-                DeviceDAOImpl dao = new DeviceDAOImpl();
+                Room rooom = daos.getRooms(cateroom);
                 RoomCategoryDAOImpl roomcate = new RoomCategoryDAOImpl();
                 Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
-                Vector<Device> de = dao.getDevicebycateroom(cateroom);
+                Vector<Device> de = daoss.getDevicebycateroom(cateroom);
                 request.setAttribute("de", de);
                 request.setAttribute("romcate", romcate);
+                request.setAttribute("rooom", rooom);
                 request.getRequestDispatcher("editroomdevice.jsp").forward(request, response);
+
+            }
+            if (doo.equals("deleteroom")) {
+                String DeviceID = request.getParameter("DeviceID");
+                String RoomcateID = request.getParameter("RoomcateID");
+                daoss.deleteDevice(RoomcateID, DeviceID);
+                response.sendRedirect("ServiceController?do=getdeviceroom");
+//                out.println("<h1>Servlet RoomcategoryController at " + DeviceID +"va"+ RoomcateID+ "</h1>");
 
             }
         }

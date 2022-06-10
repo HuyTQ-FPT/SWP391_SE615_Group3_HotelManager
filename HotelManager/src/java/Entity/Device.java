@@ -10,23 +10,25 @@ package Entity;
  * @author Admin
  */
 public class Device {
-    private int DeviceID;
+        private int DeviceID;
+        private int RoomcateID;
 	private String DeviceName;
 	private int DeviceCate;
 	private double Price;
 	private int Status;
         private int Quantity ;
 
-    public Device() {
-    }
-
-    public Device(int DeviceID, String DeviceName, int DeviceCate, double Price, int Status, int Quantity) {
+    public Device(int DeviceID, int RoomcateID, String DeviceName, int DeviceCate, double Price, int Status, int Quantity) {
         this.DeviceID = DeviceID;
+        this.RoomcateID = RoomcateID;
         this.DeviceName = DeviceName;
         this.DeviceCate = DeviceCate;
         this.Price = Price;
         this.Status = Status;
         this.Quantity = Quantity;
+    }
+
+    public Device() {
     }
 
     public int getDeviceID() {
@@ -35,6 +37,14 @@ public class Device {
 
     public void setDeviceID(int DeviceID) {
         this.DeviceID = DeviceID;
+    }
+
+    public int getRoomcateID() {
+        return RoomcateID;
+    }
+
+    public void setRoomcateID(int RoomcateID) {
+        this.RoomcateID = RoomcateID;
     }
 
     public String getDeviceName() {
@@ -76,10 +86,10 @@ public class Device {
     public void setQuantity(int Quantity) {
         this.Quantity = Quantity;
     }
-       
+
     @Override
     public String toString() {
-        return "Device{" + "DeviceID=" + DeviceID + ", DeviceName=" + DeviceName + ", DeviceCate=" + DeviceCate + ", Price=" + Price + ", Status=" + Status + "Quantity=" + Quantity + '}';
+        return "Device{"+ "RoomcateID=" + RoomcateID + "DeviceID=" + DeviceID + ", DeviceName=" + DeviceName + ", DeviceCate=" + DeviceCate + ", Price=" + Price + ", Status=" + Status + "Quantity=" + Quantity + '}';
     }
         
 }

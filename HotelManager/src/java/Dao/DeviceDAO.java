@@ -22,5 +22,5 @@ public interface DeviceDAO {
 
     public void updateDevice(int dID, Device updateDevice);
 
-    public void deleteDevice(int dID);
+    public void deleteDevice(String Roomcateid, String DeviceID);
 }

@@ -35,8 +35,18 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
     }
 
     @Override
-    public void deleteDevice(int dID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteDevice(String Roomcateid, String DeviceID) {
+        String query = "DELETE FROM [dbo].[RoomDevice]\n"
+                + "      WHERE RoomcateID = ? and DeviceID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, Roomcateid);
+            pre.setString(2, DeviceID);
+            pre.executeUpdate();
+            System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -48,7 +58,7 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
             ps.setString(1, cateRoom);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Device de = new Device(rs.getInt(1), rs.getString(5), rs.getInt(8), rs.getDouble(6), rs.getInt(3), rs.getInt(3));
+                Device de = new Device( rs.getInt(2),rs.getInt(1), rs.getString(5), rs.getInt(1), rs.getDouble(7), rs.getInt(8), rs.getInt(3));
                 vector.add(de);
             }
         } catch (Exception e) {
@@ -59,7 +69,8 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
 
     public static void main(String[] args) {
         DeviceDAOImpl dao = new DeviceDAOImpl();
-        Vector<Device> de = dao.getDevicebycateroom("3");
+        Vector<Device> de = dao.getDevicebycateroom("1");
+        dao.deleteDevice("1", "1");
         for (Device device : de) {
             System.out.println(device);
         }
