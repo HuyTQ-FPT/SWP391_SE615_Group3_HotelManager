@@ -92,9 +92,12 @@ public class UserController extends HttpServlet {
                         + "on a.AccountID=u.AccountID\n"
                         + "where [User]='" + user + "' and [password]='" + pass + "'");
                 // điều kiện update thành công
-                if (!name.equals("") && (gender == 1 || gender == 0) && !bod.equals("") && !email.equals("") && !phone.equals("") && !address.equals("") && !cmt.equals("")) {
+                boolean checkemail=false;
+                boolean checkphone=false;
+                boolean checkcmnd=false;
+                if (phone.length()==10 && dao2.isNumeric(cmt) && dao2.isNumeric(phone)) {
                     n=dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));                    
-                } else { //update thất bại
+                } else{ //update thất bại
                     response.sendRedirect("UserController?do=Viewupdateprofile&er=1");
                 }
                 if(n>0){

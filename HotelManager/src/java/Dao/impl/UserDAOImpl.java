@@ -102,4 +102,13 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             throw ex;
         }
     }
+
+    @Override
+    public boolean isNumeric(String str) throws Exception {
+    for (char c : str.toCharArray())
+    {
+        if (!Character.isDigit(c)) return false;
+    }
+    return true;    
+    }
 }

@@ -89,6 +89,9 @@ public class LoginController extends HttpServlet {
                 } else { 
                     String error = "Tài khoản hoặc mật khẩu không chính xác";
                     request.setAttribute("error", error);
+                    request.setAttribute("mess", "");
+                    request.setAttribute("username", username);
+                    request.setAttribute("password", password);
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
             }
@@ -143,7 +146,7 @@ public class LoginController extends HttpServlet {
                 }
                 if(count>0){
                     session.setAttribute("login", new Account(1,1, username, password));
-                    response.sendRedirect("HomeController");
+                    response.sendRedirect("LoginController?do=Login&mess=register");
                 }else{
                     request.setAttribute("name", name);
                 request.setAttribute("username", username);
@@ -207,20 +210,28 @@ public class LoginController extends HttpServlet {
                 String newpassword = request.getParameter("password").trim();
                 String re_password = request.getParameter("re_password").trim();
                 ResultSet rs = dao1.getData("select * from Account where [user]='" + a.getUser().trim() + "' and [password]='" + oldpassword + "'");
+                if (!a.getPassword().equals(oldpassword)){  
+                            error = "Mật khẩu cũ không chính xác";
+                            request.setAttribute("errorpass", error);
+                            request.setAttribute("oldpassword", oldpassword);
+                            request.setAttribute("newpassword", newpassword);
+                            request.setAttribute("re_password", re_password); 
+                            request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+                }
                 if (rs.next() == true) {
                     if (newpassword.trim().length() >= 8) {
                         if (newpassword.equals(re_password)) {
                             dao.updateAccount(rs.getString(3), re_password);
-                            response.sendRedirect("LoginController?do=Login&mess=success");
-                        } else if (!newpassword.equals(re_password)) {
+                            response.sendRedirect("LoginController?do=Login&mess=change");                         
+                        } else if (!newpassword.equals(re_password)){  
                             error = "Mật khẩu mới không khớp nhau";
                             request.setAttribute("errorpass", error);
                             request.setAttribute("oldpassword", oldpassword);
                             request.setAttribute("newpassword", newpassword);
-                            request.setAttribute("re_password", re_password);                            
+                            request.setAttribute("re_password", re_password); 
                             request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                         } else{
-                            error = "Mật khẩu cũ không chính xác";
+                            error = "Mật khẩu mới giống với mật khẩu cũ";
                             request.setAttribute("errorpass", error);
                             request.setAttribute("oldpassword", oldpassword);
                             request.setAttribute("newpassword", newpassword);
@@ -236,7 +247,7 @@ public class LoginController extends HttpServlet {
                         request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                     }                    
                 } else {
-                    error = "Đổi mật khẩu thất bại";
+                    error = "Đổi mật khẩu thất bại(Lỗi hệ thống)";
                     request.setAttribute("oldpassword", oldpassword);
                             request.setAttribute("newpassword", newpassword);
                             request.setAttribute("re_password", re_password); 

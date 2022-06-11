@@ -111,7 +111,11 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
+                                    <%if(rs.getString(5)==null || rs.getString(5).equals("")){%>
+                                    Trống
+                                    <% }else{%>
                                     <%=rs.getString(5)%>
+                                    <% }%>
                                 </div>
                             </div>
                             <hr>
@@ -120,7 +124,11 @@
                                     <h6 class="mb-0">Số điện thoại</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
+                                    <%if(rs.getString(4)==null || rs.getString(4).equals("")){%>
+                                    Trống
+                                    <% }else{%>
                                     <%=rs.getString(4)%>
+                                    <% }%>
                                 </div>
                             </div>
                             <hr>
@@ -129,7 +137,11 @@
                                     <h6 class="mb-0">CMND</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
+                                    <%if(rs.getString(9)==null || rs.getString(9).equals("")){%>
+                                    Trống
+                                    <% }else{%>
                                     <%=rs.getString(9)%>
+                                    <% }%>
                                 </div>
                             </div>
                             <hr>
@@ -138,7 +150,11 @@
                                     <h6 class="mb-0">Địa chỉ</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
+                                    <%if(rs.getString(8)==null || rs.getString(8).equals("")){%>
+                                    Trống
+                                    <% }else{%>
                                     <%=rs.getString(8)%>
+                                    <% }%>
                                 </div>
                             </div>
                             <hr>

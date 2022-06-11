@@ -25,7 +25,7 @@
     .style{
         position: absolute;
         left: 0px;
-        top:22px;
+        top:0px;
         font-size: 10px;
     }
 </style>

@@ -14,6 +14,9 @@
 
 	</head>
         <style>
+            body{
+                overflow: hidden;
+            }
             .alert {
                 position: absolute;
   padding: 20px;
@@ -26,25 +29,25 @@
   z-index: 30;
   right: 5px;
   top: 20px;
-  opacity:1;
-    transition:opacity 500ms;
+  animation: down_mess 5s ease forwards;
+  
 }
 
 .alert.success {background-color: #04AA6D;}
 
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.closebtn:hover {
-  color: black;
+@keyframes down_mess{
+    70%{
+        transform: translateX(0%);
+    }
+    80%{
+        transform: translateX(10%);
+    }
+    94%{
+        transform: translateX(-10%);
+    }
+    100%{
+        transform: translateX(110%);
+    }
 }
 
         </style>
@@ -62,12 +65,15 @@
 	<body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
 	<section class="ftco-section">
 		<div class="container">
-                    <%if(!mess.equals("")){%>
-                    <div class="alert success">
-  <span class="closebtn">&times;</span>  
+                    <%if(request.getAttribute("mess").equals("change")){%>
+                        <div class="alert success">
   <strong>Thành công!</strong> Đổi mật khẩu thành công
 </div>
-                    <% }%>
+                    <% } else if(request.getAttribute("mess").equals("register")){%>
+                            <div class="alert success">
+  <strong>Thành công!</strong> Bạn đã đăng ký thành công
+</div>
+                            <% }%>
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
 					<h2 class="heading-section">Login User</h2>
@@ -79,12 +85,21 @@
 		      	<h3 class="mb-4 text-center">Have an account?</h3>
                         <form action="LoginController?do=CheckLogin" class="signin-form" method="post">
 		      		<div class="form-group">
+                                    <%if(request.getAttribute("username")==null){%>
                                     <input maxlength="30" required="" name="username" type="text" class="form-control" placeholder="Tên đăng nhập" value="<%=user%>" required>
-		      		</div>
+                                    <% }else {%>
+                                    <input maxlength="30" required="" name="username" type="text" class="form-control" placeholder="Tên đăng nhập" value="<%=request.getAttribute("username")%>" required>
+                                    <% }%>
+                                </div>
 	            <div class="form-group">
+                        <%if(request.getAttribute("username")==null){%>
                         <input id="password-field" maxlength="30" required="" name="password" type="password" class="form-control" placeholder="Mật khẩu" value="<%=pass%>" required>
 	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-	            </div>
+                      <% }else {%>
+                      <input id="password-field" maxlength="30" required="" name="password" type="password" class="form-control" placeholder="Mật khẩu" value="<%=request.getAttribute("password")%>" required>
+	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    <% }%>
+                    </div>
                              <h4 id="er" style="color: pink;font-size: 15px; position: fixed;">${requestScope.error}</h4>
                             <br>
                    
@@ -127,16 +142,6 @@
   <script src="js/bootstrap.min_1_1.js"></script>
   <script src="js/main_1.js"></script>
   <script>
-      var close = document.getElementsByClassName("closebtn");
-var i;
-
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function(){
-    var div = this.parentElement;
-    div.style.opacity = "0";
-    setTimeout(function(){ div.style.display = "none"; }, 600);
-  }
-}
   </script>
 	</body>
 </html>

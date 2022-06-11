@@ -207,7 +207,7 @@ Author     : admin
                     </div>
                 <c:if test="${sessionScope.login!=null}">
                     <div class="card_name">
-                        <p>${sessionScope.login.getUser()}</p>                        
+                        <p style="color:white;">${sessionScope.login.getUser()}</p>                        
                     </div>
                 </c:if>
 

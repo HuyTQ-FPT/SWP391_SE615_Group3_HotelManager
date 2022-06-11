@@ -23,4 +23,6 @@ public interface UserDAO {
     
     public User getUser(int accountID) throws Exception;
    
+    public boolean isNumeric(String str) throws Exception;
+
 }
