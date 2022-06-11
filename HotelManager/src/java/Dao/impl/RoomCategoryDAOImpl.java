@@ -41,7 +41,7 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
         RoomCategoryDAOImpl dao = new RoomCategoryDAOImpl();
         Vector<RoomCategory> vector = dao.getRoomCategoryList("select * from CateRoom");
 //        for (RoomCategory roomCategory : vector) {
-            System.out.println(vector.lastElement().getRoomcateID());
+        System.out.println(vector.lastElement().getRoomcateID());
 //        }
     }
 
@@ -52,11 +52,11 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
 
     @Override
     public void insertRoomCategory(String roomcatename) {
-        String query = "INSERT INTO [dbo].[CateRoom]\n"
-                + "           ([Catename]\n"
-                + "           ,[Note])\n"
-                + "     VALUES\n"
-                + "           (?, null)";
+        String query = "insert into CateRoom (Catename) \n"
+                + "values (?,null);\n"
+                + "insert into Room ([Roomname],[Roomdesc],[RoomcateID],[RoomimgaeID] ,\n"
+                + "[Roomprice],[NumberPerson],[Square],[Comment],[Rate],[Note],[Status]) \n"
+                + "values (null, null, @@identity, null, null, null, null, null, null, null, null);";
         try {
             PreparedStatement pre = conn.prepareStatement(query);
             pre.setString(1, roomcatename);

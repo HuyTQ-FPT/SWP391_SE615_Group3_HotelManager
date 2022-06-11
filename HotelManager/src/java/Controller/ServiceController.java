@@ -85,9 +85,8 @@ public class ServiceController extends HttpServlet {
                 request.setAttribute("romcate", romcate);
                 request.setAttribute("rooom", rooom);
                 session.setAttribute("Mess", Mess);
-//                out.println("<h1>Servlet RoomcategoryController at " + de +"va"+ cateroom+ "</h1>");
+//              out.println("<h1>Servlet RoomcategoryController at " + de +"va"+ cateroom+ "</h1>");
                 request.getRequestDispatcher("editroomdevice.jsp").forward(request, response);
-
             }
             if (doo.equals("deleteroom")) {
                 String DeviceID = request.getParameter("DeviceID");
