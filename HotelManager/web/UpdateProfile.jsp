@@ -43,7 +43,7 @@
             String er = (String) request.getAttribute("error").toString();
             String s = "";
             if (!er.equals("")) {
-                s = "Thông tin không được để rỗng";
+                s = "Update không thành công";
             }
         %>
         <div class="container">
@@ -102,7 +102,7 @@
                                             <h6 class="mb-0">Tên của bạn</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" name="name" class="form-control" value="<%=rs.getString(7)%>">
+                                            <input maxlength="30" required="" type="text" name="name" class="form-control" value="<%=rs.getString(7)%>">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -110,7 +110,11 @@
                                             <h6 class="mb-0">Email</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" name="email" class="form-control" value="<%=rs.getString(8)%>">
+                                             <%if(rs.getString(9)==null){%>
+                                             <input maxlength="30" required=""  type="email" name="email" class="form-control" placeholder="Email rỗng">
+                                            <% }else {%>
+                                            <input maxlength="30" required=""  type="email" name="email" class="form-control" placeholder="Email rỗng" value="<%=rs.getString(9)%>">
+                                            <%}%>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -118,7 +122,12 @@
                                             <h6 class="mb-0">Số điện thoại</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" name="phone" class="form-control" value="<%=rs.getString(9)%>">
+                                            <%if(rs.getString(8)==null){%>
+                                             <input maxlength="30" required=""  type="text" name="phone" class="form-control" placehoder="Số điện thoại rỗng">
+                                            <% }else {%>
+                                            <input maxlength="30" required=""  type="text" name="phone" class="form-control" placehoder="Số điện thoại rỗng" value="<%=rs.getString(8)%>">
+                                            <%}%>
+                                            
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -126,7 +135,11 @@
                                             <h6 class="mb-0">CMND</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" name="cmt" class="form-control" value="<%=rs.getString(13)%>">
+                                            <%if(rs.getString(13)==null){%>
+                                             <input maxlength="30" required="" type="text" name="cmt" class="form-control" placehoder="Số CMND rỗng">
+                                            <% }else {%>
+                                            <input maxlength="30" required="" type="text" name="cmt" class="form-control" placehoder="Số CMND rỗng" value="<%=rs.getString(13)%>">
+                                            <%}%>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -134,7 +147,12 @@
                                             <h6 class="mb-0">Địa chỉ</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" name="address" class="form-control" value="<%=rs.getString(12)%>">
+                                            <%if(rs.getString(12)==null){%>
+                                             <input maxlength="30" required=""  type="text" name="address" class="form-control" placehoder="Địa chỉ rỗng">
+                                            <% }else {%>
+                                            <input maxlength="30" required=""  type="text" name="address" class="form-control" value="<%=rs.getString(12)%>">
+                                            <%}%>
+                                          
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -145,11 +163,13 @@
                                             <%if (rs.getInt(10) == 0) {%>
                                             <input type="radio" name="gender" value="0" checked>Nữ    
                                             <input type="radio" name="gender" value="1">Nam
-                                            <%} else {%>
+                                            <%} else if(rs.getInt(10) == 1) {%>
                                             <input type="radio" name="gender" value="0" >Nữ    
                                             <input type="radio" name="gender" value="1" checked>Nam
-                                            <%}%>
-                                           
+                                            <%} else{%>
+                                           <input type="radio" name="gender" value="0">Nữ    
+                                            <input type="radio" name="gender" value="1">Nam
+                                            <% }%>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -158,7 +178,7 @@
                                         </div>
                                         <div class="col-sm-9 text-secondary">
 
-                                            <input type="date" name="bod" class="form-control" value="<%=rs.getString(11)%>">
+                                            <input maxlength="30" required=""  type="date" name="bod" class="form-control" value="<%=rs.getString(11)%>">
                                         </div>
                                     </div>
 

@@ -11,15 +11,30 @@
     <title>Sign Up Form by Colorlib</title>
 
     <!-- Font Icon -->
-    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+   
 
     <!-- Main css -->
     <link rel="stylesheet" href="css/style_2_1.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    
 </head>
 <style>
-    
+.form-group{
+        position: relative;
+    }
+    .style{
+        position: absolute;
+        left: 0px;
+        top:22px;
+        font-size: 10px;
+    }
 </style>
 <body>
+<script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+
+
+<script src="js/notify.js"></script>
+<script src="js/notify.min.js"></script>
 
     <div class="main">
 
@@ -29,27 +44,52 @@
                     <form action="LoginController?do=CheckRegister" method="post" id="signup-form" class="signup-form">
                         <h2 class="form-title">Đăng ký tài khoản</h2>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Tên của bạn"/>
+                            <%if(request.getAttribute("name")==null){%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" class="form-input" name="name" placeholder="Tên của bạn"/>
+                            <% }else {%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" class="form-input" name="name" placeholder="Tên của bạn" value="<%=request.getAttribute("name")%>"/>
+                            <%}%>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="username" placeholder="Tên đăng nhập"/>
+                            <%if(request.getAttribute("username")==null){%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" class="form-input" name="username" placeholder="Tên đăng nhập"/>
+                            <% }else {%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" class="form-input" name="username" placeholder="Tên đăng nhập"s value="<%=request.getAttribute("username")%>"/>
+                            <%}%>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="email" placeholder="Email"/>
+                            <%if(request.getAttribute("email")==null){%>
+                            <input maxlength="30" type="email" class="form-input" name="email" placeholder="Email"/>
+                            <% }else {%>
+                            <input  maxlength="30" type="email" class="form-input" name="email" placeholder="Email" value="<%=request.getAttribute("email")%>"/>
+                            <%}%>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="password" id="password" placeholder="Mật khẩu"/>
+                            <%if(request.getAttribute("password")==null){%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="password" class="form-input" name="password" id="password" placeholder="Mật khẩu"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            <% }else {%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="password" class="form-input" name="password" id="password" placeholder="Mật khẩu" value="<%=request.getAttribute("password")%>"/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            <%}%>
                         </div>
                         <div class="form-group lastt">
-                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Nhập lại mật khẩu"/>
+                            <%if(request.getAttribute("re_password")==null){%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="password" class="form-input" name="re_password" id="re_password" placeholder="Nhập lại mật khẩu"/>
                             <div>
                                 <h4 id="er" class="er" style="color: red;font-size: 13px;">${requestScope.errorpass}</h4>
                                 <h4 id="er" class="er" style="color: red;font-size: 13px;">${requestScope.error}</h4>
-                            </div>        
+                            </div>
+                            <% }else {%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="password" class="form-input" name="re_password" id="re_password" placeholder="Nhập lại mật khẩu" value="<%=request.getAttribute("re_password")%>"/>
+                            <div>
+                                <h4 id="er" class="er" style="color: red;font-size: 13px;">${requestScope.errorpass}</h4>
+                                <h4 id="er" class="er" style="color: red;font-size: 13px;">${requestScope.error}</h4>
+                            </div>
+                            <%}%>
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                            <input onclick="mess()" type="submit" name="submit" id="submit" class="form-submit button large round success" value="Sign up"/>
                         </div>                       
                     </form>
                     <p class="loginhere">
@@ -60,7 +100,9 @@
         </section>
 
     </div>
-
+                        <script>
+                            $.notify("Hello World");
+                        </script>
     <!-- JS -->
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

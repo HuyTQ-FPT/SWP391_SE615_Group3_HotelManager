@@ -43,6 +43,7 @@ Author     : admin
         <link rel="stylesheet" href="css/tooplate-style.css">
     </head>
     <style>
+        
         .card{
             display: none;
             opacity: 0.9;
@@ -227,6 +228,7 @@ Author     : admin
                 </div>
 
             </div>  
+                
 
             <div class="slide-one-item home-slider owl-carousel">
                 <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
@@ -690,6 +692,7 @@ Author     : admin
                     document.getElementById("team").style.display = "none";
                 }
             }
+
         </script>
         <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     </body>

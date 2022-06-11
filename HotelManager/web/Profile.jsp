@@ -111,7 +111,7 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <%=rs.getString(4)%>
+                                    <%=rs.getString(5)%>
                                 </div>
                             </div>
                             <hr>
@@ -120,7 +120,7 @@
                                     <h6 class="mb-0">Số điện thoại</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <%=rs.getString(5)%>
+                                    <%=rs.getString(4)%>
                                 </div>
                             </div>
                             <hr>

@@ -76,30 +76,32 @@ public class UserController extends HttpServlet {
             }
             if (service.equals("Updateprofile")) { //cập nhập thông tin profile thay đổi
                 System.out.println("oke");
+                int n=0;
                 int uid = Integer.parseInt(request.getParameter("uid"));
-                String user = request.getParameter("username");
-                String pass = request.getParameter("password");
-                String name = request.getParameter("name");
-                String email = request.getParameter("email");
-                String phone = request.getParameter("phone");
-                String address = request.getParameter("address");
+                String user = request.getParameter("username").trim();
+                String pass = request.getParameter("password").trim();
+                String name = request.getParameter("name").trim();
+                String email = request.getParameter("email").trim();
+                String phone = request.getParameter("phone").trim();
+                String address = request.getParameter("address").trim();
                 int gender = Integer.parseInt(request.getParameter("gender"));
-                String bod = request.getParameter("bod");
+                String bod = request.getParameter("bod").trim();
                 System.out.println(bod);
-                String cmt = request.getParameter("cmt");
+                String cmt = request.getParameter("cmt").trim();
                 ResultSet rs = dao.getData("select u.* from Account a join [User] u\n"
                         + "on a.AccountID=u.AccountID\n"
                         + "where [User]='" + user + "' and [password]='" + pass + "'");
                 // điều kiện update thành công
                 if (!name.equals("") && (gender == 1 || gender == 0) && !bod.equals("") && !email.equals("") && !phone.equals("") && !address.equals("") && !cmt.equals("")) {
-                    dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));
-                    Cookie mess = new Cookie("mess", "mess");
-                    mess.setMaxAge(5);
-                    response.addCookie(mess);
-                    response.sendRedirect("UserController");
+                    n=dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));                    
                 } else { //update thất bại
                     response.sendRedirect("UserController?do=Viewupdateprofile&er=1");
-
+                }
+                if(n>0){
+                    Cookie mess = new Cookie("mess", "mess");
+                    mess.setMaxAge(3);
+                    response.addCookie(mess);
+                    response.sendRedirect("UserController");
                 }
             }
         }

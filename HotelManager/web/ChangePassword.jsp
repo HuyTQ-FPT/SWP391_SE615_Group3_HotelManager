@@ -14,12 +14,23 @@
 
     <!-- Main css -->
     <link rel="stylesheet" href="css/style_2_1.css">
+    
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 </head>
 <style>
-    
+    .form-group{
+        position: relative;
+    }
+    .style{
+        position: absolute;
+        left: 0px;
+        top:22px;
+        font-size: 10px;
+    }
 </style>
 <body>
-
+    
     <div class="main">
 
         <section class="signup">
@@ -28,17 +39,29 @@
                     <form action="LoginController?do=ChangePassword" method="post" id="signup-form" class="signup-form">
                         <h2 class="form-title">Đổi mật khẩu</h2>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="oldpassword" placeholder="Mật khẩu cũ"/>
+                            <%if(request.getAttribute("oldpassword")==null){%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="password" class="form-input" name="oldpassword" placeholder="Mật khẩu cũ" value=""/>
+                            <% }else {%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="password" class="form-input" name="oldpassword" placeholder="Mật khẩu cũ" value="<%=request.getAttribute("oldpassword")%>"/>
+                            <%}%>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="password" id="password" placeholder="Mật khẩu mới"/>
+                            <%if(request.getAttribute("newpassword")==null){%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="password" class="form-input" name="password" id="password" placeholder="Mật khẩu mới" value=""/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            <% }else {%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="password" class="form-input" name="password" id="password" placeholder="Mật khẩu mới" value="<%=request.getAttribute("newpassword")%>"/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                            <%}%>
                         </div>
                         <div class="form-group lastt">
-                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Nhập lại mật khẩu mới"/>
+                            <%if(request.getAttribute("re_password")==null){%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="password" class="form-input" name="re_password" id="re_password" placeholder="Nhập lại mật khẩu mới" value=""/>
+                            <% }else {%>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="password" class="form-input" name="re_password" id="re_password" placeholder="Nhập lại mật khẩu mới" value="<%=request.getAttribute("re_password")%>"/>
+                            <%}%>
                             <div>
                                 <h4 id="er" class="er" style="color: red;font-size: 13px;">${requestScope.errorpass}</h4>
-                                <h4 id="er" class="er" style="color: red;font-size: 13px;">${requestScope.error}</h4>
                             </div>        
                         </div>
                         <div class="form-group">

@@ -33,8 +33,8 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     }
 
     @Override
-    public void updateUser(User User) throws Exception {
-
+    public int updateUser(User User) throws Exception {
+        int n=0;
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
 
         try {
@@ -51,11 +51,11 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             pre.setInt(8, User.getUserID());
 
             //run
-            pre.executeUpdate();
+            n=pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+        return n;
     }
 
     @Override
@@ -95,13 +95,11 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             pre.setString(4, User.getUserEmail());
             pre.setString(5, User.getUserPhone());
             pre.setInt(6, User.getUserGender());
-
             pre.setInt(7, User.getUserID());
             //run
             pre.executeUpdate();
         } catch (SQLException ex) {
             throw ex;
         }
-
     }
 }
