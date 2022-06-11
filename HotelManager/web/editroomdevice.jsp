@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <!-- https://getbootstrap.com/ -->
         <link rel="stylesheet" href="css/templatemo-style.css">
+        <link rel="stylesheet" href="css/style.css">
         <!--
             Product Admin CSS Template
             https://templatemo.com/tm-524-product-admin
@@ -191,6 +192,18 @@
                                 </form>
                             </table>
                         </div>
+                                    <div style="padding-left: 32%;"class="site-block-27">
+              <ul>
+                <li><a href="#">&lt;</a></li>
+                <li class="active"><span>1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&gt;</a></li>
+              </ul>
+            </div>
+
                         <!-- table container -->
                         <form action="ServiceController" method="get">
                             <tbody>
