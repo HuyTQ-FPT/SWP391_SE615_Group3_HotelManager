@@ -222,7 +222,17 @@
                                 <tbody>
                                     <c:forEach items="${romcate}" var="r">
                                         <tr>
-                                            <td class="text-center"><a href="ServiceController?do=getdeviceroom&cateroom=${r.roomcateID}" style="color: red">${r.catename}</a></td>
+                                            <td class="text-center"><a href="ServiceController?do=getdeviceroom&cateroom=${r.roomcateID}" style="color: red; font-size: 50px">.</a> <input type="text" name="" value="${r.catename}"> </td>
+                                            <td>
+                                                <a href="#" class="tm-product-delete-link">
+                                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <button type="submit" name="do" value="updateroomdevice" class="tm-product-delete-link">
+                                                    <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                                </button>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

@@ -39,9 +39,10 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
 
     public static void main(String[] args) {
         RoomCategoryDAOImpl dao = new RoomCategoryDAOImpl();
-        Vector<RoomCategory> vector = dao.getRoomCategoryList("select * from CateRoom");
+//        Vector<RoomCategory> vector = dao.getRoomCategoryList("select * from CateRoom");
 //        for (RoomCategory roomCategory : vector) {
-        System.out.println(vector.lastElement().getRoomcateID());
+//        System.out.println(vector.lastElement().getRoomcateID());
+        dao.insertRoomCategory("nguyen van a");
 //        }
     }
 
@@ -53,7 +54,7 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
     @Override
     public void insertRoomCategory(String roomcatename) {
         String query = "insert into CateRoom (Catename) \n"
-                + "values (?,null);\n"
+                + "values (?);\n"
                 + "insert into Room ([Roomname],[Roomdesc],[RoomcateID],[RoomimgaeID] ,\n"
                 + "[Roomprice],[NumberPerson],[Square],[Comment],[Rate],[Note],[Status]) \n"
                 + "values (null, null, @@identity, null, null, null, null, null, null, null, null);";
