@@ -115,9 +115,10 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
     @Override
     public Vector<Device> searchDevicebyname(String mess, String roomcateid) {
         Vector<Device> vector = new Vector<Device>();
-        String sql = "select * from RoomDevice INNER JOIN Device on RoomDevice.DeviceID = Device.DeviceID\n" +
-"where (RoomDevice.RoomcateID = ?)\n" +
-"and (DeviceName like ? or Price like ? or Quantity like ?)";
+        String sql = "select * from RoomDevice INNER JOIN Device on RoomDevice.DeviceID = Device.DeviceID\n"
+                + "where (RoomDevice.RoomcateID = ?)\n"
+                + "and (DeviceName like ? or Price like ? or Quantity like ?)"
+                + "order by Device.DeviceID desc";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, roomcateid);

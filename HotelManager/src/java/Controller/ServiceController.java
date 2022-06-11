@@ -57,6 +57,11 @@ public class ServiceController extends HttpServlet {
             if (cateroom == null) {
                 cateroom = "1";
             }
+            String Mess = request.getParameter("Mess");
+            if (Mess == null) {
+                Mess = "";
+            }
+            String Messs = (String) session.getAttribute("Mess");
             if (doo.equals("servicedetail")) {
                 Vector<Room> getroomlist = daos.getRoomList("select top (5) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID\n"
                         + "                        JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
@@ -75,10 +80,12 @@ public class ServiceController extends HttpServlet {
             if (doo.equals("getdeviceroom")) {
                 Room rooom = daos.getRooms(cateroom);
                 Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
-                Vector<Device> de = daoss.getDevicebycateroom(cateroom);
+                Vector<Device> de = daoss.searchDevicebyname(Mess, cateroom);
                 request.setAttribute("de", de);
                 request.setAttribute("romcate", romcate);
                 request.setAttribute("rooom", rooom);
+                session.setAttribute("Mess", Mess);
+//                out.println("<h1>Servlet RoomcategoryController at " + de +"va"+ cateroom+ "</h1>");
                 request.getRequestDispatcher("editroomdevice.jsp").forward(request, response);
 
             }
@@ -86,7 +93,7 @@ public class ServiceController extends HttpServlet {
                 String DeviceID = request.getParameter("DeviceID");
                 String RoomcateID = request.getParameter("RoomcateID");
                 daoss.deleteDevice(RoomcateID, DeviceID);
-                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + RoomcateID + "");
+                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + RoomcateID +"&Mess=" + Messs + "");
 //                out.println("<h1>Servlet RoomcategoryController at " + DeviceID +"va"+ RoomcateID+ "</h1>");
             }
             if (doo.equals("updateroomdevice")) {
@@ -99,7 +106,7 @@ public class ServiceController extends HttpServlet {
                 daoss.updateDeviceinfor(DeviceName, Price, Status, DeviceID);
                 daoss.updateDeviceQuan(Quantity, DeviceID, RoomcateID);
 //                out.println("<h1>Servlet RoomcategoryController at " + DeviceID + "va" + RoomcateID + "va" + DeviceName + "va" + Quantity + "</h1>");
-                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + RoomcateID + "");
+                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + RoomcateID + "&Mess=" + Messs + "");
             }
             if (doo.equals("insertdeviceroom")) {
                 String RoomcateID = request.getParameter("RoomcateID");
@@ -113,18 +120,13 @@ public class ServiceController extends HttpServlet {
 //                out.println("<h1>Servlet RoomcategoryController at " + DeviceName + "DeviceName" + RoomcateID + "RoomcateID" + Price + "Price" + Quantity + "Quantity" + Status + "Status" + "</h1>");
                 response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + RoomcateID + "");
             }
-            if (doo.equals("searchdeviceroom")) {
-                String RoomcateID = request.getParameter("RoomcateID");
-                String Mess = request.getParameter("Mess");
-                Vector<Device> de = daoss.searchDevicebyname(Mess, cateroom);
-                Room rooom = daos.getRooms(cateroom);
+            if (doo.equals("insertRoomCategory")) {
+                String Roomcatename = request.getParameter("Roomcatename");
+                roomcate.insertRoomCategory(Roomcatename);
                 Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
-                request.setAttribute("de", de);
                 request.setAttribute("romcate", romcate);
-                request.setAttribute("rooom", rooom);
-                request.setAttribute("cateroom", cateroom);
-//                out.println("<h1>Servlet RoomcategoryController at " + Mess+ cateroom + "</h1>");
-                request.getRequestDispatcher("editroomdevice.jsp").forward(request, response);
+//                out.println("<h1>Servlet RoomcategoryController at " + romcate.lastElement().getRoomcateID()+ "</h1>");
+                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + romcate.lastElement()+"");
             }
         }
     }

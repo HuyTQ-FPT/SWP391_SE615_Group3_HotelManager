@@ -18,7 +18,7 @@ public interface RoomCategoryDAO {
 
     public RoomCategory getAccount(int cateid);
 
-    public void insertRoomCategory(RoomCategory RoomCategory);
+    public void insertRoomCategory(String roomcatename);
 
     public void updateRoomCategory(RoomCategory RoomCategory);
 

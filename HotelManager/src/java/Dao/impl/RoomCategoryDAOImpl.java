@@ -8,6 +8,7 @@ package Dao.impl;
 import Dao.RoomCategoryDAO;
 import Entity.RoomCategory;
 import context.DBContext;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
@@ -39,9 +40,9 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
     public static void main(String[] args) {
         RoomCategoryDAOImpl dao = new RoomCategoryDAOImpl();
         Vector<RoomCategory> vector = dao.getRoomCategoryList("select * from CateRoom");
-        for (RoomCategory roomCategory : vector) {
-            System.out.println(roomCategory);
-        }
+//        for (RoomCategory roomCategory : vector) {
+            System.out.println(vector.lastElement().getRoomcateID());
+//        }
     }
 
     @Override
@@ -50,8 +51,19 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
     }
 
     @Override
-    public void insertRoomCategory(RoomCategory RoomCategory) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertRoomCategory(String roomcatename) {
+        String query = "INSERT INTO [dbo].[CateRoom]\n"
+                + "           ([Catename]\n"
+                + "           ,[Note])\n"
+                + "     VALUES\n"
+                + "           (?, null)";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, roomcatename);
+            pre.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

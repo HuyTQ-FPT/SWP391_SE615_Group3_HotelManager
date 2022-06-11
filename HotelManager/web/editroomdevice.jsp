@@ -186,7 +186,7 @@
                                 </c:forEach>
                                 <form action="ServiceController" method="get">
                                     <input type="hidden" name="cateroom" value="${rooom.roomcateID}">
-                                    <input type="hidden" name="do" value="searchdeviceroom">
+                                    <input type="hidden" name="do" value="getdeviceroom">
                                     <input class="btn btn-primary btn-block text-uppercase mb-3" type="text" placeholder="Tìm kiếm.." name="Mess">
                                 </form>
                             </table>
@@ -228,10 +228,16 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- table container -->
-                        <button class="btn btn-primary btn-block text-uppercase mb-3">
-                            Add new category
-                        </button>
+                        <!-- table container -->    
+                        <form action="ServiceController" method="get">
+                            <tr>
+                                <td class="text-center"><input class="form-control validate" type="text" name="Roomcatename" value="" style="text-align: center;" placeholder="ADD NEW ROOMCATEGORY"></td>
+                            <input type="hidden" name="do" value="insertRoomCategory">
+                            </tr>
+                            <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
+                                Add new category
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
