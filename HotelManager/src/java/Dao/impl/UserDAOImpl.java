@@ -6,6 +6,7 @@
 package Dao.impl;
 
 import Dao.UserDAO;
+import Entity.Account;
 import Entity.User;
 import context.DBContext;
 import java.sql.PreparedStatement;
@@ -34,7 +35,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public int updateUser(User User) throws Exception {
-        int n=0;
+        int n = 0;
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
 
         try {
@@ -51,7 +52,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             pre.setInt(8, User.getUserID());
 
             //run
-            n=pre.executeUpdate();
+            n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -80,6 +81,15 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         }
         return null;
     }
+    public static void main(String[] args) {
+        UserDAOImpl u = new UserDAOImpl();
+        try {
+            User k = u.getUser(9);
+            System.out.println(k);
+        } catch (Exception ex) {
+            Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     public void updateUserEcept(User User) throws Exception {
@@ -105,10 +115,43 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public boolean isNumeric(String str) throws Exception {
-    for (char c : str.toCharArray())
-    {
-        if (!Character.isDigit(c)) return false;
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
-    return true;    
+
+    @Override
+    public User checkUser(String uGmail) throws Exception {
+        String sql = "select * from [User] \n"
+                + " where UserEmail=?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+
+            pre.setString(1, uGmail);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+
+                return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+        return null;
     }
+
+//    public static void main(String[] args) {
+//        UserDAOImpl u = new UserDAOImpl();
+//        try {
+//            User k = u.checkUser("lebaminhhieuyh@gmail.com");
+//            System.out.println(k);
+//        } catch (Exception ex) {
+//
+//            Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
 }

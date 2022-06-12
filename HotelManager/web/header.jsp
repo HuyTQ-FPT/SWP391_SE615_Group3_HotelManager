@@ -55,17 +55,20 @@
                                         <li><a style="font-family: PlayFair Display" href="contact.html">Liên hệ</a></li>
                                             <%
                                                 Account ac = (Account) session.getAttribute("login");
-                                                if (ac == null || ac.getRoleID() != 1) {
+                                                if (ac == null) {
                                             %>
                                         <li class="login"><a style="font-family: PlayFair Display" href="LoginController">Đăng Nhập</a></li>
                                         <li class="register"><a style="font-family: PlayFair Display" href="Register.jsp">Đăng ký</a></li>
-                                            <% } else {%>
+                                            <% } else if (ac.getRoleID() == 1) {%>
                                         <li class="login"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Đăng xuất</a></li>
 
                                         <li class="user"><a id="showmore" onclick="show()" style="font-family: PlayFair Display; cursor: pointer;"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></a>
 
                                         </li>   
-                                        <%}%>
+                                        <%} else if (ac.getRoleID() == 2) {%>
+                                        <li class="login"><a style="font-family: PlayFair Display; margin-right: 14px" href="ReceptionistController">Lễ Tân</a></li>
+                                        <li class="register"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Đăng xuất</a></li>
+                                            <%}%>
                                     </ul>
                                 </div>
                             </nav>

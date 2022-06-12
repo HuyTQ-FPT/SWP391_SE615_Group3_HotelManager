@@ -1,7 +1,7 @@
 <%-- 
     Document   : profileReceptionist
     Created on : Jun 8, 2022, 8:26:16 PM
-    Author     : Admin
+    Author     : Minh Hieu
 --%>
 
 <%@page import="Entity.User"%>
@@ -15,6 +15,10 @@
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  
+        <!-- Font Icon -->
+        <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
         <style>
             body{margin-top:20px;
@@ -76,13 +80,28 @@
                 margin-left: 1rem;
                 margin-right: 1rem;
             }
+            .form-group{
+                position: relative;
+            }
+            .style{
+                position: absolute;
+                left: 20px;
+                top:200px;
+                font-size: 10px;
+            }
+            .style1{
+                position: absolute;
+                left: 20px;
+                top:290px;
+                font-size: 10px;
+            }
         </style>
     </head>
     <body>
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
             <nav class="nav nav-borders">
-               
+
                 <a class="nav-link" href="ReceptionistController"  target="__blank">HomeReceptionist</a>
             </nav>
             <hr class="mt-0 mb-4">
@@ -102,7 +121,7 @@
                     </div>
                 </div>
                 <%
-                        User user = (User) request.getAttribute("u");
+                    User user = (User) request.getAttribute("u");
                 %>
                 <div class="col-xl-8">
                     <!-- Account details card-->
@@ -116,12 +135,12 @@
                                     <input class="form-control" id="inputUsername" readonly type="text"  value="<%=user.getUserName()%>">
                                 </div>
                                 <!-- Form Row-->
-                                      <!-- Form Row-->
+                                <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (CMT)-->
                                     <div class="small mb-1">
-                                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                        <input class="form-control" id="inputEmailAddress" readonly type="email" placeholder="Enter your email address" value="<%=user.getUserEmail()%>">
+                                        <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                        <i class='bx bxs-star style' style="color:red;"></i> <input class="form-control" id="inputEmailAddress" readonly type="email" placeholder="Enter your email address" value="<%=user.getUserEmail()%>">
                                     </div>
 
                                 </div>
@@ -129,7 +148,7 @@
                                 <div class="row gx-3 mb-3">
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputCMT">CMT</label>
-                                        <input class="form-control" id="inputLastName" readonly type="text" placeholder="Enter your last name" value="<%=user.getCMT()%>">
+                                     <i class='bx bxs-star style1' style="color:red;"></i>   <input class="form-control" id="inputLastName" readonly type="text" placeholder="Enter your last name" value="<%=user.getCMT()%>">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputAdress">Address</label>

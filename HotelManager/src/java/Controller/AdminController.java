@@ -45,21 +45,21 @@ public class AdminController extends HttpServlet {
             String service = request.getParameter("do");
             if (service == null) {
                 service = "indexAdmin";
-                
+
             }
             if (service.equals("indexAdmin")) {
                 request.getRequestDispatcher("indexadmin.jsp").forward(request, response);
             }
-            
-            if(service.equalsIgnoreCase("viewProfileAdmin")){
-                 Account ac = (Account) session.getAttribute("login");
+
+            if (service.equalsIgnoreCase("viewProfileAdmin")) {
+                Account ac = (Account) session.getAttribute("login");
 
                 User u = daoU.getUser(ac.getAccountID());
                 request.setAttribute("u", u);
                 request.getRequestDispatcher("viewProfileAdmin.jsp").forward(request, response);
-                
+
             }
-              if (service.equalsIgnoreCase("ViewupdateAdmin")) { // chuyen toi update profile 
+            if (service.equalsIgnoreCase("ViewupdateAdmin")) { // chuyen toi update profile 
                 Account ac = (Account) session.getAttribute("login");
                 User u = daoU.getUser(ac.getAccountID());
                 session.setAttribute("u", u);
@@ -69,9 +69,9 @@ public class AdminController extends HttpServlet {
             }
             if (service.equalsIgnoreCase("updateAdmin")) { // update profile 
 
-                String uID = (String) request.getParameter("uid");
-                String username = (String) request.getParameter("Username");
-                String uEmail = (String) request.getParameter("EmailAddress").trim();
+                String uID = (String) request.getParameter("uid").trim();
+                String username = (String) request.getParameter("name").trim();
+                String uEmail = (String) request.getParameter("inputEmailAddress").trim();
                 String uCMT = (String) request.getParameter("inputCMT").trim();
                 String uAddress = (String) request.getParameter("inputAddress").trim();
                 String uPhone = (String) request.getParameter("inputPhone").trim();
@@ -111,6 +111,10 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("updateProfileAdmin.jsp").forward(request, response);
                 }
             }
+        } catch (Exception ex) {
+            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("err", ex.toString());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 

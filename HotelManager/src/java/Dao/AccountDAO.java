@@ -6,6 +6,7 @@
 package Dao;
 
 import Entity.Account;
+import Entity.User;
 import java.util.Vector;
 
 /**
@@ -27,7 +28,9 @@ public interface AccountDAO {
     public Account checkAccount(String aName) throws Exception;
 
     public Vector<Account> getAccountByRole(int aRole) throws Exception;
-    
-    public int Register(Account ac, String name,String email ) throws Exception;
+
+    public int Register(Account ac, String name, String email) throws Exception;
+
+    public int updateAccountAndUser(String aPassword, String uGmail) throws Exception;
 
 }

@@ -7,11 +7,14 @@ package Dao.impl;
 
 import Dao.AccountDAO;
 import Entity.Account;
+import Entity.User;
 import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -48,7 +51,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     }
 
     @Override
-    public int updateAccount(String aUser, String aPassword) throws Exception{
+    public int updateAccount(String aUser, String aPassword) throws Exception {
         int n = 0;
         String sql = "UPDATE [SWPgroup3].[dbo].[Account]\n"
                 + "   SET [password] =?\n"
@@ -75,9 +78,9 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
     public Account checkAccount(String aName) {
-        String xSql = "select * from [Account] where [user1]=?";
-
         try {
+            String xSql = "select * from [Account] where [user]=?";
+
             PreparedStatement ps = conn.prepareStatement(xSql);
             ps.setString(1, aName);
             ResultSet rs = ps.executeQuery();
@@ -87,12 +90,30 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(e);
         }
         return null;
     }
 
+    public static void main(String[] args) {
+        AccountDAOImpl ac = new AccountDAOImpl();
+        try {
+            int n = ac.updateAccountAndUser("2aasdasefgsdfgsdfgsdfgdascd", "lebaminhhieuyh@gmail.com");
+            if(n>0){
+                 System.out.println("ok");
+            }
+            else{
+                 System.out.println("di");
+            }
+              
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+    }
+
     @Override
-    public Vector<Account> getAccountByRole(int aRole) throws Exception{
+    public Vector<Account> getAccountByRole(int aRole) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -120,5 +141,24 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         }
         return n;
     }
+
+    @Override
+    public int updateAccountAndUser(String aPassword, String uGmail) throws Exception {
+        int n = 0;
+        try {
+            String sql = "UPDATE [Account] set password=? from [Account] ac, [User] u\n"
+                    + " where ac.AccountID=u.AccountID and u.UserEmail=?";
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, aPassword);
+            pre.setString(2, uGmail);
+
+            n = pre.executeUpdate();
+
+        } catch (Exception e) {
+            throw e;
+        }
+        return n;
+    }
+    
 
 }

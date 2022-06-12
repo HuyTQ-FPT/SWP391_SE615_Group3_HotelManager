@@ -21,6 +21,7 @@ public class User {
     private String UserAdress;
     private String CMT;
     private String ImgCMT;
+    Account ac;
 
     public User() {
     }
@@ -58,6 +59,21 @@ public class User {
         this.UserAdress = UserAdress;
         this.CMT = CMT;
     }
+
+    public User(int UserID, int AccountID, String UserName, String UserPhone, String UserEmail, int UserGender, String Birthday, String UserAdress, String CMT, String ImgCMT, Account ac) {
+        this.UserID = UserID;
+        this.AccountID = AccountID;
+        this.UserName = UserName;
+        this.UserPhone = UserPhone;
+        this.UserEmail = UserEmail;
+        this.UserGender = UserGender;
+        this.Birthday = Birthday;
+        this.UserAdress = UserAdress;
+        this.CMT = CMT;
+        this.ImgCMT = ImgCMT;
+        this.ac = ac;
+    }
+    
 
     public User(int UserID, String UserPhone, String UserEmail, String UserAdress, String CMT) {
         this.UserID = UserID;

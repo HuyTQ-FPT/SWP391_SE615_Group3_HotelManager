@@ -20,10 +20,14 @@ import java.util.Vector;
 public interface RoomDAO {
 
     public Vector<Room> getRoomList(String sql);
-    public Vector<Room> getRoomListAll(String sql) ;
-    public void updateStatus(int rID, int rStatus) ;
-    public Vector<Room> selectRoom(int status) ; 
-    public Vector<Room> searchRoombyRoomName(String roomName) ;
+
+    public Vector<Room> getRoomListAll(String sql) throws Exception;
+
+    public void updateStatus(int rID, int rStatus) throws Exception;
+
+    public Vector<Room> selectRoom(String roomName,int status) throws Exception;
+
+  
 
     public int getPage();
 
@@ -32,7 +36,7 @@ public interface RoomDAO {
     public Vector<Room> getRoomByPageStatus(int n);
 
     public int getPageByPageStatus();
-    
+
     public Room getRoom(String roomid);
 
     public void insertRoom(Room Room);
@@ -40,17 +44,18 @@ public interface RoomDAO {
     public void updateRoom(Room Room);
 
     public void deleteRoom(int roomid);
-    
-    public int getPageByPrice(int p1,int p2);
-    
-    public Vector<Room> getRoomListbyPrice(int n,int from, int to);
-    
+
+    public int getPageByPrice(int p1, int p2);
+
+    public Vector<Room> getRoomListbyPrice(int n, int from, int to);
+
     public Vector<Room> getRoomByPriceMax(int n);
-    
+
     public Vector<Room> getRoomByPriceMin(int n);
-    
+
     public Vector<Room> getRoomByRate(int n);
-    
-    public Vector<RoomByDate> seachRoom(int a,Date datein,Date dateout); 
-    public Vector<RoomByDate> seachRoom(); 
+
+    public Vector<RoomByDate> seachRoom(int a, Date datein, Date dateout);
+
+    public Vector<RoomByDate> seachRoom();
 }
