@@ -6,8 +6,10 @@
 package Controller;
 
 import Dao.impl.BlogDAOImpl;
+import Entity.Blog;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +40,8 @@ public class BlogManagerController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             BlogDAOImpl dao = new BlogDAOImpl();
-            String dos = request.getParameter("do");
+            String dos = request.getParameter("do");    
+            if(dos.equals("insertblog")){
                 String sc = "Sucessfully";
                 request.setAttribute("sc", sc);
                 request.setCharacterEncoding("UTF-8");
@@ -50,6 +53,30 @@ public class BlogManagerController extends HttpServlet {
                  String date = request.getParameter("date");
                 dao.inSertBlog(accountID, author, description, image, date, title);                        
                request.getRequestDispatcher("addblog.jsp").forward(request, response);
+            }
+            if(dos.equals("editblog")){
+                 Vector<Blog> b = null;
+             int n = dao.getPage();        
+              request.setAttribute("n", n);
+//              request.setAttribute("vector4", vector4);
+                String page = request.getParameter("page");
+                if (page == null) {
+                    b = dao.getBlogByPage(1);
+                } else {
+                    b = dao.getBlogByPage(Integer.parseInt(page));
+                }
+                 request.setAttribute("b", b);
+                 request.getRequestDispatcher("editblog.jsp").forward(request, response);
+            }
+              if(dos.equals("deleteblog")){
+                   int n = dao.getPage();        
+                  String id = request.getParameter("blogid");
+                  dao.deleteBlog(id);
+                  response.sendRedirect("BlogManagerController?do=editblog&page="+n+"");
+              }
+              if(dos.equals("updateblog")){
+                  
+              }
         }catch(Exception e){
             e.printStackTrace();
         }

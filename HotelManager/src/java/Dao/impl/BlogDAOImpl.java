@@ -131,6 +131,18 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;      
     }
+     @Override
+    public void deleteBlog(String BlogID) {
+        String query = "DELETE FROM [dbo].[Blog]\n" +
+"      WHERE BlogID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, BlogID);
+            pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public Vector<Blog> getBlogByPagesortold(int n) {
               Vector<Blog> vector = new Vector<Blog>();
@@ -174,7 +186,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 + "     VALUES \n"
                 + "           (?,?,?,?,?,?)";
         try {
-            ResultSet rs = null;
+//            ResultSet rs = null;
              PreparedStatement pre = conn.prepareStatement(query);
             pre.setInt(1, AccountID);
             pre.setString(2, BlogAuthor);
@@ -182,7 +194,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             pre.setString(4, BlogImage);
             pre.setString(5, date);
             pre.setString(6, BlogTitle);
-            rs = pre.executeQuery();
+           pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -190,10 +202,8 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
     
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
-//        Vector<Blog> vector = dao.inSertBlog(3, "Quan", "1 ngày ở Hà Nội", "img1.jpg", "2021-09-26 17:54:32", "Chuyến tham quan vườn Vignanello khó quên ở Lazio");
-//        for (Blog blog : vector) {
-//            System.out.println(blog);
-//        }
+        dao.deleteBlog("1037");
+      
        
     }
 

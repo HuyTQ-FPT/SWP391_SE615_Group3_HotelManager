@@ -91,9 +91,9 @@
                                     </span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="BlogManagerController">Update Blog</a>
+                                    <a class="dropdown-item" href="BlogManagerController?do=editblog">Edit Blog</a>
                                     <a class="dropdown-item" href="BlogManagerController?do=insertblog">Insert Blog</a>
-                                    <a class="dropdown-item" href="BlogManagerController">Delete Blog</a>
+                                  
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
