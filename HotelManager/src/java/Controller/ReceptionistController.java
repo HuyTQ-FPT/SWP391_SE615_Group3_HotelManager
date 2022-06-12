@@ -126,34 +126,45 @@ public class ReceptionistController extends HttpServlet {
 
                     //convert
                     int id = Integer.parseInt(uID);
-
+                    User k = new User(id, username, uPhone, uEmail, birthday, uAddress, uCMT);
+                    session.setAttribute("u", k);
                     if (uEmail.length() < 5 || uCMT.length() < 5 || uAddress.length() < 5 || uPhone.length() < 5) {
-                        String err = "Requires input greater than 5 characters";
+                        String err = "Nhập lớn hơn 5 kí tự.";
+                        request.setAttribute("err", err);
+                        request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
+
+                    } else if (username.trim().length() > 50) {
+                        String err = "Nhập nhỏ hơn 50 kí tự.";
+                        request.setAttribute("err", err);
+                        request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
+
+                    } else if (!username.matches("^[a-zA-Z]+$")) {
+                        String err = "Nhập tên của bạn.";
                         request.setAttribute("err", err);
                         request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
 
                     } else if (!uEmail.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
-                        String err = "Example: hieu1@gmail.com";
+                        String err = "Ví dụ: hieu1@gmail.com";
                         request.setAttribute("err", err);
                         request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
                     } else if (!uCMT.trim().matches("^[0-9]{12}$")) {
-                        String err = "Requires input number and  equal to 12 characters";
+                        String err = "Chỉ nhập số và đúng 12 kí tự của CMT";
                         request.setAttribute("err", err);
                         request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
 
                     } else if (uAddress.trim().length() > 100) {
-                        String err = "Requires input less than 100 characters";
+                        String err = "Nhỏ hơn 100 kí tự";
                         request.setAttribute("err", err);
                         request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
 
                     } else if (!uPhone.trim().matches("^(09|03)+[0-9]{8}$")) {
 
-                        String err = "Start 03|09 and 10 characters";
+                        String err = "Điện thoại bắt đầu 09|03 và có 10 số.";
                         request.setAttribute("err", err);
                         request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
                     } else {
                         daoU.updateUser(new User(id, username, uPhone, uEmail, birthday, uAddress, uCMT));
-                        String mess = "Update success";
+                        String mess = "Cập nhật thành công.";
                         request.setAttribute("mess", mess);
                         request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
                     }
@@ -167,9 +178,9 @@ public class ReceptionistController extends HttpServlet {
 
             if (service.equalsIgnoreCase("searchRoomAndStatus")) { // combobox status
                 try {
-                    String nameRoom = request.getParameter("nameRoom");
-                    int status = Integer.parseInt(request.getParameter("status"));
-//                System.out.println(nameRoom + "+" + status);
+                    String nameRoom = request.getParameter("nameRoom").trim();
+                    int status = Integer.parseInt(request.getParameter("status").trim());
+                    System.out.println(nameRoom + "+" + status);
                     Vector<Room> vectorR = daoR.selectRoom(nameRoom, status);
 
                     request.setAttribute("vectorR", vectorR);

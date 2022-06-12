@@ -21,21 +21,7 @@
 
     </head>
     <style>
-            .form-group{
-                position: relative;
-            }
-            .style{
-                position: absolute;
-                left: 20px;
-                top:40px;
-                font-size: 10px;
-            }
-            .style1{
-                position: absolute;
-                left: 20px;
-                top:310px;
-                font-size: 10px;
-            }
+           
     </style>
         
     <body id="reportsPage">
@@ -43,7 +29,7 @@
             <nav class="navbar navbar-expand-xl">
                 <div class="container h-100">
                     <a class="navbar-brand" href="index.html">
-                        <h1 class="tm-site-title mb-0">Product Admin</h1>
+                        <h1 class="tm-site-title mb-0">Product</h1>
                     </a>
                     <button
                         class="navbar-toggler ml-auto mr-0"
@@ -170,8 +156,11 @@
                                 </a>
                             </div>
                             <button class="btn btn-primary btn-block text-uppercase">
-                                Upload New Photo
+                                Cập nhật ảnh
                             </button>
+                            <a class="btn btn-primary btn-block text-uppercase" href="LoginController?do=ChangePassword1">
+                                Thay đổi mật khẩu
+                            </a>
                         </div>
                     </div>
                     <%
@@ -194,7 +183,7 @@
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="email">Email</label>
-                                    <i class="fas fa-star style" style="color:red;"></i>   <input style="background-color: white; color: #54657D;"
+                                    <input style="background-color: white; color: #54657D;"
                                            id="email"
                                            name="inputEmailAddress"
                                            type="email"
@@ -205,7 +194,7 @@
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="inputCMT">CMT</label>
-                                  <i class="fas fa-star style" style="color:red;"></i>   <input style="background-color: white; color: #54657D;"
+                                <input style="background-color: white; color: #54657D;"
                                            id="email"
                                            name="inputCMT"
                                            type="text"

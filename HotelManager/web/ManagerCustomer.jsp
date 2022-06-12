@@ -325,10 +325,10 @@
                     <tr class="title" >
                         <th>UserID</th>
                         <th>AccountID</th>
-                        <th>UserName</th>
-                        <th>UserPhone</th>
-                        <th>UserEmail</th>
-                        <th>UserGender</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Gender</th>
                     
                         <th>CMT</th>
                    

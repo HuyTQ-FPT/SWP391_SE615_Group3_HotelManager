@@ -16,7 +16,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-  
+
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
@@ -116,8 +116,9 @@
                             <!-- Profile picture help block-->
                             <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                             <!-- Profile picture upload button-->
-                            <button class="btn btn-primary" type="button">Upload new image</button>
+                            <button class="btn btn-primary" type="button">Cập nhật ảnh</button>
                         </div>
+                        <a  href="LoginController?do=ChangePassword1"class="btn btn-primary" style="width: 50%;margin-left: 95px" type="button">Thay đổi mật khẩu</a>
                     </div>
                 </div>
                 <%
@@ -140,7 +141,7 @@
                                     <!-- Form Group (CMT)-->
                                     <div class="small mb-1">
                                         <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                        <i class='bx bxs-star style' style="color:red;"></i> <input class="form-control" id="inputEmailAddress" readonly type="email" placeholder="Enter your email address" value="<%=user.getUserEmail()%>">
+                                        <input class="form-control" id="inputEmailAddress" readonly type="email" placeholder="Enter your email address" value="<%=user.getUserEmail()%>">
                                     </div>
 
                                 </div>
@@ -148,7 +149,7 @@
                                 <div class="row gx-3 mb-3">
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputCMT">CMT</label>
-                                     <i class='bx bxs-star style1' style="color:red;"></i>   <input class="form-control" id="inputLastName" readonly type="text" placeholder="Enter your last name" value="<%=user.getCMT()%>">
+                                        <input class="form-control" id="inputLastName" readonly type="text" placeholder="Enter your last name" value="<%=user.getCMT()%>">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputAdress">Address</label>

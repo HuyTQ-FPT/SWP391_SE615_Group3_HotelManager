@@ -154,4 +154,24 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 //        }
 //
 //    }
+
+    @Override
+    public User checkPhone(String uPhone) throws Exception {
+         String sql = "select * from [User] \n"
+                + " where UserPhone=?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+
+            pre.setString(1, uPhone);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+
+                return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+        return null;
+    }
 }

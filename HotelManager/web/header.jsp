@@ -68,7 +68,10 @@
                                         <%} else if (ac.getRoleID() == 2) {%>
                                         <li class="login"><a style="font-family: PlayFair Display; margin-right: 14px" href="ReceptionistController">Lễ Tân</a></li>
                                         <li class="register"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Đăng xuất</a></li>
-                                            <%}%>
+                                            <%} else if (ac.getRoleID() == 3) {%>
+                                        <li class="login"><a style="font-family: PlayFair Display; margin-right: 14px" href="AdminController">Admin</a></li>
+                                        <li class="register"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Đăng xuất</a></li>
+                                        <%}%>
                                     </ul>
                                 </div>
                             </nav>

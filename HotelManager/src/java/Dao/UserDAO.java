@@ -28,5 +28,6 @@ public interface UserDAO {
 
 
     public User checkUser(String uGmail) throws Exception;
+    public User checkPhone(String uPhone) throws Exception;
 
 }

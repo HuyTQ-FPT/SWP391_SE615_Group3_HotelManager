@@ -449,9 +449,9 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 
 //        Date a = Date.valueOf("2022-05-03");
 //        Date b = Date.valueOf("2022-07-03");
-        Room vector = dao.getRooms("12");
+//        Room vector = dao.getRooms("12");
 //        for (RoomByDate roomByDate : vector) {
-        System.out.println(vector);
+//        System.out.println(vector);
 //        }
 
         try {
@@ -462,7 +462,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 //        for (RoomByDate roomByDate : vector) {
 //            System.out.println(roomByDate);
 //        }
-            Vector<Room> v = dao.selectRoom("", 3);
+            Vector<Room> v = dao.selectRoom("Room1", -1);
             for (Room room : v) {
                 System.out.println(room);
 
@@ -525,7 +525,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         Vector<Room> vector = new Vector<Room>();
         String sql = "select * from [Room] where Roomname like '%" + rName + "%'";
         if (status > 0) {
-            sql = sql.concat("and [status]=" + status);
+            sql = sql.concat(" and [status]=" + status);
         }
 
         try {

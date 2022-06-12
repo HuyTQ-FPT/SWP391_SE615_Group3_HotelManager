@@ -166,7 +166,7 @@
             .log-out{
                 position: fixed;
                 right: 110px;
-                top:28px;
+                top:35px;
                 border-radius: 5px;
                 background-color: #F1BC31;
                 margin-right: 20px;
@@ -341,12 +341,14 @@
                         <button type="submit" name="log-out" class="log-out">Log Out</button>
                     </form>
                     <!--search RoomName-->
-                    <form action="ReceptionistController?do=searchRoomAndStatus" class="searchform order-lg-last" method="post" >
-                        <div class="form-group d-flex" style="position: fixed;right: 300px; align-content: center;justify-content:space-around " >                
-                            <input name="nameRoom" type="text" class="form-control pl-3" placeholder="Search roomName"style="
-                                   position: fixed; margin-right: 386px ; width: 200px; height: 169px; border-radius:8px" >
+                    <form action="ReceptionistController?do=searchRoomAndStatus" class="searchform order-lg-last" method="post"  style="
+                          margin-right: 100px;
+                          margin-top: 10px;
+                          ">
+                        <div class="form-group d-flex"  >                
+                            <input name="nameRoom" type="text" class="form-control pl-3" placeholder="Search roomName" style="order-radius:8px" >
 
-                            <select name="status"  style="font-size: 17px; font-weight: bold; margin-left: 30px; border-radius:8px">
+                            <select name="status" style="order-radius:8px"  >
 
 
                                 <option value="-1">----------------</option>
