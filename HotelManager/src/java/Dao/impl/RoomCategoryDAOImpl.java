@@ -42,7 +42,8 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
 //        Vector<RoomCategory> vector = dao.getRoomCategoryList("select * from CateRoom");
 //        for (RoomCategory roomCategory : vector) {
 //        System.out.println(vector.lastElement().getRoomcateID());
-        dao.insertRoomCategory("nguyen van a");
+//        dao.insertRoomCategory("nguyen van a");
+        dao.deleteRoomCategory("15");
 //        }
     }
 
@@ -68,13 +69,37 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
     }
 
     @Override
-    public void updateRoomCategory(RoomCategory RoomCategory) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateRoomCategory(String RoomCategoryid, String roomcatename) {
+        String query = "UPDATE [dbo].[CateRoom]\n"
+                + "   SET [Catename] = ?\n"
+                + "   ,[Note] = null\n"
+                + "   WHERE RoomcateID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, roomcatename);
+            pre.setString(2, RoomCategoryid);
+            pre.executeUpdate();
+            System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void deleteRoomCategory(int cateid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteRoomCategory(String roomcate) {
+        String query = " DELETE FROM [dbo].[Room]\n"
+                + "      WHERE RoomcateID = ?\n"
+                + "	 DELETE FROM [dbo].[CateRoom]\n"
+                + "      WHERE RoomcateID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, roomcate);
+            pre.setString(2, roomcate);
+            pre.executeUpdate();
+            System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

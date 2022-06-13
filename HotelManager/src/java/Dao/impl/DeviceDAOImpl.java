@@ -11,6 +11,7 @@ import Entity.Service;
 import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
 /**
@@ -94,10 +95,62 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
         }
     }
 
+    public int getPage() {
+        int n = 0;
+        String sql = "select COUNT(*) from RoomDevice INNER JOIN "
+                + "Device on RoomDevice.DeviceID = Device.DeviceID "
+                + "where RoomDevice.RoomcateID = 3";
+        Vector<Device> vector = new Vector<Device>();
+        try {
+            int totalPage = 0;
+            int countPage = 0;
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                totalPage = rs.getInt(1);
+                countPage = totalPage / 4;
+                if (totalPage % 4 != 0) {
+                    countPage++;
+                }
+                return countPage;
+            }
+            pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+
     @Override
     public Vector<Device> getDevicebycateroom(String cateRoom) {
         Vector<Device> vector = new Vector<Device>();
-        String sql = "select * from RoomDevice INNER JOIN Device on RoomDevice.DeviceID = Device.DeviceID where RoomDevice.RoomcateID = ?";
+        String sql = "select * from RoomDevice INNER JOIN Device on "
+                + "RoomDevice.DeviceID = Device.DeviceID "
+                + "where RoomDevice.RoomcateID = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, cateRoom);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Device de = new Device(rs.getInt(2), rs.getInt(1), rs.getString(5), rs.getInt(1), rs.getDouble(7), rs.getInt(8), rs.getInt(3));
+                vector.add(de);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vector;
+    }
+    public Vector<Device> getDevicebycateroom(String cateRoom, int n) {
+        Vector<Device> vector = new Vector<Device>();
+        int begin = 1;
+        int end = 6;
+        for (int i = 2; i <= n; i++) {
+            begin += 6;
+            end += 6;
+        }
+        String sql = "select * from RoomDevice INNER JOIN Device on "
+                + "RoomDevice.DeviceID = Device.DeviceID "
+                + "where RoomDevice.RoomcateID = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, cateRoom);
@@ -141,10 +194,12 @@ public class DeviceDAOImpl extends DBContext implements DeviceDAO {
 //        dao.updateDeviceinfor("Điều Hòa Nhỏ", "11212", "1", "12");
 //        dao.updateDeviceQuan("2", "12", "1");
 //        dao.insertDevice("test", "9999", "1", "1", "2");
-        Vector<Device> de = dao.searchDevicebyname("22", "1");
-        for (Device device : de) {
-            System.out.println(device);
-        }
+//        Vector<Device> de = dao.searchDevicebyname("22", "1");
+        int n = dao.getPage();
+        System.out.println(n);
+//        for (Device device : de) {
+//            System.out.println(device);
+//        }
 
     }
 

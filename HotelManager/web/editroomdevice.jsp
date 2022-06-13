@@ -192,17 +192,17 @@
                                 </form>
                             </table>
                         </div>
-                                    <div style="padding-left: 32%;"class="site-block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
+                        <div style="padding-left: 32%;"class="site-block-27">
+                            <ul>
+                                <li><a href="#">&lt;</a></li>
+                                <li class="active"><span>1</span></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">&gt;</a></li>
+                            </ul>
+                        </div>
 
                         <!-- table container -->
                         <form action="ServiceController" method="get">
@@ -234,20 +234,23 @@
                             <table class="table tm-table-small tm-product-table">
                                 <tbody>
                                     <c:forEach items="${romcate}" var="r">
+                                    <form action="ServiceController" method="get">
                                         <tr>
-                                            <td class="text-center"><a href="ServiceController?do=getdeviceroom&cateroom=${r.roomcateID}" style="color: red; font-size: 50px">.</a> <input type="text" name="" value="${r.catename}"> </td>
+                                            <td class="text-center"><a href="ServiceController?do=getdeviceroom&cateroom=${r.roomcateID}" style="color: red; font-size: 50px">.</a> <input type="text" name="Roomcatename" value="${r.catename}"> </td>
                                             <td>
-                                                <a href="#" class="tm-product-delete-link">
+                                                <a href="ServiceController?do=deletetRoomCategory&cateroom=${r.roomcateID}" class="tm-product-delete-link">
                                                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
                                                 </a>
                                             </td>
-                                            <td>
-                                                <button type="submit" name="do" value="updateroomdevice" class="tm-product-delete-link">
-                                                    <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                                    <input type="hidden" value="${r.roomcateID}" name="cateroom">
+                                    <td>
+                                        <button type="submit" name="do" value="updatetRoomCategory" class="tm-product-delete-link">
+                                            <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                        </button>
+                                    </td>
+                                    </tr>
+                                    </form>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>

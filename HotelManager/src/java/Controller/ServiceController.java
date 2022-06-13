@@ -127,6 +127,15 @@ public class ServiceController extends HttpServlet {
 //                out.println("<h1>Servlet RoomcategoryController at " + romcate.lastElement().getRoomcateID()+ "</h1>");
                 response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + romcate.lastElement().getRoomcateID()+"");
             }
+            if (doo.equals("deletetRoomCategory")) {
+             roomcate.deleteRoomCategory(cateroom);
+             response.sendRedirect("ServiceController?do=getdeviceroom");
+            }
+            if (doo.equals("updatetRoomCategory")) {
+            String Roomcatename = request.getParameter("Roomcatename");
+            roomcate.updateRoomCategory(cateroom, Roomcatename);
+            response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + cateroom +"&Mess=" + Messs + "");
+            }
         }
     }
 
