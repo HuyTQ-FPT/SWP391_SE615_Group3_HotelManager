@@ -336,9 +336,9 @@
             </div>
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="padding: 15px">
                 <div class="container">
-                    <span class="admin"></i>Receptionist</span>
+                    <span class="admin"></i>Lễ Tân</span>
                     <form action="LoginController?do=logout" method="post">
-                        <button type="submit" name="log-out" class="log-out">Log Out</button>
+                        <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
                     </form>
                     <!--search RoomName-->
                     <form action="ReceptionistController?do=searchRoomAndStatus" class="searchform order-lg-last" method="post"  style="
