@@ -46,7 +46,7 @@
             <nav class="navbar navbar-expand-xl">
                 <div class="container h-100">
                     <a class="navbar-brand" href="#">
-                        <h1 class="tm-site-title mb-0">Product</h1>
+                        <h1 class="tm-site-title mb-0">Admin</h1>
                     </a>
                     <button
                         class="navbar-toggler ml-auto mr-0"

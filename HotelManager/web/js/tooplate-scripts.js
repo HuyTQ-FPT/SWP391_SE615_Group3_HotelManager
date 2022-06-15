@@ -23,19 +23,11 @@ function drawLineChart() {
     configLine = {
       type: "line",
       data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July"
-        ],
+     
         datasets: [
           {
             label: "Latest Hits",
-            data: [88, 68, 79, 57, 50, 55, 70],
+            data: [880, 680, 790, 570, 500, 550, 700],
             fill: false,
             borderColor: "rgb(75, 192, 192)",
             cubicInterpolationMode: "monotone",

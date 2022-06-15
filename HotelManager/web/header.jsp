@@ -52,7 +52,7 @@
                                         </li>
                                         <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>
                                         <li><a style="font-family: PlayFair Display" href="BlogController?do=getBlog">Thông tin</a></li>
-                                        <li><a style="font-family: PlayFair Display" href="contact.html">Liên hệ</a></li>
+                                        <li><a style="font-family: PlayFair Display" href="contact.jsp">Liên hệ</a></li>
                                             <%
                                                 Account ac = (Account) session.getAttribute("login");
                                                 if (ac == null) {

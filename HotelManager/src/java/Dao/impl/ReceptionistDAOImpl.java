@@ -55,9 +55,14 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
     public static void main(String[] args) {
         ReceptionistDAOImpl r = new ReceptionistDAOImpl();
         Vector<User> u = r.getCustomerListByReceptionist();
-        r.updateCustomerByReceptionist(new User(1, 1, "HieuMinh", "0376505417", "Lebaminheiuyh@gmail.com", 1, "user1.jpg", "Hieulbm", "0123456778", "user1.jpg"));
+        r.getSearchNameCustomerListByReceptionist("Hieu");
+        for (User user : u) {
+            System.out.println(u);
+
+        }
 //        for (User user : u) {
 //            System.out.println(user);
+
 //
 //        }
     }
@@ -113,10 +118,10 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
         Vector<User> vector = new Vector<>();
         try {
             String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
-                    + "u.UserName=?";
+                    + "where u.UserName like '%" + uName + "%'";
 
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, uName);
+
             ResultSet rs = pre.executeQuery();
 
             while (rs.next()) {
