@@ -84,6 +84,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
     public void updateRead(int id, String isread) throws Exception {
         PreparedStatement pre = null;
         ResultSet rs = null;
+        Connection conn = null;
         String sql = " UPDATE [SWPgroup3].[dbo].[MessageFeedBack] SET [isRead] = ?  WHERE [mId] = ?";
         try {
             pre = conn.prepareStatement(sql);
@@ -95,6 +96,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
+            closeConnection(conn);
 
         }
     }
@@ -104,6 +106,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
 
         PreparedStatement pre = null;
         ResultSet rs = null;
+        Connection conn = null;
         sendFeedback message = new sendFeedback();
         String sql = "select * from [MessageFeedBack] where mId=" + Id;
         try {
@@ -123,6 +126,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
+            closeConnection(conn);
 
         }
         return message;
@@ -132,6 +136,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
     public void delete(int id) throws Exception {
         PreparedStatement pre = null;
         ResultSet rs = null;
+        Connection conn = null;
         String sql = "DELETE FROM [SWPgroup3].[dbo].[MessageFeedBack]\n"
                 + " WHERE mId=" + id;
         try {
@@ -143,15 +148,16 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-
+            closeConnection(conn);
         }
     }
 
     @Override
     public Vector<sendFeedback> getMessageUnread() throws Exception {
-            Vector<sendFeedback> v = new Vector<>();
+        Vector<sendFeedback> v = new Vector<>();
         PreparedStatement pre = null;
         ResultSet rs = null;
+        Connection conn = null;
         String sql = "  select * from [MessageFeedBack] where isRead=0";
         try {
             pre = conn.prepareStatement(sql);
@@ -165,7 +171,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-
+            closeConnection(conn);
         }
         return v;
     }

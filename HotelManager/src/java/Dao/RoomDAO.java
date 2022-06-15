@@ -29,33 +29,33 @@ public interface RoomDAO {
 
   
 
-    public int getPage();
+    public int getPage() throws Exception;
 
-    public Vector<Room> getRoomByPage(int n);
+    public Vector<Room> getRoomByPage(int n) throws Exception;
 
-    public Vector<Room> getRoomByPageStatus(int n);
+    public Vector<Room> getRoomByPageStatus(int n) throws Exception;
 
-    public int getPageByPageStatus();
+    public int getPageByPageStatus() throws Exception;
 
-    public Room getRoom(String roomid);
+    public Room getRoom(String roomid) throws Exception;
 
-    public void insertRoom(Room Room);
+    public void insertRoom(Room Room) throws Exception;
 
-    public void updateRoom(Room Room);
+    public void updateRoom(Room Room) throws Exception;
 
-    public void deleteRoom(int roomid);
+    public void deleteRoom(int roomid) throws Exception;
 
-    public int getPageByPrice(int p1, int p2);
+    public int getPageByPrice(int p1, int p2) throws Exception;
 
-    public Vector<Room> getRoomListbyPrice(int n, int from, int to);
+    public Vector<Room> getRoomListbyPrice(int n, int from, int to) throws Exception;
 
-    public Vector<Room> getRoomByPriceMax(int n);
+    public Vector<Room> getRoomByPriceMax(int n) throws Exception;
 
-    public Vector<Room> getRoomByPriceMin(int n);
+    public Vector<Room> getRoomByPriceMin(int n) throws Exception;
 
-    public Vector<Room> getRoomByRate(int n);
+    public Vector<Room> getRoomByRate(int n) throws Exception;
 
-    public Vector<RoomByDate> seachRoom(int a, Date datein, Date dateout);
+    public Vector<RoomByDate> seachRoom(int a, Date datein, Date dateout) throws Exception;
 
-    public Vector<RoomByDate> seachRoom();
+    public Vector<RoomByDate> seachRoom() throws Exception;
 }

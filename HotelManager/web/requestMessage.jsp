@@ -27,7 +27,7 @@
     <body id="reportsPage">
         <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="AdminController">
                     <h1 class="tm-site-title mb-0">Admin</h1>
                 </a>
                 <button
@@ -45,7 +45,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto h-100">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="AdminController">
                                 <i class="fas fa-tachometer-alt"></i> Dashboard
                                 <span class="sr-only">(current)</span>
                             </a>
@@ -105,7 +105,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="SendFeedbackController?do=listMessFeedBack">
                                 <i class="fas fa-newspaper"></i></i> Request Message
                             </a>
                         </li>
@@ -194,7 +194,7 @@
                         <p class="text-success">${Mess}</p> 
                         <%
                             if (v.isEmpty()) {
-                                
+
                         %>
                         <div class="no-req" style="text-align: center;font-size: 30px;color: white">Không có dữ liệu, vui lòng thử lại.</div>
                         <%} else {%>
@@ -212,7 +212,7 @@
                             </thead>
                             <%
                                 for (sendFeedback s : v) {
-                                    
+
 
                             %>
                             <tbody>
@@ -252,14 +252,23 @@
                 </div>
             </div>
         </div>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <!-- https://jquery.com/download/ -->
+        <script src="js/moment.min.js"></script>
+        <!-- https://momentjs.com/ -->
+        <script src="js/Chart.min.js"></script>
+        <!-- http://www.chartjs.org/docs/latest/ -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- https://getbootstrap.com/ -->
+        <script src="js/tooplate-scripts.js"></script>
         <script>
-            function deleteId(id) {
-                if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
-                    window.location = "SendFeedbackController?do=deleteMessage&mId=" + id;
-                }
-                
-            }
-     
+                                        function deleteId(id) {
+                                            if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
+                                                window.location = "SendFeedbackController?do=deleteMessage&mId=" + id;
+                                            }
+
+                                        }
+
         </script>
     </body>
 </html>

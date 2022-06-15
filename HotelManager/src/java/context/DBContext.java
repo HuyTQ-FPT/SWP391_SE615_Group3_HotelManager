@@ -58,6 +58,11 @@ public class DBContext {
             rs.close();
         }
     }
+      public void closeConnection(Connection con) throws Exception {
+        if (con != null && !con.isClosed()) {
+            con.close();
+        }
+    }
 
     public static void main(String[] args) {
         new DBContext();

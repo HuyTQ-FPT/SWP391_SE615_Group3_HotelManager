@@ -8,6 +8,7 @@ package Dao.impl;
 import Dao.ReceptionistDAO;
 import Entity.User;
 import context.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
@@ -19,14 +20,18 @@ import java.util.Vector;
 public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
 
     @Override
-    public Vector<User> getCustomerListByReceptionist() {
+    public Vector<User> getCustomerListByReceptionist() throws Exception {
+
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Connection conn = null;
         Vector<User> vector = new Vector<>();
         try {
             String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
                     + "where c.RoleID=1";
 
-            PreparedStatement pre = conn.prepareStatement(sql);
-            ResultSet rs = pre.executeQuery();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
 
             while (rs.next()) {
                 int uID = rs.getInt(1);
@@ -47,24 +52,14 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
 
-    }
-
-    public static void main(String[] args) {
-        ReceptionistDAOImpl r = new ReceptionistDAOImpl();
-        Vector<User> u = r.getCustomerListByReceptionist();
-        r.getSearchNameCustomerListByReceptionist("Hieu");
-        for (User user : u) {
-            System.out.println(u);
-
-        }
-//        for (User user : u) {
-//            System.out.println(user);
-
-//
-//        }
     }
 
     @Override
@@ -114,15 +109,18 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
     }
 
     @Override
-    public Vector<User> getSearchNameCustomerListByReceptionist(String uName) {
+    public Vector<User> getSearchNameCustomerListByReceptionist(String uName) throws Exception {
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Connection conn = null;
         Vector<User> vector = new Vector<>();
         try {
             String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
                     + "where u.UserName like '%" + uName + "%'";
 
-            PreparedStatement pre = conn.prepareStatement(sql);
+            pre = conn.prepareStatement(sql);
 
-            ResultSet rs = pre.executeQuery();
+            rs = pre.executeQuery();
 
             while (rs.next()) {
                 int uID = rs.getInt(1);
@@ -142,7 +140,12 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
     }

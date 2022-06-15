@@ -410,7 +410,11 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<RoomByDate> seachRoom(int a, Date datein, Date dateout) {
+    public Vector<RoomByDate> seachRoom(int a, Date datein, Date dateout) throws Exception {
+
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Connection conn = null;
         Vector<RoomByDate> vector = new Vector<RoomByDate>();
         String sql = "select * from Room r  \n"
                 + "inner join Image i on r.RoomimgaeID=r.RoomimgaeID join CateRoom c on \n"
@@ -419,7 +423,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 + "on r.RoomID=d.RoomID \n"
                 + "where((d.DateIn!= " + datein + " and d.DateOut!= " + dateout + ") or (d.DateIn is null and d.DateOut is null)) and r.NumberPerson= " + a;
         try {
-            ResultSet rs = getData(sql);
+             rs = getData(sql);
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -439,7 +443,12 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 vector.add(im);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw ex;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
     }
@@ -453,7 +462,6 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 //        for (RoomByDate roomByDate : vector) {
 //        System.out.println(vector);
 //        }
-
         try {
             //        Date a = Date.valueOf("2022-05-03");
 //        Date b = Date.valueOf("2022-07-03");
@@ -474,10 +482,14 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<Room> getRoomListAll(String sql) {
+    public Vector<Room> getRoomListAll(String sql) throws Exception {
+
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Connection conn = null;
         Vector<Room> vector = new Vector<Room>();
         try {
-            ResultSet rs = getData(sql);
+            rs = getData(sql);
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -495,7 +507,12 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 vector.add(im);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw ex;
+
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
 
         }
 
@@ -504,24 +521,36 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public void updateStatus(int rID, int rStatus) {
+    public void updateStatus(int rID, int rStatus) throws Exception {
+
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Connection conn = null;
         String sql = "UPDATE [SWPgroup3].[dbo].[Room]\n"
                 + "   SET [Status] = ?\n"
                 + " WHERE [RoomID]=?";
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
+            pre = conn.prepareStatement(sql);
             pre.setInt(1, rStatus);
             pre.setInt(2, rID);
 
             pre.executeUpdate();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
     }
 
-  
     public Vector<Room> selectRoom(String rName, int status) throws Exception {
+
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Connection conn = null;
         Vector<Room> vector = new Vector<Room>();
         String sql = "select * from [Room] where Roomname like '%" + rName + "%'";
         if (status > 0) {
@@ -529,8 +558,8 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
 
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-            ResultSet rs = pre.executeQuery();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -551,6 +580,11 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
     }

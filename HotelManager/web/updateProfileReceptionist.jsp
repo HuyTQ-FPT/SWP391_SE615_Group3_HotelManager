@@ -87,13 +87,13 @@
             .style{
                 position: absolute;
                 left: 20px;
-                top:215px;
+                top:220px;
                 font-size: 10px;
             }
             .style1{
                 position: absolute;
                 left: 20px;
-                top:310px;
+                top:320px;
                 font-size: 10px;
             }
         </style>
@@ -118,8 +118,10 @@
                             <!-- Profile picture help block-->
                             <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                             <!-- Profile picture upload button-->
-                            <button class="btn btn-primary" type="button">Upload new image</button>
+                            <button class="btn btn-primary" type="button">Cập nhật ảnh.</button>
+ 
                         </div>
+                         <a  href="LoginController?do=ChangePassword1"class="btn btn-primary" style="width: 50%;margin-left: 95px" type="button">Thay đổi mật khẩu</a>
                     </div>
                 </div>
                 <div class="col-xl-8">
@@ -135,12 +137,13 @@
                                 %>
                                 <input type="hidden" name="uid" value="<%=user.getUserID()%>">
                                 <h4 style="color: red;font-size: 15px;">${requestScope.err}</h4>
+                                <h4 style="color: red;font-size: 15px;">${requestScope.errr}</h4>
                                 <h4 style="color: red;font-size: 15px;">${requestScope.mess}</h4>
 
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="inputYourname">Your Name</label>
-                                    <input class="form-control" id="Username" name="Username" type="text"  value="<%=user.getUserName()%>">
+                                    <input class="form-control" id="Username" name="Username" type="text" maxlength="50"  value="<%=user.getUserName()%>">
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">

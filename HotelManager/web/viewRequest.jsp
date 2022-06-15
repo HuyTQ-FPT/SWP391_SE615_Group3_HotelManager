@@ -44,7 +44,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto h-100">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="AdminController">
                                 <i class="fas fa-tachometer-alt"></i> Dashboard
                                 <span class="sr-only">(current)</span>
                             </a>
@@ -70,7 +70,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fas fa-shopping-cart"></i> Product
+                                <i class="fas fa-shopping-cart"></i> Room
                             </a>
                         </li>
 
@@ -104,7 +104,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="SendFeedbackController?do=listMessFeedBack">
                                 <i class="fas fa-newspaper"></i></i> Request Message
                             </a>
                         </li>
@@ -175,9 +175,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col"> Email</th>
                                     <th scope="col">Tiêu đề</th>
-                                    <th style=" width:10px;
-                                        height:100px;
-                                        word-wrap:break-word;" >Nội dung</th>
+                                    <th  scope="col">Nội dung</th>
 
 
                                 </tr>
@@ -206,6 +204,15 @@
                 </div>
             </div>
         </div>
+                         <script src="js/jquery-3.3.1.min.js"></script>
+        <!-- https://jquery.com/download/ -->
+        <script src="js/moment.min.js"></script>
+        <!-- https://momentjs.com/ -->
+        <script src="js/Chart.min.js"></script>
+        <!-- http://www.chartjs.org/docs/latest/ -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- https://getbootstrap.com/ -->
+        <script src="js/tooplate-scripts.js"></script>
         <script>
             function deleteId(id) {
                 if (confirm("Bạn có muốn xoá yêu cầu này không?")) {

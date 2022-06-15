@@ -9,6 +9,7 @@ import Dao.UserDAO;
 import Entity.Account;
 import Entity.User;
 import context.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,12 +37,15 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     @Override
     public int updateUser(User User) throws Exception {
         int n = 0;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Connection conn = null;
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
 
         try {
             //System.out.println(sql);
 //        create statement: execute sql
-            PreparedStatement pre = conn.prepareStatement(sqlPre);
+            pre = conn.prepareStatement(sqlPre);
             pre.setString(1, User.getUserName());
             pre.setString(2, User.getUserAdress());
             pre.setString(3, User.getCMT());
@@ -55,6 +59,11 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return n;
     }
@@ -67,38 +76,38 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     @Override
 
     public User getUser(int accountID) throws Exception {
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Connection conn = null;
         String sql = "select * from [User] where AccountID=?";
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
+            pre = conn.prepareStatement(sql);
             pre.setInt(1, accountID);
-            ResultSet rs = pre.executeQuery();
+            rs = pre.executeQuery();
             if (rs.next()) {
                 return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
             }
 
         } catch (Exception e) {
             throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return null;
-    }
-    public static void main(String[] args) {
-        UserDAOImpl u = new UserDAOImpl();
-        try {
-            User k = u.getUser(9);
-            System.out.println(k);
-        } catch (Exception ex) {
-            Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @Override
     public void updateUserEcept(User User) throws Exception {
+        PreparedStatement pre = null;
+        Connection conn = null;
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?,Birthday=? where UserID=?";
 
         try {
             //System.out.println(sql);
 //        create statement: execute sql
-            PreparedStatement pre = conn.prepareStatement(sqlPre);
+            pre = conn.prepareStatement(sqlPre);
             pre.setString(1, User.getUserName());
             pre.setString(2, User.getUserAdress());
             pre.setString(3, User.getCMT());
@@ -110,6 +119,9 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             pre.executeUpdate();
         } catch (SQLException ex) {
             throw ex;
+        } finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
 
@@ -125,13 +137,16 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public User checkUser(String uGmail) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
         String sql = "select * from [User] \n"
                 + " where UserEmail=?";
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
+            pre = conn.prepareStatement(sql);
 
             pre.setString(1, uGmail);
-            ResultSet rs = pre.executeQuery();
+            rs = pre.executeQuery();
             if (rs.next()) {
 
                 return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
@@ -139,31 +154,26 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
         } catch (Exception e) {
             throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return null;
     }
 
-//    public static void main(String[] args) {
-//        UserDAOImpl u = new UserDAOImpl();
-//        try {
-//            User k = u.checkUser("lebaminhhieuyh@gmail.com");
-//            System.out.println(k);
-//        } catch (Exception ex) {
-//
-//            Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//    }
-
     @Override
     public User checkPhone(String uPhone) throws Exception {
-         String sql = "select * from [User] \n"
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        String sql = "select * from [User] \n"
                 + " where UserPhone=?";
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-
+            pre = conn.prepareStatement(sql);
             pre.setString(1, uPhone);
-            ResultSet rs = pre.executeQuery();
+            rs = pre.executeQuery();
             if (rs.next()) {
 
                 return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
@@ -171,6 +181,11 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
         } catch (Exception e) {
             throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return null;
     }
