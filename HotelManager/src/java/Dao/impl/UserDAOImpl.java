@@ -39,7 +39,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         int n = 0;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Connection conn = null;
+       
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
 
         try {
@@ -62,7 +62,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-            closeConnection(conn);
+           
 
         }
         return n;
@@ -78,7 +78,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     public User getUser(int accountID) throws Exception {
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Connection conn = null;
+      
         String sql = "select * from [User] where AccountID=?";
         try {
             pre = conn.prepareStatement(sql);
@@ -93,7 +93,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-            closeConnection(conn);
+           
         }
         return null;
     }
@@ -101,7 +101,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     @Override
     public void updateUserEcept(User User) throws Exception {
         PreparedStatement pre = null;
-        Connection conn = null;
+      
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?,Birthday=? where UserID=?";
 
         try {
@@ -121,7 +121,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             throw ex;
         } finally {
             closePreparedStatement(pre);
-            closeConnection(conn);
+           
         }
     }
 
@@ -137,7 +137,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public User checkUser(String uGmail) throws Exception {
-        Connection conn = null;
+      
         PreparedStatement pre = null;
         ResultSet rs = null;
         String sql = "select * from [User] \n"
@@ -157,7 +157,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-            closeConnection(conn);
+           
 
         }
         return null;
@@ -165,7 +165,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public User checkPhone(String uPhone) throws Exception {
-        Connection conn = null;
+        
         PreparedStatement pre = null;
         ResultSet rs = null;
         String sql = "select * from [User] \n"
@@ -184,7 +184,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-            closeConnection(conn);
+           
 
         }
         return null;

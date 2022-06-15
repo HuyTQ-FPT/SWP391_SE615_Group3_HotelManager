@@ -24,7 +24,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
 
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Connection conn = null;
+
         Vector<User> vector = new Vector<>();
         try {
             String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
@@ -55,7 +55,6 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-            closeConnection(conn);
 
         }
         return vector;
@@ -112,7 +111,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
     public Vector<User> getSearchNameCustomerListByReceptionist(String uName) throws Exception {
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Connection conn = null;
+
         Vector<User> vector = new Vector<>();
         try {
             String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
@@ -144,7 +143,6 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-            closeConnection(conn);
 
         }
         return vector;

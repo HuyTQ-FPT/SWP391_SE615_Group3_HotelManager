@@ -53,32 +53,42 @@ public class SendFeedbackController extends HttpServlet {
                     String mEss = "Gửi yêu cầu thành công.";
                     request.setAttribute("mEss", mEss);
                     request.getRequestDispatcher("contact.jsp").forward(request, response);
-                } catch (Exception e) {
-                }
+                } catch (Exception ex) {
 
+                    Logger.getLogger(SendFeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+                    request.setAttribute("errorMess", ex.toString());
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
             }
+
             if (service.equalsIgnoreCase("listMessFeedBack")) {
                 try {
                     Vector<sendFeedback> vectorS = new Vector<>();
                     Vector<sendFeedback> vectorS1 = new Vector<>();
                     vectorS = daoS.getMessage();
-                    vectorS1= daoS.getMessageUnread();
+                    vectorS1 = daoS.getMessageUnread();
                     request.setAttribute("vetorS", vectorS);
                     request.setAttribute("vetorS1", vectorS1);
 
                     request.getRequestDispatcher("requestMessage.jsp").forward(request, response);
-                } catch (Exception e) {
+                } catch (Exception ex) {
+                    Logger.getLogger(SendFeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+                    request.setAttribute("errorMess", ex.toString());
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
 
             }
-            if(service.equalsIgnoreCase("SeenMessage")){
+            if (service.equalsIgnoreCase("SeenMessage")) {
                 try {
                     int id = Integer.parseInt(request.getParameter("mid"));
                     sendFeedback s = daoS.getMessageById(id);
                     daoS.updateRead(id, s.getIsRead());
                     request.setAttribute("s", s);
                     request.getRequestDispatcher("viewRequest.jsp").forward(request, response);
-                } catch (Exception e) {
+                } catch (Exception ex) {
+                    Logger.getLogger(SendFeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+                    request.setAttribute("errorMess", ex.toString());
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
             }
             if (service.equalsIgnoreCase("deleteMessage")) {
@@ -90,7 +100,10 @@ public class SendFeedbackController extends HttpServlet {
                     request.setAttribute("Mess", Mess);
                     request.getRequestDispatcher("SendFeedbackController?do=listMessFeedBack").forward(request, response);
 
-                } catch (Exception e) {
+                } catch (Exception ex) {
+                    Logger.getLogger(SendFeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+                    request.setAttribute("errorMess", ex.toString());
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
 
             }
@@ -102,7 +115,10 @@ public class SendFeedbackController extends HttpServlet {
                     System.out.println(isRead);
                     daoS.updateRead(id, isRead);
                     request.getRequestDispatcher("SendFeedbackController?do=listMessFeedBack").forward(request, response);
-                } catch (Exception e) {
+                } catch (Exception ex) {
+                    Logger.getLogger(SendFeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+                    request.setAttribute("errorMess", ex.toString());
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
             }
         }

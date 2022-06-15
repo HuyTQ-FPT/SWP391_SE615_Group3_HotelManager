@@ -32,9 +32,10 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     public Account getAccount(String aName, String aPass) throws Exception {
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Connection conn = null;
+  
         String sql = "SELECT * FROM [SWPgroup3].[dbo].[Account] where [user]=? and [password]=?";
         try {
+      
             pre = conn.prepareStatement(sql);
             pre.setString(1, aName);
             pre.setString(2, aPass);
@@ -48,7 +49,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-            closeConnection(conn);
+           
 
         }
         return null;
@@ -63,7 +64,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     public int updateAccount(String aUser, String aPassword) throws Exception {
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Connection conn = null;
+       
         int n = 0;
         String sql = "UPDATE [SWPgroup3].[dbo].[Account]\n"
                 + "   SET [password] =?\n"
@@ -82,7 +83,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-            closeConnection(conn);
+           
 
         }
         return n;
@@ -97,7 +98,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     public Account checkAccount(String aName) throws Exception {
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Connection conn = null;
+      
         String xSql = "select * from [Account] where [user]=?";
         try {
 
@@ -113,7 +114,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-            closeConnection(conn);
+           
 
         }
         return null;
@@ -129,7 +130,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         PreparedStatement pre = null;
         PreparedStatement pre1 = null;
         ResultSet rs = null;
-        Connection conn = null;
+       
         int n = 0;
         String sql = "insert into Account(RoleID, [user],[password]) values(1,?,?)";
         String sql1 = "insert into [User](AccountID,UserName, UserEmail) values(?,?,?)";
@@ -153,7 +154,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
             closeResultSet(rs);
             closePreparedStatement(pre);
             closePreparedStatement(pre1);
-            closeConnection(conn);
+          
 
         }
         return n;
@@ -163,7 +164,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     public int updateAccountAndUser(String aPassword, String uGmail) throws Exception {
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Connection conn = null;
+       
         int n = 0;
         try {
             String sql = "UPDATE [Account] set password=? from [Account] ac, [User] u\n"
@@ -179,7 +180,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-            closeConnection(conn);
+           
 
         }
         return n;
