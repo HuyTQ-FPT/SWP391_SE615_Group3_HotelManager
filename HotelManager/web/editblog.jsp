@@ -107,9 +107,8 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="BlogManagerController?do=insertblog">Update Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController">Insert Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController">Delete Blog</a>
+                                 <a class="dropdown-item" href="BlogManagerController?do=editblog">Edit Blog</a>
+                                    <a class="dropdown-item" href="addblog.jsp">Insert Blog</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -149,7 +148,7 @@
                             <table class="table table-hover tm-table-small tm-product-table">
                                 <thead>      
                                     <tr>
-      
+
                                         <th scope="col">BlogAuthor</th>
                                         <th scope="col">BlogDescription</th>
                                         <th scope="col">BlogImage</th>
@@ -159,24 +158,30 @@
                                     </tr>
                                 </thead>
                                 <c:forEach items="${b}" var="c">
-                                    <form action="BlogManagerController?do=updateblog" method="get">
+                                    <form action="BlogManagerController?do=updateblog"method="get">
                                         <tr>
-                                           
+
                                             <td>${c.blogAuthor}</td>
                                             <td>${c.blogDescription}</td>
                                             <td><img style="width: 350px; height: 250px;" src="images/anhblog/${c.blogImage}" alt=""></td>
                                             <td>${c.blogTitleString}</td>
-                                            <td>
-                                                <a href="BlogManagerController?do=deleteblog&blogid=${c.blogID}" class="tm-product-delete-link">
-                                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                                </a>
-                                            </td>
+                                        <input name="blogauthor" value="${c.blogAuthor}" type="hidden">
+                                        <input name="blogDescription" value="${c.blogDescription}" type="hidden">
+                                        <input name="blogImage" value="${c.blogImage}" type="hidden">
+                                        <input name="blogTitleString" value="${c.blogTitleString}" type="hidden">
+                                         <input name="date" value="${c.blogDate}" type="hidden">
+                                        <td>
+                                            <a href="BlogManagerController?do=deleteblog&blogid=${c.blogID}" class="tm-product-delete-link">
+                                                <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                            </a>
+                                        </td>
 
-                                            <td>
-                                                <button type="submit" name="do" value="updateroomdevice" class="tm-product-delete-link">
-                                                    <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
-                                                </button>
-                                            </td>
+                                        <td>
+                                             <input name="BlogID" value="${c.blogID}" type="hidden">
+                                            <button type="submit" name="do" value="updateblog" class="tm-product-delete-link">
+                                                <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                            </button>
+                                        </td>
                                         </tr>
                                     </form>   
                                 </c:forEach>

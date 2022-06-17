@@ -92,7 +92,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="BlogManagerController?do=editblog">Edit Blog</a>
-                                    <a class="dropdown-item" href="BlogManagerController?do=insertblog">Insert Blog</a>
+                                    <a class="dropdown-item" href="addblog.jsp">Insert Blog</a>
 
                                 </div>
                             </li>

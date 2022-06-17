@@ -78,10 +78,10 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             begin += 3;
             end += 3;
         }
-        String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogID) AS RowNum\n"
+        String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogDate desc) AS RowNum\n"
                 + "               FROM Blog\n"
                 + "               ) AS RowNum\n"
-                + "                WHERE RowNum BETWEEN " + begin + " AND " + end;
+                + "                WHERE RowNum BETWEEN " + begin + " AND " + end ;
         try {
             ResultSet rs = getData(sql);
             while (rs.next()) {
@@ -100,19 +100,20 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
-     @Override
+
+    @Override
     public Vector<Blog> getBlogByPagesortnew(int n) {
-              Vector<Blog> vector = new Vector<Blog>();
+        Vector<Blog> vector = new Vector<Blog>();
         int begin = 1;
         int end = 3;
         for (int i = 2; i <= n; i++) {
             begin += 3;
             end += 3;
         }
-        String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogDate desc) AS RowNum\n" +
-"                               FROM Blog\n" +
-"                              ) AS RowNum\n" +
-"                              WHERE RowNum BETWEEN " + begin + " AND " + end;
+        String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogDate desc) AS RowNum\n"
+                + "                               FROM Blog\n"
+                + "                              ) AS RowNum\n"
+                + "                              WHERE RowNum BETWEEN " + begin + " AND " + end;
         try {
             ResultSet rs = getData(sql);
             while (rs.next()) {
@@ -129,12 +130,13 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return vector;      
+        return vector;
     }
-     @Override
+
+    @Override
     public void deleteBlog(String BlogID) {
-        String query = "DELETE FROM [dbo].[Blog]\n" +
-"      WHERE BlogID = ?";
+        String query = "DELETE FROM [dbo].[Blog]\n"
+                + "      WHERE BlogID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(query);
             pre.setString(1, BlogID);
@@ -143,19 +145,20 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             e.printStackTrace();
         }
     }
+
     @Override
     public Vector<Blog> getBlogByPagesortold(int n) {
-              Vector<Blog> vector = new Vector<Blog>();
+        Vector<Blog> vector = new Vector<Blog>();
         int begin = 1;
         int end = 3;
         for (int i = 2; i <= n; i++) {
             begin += 3;
             end += 3;
         }
-        String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogDate asc) AS RowNum\n" +
-"                               FROM Blog\n" +
-"                              ) AS RowNum\n" +
-"                              WHERE RowNum BETWEEN " + begin + " AND " + end;
+        String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogDate asc) AS RowNum\n"
+                + "                               FROM Blog\n"
+                + "                              ) AS RowNum\n"
+                + "                              WHERE RowNum BETWEEN " + begin + " AND " + end;
         try {
             ResultSet rs = getData(sql);
             while (rs.next()) {
@@ -174,8 +177,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
+
     @Override
-     public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String date, String BlogTitle) {
+    public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String date, String BlogTitle) {
         String query = "INSERT INTO [dbo].[Blog]\n"
                 + "           ([AccountID]\n"
                 + "           ,[BlogAuthor]\n"
@@ -200,23 +204,38 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
     }
     
+
+    @Override
+    public void updateBlog(String BlogID,String BlogAuthor, String BlogDescription, String BlogImage, String BlogDate, String BlogTitleString) {
+        String query = "UPDATE [dbo].[Blog]\n"
+                + "   SET [BlogAuthor] = ?\n"
+                + "      ,[BlogDescription] = ?\n"
+                + "      ,[BlogImage] = ?\n"
+                + "      ,[BlogDate] = ?\n"
+                + "      ,[BlogTitle] = ?\n"
+                + " WHERE BlogID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, BlogAuthor);
+            pre.setString(2, BlogDescription);
+            pre.setString(3, BlogImage);
+            pre.setString(4, BlogDate);
+            pre.setString(5, BlogTitleString);
+            pre.setString(6, BlogID);
+           
+            pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
-        dao.deleteBlog("1037");
-      
        
+
     }
 
-    @Override
-    public void insertBlog(int aID, Blog newBlog) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateBlog(int bID, Blog updateBlog) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+   
     @Override
     public void deleteBlog(int bID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

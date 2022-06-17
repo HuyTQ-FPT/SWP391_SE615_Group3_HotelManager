@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.util.Vector;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Thai Quan
  */
+@MultipartConfig
 @WebServlet(name = "BlogManagerController", urlPatterns = {"/BlogManagerController"})
 public class BlogManagerController extends HttpServlet {
 
@@ -35,29 +37,28 @@ public class BlogManagerController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       response.setContentType("text/html;charset=UTF-8");
-            request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             BlogDAOImpl dao = new BlogDAOImpl();
-            String dos = request.getParameter("do");    
-            if(dos.equals("insertblog")){
-                String sc = "Sucessfully";
-                request.setAttribute("sc", sc);
+            String dos = request.getParameter("do");
+            if (dos.equals("insertblog")) {
                 request.setCharacterEncoding("UTF-8");
                 String title = request.getParameter("title");
                 int accountID = 9;
                 String description = request.getParameter("description");
                 String author = request.getParameter("author");
                 String image = request.getParameter("image");
-                 String date = request.getParameter("date");
-                dao.inSertBlog(accountID, author, description, image, date, title);                        
-               request.getRequestDispatcher("addblog.jsp").forward(request, response);
+                String date = request.getParameter("date");
+
+                dao.inSertBlog(accountID, author, description, image, date, title);
+                response.sendRedirect("BlogManagerController?do=editblog");
             }
-            if(dos.equals("editblog")){
-                 Vector<Blog> b = null;
-             int n = dao.getPage();        
-              request.setAttribute("n", n);
+            if (dos.equals("editblog")) {
+                Vector<Blog> b = null;
+                int n = dao.getPage();
+                request.setAttribute("n", n);
 //              request.setAttribute("vector4", vector4);
                 String page = request.getParameter("page");
                 if (page == null) {
@@ -65,19 +66,43 @@ public class BlogManagerController extends HttpServlet {
                 } else {
                     b = dao.getBlogByPage(Integer.parseInt(page));
                 }
-                 request.setAttribute("b", b);
-                 request.getRequestDispatcher("editblog.jsp").forward(request, response);
+                request.setAttribute("b", b);
+                request.getRequestDispatcher("editblog.jsp").forward(request, response);
             }
-              if(dos.equals("deleteblog")){
-                   int n = dao.getPage();        
-                  String id = request.getParameter("blogid");
-                  dao.deleteBlog(id);
-                  response.sendRedirect("BlogManagerController?do=editblog&page="+n+"");
-              }
-              if(dos.equals("updateblog")){
-                  
-              }
-        }catch(Exception e){
+            if (dos.equals("deleteblog")) {
+                int n = dao.getPage();
+                String id = request.getParameter("blogid");
+                dao.deleteBlog(id);
+                response.sendRedirect("BlogManagerController?do=editblog&page=" + n + "");
+            }
+            if (dos.equals("updateblog")) {
+
+                String author = request.getParameter("blogauthor");
+                String blogDescription = request.getParameter("blogDescription");
+                String blogImage = request.getParameter("blogImage");
+                String blogTitleString = request.getParameter("blogTitleString");
+                String blogDate = request.getParameter("date");
+                String BlogID = request.getParameter("BlogID");
+                request.setAttribute("author", author);
+                request.setAttribute("blogDescription", blogDescription);
+                request.setAttribute("blogImage", blogImage);
+                request.setAttribute("blogTitleString", blogTitleString);
+                request.setAttribute("BlogID", BlogID);
+                request.setAttribute("blogDate", blogDate);
+                request.getRequestDispatcher("updateblog.jsp").forward(request, response);
+            }
+            if (dos.equals("updatebloggg")) {
+                String author = request.getParameter("author");
+                String BlogID = request.getParameter("BlogID");
+                String blogDescription = request.getParameter("description");
+                String blogImage = request.getParameter("image");
+                String blogTitleString = request.getParameter("title");
+                String blogDate = request.getParameter("date");
+               dao.updateBlog(BlogID, author, blogDescription, blogImage, blogDate, blogTitleString);
+     
+                response.sendRedirect("BlogManagerController?do=editblog");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
