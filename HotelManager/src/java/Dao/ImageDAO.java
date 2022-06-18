@@ -17,5 +17,5 @@ public interface ImageDAO {
     public void insertImage(int riID ,Image insertImage);
     public void updateImage(int riID ,Image updateImage);
     public void deleteImage(int riID);
-    
+    public Vector<Image> selectImage(String sql);
 }

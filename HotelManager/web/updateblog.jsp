@@ -92,8 +92,8 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="BlogManagerController?do=updateblog">Update Blog</a>
-                                <a class="dropdown-item" href="addblog.jsp">Insert Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController?do=deleteblog">Delete Blog</a>
+                                <a class="dropdown-item" href="BlogManagerController?do=insertblog">Insert Blog</a>
+                                <a class="dropdown-item" href="BlogManagerController">Delete Blog</a>
                             </div>
            </li>
             <li class="nav-item dropdown">
@@ -132,12 +132,12 @@
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Add Product</h2>             
+                <h2 class="tm-block-title d-inline-block">Update Blog</h2>             
               </div>
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form action="BlogManagerController" method="post" class="tm-edit-product-form">
+                  <form action="BlogManagerController" method="get" class="tm-edit-product-form" enctype="multipart/form-data">
                   <div class="form-group mb-3">
                     <label
                       for="name"
@@ -146,6 +146,7 @@
                     <input
                       id="name"
                       name="title"
+                      value="${blogTitleString}"
                       type="text"
                       class="form-control validate"
                       required
@@ -159,7 +160,8 @@
                     <input
                       id="name"
                       name="date"
-                      type="date"
+                      type="text"
+                         value="${blogDate}"
                       class="form-control validate"
                       required
                     />
@@ -169,11 +171,12 @@
                       for="description"
                       >Description</label
                     >
-                    <textarea
+                    <textarea 
                       class="form-control validate"
                       rows="3" name="description"
+                         
                       required
-                    ></textarea>
+                    >${blogDescription}</textarea>
                   </div>
                     <div class="form-group mb-3">
                     <label
@@ -184,12 +187,13 @@
                       id="name"
                       name="author"
                       type="text"
+                         value="${author}"
                       class="form-control validate"
                       required
                     />
+                 
                   </div>
-                   </div>
-               <div class="form-group mb-3">
+                       <div class="form-group mb-3">
                     <label
                       for="name"
                       >Image
@@ -197,11 +201,23 @@
                     <input
                       id="name"
                       name="image"
-                      type="text"                   
+                      type="text"
+                         value="${blogImage}"
                       class="form-control validate"
                       required
                     />
+                 
                   </div>
+                      
+                   </div>
+                      
+<!--                 <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                     <td><img style="width: 350px; height: 250px;" src="images/anhblog/${blogImage}" alt=""></td>
+                         <img src ="" alt="" id="image" width ="200" height="200">
+                         <input type="file" name="image" id ="imageFile" onchange="chooseFile(this)"    
+                                accept="image/gif,image/jpeg,image/png ">
+                         
+                  </div>-->
               </div>
 <!--              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
                 <div class="tm-product-img-dummy mx-auto">
@@ -221,8 +237,9 @@
                 </div>
               </div>-->
               <div class="col-12">
-                  <input type="hidden" value="insertblog" name="do"> 
-                  <button type="submit"  class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
+                  <input type="hidden" value="updatebloggg" name="do">
+                     <input type="hidden" value="${BlogID}" name="BlogID">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Update</button>
               </div>
             </form>
             </div>
@@ -251,5 +268,19 @@
         $("#expire_date").datepicker();
       });
     </script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        function chooseFile(fileInput){
+            if(fileInput.files && fileInput.files[0]){
+                var reader = new FileReader();
+                reader.onload = function (e){
+                    $('#image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+        </script>
+      
   </body>
 </html>

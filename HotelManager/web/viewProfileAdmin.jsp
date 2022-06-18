@@ -1,7 +1,7 @@
 <%-- 
     Document   : viewProfileAdmin
     Created on : Jun 9, 2022, 10:48:02 PM
-    Author     : Admin
+    Author     : Minh Hieu
 --%>
 
 <%@page import="Entity.User"%>
@@ -20,12 +20,16 @@
         <link rel="stylesheet" href="css/templatemo-style.css">
 
     </head>
+    <style>
+
+    </style>
+
     <body id="reportsPage">
         <div class="" id="home">
             <nav class="navbar navbar-expand-xl">
                 <div class="container h-100">
-                    <a class="navbar-brand" href="index.html">
-                        <h1 class="tm-site-title mb-0">Product Admin</h1>
+                    <a class="navbar-brand" href="AdminController">
+                        <h1 class="tm-site-title mb-0">Admin</h1>
                     </a>
                     <button
                         class="navbar-toggler ml-auto mr-0"
@@ -85,10 +89,10 @@
                                         Accounts <i class="fas fa-angle-down"></i>
                                     </span>
                                 </a>
-<!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="BlogManagerController?do=updateblog">View Profile</a>
-
-                                </div>-->
+                                <!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                    <a class="dropdown-item" href="BlogManagerController?do=updateblog">View Profile</a>
+                                
+                                                                </div>-->
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -126,39 +130,43 @@
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link d-block" href="login.html">
-                                    Admin, <b>Logout</b>
+                                <a class="nav-link d-block" href="LoginController?do=logout">
+                                    Admin, <b>Đăng xuất</b>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
+            <%
+                User user = (User) request.getAttribute("u");
+            %>
             <div class="container mt-5">
 
                 <!-- row -->
                 <div class="row tm-content-row">
                     <div class="tm-block-col tm-col-avatar">
                         <div class="tm-bg-primary-dark tm-block tm-block-avatar">
-                            <h2 class="tm-block-title">Change Avatar</h2>
+                            <!--                            <h2 class="tm-block-title">Change Avatar</h2>-->
                             <div class="tm-avatar-container">
-                                <img
-                                    src="images/anhdaidien/admin.jpg"
+                                <img 
+                                    src="images/<%=user.getBirthday()%>"
                                     alt="Avatar"
                                     class="tm-avatar img-fluid mb-4"
                                     />
-                                <a href="#" class="tm-avatar-delete-link">
+<!--                                <a href="#" class="tm-avatar-delete-link">
                                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                </a>
+                                </a>-->
                             </div>
-                            <button class="btn btn-primary btn-block text-uppercase">
-                                Upload New Photo
-                            </button>
+                            <input id="avatarURL" class="btn btn-primary btn-block text-uppercase" type="file" onchange="changeImage()" name="avatar" value="">
+                               
+                         
+                            <a class="btn btn-primary btn-block text-uppercase" href="LoginController?do=ChangePassword1">
+                                Thay đổi mật khẩu
+                            </a>
                         </div>
                     </div>
-                    <%
-                        User user = (User) request.getAttribute("u");
-                    %>
+
                     <div class="tm-block-col tm-col-account-settings">
                         <div class="tm-bg-primary-dark tm-block tm-block-settings">
                             <h2 class="tm-block-title">Account Settings</h2>
@@ -181,7 +189,7 @@
                                            name="inputEmailAddress"
                                            type="email"
                                            readonly
-                                           value="<%=user.getUserAdress()%>"
+                                           value="<%=user.getUserEmail()%>"
                                            class="form-control validate"
                                            />
                                 </div>
@@ -235,7 +243,7 @@
 
                                 <div class="col-12">
                                     <a href="AdminController?do=ViewupdateAdmin"
-                                      
+
                                        class="btn btn-primary btn-block text-uppercase"
                                        >
                                         Edit Account
@@ -248,7 +256,13 @@
             </div>
 
         </div>
+        <script>
+            function changeImage() {
+                var path = document.getElementById("avatarURL").value;
+                document.getElementById("image").src = "img//" + path.replace(/^.*\\/, "");
+            }
 
+        </script>
         <script src="js/jquery-3.3.1.min.js"></script>
         <!-- https://jquery.com/download/ -->
         <script src="js/bootstrap.min.js"></script>

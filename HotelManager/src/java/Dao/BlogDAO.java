@@ -14,8 +14,8 @@ import java.util.Vector;
  */
 public interface BlogDAO {
     public Blog getBlogList(int bID);
-    public void insertBlog(int aID, Blog newBlog);
-    public void updateBlog(int bID, Blog updateBlog);
+   
+    public void updateBlog(String BlogID,String BlogAuthor, String BlogDescription, String BlogImage, String BlogDate, String BlogTitleString);
     public void deleteBlog(int bID);
     public Vector<Blog> getBlog(String sql);
     public int getPage();
@@ -23,4 +23,5 @@ public interface BlogDAO {
      public Vector<Blog> getBlogByPagesortnew(int n);
      public Vector<Blog> getBlogByPagesortold(int n);
    public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String date, String BlogTitle);
+   public void deleteBlog(String BlogID);
 }

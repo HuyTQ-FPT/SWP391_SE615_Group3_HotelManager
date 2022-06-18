@@ -7,6 +7,7 @@ package Dao.impl;
 
 import Dao.ImageDAO;
 import Entity.Image;
+import Entity.Room;
 import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +35,7 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
                 String image3 = rs.getString(4);
                 String image4 = rs.getString(5);
 
-                Image im=new Image(id, image1, image2, image3, image4);
+                Image im = new Image(id, image1, image2, image3, image4);
                 vector.add(im);
             }
         } catch (SQLException ex) {
@@ -43,6 +44,7 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
         return vector;
 
     }
+
     public static void main(String[] args) {
         ImageDAOImpl dao = new ImageDAOImpl();
         Vector<Image> vector = dao.getImageByid("1");
@@ -65,5 +67,25 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
     public void deleteImage(int riID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public Vector<Image> selectImage(String sql) {
+        Vector<Image> vector = new Vector<Image>();
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int roomid = rs.getInt(1);
+                String image1 = rs.getString(2);
+                String image2 = rs.getString(2);
+                String image3 = rs.getString(2);
+                String image4 = rs.getString(2);
+                Image im = new Image(roomid, image1, image2, image3, image4);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;
+    }
+
 }

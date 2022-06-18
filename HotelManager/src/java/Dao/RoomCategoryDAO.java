@@ -20,8 +20,8 @@ public interface RoomCategoryDAO {
 
     public void insertRoomCategory(String roomcatename);
 
-    public void updateRoomCategory(RoomCategory RoomCategory);
+    public void updateRoomCategory(String RoomCategoryid, String roomcatename);
 
-    public void deleteRoomCategory(int cateid);
+    public void deleteRoomCategory(String roomcate);
 
 }

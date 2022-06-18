@@ -13,12 +13,12 @@ import java.util.Vector;
  * @author Admin
  */
 public interface ReceptionistDAO {
-    public Vector<User> getCustomerListByReceptionist();
-    public Vector<User> getSearchNameCustomerListByReceptionist(String uName) ;
+    public Vector<User> getCustomerListByReceptionist() throws Exception;
+    public Vector<User> getSearchNameCustomerListByReceptionist(String uName) throws Exception ;
 
-    public void insertReceptionist(User User);
+    public void insertReceptionist(User User) throws Exception;
 
-    public void updateCustomerByReceptionist(User User);
+    public void updateCustomerByReceptionist(User User) throws Exception;
     
-    public User getReceptionist(int uid);
+    public User getReceptionist(int uid) throws Exception;
 }

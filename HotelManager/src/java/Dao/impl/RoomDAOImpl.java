@@ -51,6 +51,34 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return vector;
     }
+    
+    public Vector<Room> getRoomList1(String sql) {
+        Vector<Room> vector = new Vector<Room>();
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String des = rs.getString(3);
+                int cateid = rs.getInt(4);
+                String image = rs.getString(14);
+                double Roomprice = rs.getDouble(6);
+                int NumberPerson = rs.getInt(7);
+                float Square = rs.getFloat(8);
+                String Comment = rs.getString(9);
+                int Rate = rs.getInt(10);
+                String Note = rs.getString(11);
+                int Status = rs.getInt(12);
+                String cateroom = rs.getString(14);
+                Room im = new Room(cateid, name, Comment, cateid, image, Roomprice, 
+                        NumberPerson, Square, Comment, Rate, Note, cateroom, Status);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;
+    }
 
     @Override
     public Room getRoom(String roomid) {
@@ -104,6 +132,28 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         int n = 0;
         String sql = "select COUNT(*) from Room where Status=0";
         Vector<Room> vector = new Vector<Room>();
+        try {
+            int totalPage = 0;
+            int countPage = 0;
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                totalPage = rs.getInt(1);
+                countPage = totalPage / 6;
+                if (totalPage % 6 != 0) {
+                    countPage++;
+                }
+                return countPage;
+            }
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+    @Override
+    public int getPage(String sql) {
+        int n = 0;
         try {
             int totalPage = 0;
             int countPage = 0;
@@ -410,7 +460,11 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<RoomByDate> seachRoom(int a, Date datein, Date dateout) {
+    public Vector<RoomByDate> seachRoom(int a, Date datein, Date dateout) throws Exception {
+
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
         Vector<RoomByDate> vector = new Vector<RoomByDate>();
         String sql = "select * from Room r  \n"
                 + "inner join Image i on i.RoomimgaeID=r.RoomimgaeID join CateRoom c on \n"
@@ -419,7 +473,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 + "on r.RoomID=d.RoomID \n"
                 + "where((d.DateIn!= " + datein + " and d.DateOut!= " + dateout + ") or (d.DateIn is null and d.DateOut is null)) and r.NumberPerson= " + a;
         try {
-            ResultSet rs = getData(sql);
+            rs = getData(sql);
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -439,27 +493,52 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 vector.add(im);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw ex;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+
         }
         return vector;
     }
 
     public static void main(String[] args) {
         RoomDAOImpl dao = new RoomDAOImpl();
+
 //        Date a = Date.valueOf("2022-05-03");
 //        Date b = Date.valueOf("2022-07-03");
-
-        Room vector = dao.getRooms("12");
+//        Room vector = dao.getRooms("12");
 //        for (RoomByDate roomByDate : vector) {
-        System.out.println(vector);
+//        System.out.println(vector);
 //        }
+        try {
+            //        Date a = Date.valueOf("2022-05-03");
+//        Date b = Date.valueOf("2022-07-03");
+//
+//        Vector<RoomByDate> vector = dao.seachRoom(4, a, b);
+//        for (RoomByDate roomByDate : vector) {
+//            System.out.println(roomByDate);
+//        }
+            Vector<Room> v = dao.selectRoom("Room1", -1);
+            for (Room room : v) {
+                System.out.println(room);
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(RoomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
-    public Vector<Room> getRoomListAll(String sql) {
+    public Vector<Room> getRoomListAll(String sql) throws Exception {
+
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
         Vector<Room> vector = new Vector<Room>();
         try {
-            ResultSet rs = getData(sql);
+            rs = getData(sql);
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -477,7 +556,11 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 vector.add(im);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw ex;
+
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
 
         }
 
@@ -486,30 +569,44 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public void updateStatus(int rID, int rStatus) {
+    public void updateStatus(int rID, int rStatus) throws Exception {
+
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
         String sql = "UPDATE [SWPgroup3].[dbo].[Room]\n"
                 + "   SET [Status] = ?\n"
                 + " WHERE [RoomID]=?";
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
+            pre = conn.prepareStatement(sql);
             pre.setInt(1, rStatus);
             pre.setInt(2, rID);
 
             pre.executeUpdate();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+
         }
     }
 
-    @Override
-    public Vector<Room> selectRoom(int status) {
+    public Vector<Room> selectRoom(String rName, int status) throws Exception {
+
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
         Vector<Room> vector = new Vector<Room>();
-        String sql = "select * from Room where Status = ?";
+        String sql = "select * from [Room] where Roomname like '%" + rName + "%'";
+        if (status > 0) {
+            sql = sql.concat(" and [status]=" + status);
+        }
+
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setInt(1, status);
-            ResultSet rs = pre.executeQuery();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -522,42 +619,18 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 String Comment = rs.getString(9);
                 int Rate = rs.getInt(10);
                 String Note = rs.getString(11);
-                status = rs.getInt(12);
-                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, status);
-                vector.add(im);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return vector;
-    }
 
-    @Override
-    public Vector<Room> searchRoombyRoomName(String roomName) {
-        Vector<Room> vector = new Vector<Room>();
-        String sql = "select * from Room where Roomname = ?";
-        try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, roomName);
-            ResultSet rs = pre.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                String name = rs.getString(2);
-                String des = rs.getString(3);
-                int cateid = rs.getInt(4);
-                String image = rs.getString(5);
-                double Roomprice = rs.getDouble(6);
-                int NumberPerson = rs.getInt(7);
-                float Square = rs.getFloat(8);
-                String Comment = rs.getString(9);
-                int Rate = rs.getInt(10);
-                String Note = rs.getString(11);
-                int status = rs.getInt(12);
-                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, status);
+                int status1 = rs.getInt(12);
+                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, status1);
+
                 vector.add(im);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+
         }
         return vector;
     }

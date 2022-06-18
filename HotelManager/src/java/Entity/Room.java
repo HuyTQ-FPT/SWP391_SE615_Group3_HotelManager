@@ -52,9 +52,25 @@ public class Room {
         this.Comment = Comment;
         this.Rate = Rate;
         this.Note = Note;
-
         this.status = status;
     }
+
+    public Room(int RoomID, String Roomname, String Roomdesc, int RoomcateID, String image, double Roomprice, int NumberPerson, float Square, String Comment, int Rate, String Note, String cateroom, int status) {
+        this.RoomID = RoomID;
+        this.Roomname = Roomname;
+        this.Roomdesc = Roomdesc;
+        this.RoomcateID = RoomcateID;
+        this.image = image;
+        this.Roomprice = Roomprice;
+        this.NumberPerson = NumberPerson;
+        this.Square = Square;
+        this.Comment = Comment;
+        this.Rate = Rate;
+        this.Note = Note;
+        this.cateroom = cateroom;
+        this.status = status;
+    }
+    
 
     public Room() {
     }

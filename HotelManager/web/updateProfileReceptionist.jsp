@@ -1,7 +1,7 @@
 <%-- 
     Document   : updateProfileReceptionis
     Created on : Jun 8, 2022, 9:54:03 PM
-    Author     : Admin
+    Author     : Minh Hieu
 --%>
 
 <%@page import="Entity.User"%>
@@ -16,6 +16,10 @@
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+        <!-- Font Icon -->
+        <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
         <style>
             body{margin-top:20px;
@@ -77,6 +81,21 @@
                 margin-left: 1rem;
                 margin-right: 1rem;
             }
+            .form-group{
+                position: relative;
+            }
+            .style{
+                position: absolute;
+                left: 20px;
+                top:220px;
+                font-size: 10px;
+            }
+            .style1{
+                position: absolute;
+                left: 20px;
+                top:320px;
+                font-size: 10px;
+            }
         </style>
     </head>
     <body>
@@ -99,8 +118,10 @@
                             <!-- Profile picture help block-->
                             <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                             <!-- Profile picture upload button-->
-                            <button class="btn btn-primary" type="button">Upload new image</button>
+                            <button class="btn btn-primary" type="button">Cập nhật ảnh.</button>
+ 
                         </div>
+                         <a  href="LoginController?do=ChangePassword1"class="btn btn-primary" style="width: 50%;margin-left: 95px" type="button">Thay đổi mật khẩu</a>
                     </div>
                 </div>
                 <div class="col-xl-8">
@@ -111,24 +132,25 @@
                             <form action="ReceptionistController?do=updateRecept" method="post">
                                 <%
                                     User user = (User) session.getAttribute("u");
-                                   
-                                    
+
+
                                 %>
                                 <input type="hidden" name="uid" value="<%=user.getUserID()%>">
-                                 <h4 style="color: red;font-size: 15px;">${requestScope.err}</h4>
-                                   <h4 style="color: red;font-size: 15px;">${requestScope.mess}</h4>
-             
+                                <h4 style="color: red;font-size: 15px;">${requestScope.err}</h4>
+                                <h4 style="color: red;font-size: 15px;">${requestScope.errr}</h4>
+                                <h4 style="color: red;font-size: 15px;">${requestScope.mess}</h4>
+
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="inputYourname">Your Name</label>
-                                    <input class="form-control" id="Username" name="Username" type="text" readonly  value="<%=user.getUserName()%>">
+                                    <input class="form-control" id="Username" name="Username" type="text" maxlength="50"  value="<%=user.getUserName()%>">
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (CMT)-->
                                     <div class="small mb-1">
-                                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                                        <input class="form-control" id="EmailAddress" name="EmailAddress" required type="email" value="<%=user.getUserEmail()%>" maxlength="100" placeholder="Enter your email address">
+                                        <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                        <i class='bx bxs-star style' style="color:red;"></i> <input class="form-control" id="EmailAddress" name="EmailAddress" required type="email" value="<%=user.getUserEmail()%>" maxlength="100" placeholder="Enter your email address">
                                     </div>
 
                                 </div>
@@ -136,7 +158,7 @@
                                 <div class="row gx-3 mb-3">
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputCMT">CMT</label>
-                                        <input class="form-control" id="inputCMT" name="inputCMT" type="text" value="<%=user.getCMT()%>" maxlength="20" required placeholder="Enter your CMT" >
+                                        <i class='bx bxs-star style1' style="color:red;"></i>   <input class="form-control" id="inputCMT" name="inputCMT" type="text" value="<%=user.getCMT()%>" maxlength="20" required placeholder="Enter your CMT" >
                                     </div>
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputAddress">Location</label>
@@ -153,7 +175,7 @@
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                        <input class="form-control" id="inputBirthday" type="text"  name="birthday" readonly value="<%=user.getBirthday()%>">
+                                        <input class="form-control" id="inputBirthday" type="text"  name="birthday"  value="<%=user.getBirthday()%>">
                                     </div>
                                 </div>
                                 <!-- Save changes button-->

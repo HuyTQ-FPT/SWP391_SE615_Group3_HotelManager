@@ -6,6 +6,7 @@
 package Dao;
 
 import Entity.Device;
+import Entity.Room;
 import java.util.Vector;
 
 /**
@@ -16,6 +17,7 @@ public interface DeviceDAO {
 
     public Vector<Device> getAllDevice();
 
+    public Vector<Device> getDevicebycateroom(String cateRoom, int n);
     public Vector<Device> getDevicebycateroom(String cateRoom);
 
     public void insertDevice(String name, String price, String status, String RoomcateID, String Quantity);

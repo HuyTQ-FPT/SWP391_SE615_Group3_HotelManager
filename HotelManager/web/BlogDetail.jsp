@@ -14,7 +14,7 @@
         <title>Suite &mdash; Colorlib Website Template</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+              <link rel="stylesheet" href="css/datatables.css">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Work+Sans:300,400,700" rel="stylesheet">
         <link rel="stylesheet" href="fonts/icomoon/style.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -173,7 +173,87 @@
                 </div>
             </section>
             <!-- Blog Details Section End -->
+ <div class="be-comment-block">
+                <h1 class="comments-title">Comments (3)</h1>
+                <div class="be-comment">
+                    <div class="be-img-comment">	
+                        <a href="blog-detail-2.html">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
+                        </a>
+                    </div>
+                    <div class="be-comment-content">
 
+                        <span class="be-comment-name">
+                            <a href="blog-detail-2.html">Ravi Sah</a>
+                        </span>
+                        <span class="be-comment-time">
+                            <i class="fa fa-clock-o"></i>
+                            May 27, 2015 at 3:14am
+                        </span>
+
+                        <p class="be-comment-text">
+                            Pellentesque gravida tristique ultrices. 
+                            Sed blandit varius mauris, vel volutpat urna hendrerit id. 
+                            Curabitur rutrum dolor gravida turpis tristique efficitur.
+                        </p>
+                    </div>
+                </div>
+                <div class="be-comment">
+                    <div class="be-img-comment">	
+                        <a href="blog-detail-2.html">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="be-ava-comment">
+                        </a>
+                    </div>
+                    <div class="be-comment-content">
+                        <span class="be-comment-name">
+                            <a href="blog-detail-2.html">Phoenix, the Creative Studio</a>
+                        </span>
+                        <span class="be-comment-time">
+                            <i class="fa fa-clock-o"></i>
+                            May 27, 2015 at 3:14am
+                        </span>
+                        <p class="be-comment-text">
+                            Nunc ornare sed dolor sed mattis. In scelerisque dui a arcu mattis, at maximus eros commodo. Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis eleifend lorem non ant. Proin ut ornare lectus, vel eleifend est. Fusce hendrerit dui in turpis tristique blandit.
+                        </p>
+                    </div>
+                </div>
+                <div class="be-comment">
+                    <div class="be-img-comment">	
+                        <a href="blog-detail-2.html">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="be-ava-comment">
+                        </a>
+                    </div>
+                    <div class="be-comment-content">
+                        <span class="be-comment-name">
+                            <a href="blog-detail-2.html">Cüneyt ŞEN</a>
+                        </span>
+                        <span class="be-comment-time">
+                            <i class="fa fa-clock-o"></i>
+                            May 27, 2015 at 3:14am
+                        </span>
+                        <p class="be-comment-text">
+                            Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis eleifend lorem non ant
+                        </p>
+                    </div>
+                </div>
+                <form class="form-block">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="form-group fl_icon">
+                                <div class="icon"><i class="fa fa-user"></i></div>
+                                <input class="form-input" type="text" placeholder="Your name">
+                            </div>
+                        </div>
+                      
+                        <div class="col-sm-12">									
+                            <div class="form-group">
+                                <textarea class="form-input" required="" placeholder="Your text"></textarea>
+                            </div>
+                        </div>
+                        <a style="margin-left: 1300px;" class="btn btn-primary pull-right">submit</a>
+                    </div>
+                </form>
+            </div>
             <!-- Related Blog Section Begin -->
             <section class="related-blog spad">
                 <div class="container">

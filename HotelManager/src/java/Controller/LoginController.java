@@ -7,6 +7,7 @@ package Controller;
 
 import Dao.AccountDAO;
 import Dao.impl.AccountDAOImpl;
+import Dao.impl.UserDAOImpl;
 import Entity.Account;
 import util.SendMail;
 import util.randomPassword;
@@ -39,6 +40,7 @@ public class LoginController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             AccountDAOImpl dao = new AccountDAOImpl();
+            UserDAOImpl daoU = new UserDAOImpl();
             DBContext dao1 = new DBContext();
             String service = request.getParameter("do");
             if (service == null) {
@@ -81,12 +83,13 @@ public class LoginController extends HttpServlet {
                         response.sendRedirect("HomeController");
                     } else if (rs.getString(2).equals("2")) {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
-                          response.sendRedirect("ReceptionistController");
+//                        response.sendRedirect("ReceptionistController");
+                        response.sendRedirect("HomeController");
                     } else {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
                         response.sendRedirect("AdminController");
                     }
-                } else { 
+                } else {
                     String error = "Tài khoản hoặc mật khẩu không chính xác";
                     request.setAttribute("error", error);
                     request.setAttribute("mess", "");
@@ -100,104 +103,102 @@ public class LoginController extends HttpServlet {
                 String username = request.getParameter("username").trim();
                 String password = request.getParameter("password").trim();
                 String re_password = request.getParameter("re_password").trim();
-                String name = request.getParameter("name").trim();                
-                ResultSet rs =dao.getData("select * from Account");
-                               
-                boolean user=true;
-                int count=0;
-                while(rs.next()){
+                String name = request.getParameter("name").trim();
+                ResultSet rs = dao.getData("select * from Account");
+
+                boolean user = true;
+                int count = 0;
+                while (rs.next()) {
                     if (rs.getString(3).equals(username)) {
-                        user=false;
+                        user = false;
                         break;
                     }
                 }
-                if(!user){
+                if (!user) {
                     request.setAttribute("name", name);
-                request.setAttribute("username", username);
-                request.setAttribute("password", password);
-                request.setAttribute("re_password", re_password);
-                request.setAttribute("email", email);
+                    request.setAttribute("username", username);
+                    request.setAttribute("password", password);
+                    request.setAttribute("re_password", re_password);
+                    request.setAttribute("email", email);
                     String error = "Tên đăng nhập đã tồn tại";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
-                }      
-                else if (username.length() < 4 || password.length() < 8) {
+                } else if (username.length() < 4 || password.length() < 8) {
                     request.setAttribute("name", name);
-                request.setAttribute("username", username);
-                request.setAttribute("password", password);
-                request.setAttribute("re_password", re_password);
-                request.setAttribute("email", email);
+                    request.setAttribute("username", username);
+                    request.setAttribute("password", password);
+                    request.setAttribute("re_password", re_password);
+                    request.setAttribute("email", email);
                     String error = "Mật khẩu lớn hơn 8 ký tự và tên dăng nhập lớn hơn 4 ký tự";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
-                }
-                else if (!password.equalsIgnoreCase(re_password)) {
+                } else if (!password.equalsIgnoreCase(re_password)) {
                     request.setAttribute("name", name);
-                request.setAttribute("username", username);
-                request.setAttribute("password", password);
-                request.setAttribute("re_password", re_password);
-                request.setAttribute("email", email);
+                    request.setAttribute("username", username);
+                    request.setAttribute("password", password);
+                    request.setAttribute("re_password", re_password);
+                    request.setAttribute("email", email);
                     String error = "Nhập lại mật khẩu không chính xác";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
+                } else {
+                    count = dao.Register(new Account(1, username, password), name, email);
+
                 }
-                else {
-                    count =dao.Register(new Account(1, username, password), name, email);                
-                }
-                if(count>0){
-                    session.setAttribute("login", new Account(1,1, username, password));
+                if (count > 0) {
+                    session.setAttribute("login", new Account(1, 1, username, password));
                     response.sendRedirect("LoginController?do=Login&mess=register");
-                }else{
+                } else {
                     request.setAttribute("name", name);
-                request.setAttribute("username", username);
-                request.setAttribute("password", password);
-                request.setAttribute("re_password", re_password);
-                request.setAttribute("email", email);
+                    request.setAttribute("username", username);
+                    request.setAttribute("password", password);
+                    request.setAttribute("re_password", re_password);
+                    request.setAttribute("email", email);
                     String error = "Lỗi hệ thống";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
-                }                
+                }
             }
-            if (service.equals("ForgetPassword")) { // Gửi mật khẩu mới qua gamil
-                String user = request.getParameter("name");
-                String email = request.getParameter("email");
+            if (service.equals("ForgetPassword")) {// Gửi mật khẩu mới qua gamil
+                try {
+                    String email = request.getParameter("email");
 
-                if (dao.checkAccount(user.trim()) == null) { // Check đầu vào cho user
-                    if (user.length() > 50) { 
-                        String error = "Can't be more than 50 characters!";
-                        request.setAttribute("error", error);
-                        request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+                    if (daoU.checkUser(email.trim()) == null) { // Check đầu vào cho email
+                        if (!email.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
+                            String eEmail = "Email không đúng định dạng!";
+                            String exampleEmail = "Example: SWPGroup3@gmail.com";
+                            request.setAttribute("eEmail", eEmail);
+                            request.setAttribute("exampleEmail", exampleEmail);
+                            request.setAttribute("email1", email);
+                            request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+                        } else {
+                            String error = "Không tìm thấy Email đã đăng kí. Vui lòng nhập lại.";
+                            request.setAttribute("error", error);
+                            request.setAttribute("email1", email);
+                            request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+
+                        }
+
                     } else {
-                        String error = "User not exited!!";
-                        request.setAttribute("error", error);
-                        request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
-                    }
-                } else {
-                    if (email.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
                         SendMail sm = new SendMail();
                         randomPassword rdP = new randomPassword();
                         String newPass = rdP.randomAlphaNumeric(8);
-                        request.setAttribute("newpass", newPass);
-
                         String message = "Mật khẩu mới của bạn là:" + newPass + "\n"
                                 + "Nếu bạn muốn đổi mật khẩu click vào link này:" + "http://localhost:8080/HotelManager/LoginController";
                         sm.send(email, "Your new pass word!!!!", message, sm.getFromEmail(), sm.getPassword());
-                        dao.updateAccount(user, newPass);
-                        String mess = "Send gmail sucsess!!!";
+                        int n = dao.updateAccountAndUser(newPass, email);
+                        String mess = "Gửi email thành công.";
                         request.setAttribute("mess", mess);
-                        request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
-                    } else {
-                        String eEmail = "email incorrect !!!!";
-                        String exampleEmail = "Example: hiue@gmail.com";
-                        request.setAttribute("eEmail", eEmail);
-                        request.setAttribute("exampleEmail", exampleEmail);
                         request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
 
                     }
-
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    request.setAttribute("errorMess", ex.toString());
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
             }
-            if (service.equals("ForgetPassword1")) {
+            if (service.equals("ForgetPassword1")) { // vào trang quên mật khẩu
                 request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
             }
             if (service.equals("ChangePassword1")) { // vào trang đổi mật khẩu
@@ -205,52 +206,54 @@ public class LoginController extends HttpServlet {
             }
             if (service.equals("ChangePassword")) { // đổi mật khẩu 
                 String error = "";
-                Account a =(Account)session.getAttribute("login");
+                Account a = (Account) session.getAttribute("login");
                 String oldpassword = request.getParameter("oldpassword").trim();
                 String newpassword = request.getParameter("password").trim();
                 String re_password = request.getParameter("re_password").trim();
                 ResultSet rs = dao1.getData("select * from Account where [user]='" + a.getUser().trim() + "' and [password]='" + oldpassword + "'");
-                if (!a.getPassword().equals(oldpassword)){  
-                            error = "Mật khẩu cũ không chính xác";
-                            request.setAttribute("errorpass", error);
-                            request.setAttribute("oldpassword", oldpassword);
-                            request.setAttribute("newpassword", newpassword);
-                            request.setAttribute("re_password", re_password); 
-                            request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+                if (!a.getPassword().equals(oldpassword)) {
+                    error = "Mật khẩu cũ không chính xác";
+                    request.setAttribute("errorpass", error);
+                    request.setAttribute("oldpassword", oldpassword);
+                    request.setAttribute("newpassword", newpassword);
+                    request.setAttribute("re_password", re_password);
+                    request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                 }
                 if (rs.next() == true) {
+
                     if (newpassword.trim().length() >= 8) {
                         if (newpassword.equals(re_password)) {
                             dao.updateAccount(rs.getString(3), re_password);
-                            response.sendRedirect("LoginController?do=Login&mess=change");                         
-                        } else if (!newpassword.equals(re_password)){  
+                            response.sendRedirect("LoginController?do=Login&mess=change");
+                        } else if (!newpassword.equals(re_password)) {
                             error = "Mật khẩu mới không khớp nhau";
                             request.setAttribute("errorpass", error);
                             request.setAttribute("oldpassword", oldpassword);
                             request.setAttribute("newpassword", newpassword);
-                            request.setAttribute("re_password", re_password); 
+                            request.setAttribute("re_password", re_password);
                             request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
-                        } else{
+                        } else {
                             error = "Mật khẩu mới giống với mật khẩu cũ";
                             request.setAttribute("errorpass", error);
                             request.setAttribute("oldpassword", oldpassword);
                             request.setAttribute("newpassword", newpassword);
-                            request.setAttribute("re_password", re_password); 
+                            request.setAttribute("re_password", re_password);
                             request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                         }
+
                     } else {
                         error = "Mật khẩu mới lớn hơn 8 ký tự";
                         request.setAttribute("errorpass", error);
                         request.setAttribute("oldpassword", oldpassword);
-                            request.setAttribute("newpassword", newpassword);
-                            request.setAttribute("re_password", re_password); 
+                        request.setAttribute("newpassword", newpassword);
+                        request.setAttribute("re_password", re_password);
                         request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
-                    }                    
+                    }
                 } else {
                     error = "Đổi mật khẩu thất bại(Lỗi hệ thống)";
                     request.setAttribute("oldpassword", oldpassword);
-                            request.setAttribute("newpassword", newpassword);
-                            request.setAttribute("re_password", re_password); 
+                    request.setAttribute("newpassword", newpassword);
+                    request.setAttribute("re_password", re_password);
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                 }

@@ -5,8 +5,11 @@
  */
 package Controller;
 
+import Dao.impl.RoomDAOImpl;
+import Entity.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "RoomNameController", urlPatterns = {"/RoomNameController"})
+@WebServlet(name = "RoomNameController", urlPatterns = {"/RoomsController"})
 public class RoomDeviceController extends HttpServlet {
 
     /**
@@ -33,18 +36,23 @@ public class RoomDeviceController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RoomNameController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RoomNameController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String dos = request.getParameter("do");
+            RoomDAOImpl dao = new RoomDAOImpl();
+            if (dos == null) {
+                String RoomId = request.getParameter("roomID");
+                int n = dao.getPage();
+                Vector<Room> listroom = dao.getRoomList1("select * from "
+                        + "room  join CateRoom  on Room.RoomcateID = CateRoom.RoomcateID");
+                int page = dao.getPage("select Count(*) from Room");
+//                out.println("<h1>Servlet RoomcategoryController at " + listroom + ""
+//                        + "va" + page + "</h1>");
+                request.setAttribute("devicesss", "devicesss");
+                request.getRequestDispatcher("editroomdevice.jsp").forward(request, response);
+                
+            }
         }
     }
+//                out.println("<h1>Servlet RoomcategoryController at " + request.getContextPath() + "</h1>");
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

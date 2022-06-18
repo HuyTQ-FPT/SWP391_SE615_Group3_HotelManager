@@ -166,7 +166,7 @@
             .log-out{
                 position: fixed;
                 right: 110px;
-                top:15px;
+                top:35px;
                 border-radius: 5px;
                 background-color: #F1BC31;
                 margin-right: 20px;
@@ -193,7 +193,7 @@
                 color: white;
                 position: relative;
                 position: fixed;
-                top: 40px;
+                top: 60px;
                 right: 30px;
                 border-radius: 10px;
                 overflow: hidden;
@@ -290,6 +290,15 @@
                 background-color: #F1BC31;
                 padding: 2px 15px;
             }
+            .form-group{
+                position: relative;
+            }
+            .style{
+                position: absolute;
+                left: 0px;
+                top:0px;
+                font-size: 10px;
+            }
         </style>
     </head>
     <body>
@@ -327,43 +336,35 @@
             </div>
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="padding: 15px">
                 <div class="container">
-                    <span class="admin"></i>Receptionist</span>
+                    <span class="admin"></i>Lễ Tân</span>
                     <form action="LoginController?do=logout" method="post">
-                        <button type="submit" name="log-out" class="log-out">Log Out</button>
+                        <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
                     </form>
-                    <!--                    <form action="ReceptionistController?do=searchRoom" class="searchform order-lg-last" method="post">
-                                            <div class="form-group d-flex" >
-                                                <input name="nameRoom" type="text" class="form-control pl-3" placeholder="Search roomName">
-                                                <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
-                                            </div>
-                                        </form>-->
-                    <form class="selectStatus"  action="ReceptionistController" method="post">
-                        <input type="hidden" name="do" value="searchStatus">           
-                        <select name="status"  style="font-size: 17px; font-weight: bold; margin-left: 30px">
+                    <!--search RoomName-->
+                    <form action="ReceptionistController?do=searchRoomAndStatus" class="searchform order-lg-last" method="post"  style="
+                          margin-right: 100px;
+                          margin-top: 10px;
+                          ">
+                        <div class="form-group d-flex"  >                
+                            <input name="nameRoom" type="text" class="form-control pl-3" placeholder="Search roomName" style="order-radius:8px" >
 
-                            <%  int count = 0;
-                                for (Room r : vector) {
-                                    if (r.getStatus() == 1 || r.getStatus() == 2) {
-                                        count++;
-
-                            %>
+                            <select name="status" style="order-radius:8px"  >
 
 
-                            <option value="1" <%if (r.getStatus() == 1) {%>selected<%}%> >Phòng trống</option>
-                            <option value="2" <%if (r.getStatus() == 2) {%>selected<%}%> >Phòng đã được đặt</option>
-                            <%}%>
-                            <% if (count == 1) {
-                                        break;
-                                    }
-                                } %>
-                        </select>  
-                        <input class="but" value="Filter" type="submit" name="submit">                                    
+                                <option value="-1">----------------</option>
+                                <option value="1" >Phòng trống</option>
+                                <option value="2" >Phòng đã được đặt</option>
+
+                            </select>  
+                            <button type="submit" name="submit" style=" border-radius:8px"class="form-control search"><span class="fa fa-search"></span></button>
+                        </div>
                     </form>
+
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active"><a href="ReceptionistController" class="nav-link">Manager<br>Rooms</a></li>
+                            <li class="nav-item active"><a href="ReceptionistController" class="nav-link">Quản lí<br>Phòng</a></li>
                             <!--                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>-->
-                            <li class="nav-item "><a href="ReceptionistController?do=Cus" class="nav-link">Manager<br>Customers</a></li>
+                            <li class="nav-item "><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
                         </ul>
                     </div>
                 </div>
@@ -391,8 +392,7 @@
 
                     </tr>
                 </thead>
-                <%
-                    for (Room r : vector) {%>
+                <%                    for (Room r : vector) {%>
 
 
 
@@ -409,27 +409,27 @@
                             <form action="ReceptionistController">
                                 <input type="hidden" name="do" value="updateStatus">   
                                 <input type="hidden" name="rid" value="<%= r.getRoomID()%>"> 
-                              
+
                                 <select name="status"  >
                                     <option value="1" <%if (r.getStatus() == 1) {%>selected<%}%>>Phòng trống</option>
                                     <option value="2" <%if (r.getStatus() == 2) {%>selected<%}%>>Phòng đã được đặt</option>
 
                                 </select>   
-                                    <button class="supprimer" type="submit" name="submit"  onclick="confirmation(this)">Update</button>
+                                <button class="supprimer" type="submit" name="submit"  onclick="confirmation(this)">Update</button>
                             </form>
                         </td>
 
                     </tr>
                 <script>
-                    
+
                     //Confinm Up
                     function confirmation(button) {
-                      
-                        var result = "Do you want to update now?";
-                        if(confirm(result)){
-                            alert("You have successfully updated.");
+
+                        var result = "Bạn có muốn cập nhật bây giờ?";
+                        if (confirm(result)) {
+                            alert("Bạn đã cập nhật thành công.");
                         }
-                       
+
 
                     }
                     function show() {

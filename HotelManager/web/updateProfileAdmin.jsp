@@ -1,7 +1,7 @@
 <%-- 
     Document   : updateProfileAdmin
     Created on : Jun 9, 2022, 10:48:02 PM
-    Author     : Admin
+    Author     : Minh Hieu
 --%>
 
 <%@page import="Entity.User"%>
@@ -19,13 +19,34 @@
         <!-- https://getbootstrap.com/ -->
         <link rel="stylesheet" href="css/templatemo-style.css">
 
+        <!-- Font Icon -->
+        <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+
     </head>
+    <style>
+        .form-group{
+            position: relative;
+        }
+        .style{
+            position: absolute;
+            left: 20px;
+            top:40px;
+            font-size: 10px;
+        }
+        .style1{
+            position: absolute;
+            left: 20px;
+            top:310px;
+            font-size: 10px;
+        }
+    </style>
     <body id="reportsPage">
         <div class="" id="home">
             <nav class="navbar navbar-expand-xl">
                 <div class="container h-100">
-                    <a class="navbar-brand" href="index.html">
-                        <h1 class="tm-site-title mb-0">Product Admin</h1>
+                    <a class="navbar-brand" href="#">
+                        <h1 class="tm-site-title mb-0">Admin</h1>
                     </a>
                     <button
                         class="navbar-toggler ml-auto mr-0"
@@ -42,7 +63,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mx-auto h-100">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.html">
+                                <a class="nav-link" href="#">
                                     <i class="fas fa-tachometer-alt"></i> Dashboard
                                     <span class="sr-only">(current)</span>
                                 </a>
@@ -67,8 +88,8 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="products.html">
-                                    <i class="fas fa-shopping-cart"></i> Products
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-shopping-cart"></i> Admin
                                 </a>
                             </li>
 
@@ -85,10 +106,10 @@
                                         Accounts <i class="fas fa-angle-down"></i>
                                     </span>
                                 </a>
-<!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="BlogManagerController?do=updateblog">View Profile</a>
-
-                                </div>-->
+                                <!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                    <a class="dropdown-item" href="BlogManagerController?do=updateblog">View Profile</a>
+                                
+                                                                </div>-->
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -126,7 +147,7 @@
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link d-block" href="login.html">
+                                <a class="nav-link d-block" href="LoginController?do=logout">
                                     Admin, <b>Logout</b>
                                 </a>
                             </li>
@@ -162,10 +183,10 @@
                     <div class="tm-block-col tm-col-account-settings">
                         <div class="tm-bg-primary-dark tm-block tm-block-settings">
                             <h2 class="tm-block-title">Account Settings</h2>
+                            <h4 style="color: red;font-size: 15px;">${requestScope.err}</h4>
+                            <h4 style="color: red;font-size: 15px;">${requestScope.mess}</h4>
                             <form action="AdminController?do=updateAdmin" method="POST" class="tm-signup-form row">
                                 <input type="hidden" name="uid" value="<%=user.getUserID()%>">
-                                <h4 style="color: red;font-size: 15px;">${requestScope.err}</h4>
-                                <h4 style="color: red;font-size: 15px;">${requestScope.mess}</h4>
                                 <div class="form-group col-lg-6">
                                     <label for="inputYourname">Your Name</label>
                                     <input style="background-color: white; color: #54657D;"
@@ -179,26 +200,26 @@
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="email">Email</label>
-                                    <input style="background-color: white; color: #54657D;"
-                                           id="email"
-                                           name="inputEmailAddress"
-                                           type="email"
+                                    <i class="fas fa-star style" style="color:red;"></i>   <input style="background-color: white; color: #54657D;"
+                                                                                                  id="email"
+                                                                                                  name="inputEmailAddress"
+                                                                                                  type="email"
 
-                                           value="<%=user.getUserAdress()%>"
-                                           class="form-control validate"
-                                           />
+                                                                                                  value="<%=user.getUserEmail()%>"
+                                                                                                  class="form-control  validate"
+                                                                                                  />
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="inputCMT">CMT</label>
-                                    <input style="background-color: white; color: #54657D;"
-                                           id="email"
-                                           name="inputCMT"
-                                           type="text"
+                                    <i class="fas fa-star style" style="color:red;"></i>    <input style="background-color: white; color: #54657D;"
+                                                                                                   id="email"
+                                                                                                   name="inputCMT"
+                                                                                                   type="text"
 
-                                           value="<%=user.getCMT()%>"
+                                                                                                   value="<%=user.getCMT()%>"
 
-                                           class="form-control validate"
-                                           />
+                                                                                                   class="form-control validate"
+                                                                                                   />
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="inputAdress">Address</label>
@@ -229,7 +250,7 @@
                                     <input style="background-color: white; color: #54657D;"
                                            id="phone"
                                            name="inputBirthday"
-                                           type="text"
+                                           type="date"
 
                                            value="<%=user.getBirthday()%>"
                                            class="form-control validate"
@@ -237,12 +258,13 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <a href=""
+                                    <button
                                        type="submit"
+                                       name="submit"
                                        class="btn btn-primary btn-block text-uppercase"
                                        >
                                         Update Account
-                                    </a>
+                                    </button>
                                 </div>
                             </form>
                         </div>

@@ -12,7 +12,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Product Admin - Dashboard HTML Template</title>
+        <title> Admin - Dashboard</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
         <!-- https://fonts.google.com/specimen/Roboto -->
         <link rel="stylesheet" href="css/fontawesome.min.css">
@@ -31,7 +31,7 @@
             <nav class="navbar navbar-expand-xl">
                 <div class="container h-100">
                     <a class="navbar-brand" href="index.html">
-                        <h1 class="tm-site-title mb-0">Product Admin</h1>
+                        <h1 class="tm-site-title mb-0">Admin</h1>
                     </a>
                     <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mx-auto h-100">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" href="AdminController">
                                     <i class="fas fa-tachometer-alt"></i>
                                     Dashboard
                                     <span class="sr-only">(current)</span>
@@ -77,10 +77,10 @@
                                         Accounts <i class="fas fa-angle-down"></i>
                                     </span>
                                 </a>
-<!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">View Profile</a>
-
-                                </div>-->
+                                <!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                    <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">View Profile</a>
+                                
+                                                                </div>-->
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -91,10 +91,15 @@
                                     </span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="BlogManagerController">Update Blog</a>
-                                    <a class="dropdown-item" href="BlogManagerController?do=insertblog">Insert Blog</a>
-                                    <a class="dropdown-item" href="BlogManagerController">Delete Blog</a>
+                                    <a class="dropdown-item" href="BlogManagerController?do=editblog">Edit Blog</a>
+                                    <a class="dropdown-item" href="addblog.jsp">Insert Blog</a>
+
                                 </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="SendFeedbackController?do=listMessFeedBack">
+                                    <i class="fas fa-newspaper"></i></i> Request Message
+                                </a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -113,7 +118,7 @@
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link d-block" href="login.html">
+                                <a class="nav-link d-block" href="ControllerLogin?do=logout">
                                     Admin, <b>Logout</b>
                                 </a>
                             </li>
@@ -383,15 +388,7 @@
                     </div>
                 </div>
             </div>
-            <footer class="tm-footer row tm-mt-small">
-                <div class="col-12 font-weight-light">
-                    <p class="text-center text-white mb-0 px-4 small">
-                        Copyright &copy; <b>2018</b> All rights reserved. 
-
-                        Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
-                    </p>
-                </div>
-            </footer>
+       
         </div>
 
         <script src="js/jquery-3.3.1.min.js"></script>
@@ -418,7 +415,7 @@
             barChart, pieChart;
             // DOM is ready
             $(function () {
-                drawLineChart(); // Line Chart
+               drawLineChart(); // Line Chart
                 drawBarChart(); // Bar Chart
                 drawPieChart(); // Pie Chart
 
