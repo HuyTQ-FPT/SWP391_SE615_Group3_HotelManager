@@ -5,8 +5,12 @@
  */
 package Controller;
 
+import Dao.impl.DeviceDAOImpl;
+import Dao.impl.RoomCategoryDAOImpl;
 import Dao.impl.RoomDAOImpl;
+import Entity.Device;
 import Entity.Room;
+import Entity.RoomCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -38,18 +42,40 @@ public class RoomDeviceController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String dos = request.getParameter("do");
             RoomDAOImpl dao = new RoomDAOImpl();
-            if (dos == null) {
+            RoomDAOImpl daos = new RoomDAOImpl();
+            RoomCategoryDAOImpl roomcate = new RoomCategoryDAOImpl();
+            String cateroom = request.getParameter("cateroom");
+            String mess;
+            if (cateroom == null) {
+                cateroom = "1";
+                mess = ""; 
+            }
+            else{
+                mess = "(Room.RoomcateID="+cateroom+") and";
+            }
+            if (dos.equals("listroom")) {
                 String RoomId = request.getParameter("roomID");
                 int n = dao.getPage();
-                Vector<Room> listroom = dao.getRoomList1("select * from "
-                        + "room  join CateRoom  on Room.RoomcateID = CateRoom.RoomcateID");
+                Vector<Room> listroom
+                        = dao.getRoomList1("select * from room  join CateRoom  on Room.RoomcateID = CateRoom.RoomcateID \n"
+                                + "				where "+mess+" (Roomdesc like'%%' or Roomprice like'%%')\n"
+                                + "				order by Room.RoomID desc");
                 int page = dao.getPage("select Count(*) from Room");
+                request.setAttribute("devicesss", "devicesss");
+                request.setAttribute("listroom", listroom);
+                request.setAttribute("page", page);
+                Room rooom = daos.getRooms(cateroom);
+                Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
+                request.setAttribute("romcate", romcate);
+                request.setAttribute("rooom", rooom);
 //                out.println("<h1>Servlet RoomcategoryController at " + listroom + ""
 //                        + "va" + page + "</h1>");
-                request.setAttribute("devicesss", "devicesss");
-                request.getRequestDispatcher("editroomdevice.jsp").forward(request, response);
-                
+                out.println("<h1>Servlet RoomcategoryController at " + listroom +"</h1>");
+//                request.getRequestDispatcher("editroom.jsp").forward(request, response);
             }
+//            if (dos.equals("getroom")) {
+//
+//            }
         }
     }
 //                out.println("<h1>Servlet RoomcategoryController at " + request.getContextPath() + "</h1>");
