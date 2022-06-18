@@ -348,16 +348,11 @@ Author     : admin
                                     <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
                                     <strong class="price" style="font-weight: bold; font-size: 14px">€<%=v.getRoomprice()%>/ một đêm</strong>
                                     <div class="add-to-cart">
-                                        <c:if test="${sessionScope.login==null}">
-                                            <form action="Login.jsp">
+                                        <form action="OrderController">
+                                            <input type="hidden" name="id" value="<%=v.getRoomID() %>">
+                                            <input type="hidden" name="price" value="<%=v.getRoomprice() %>">
                                                 <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
                                             </form>
-                                        </c:if>
-                                        <c:if test="${sessionScope.login!=null}">
-                                            <form action="#">
-                                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
-                                            </form>
-                                        </c:if>
                                     </div>
                                 </div>
                             </div>
