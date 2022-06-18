@@ -51,6 +51,34 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return vector;
     }
+    
+    public Vector<Room> getRoomList1(String sql) {
+        Vector<Room> vector = new Vector<Room>();
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String des = rs.getString(3);
+                int cateid = rs.getInt(4);
+                String image = rs.getString(14);
+                double Roomprice = rs.getDouble(6);
+                int NumberPerson = rs.getInt(7);
+                float Square = rs.getFloat(8);
+                String Comment = rs.getString(9);
+                int Rate = rs.getInt(10);
+                String Note = rs.getString(11);
+                int Status = rs.getInt(12);
+                String cateroom = rs.getString(14);
+                Room im = new Room(cateid, name, Comment, cateid, image, Roomprice, 
+                        NumberPerson, Square, Comment, Rate, Note, cateroom, Status);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;
+    }
 
     @Override
     public Room getRoom(String roomid) {
@@ -104,6 +132,28 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         int n = 0;
         String sql = "select COUNT(*) from Room where Status=0";
         Vector<Room> vector = new Vector<Room>();
+        try {
+            int totalPage = 0;
+            int countPage = 0;
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                totalPage = rs.getInt(1);
+                countPage = totalPage / 6;
+                if (totalPage % 6 != 0) {
+                    countPage++;
+                }
+                return countPage;
+            }
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+    @Override
+    public int getPage(String sql) {
+        int n = 0;
         try {
             int totalPage = 0;
             int countPage = 0;

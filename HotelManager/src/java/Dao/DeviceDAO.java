@@ -6,6 +6,7 @@
 package Dao;
 
 import Entity.Device;
+import Entity.Room;
 import java.util.Vector;
 
 /**

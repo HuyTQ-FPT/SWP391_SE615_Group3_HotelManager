@@ -85,6 +85,7 @@ public class ServiceController extends HttpServlet {
                 request.setAttribute("romcate", romcate);
                 request.setAttribute("rooom", rooom);
                 session.setAttribute("Mess", Mess);
+//                request.setAttribute("devices", "devices");
 //              out.println("<h1>Servlet RoomcategoryController at " + de +"va"+ cateroom+ "</h1>");
                 request.getRequestDispatcher("editroomdevice.jsp").forward(request, response);
             }
@@ -92,7 +93,7 @@ public class ServiceController extends HttpServlet {
                 String DeviceID = request.getParameter("DeviceID");
                 String RoomcateID = request.getParameter("RoomcateID");
                 daoss.deleteDevice(RoomcateID, DeviceID);
-                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + RoomcateID +"&Mess=" + Messs + "");
+                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + RoomcateID + "&Mess=" + Messs + "");
 //                out.println("<h1>Servlet RoomcategoryController at " + DeviceID +"va"+ RoomcateID+ "</h1>");
             }
             if (doo.equals("updateroomdevice")) {
@@ -125,16 +126,16 @@ public class ServiceController extends HttpServlet {
                 Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
                 request.setAttribute("romcate", romcate);
 //                out.println("<h1>Servlet RoomcategoryController at " + romcate.lastElement().getRoomcateID()+ "</h1>");
-                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + romcate.lastElement().getRoomcateID()+"");
+                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + romcate.lastElement().getRoomcateID() + "");
             }
             if (doo.equals("deletetRoomCategory")) {
-             roomcate.deleteRoomCategory(cateroom);
-             response.sendRedirect("ServiceController?do=getdeviceroom");
+                roomcate.deleteRoomCategory(cateroom);
+                response.sendRedirect("ServiceController?do=getdeviceroom");
             }
             if (doo.equals("updatetRoomCategory")) {
-            String Roomcatename = request.getParameter("Roomcatename");
-            roomcate.updateRoomCategory(cateroom, Roomcatename);
-            response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + cateroom +"&Mess=" + Messs + "");
+                String Roomcatename = request.getParameter("Roomcatename");
+                roomcate.updateRoomCategory(cateroom, Roomcatename);
+                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + cateroom + "&Mess=" + Messs + "");
             }
         }
     }
