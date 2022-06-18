@@ -51,7 +51,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return vector;
     }
-    
+
     public Vector<Room> getRoomList1(String sql) {
         Vector<Room> vector = new Vector<Room>();
         try {
@@ -112,8 +112,32 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public void insertRoom(Room Room) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertRoom(String Roomname, String Roomdes, String RoomImageid, String roomPrice, StringNumber) {
+        String query = "INSERT INTO [dbo].[Room]\n"
+                + "           ([Roomname]\n"
+                + "           ,[Roomdesc]\n"
+                + "           ,[RoomcateID]\n"
+                + "           ,[RoomimgaeID]\n"
+                + "           ,[Roomprice]\n"
+                + "           ,[NumberPerson]\n"
+                + "           ,[Square]\n"
+                + "           ,[Comment]\n"
+                + "           ,[Rate]\n"
+                + "           ,[Note]\n"
+                + "           ,[Status])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, name);
+            pre.setString(2, price);
+            pre.setString(3, status);
+            pre.setString(4, RoomcateID);
+            pre.setString(5, Quantity);
+            pre.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -150,6 +174,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return n;
     }
+
     @Override
     public int getPage(String sql) {
         int n = 0;

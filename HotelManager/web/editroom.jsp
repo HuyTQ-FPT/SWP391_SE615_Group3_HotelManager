@@ -87,7 +87,7 @@
                                 <span> Room <i class="fas fa-angle-down"></i> </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="RoomsController">ListRoom</a>
+                                <a class="dropdown-item" href="RoomsController?do=listroom">ListRoom</a>
                                 <a class="dropdown-item" href="#">Weekly Report</a>
                                 <a class="dropdown-item" href="#">Yearly Report</a>
                             </div>
@@ -155,6 +155,7 @@
                                         <th scope="col">Status</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Description</th>
+                                        <th scope="col">Note</th>
                                         <th scope="col">EditImage</th>
                                         <th scope="col">Delete</th>
                                         <th scope="col">Update</th>
@@ -168,11 +169,12 @@
                                         <tbody>
                                             <tr>
                                                 <th scope="row"><input type="hidden" /></th>
-                                                <td ><input class="form-control validate" type="text" name="DeviceName" value="${r.roomID}"></td>
-                                                <td ><input class="form-control validate" type="t" name="Price" value=""></td>
+                                                <td ><input class="form-control validate" type="text" name="RoomID" value="${r.roomID}"></td>
+                                                <td ><input class="form-control validate" type="text" name="RoomCate" value="${r.cateroom}"></td>
                                                 <td ><input class="form-control validate" type="number" name="Status" value=""></td>
-                                                <td ><input class="form-control validate" type="number" name="Quantity" value=""></td>
-                                                <td ><textarea name="w3review" rows="4" cols="30" style="height: 45px">At w3schools.com you will learn how to</textarea></td>
+                                                <td ><input class="form-control validate" type="number" name="Price" value=""></td>
+                                                <td ><textarea name="Description" rows="4" cols="30" style="height: 45px">At w3schools.com you will learn how to</textarea></td>
+                                                <td ><textarea name="Description" rows="3" cols="10" style="height: 45px">At w3schools.com you will learn how to</textarea></td>
                                                 <td > <a href="#" style="border-radius: 10px" class="btn btn-info" role="button">Link Button</a></td>
                                                 <td>
                                                     <a href="ServiceController?do=deleteroom&RoomcateID=########&DeviceID=#########" class="tm-product-delete-link">
@@ -188,9 +190,9 @@
                                         </tbody>
                                     </form>
                                 </c:forEach>
-                                <form action="ServiceController" method="get">
-                                    <input type="hidden" name="cateroom" value="#######">
-                                    <input type="hidden" name="do" value="getdeviceroom">
+                                <form action="RoomsController" method="get">
+                                    <input type="hidden" name="cateroom" value="${rooom.roomcateID}">
+                                    <input type="hidden" name="do" value="listroom">
                                     <input class="btn btn-primary btn-block text-uppercase mb-3" type="text" placeholder="Tìm kiếm.." name="Mess">
                                 </form>
                             </table>
@@ -237,11 +239,11 @@
                             <table class="table tm-table-small tm-product-table">
                                 <tbody>
                                     <c:forEach items="${romcate}" var="r">
-                                    <form action="ServiceController" method="get">
+                                    <form action="RoomsController" method="get">
                                         <tr>
-                                            <td class="text-center"><a href="RoomsController?do=getroom&cateroom=${r.roomcateID}" style="color: red; font-size: 50px">.</a> <input type="text" name="Roomcatename" value="${r.catename}"> </td>
+                                            <td class="text-center"><a href="RoomsController?do=listroom&cateroom=${r.roomcateID}" style="color: red; font-size: 50px">.</a> <input type="text" name="Roomcatename" value="${r.catename}"> </td>
                                             <td>
-                                                <a href="ServiceController?do=deletetRoomCategory&cateroom=${r.roomcateID}" class="tm-product-delete-link">
+                                                <a href="RoomsController?do=deletetRoomCategory&cateroom=${r.roomcateID}" class="tm-product-delete-link">
                                                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
                                                 </a>
                                             </td>
@@ -258,7 +260,7 @@
                             </table>
                         </div>
                         <!-- table container -->    
-                        <form action="ServiceController" method="get">
+                        <form action="RoomsController" method="get">
                             <tr>
                                 <td class="text-center"><input class="form-control validate" type="text" name="Roomcatename" value="" style="text-align: center;" placeholder="ADD NEW ROOMCATEGORY"></td>
                             <input type="hidden" name="do" value="insertRoomCategory">

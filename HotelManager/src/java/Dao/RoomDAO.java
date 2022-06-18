@@ -27,8 +27,6 @@ public interface RoomDAO {
 
     public Vector<Room> selectRoom(String roomName,int status) throws Exception;
 
-  
-
     public int getPage();
 
     public Vector<Room> getRoomByPage(int n);
