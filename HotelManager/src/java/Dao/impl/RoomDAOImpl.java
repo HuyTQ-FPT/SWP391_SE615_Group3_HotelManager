@@ -61,7 +61,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 String name = rs.getString(2);
                 String des = rs.getString(3);
                 int cateid = rs.getInt(4);
-                String image = rs.getString(14);
+                String image = rs.getString(5);
                 double Roomprice = rs.getDouble(6);
                 int NumberPerson = rs.getInt(7);
                 float Square = rs.getFloat(8);
@@ -70,8 +70,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 String Note = rs.getString(11);
                 int Status = rs.getInt(12);
                 String cateroom = rs.getString(14);
-                Room im = new Room(cateid, name, Comment, cateid, image, Roomprice, 
-                        NumberPerson, Square, Comment, Rate, Note, cateroom, Status);
+                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, cateroom, Status);
                 vector.add(im);
             }
         } catch (SQLException ex) {

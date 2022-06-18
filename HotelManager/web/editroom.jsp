@@ -143,39 +143,138 @@
         </nav>
         <div class="">
             <div class="row tm-content-row">
-                                <table style="margin-left: 10px" class="table table-hover tm-table-small tm-product-table">
-                                    <thead>
+                <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-products">
+                        <div class="tm-product-table-container">
+                            <table class="table table-hover tm-table-small tm-product-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">&nbsp;</th>
+                                        <th scope="col">RoomID</th>
+                                        <th scope="col">RoomCate</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">EditImage</th>
+                                        <th scope="col">Delete</th>
+                                        <th scope="col">Update</th>
+                                        <th scope="col">&nbsp;</th>
+                                    </tr>
+                                </thead>
+
+
+                                <c:forEach items="${listroom}" var="r">
+                                    <form action="RoomsController" method="get">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row"><input type="hidden" /></th>
+                                                <td ><input class="form-control validate" type="text" name="DeviceName" value="${r.roomID}"></td>
+                                                <td ><input class="form-control validate" type="t" name="Price" value=""></td>
+                                                <td ><input class="form-control validate" type="number" name="Status" value=""></td>
+                                                <td ><input class="form-control validate" type="number" name="Quantity" value=""></td>
+                                                <td ><textarea name="w3review" rows="4" cols="30" style="height: 45px">At w3schools.com you will learn how to</textarea></td>
+                                                <td > <a href="#" style="border-radius: 10px" class="btn btn-info" role="button">Link Button</a></td>
+                                                <td>
+                                                    <a href="ServiceController?do=deleteroom&RoomcateID=########&DeviceID=#########" class="tm-product-delete-link">
+                                                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <button type="submit" name="do" value="updateroomdevice" class="tm-product-delete-link">
+                                                        <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </form>
+                                </c:forEach>
+                                <form action="ServiceController" method="get">
+                                    <input type="hidden" name="cateroom" value="#######">
+                                    <input type="hidden" name="do" value="getdeviceroom">
+                                    <input class="btn btn-primary btn-block text-uppercase mb-3" type="text" placeholder="Tìm kiếm.." name="Mess">
+                                </form>
+                            </table>
+                        </div>
+                        <div style="padding-left: 32%;"class="site-block-27">
+                            <ul>
+                                <li><a href="#">&lt;</a></li>
+                                <li class="active"><span>1</span></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">&gt;</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- table container -->
+                        <form action="ServiceController" method="get">
+                            <tbody>
+                                <tr>
+                                    <th scope="row"><input type="hidden" /></th>
+                            <h5 style="display: inline-block; margin-left: 1%; font-family: PlayFair Display; color: white">INSERT ROOM DEVICE</h5>   
+                            <span>
+                                <td ><input class="form-control validate" type="text" name="DeviceName" value="" placeholder="DeviceName"></td>
+                                <td ><input class="form-control validate" type="number" name="Price" value="" placeholder="Price"></td>
+                                <td ><input class="form-control validate" type="number" name="Status" value="" placeholder="Status"></td>
+                                <td ><input class="form-control validate" type="number" name="Quantity" value="" placeholder="Quantity"></td>
+                            </span>
+                            <input type="hidden" name="RoomcateID" value="######">
+                            <td>
+                                <button type="submit" name="do" value="insertdeviceroom" class="tm-product-delete-link">
+                                    <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                </button>
+                            </td>
+                            </tr>
+                            </tbody>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+                        <h2 class="tm-block-title">${rooom.cateroom}</h2>
+                        <div class="tm-product-table-container">
+                            <table class="table tm-table-small tm-product-table">
+                                <tbody>
+                                    <c:forEach items="${romcate}" var="r">
+                                    <form action="ServiceController" method="get">
                                         <tr>
-                                            <!--<th scope="col">&nbsp;</th>-->
-                                            <th scope="col">PRODUCT NAME</th>
-                                            <th scope="col">UNIT SOLD</th>
-                                            <th scope="col">IN STOCK</th>
-                                            <th scope="col">EXPIRE DATE</th>
-                                            <th scope="col">DELETE</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <!--<th scope="row"><input type="checkbox" /></th>-->
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
+                                            <td class="text-center"><a href="RoomsController?do=getroom&cateroom=${r.roomcateID}" style="color: red; font-size: 50px">.</a> <input type="text" name="Roomcatename" value="${r.catename}"> </td>
                                             <td>
-                                                <a href="#" class="tm-product-delete-link">
+                                                <a href="ServiceController?do=deletetRoomCategory&cateroom=${r.roomcateID}" class="tm-product-delete-link">
                                                     <i class="far fa-trash-alt tm-product-delete-icon"></i>
                                                 </a>
                                             </td>
+                                        <input type="hidden" value="${r.roomcateID}" name="cateroom">
+                                        <td>
+                                            <button type="submit" name="do" value="updatetRoomCategory" class="tm-product-delete-link">
+                                                <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                            </button>
+                                        </td>
                                         </tr>
-                                    </tbody>
-                                </table>    
+                                    </form>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- table container -->    
+                        <form action="ServiceController" method="get">
+                            <tr>
+                                <td class="text-center"><input class="form-control validate" type="text" name="Roomcatename" value="" style="text-align: center;" placeholder="ADD NEW ROOMCATEGORY"></td>
+                            <input type="hidden" name="do" value="insertRoomCategory">
+                            </tr>
+                            <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
+                                Add new category
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
         <footer class="tm-footer row tm-mt-small">
             <div class="col-12 font-weight-light">
                 <p class="text-center text-white mb-0 px-4 small">
                     Copyright &copy; <b>2018</b> All rights reserved. 
-
                     Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
                 </p>
             </div>

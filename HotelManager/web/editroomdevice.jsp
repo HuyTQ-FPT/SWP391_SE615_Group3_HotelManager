@@ -87,7 +87,7 @@
                                 <span> Room <i class="fas fa-angle-down"></i> </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="RoomsController">ListRoom</a>
+                                <a class="dropdown-item" href="RoomsController?do=listroom">ListRoom</a>
                                 <a class="dropdown-item" href="#">Weekly Report</a>
                                 <a class="dropdown-item" href="#">Yearly Report</a>
                             </div>
