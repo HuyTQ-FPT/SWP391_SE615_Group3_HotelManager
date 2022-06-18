@@ -466,7 +466,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 
         Vector<RoomByDate> vector = new Vector<RoomByDate>();
         String sql = "select * from Room r  \n"
-                + "inner join Image i on r.RoomimgaeID=r.RoomimgaeID join CateRoom c on \n"
+                + "inner join Image i on i.RoomimgaeID=r.RoomimgaeID join CateRoom c on \n"
                 + "r.RoomcateID =c.RoomcateID \n"
                 + "left join DateOfRoom d \n"
                 + "on r.RoomID=d.RoomID \n"

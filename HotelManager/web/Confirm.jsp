@@ -4,7 +4,7 @@
     Author     : Trong Hieu
 --%>
 
-<%@page import="Entity.Service"%>
+<%@page import="Entity.Reservation"%>
 <%@page import="java.util.Vector"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -130,50 +130,27 @@
         <div class="row">
             <div class="col-75">
                 <div class="container">
-                    <form action="OrderController" method="get">
-                        <input type="hidden" name="do" value="infor"> 
-                        <% int id=(Integer)request.getAttribute("id"); %>
-                        <input type="hidden" name="id" value="<%=id%>">
+                    <form action="action_page.jsp">
                         <div class="row">
                             <div class="col-50">
+                                <% Vector<Reservation> vector = (Vector<Reservation>) request.getAttribute("vector1");
+                                    for (Reservation r : vector) {
+
+                                %>
                                 <h3>Billing Address</h3>
                                 <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                                <input type="text" id="fname" name="firstname"  placeholder="John M. Doe">
+                                <p><%=r.getName()%></p>
                                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                                <input type="text" id="email" name="email" placeholder="john@example.com">
+                                <p><%=r.getEmail()%></p>
                                 <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                                <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+                                <p><%=r.getAddress()%></p>
                                 <label for="city"><i class="fa fa-institution"></i> Phone</label>
-                                <input type="text" id="city" name="phone" placeholder="+84">
+                                <p><%=r.getPhone()%></p>
 
                                 <div class="row">
-                                    <div class="col-50">
+                                    <div class="col-100">
                                         <label style="display: inline-block; padding-top: 30px;font-size: 20px;" for="state">Adults</label>
-                                        <select style="font-size: 20px;width: 180px;" name="Adult">
-                                            <option value> -Select -</option>
-                                            <option value="1"> 1 </option>
-                                            <option value="2"> 2 </option>
-                                            <option value="3"> 3 </option>
-                                            <option value="4"> 4 </option>
-                                            <option value="5"> 5 </option>
-                                            <option value="6"> 6 </option>
-                                            <option value="7"> 7 </option>
-                                            <option value="8"> 8 </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-50">
-                                        <label style="display: inline-block; padding-top: 30px;font-size: 18px;margin-left: 0px;" for="state">Children</label>
-                                        <select style="font-size: 20px;width: 170px;"  name="Child">
-                                            <option value> -Select -</option>
-                                           <option value="1"> 1 </option>
-                                            <option value="2"> 2 </option>
-                                            <option value="3"> 3 </option>
-                                            <option value="4"> 4 </option>
-                                            <option value="5"> 5 </option>
-                                            <option value="6"> 6 </option>
-                                            <option value="7"> 7 </option>
-                                            <option value="8"> 8 </option>
-                                        </select>
+                                        <p><%=r.getNumberOfPerson()%></p>
                                     </div>
                                 </div>
                             </div>
@@ -188,32 +165,23 @@
                                     <i class="fa fa-cc-discover" style="color:orange;"></i>
                                 </div>
                                 <label for="cname">Dịch vụ</label>
-                                <% Vector<Service> vector= (Vector<Service>)request.getAttribute("vector");
-                                    for (Service e : vector) {
-                                            
-                                %>
-                                <input  type="checkbox" name="service" value="<%=e.getServiceID() %>">
-                                <label style="display:inline-block;"for="vehicle1"><%=e.getServiceName() %> </label><br>
-                                    <%}%>
+                                <label style="display:inline-block;"for="vehicle1"></label><br>
+                                <p>Casino</p>
                                 <label style="padding-top: 30px;"for="ccnum">Check in</label>
-                                <input name="check-in" type="date"  class="form-control" id="inputCheckIn" placeholder="Check In" style="font-size: 20px">
+                                <p><%=r.getCheckin()%></p>
                                 <label for="expmonth" style="padding-top: 10px">Check out</label>
-                                <input name="check-out" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out" style="font-size: 20px" >
-
+                                <p><%=r.getCheckout() %></p>
                             </div>
 
                         </div>
                         <label>
-                            <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
+                            <input type="checkbox" checked="checked" name="sameadr"> Do you read every Rules
                         </label>
-                        <input type="submit" value="Continue to confirm" class="btn">
+                        <input type="submit" value="Continue to checkout" class="btn">
                     </form>
                 </div>
             </div>
             <div class="col-25">
-                <% ResultSet rs = (ResultSet) request.getAttribute("rs");
-                    if (rs.next()) {
-                %>
                 <div style="padding-bottom: 20px;" class="container1">
                     <div>
                         <h4 style="margin-left: 20px; font-size: 30px;; font-weight: bold; color: red"><label class="price" style="color:black"><i class='fas fa-hotel'></i></s</label> Hoang Hon </h4>                       
@@ -223,14 +191,14 @@
                         <p style="margin-left: 20px;"> Ngày trả phòng:  Mon, 13 Jun 2022, Trước 13:00</p>            
                     </div>
                     <div>
-                        <p style="font-size: 20px; font-weight: bold"><%=rs.getString(19)%>- <%=rs.getInt(2)%> </p>
+                        <p style="font-size: 20px; font-weight: bold"> </p>
                         <p style="color: #0b9af4; font-size: 20px">Thanh toán khi nhận phòng</p>
-                        <p>Số người<span style="padding-left: 100px;"><%=rs.getInt(7)%> </span> </p>
-                        <p>Kiểu phòng<span style="padding-left: 100px;"><%=rs.getString(19)%></span> </p>
+                        <p><span style="padding-left: 100px;"></span> </p>
+                        <p><span style="padding-left: 100px;"></span> </p>
                     </div>
                     <div class="row">
                         <div class="col-md-5">
-                            <img style="width: 80px;height: 80px; margin-left: 20px;"src="images/anhphong/<%=rs.getString(14)%>" alt="">
+                            <img style="width: 80px;height: 80px; margin-left: 20px;"src="images/anhphong/" alt="">
                         </div>
                         <div class="col-md-7">
                             <i style="padding-left: 90px;color: green"class='fas fa-utensils'> Miễn phí bữa ăn sáng </i>
@@ -243,7 +211,7 @@
                 </div>
                 <div class="container">
                     <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
-                    <p><a href="#"><%=rs.getString(19)%>- <%=rs.getInt(2)%></a> <span class="price">${price}</span></p>
+                    <p><a href="#"></a> <span class="price"></span></p>
                     <hr>
                     <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
                 </div>
