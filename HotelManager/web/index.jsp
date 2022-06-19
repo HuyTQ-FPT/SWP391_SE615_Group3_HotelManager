@@ -4,12 +4,12 @@ Created on : May 30, 2022, 2:50:07 PM
 Author     : admin
 --%>
 
-<%@page import="Entity.Account"%>
+<%@page import="entity.Account"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="Entity.Service"%>
+<%@page import="entity.Service"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="Entity.Room"%>
-<%@page import="Entity.Image"%>
+<%@page import="entity.Room"%>
+<%@page import="entity.Image"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
