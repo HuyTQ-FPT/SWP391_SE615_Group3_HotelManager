@@ -1,7 +1,7 @@
 <%-- 
     Document   : contact
     Created on : Jun 13, 2022, 9:27:10 PM
-    Author     : Admin
+    Author     : Minh Hieu
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

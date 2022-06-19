@@ -4,7 +4,7 @@
     Author     : Trong Hieu
 --%>
 
-<%@page import="Entity.Reservation"%>
+<%@page import="entity.Reservation"%>
 <%@page import="java.util.Vector"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

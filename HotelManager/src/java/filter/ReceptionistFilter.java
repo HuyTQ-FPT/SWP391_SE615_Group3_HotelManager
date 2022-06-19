@@ -5,7 +5,7 @@
  */
 package filter;
 
-import Entity.Account;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;

@@ -134,7 +134,7 @@
                 position: fixed;
                 top:117px;
                 right: 20px;
-                
+
             }
             .managerPro{
                 position: absolute;
@@ -183,8 +183,8 @@
                 <div class="container">
                     <span class="admin"></i>Admin</span>
                     <form action="ControllerLogin_Admin?do=logout" method="post">
-                           <button type="submit" name="log-out" class="log-out">Log Out</button>
-                     </form>
+                        <button type="submit" name="log-out" class="log-out">Log Out</button>
+                    </form>
                     <form action="ControllerOrder?do=search" method="post" class="searchform order-lg-last">
                         <div class="form-group d-flex">
                             <input name="oid" type="text" class="form-control pl-3" placeholder="SearchOrderID">
@@ -255,9 +255,9 @@
                             }*/
                         %>
                         <td style="font-weight: boder;font-size: 17px" 
-                                                          style="font-weight: bolder;font-size: 17px"
-                                                          style="font-weight: bold;font-size: 20px">
-                            </td>
+                            style="font-weight: bolder;font-size: 17px"
+                            style="font-weight: bold;font-size: 20px">
+                        </td>
                         <td style="width:50px;">
                             <a href="ControllerOrder?do=Orderdetail&oid=&status=" class="view" title="Detail" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                             <!--<a href="#" class="edit" title="Update" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>-->
@@ -268,6 +268,6 @@
                 </tbody>
             </table>
         </div> 
-                <%//}%>
+        <%//}%>
     </body>
 </html>

@@ -1,5 +1,5 @@
 
-<%@page import="Entity.Room"%>
+<%@page import="entity.Room"%>
 <%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
@@ -309,7 +309,7 @@
         <section class="ftco-section">
             <div class="card" id="team">
                 <div class="card_img">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                    <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                 </div>
                 <c:if test="${sessionScope.login!=null}">
                     <div class="card_name">

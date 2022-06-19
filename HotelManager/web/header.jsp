@@ -4,7 +4,7 @@
     Author     : Thai Quan
 --%>
 
-<%@page import="Entity.Account"%>
+<%@page import="entity.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
