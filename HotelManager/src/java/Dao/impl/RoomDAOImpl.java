@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,7 +52,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return vector;
     }
-    
+
     public Vector<Room> getRoomList1(String sql) {
         Vector<Room> vector = new Vector<Room>();
         try {
@@ -150,6 +151,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return n;
     }
+
     @Override
     public int getPage(String sql) {
         int n = 0;
@@ -459,18 +461,28 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<RoomByDate> seachRoom(int a, Date datein, Date dateout) throws Exception {
+    public Vector<RoomByDate> seachRoom(String a, String datein, String dateout) throws Exception {
 
         PreparedStatement pre = null;
         ResultSet rs = null;
-
+        SimpleDateFormat format = new SimpleDateFormat("E MMM dd yyyy");
         Vector<RoomByDate> vector = new Vector<RoomByDate>();
         String sql = "select * from Room r  \n"
                 + "inner join Image i on i.RoomimgaeID=r.RoomimgaeID join CateRoom c on \n"
                 + "r.RoomcateID =c.RoomcateID \n"
                 + "left join DateOfRoom d \n"
-                + "on r.RoomID=d.RoomID \n"
-                + "where((d.DateIn!= " + datein + " and d.DateOut!= " + dateout + ") or (d.DateIn is null and d.DateOut is null)) and r.NumberPerson= " + a;
+                + "on r.RoomID=d.RoomID \n";
+        if (datein != null && dateout != null && datein != "" && dateout != "") {
+            java.util.Date date1 = (java.util.Date) format.parse(datein);
+            java.sql.Date sDate = new java.sql.Date(date1.getTime());
+            java.util.Date date2 = (java.util.Date) format.parse(dateout);
+            java.sql.Date cDate = new java.sql.Date(date2.getTime());
+
+            sql += "where((d.DateOut < " + sDate + " or d.DateIn> " + cDate + ") or (d.DateIn is null and d.DateOut is null))\n";
+        }
+        if (a != null && a != "") {
+            sql += "and r.NumberPerson= " + a;
+        }
         try {
             rs = getData(sql);
             while (rs.next()) {

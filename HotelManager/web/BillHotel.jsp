@@ -4,6 +4,7 @@
     Author     : Trong Hieu
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Entity.Service"%>
 <%@page import="java.util.Vector"%>
 <%@page import="java.sql.ResultSet"%>
@@ -130,51 +131,42 @@
         <div class="row">
             <div class="col-75">
                 <div class="container">
-                    <form action="OrderController" method="get">
+                    <form name="myForm"  action="OrderController" method="get" id="form" onsubmit="return Validate()">
                         <input type="hidden" name="do" value="infor"> 
-                        <% int id=(Integer)request.getAttribute("id"); %>
+                        <% int id = (Integer) request.getAttribute("id");%>
                         <input type="hidden" name="id" value="<%=id%>">
                         <div class="row">
                             <div class="col-50">
                                 <h3>Billing Address</h3>
-                                <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                                <input type="text" id="fname" name="firstname"  placeholder="John M. Doe">
-                                <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                                <input type="text" id="email" name="email" placeholder="john@example.com">
-                                <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                                <label for="fname"><i class="fa fa-user"></i> Full Name(*)</label>
+                                <input type="text" name="firstname" placeholder="John M. Doe" required>
+                                <label for="email"><i class="fa fa-envelope"></i> Email(*)</label>
+                                <input type="text" id="email" name="email" placeholder="john@example.com" required>
+                                <label for="address"><i class="fa fa-address-card-o"></i> Address</label>
                                 <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-                                <label for="city"><i class="fa fa-institution"></i> Phone</label>
-                                <input type="text" id="city" name="phone" placeholder="+84">
+                                <label for="city"><i class="fa fa-institution"></i> Phone(*)</label>
+                                <input type="text" id="city" name="phone" placeholder="09" required="">
 
                                 <div class="row">
                                     <div class="col-50">
                                         <label style="display: inline-block; padding-top: 30px;font-size: 20px;" for="state">Adults</label>
-                                        <select style="font-size: 20px;width: 180px;" name="Adult">
-                                            <option value> -Select -</option>
-                                            <option value="1"> 1 </option>
+                                        <select style="font-size: 20px;width: 180px;" name="Adult" selected>
+                                            <option value="1" selected> 1 </option>
                                             <option value="2"> 2 </option>
                                             <option value="3"> 3 </option>
                                             <option value="4"> 4 </option>
-                                            <option value="5"> 5 </option>
-                                            <option value="6"> 6 </option>
-                                            <option value="7"> 7 </option>
-                                            <option value="8"> 8 </option>
                                         </select>
                                     </div>
                                     <div class="col-50">
                                         <label style="display: inline-block; padding-top: 30px;font-size: 18px;margin-left: 0px;" for="state">Children</label>
                                         <select style="font-size: 20px;width: 170px;"  name="Child">
-                                            <option value> -Select -</option>
-                                           <option value="1"> 1 </option>
+                                            <option value="1"> 1 </option>
                                             <option value="2"> 2 </option>
                                             <option value="3"> 3 </option>
                                             <option value="4"> 4 </option>
-                                            <option value="5"> 5 </option>
-                                            <option value="6"> 6 </option>
-                                            <option value="7"> 7 </option>
-                                            <option value="8"> 8 </option>
                                         </select>
                                     </div>
+                                    <div id="mess"></div>
                                 </div>
                             </div>
 
@@ -188,17 +180,16 @@
                                     <i class="fa fa-cc-discover" style="color:orange;"></i>
                                 </div>
                                 <label for="cname">Dịch vụ</label>
-                                <% Vector<Service> vector= (Vector<Service>)request.getAttribute("vector");
+                                <% Vector<Service> vector = (Vector<Service>) request.getAttribute("vector");
                                     for (Service e : vector) {
-                                            
                                 %>
-                                <input  type="checkbox" name="service" value="<%=e.getServiceID() %>">
-                                <label style="display:inline-block;"for="vehicle1"><%=e.getServiceName() %> </label><br>
-                                    <%}%>
+                                <input  type="checkbox" name="service" value="<%=e.getServiceID()%>">
+                                <label style="display:inline-block;"for="vehicle1"><%=e.getServiceName()%> </label><br>
+                                <%}%>
                                 <label style="padding-top: 30px;"for="ccnum">Check in</label>
-                                <input name="check-in" type="date"  class="form-control" id="inputCheckIn" placeholder="Check In" style="font-size: 20px">
+                                <input name="checkin" type="date"  class="form-control" id="inputCheckIn" placeholder="Check In" style="font-size: 20px">
                                 <label for="expmonth" style="padding-top: 10px">Check out</label>
-                                <input name="check-out" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out" style="font-size: 20px" >
+                                <input name="checkout" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out" style="font-size: 20px" >
 
                             </div>
 
@@ -206,8 +197,6 @@
                         <label>
                             <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
                         </label>
-                        <input type="submit" value="Continue to confirm" class="btn">
-                    </form>
                 </div>
             </div>
             <div class="col-25">
@@ -244,12 +233,67 @@
                 <div class="container">
                     <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
                     <p><a href="#"><%=rs.getString(19)%>- <%=rs.getInt(2)%></a> <span class="price">${price}</span></p>
+                    <input type="hidden" name="price" value="${price}">
                     <hr>
                     <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
                 </div>
             </div>
+            <input type="submit" value="Continue to confirm" class="btn" >
+            </form>
         </div>
         <%}%>
+
     </body>
 </html>
+<script>
+    function Validate() {
+        let e = document.forms["myForm"]["email"].value;
+        let p = document.forms["myForm"]["phone"].value;
+        let checkin = document.forms["myForm"]["checkin"].value;
+        let checkout = document.forms["myForm"]["checkout"].value;
+        var regexPhone = /0[0-9]{9,10}/;
+        var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        if (!regexEmail.test(e)) {
+            alert('Địa chỉ Email không hợp lệ');
+            document.myForm.email.focus();
+            return false;
+        }
+        if (!regexPhone.test(p)) {
+            alert('Số điện thoại không hợp lệ');
+            document.myForm.phone.focus();
+            return false;
+        }if (!date.test(p)) {
+            alert('Ngày check in phải lớn hơn hôm nay');
+            document.myForm.checkin.focus();
+            return false;
+        }if (!date.test(p)) {
+            alert('Ngày check out phải lớn hơn hôm nay');
+            document.myForm.checkout.focus();
+            return false;
+        }else {
+            return true;
+        }
+    }
+//        var mess=document.getElementById("mess");
+//        var form=document.getElementById("form");
+//        var mail =document.getElementById("email").value;
+//        var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+//       form.addEventListener('submit',(e) => {
+//           let message=[];
+//            if(regexEmail.test(mail)){
+//            message.push('Your Email Address is Valid.');
+//        }if(!regexEmail.test(mail)){
+//            message.push('Your Email Address is not Valid.');
+//            alert(message);
+//            document.form.mail.focus();
+//        }if(message.length>0){
+//            e.preventDefault();
+//            mess.= message.join(', ');
+//        }
+//    });
+
+
+</script>
 

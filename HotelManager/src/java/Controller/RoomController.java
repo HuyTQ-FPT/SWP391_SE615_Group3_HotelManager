@@ -67,26 +67,7 @@ public class RoomController extends HttpServlet {
                 String adult = request.getParameter("adult");
                 String room = request.getParameter("room");
                 String children = request.getParameter("children");
-
-                if (checkin.isEmpty()) {
-                    String err = "Checkin không được null";
-                    out.print("<h3 style='font size:15px;'>Checkin không được null </h3>");
-                    return;
-                }if (checkout.isEmpty()) {
-                    String err = "Checkout không được null";
-                    out.print("<h3 style='font size:15px;'>Checkout không được null</h3>");
-                    return;
-                }
-                SimpleDateFormat format = new SimpleDateFormat("E MMM dd yyyy");
-
-                Date date1 = (Date) format.parse(checkin);
-                java.sql.Date sDate = new java.sql.Date(date1.getTime());
-                System.out.println(sDate);
-
-                Date date2 = (Date) format.parse(checkout);
-                java.sql.Date cDate = new java.sql.Date(date2.getTime());
-                System.out.println(cDate);
-
+                
                 if (adult.isEmpty()) {
                     adult = "1";
                 }
@@ -104,10 +85,12 @@ public class RoomController extends HttpServlet {
 //                    response.sendRedirect("HomeController");
                 }
                 int n = (Integer.parseInt(adult) + Integer.parseInt(children)) / Integer.parseInt(room);
+                String a = "";
+                a += n;
                 if (n % 2 != 0) {
                     n++;
                 }
-                Vector<RoomByDate> vector = dao.seachRoom(n,sDate, cDate);
+                Vector<RoomByDate> vector = dao.seachRoom(a, checkin, checkout);
                 request.setAttribute("vector", vector);
                 RequestDispatcher dispatch = request.getRequestDispatcher("searchRoom.jsp");
                 dispatch.forward(request, response);

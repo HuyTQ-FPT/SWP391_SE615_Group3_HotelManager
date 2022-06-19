@@ -133,9 +133,8 @@
                     <form action="action_page.jsp">
                         <div class="row">
                             <div class="col-50">
-                                <% Vector<Reservation> vector = (Vector<Reservation>) request.getAttribute("vector1");
+                                <% Vector<Reservation> vector = (Vector<Reservation>) request.getAttribute("vector");
                                     for (Reservation r : vector) {
-
                                 %>
                                 <h3>Billing Address</h3>
                                 <label for="fname"><i class="fa fa-user"></i> Full Name</label>
@@ -210,7 +209,7 @@
 
                 </div>
                 <div class="container">
-                    <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
+                    <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b><%=r.getTotal() %></b></span></h4>
                     <p><a href="#"></a> <span class="price"></span></p>
                     <hr>
                     <p>Total <span class="price" style="color:black"><b>$30</b></span></p>

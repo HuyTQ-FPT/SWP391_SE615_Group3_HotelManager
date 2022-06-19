@@ -55,7 +55,7 @@ public interface RoomDAO {
 
     public Vector<Room> getRoomByRate(int n);
 
-  public Vector<RoomByDate> seachRoom(int a, Date datein, Date dateout) throws Exception;
+  public Vector<RoomByDate> seachRoom(String a, String datein, String dateout) throws Exception;
 
     public Vector<RoomByDate> seachRoom();
     

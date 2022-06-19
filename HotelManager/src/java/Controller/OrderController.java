@@ -5,9 +5,11 @@
  */
 package Controller;
 
+import Dao.impl.DateOfRoomImpl;
 import Dao.impl.OrderDAOImpl;
 import Dao.impl.ReservationDAOImpl;
 import Dao.impl.ServiceDAOImpl;
+import Entity.DateOfRoom;
 import Entity.Reservation;
 import Entity.Service;
 import context.DBContext;
@@ -49,6 +51,8 @@ public class OrderController extends HttpServlet {
             DBContext db = new DBContext();
             OrderDAOImpl dao = new OrderDAOImpl();
             ReservationDAOImpl dao1= new ReservationDAOImpl();
+            DateOfRoomImpl dao2= new DateOfRoomImpl();
+            
             ServiceDAOImpl daos= new ServiceDAOImpl();
             HttpSession session=request.getSession();
             if (service == null) {
@@ -65,18 +69,18 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("id", id);
                 request.getRequestDispatcher("BillHotel.jsp").forward(request, response);
             }if(service.equalsIgnoreCase("infor")){
-                Vector<Reservation> vector =new Vector<>();
+                Vector<Reservation> vector =new Vector<Reservation>();
                 
                 String i = request.getParameter("id");
-                String money = request.getParameter("price");
-                String firstname = request.getParameter("firstname");
-                String email = request.getParameter("email");
-                String address = request.getParameter("address");
-                String phone = request.getParameter("phone");
-                String checkin = request.getParameter("check-in");
-                String checkout = request.getParameter("check-out");
-                String adult= request.getParameter("Adult");
-                String child= request.getParameter("Child");
+                String money = request.getParameter("price").trim();
+                String firstname = request.getParameter("firstname").trim();
+                String email = request.getParameter("email").trim();
+                String address = request.getParameter("address").trim();
+                String phone = request.getParameter("phone").trim();
+                String checkin = request.getParameter("checkin").trim();
+                String checkout = request.getParameter("checkout").trim();
+                String adult= request.getParameter("Adult").trim();
+                String child= request.getParameter("Child").trim();
                 
                 int a= Integer.parseInt(adult)+ Integer.parseInt(child);
                 int id = Integer.parseInt(i);
@@ -89,6 +93,8 @@ public class OrderController extends HttpServlet {
                 java.sql.Date cDate = new java.sql.Date(date2.getTime());
                 
                 Reservation re = new Reservation(1, id, firstname,email, address,phone, a, sDate, cDate, 1000, 1,sDate );
+                DateOfRoom d= new DateOfRoom(id, cDate, cDate, 1);
+                dao2.addReservation(d);
                 vector.add(re);
                 int n= dao1.addReservation(re);
                 request.setAttribute("vector", vector);
