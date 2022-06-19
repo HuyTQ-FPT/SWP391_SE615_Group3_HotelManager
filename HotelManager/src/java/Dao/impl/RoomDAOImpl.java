@@ -594,7 +594,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 
     @Override
     public void updateStatus(int rID, int rStatus) throws Exception {
-
+         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
@@ -602,6 +602,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 + "   SET [Status] = ?\n"
                 + " WHERE [RoomID]=?";
         try {
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
             pre.setInt(1, rStatus);
             pre.setInt(2, rID);
@@ -613,12 +614,13 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
+            closeConnection(conn);
 
         }
     }
 
     public Vector<Room> selectRoom(String rName, int status) throws Exception {
-
+         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
@@ -629,6 +631,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
 
         try {
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {
@@ -654,6 +657,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
+            closeConnection(conn);
 
         }
         return vector;

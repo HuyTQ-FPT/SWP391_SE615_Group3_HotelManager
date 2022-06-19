@@ -9,6 +9,7 @@ import Dao.ReceptionistDAO;
 import Entity.User;
 import context.DBContext;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
@@ -21,7 +22,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
 
     @Override
     public Vector<User> getCustomerListByReceptionist() throws Exception {
-
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
@@ -29,7 +30,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
         try {
             String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
                     + "where c.RoleID=1";
-
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
 
@@ -40,12 +41,12 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
                 String uPhone = rs.getString(4);
                 String uEmail = rs.getString(5);
                 int uGender = rs.getInt(6);
-                String uImage = rs.getString(7);
+                Date birthday = rs.getDate(7);
                 String uAdress = rs.getString(8);
                 String uCMT = rs.getString(9);
                 String uImgCmt = rs.getString(10);
 
-                User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, uImage, uAdress, uCMT, uImgCmt);
+                User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, birthday, uAdress, uCMT, uImgCmt);
                 vector.add(u);
 
             }
@@ -55,6 +56,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
+            closeConnection(conn);
 
         }
         return vector;
@@ -89,7 +91,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
             pre.setString(3, User.getUserPhone());
             pre.setString(4, User.getUserEmail());
             pre.setInt(5, User.getUserGender());
-            pre.setString(6, User.getBirthday());
+            pre.setDate(6, User.getBirthday());
             pre.setString(7, User.getUserAdress());
             pre.setString(8, User.getCMT());
             pre.setString(9, User.getImgCMT());
@@ -109,14 +111,15 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
 
     @Override
     public Vector<User> getSearchNameCustomerListByReceptionist(String uName) throws Exception {
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
         Vector<User> vector = new Vector<>();
+        String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
+                + "where u.UserName like '%" + uName + "%'";
         try {
-            String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
-                    + "where u.UserName like '%" + uName + "%'";
-
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
 
             rs = pre.executeQuery();
@@ -128,12 +131,12 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
                 String uPhone = rs.getString(4);
                 String uEmail = rs.getString(5);
                 int uGender = rs.getInt(6);
-                String uImage = rs.getString(7);
+                Date birthday = rs.getDate(7);
                 String uAdress = rs.getString(8);
                 String uCMT = rs.getString(9);
                 String uImgCmt = rs.getString(10);
 
-                User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, uImage, uAdress, uCMT, uImgCmt);
+                User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, birthday, uAdress, uCMT, uImgCmt);
                 vector.add(u);
 
             }
@@ -143,6 +146,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
+            closeConnection(conn);
 
         }
         return vector;

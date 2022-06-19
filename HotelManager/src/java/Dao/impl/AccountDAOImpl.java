@@ -30,12 +30,13 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
     public Account getAccount(String aName, String aPass) throws Exception {
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-  
+
         String sql = "SELECT * FROM [SWPgroup3].[dbo].[Account] where [user]=? and [password]=?";
         try {
-      
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
             pre.setString(1, aName);
             pre.setString(2, aPass);
@@ -49,7 +50,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-           
+            closeConnection(conn);
 
         }
         return null;
@@ -62,15 +63,16 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
     public int updateAccount(String aUser, String aPassword) throws Exception {
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-       
+
         int n = 0;
         String sql = "UPDATE [SWPgroup3].[dbo].[Account]\n"
                 + "   SET [password] =?\n"
                 + " WHERE [user]=?";
         try {
-
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
 
             pre.setString(1, aPassword);
@@ -83,7 +85,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-           
+            closeConnection(conn);
 
         }
         return n;
@@ -96,12 +98,13 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
     public Account checkAccount(String aName) throws Exception {
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-      
+
         String xSql = "select * from [Account] where [user]=?";
         try {
-
+            conn = getConnection();
             pre = conn.prepareStatement(xSql);
             pre.setString(1, aName);
             rs = pre.executeQuery();
@@ -114,7 +117,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-           
+            closeConnection(conn);
 
         }
         return null;
@@ -127,14 +130,16 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
     public int Register(Account ac, String name, String email) throws Exception {
+        Connection conn = null;
         PreparedStatement pre = null;
         PreparedStatement pre1 = null;
         ResultSet rs = null;
-       
+
         int n = 0;
         String sql = "insert into Account(RoleID, [user],[password]) values(1,?,?)";
         String sql1 = "insert into [User](AccountID,UserName, UserEmail) values(?,?,?)";
         try {
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
             pre1 = conn.prepareStatement(sql1);
             pre.setString(1, ac.getUser());
@@ -154,7 +159,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
             closeResultSet(rs);
             closePreparedStatement(pre);
             closePreparedStatement(pre1);
-          
+            closeConnection(conn);
 
         }
         return n;
@@ -162,13 +167,15 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
     public int updateAccountAndUser(String aPassword, String uGmail) throws Exception {
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-       
+
         int n = 0;
+        String sql = "UPDATE [Account] set password=? from [Account] ac, [User] u\n"
+                + " where ac.AccountID=u.AccountID and u.UserEmail=?";
         try {
-            String sql = "UPDATE [Account] set password=? from [Account] ac, [User] u\n"
-                    + " where ac.AccountID=u.AccountID and u.UserEmail=?";
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
             pre.setString(1, aPassword);
             pre.setString(2, uGmail);
@@ -180,7 +187,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-           
+            closeConnection(conn);
 
         }
         return n;

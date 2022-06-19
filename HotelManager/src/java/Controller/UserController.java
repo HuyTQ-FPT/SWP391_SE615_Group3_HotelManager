@@ -12,6 +12,7 @@ import Entity.User;
 import context.DBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,7 +77,7 @@ public class UserController extends HttpServlet {
             }
             if (service.equals("Updateprofile")) { //cập nhập thông tin profile thay đổi
                 System.out.println("oke");
-                int n=0;
+                int n = 0;
                 int uid = Integer.parseInt(request.getParameter("uid"));
                 String user = request.getParameter("username").trim();
                 String pass = request.getParameter("password").trim();
@@ -85,22 +86,22 @@ public class UserController extends HttpServlet {
                 String phone = request.getParameter("phone").trim();
                 String address = request.getParameter("address").trim();
                 int gender = Integer.parseInt(request.getParameter("gender"));
-                String bod = request.getParameter("bod").trim();
+                Date bod = Date.valueOf(request.getParameter("bod").trim());
                 System.out.println(bod);
                 String cmt = request.getParameter("cmt").trim();
                 ResultSet rs = dao.getData("select u.* from Account a join [User] u\n"
                         + "on a.AccountID=u.AccountID\n"
                         + "where [User]='" + user + "' and [password]='" + pass + "'");
                 // điều kiện update thành công
-                boolean checkemail=false;
-                boolean checkphone=false;
-                boolean checkcmnd=false;
-                if (phone.length()==10 && dao2.isNumeric(cmt) && dao2.isNumeric(phone)) {
-                    n=dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));                    
-                } else{ //update thất bại
+                boolean checkemail = false;
+                boolean checkphone = false;
+                boolean checkcmnd = false;
+                if (phone.length() == 10 && dao2.isNumeric(cmt) && dao2.isNumeric(phone)) {
+                    n = dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));
+                } else { //update thất bại
                     response.sendRedirect("UserController?do=Viewupdateprofile&er=1");
                 }
-                if(n>0){
+                if (n > 0) {
                     Cookie mess = new Cookie("mess", "mess");
                     mess.setMaxAge(3);
                     response.addCookie(mess);

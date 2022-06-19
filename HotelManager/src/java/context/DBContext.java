@@ -32,8 +32,24 @@ public class DBContext {
     }
 
     public DBContext() {
-        this("jdbc:sqlserver://localhost:1433;databaseName=SWPgroup3", "sa", "123456");
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=SWPgroup3", "sa", "123456");
+            System.out.println("Connect successfully !!");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
+      public Connection getConnection(){
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=SWPgroup3", "sa", "123456");
+        } catch (SQLException ex) {
+            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return conn;
+    }
+    
 
     public ResultSet getData(String sql) {
         ResultSet rs = null;
@@ -53,16 +69,17 @@ public class DBContext {
             ps.close();
         }
     }
+
     public void closeResultSet(ResultSet rs) throws Exception {
         if (rs != null && !rs.isClosed()) {
             rs.close();
         }
     }
-//      public void closeConnection(Connection con) throws Exception {
-//        if (con != null && !con.isClosed()) {
-//            con.close();
-//        }
-//    }
+    public void closeConnection(Connection con) throws Exception {
+        if (con != null && !con.isClosed()) {
+            con.close();
+        }
+    }
 
     public static void main(String[] args) {
         new DBContext();

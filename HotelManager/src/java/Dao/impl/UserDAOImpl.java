@@ -37,6 +37,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     @Override
     public int updateUser(User User) throws Exception {
         int n = 0;
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
        
@@ -45,6 +46,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         try {
             //System.out.println(sql);
 //        create statement: execute sql
+            conn = getConnection();
             pre = conn.prepareStatement(sqlPre);
             pre.setString(1, User.getUserName());
             pre.setString(2, User.getUserAdress());
@@ -52,7 +54,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             pre.setString(4, User.getUserEmail());
             pre.setString(5, User.getUserPhone());
             pre.setInt(6, User.getUserGender());
-            pre.setString(7, User.getBirthday());
+            pre.setDate(7, User.getBirthday());
             pre.setInt(8, User.getUserID());
 
             //run
@@ -62,6 +64,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
+            closeConnection(conn);
            
 
         }
@@ -76,16 +79,18 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     @Override
 
     public User getUser(int accountID) throws Exception {
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
       
         String sql = "select * from [User] where AccountID=?";
         try {
+            conn= getConnection();
             pre = conn.prepareStatement(sql);
             pre.setInt(1, accountID);
             rs = pre.executeQuery();
             if (rs.next()) {
-                return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getString(9), rs.getString(10));
             }
 
         } catch (Exception e) {
@@ -93,6 +98,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
+            closeConnection(conn);
            
         }
         return null;
@@ -100,6 +106,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public void updateUserEcept(User User) throws Exception {
+        Connection conn = null;
         PreparedStatement pre = null;
       
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?,Birthday=? where UserID=?";
@@ -107,13 +114,14 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         try {
             //System.out.println(sql);
 //        create statement: execute sql
+            conn= getConnection();
             pre = conn.prepareStatement(sqlPre);
             pre.setString(1, User.getUserName());
             pre.setString(2, User.getUserAdress());
             pre.setString(3, User.getCMT());
             pre.setString(4, User.getUserEmail());
             pre.setString(5, User.getUserPhone());
-            pre.setInt(6, User.getUserGender());
+            pre.setDate(6, User.getBirthday());
             pre.setInt(7, User.getUserID());
             //run
             pre.executeUpdate();
@@ -121,7 +129,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             throw ex;
         } finally {
             closePreparedStatement(pre);
-           
+            closeConnection(conn);
         }
     }
 
@@ -137,19 +145,20 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public User checkUser(String uGmail) throws Exception {
-      
+       Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
         String sql = "select * from [User] \n"
                 + " where UserEmail=?";
         try {
+            conn= getConnection();
             pre = conn.prepareStatement(sql);
 
             pre.setString(1, uGmail);
             rs = pre.executeQuery();
             if (rs.next()) {
 
-                return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getString(9), rs.getString(10));
             }
 
         } catch (Exception e) {
@@ -157,26 +166,26 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-           
-
+            closeConnection(conn);
         }
         return null;
     }
 
     @Override
     public User checkPhone(String uPhone) throws Exception {
-        
+         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
         String sql = "select * from [User] \n"
                 + " where UserPhone=?";
         try {
+            conn= getConnection();
             pre = conn.prepareStatement(sql);
             pre.setString(1, uPhone);
             rs = pre.executeQuery();
             if (rs.next()) {
 
-                return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10));
+                return new User(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getDate(7), rs.getString(8), rs.getString(9), rs.getString(10));
             }
 
         } catch (Exception e) {
@@ -184,7 +193,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-           
+            closeConnection(conn);
 
         }
         return null;
