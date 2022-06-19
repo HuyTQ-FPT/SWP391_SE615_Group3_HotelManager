@@ -1,4 +1,4 @@
-<%@page import="Entity.User"%>
+<%@page import="entity.User"%>
 <%@page import="java.util.Vector"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -297,7 +297,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
                     <span class="admin"></i>Lễ Tân</span>
-                    <form action="ControllerLogin_Admin?do=logout" method="post">
+                    <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
                     </form>
                     <form action="ReceptionistController?do=searchName" class="searchform order-lg-last" method="post"  style="

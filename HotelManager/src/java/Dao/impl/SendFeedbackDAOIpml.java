@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dao.impl;
+package dao.impl;
 
-import Dao.SendFeedback;
-import Entity.sendFeedback;
+import dao.SendFeedback;
+import entity.sendFeedback;
 import context.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

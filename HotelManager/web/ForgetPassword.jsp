@@ -52,7 +52,7 @@
                             %>
                             <div class="form-group">
                                 <%if (email != null) {%>
-                                <i class='bx bxs-star style' style="color:red;"></i> <input type="email" class="form-input " name="email" value="<%=email%>" placeholder="Email" required/>
+                                <i class='bx bxs-star style' style="color:red;"></i> <input type="email" class="form-input " name="email" value="<%=email%>" placeholder="Email" maxlength="100" required/>
                                 <%} else {%>
                                 <i class='bx bxs-star style' style="color:red;"></i>  <input type="email" class="form-input" name="email" value="" placeholder="Email" required/>
                                 <%}%>

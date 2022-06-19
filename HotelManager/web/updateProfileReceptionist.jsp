@@ -4,7 +4,7 @@
     Author     : Minh Hieu
 --%>
 
-<%@page import="Entity.User"%>
+<%@page import="entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -116,9 +116,9 @@
                             <!-- Profile picture image-->
                             <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                             <!-- Profile picture help block-->
-                            <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                            <!--<div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>-->
                             <!-- Profile picture upload button-->
-                            <button class="btn btn-primary" type="button">Cập nhật ảnh.</button>
+                            <!--<button class="btn btn-primary" type="button">Cập nhật ảnh.</button>-->
  
                         </div>
                          <a  href="LoginController?do=ChangePassword1"class="btn btn-primary" style="width: 50%;margin-left: 95px" type="button">Thay đổi mật khẩu</a>
@@ -175,7 +175,7 @@
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                        <input class="form-control" id="inputBirthday" type="text"  name="birthday"  value="<%=user.getBirthday()%>">
+                                        <input class="form-control" id="inputBirthday" type="date"  name="birthday"  value="<%=user.getBirthday()%>">
                                     </div>
                                 </div>
                                 <!-- Save changes button-->

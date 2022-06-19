@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dao.impl;
+package dao.impl;
 
-import Dao.DeviceDAO;
-import Entity.Device;
-import Entity.Service;
+import dao.DeviceDAO;
+import entity.Device;
+import entity.Service;
 import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

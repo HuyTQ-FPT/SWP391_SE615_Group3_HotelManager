@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dao.impl;
+package dao.impl;
 
-import Dao.ReservationDAO;
-import Entity.Reservation;
+import dao.ReservationDAO;
+import entity.Reservation;
 import context.DBContext;
 import java.sql.Date;
 import java.sql.PreparedStatement;

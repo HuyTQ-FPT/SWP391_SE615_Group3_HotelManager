@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dao.impl;
+package dao.impl;
 
-import Dao.RoomDAO;
-import Entity.Image;
-import Entity.Room;
-import Entity.RoomByDate;
+import dao.RoomDAO;
+import entity.Image;
+import entity.Room;
+import entity.RoomByDate;
 import context.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

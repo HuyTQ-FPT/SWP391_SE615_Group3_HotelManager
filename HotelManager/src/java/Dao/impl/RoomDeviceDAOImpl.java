@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dao.impl;
+package dao.impl;
 
-import Dao.RoomDeviceDAO;
-import Entity.RoomDevice;
+import dao.RoomDeviceDAO;
+import entity.RoomDevice;
 import context.DBContext;
 import java.util.Vector;
 

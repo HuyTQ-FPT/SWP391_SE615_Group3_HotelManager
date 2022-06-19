@@ -4,7 +4,8 @@
     Author     : Admin
 --%>
 
-<%@page import="Entity.sendFeedback"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="entity.sendFeedback"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,6 +24,154 @@
 
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+        <style>
+            .member {
+                height: 380px;
+            }
+
+            .statistic img{
+                max-width:100%;
+                max-height:100%;
+            }
+
+            .statistic{
+                width:500px;
+                height:500px;
+            }
+
+            .skill {
+                font-size: 30px;
+            }
+
+            .choose {
+                text-decoration: underline;
+                color:green;
+            }
+
+            .paging {
+                padding-top:50px;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            a.disabled {
+                pointer-events: none;
+                cursor: default;
+            }
+
+            .previous {
+                padding-right:20px;
+                font-weight: bold;
+            }
+
+            .next {
+                padding-left: 20px;
+                font-weight: bold;
+            }
+
+            .title1 {
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+            .view-button{
+                position: absolute;
+                bottom:10px;
+                left:110px;
+            }
+
+            .img-display {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+
+            .no-req {
+                text-align: center;
+                height: 380px;
+            }
+
+            .title-1 {
+                margin-top: 20px;
+                padding-bottom: 0;
+            }
+
+            .content-req {
+                min-height: 200px;
+                background-color: white;
+                border: 2px solid;
+                border-radius: 10px;
+            }
+
+            .mess {
+                color:red;
+                font-weight: bold;
+                font-size: 25px;
+            }
+
+            .content-req p{
+                margin: 5px 5px 5px 5px;
+            }
+
+            .vl {
+                border-left: 3px solid lightblue;
+            }
+
+            .displayy {
+                padding-bottom: 20px;
+            }
+
+            .last {
+                padding-bottom: 50px;
+                height:200px;
+            }
+
+            .status {
+                font-weight: bold;
+            }
+
+            .search {
+                height: 31px;
+                width: 100px;
+                margin-top: 20px;
+                background:rgb(84, 142, 228);
+                border-radius: 0;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-weight: bold;
+                border: solid black;
+                border-width: 2px 2px 2px 2px;
+            }
+
+            .form {
+                padding-bottom: 50px;
+                border: 2px solid black;
+                padding: 10px 10px 10px 10px;
+            }
+
+            label.label {
+                padding-right: 10px;
+                font-weight: 600;
+                font-size: 18px;
+                color: #222222;
+            }
+
+            .status-filter1 {
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .status-filter {
+                margin-left: 69px;
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .red-text {
+                color: red;
+            }
+        </style>
     </head>
     <body id="reportsPage">
         <nav class="navbar navbar-expand-xl">
@@ -248,6 +397,38 @@
                             <%}%>
                         </table>
                         <%}%>
+
+                        <%-- Paging --%>
+                        <c:if test="${vetorS != null}">
+                            <div class="row">  
+                                <div class="paging">
+                                    <%-- Previous --%>
+                                    <%-- Previous --%>
+                                    <c:choose>
+                                        <c:when test="${index>1}">
+                                            <a class="previous" href="${href}index=${index-1}"><</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a class="previous disabled" href="${href}index=${index-1}"><</a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <%-- Page index --%>
+                                    <c:forEach begin="1" end="${endPage}" var="i">
+                                        <a class="${i == index?" choose":""}" href="${href}index=${i}"> ${i}</a> 
+                                    </c:forEach>
+                                    <%-- Next --%>
+                                    <c:choose>
+                                        <c:when test="${index!=endPage}">
+                                            <a class="next" href="${href}index=${index+1}">  ></a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a class="next disabled" href="${href}index=${index+1}">></a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div> 
+                            </div>
+                        </c:if>
+
                     </div>
                 </div>
             </div>
