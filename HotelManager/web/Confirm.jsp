@@ -130,7 +130,7 @@
         <div class="row">
             <div class="col-75">
                 <div class="container">
-                    <form action="action_page.jsp">
+                    <form action="HomeController">
                         <div class="row">
                             <div class="col-50">
                                 <% Vector<Reservation> vector = (Vector<Reservation>) request.getAttribute("vector");
@@ -176,8 +176,7 @@
                         <label>
                             <input type="checkbox" checked="checked" name="sameadr"> Do you read every Rules
                         </label>
-                        <input type="submit" value="Continue to checkout" class="btn">
-                    </form>
+                       
                 </div>
             </div>
             <div class="col-25">
@@ -209,13 +208,15 @@
 
                 </div>
                 <div class="container">
-                    <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b><%=r.getTotal() %></b></span></h4>
+                    <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b></b></span></h4>
                     <p><a href="#"></a> <span class="price"></span></p>
                     <hr>
-                    <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
+                    <p>Total <span class="price" style="color:black"><b>$<%=r.getTotal() %></b></span></p>
                 </div>
             </div>
         </div>
+                <input type="submit" value="Continue to checkout" class="btn">
+                    </form>
         <%}%>
     </body>
 </html>

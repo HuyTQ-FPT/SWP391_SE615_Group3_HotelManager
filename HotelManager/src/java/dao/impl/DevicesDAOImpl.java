@@ -1,14 +1,14 @@
-/*
+        /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package dao.impl;
 
-import dao.DeviceDAO;
 import entity.Device;
 import entity.Service;
 import context.DBContext;
+import dao.DeviceDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +18,7 @@ import java.util.Vector;
  *
  * @author Admin
  */
-public class DeviceDAOImpl extends DBContext implements DeviceDAO {
+public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 
     @Override
     public Vector<Device> getAllDevice() {

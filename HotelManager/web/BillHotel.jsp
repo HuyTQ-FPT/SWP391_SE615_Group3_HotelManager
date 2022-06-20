@@ -187,16 +187,13 @@
                                 <label style="display:inline-block;"for="vehicle1"><%=e.getServiceName()%> </label><br>
                                 <%}%>
                                 <label style="padding-top: 30px;"for="ccnum">Check in</label>
-                                <input name="checkin" type="date"  class="form-control" id="inputCheckIn" placeholder="Check In" style="font-size: 20px">
+                                <input name="checkin" type="date"  class="form-control" id="inputCheckIn" placeholder="Check In" style="font-size: 20px" min="2022-06-21">
                                 <label for="expmonth" style="padding-top: 10px">Check out</label>
-                                <input name="checkout" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out" style="font-size: 20px" >
+                                <input name="checkout" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out" style="font-size: 20px" min="2022-06-21" >
 
                             </div>
 
                         </div>
-                        <label>
-                            <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-                        </label>
                 </div>
             </div>
             <div class="col-25">
@@ -231,7 +228,7 @@
 
                 </div>
                 <div class="container">
-                    <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
+                    <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4>
                     <p><a href="#"><%=rs.getString(19)%>- <%=rs.getInt(2)%></a> <span class="price">${price}</span></p>
                     <input type="hidden" name="price" value="${price}">
                     <hr>
@@ -264,13 +261,9 @@
             alert('Số điện thoại không hợp lệ');
             document.myForm.phone.focus();
             return false;
-        }if (!date.test(p)) {
-            alert('Ngày check in phải lớn hơn hôm nay');
+        }if (!(checkout>=checkin)) {
+            alert('Ngày check out phải lớn hơn Checkin');
             document.myForm.checkin.focus();
-            return false;
-        }if (!date.test(p)) {
-            alert('Ngày check out phải lớn hơn hôm nay');
-            document.myForm.checkout.focus();
             return false;
         }else {
             return true;
