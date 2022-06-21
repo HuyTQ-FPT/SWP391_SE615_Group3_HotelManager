@@ -42,7 +42,6 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         ResultSet rs = null;
        
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
-
         try {
             //System.out.println(sql);
 //        create statement: execute sql

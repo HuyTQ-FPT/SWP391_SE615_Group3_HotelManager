@@ -51,12 +51,15 @@
     </style>
     <body>
         <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-        <%ResultSet rs = (ResultSet) request.getAttribute("viewupdateprofile");
+        <%
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            ResultSet rs = (ResultSet) request.getAttribute("viewupdateprofile");
             String er = (String) request.getAttribute("error").toString();
             String s = "";
-            if (!er.equals("")) {
-                s = "Update không thành công";
-            }
+            if (er.equals("")) {
+                s = "";
+            } else s=er;
         %>
         <div class="container">
             <div class="main-body">
@@ -111,15 +114,17 @@
                         <div class="card">
                             <form action="UserController?do=Updateprofile" method="post">
                                 <input type="hidden" name="uid" value="<%=rs.getInt(5)%>">
-                                <input type="hidden" name="username" value="<%=rs.getString(3)%>">
-                                <input type="hidden" name="password" value="<%=rs.getString(4)%>">
                                 <div class="card-body">
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
                                             <h6 class="mb-0">Tên của bạn</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
+                                            <%if(request.getAttribute("messerror")==null){%>
                                             <input maxlength="30" required="" type="text" name="name" class="form-control" value="<%=rs.getString(7)%>">
+                                            <% }else{%>
+                                            <input maxlength="30" required="" type="text" name="name" class="form-control" value="<%=session.getAttribute("name")%>">
+                                            <% }%>
                                         </div>
                                     </div>
                                     <div class="row mb-3 form-group">
@@ -127,11 +132,14 @@
                                             <h6 class="mb-0">Email</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
+                                            <%if(request.getAttribute("messerror")==null){%>
                                              <%if(rs.getString(9)==null){%>
                                              <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required=""  type="email" name="email" class="form-control" placeholder="Email rỗng">
                                             <% }else {%>
-                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required=""  type="email" name="email" class="form-control" placeholder="Email rỗng" value="<%=rs.getString(9)%>">
-                                            <%}%>
+                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required=""  type="email" name="email" class="form-control" placeholder="Nhập email" value="<%=rs.getString(9)%>">
+                                            <%} } else{%>
+                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required=""  type="email" name="email" class="form-control" placeholder="Nhập email" value="<%=session.getAttribute("email")%>">
+                                            <% }%>
                                         </div>
                                     </div>
                                     <div class="row mb-3 form-group">
@@ -139,12 +147,14 @@
                                             <h6 class="mb-0">Số điện thoại</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
+                                            <%if(request.getAttribute("messerror")==null){%>
                                             <%if(rs.getString(8)==null){%>
                                              <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" name="phone" class="form-control" placeholder="Số điện thoại rỗng">
                                             <% }else {%>
-                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" name="phone" class="form-control" placeholder="Số điện thoại rỗng" value="<%=rs.getString(8)%>">
-                                            <%}%>
-                                            
+                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" name="phone" class="form-control" placeholder="Nhập số điện thoại" value="<%=rs.getString(8)%>">
+                                            <%} }else{%>
+                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required=""  type="text" name="phone" class="form-control" placeholder="Nhập số điện thoại" value="<%=session.getAttribute("phone")%>">
+                                            <% }%>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -152,11 +162,14 @@
                                             <h6 class="mb-0">CMND</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
+                                            <%if(request.getAttribute("messerror")==null){%>
                                             <%if(rs.getString(13)==null){%>
-                                             <input maxlength="30" type="text" name="cmt" class="form-control" placeholder="Số CMND rỗng">
+                                             <input maxlength="30" required="" type="text" name="cmt" class="form-control" placeholder="Số CMND rỗng">
                                             <% }else {%>
-                                            <input maxlength="30" type="text" name="cmt" class="form-control" placeholder="Số CMND rỗng" value="<%=rs.getString(13)%>">
-                                            <%}%>
+                                            <input maxlength="30" required="" type="text" name="cmt" class="form-control" placeholder="Nhập số CMND" value="<%=rs.getString(13)%>">
+                                            <%} }else{%>
+                                            <input maxlength="30" required="" type="text" name="cmt" class="form-control" placeholder="Nhập số CMND" value="<%=session.getAttribute("cmt")%>">
+                                            <% }%>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -164,11 +177,14 @@
                                             <h6 class="mb-0">Địa chỉ</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
+                                            <%if(request.getAttribute("messerror")==null){%>
                                             <%if(rs.getString(12)==null){%>
-                                             <input maxlength="30"  type="text" name="address" class="form-control" placeholder="Địa chỉ rỗng">
+                                             <input maxlength="30" type="text" name="address" class="form-control" placeholder="Địa chỉ rỗng">
                                             <% }else {%>
-                                            <input maxlength="30"  type="text" name="address" class="form-control" placeholder="Địa chỉ rỗng" value="<%=rs.getString(12)%>">
-                                            <%}%>                                          
+                                            <input maxlength="30" type="text" name="address" class="form-control" placeholder="Nhập địa chỉ" value="<%=rs.getString(12)%>">
+                                            <%} }else{%> 
+                                            <input maxlength="30"  type="text" name="address" class="form-control" placeholder="Nhập địa chỉ" value="<%=session.getAttribute("address")%>">
+                                            <% }%>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -176,6 +192,7 @@
                                             <h6 class="mb-0">Giới tính</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
+                                            <%if(request.getAttribute("messerror")==null){%>
                                             <%if (rs.getInt(10) == 0) {%>
                                             <input type="radio" name="gender" value="0" checked>Nữ    
                                             <input type="radio" name="gender" value="1">Nam
@@ -185,7 +202,18 @@
                                             <%} else{%>
                                            <input type="radio" name="gender" value="0">Nữ    
                                             <input type="radio" name="gender" value="1">Nam
-                                            <% }%>
+                                            <% } }else{%>
+                                            <%if (Integer.parseInt(session.getAttribute("gender").toString()) == 0) {%>
+                                            <input type="radio" name="gender" value="0" checked>Nữ    
+                                            <input type="radio" name="gender" value="1">Nam
+                                            <%} else if(Integer.parseInt(session.getAttribute("gender").toString()) == 1) {%>
+                                            <input type="radio" name="gender" value="0" >Nữ    
+                                            <input type="radio" name="gender" value="1" checked>Nam
+                                            <%} else{%>
+                                           <input type="radio" name="gender" value="0">Nữ    
+                                            <input type="radio" name="gender" value="1">Nam
+                                      
+                                            <% }}%>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -193,8 +221,11 @@
                                             <h6 class="mb-0">Ngày sinh</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-
+                                            <%if(request.getAttribute("messerror")==null){%>
                                             <input type="date" name="bod" class="form-control" value="<%=rs.getString(11)%>">
+                                            <% }else{%>
+                                            <input type="date" name="bod" class="form-control" value="<%=session.getAttribute("bod")%>">
+                                            <% }%>
                                         </div>
                                     </div>
 

@@ -59,9 +59,9 @@
                         </div>
                         <div class="form-group">
                             <%if(request.getAttribute("email")==null){%>
-                            <input maxlength="30" type="email" class="form-input" name="email" placeholder="Email"/>
+                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="email" class="form-input" name="email" placeholder="Email"/>
                             <% }else {%>
-                            <input  maxlength="30" type="email" class="form-input" name="email" placeholder="Email" value="<%=request.getAttribute("email")%>"/>
+                            <i class='bx bxs-star style' style="color:red;"></i><input  maxlength="30" required="" type="email" class="form-input" name="email" placeholder="Email" value="<%=request.getAttribute("email")%>"/>
                             <%}%>
                         </div>
                         <div class="form-group">

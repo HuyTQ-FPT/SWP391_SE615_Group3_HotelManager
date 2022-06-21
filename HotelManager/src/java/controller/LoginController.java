@@ -1,9 +1,14 @@
+<<<<<<< Updated upstream:HotelManager/src/java/controller/LoginController.java
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package controller;
+=======
+
+package Controller;
+>>>>>>> Stashed changes:HotelManager/src/java/Controller/LoginController.java
 
 import dao.AccountDAO;
 import dao.impl.AccountDAOImpl;
@@ -27,10 +32,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Admin
- */
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
 
@@ -76,6 +77,13 @@ public class LoginController extends HttpServlet {
                         pass.setMaxAge(60 * 60 * 24 * 7);
                         response.addCookie(pass);
                         response.addCookie(user);
+                    } else{
+                        Cookie user = new Cookie("user", "");
+                        Cookie pass = new Cookie("pass", "");
+                        user.setMaxAge(0);
+                        pass.setMaxAge(0);
+                        response.addCookie(pass);
+                        response.addCookie(user);
                     }
                     System.out.println(rs.getString(2));
                     if (rs.getString(2).equals("1")) {
@@ -107,10 +115,17 @@ public class LoginController extends HttpServlet {
                 ResultSet rs = dao.getData("select * from Account");
 
                 boolean user = true;
+                boolean checkemail = true;
                 int count = 0;
                 while (rs.next()) {
                     if (rs.getString(3).equals(username)) {
                         user = false;
+                        break;
+                    }
+                }
+                while (rs.next()) {
+                    if (rs.getString(3).equals(username)) {
+                        checkemail = false;
                         break;
                     }
                 }
@@ -123,7 +138,17 @@ public class LoginController extends HttpServlet {
                     String error = "Tên đăng nhập đã tồn tại";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
-                } else if (username.length() < 4 || password.length() < 8) {
+                }else if(!checkemail){
+                    request.setAttribute("name", name);
+                    request.setAttribute("username", username);
+                    request.setAttribute("password", password);
+                    request.setAttribute("re_password", re_password);
+                    request.setAttribute("email", email);
+                    String error = "Tên email đã tồn tại";
+                    request.setAttribute("errorpass", error);
+                    request.getRequestDispatcher("Register.jsp").forward(request, response);
+                }
+                    else if (username.length() < 4 || password.length() < 8) {
                     request.setAttribute("name", name);
                     request.setAttribute("username", username);
                     request.setAttribute("password", password);

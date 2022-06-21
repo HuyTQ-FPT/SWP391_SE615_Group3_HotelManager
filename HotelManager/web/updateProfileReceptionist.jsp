@@ -85,6 +85,7 @@
                 position: relative;
             }
             .style{
+<<<<<<< Updated upstream
                 position: absolute;
                 left: 20px;
                 top:220px;
@@ -96,6 +97,13 @@
                 top:320px;
                 font-size: 10px;
             }
+=======
+        position: absolute;
+        left: 10px;
+        top:30px;
+        font-size: 10px;
+    }
+>>>>>>> Stashed changes
         </style>
     </head>
     <body>
@@ -148,7 +156,7 @@
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (CMT)-->
-                                    <div class="small mb-1">
+                                    <div class="small mb-1 form-group">
                                         <label class="small mb-1" for="inputEmailAddress">Email</label>
                                         <i class='bx bxs-star style' style="color:red;"></i> <input class="form-control" id="EmailAddress" name="EmailAddress" required type="email" value="<%=user.getUserEmail()%>" maxlength="100" placeholder="Enter your email address">
                                     </div>
@@ -156,9 +164,9 @@
                                 </div>
                                 <!-- Form Group (email address)-->
                                 <div class="row gx-3 mb-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 form-group">
                                         <label class="small mb-1" for="inputCMT">CMT</label>
-                                        <i class='bx bxs-star style1' style="color:red;"></i>   <input class="form-control" id="inputCMT" name="inputCMT" type="text" value="<%=user.getCMT()%>" maxlength="20" required placeholder="Enter your CMT" >
+                                        <i class='bx bxs-star style' style="color:red;"></i>   <input class="form-control" id="inputCMT" name="inputCMT" type="text" value="<%=user.getCMT()%>" maxlength="20" required placeholder="Enter your CMT" >
                                     </div>
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputAddress">Location</label>

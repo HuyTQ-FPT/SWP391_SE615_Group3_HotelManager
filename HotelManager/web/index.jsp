@@ -32,6 +32,7 @@ Author     : admin
         <link rel="stylesheet" href="css/animate.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+        
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
         <link rel="stylesheet" href="css/aos.css">
@@ -181,12 +182,22 @@ Author     : admin
             content: '\f006';
             font-family: FontAwesome;
         }
+        .feedback{
+            color:#1E90FF; font-size: 50px;position: fixed; right: 25px; bottom: 25px;z-index: 10; cursor: pointer; 
+        }
+        .iconfb{
+            position: fixed;
+            z-index: 10;
+            top: 10px;
+            right: 10px;
+        }
     </style>
     <body>
         <% Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
             Vector<Room> vector2 = (Vector<Room>) request.getAttribute("vector2");
             Vector<Service> vector3 = (Vector<Service>) request.getAttribute("vector3");
             Vector<Room> vector4 = (Vector<Room>) request.getAttribute("vector4");
+            Account a =(Account)session.getAttribute("login");
         %>
         <div class="site-wrap">
 
@@ -201,6 +212,8 @@ Author     : admin
 
 
             <jsp:include page="header.jsp"></jsp:include>
+            
+            
                 <div class="card" id="team">
                     <div class="card_img">
                         <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
@@ -227,9 +240,19 @@ Author     : admin
                     <a href="UserController"><button>Edit Profile</button></a>                       
                 </div>
 
-            </div>  
-                
-
+            </div>
+<%
+                                                Account ac = (Account) session.getAttribute("login");
+                                                if (ac != null) {
+                                            %>
+<a href="UserController?do=Viewfeedback">             
+<span style="color:#1E90FF;font-size:40px;position: fixed; right: 25px; top: 100px;z-index: 10; cursor: pointer" class="iconify" data-icon="ant-design:message-twotone"></span>         
+<span style="color:orangered;font-size:20px;position: fixed; right: 25px; top: 110px;z-index: 10; cursor: pointer;font-family: fantasy">1</span>
+</a>
+            <a href="MessageController">          
+<span style="color:#1E90FF; font-size: 50px;position: fixed; right: 25px; bottom: 25px;z-index: 10; cursor: pointer" class="iconify" data-icon="bx:message-rounded"></span>                
+      </a> 
+<% }%>
             <div class="slide-one-item home-slider owl-carousel">
                 <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
                     <div class="container">
@@ -310,8 +333,9 @@ Author     : admin
                         </div>
                     </div>
                 </div>       
-            </div>
-            <div class="site-section bg-light">
+            </div>                               
+                
+            <div class="site-section bg-light">                
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 mx-auto text-center mb-5 section-heading">
@@ -685,6 +709,13 @@ Author     : admin
                     document.getElementById("team").style.display = "block";
                 } else {
                     document.getElementById("team").style.display = "none";
+                }
+            }
+            function Chatbox() {
+                if (document.getElementById("chatbot").style.display == "none") {
+                    document.getElementById("chatbot").style.display = "block";
+                } else {
+                    document.getElementById("chatbot").style.display = "none";
                 }
             }
 

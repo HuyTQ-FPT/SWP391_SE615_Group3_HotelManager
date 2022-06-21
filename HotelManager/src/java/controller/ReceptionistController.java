@@ -109,7 +109,7 @@ public class ReceptionistController extends HttpServlet {
             }
             if (service.equalsIgnoreCase("ViewupdateRecept")) { // chuyen toi update profile 
                 Account ac = (Account) session.getAttribute("login");
-                User u = daoU.getUser(ac.getAccountID());
+                User u = daoU.getUser(ac.getAccountID());         
                 session.setAttribute("u", u);
                 request.setAttribute("a", u);
                 request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);

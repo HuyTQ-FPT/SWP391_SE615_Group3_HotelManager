@@ -5,7 +5,11 @@
  */
 package dao;
 
+<<<<<<< Updated upstream:HotelManager/src/java/dao/MessageDAO.java
 import entity.message;
+=======
+import Entity.Message;
+>>>>>>> Stashed changes:HotelManager/src/java/Dao/MessageDAO.java
 import java.util.Vector;
 
 /**
@@ -13,8 +17,9 @@ import java.util.Vector;
  * @author Admin
  */
 public interface MessageDAO {
-    public Vector<message> getAllImage();
-    public void insertMessage(int mID ,message insertMessage);
-    public void updateMessage(int mID ,message updateMessage);
+    public Vector<Message> getAllImage();
+    public int insertMessageCus(Message mess);
+    public int insertMessageRe(Message mess);
+    public void updateMessage(int mID ,Message updateMessage);
     public void deleteMessage(int mID);
 }
