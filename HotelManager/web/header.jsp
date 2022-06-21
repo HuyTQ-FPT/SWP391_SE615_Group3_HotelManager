@@ -6,6 +6,7 @@
 
 <%@page import="entity.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 <header>
@@ -50,7 +51,13 @@
 
                                             </ul>
                                         </li>
+                                   
+                                        <c:if test="${sessionScope.login==null}">
                                         <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>
+                                        </c:if>
+                                         <c:if test="${sessionScope.login!=null}">
+                                             <li><a style="font-family: PlayFair Display" href="OrderController?do=yourbill&id=${sessionScope.account.getAccountID()}">Your Cart</a></li>
+                                        </c:if>
                                         <li><a style="font-family: PlayFair Display" href="BlogController?do=getBlog">Thông tin</a></li>
                                         <li><a style="font-family: PlayFair Display" href="contact.jsp">Liên hệ</a></li>
                                             <%

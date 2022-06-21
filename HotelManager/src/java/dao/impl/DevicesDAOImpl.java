@@ -190,7 +190,7 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
     }
 
     public static void main(String[] args) {
-        DeviceDAOImpl dao = new DeviceDAOImpl();
+        DevicesDAOImpl dao = new DevicesDAOImpl();
 //        dao.updateDeviceinfor("Điều Hòa Nhỏ", "11212", "1", "12");
 //        dao.updateDeviceQuan("2", "12", "1");
 //        dao.insertDevice("test", "9999", "1", "1", "2");

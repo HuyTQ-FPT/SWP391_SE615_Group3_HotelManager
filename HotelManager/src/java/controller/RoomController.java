@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.impl.DeviceDAOImpl;
+import dao.impl.DevicesDAOImpl;
 import dao.impl.ImageDAOImpl;
 import dao.impl.RoomDAOImpl;
 import dao.impl.ServiceDAOImpl;
@@ -97,7 +97,7 @@ public class RoomController extends HttpServlet {
             }
             if (service.equals("roomdetail")) {
                 ServiceDAOImpl dao1 = new ServiceDAOImpl();
-                DeviceDAOImpl daode = new DeviceDAOImpl();
+                DevicesDAOImpl daode = new DevicesDAOImpl();
                 String RoomID = request.getParameter("roomid");
                 String cateroom = request.getParameter("cateroom");
                 Vector<Image> img = daos.getImageByid(RoomID);

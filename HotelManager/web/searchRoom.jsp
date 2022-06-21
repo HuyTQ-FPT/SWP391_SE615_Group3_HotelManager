@@ -336,7 +336,7 @@
                                                 </a>
                                                 <h1 style="color: red;font-size: 18px" class="price"> €<%=v.getRoomprice()%>/một đêm</h1>
                                                     <div>
-                                                        <a class="view-link shutter" href="login.jsp">
+                                                        <a class="view-link shutter" href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%> ">
                                                             <i class="fa fa-plus-circle"></i>Đặt Phòng</a>
                                                     </div>
                                                 </div>

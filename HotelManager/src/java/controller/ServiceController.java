@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.impl.DeviceDAOImpl;
+import dao.impl.DevicesDAOImpl;
 import dao.impl.RoomCategoryDAOImpl;
 import dao.impl.RoomDAOImpl;
 import dao.impl.ServiceDAOImpl;
@@ -51,7 +51,7 @@ public class ServiceController extends HttpServlet {
             String ServiceID = request.getParameter("ServiceID");
             RoomDAOImpl daos = new RoomDAOImpl();
             ServiceDAOImpl dao = new ServiceDAOImpl();
-            DeviceDAOImpl daoss = new DeviceDAOImpl();
+            DevicesDAOImpl daoss = new DevicesDAOImpl();
             RoomCategoryDAOImpl roomcate = new RoomCategoryDAOImpl();
             String cateroom = request.getParameter("cateroom");
             if (cateroom == null) {

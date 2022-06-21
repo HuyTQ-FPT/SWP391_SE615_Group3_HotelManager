@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.impl.DeviceDAOImpl;
+import dao.impl.DevicesDAOImpl;
 import dao.impl.RoomCategoryDAOImpl;
 import dao.impl.RoomDAOImpl;
 import entity.Device;

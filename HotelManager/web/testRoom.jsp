@@ -326,7 +326,7 @@
                                                 </a>
                                                 <h1 style="color: red;font-size: 18px" class="price"> €<%=v.getRoomprice()%>/một đêm</h1>
                                                     <div>
-                                                        <a class="view-link shutter" href="login.jsp">
+                                                        <a class="view-link shutter" href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
                                                             <i class="fa fa-plus-circle"></i>Đặt Phòng</a>
                                                     </div>
                                                 </div>
@@ -370,10 +370,10 @@
                                     </div>
                                 </div>
                                 <!-- End of /.col-md-9 -->
-                                <div class="col-md-2">
+                                <div style="padding-top: 80px;" class="col-md-2">
                                     <div class="blog-sidebar">
                                         <div class="block">
-                                            <h4>Catagories</h4>
+                                            <h4>Categories</h4>
                                             <div class="list-group" style="width: 250px">
                                                 <a href="RoomController?do=CateRoom&cate=1" class="list-group-item" style="font-size: 15px">
                                                     <i class="fa  fa-dot-circle-o"></i> Standard
@@ -399,10 +399,10 @@
                                                 <input type="hidden" name="page" value="1">
                                                 <table>
                                                     <tr>
-                                                        <td>From</td><td><input type="number" name="price1" min="0" max="10000" value=""/></td>
+                                                        <td>From</td><td><input style="width: 100px;"type="number" name="price1" min="0" max="10000" value=""/></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>To</td><td><input type="number" name="price2" min="0" max="100000" value=""/></td>
+                                                        <td>To</td><td><input style="width: 100px;" type="number" name="price2" min="0" max="100000" value=""/></td>
                                                     </tr>
                                                     <tr>
                                                         <td></td><td><input type="submit" value="Find"/></td>

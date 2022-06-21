@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="css/hotelbill.css">
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>JSP Page</title>
+        <title>Thông tin đăng nhập</title>
         <style>
             body {
                 font-family: Arial;
@@ -137,21 +137,25 @@
                         <input type="hidden" name="do" value="infor"> 
                         <% int id = (Integer) request.getAttribute("id");%>
                         <input type="hidden" name="id" value="<%=id%>">
+                        <input type="hidden" name="user" value="${sessionScope.account.getAccountID()}"> 
                         <div class="row">
                             <div class="col-50">
-                                <h3>Billing Address</h3>
-                                <label for="fname"><i class="fa fa-user"></i> Full Name(*)</label>
-                                <input type="text" name="firstname" placeholder="John M. Doe" required>
+                                <h3>Đơn đặt phòng</h3>
+                                <% ResultSet rs1= (ResultSet)request.getAttribute("rs1");
+                                    if(rs1.next()){
+                                %>
+                                <label for="fname"><i class="fa fa-user"></i> Tên đầy đủ(*)</label>
+                                <input type="text" name="firstname" placeholder="<%=rs1.getString(7) %>" value="<%=rs1.getString(7) %>" readonly>
                                 <label for="email"><i class="fa fa-envelope"></i> Email(*)</label>
-                                <input type="text" id="email" name="email" placeholder="john@example.com" required>
-                                <label for="address"><i class="fa fa-address-card-o"></i> Address</label>
-                                <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-                                <label for="city"><i class="fa fa-institution"></i> Phone(*)</label>
-                                <input type="text" id="city" name="phone" placeholder="09" required="">
-
+                                <input type="text" id="email" name="email" placeholder="<%=rs1.getString(9) %>" value="<%=rs1.getString(9) %>" readonly>
+                                <label for="address"><i class="fa fa-address-card-o"></i> Địa chỉ</label>
+                                <input type="text" id="adr" name="address" placeholder="<%=rs1.getString(12) %>" value="<%=rs1.getString(12) %>" readonly>
+                                <label for="city"><i class="fa fa-institution"></i> Số điện thoại(*)</label>
+                                <input type="text" id="city" name="phone" placeholder="<%=rs1.getString(8) %>"  value="<%=rs1.getString(8) %>" readonly>
+                                    <%}%>
                                 <div class="row">
                                     <div class="col-50">
-                                        <label style="display: inline-block; padding-top: 30px;font-size: 20px;" for="state">Adults</label>
+                                        <label style="display: inline-block; padding-top: 30px;font-size: 20px;" for="state">Người lớn</label>
                                         <select style="font-size: 20px;width: 180px;" name="Adult" selected>
                                             <option value="1" selected> 1 </option>
                                             <option value="2"> 2 </option>
@@ -160,7 +164,7 @@
                                         </select>
                                     </div>
                                     <div class="col-50">
-                                        <label style="display: inline-block; padding-top: 30px;font-size: 18px;margin-left: 0px;" for="state">Children</label>
+                                        <label style="display: inline-block; padding-top: 30px;font-size: 18px;margin-left: 0px;" for="state">Trẻ nhỏ</label>
                                         <select style="font-size: 20px;width: 170px;"  name="Child">
                                             <option value="1"> 1 </option>
                                             <option value="2"> 2 </option>
@@ -173,8 +177,8 @@
                             </div>
 
                             <div class="col-50">
-                                <h3>Payment</h3>
-                                <label for="fname">Accepted Cards</label>
+                                <h3>Thanh toán</h3>
+                                <label for="fname">Chấp nhận thẻ</label>
                                 <div class="icon-container">
                                     <i class="fa fa-cc-visa" style="color:navy;"></i>
                                     <i class="fa fa-cc-amex" style="color:blue;"></i>
@@ -264,16 +268,6 @@
         var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        if (!regexEmail.test(e)) {
-            alert('Địa chỉ Email không hợp lệ');
-            document.myForm.email.focus();
-            return false;
-        }
-        if (!regexPhone.test(p)) {
-            alert('Số điện thoại không hợp lệ');
-            document.myForm.phone.focus();
-            return false;
-        }
         if (!(checkout >= checkin)) {
             alert('Ngày check out phải lớn hơn Checkin');
             document.myForm.checkin.focus();

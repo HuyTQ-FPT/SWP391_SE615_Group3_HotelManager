@@ -4,6 +4,10 @@
     Author     : Trong Hieu
 --%>
 
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entity.Reservation"%>
 <%@page import="java.util.Vector"%>
 <%@page import="java.sql.ResultSet"%>
@@ -15,7 +19,7 @@
         <link rel="stylesheet" href="css/hotelbill.css">
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>JSP Page</title>
+        <title>Thông tin đặt phòng</title>
         <style>
             body {
                 font-family: Arial;
@@ -130,33 +134,54 @@
         <div class="row">
             <div class="col-75">
                 <div class="container">
-                    <form action="HomeController">
+                    <form action="OrderController" method="get" onsubmit="ok()" >
+                        <input type="hidden" name="do" value="Bill">
+                        <input type="hidden" name="id" value="${id}">
+                        <input type="hidden" name="total" value="${total}">
                         <div class="row">
                             <div class="col-50">
                                 <% Vector<Reservation> vector = (Vector<Reservation>) request.getAttribute("vector");
+                                long millis = System.currentTimeMillis();
+                                    java.sql.Date date = new java.sql.Date(millis);
+
+                                    String da = "";
+                                    da += date.toString();
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                    Calendar c = Calendar.getInstance();
+                                    c.setTime(sdf.parse(da));
+                                    c.add(Calendar.DATE, 1);  // number of days to add
+                                    da = sdf.format(c.getTime());  // dt is now the new date
                                     for (Reservation r : vector) {
                                 %>
                                 <h3>Billing Address</h3>
-                                <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                                <p><%=r.getName()%></p>
+                                <label for="firstname"><i class="fa fa-user"></i> Tên đầy đủ</label>
+                                <p style="font-weight: bold; color: orangered"><%=r.getName()%></p>
                                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                                <p><%=r.getEmail()%></p>
-                                <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                                <p><%=r.getAddress()%></p>
-                                <label for="city"><i class="fa fa-institution"></i> Phone</label>
-                                <p><%=r.getPhone()%></p>
-
+                                <p style="font-weight: bold; color: orangered"><%=r.getEmail()%></p>
+                                <label for="adr"><i class="fa fa-address-card-o"></i> Địa chỉ </label>
+                                <p style="font-weight: bold; color: orangered"><%=r.getAddress()%></p>
+                                <label for="city"><i class="fa fa-institution"></i> Số điện thoại</label>
+                                <p style="font-weight: bold; color: orangered"><%=r.getPhone()%></p>
+                                
+                                <input type="hidden" name="firstname" value="<%=r.getName()%>">
+                                <input type="hidden" name="email" value="<%=r.getEmail()%>">
+                                <input type="hidden" name="address" value="<%=r.getAddress()%>">
+                                <input type="hidden" name="phone" value="<%=r.getPhone()%>">
+                                <input type="hidden" name="phone" value="<%=r.getPhone()%>">
+                                <input type="hidden" name="checkin" value="<%=r.getCheckin()%>">
+                                <input type="hidden" name="checkout" value="<%=r.getCheckout()%>">
+                                <input type="hidden" name="number" value="<%=r.getNumberOfPerson()%>">
+                                
                                 <div class="row">
                                     <div class="col-100">
-                                        <label style="display: inline-block; padding-top: 30px;font-size: 20px;" for="state">Adults</label>
-                                        <p><%=r.getNumberOfPerson()%></p>
+                                        <label style="display: inline-block; padding-top: 20px; padding-left: 15px;font-size: 20px;" for="state">Number Of Person</label>
+                                        <p style="padding-left: 20px;font-weight: bold; color: orangered"><%=r.getNumberOfPerson()%></p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-50">
                                 <h3>Payment</h3>
-                                <label for="fname">Accepted Cards</label>
                                 <div class="icon-container">
                                     <i class="fa fa-cc-visa" style="color:navy;"></i>
                                     <i class="fa fa-cc-amex" style="color:blue;"></i>
@@ -165,16 +190,16 @@
                                 </div>
                                 <label for="cname">Dịch vụ</label>
                                 <label style="display:inline-block;"for="vehicle1"></label><br>
-                                <p>Casino</p>
+                                <p style="font-weight: bold; color: orangered">${ser}</p>
                                 <label style="padding-top: 30px;"for="ccnum">Check in</label>
-                                <p><%=r.getCheckin()%></p>
+                                <p style="font-weight: bold; color: orangered"><%=r.getCheckin()%></p>
                                 <label for="expmonth" style="padding-top: 10px">Check out</label>
-                                <p><%=r.getCheckout() %></p>
+                                <p style="font-weight: bold; color: orangered"><%=r.getCheckout() %></p>
                             </div>
 
                         </div>
                         <label>
-                            <input type="checkbox" checked="checked" name="sameadr"> Do you read every Rules
+                            <input type="checkbox" checked="checked" name="sameadr"> Bạn đã đọc đầy đủ luật
                         </label>
                        
                 </div>
@@ -185,8 +210,8 @@
                         <h4 style="margin-left: 20px; font-size: 30px;; font-weight: bold; color: red"><label class="price" style="color:black"><i class='fas fa-hotel'></i></s</label> Hoang Hon </h4>                       
                     </div>
                     <div style="background-color: #f7f9fa; height: 150px;padding-top: 10px;" class="nhanphong">
-                        <p style="margin-left: 20px;"> Ngày nhận phòng: Sun, 12 Jun 2022, Từ 11:00 <p>                         
-                        <p style="margin-left: 20px;"> Ngày trả phòng:  Mon, 13 Jun 2022, Trước 13:00</p>            
+                        <p style="margin-left: 20px;"> Ngày nhận phòng: <%=r.getCheckin() %>, Từ 11:00 <p>                         
+                        <p style="margin-left: 20px;"> Ngày trả phòng:  <%=r.getCheckout() %>, Trước 13:00</p>            
                     </div>
                     <div>
                         <p style="font-size: 20px; font-weight: bold"> </p>
@@ -195,29 +220,30 @@
                         <p><span style="padding-left: 100px;"></span> </p>
                     </div>
                     <div class="row">
-                        <div class="col-md-5">
-                            <img style="width: 80px;height: 80px; margin-left: 20px;"src="images/anhphong/" alt="">
-                        </div>
                         <div class="col-md-7">
-                            <i style="padding-left: 90px;color: green"class='fas fa-utensils'> Miễn phí bữa ăn sáng </i>
                             <i style="padding-left: 90px;color: green"class='fas fa-utensils'> Miễn phí wifi </i>
                         </div>
                     </div>
                     <hr>
-                    <p style="color: green;">Miễn phí huỷ phòng đến trước 11 thg 6 2022 </p>
+                    <p style="color: green;">Miễn phí huỷ phòng đến trước <%=da%> </p>
 
                 </div>
                 <div class="container">
                     <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b></b></span></h4>
                     <p><a href="#"></a> <span class="price"></span></p>
                     <hr>
-                    <p>Total <span class="price" style="color:black"><b>$<%=r.getTotal() %></b></span></p>
+                    <p style="font-weight: bold; color: red">Total <span class="price" style="color:black"><p style="font-weight: bold; color: black;font-size: 30px">$${total}</p></span></p>
                 </div>
             </div>
         </div>
-                <input type="submit" value="Continue to checkout" class="btn">
+                <input type="submit" value="Check out" class="btn">
                     </form>
         <%}%>
     </body>
 </html>
-
+<script>
+    function ok(){
+        alert("Bạn đã đặt chỗ thành công");
+    }
+</script>
+    

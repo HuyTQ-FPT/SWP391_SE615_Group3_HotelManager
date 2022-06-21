@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 /**
  *
@@ -83,6 +84,34 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             ex.printStackTrace();
         }
         return 0;
+    }
+    public Vector<Reservation> Reservation(String sql) {
+        Vector<Reservation> re = new Vector<Reservation>();
+        try{
+            //        create statement: execute sql
+             ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                int UserID = rs.getInt(2);
+                int RoomID = rs.getInt(3);
+                String Name = rs.getString(4);
+                String Email = rs.getString(5);
+                String Address = rs.getString(6);
+                String Phone = rs.getString(7);
+                int NumberOfPerson = rs.getInt(8);
+                Date checkin =rs.getDate(9);
+                Date checkout =rs.getDate(10);
+                double total =rs.getDouble(11);
+                int Status = rs.getInt(12);
+                Date dat =rs.getDate(13);
+                
+                Reservation im = new Reservation(UserID, RoomID, Name, Email, Address, Phone, NumberOfPerson, checkin, checkout, total, Status, dat);
+                re.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return re;
     }
     public static void main(String[] args) {
         ReservationDAOImpl dao= new ReservationDAOImpl();

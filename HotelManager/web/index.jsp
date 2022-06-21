@@ -330,7 +330,6 @@ Author     : admin
                                                         <c:forEach begin="1" end="<%=v.getRate()%>">
                                                             <span style="padding-right: 6px"class="fa fa-star checked"></span>
                                                         </c:forEach>
-
                                                     </div>
 <!--                                        <input class="star star-4 " id="star-5+<%=v.getRoomID()%>"  name="star"/>
                                         <label class="star star-4 " for="star-5+<%=v.getRoomID()%>"></label>
@@ -348,9 +347,10 @@ Author     : admin
                                     <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
                                     <strong class="price" style="font-weight: bold; font-size: 14px">€<%=v.getRoomprice()%>/ một đêm</strong>
                                     <div class="add-to-cart">
-                                        <form action="OrderController">
-                                            <input type="hidden" name="id" value="<%=v.getRoomID() %>">
-                                            <input type="hidden" name="price" value="<%=v.getRoomprice() %>">
+                                        <form action="RoomController">
+                                            <input type="hidden" name="do" value="roomdetail">
+                                            <input type="hidden" name="roomid" value="<%=v.getRoomID() %>">
+                                            <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
                                                 <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
                                             </form>
                                     </div>
