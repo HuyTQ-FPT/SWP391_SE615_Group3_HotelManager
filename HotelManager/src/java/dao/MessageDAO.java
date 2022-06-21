@@ -5,11 +5,7 @@
  */
 package dao;
 
-<<<<<<< Updated upstream:HotelManager/src/java/dao/MessageDAO.java
-import entity.message;
-=======
 import Entity.Message;
->>>>>>> Stashed changes:HotelManager/src/java/Dao/MessageDAO.java
 import java.util.Vector;
 
 /**

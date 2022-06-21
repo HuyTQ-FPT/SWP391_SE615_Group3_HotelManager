@@ -1,14 +1,5 @@
-<<<<<<< Updated upstream:HotelManager/src/java/controller/LoginController.java
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package controller;
-=======
 
-package Controller;
->>>>>>> Stashed changes:HotelManager/src/java/Controller/LoginController.java
+package controller;
 
 import dao.AccountDAO;
 import dao.impl.AccountDAOImpl;

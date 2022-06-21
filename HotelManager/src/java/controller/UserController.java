@@ -5,11 +5,11 @@
  */
 package controller;
 
+import context.DBContext;
 import dao.impl.AccountDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
 import entity.User;
-import context.DBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -24,7 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+/**
+ *
+ * @author Admin
+ */
 @WebServlet(name = "UserController", urlPatterns = {"/UserController"})
 public class UserController extends HttpServlet {
 
@@ -40,7 +43,7 @@ public class UserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) { 
+        try (PrintWriter out = response.getWriter()) {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
             HttpSession session = request.getSession();
@@ -79,12 +82,8 @@ public class UserController extends HttpServlet {
                 request.getRequestDispatcher("UpdateProfile.jsp").forward(request, response);
             }
             if (service.equals("Updateprofile")) { //cập nhập thông tin profile thay đổi
-<<<<<<< Updated upstream:HotelManager/src/java/controller/UserController.java
                 System.out.println("oke");
                 int n = 0;
-=======
-                int n=0;
->>>>>>> Stashed changes:HotelManager/src/java/Controller/UserController.java
                 int uid = Integer.parseInt(request.getParameter("uid"));
                 String name = request.getParameter("name").trim();
                 String email = request.getParameter("email").trim();
@@ -95,7 +94,6 @@ public class UserController extends HttpServlet {
                 System.out.println(bod);
                 String cmt = request.getParameter("cmt").trim();
                 // điều kiện update thành công
-<<<<<<< Updated upstream:HotelManager/src/java/controller/UserController.java
                 boolean checkemail = false;
                 boolean checkphone = false;
                 boolean checkcmnd = false;
@@ -103,11 +101,9 @@ public class UserController extends HttpServlet {
                     n = dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));
                 } else { //update thất bại
                     response.sendRedirect("UserController?do=Viewupdateprofile&er=1");
-=======
 
                 if (phone.trim().length()==10 && cmt.trim().length()==12 && dao2.isNumeric(cmt) && dao2.isNumeric(phone)) {
                     n=dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));                    
->>>>>>> Stashed changes:HotelManager/src/java/Controller/UserController.java
                 }
                 if (n > 0) {
                     Cookie mess = new Cookie("mess", "mess");
@@ -146,7 +142,9 @@ public class UserController extends HttpServlet {
                 request.getRequestDispatcher("Feedback.jsp").forward(request, response);
             }
         }
+        }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -85,7 +85,7 @@
                 position: relative;
             }
             .style{
-<<<<<<< Updated upstream
+
                 position: absolute;
                 left: 20px;
                 top:220px;
@@ -97,13 +97,13 @@
                 top:320px;
                 font-size: 10px;
             }
-=======
+
+        .style{
         position: absolute;
-        left: 10px;
-        top:30px;
+        left: 0px;
+        top:0px;
         font-size: 10px;
     }
->>>>>>> Stashed changes
         </style>
     </head>
     <body>

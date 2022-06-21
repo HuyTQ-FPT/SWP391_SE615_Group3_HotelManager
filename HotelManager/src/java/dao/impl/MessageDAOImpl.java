@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dao.impl1;
+package Dao.impl;
 
-import Dao.MessageDAO;
+
 import Entity.Message;
 import context.DBContext;
+import dao.MessageDAO;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Vector;
