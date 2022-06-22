@@ -43,8 +43,55 @@
 
     </head>
     <body>
-                                
-        <jsp:include page="header.jsp"></jsp:include>
+        <div class="site-navbar-wrap js-site-navbar bg-white">
+
+            <div class="container">
+                <div class="site-navbar bg-light">
+                    <div class="py-1">
+                        <div class="row align-items-center">
+                            <div class="col-2">
+                                <h2 class="mb-0 site-logo"><a href="HomeController">Hoang hon</a></h2>
+                            </div>
+                            <div class="col-10">
+                                <nav class="site-navigation text-right" role="navigation">
+                                    <div class="container">
+
+                                        <div class="d-inline-block d-lg-none  ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu h3"></span></a></div>
+                                        <ul class="site-menu js-clone-nav d-none d-lg-block">
+                                            <li>
+                                                <a style="font-family: PlayFair Display" href="HomeController">Trang chủ</a>
+                                            </li>
+                                            <li class="has-children">
+                                                <a style="font-family: PlayFair Display" href="rooms.html">Phòng</a>
+                                                <ul class="dropdown arrow-top">
+                                                    <li><a style="font-family: PlayFair Display" href="rooms.html">Hiện có</a></li>
+                                                    <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng đơn</a></li>
+                                                    <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng đôi</a></li>
+                                                    <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng gia đình</a></li> 
+                                                    <li class="has-children">
+                                                        <a style="font-family: PlayFair Display" href="rooms.html">Dịch vụ</a>
+                                                        <ul class="dropdown">
+                                                            <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng cao cấp</a></li>
+                                                            <li><a style="font-family: PlayFair Display" href="rooms.html">Tắm hơi</a></li>
+                                                            <li><a style="font-family: PlayFair Display" href="rooms.html">Ăn uống</a></li> 
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>
+                                            <li><a style="font-family: PlayFair Display" href="about.html">Thông tin</a></li>
+                                            <li class="active"><a style="font-family: PlayFair Display" href="contact.html">Liên hệ</a></li>
+                                            <li class="login"><a style="font-family: PlayFair Display" href="contact.html">Login</a></li>
+                                            <li class="register"><a style="font-family: PlayFair Display" href="contact.html">Register</a></li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="slide-one-item home-slider owl-carousel">
 
@@ -195,25 +242,25 @@
                                 <h2 style="text-align: center">Các Phòng Tương Tự</h2>
                                 <div class="row cat-pd">
                                     <c:forEach items="${getroomlist}" var="c">
-                                    <div class="col-md-6" style="margin-top: 30px">
-                                        <div class="small-box-c">
-                                            <div class="small-img-b">
-                                                <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
-                                            </div>
-                                            <div class="dit-t clearfix">
-                                                <div class="left-ti">
-                                                    <h4>${c.cateroom}</h4>
-                                                    <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
+                                        <div class="col-md-6" style="margin-top: 30px">
+                                            <div class="small-box-c">
+                                                <div class="small-img-b">
+                                                    <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
                                                 </div>
-                                                <a href="#" tabindex="0">${c.roomprice}</a>
+                                                <div class="dit-t clearfix">
+                                                    <div class="left-ti">
+                                                        <h4>${c.cateroom}</h4>
+                                                        <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
+                                                    </div>
+                                                    <a href="#" tabindex="0">${c.roomprice}</a>
+                                                </div>
+                                                <div class="prod-btn">
+                                                    <a href="#"><i aria-hidden="true"></i>Book</a>
+                                                    <p>23 likes</p>
+                                                </div>
+
                                             </div>
-                                            <div class="prod-btn">
-                                                <a href="#"><i aria-hidden="true"></i>Book</a>
-                                                <p>23 likes</p>
-                                            </div>
-                                            
                                         </div>
-                                    </div>
                                     </c:forEach>
                                 </div>
                             </c:if>
@@ -221,25 +268,25 @@
                                 <h2 style="text-align: center">Phòng Dành Cho Bạn</h2>
                                 <div class="row cat-pd">
                                     <c:forEach items="${getroomlist2}" var="c">
-                                    <div class="col-md-6" style="margin-top: 30px">
-                                        <div class="small-box-c">
-                                            <div class="small-img-b">
-                                                <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
-                                            </div>
-                                            <div class="dit-t clearfix">
-                                                <div class="left-ti">
-                                                    <h4>${c.cateroom}</h4>
-                                                    <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
+                                        <div class="col-md-6" style="margin-top: 30px">
+                                            <div class="small-box-c">
+                                                <div class="small-img-b">
+                                                    <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
                                                 </div>
-                                                <a href="#" tabindex="0">${c.roomprice}</a>
+                                                <div class="dit-t clearfix">
+                                                    <div class="left-ti">
+                                                        <h4>${c.cateroom}</h4>
+                                                        <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
+                                                    </div>
+                                                    <a href="#" tabindex="0">${c.roomprice}</a>
+                                                </div>
+                                                <div class="prod-btn">
+                                                    <a href="#"><i aria-hidden="true"></i>Book</a>
+                                                    <p>23 likes</p>
+                                                </div>
+
                                             </div>
-                                            <div class="prod-btn">
-                                                <a href="#"><i aria-hidden="true"></i>Book</a>
-                                                <p>23 likes</p>
-                                            </div>
-                                            
                                         </div>
-                                    </div>
                                     </c:forEach>
                                 </div>
                             </c:if>
@@ -288,14 +335,33 @@
                     <div class="col-md-3 col-sm-12">
                         <div class="price-box-right">
                             <h4>Price</h4>
-                            <h3>${Room.roomprice}<span style="font-weight: bold"> /1 đêm</span></h3>
+                            <h3>${Room.roomprice}<span>pr.peice</span></h3>
                             <p>Option</p>
-                            <c:if test="${sessionScope.login!=null}" >
-                            <a href="OrderController?do=user&id=${Room.roomID}&user=${sessionScope.account.getAccountID()}">Booking</a>
-                            </c:if>
-                            <c:if test="${sessionScope.login==null}" >
-                            <a href="LoginController">Booking</a>
-                            </c:if>
+                            <select class="form-control select2">
+                                <option>Flying Carpet Green rug</option>
+                                <option value="AK">Alaska</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="CA">California</option>
+                                <option value="NV">Nevada</option>
+                                <option value="OR">Oregon</option>
+                                <option value="WA">Washington</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="CO">Colorado</option>
+                                <option value="ID">Idaho</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraska</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="UT">Utah</option>
+                                <option value="WY">Wyoming</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                            </select>
+                            <a href="#">Contact company</a>
                             <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>
                         </div>
                     </div>

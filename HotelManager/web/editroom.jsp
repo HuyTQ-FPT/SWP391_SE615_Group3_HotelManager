@@ -170,14 +170,22 @@
                                             <tr>
                                                 <th scope="row"><input type="hidden" /></th>
                                                 <td ><input class="form-control validate" type="text" name="RoomID" value="${r.roomID}"></td>
-                                                <td ><input class="form-control validate" type="text" name="RoomCate" value="${r.cateroom}"></td>
-                                                <td ><input class="form-control validate" type="number" name="Status" value=""></td>
-                                                <td ><input class="form-control validate" type="number" name="Price" value=""></td>
-                                                <td ><textarea name="Description" rows="4" cols="30" style="height: 45px">At w3schools.com you will learn how to</textarea></td>
-                                                <td ><textarea name="Description" rows="3" cols="10" style="height: 45px">At w3schools.com you will learn how to</textarea></td>
-                                                <td > <a href="#" style="border-radius: 10px" class="btn btn-info" role="button">Link Button</a></td>
+                                                <td ><select id="cars">
+                                                        <c:forEach items="${romcate}" var="rs">
+                                                            <option value="RoomCate"${rs.roomcateID==r.roomcateID?"selected":""}>${rs.catename}</option>
+                                                        </c:forEach>
+                                                    </select></td>
+                                                <td ><select id="cars">
+                                                        <option value="RoomCate"${r.status==0?"selected":""}>valid</option>
+                                                        <option value="RoomCate"${r.status==1?"selected":""}>invalid</option>
+                                                        <option value="RoomCate"${r.status==2?"selected":""}>other</option>
+                                                    </select></td>
+                                                <td ><input class="form-control validate" type="number" name="Price" value="" min="1" max="9999"></td>
+                                                <td ><textarea name="Description" rows="4" cols="30" style="height: 45px">${r.roomdesc}</textarea></td>
+                                                <td ><textarea name="Note" rows="3" cols="10" style="height: 45px">${r.note}</textarea></td>
+                                                <td > <a href="ImageController?do=listImage&RoomID=${r.roomID}" style="border-radius: 10px" class="btn btn-info" role="button">Link Button</a></td>
                                                 <td>
-                                                    <a href="ServiceController?do=deleteroom&RoomcateID=########&DeviceID=#########" class="tm-product-delete-link">
+                                                    <a href="#" class="tm-product-delete-link">
                                                         <i class="far fa-trash-alt tm-product-delete-icon"></i>
                                                     </a>
                                                 </td>
@@ -214,12 +222,16 @@
                             <tbody>
                                 <tr>
                                     <th scope="row"><input type="hidden" /></th>
-                            <h5 style="display: inline-block; margin-left: 1%; font-family: PlayFair Display; color: white">INSERT ROOM DEVICE</h5>   
+                            <h5 style="display: inline-block; margin-left: 1%; font-family: PlayFair Display; color: white">INSERT ROOM DEVICE</h5> <br> 
                             <span>
-                                <td ><input class="form-control validate" type="text" name="DeviceName" value="" placeholder="DeviceName"></td>
-                                <td ><input class="form-control validate" type="number" name="Price" value="" placeholder="Price"></td>
-                                <td ><input class="form-control validate" type="number" name="Status" value="" placeholder="Status"></td>
-                                <td ><input class="form-control validate" type="number" name="Quantity" value="" placeholder="Quantity"></td>
+                                <td ><a href="importimg.jsp" style="border-radius: 10px" class="btn btn-info" role="button">Link Button</a></td> <br>
+                                <td ><select id="cars">
+                                        <c:forEach items="${romcate}" var="rs">
+                                            <option value="RoomCate"${rs.roomcateID==r.roomcateID?"selected":""}>${rs.catename}</option>
+                                        </c:forEach>
+                                    </select></td>
+                                <td ><input class="form-control validate" readonly type="text" name="Status" value="1"></td>
+                                <td ><input class="form-control validate" type="number" name="Quantity" value="" placeholder="Quantity" min="1" max="10"></td>
                             </span>
                             <input type="hidden" name="RoomcateID" value="######">
                             <td>

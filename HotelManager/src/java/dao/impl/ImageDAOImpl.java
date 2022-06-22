@@ -47,10 +47,17 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
 
     public static void main(String[] args) {
         ImageDAOImpl dao = new ImageDAOImpl();
-        Vector<Image> vector = dao.getImageByid("1");
-        for (Image image : vector) {
-            System.out.println(image);
-        }
+//        Vector<Image> vector = dao.getImageByid("1");
+        Image img = dao.imageByID("select * from [image] join Room on [Image].RoomimgaeID = Room.RoomcateID where RoomID = 1");
+//        dao.crudImage("UPDATE [dbo].[Image]\n"
+//                + " SET [image1] = 'abc'\n"
+//                + "      ,[image2] = 'abc'\n"
+//                + "      ,[image3] = 'abc'\n"
+//                + "      ,[image4] = 'abc'\n"
+//                + " WHERE RoomimgaeID= 33");
+//        for (Image image : vector) {
+        System.out.println(img);
+//        }
     }
 
     @Override
@@ -86,6 +93,34 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
             ex.printStackTrace();
         }
         return vector;
+    }
+
+    @Override
+    public Image imageByID(String sql) {
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int roomid = rs.getInt(1);
+                String image1 = rs.getString(2);
+                String image2 = rs.getString(3);
+                String image3 = rs.getString(4);
+                String image4 = rs.getString(5);
+                return new Image(roomid, image1, image2, image3, image4);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public void crudImage(String sql) {
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.executeUpdate();
+            System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
