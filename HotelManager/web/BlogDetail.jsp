@@ -4,6 +4,7 @@
     Author     : Thai Quan
 --%>
 
+<%@page import="entity.Account"%>
 <%@page import="entity.Blog"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,7 +15,7 @@
         <title>Suite &mdash; Colorlib Website Template</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-              <link rel="stylesheet" href="css/datatables.css">
+        <link rel="stylesheet" href="css/datatables.css">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Work+Sans:300,400,700" rel="stylesheet">
         <link rel="stylesheet" href="fonts/icomoon/style.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -42,6 +43,40 @@
             right: 40px;
         }
     </style>
+    <script type="text/javascript">
+        function  Comment() {
+            var xhttp;
+            var username = document.myform.username.value;
+            var content = document.myform.content.value;
+            var blogid = document.myform.blogid.value;
+            var url = "CommentController?content=" + content + "&username=" + username + "&blogid=" +blogid;
+            if (window.XMLHttpRequest) {
+                xhttp = new XMLHttpRequest();
+            } else {
+                xhttp = new ActiveObject("Microsoft.XMLHTTP");
+            }
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4) {
+                    var data = xhttp.responseText;
+                    document.getElementById("mycomment").innerHTML = data;
+                }
+
+            }
+            xhttp.open("POST", url, true);
+            xhttp.send();
+            
+            var arr = document.getElementsByTagName('input');
+            var name = arr[0].value;
+            var arr1 = document.getElementsByTagName('textarea');
+            var content = arr1[0].value;
+            if (name.trim() == "" && content.trim() == "") {
+                alert("please fill all fields");
+                return false;
+            }
+        
+        }
+
+    </script>
     <body>
 
         <div class="site-wrap">
@@ -59,77 +94,77 @@
             <jsp:include page="header.jsp"></jsp:include>
 
 
-            <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-md-7 text-center" data-aos="fade">
-                            <span class="caption mb-3">Suites Hotel &amp; Resort</span>
-                            <h1 class="mb-4">About Us</h1>
+                <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+                    <div class="container">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-7 text-center" data-aos="fade">
+                                <span class="caption mb-3">Suites Hotel &amp; Resort</span>
+                                <h1 class="mb-4">About Us</h1>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>  
-            <section class="blog-details spad">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-5 order-md-1 order-2">
-                            <div class="blog__sidebar">
+                </div>  
+                <section class="blog-details spad">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-5 order-md-1 order-2">
+                                <div class="blog__sidebar">
 
-                                <div class="blog__sidebar__item">
-                                    <h4>Categories</h4>
-                                    <ul>
-                                        <li><a href="#">Phòng đơn</a></li>
-                                        <li><a href="#">Phòng đôi</a></li>
-                                        <li><a href="#">Gia đình</a></li>
-                                        <li><a href="#">Dịch vụ</a></li>
+                                    <div class="blog__sidebar__item">
+                                        <h4>Categories</h4>
+                                        <ul>
+                                            <li><a href="#">Phòng đơn</a></li>
+                                            <li><a href="#">Phòng đôi</a></li>
+                                            <li><a href="#">Gia đình</a></li>
+                                            <li><a href="#">Dịch vụ</a></li>
 
-                                    </ul>
-                                </div>
-                                <div class="blog__sidebar__item">
-                                    <h4>Recent News</h4>
-                                    <div class="blog__sidebar__recent">
-                                        <a href="#" class="blog__sidebar__recent__item">
-                                            <div class="blog__sidebar__recent__item__pic">
-                                                <img src="img/blog/sidebar/sr-1.jpg" alt="">
-                                            </div>
-                                            <div class="blog__sidebar__recent__item__text">
-                                                <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
-                                                <span>MAR 05, 2019</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="blog__sidebar__recent__item">
-                                            <div class="blog__sidebar__recent__item__pic">
-                                                <img src="img/blog/sidebar/sr-2.jpg" alt="">
-                                            </div>
-                                            <div class="blog__sidebar__recent__item__text">
-                                                <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>
-                                                <span>MAR 05, 2019</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="blog__sidebar__recent__item">
-                                            <div class="blog__sidebar__recent__item__pic">
-                                                <img src="img/blog/sidebar/sr-3.jpg" alt="">
-                                            </div>
-                                            <div class="blog__sidebar__recent__item__text">
-                                                <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
-                                                <span>MAR 05, 2019</span>
-                                            </div>
-                                        </a>
+                                        </ul>
                                     </div>
-                                </div>
-                                <div class="blog__sidebar__item">
-                                    <h4>Search By</h4>
-                                    <div class="blog__sidebar__item__tags">
-                                        <a href="#">Apple</a>
-                                        <a href="#">Beauty</a>
-                                        <a href="#">Vegetables</a>
-                                        <a href="#">Fruit</a>
-                                        <a href="#">Healthy Food</a>
-                                        <a href="#">Lifestyle</a>
+                                    <div class="blog__sidebar__item">
+                                        <h4>Recent News</h4>
+                                        <div class="blog__sidebar__recent">
+                                            <a href="#" class="blog__sidebar__recent__item">
+                                                <div class="blog__sidebar__recent__item__pic">
+                                                    <img src="img/blog/sidebar/sr-1.jpg" alt="">
+                                                </div>
+                                                <div class="blog__sidebar__recent__item__text">
+                                                    <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
+                                                    <span>MAR 05, 2019</span>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="blog__sidebar__recent__item">
+                                                <div class="blog__sidebar__recent__item__pic">
+                                                    <img src="img/blog/sidebar/sr-2.jpg" alt="">
+                                                </div>
+                                                <div class="blog__sidebar__recent__item__text">
+                                                    <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>
+                                                    <span>MAR 05, 2019</span>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="blog__sidebar__recent__item">
+                                                <div class="blog__sidebar__recent__item__pic">
+                                                    <img src="img/blog/sidebar/sr-3.jpg" alt="">
+                                                </div>
+                                                <div class="blog__sidebar__recent__item__text">
+                                                    <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
+                                                    <span>MAR 05, 2019</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="blog__sidebar__item">
+                                        <h4>Search By</h4>
+                                        <div class="blog__sidebar__item__tags">
+                                            <a href="#">Apple</a>
+                                            <a href="#">Beauty</a>
+                                            <a href="#">Vegetables</a>
+                                            <a href="#">Fruit</a>
+                                            <a href="#">Healthy Food</a>
+                                            <a href="#">Lifestyle</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <c:forEach items="${c}" var="c">
                             <div class="col-lg-8 col-md-7 order-md-1 order-1">
                                 <div class="blog__details__text">
@@ -173,86 +208,44 @@
                 </div>
             </section>
             <!-- Blog Details Section End -->
- <div class="be-comment-block">
-                <h1 class="comments-title">Comments (3)</h1>
-                <div class="be-comment">
-                    <div class="be-img-comment">	
-                        <a href="blog-detail-2.html">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
-                        </a>
-                    </div>
-                    <div class="be-comment-content">
 
-                        <span class="be-comment-name">
-                            <a href="blog-detail-2.html">Ravi Sah</a>
-                        </span>
-                        <span class="be-comment-time">
-                            <i class="fa fa-clock-o"></i>
-                            May 27, 2015 at 3:14am
-                        </span>
+            <div id ="mycomment"> </div>
+            <div class="be-comment-block">
+                <h1 class="comments-title">Comments</h1>
 
-                        <p class="be-comment-text">
-                            Pellentesque gravida tristique ultrices. 
-                            Sed blandit varius mauris, vel volutpat urna hendrerit id. 
-                            Curabitur rutrum dolor gravida turpis tristique efficitur.
-                        </p>
-                    </div>
-                </div>
-                <div class="be-comment">
-                    <div class="be-img-comment">	
-                        <a href="blog-detail-2.html">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="be-ava-comment">
-                        </a>
-                    </div>
-                    <div class="be-comment-content">
-                        <span class="be-comment-name">
-                            <a href="blog-detail-2.html">Phoenix, the Creative Studio</a>
-                        </span>
-                        <span class="be-comment-time">
-                            <i class="fa fa-clock-o"></i>
-                            May 27, 2015 at 3:14am
-                        </span>
-                        <p class="be-comment-text">
-                            Nunc ornare sed dolor sed mattis. In scelerisque dui a arcu mattis, at maximus eros commodo. Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis eleifend lorem non ant. Proin ut ornare lectus, vel eleifend est. Fusce hendrerit dui in turpis tristique blandit.
-                        </p>
-                    </div>
-                </div>
-                <div class="be-comment">
-                    <div class="be-img-comment">	
-                        <a href="blog-detail-2.html">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="be-ava-comment">
-                        </a>
-                    </div>
-                    <div class="be-comment-content">
-                        <span class="be-comment-name">
-                            <a href="blog-detail-2.html">Cüneyt ŞEN</a>
-                        </span>
-                        <span class="be-comment-time">
-                            <i class="fa fa-clock-o"></i>
-                            May 27, 2015 at 3:14am
-                        </span>
-                        <p class="be-comment-text">
-                            Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis eleifend lorem non ant
-                        </p>
-                    </div>
-                </div>
-                <form class="form-block">
+   
+                <form name="myform">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
                             <div class="form-group fl_icon">
                                 <div class="icon"><i class="fa fa-user"></i></div>
-                                <input class="form-input" type="text" placeholder="Your name">
+                                <input type="text" placeholder="Your name" class="form-input" id="username" name="username" required/>
+
                             </div>
                         </div>
-                      
-                        <div class="col-sm-12">									
-                            <div class="form-group">
-                                <textarea class="form-input" required="" placeholder="Your text"></textarea>
+
+                        <div class="col-sm-12">		
+                            <div class="form-group fl_icon">
+                                <div class="icon"><i class="fa fa-user"></i></div>
+                                <textarea class="form-input" id="content" placeholder="Comment"  name="content" required></textarea>
                             </div>
+                            <!--                            <div class="form-group">
+                                                            <textarea class="form-input" required="" placeholder="Your text"  name="content">
+                                                            </textarea>
+                                                        </div>-->
                         </div>
-                        <a style="margin-left: 1300px;" class="btn btn-primary pull-right">submit</a>
+                         <c:forEach items="${c}" var="c">
+                        <input type="hidden" value="${c.blogID}" id="blogid" name="blogid"/>
+                       </c:forEach>
+                        <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Post" onclick="Comment()"/>
                     </div>
                 </form>
+    
+
+
+
+
+
             </div>
             <!-- Related Blog Section Begin -->
             <section class="related-blog spad">
@@ -272,9 +265,9 @@
                                         <img style="width: 350px; height: 250px;"src="images/anhblog/${c.blogImage}" alt="">
                                     </div>
                                     <div class="blog__item__text">
-                                         <ul>
-                                                    <li><i class="fa fa-calendar-o"></i>${c.blogDate} by <label style="color: red">${c.blogAuthor}</label></li>                                               
-                                                </ul>
+                                        <ul>
+                                            <li><i class="fa fa-calendar-o"></i>${c.blogDate} by <label style="color: red">${c.blogAuthor}</label></li>                                               
+                                        </ul>
 
                                         <h5><a href="BlogController?do=detailBlog&blogID=${c.blogID}">${c.blogTitleString}</a></h5>
 <!--                                        <p>${c.blogDescription}</p>-->

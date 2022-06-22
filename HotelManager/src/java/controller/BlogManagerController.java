@@ -37,7 +37,7 @@ public class BlogManagerController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+          response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -45,15 +45,15 @@ public class BlogManagerController extends HttpServlet {
             String dos = request.getParameter("do");
             if (dos.equals("insertblog")) {
                 request.setCharacterEncoding("UTF-8");
-                String title = request.getParameter("title");
+                String title = request.getParameter("title").trim();
                 int accountID = 9;
-                String description = request.getParameter("description");
-                String author = request.getParameter("author");
+                String description = request.getParameter("description").trim();
+                String author = request.getParameter("author").trim();
                 String image = request.getParameter("image");
-                String date = request.getParameter("date");
-
-                dao.inSertBlog(accountID, author, description, image, date, title);
+                
+                dao.inSertBlog(accountID, author, description, image, title);
                 response.sendRedirect("BlogManagerController?do=editblog");
+            
             }
             if (dos.equals("editblog")) {
                 Vector<Blog> b = null;
@@ -76,7 +76,6 @@ public class BlogManagerController extends HttpServlet {
                 response.sendRedirect("BlogManagerController?do=editblog&page=" + n + "");
             }
             if (dos.equals("updateblog")) {
-
                 String author = request.getParameter("blogauthor");
                 String blogDescription = request.getParameter("blogDescription");
                 String blogImage = request.getParameter("blogImage");
@@ -99,7 +98,7 @@ public class BlogManagerController extends HttpServlet {
                 String blogTitleString = request.getParameter("title");
                 String blogDate = request.getParameter("date");
                dao.updateBlog(BlogID, author, blogDescription, blogImage, blogDate, blogTitleString);
-     
+                
                 response.sendRedirect("BlogManagerController?do=editblog");
             }
         } catch (Exception e) {

@@ -36,7 +36,7 @@ public class BlogController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+                /* TODO output your page here. You may use following sample code. */
             BlogDAOImpl dao = new BlogDAOImpl();          
              String dos = request.getParameter("do");
              if(dos == null){
@@ -115,9 +115,20 @@ public class BlogController extends HttpServlet {
               }
               if(dos.equals("search")){
                   String author = request.getParameter("search");
-                  Vector<Blog> vector = dao.getBlog("select * from Blog where BlogAuthor like '%"+author+"%'");
-                  request.setAttribute("b", vector);
-                   request.getRequestDispatcher("Blog.jsp").forward(request, response);
+                   Vector<Blog> b = null;
+                    int n = dao.getPage();
+                      request.setAttribute("n", n);
+//              request.setAttribute("vector4", vector4);
+                String page = request.getParameter("page");
+                int a = 4;
+                if (page == null) {
+                    b = dao.getBlogByPagesearch(1,author);
+                } else {
+                    b = dao.getBlogByPagesearch(Integer.parseInt(page),author);
+                }
+                 request.setAttribute("b", b);
+                 request.setAttribute("a", a);
+            request.getRequestDispatcher("Blog.jsp").forward(request, response);    
               }
         }
     }

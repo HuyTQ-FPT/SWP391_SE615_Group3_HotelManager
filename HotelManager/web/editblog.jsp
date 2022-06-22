@@ -29,7 +29,11 @@
             https://templatemo.com/tm-524-product-admin
         -->
     </head>
-
+    <script type="text/javascript">
+        function Delete(){
+            alert("Delete success");
+        }
+    </script>
     <body id="reportsPage">
         <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
@@ -171,8 +175,8 @@
                                         <input name="blogTitleString" value="${c.blogTitleString}" type="hidden">
                                          <input name="date" value="${c.blogDate}" type="hidden">
                                         <td>
-                                            <a href="BlogManagerController?do=deleteblog&blogid=${c.blogID}" class="tm-product-delete-link">
-                                                <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                            <a href="BlogManagerController?do=deleteblog&blogid=${c.blogID}" class="tm-product-delete-link" onclick="Delete()"/>
+                                                <i class="far fa-trash-alt tm-product-delete-icon" onclick="delete()"></i>
                                             </a>
                                         </td>
 

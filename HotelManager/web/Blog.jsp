@@ -180,6 +180,15 @@
                                                 </ul>
                                             </div>    
                                         </c:if>
+                                        <c:if test="${a==4}">
+                                            <div class="site-block-27">
+                                                <ul>
+                                                    <c:forEach begin="1" end="${n}" var="c">
+                                                        <li><a href="BlogController?do=search&page=${c}">${c}</a></li>
+                                                        </c:forEach>
+                                                </ul>
+                                            </div>    
+                                        </c:if>
                                     </div>                              
                                 </div>                                          
                             </div>

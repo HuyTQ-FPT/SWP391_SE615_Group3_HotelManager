@@ -25,7 +25,19 @@
 	https://templatemo.com/tm-524-product-admin
 	-->
   </head>
-
+ <script type="text/javascript">
+        function  Add() {
+            var arr = document.getElementsByTagName('input');
+            var name = arr[0].value;
+            
+            var 
+            var arr1 = document.getElementsByTagName('textarea');
+            var content = arr1[0].value;
+            if (name.trim() == ""||content.trim() == "") {
+                alert("please fill all fields");
+            }
+        }
+ </script>
   <body>
     <nav class="navbar navbar-expand-xl">
       <div class="container h-100">
@@ -132,7 +144,7 @@
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Add Product</h2>             
+                <h2 class="tm-block-title d-inline-block">Add Blog</h2>             
               </div>
             </div>
             <div class="row tm-edit-product-row">
@@ -151,7 +163,7 @@
                       required
                     />
                   </div>
-                    <div class="form-group mb-3">
+<!--                    <div class="form-group mb-3">
                     <label
                       for="name"
                       >Date
@@ -163,14 +175,14 @@
                       class="form-control validate"
                       required
                     />
-                  </div>
+                  </div>-->
                   <div class="form-group mb-3">
                     <label
                       for="description"
                       >Description</label
                     >
                     <textarea
-                      class="form-control validate"
+                        id="description" class="form-control validate"
                       rows="3" name="description"
                       required
                     ></textarea>
@@ -181,7 +193,7 @@
                       >Author
                     </label>
                     <input
-                      id="name"
+                      id="author"
                       name="author"
                       type="text"
                       class="form-control validate"
@@ -202,6 +214,23 @@
                       required
                     />
                   </div>
+<!-- <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                <div class="tm-product-img-dummy mx-auto">
+                  <i
+                    class="fas fa-cloud-upload-alt tm-upload-icon"
+                    onclick="document.getElementById('fileInput').click();"
+                  ></i>
+                </div>
+                <div class="custom-file mt-3 mb-3">
+                  <input id="fileInput" type="file" style="display:none;" />
+                  <input
+                    type="button"
+                    class="btn btn-primary btn-block mx-auto"
+                    value="UPLOAD PRODUCT IMAGE"
+                    onclick="document.getElementById('fileInput').click();"
+                  />
+                </div>
+              </div>-->-->
               </div>
 <!--              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
                 <div class="tm-product-img-dummy mx-auto">
@@ -222,7 +251,7 @@
               </div>-->
               <div class="col-12">
                   <input type="hidden" value="insertblog" name="do"> 
-                  <button type="submit"  class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
+                  <button type="submit"  class="btn btn-primary btn-block text-uppercase" onclick="Add()">Add Blog Now</button>
               </div>
             </form>
             </div>
