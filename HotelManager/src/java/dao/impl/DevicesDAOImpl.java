@@ -190,13 +190,13 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
     }
 
     public static void main(String[] args) {
-        DevicesDAOImpl dao = new DevicesDAOImpl();
+
 //        dao.updateDeviceinfor("Điều Hòa Nhỏ", "11212", "1", "12");
 //        dao.updateDeviceQuan("2", "12", "1");
 //        dao.insertDevice("test", "9999", "1", "1", "2");
 //        Vector<Device> de = dao.searchDevicebyname("22", "1");
-        int n = dao.getPage();
-        System.out.println(n);
+//        int n = dao.getPage();
+//        System.out.println(n);
 //        for (Device device : de) {
 //            System.out.println(device);
 //        }

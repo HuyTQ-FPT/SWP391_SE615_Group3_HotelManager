@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity;
+package entity;
 
 /**
  *
@@ -11,12 +11,12 @@ package Entity;
  */
 public class Message {
     private int MessageID;
-	private int AccountID ;
-	private String MessageTo;
-	private String MessageFrom ;
-	private String Date;
-        private String content;
-        private String StatusMess;
+    private int AccountID;
+    private String MessageTo;
+    private String MessageFrom;
+    private String Date;
+    private String content;
+    private String StatusMess;
     public Message() {
     }
 
@@ -29,7 +29,6 @@ public class Message {
         this.content = content;
     }
 
-    
     public Message(int MessageID, int AccountID, String MessageTo, String MessageFrom, String Date) {
         this.MessageID = MessageID;
         this.AccountID = AccountID;
@@ -37,7 +36,8 @@ public class Message {
         this.MessageFrom = MessageFrom;
         this.Date = Date;
     }
-    public Message(int AccountID,String content) {
+
+    public Message(int AccountID, String content) {
         this.AccountID = AccountID;
         this.content = content;
     }
@@ -102,5 +102,5 @@ public class Message {
     public String toString() {
         return "Message{" + "MessageID=" + MessageID + ", AccountID=" + AccountID + ", MessageTo=" + MessageTo + ", MessageFrom=" + MessageFrom + ", Date=" + Date + '}';
     }
-        
+
 }

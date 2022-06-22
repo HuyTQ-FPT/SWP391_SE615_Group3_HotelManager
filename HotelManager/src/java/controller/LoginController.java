@@ -29,7 +29,7 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try {
             HttpSession session = request.getSession();
             AccountDAOImpl dao = new AccountDAOImpl();
             UserDAOImpl daoU = new UserDAOImpl();
@@ -175,47 +175,43 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
             }
-            if (service.equals("ForgetPassword")) {// Gửi mật khẩu mới qua gamil
-                try {
-                    String email = request.getParameter("email");
+            if (service.equals("ForgetPassword")) {// Gửi mật khẩu mới qua email
 
-                    if (daoU.checkUser(email.trim()) == null) { // Check đầu vào cho email
-                        if (!email.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
-                            String eEmail = "Email không đúng định dạng!";
-                            String exampleEmail = "Example: SWPGroup3@gmail.com";
-                            request.setAttribute("eEmail", eEmail);
-                            request.setAttribute("exampleEmail", exampleEmail);
-                            request.setAttribute("email1", email);
-                            request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
-                        } else {
-                            String error = "Không tìm thấy Email đã đăng kí. Vui lòng nhập lại.";
-                            request.setAttribute("error", error);
-                            request.setAttribute("email1", email);
-                            request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+                String email = request.getParameter("email");
 
-                        }
-
+                if (daoU.checkUser(email.trim()) == null) { // Check đầu vào cho email
+                    if (!email.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
+                        String eEmail = "Email không đúng định dạng!";
+                        String exampleEmail = "Example: SWPGroup3@gmail.com";
+                        request.setAttribute("eEmail", eEmail);
+                        request.setAttribute("exampleEmail", exampleEmail);
+                        request.setAttribute("email1", email);
+                        request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
                     } else {
-                        SendMail sm = new SendMail();
-                        randomPassword rdP = new randomPassword();
-                        String newPass = rdP.randomAlphaNumeric(8);
-                        String message = "Mật khẩu mới của bạn là:" + newPass + "\n"
-                                + "Nếu bạn muốn đổi mật khẩu click vào link này:" + "http://localhost:8080/HotelManager/LoginController";
-                        sm.send(email, "Your new pass word!!!!", message, sm.getFromEmail(), sm.getPassword());
-                        int n = dao.updateAccountAndUser(newPass, email);
-                        String mess = "Gửi email thành công.";
-                        request.setAttribute("mess", mess);
-                        request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+                        String error = "Không tìm thấy Email đã đăng kí. Vui lòng nhập lại.";
+                        request.setAttribute("error", error);
+                        request.setAttribute("email1", email);
+                        request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
 
                     }
-                } catch (SQLException ex) {
-                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                    request.setAttribute("errorMess", ex.toString());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+
+                } else {
+                    SendMail sm = new SendMail();
+                    randomPassword rdP = new randomPassword();
+                    String newPass = rdP.randomAlphaNumeric(8);
+                    String message = "Mật khẩu mới của bạn là:" + newPass + "\n"
+                            + "Nếu bạn muốn đổi mật khẩu click vào link này:" + "http://localhost:8080/HotelManager/LoginController";
+                    sm.send(email, "Your new pass word!!!!", message, sm.getFromEmail(), sm.getPassword());
+                    int n = dao.updateAccountAndUser(newPass, email);
+                    String mess = "Gửi email thành công.";
+                    request.setAttribute("mess", mess);
+                    request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
+
                 }
+
             }
             if (service.equals("ForgetPassword1")) { // vào trang quên mật khẩu
-                request.getRequestDispatcher("ForgetPassword.jsp").forward(request, response);
+                request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
             }
             if (service.equals("ChangePassword1")) { // vào trang đổi mật khẩu
                 request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
@@ -290,6 +286,10 @@ public class LoginController extends HttpServlet {
             if (service.equals("CheckForgetPassword")) {
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMess", ex.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 

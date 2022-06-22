@@ -1,7 +1,7 @@
 
-<%@page import="Entity.Account"%>
+<%@page import="entity.Account"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="Dao.impl.MessageDAOImpl"%>
+<%@page import="dao.impl.MessageDAOImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : requestMessage
     Created on : Jun 14, 2022, 9:37:31 AM
-    Author     : Admin
+    Author     : Minh Hieu
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -302,12 +302,11 @@
             <div class="row tm-content-row">
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block" >
-                        <div class="card-people mt-auto" style="padding: 0">
-                            <img style="width: 100%; min-height:300px" src="images/Message.png">
-
-                            <div class="weather-info">
-                            </div>
-                        </div>
+                        <form action="SendFeedbackController?do=searchName" method="post">
+                               <input name="nameTitle" type="text"  placeholder="Tìm kiếm tiều đề">
+                               <button   type="submit" name="submit" class="search " style=" border-radius:8px;border: none"><span class="fa fa-search " ></span></button>
+                            
+                        </form>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
@@ -316,7 +315,7 @@
                             <div class="col-md-6 mb-4 stretch-card transparent">
                                 <div class="card card-tale">
                                     <div class="card-body">
-                                        <a href="" style="; text-decoration: none"><p class="mb-4">Total Messages </p>
+                                        <a href="" style="; text-decoration: none"><p class="mb-4" style="color: black">Số yêu cầu </p>
                                             <p class="fs-30 mb-2"><%=v.size()%></p>
                                         </a> 
                                     </div>
@@ -325,8 +324,8 @@
                             <div class="col-md-6 mb-4 stretch-card transparent">
                                 <div class="card card-dark-blue">
                                     <div class="card-body">
-                                        <a href="" style=" text-decoration: none"><p class="mb-4">Unread Messages</p>
-                                            <p class="fs-30 mb-2"><%=v1.size()%></p>
+                                        <a href="" style=" text-decoration: none" ><p class="mb-4" style="color: black">Chưa đọc</p>
+                                            <p class="fs-30 mb-2" ><%=v1.size()%></p>
                                         </a> 
                                     </div>
                                 </div>
@@ -339,7 +338,7 @@
 
                 <div class="col-12 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-                        <h2 class="tm-block-title">List Message</h2>
+                        <h2 class="tm-block-title">Danh sách yêu cầu</h2>
                         <p class="text-success">${Mess}</p> 
                         <%
                             if (v.isEmpty()) {
@@ -399,7 +398,7 @@
                         <%}%>
 
                         <%-- Paging --%>
-                        <c:if test="${vetorS != null}">
+                        <c:if test="${!empty vetorS}">
                             <div class="row">  
                                 <div class="paging">
                                     <%-- Previous --%>

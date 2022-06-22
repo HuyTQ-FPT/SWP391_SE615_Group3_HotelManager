@@ -81,7 +81,7 @@
 	}
 #two{
 	animation:text 1.2s;
-	animation-delay:;
+	animation-delay:0;
 	overflow:hidden;
 	animation-name:two;
 	height:200px;
@@ -510,7 +510,7 @@
 #form:hover .box-img{
 	transform: rotateY(90deg);
 
-	opacity:;
+	opacity:1;
 	}	
 
 

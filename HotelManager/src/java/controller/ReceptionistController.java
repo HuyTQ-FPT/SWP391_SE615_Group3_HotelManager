@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller;
 
 import dao.impl.ReceptionistDAOImpl;
@@ -26,7 +22,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Admin
+ * @author Minh Hiếu
  */
 @WebServlet(name = "ReceptionistController", urlPatterns = {"/ReceptionistController"})
 public class ReceptionistController extends HttpServlet {
@@ -43,7 +39,7 @@ public class ReceptionistController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try {
             ReceptionistDAOImpl dao = new ReceptionistDAOImpl();
             RoomDAOImpl daoR = new RoomDAOImpl();
             UserDAOImpl daoU = new UserDAOImpl();
@@ -53,58 +49,37 @@ public class ReceptionistController extends HttpServlet {
                 service = "Room";
             }
             if (service.equalsIgnoreCase("Room")) { //view List All Room
-                try {
 
-                    Vector<Room> vectorR = daoR.getRoomListAll("select*from Room");
-                    request.setAttribute("vectorR", vectorR);
-                    request.getRequestDispatcher("ManagerRoom.jsp").forward(request, response);
-                } catch (Exception ex) {
-                    Logger.getLogger(ReceptionistController.class.getName()).log(Level.SEVERE, null, ex);
-                    request.setAttribute("errorMess", ex.toString());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                }
+                Vector<Room> vectorR = daoR.getRoomListAll("select*from Room");
+                request.setAttribute("vectorR", vectorR);
+                request.getRequestDispatcher("managerRoom.jsp").forward(request, response);
+
             }
 
             if (service.equals("updateStatus")) { // cập nhật trạng thái phòng
-                try {
-                    String rId = request.getParameter("rid");
-                    String status = request.getParameter("status");
-                    int Rid = Integer.parseInt(rId);
-                    int status1 = Integer.parseInt(status);
-                    daoR.updateStatus(Rid, status1);
-                    response.sendRedirect("ReceptionistController");
-                } catch (Exception ex) {
-                    Logger.getLogger(ReceptionistController.class.getName()).log(Level.SEVERE, null, ex);
-                    request.setAttribute("errorMess", ex.toString());
 
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                }
+                String rId = request.getParameter("rid");
+                String status = request.getParameter("status");
+                int Rid = Integer.parseInt(rId);
+                int status1 = Integer.parseInt(status);
+                daoR.updateStatus(Rid, status1);
+                response.sendRedirect("ReceptionistController");
 
             }
             if (service.equalsIgnoreCase("Cus")) { //View List All Customer
-                try {
-                    Vector<User> vectorU = dao.getCustomerListByReceptionist();
-                    request.setAttribute("vectorU", vectorU);
-                    request.getRequestDispatcher("ManagerCustomer.jsp").forward(request, response);
-                } catch (Exception ex) {
-                    Logger.getLogger(ReceptionistController.class.getName()).log(Level.SEVERE, null, ex);
-                    request.setAttribute("errorMess", ex.toString());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                }
+
+                Vector<User> vectorU = dao.getCustomerListByReceptionist();
+                request.setAttribute("vectorU", vectorU);
+                request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
 
             }
             if (service.equalsIgnoreCase("profile")) { // view profile
-                try {
-                    Account ac = (Account) session.getAttribute("login");
 
-                    User u = daoU.getUser(ac.getAccountID());
-                    request.setAttribute("u", u);
-                    request.getRequestDispatcher("profileReceptionist.jsp").forward(request, response);
-                } catch (Exception ex) {
-                    Logger.getLogger(ReceptionistController.class.getName()).log(Level.SEVERE, null, ex);
-                    request.setAttribute("errorMess", ex.toString());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                }
+                Account ac = (Account) session.getAttribute("login");
+
+                User u = daoU.getUser(ac.getAccountID());
+                request.setAttribute("u", u);
+                request.getRequestDispatcher("profileReceptionist.jsp").forward(request, response);
 
             }
             if (service.equalsIgnoreCase("ViewupdateRecept")) { // chuyen toi update profile 
@@ -116,93 +91,86 @@ public class ReceptionistController extends HttpServlet {
 
             }
             if (service.equalsIgnoreCase("updateRecept")) { // update profile 
-                try {
-                    String uID = (String) request.getParameter("uid").trim();
-                    String username = (String) request.getParameter("Username");
-                    String uEmail = (String) request.getParameter("EmailAddress").trim();
-                    String uCMT = (String) request.getParameter("inputCMT").trim();
-                    String uAddress = (String) request.getParameter("inputAddress").trim();
-                    String uPhone = (String) request.getParameter("inputPhone").trim();
-                    Date birthday = Date.valueOf(request.getParameter("birthday").trim());
-                    System.out.println(birthday);
 
-                    //convert
-                    int id = Integer.parseInt(uID);
-                    User k = new User(id, username, uPhone, uEmail, birthday, uAddress, uCMT);
-                    session.setAttribute("u", k);
-                    if (uEmail.length() < 5 || uCMT.length() < 5 || uAddress.length() < 5 || uPhone.length() < 5) {
-                        String err = "Nhập lớn hơn 5 kí tự.";
-                        request.setAttribute("err", err);
-                        request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
+                String uID = (String) request.getParameter("uid").trim();
+                String username = (String) request.getParameter("Username");
+                String uEmail = (String) request.getParameter("EmailAddress").trim();
+                String uCMT = (String) request.getParameter("inputCMT").trim();
+                String uAddress = (String) request.getParameter("inputAddress").trim();
+                String uPhone = (String) request.getParameter("inputPhone").trim();
+                Date birthday = Date.valueOf(request.getParameter("birthday").trim());
+                System.out.println(birthday);
 
-                    } else if (username.trim().length() > 50) {
-                        String err = "Nhập nhỏ hơn 50 kí tự.";
-                        request.setAttribute("err", err);
-                        request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
+                //convert
+                int id = Integer.parseInt(uID);
+                User k = new User(id, username, uPhone, uEmail, birthday, uAddress, uCMT);
+                session.setAttribute("u", k);
+                if (uEmail.length() < 5 || uCMT.length() < 5 || uAddress.length() < 5 || uPhone.length() < 5) {
+                    String err = "Nhập lớn hơn 5 kí tự.";
+                    request.setAttribute("err", err);
+                    request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
 
-                    } else if (!username.matches("^[a-zA-Z]+$")) {
-                        String err = "Nhập tên của bạn.";
-                        request.setAttribute("err", err);
-                        request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
+                } else if (username.trim().length() > 50) {
+                    String err = "Nhập nhỏ hơn 50 kí tự.";
+                    request.setAttribute("err", err);
+                    request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
 
-                    } else if (!uEmail.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
-                        String err = "Ví dụ: hieu1@gmail.com";
-                        request.setAttribute("err", err);
-                        request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
-                    } else if (!uCMT.trim().matches("^[0-9]{12}$")) {
-                        String err = "Chỉ nhập số và đúng 12 kí tự của CMT";
-                        request.setAttribute("err", err);
-                        request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
+                } else if (!username.matches("^[a-zA-Z]+$")) {
+                    String err = "Nhập tên của bạn.";
+                    request.setAttribute("err", err);
+                    request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
 
-                    } else if (uAddress.trim().length() > 100) {
-                        String err = "Nhỏ hơn 100 kí tự";
-                        request.setAttribute("err", err);
-                        request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
+                } else if (!uEmail.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
+                    String err = "Ví dụ: hieu1@gmail.com";
+                    request.setAttribute("err", err);
+                    request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
+                } else if (!uCMT.trim().matches("^[0-9]{12}$")) {
+                    String err = "Chỉ nhập số và đúng 12 kí tự của CMT";
+                    request.setAttribute("err", err);
+                    request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
 
-                    } else if (!uPhone.trim().matches("^(09|03)+[0-9]{8}$")) {
+                } else if (uAddress.trim().length() > 100) {
+                    String err = "Nhỏ hơn 100 kí tự";
+                    request.setAttribute("err", err);
+                    request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
 
-                        String err = "Điện thoại bắt đầu 09|03 và có 10 số.";
-                        request.setAttribute("err", err);
-                        request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
-                    } else {
-                        daoU.updateUserEcept(new User(id, username, uPhone, uEmail, birthday, uAddress, uCMT));
-                        String mess = "Cập nhật thành công.";
-                        request.setAttribute("mess", mess);
-                        request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(ReceptionistController.class.getName()).log(Level.SEVERE, null, ex);
-                    request.setAttribute("errorMess", ex.toString());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                } else if (!uPhone.trim().matches("^(09|03)+[0-9]{8}$")) {
+
+                    String err = "Điện thoại bắt đầu 09|03 và có 10 số.";
+                    request.setAttribute("err", err);
+                    request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
+                } else {
+                    daoU.updateUserEcept(new User(id, username, uPhone, uEmail, birthday, uAddress, uCMT));
+                    String mess = "Cập nhật thành công.";
+                    request.setAttribute("mess", mess);
+                    request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
                 }
 
             }
 
             if (service.equalsIgnoreCase("searchRoomAndStatus")) { // combobox status
-                try {
-                    String nameRoom = request.getParameter("nameRoom").trim();
-                    int status = Integer.parseInt(request.getParameter("status").trim());
-                    System.out.println(nameRoom + "+" + status);
-                    Vector<Room> vectorR = daoR.selectRoom(nameRoom, status);
 
-                    request.setAttribute("vectorR", vectorR);
-                    request.getRequestDispatcher("ManagerRoom.jsp").forward(request, response);
-                } catch (Exception ex) {
-                    Logger.getLogger(ReceptionistController.class.getName()).log(Level.SEVERE, null, ex);
-                    request.setAttribute("errorMess", ex.toString());
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                }
+                String nameRoom = request.getParameter("nameRoom").trim();
+                int status = Integer.parseInt(request.getParameter("status").trim());
+                System.out.println(nameRoom + "+" + status);
+                Vector<Room> vectorR = daoR.selectRoom(nameRoom, status);
+
+                request.setAttribute("vectorR", vectorR);
+                request.getRequestDispatcher("managerRoom.jsp").forward(request, response);
 
             }
 
-            if (service.equalsIgnoreCase("searchName")) { // tim kiem ten phong
+            if (service.equalsIgnoreCase("searchName")) { // tim kiem ten khách hàng
                 String name = request.getParameter("Name").trim();
-                System.out.println(name);
                 Vector<User> vectorU = dao.getSearchNameCustomerListByReceptionist(name);// chuyen thanh chu thuong
                 request.setAttribute("vectorU", vectorU);
-                request.getRequestDispatcher("ManagerCustomer.jsp").forward(request, response);
+                request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
 
             }
+        } catch (Exception ex) {
+            Logger.getLogger(ReceptionistController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMess", ex.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
 
     }

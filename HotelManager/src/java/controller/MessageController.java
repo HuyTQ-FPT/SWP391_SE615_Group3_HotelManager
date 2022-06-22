@@ -1,8 +1,8 @@
 
 package controller;
 
-import Dao.impl.MessageDAOImpl;
-import Entity.Message;
+import dao.impl.MessageDAOImpl;
+import entity.Message;
 import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;

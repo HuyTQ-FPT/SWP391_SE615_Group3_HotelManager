@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao.impl;
 
 import dao.SendFeedback;
@@ -17,7 +12,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Admin
+ * @author Minh Hiếu
  */
 public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
 
@@ -69,18 +64,18 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
     }
 
     @Override
-    public void updateRead(int id, String isread) throws Exception {
+    public int updateRead(int id, String isread) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-
+        int n = 0;
         String sql = " UPDATE [SWPgroup3].[dbo].[MessageRequest] SET [isRead] = ?  WHERE [mId] = ?";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
             pre.setString(1, "1");
             pre.setInt(2, id);
-            pre.executeUpdate();
+            n = pre.executeUpdate();
         } catch (Exception ex) {
             throw ex;
         } finally {
@@ -89,6 +84,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
             closeConnection(conn);
 
         }
+        return n;
     }
 
     @Override
@@ -156,7 +152,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {
-                v.add(new sendFeedback(rs.getInt(1), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
+                v.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
             }
 
         } catch (Exception e) {
@@ -182,13 +178,13 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
                 + "where r between ? and ?";
         //get informations from database
         try {
-            conn= getConnection();
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
             pre.setInt(1, index * 3 - 2);
             pre.setInt(2, index * 3);
             rs = pre.executeQuery();
             while (rs.next()) {
-                vector.add(new sendFeedback(rs.getInt(1), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
+                vector.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
             }
         } catch (Exception e) {
             throw e;
@@ -201,6 +197,73 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
         }
 
         return vector;
+    }
+
+    @Override
+    public Vector<sendFeedback> searchName(int index, String title) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Vector<sendFeedback> v = new Vector<>();
+        String sql = "select * from \n"
+                + "(select ROW_NUMBER() over (order by mId asc) as r, * from dbo.[MessageRequest]) \n"
+                + "as x\n"
+                + "where r between ? and ? and x.title like '%" + title + "%'";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, index * 3 - 2);
+            pre.setInt(2, index * 3);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                v.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return v;
+    }
+    public static void main(String[] args) {
+        SendFeedbackDAOIpml s = new SendFeedbackDAOIpml();
+        try {
+            Vector<sendFeedback> k = s.searchName(1, "swp");
+            for (sendFeedback feedback : k) {
+                System.out.println(feedback);
+                
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public Vector<sendFeedback> getMessageOfTitle(String title) throws Exception {
+        Vector<sendFeedback> v = new Vector<>();
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        String sql = "select * from [MessageRequest] where title like '%" + title + "%'  order by mId asc";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                v.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+        }
+        return v;
     }
 
 }

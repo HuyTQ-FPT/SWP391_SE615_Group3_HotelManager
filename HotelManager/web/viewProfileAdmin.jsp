@@ -36,7 +36,7 @@
                 <div class="row tm-content-row">
                     <div class="tm-block-col tm-col-avatar">
                         <div class="tm-bg-primary-dark tm-block tm-block-avatar">
-                            <!--                            <h2 class="tm-block-title">Change Avatar</h2>-->
+                                                        <h2 class="tm-block-title">Avatar</h2>
                             <div class="tm-avatar-container">
                                 <img 
                                     src="images/anhdaidien/admin.jpg"
@@ -49,10 +49,10 @@
                             </div>
                             <!--<input id="avatarURL" class="btn btn-primary btn-block text-uppercase" type="file" onchange="changeImage()" name="avatar" value="">-->
                                
-                         
+<!--                         
                             <a class="btn btn-primary btn-block text-uppercase" href="LoginController?do=ChangePassword1">
                                 Thay đổi mật khẩu
-                            </a>
+                            </a>-->
                         </div>
                     </div>
 

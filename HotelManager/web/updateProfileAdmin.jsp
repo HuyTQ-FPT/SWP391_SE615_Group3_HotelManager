@@ -64,6 +64,10 @@
 <!--                            <button class="btn btn-primary btn-block text-uppercase">
                                 Upload New Photo
                             </button>-->
+                         
+                            <a class="btn btn-primary btn-block text-uppercase" href="LoginController?do=ChangePassword1">
+                                Thay đổi mật khẩu
+                            </a>
                         </div>
                     </div>
                     <%

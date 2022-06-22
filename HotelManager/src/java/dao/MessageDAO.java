@@ -5,7 +5,7 @@
  */
 package dao;
 
-import Entity.Message;
+import entity.Message;
 import java.util.Vector;
 
 /**

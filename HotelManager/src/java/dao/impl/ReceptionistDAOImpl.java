@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao.impl;
 
 import dao.ReceptionistDAO;
@@ -117,7 +112,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
 
         Vector<User> vector = new Vector<>();
         String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
-                + "where u.UserName like '%" + uName + "%'";
+                + "where u.UserName like '%" + uName + "%' and c.RoleID=1";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);

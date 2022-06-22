@@ -10,7 +10,7 @@ package entity;
  * @author Admin
  */
 public class sendFeedback {
-   
+
     private int mId;
     private String title;
     private String email;
@@ -28,12 +28,18 @@ public class sendFeedback {
         this.isRead = isRead;
     }
 
+    public sendFeedback(String title, String email, String content, String isRead) {
+        this.title = title;
+        this.email = email;
+        this.content = content;
+        this.isRead = isRead;
+    }
+
     public sendFeedback(String title, String email, String content) {
         this.title = title;
         this.email = email;
         this.content = content;
     }
-    
 
     public int getmId() {
         return mId;
@@ -77,12 +83,8 @@ public class sendFeedback {
 
     @Override
     public String toString() {
-        return "sendFeedback{" + "mId=" + mId + ", title=" + title + ", email=" + email + ", content=" + content + ", isRead=" + isRead + '}';
+//        return "sendFeedback{" + "mId=" + mId + ", title=" + title + ", email=" + email + ", content=" + content + ", isRead=" + isRead + '}';
+        return "mId=" + mId ;
     }
 
-    
-      
-
 }
-
-
