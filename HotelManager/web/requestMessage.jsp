@@ -303,9 +303,11 @@
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block" >
                         <form action="SendFeedbackController?do=searchName" method="post">
-                               <input name="nameTitle" type="text"  placeholder="Tìm kiếm tiều đề">
-                               <button   type="submit" name="submit" class="search " style=" border-radius:8px;border: none"><span class="fa fa-search " ></span></button>
-                            
+                            <input style="
+                                   margin-left: 100px;
+                                   " name="nameTitle" type="text"  placeholder="Tìm kiếm tiêu đề">
+                            <button   type="submit" name="submit" class="search " style=" border-radius:8px;border: none"><span class="fa fa-search " ></span></button>
+
                         </form>
                     </div>
                 </div>
@@ -405,23 +407,23 @@
                                     <%-- Previous --%>
                                     <c:choose>
                                         <c:when test="${index>1}">
-                                            <a class="previous" href="${href}index=${index-1}"><</a>
+                                            <a class="previous" href="${href}nameTitle=${nameTitle}&index=${index-1}"><</a>
                                         </c:when>
                                         <c:otherwise>
-                                            <a class="previous disabled" href="${href}index=${index-1}"><</a>
+                                            <a class="previous disabled" href="${href}nameTitle=${nameTitle}&index=${index-1}"><</a>
                                         </c:otherwise>
                                     </c:choose>
                                     <%-- Page index --%>
                                     <c:forEach begin="1" end="${endPage}" var="i">
-                                        <a class="${i == index?" choose":""}" href="${href}index=${i}"> ${i}</a> 
+                                        <a class="${i == index?" choose":""}" href="${href}nameTitle=${nameTitle}&index=${i}"> ${i}</a> 
                                     </c:forEach>
                                     <%-- Next --%>
                                     <c:choose>
                                         <c:when test="${index!=endPage}">
-                                            <a class="next" href="${href}index=${index+1}">  ></a>
+                                            <a class="next" href="${href}nameTitle=${nameTitle}&index=${index+1}">  ></a>
                                         </c:when>
                                         <c:otherwise>
-                                            <a class="next disabled" href="${href}index=${index+1}">></a>
+                                            <a class="next" href="${href}nameTitle=${nameTitle}&index=${index+1}">  ></a>
                                         </c:otherwise>
                                     </c:choose>
                                 </div> 

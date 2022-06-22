@@ -27,7 +27,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="AdminController">
                                 <i class="fas fa-tachometer-alt"></i>
-                                Dashboard
+                                Bảng điều khiển
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -37,19 +37,19 @@
                                aria-haspopup="true" aria-expanded="false">
                                 <i class="far fa-file-alt"></i>
                                 <span>
-                                    Reports <i class="fas fa-angle-down"></i>
+                                    Báo cáo <i class="fas fa-angle-down"></i>
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Daily Report</a>
-                                <a class="dropdown-item" href="#">Weekly Report</a>
-                                <a class="dropdown-item" href="#">Yearly Report</a>
+                                <a class="dropdown-item" href="#">Báo cáo ngày</a>
+                                <a class="dropdown-item" href="#">Báo cáo tuần</a>
+                                <a class="dropdown-item" href="#">Báo cáo năm</a>
                             </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="ServiceController?do=getdeviceroom">
                                 <i class="fas fa-shopping-cart"></i>
-                                Products
+                                Phòng
                             </a>
                         </li>
 
@@ -58,13 +58,9 @@
                                aria-haspopup="true" aria-expanded="false">
                                 <i class="far fa-user"></i>
                                 <span>
-                                    Accounts <i class="fas fa-angle-down"></i>
+                                    Quản lí tài khoản <i class="fas fa-angle-down"></i>
                                 </span>
                             </a>
-                            <!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                                <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">View Profile</a>
-                            
-                                                            </div>-->
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -82,7 +78,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="SendFeedbackController?do=listMessFeedBack">
-                                <i class="fas fa-newspaper"></i></i> Request Message
+                                <i class="fas fa-newspaper"></i></i> Yêu cầu
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -90,11 +86,11 @@
                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-cog"></i>
                                 <span>
-                                    Settings <i class="fas fa-angle-down"></i>
+                                    Cài đặt <i class="fas fa-angle-down"></i>
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">Profile</a>
+                                <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">Thông tin</a>
                                 <a class="dropdown-item" href="#">Billing</a>
                                 <a class="dropdown-item" href="#">Customize</a>
                             </div>

@@ -63,7 +63,7 @@ public class SendMail {
              */
             MimeMessage MMessage = new MimeMessage(session);
             MMessage.setFrom(new InternetAddress(user));
-            MMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+//            MMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             MMessage.setSubject(sub);
             MMessage.setContent(MMessage, "text/html");
             MMessage.addHeader("Content-type", "text/HTML; charset=UTF-8");

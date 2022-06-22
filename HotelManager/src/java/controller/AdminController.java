@@ -23,20 +23,11 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
 public class AdminController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            /* TODO output your page here. You may use following sample code. */
+
             HttpSession session = request.getSession();
             UserDAOImpl daoU = new UserDAOImpl();
             String service = request.getParameter("do");
@@ -44,11 +35,11 @@ public class AdminController extends HttpServlet {
                 service = "indexAdmin";
 
             }
-            if (service.equals("indexAdmin")) {
+            if (service.equals("indexAdmin")) { // trang chủ admin
                 request.getRequestDispatcher("indexadmin.jsp").forward(request, response);
             }
 
-            if (service.equalsIgnoreCase("viewProfileAdmin")) {
+            if (service.equalsIgnoreCase("viewProfileAdmin")) { // xem thông tin
 
                 Account ac = (Account) session.getAttribute("login");
 
@@ -57,7 +48,7 @@ public class AdminController extends HttpServlet {
                 request.getRequestDispatcher("viewProfileAdmin.jsp").forward(request, response);
 
             }
-            if (service.equalsIgnoreCase("ViewupdateAdmin")) { // chuyen toi update profile 
+            if (service.equalsIgnoreCase("ViewupdateAdmin")) { // chuyen toi trang cập nhật thông tin
                 Account ac = (Account) session.getAttribute("login");
                 User u = daoU.getUser(ac.getAccountID());
                 session.setAttribute("u", u);
@@ -66,7 +57,7 @@ public class AdminController extends HttpServlet {
 
             }
 
-            if (service.equalsIgnoreCase("updateAdmin")) { // update profile 
+            if (service.equalsIgnoreCase("updateAdmin")) { // cập nhật thông tin
 
                 String uID = (String) request.getParameter("uid").trim();
                 String username = (String) request.getParameter("name").trim();
@@ -124,7 +115,6 @@ public class AdminController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

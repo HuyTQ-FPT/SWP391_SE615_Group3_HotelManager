@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="row tm-content-row">
-        
+
 
 
 
@@ -74,13 +74,13 @@
 
                         </table>
                         <button  style="margin-top: 20px" onclick="deleteId('<%=s.getmId()%>')" class="btn btn-primary">  Xoá </a></button>
-                        <a style="float: right; margin-top: 20px" class="btn btn-danger" href="SendFeedbackController?do=listMessFeedBack">Back</a>
+                        <a style="float: right; margin-top: 20px" class="btn btn-danger" href="SendFeedbackController?do=listMessFeedBack&index=${index}">Back</a>
 
                     </div>
                 </div>
             </div>
         </div>
-                         <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/jquery-3.3.1.min.js"></script>
         <!-- https://jquery.com/download/ -->
         <script src="js/moment.min.js"></script>
         <!-- https://momentjs.com/ -->
@@ -90,12 +90,12 @@
         <!-- https://getbootstrap.com/ -->
         <script src="js/tooplate-scripts.js"></script>
         <script>
-            function deleteId(id) {
-                if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
-                    window.location = "SendFeedbackController?do=deleteMessage&mId=" + id;
-                }
+                            function deleteId(id) {
+                                if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
+                                    window.location = "SendFeedbackController?do=deleteMessage&mId=" + id;
+                                }
 
-            }
+                            }
 
         </script>
     </body>

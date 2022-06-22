@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Admin
  */
-@WebFilter(filterName = "AdminFilter", urlPatterns = {"/AdminController"})
+@WebFilter(filterName = "AdminFilter", urlPatterns = {"/AdminController","/SendFeedbackController"})
 public class AdminFilter implements Filter {
 
     private static final boolean debug = true;

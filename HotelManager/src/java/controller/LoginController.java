@@ -1,4 +1,3 @@
-
 package controller;
 
 import dao.AccountDAO;
@@ -68,7 +67,7 @@ public class LoginController extends HttpServlet {
                         pass.setMaxAge(60 * 60 * 24 * 7);
                         response.addCookie(pass);
                         response.addCookie(user);
-                    } else{
+                    } else {
                         Cookie user = new Cookie("user", "");
                         Cookie pass = new Cookie("pass", "");
                         user.setMaxAge(0);
@@ -129,7 +128,7 @@ public class LoginController extends HttpServlet {
                     String error = "Tên đăng nhập đã tồn tại";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
-                }else if(!checkemail){
+                } else if (!checkemail) {
                     request.setAttribute("name", name);
                     request.setAttribute("username", username);
                     request.setAttribute("password", password);
@@ -138,8 +137,7 @@ public class LoginController extends HttpServlet {
                     String error = "Tên email đã tồn tại";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
-                }
-                    else if (username.length() < 4 || password.length() < 8) {
+                } else if (username.length() < 4 || password.length() < 8) {
                     request.setAttribute("name", name);
                     request.setAttribute("username", username);
                     request.setAttribute("password", password);
@@ -175,11 +173,11 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
             }
-            if (service.equals("ForgetPassword")) {// Gửi mật khẩu mới qua email
+            if (service.equals("ForgetPassword")) {// Quên mật khẩu
 
                 String email = request.getParameter("email");
 
-                if (daoU.checkUser(email.trim()) == null) { // Check đầu vào cho email
+                if (daoU.checkUser(email.trim()) == null) {
                     if (!email.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
                         String eEmail = "Email không đúng định dạng!";
                         String exampleEmail = "Example: SWPGroup3@gmail.com";
@@ -293,7 +291,6 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

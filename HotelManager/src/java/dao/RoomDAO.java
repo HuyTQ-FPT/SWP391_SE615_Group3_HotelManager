@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import entity.Room;
 import entity.RoomByDate;
-import context.DBContext;
 import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -25,9 +18,7 @@ public interface RoomDAO {
 
     public void updateStatus(int rID, int rStatus) throws Exception;
 
-    public Vector<Room> selectRoom(String roomName,int status) throws Exception;
-
-  
+    public Vector<Room> selectRoom(String roomName, int status) throws Exception;
 
     public int getPage();
 
@@ -55,11 +46,8 @@ public interface RoomDAO {
 
     public Vector<Room> getRoomByRate(int n);
 
-  public Vector<RoomByDate> seachRoom(String a, String datein, String dateout) throws Exception;
+    public Vector<RoomByDate> seachRoom(String a, String datein, String dateout) throws Exception;
 
-    
     public int getPage(String sql);
 
-    
 }
-

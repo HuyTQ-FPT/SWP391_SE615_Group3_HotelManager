@@ -1,4 +1,3 @@
-
 package controller;
 
 import dao.impl.ReceptionistDAOImpl;
@@ -8,7 +7,6 @@ import entity.Account;
 import entity.Room;
 import entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -27,15 +25,6 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ReceptionistController", urlPatterns = {"/ReceptionistController"})
 public class ReceptionistController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
@@ -48,7 +37,7 @@ public class ReceptionistController extends HttpServlet {
             if (service == null) {
                 service = "Room";
             }
-            if (service.equalsIgnoreCase("Room")) { //view List All Room
+            if (service.equalsIgnoreCase("Room")) { //In ra tất cả các phòng
 
                 Vector<Room> vectorR = daoR.getRoomListAll("select*from Room");
                 request.setAttribute("vectorR", vectorR);
@@ -66,14 +55,14 @@ public class ReceptionistController extends HttpServlet {
                 response.sendRedirect("ReceptionistController");
 
             }
-            if (service.equalsIgnoreCase("Cus")) { //View List All Customer
+            if (service.equalsIgnoreCase("Cus")) { // In ra tất cả các khách hàng
 
                 Vector<User> vectorU = dao.getCustomerListByReceptionist();
                 request.setAttribute("vectorU", vectorU);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
 
             }
-            if (service.equalsIgnoreCase("profile")) { // view profile
+            if (service.equalsIgnoreCase("profile")) { // xem thông tin
 
                 Account ac = (Account) session.getAttribute("login");
 
@@ -84,13 +73,13 @@ public class ReceptionistController extends HttpServlet {
             }
             if (service.equalsIgnoreCase("ViewupdateRecept")) { // chuyen toi update profile 
                 Account ac = (Account) session.getAttribute("login");
-                User u = daoU.getUser(ac.getAccountID());         
+                User u = daoU.getUser(ac.getAccountID());
                 session.setAttribute("u", u);
                 request.setAttribute("a", u);
                 request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
 
             }
-            if (service.equalsIgnoreCase("updateRecept")) { // update profile 
+            if (service.equalsIgnoreCase("updateRecept")) { // cập nhật thông tin
 
                 String uID = (String) request.getParameter("uid").trim();
                 String username = (String) request.getParameter("Username");
@@ -148,7 +137,7 @@ public class ReceptionistController extends HttpServlet {
 
             }
 
-            if (service.equalsIgnoreCase("searchRoomAndStatus")) { // combobox status
+            if (service.equalsIgnoreCase("searchRoomAndStatus")) { // tìm tên phòng và trạng thái phòng
 
                 String nameRoom = request.getParameter("nameRoom").trim();
                 int status = Integer.parseInt(request.getParameter("status").trim());
@@ -160,9 +149,9 @@ public class ReceptionistController extends HttpServlet {
 
             }
 
-            if (service.equalsIgnoreCase("searchName")) { // tim kiem ten khách hàng
+            if (service.equalsIgnoreCase("searchName")) { // tìm tên khách hàng
                 String name = request.getParameter("Name").trim();
-                Vector<User> vectorU = dao.getSearchNameCustomerListByReceptionist(name);// chuyen thanh chu thuong
+                Vector<User> vectorU = dao.getSearchNameCustomerListByReceptionist(name);
                 request.setAttribute("vectorU", vectorU);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
 
@@ -175,7 +164,6 @@ public class ReceptionistController extends HttpServlet {
 
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

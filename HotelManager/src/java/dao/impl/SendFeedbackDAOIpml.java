@@ -1,6 +1,5 @@
 package dao.impl;
 
-import dao.SendFeedback;
 import entity.sendFeedback;
 import context.DBContext;
 import java.sql.Connection;
@@ -9,12 +8,13 @@ import java.sql.ResultSet;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import dao.SendFeedbackDAO;
 
 /**
  *
  * @author Minh Hiếu
  */
-public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
+public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
 
     @Override
     public Vector<sendFeedback> getMessage() throws Exception {
@@ -206,9 +206,9 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
         ResultSet rs = null;
         Vector<sendFeedback> v = new Vector<>();
         String sql = "select * from \n"
-                + "(select ROW_NUMBER() over (order by mId asc) as r, * from dbo.[MessageRequest]) \n"
+                + "(select ROW_NUMBER() over (order by mId asc) as r, * from dbo.[MessageRequest] where dbo.[MessageRequest].title like '%" + title + "%') \n"
                 + "as x\n"
-                + "where r between ? and ? and x.title like '%" + title + "%'";
+                + "where r between ? and ?";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
@@ -229,13 +229,14 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedback {
         }
         return v;
     }
+
     public static void main(String[] args) {
         SendFeedbackDAOIpml s = new SendFeedbackDAOIpml();
         try {
             Vector<sendFeedback> k = s.searchName(1, "swp");
             for (sendFeedback feedback : k) {
                 System.out.println(feedback);
-                
+
             }
         } catch (Exception e) {
         }
