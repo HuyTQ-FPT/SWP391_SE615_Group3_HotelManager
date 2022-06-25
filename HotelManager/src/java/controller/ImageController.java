@@ -7,7 +7,11 @@ package controller;
 
 import dao.ImageDAO;
 import dao.impl.ImageDAOImpl;
+import dao.impl.RoomCategoryDAOImpl;
+import dao.impl.RoomDAOImpl;
 import entity.Image;
+import entity.Room;
+import entity.RoomCategory;
 import static java.awt.SystemColor.text;
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +60,8 @@ public class ImageController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             ImageDAOImpl dao = new ImageDAOImpl();
+            RoomDAOImpl daor = new RoomDAOImpl();
+            RoomCategoryDAOImpl roomcate = new RoomCategoryDAOImpl();
             String service = request.getParameter("do");
             String roomid = request.getParameter("RoomID");
             String filename = null;
@@ -65,10 +71,15 @@ public class ImageController extends HttpServlet {
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
             if (service.equals("listImage")) {
+                Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
+                Room listroom = daor.getRoom1("select * from Room join CateRoom on Room.RoomcateID = CateRoom.RoomcateID where RoomID = " + roomid + "");
                 Image img = dao.imageByID("select * from [image] join Room on [Image].RoomimgaeID = Room.RoomimgaeID where RoomID = " + roomid + "");
                 request.setAttribute("img", img);
-//                out.println("<h1>Servlet RoomcategoryController at " + img + "</h1>");
-                request.getRequestDispatcher("importimg.jsp").forward(request, response);
+                request.setAttribute("listroom", listroom);
+                request.setAttribute("romcate", romcate);
+//                out.println("<h1>Servlet RoomcategoryController at " + listroom + "</h1>");
+//                request.getRequestDispatcher("importimg.jsp").forward(request, response);
+                request.getRequestDispatcher("EditRoomAdmin.jsp").forward(request, response);
             }
             String value = null;
             String id = request.getParameter("roomIDs");
@@ -97,11 +108,10 @@ public class ImageController extends HttpServlet {
                         value = item.getString();
                     } else {
                         Random rand = new Random();
-                        int n = rand.nextInt(50);   
+                        int n = rand.nextInt(50);
                         String s = String.valueOf(n);
-                        filename = item.getName(); 
-                        filename += s;
                         filename = item.getName();
+                        filename += s;
                         if (filename == null || filename.equals("")) {
                             break;
                         } else {
@@ -112,9 +122,9 @@ public class ImageController extends HttpServlet {
                             dao.crudImage("UPDATE [dbo].[Image]\n"
                                     + "   SET [image1] = '" + filename + "'\n"
                                     + " WHERE RoomimgaeID = " + value + "");
-//                            out.println("<h1>Servlet RoomcategoryController at " + value + "</h1>");
+//                            out.println("<h1>Servlet RoomcategoryController at " + filename + "</h1>");
 //                            out.println("<h1>Servlet RoomcategoryController at " + storePath + "/" + path.getFileName() + "</h1>");
-                            response.sendRedirect("ImageController?do=listImage&RoomID=" + value + "");
+//                            response.sendRedirect("ImageController?do=listImage&RoomID=" + value + "");
                         }
                     }
                 }
@@ -130,9 +140,9 @@ public class ImageController extends HttpServlet {
 //                        out.println("<h1>Servlet RoomcategoryController at " + name + value + "</h1>");
                     } else {
                         Random rand = new Random();
-                        int n = rand.nextInt(50);   
+                        int n = rand.nextInt(50);
                         String s = String.valueOf(n);
-                        filename = item.getName(); 
+                        filename = item.getName();
                         filename += s;
                         if (filename == null || filename.equals("")) {
                             break;
@@ -161,12 +171,12 @@ public class ImageController extends HttpServlet {
                         value = item.getString();
 //                        out.println("<h1>Servlet RoomcategoryController at " + name + value + "</h1>");
                     } else {
-                        Random rand = new Random();
-                        int n = rand.nextInt(50);   
-                        String s = String.valueOf(n);
-                        filename = item.getName(); 
-                        filename += s;
                         filename = item.getName();
+                        Random rand = new Random();
+                        int n = rand.nextInt(50);
+                        String s = String.valueOf(n);
+                        filename = item.getName();
+                        filename += s;
                         if (filename == null || filename.equals("")) {
                             break;
                         } else {

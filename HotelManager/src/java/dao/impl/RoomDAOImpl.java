@@ -62,7 +62,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 String name = rs.getString(2);
                 String des = rs.getString(3);
                 int cateid = rs.getInt(4);
-                String image = rs.getString(5);
+                String image = rs.getString(17);
                 double Roomprice = rs.getDouble(6);
                 int NumberPerson = rs.getInt(7);
                 float Square = rs.getFloat(8);
@@ -78,6 +78,31 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
             ex.printStackTrace();
         }
         return vector;
+    }
+
+    public Room getRoom1(String sql) {
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String des = rs.getString(3);
+                int cateid = rs.getInt(4);
+                String image = rs.getString(5);
+                double Roomprice = rs.getDouble(6);
+                int NumberPerson = rs.getInt(7);
+                float Square = rs.getFloat(8);
+                String Comment = rs.getString(9);
+                int Rate = rs.getInt(10);
+                String Note = rs.getString(11);
+                int Status = rs.getInt(12);
+                String cateroom = rs.getString(14);
+                return new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, cateroom, Status);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -140,7 +165,6 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 ////            e.printStackTrace();
 ////        }
 //    }
-
     @Override
     public void updateRoom(Room Room) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -539,12 +563,12 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 
     public static void main(String[] args) {
         RoomDAOImpl dao = new RoomDAOImpl();
-
+        Room rs = dao.getRoom1("select * from Room join CateRoom on Room.RoomcateID = CateRoom.RoomcateID where RoomID = 1 ");
 //        Date a = Date.valueOf("2022-05-03");
 //        Date b = Date.valueOf("2022-07-03");
 //        Room vector = dao.getRooms("12");
 //        for (RoomByDate roomByDate : vector) {
-//        System.out.println(vector);
+        System.out.println(rs);
 //        }
         try {
             //        Date a = Date.valueOf("2022-05-03");
@@ -605,7 +629,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 
     @Override
     public void updateStatus(int rID, int rStatus) throws Exception {
-         Connection conn = null;
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
@@ -631,7 +655,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     public Vector<Room> selectRoom(String rName, int status) throws Exception {
-         Connection conn = null;
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 

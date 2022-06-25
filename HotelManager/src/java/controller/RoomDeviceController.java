@@ -56,9 +56,9 @@ public class RoomDeviceController extends HttpServlet {
                 String RoomId = request.getParameter("roomID");
                 int n = dao.getPage();
                 Vector<Room> listroom
-                        = dao.getRoomList1("select * from room  join CateRoom  on Room.RoomcateID = CateRoom.RoomcateID \n"
-                                + "				where " + cate + " (Roomdesc like'%"+""+"%' or Roomprice like'%"+""+"%')\n"
-                                + "				order by Room.RoomID desc");
+                        = dao.getRoomList1("select * from room  join CateRoom  on Room.RoomcateID = CateRoom.RoomcateID join [Image] on Room.RoomimgaeID = [Image].RoomimgaeID\n" +
+"                             	where " + cate + " (Roomdesc like'%"+""+"%' or Roomprice like'%"+""+"%') \n" +
+"                               	order by Room.RoomID desc");
                 int page = dao.getPage("select Count(*) from Room");
                 request.setAttribute("devicesss", "devicesss");
                 request.setAttribute("listroom", listroom);
@@ -70,7 +70,8 @@ public class RoomDeviceController extends HttpServlet {
 //                out.println("<h1>Servlet RoomcategoryController at " + listroom + ""
 //                        + "va" + page + "</h1>");
 //                out.println("<h1>Servlet RoomcategoryController at " + listroom +"</h1>");
-                request.getRequestDispatcher("editroom.jsp").forward(request, response);
+                request.getRequestDispatcher("AdListRom.jsp").forward(request, response);
+//                request.getRequestDispatcher("editroom.jsp").forward(request, response);
             }
             if (dos.equals("insertRoomCategory")) {
                 String Roomcatename = request.getParameter("Roomcatename");
