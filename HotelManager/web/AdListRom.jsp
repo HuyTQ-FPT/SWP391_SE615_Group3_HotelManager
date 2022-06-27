@@ -34,7 +34,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
     </head>
 
     <body id="reportsPage">
-                <nav class="navbar navbar-expand-xl">
+        <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
                 <a class="navbar-brand" href="index.html">
                     <h1 class="tm-site-title mb-0">Product Admin</h1>
@@ -145,6 +145,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             </div>
         </nav>
         <h1 style="text-align: center; color: wheat">List Room Manager </h1>
+        <a style="border-radius: 10px; float: right; margin-bottom: 10px" href="RoomsController?do=insertRoom" class="btn btn-danger">AddNew</a>
         <table id="myTable" class="display table" width="90%">  
             <thead>  
                 <tr>  
@@ -176,9 +177,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <c:if test="${r.status==2}">
                             <td style="background-color: 435C70 ; width: 10%;text-align: center">Other</td>  
                         </c:if>
-                            <td style="background-color: 435C70 ;width: 20%" ><a style="border-radius: 10px; margin-left: 29%" href="ImageController?do=listImage&RoomID=${r.roomID}" class="btn btn-info" role="button">Update Rooms</a></td>  
+                        <td style="background-color: 435C70 ;width: 20%" ><a style="border-radius: 10px; margin-left: 29%" href="ImageController?do=listImage&RoomID=${r.roomID}" class="btn btn-info" role="button">Update Rooms</a></td>  
                         <td style="background-color: 435C70">
-                            <a style="margin-left: 43%" href="#" class="tm-product-delete-link">
+                            <a style="margin-left: 43%" href="RoomsController?do=deleteroom&RoomID=${r.roomID}" class="tm-product-delete-link">
                                 <i class="far fa-trash-alt tm-product-delete-icon">
                                 </i></a></td>  
                     </tr>  
@@ -204,6 +205,10 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             $(document).ready(function () {
                 $('#myTable').dataTable();
             });
+            <c:if test = "${delete!= null}">
+            alert("Delete Successfully RoomID=${RoomID}");
+            </c:if>
+
         </script>
     </body>
 </html>

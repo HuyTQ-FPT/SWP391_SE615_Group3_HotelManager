@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -27,7 +25,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-xl">
+                <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
                 <a class="navbar-brand" href="index.html">
                     <h1 class="tm-site-title mb-0">Product Admin</h1>
@@ -148,7 +146,7 @@
                         </div>
                         <div class="row" style="width: 70%; margin: 0 auto; margin-bottom: 20px">
                             <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
-                                <form action="ImageController?do=changeImgae1" method="post" enctype="multipart/form-data">
+                                <form action="ImageController?do=changeImgae1" method="get" enctype="multipart/form-data">
                                     <div class="tm-product-img-edit mx-auto">
                                         <img style="width: 150px;height: 100px" src="images/anhphong/${img.image1}" alt="Product image" class="img-fluid d-block mx-auto">
                                         <i
@@ -162,90 +160,28 @@
                                         <input type="file" 
                                                class="form-control" name="photo" placeholder="Enter photo">
                                         <!--<input type="hidden" name="do" value="changeImgae" style="width: 200px; margin-top: 10px">-->
-                                        <button style="border-radius: 20px;margin-left:20%" type="submit" class="btn btn-primary">Save</button>
+<!--                                        <button style="border-radius: 20px;margin-left:20%" type="submit" class="btn btn-primary">Save</button>-->
                                     </div>
-                                </form> 
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
-                                <form action="ImageController?do=changeImgae2" method="post" enctype="multipart/form-data">
-                                    <div class="tm-product-img-edit mx-auto">
-                                        <img style="width: 150px;height: 100px" src="images/anhphong/${img.image2}" alt="Product image" class="img-fluid d-block mx-auto">
-                                        <i
-                                            class="fas fa-cloud-upload-alt tm-upload-icon"
-                                            onclick="document.getElementById('fileInput').click();"
-                                            ></i>
-                                    </div>
-                                    <div class="custom-file mt-1 mb-1">
-                                        <input type="hidden"  value="${img.roomimgaeID}"
-                                               class="form-control" name="RoomID" placeholder="Enter name">
-                                        <input type="file" 
-                                               class="form-control" name="photo" placeholder="Enter photo">
-                                        <!--<input type="hidden" name="do" value="changeImgae" style="width: 200px; margin-top: 10px">-->
-                                        <button style="border-radius: 20px;margin-left:20%" type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                </form>  
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
-                                <div class="tm-product-img-edit mx-auto">
-                                    <img style="width: 150px;height: 100px" src="images/anhphong/${img.image3}" alt="Product image" class="img-fluid d-block mx-auto">
-                                    <i
-                                        class="fas fa-cloud-upload-alt tm-upload-icon"
-                                        onclick="document.getElementById('fileInput').click();"
-                                        ></i>
-                                </div>
-                                <div class="custom-file mt-1 mb-1">
-                                    <input type="hidden"  value="${img.roomimgaeID}"
-                                           class="form-control" name="RoomID" placeholder="Enter name">
-                                    <input type="file" 
-                                           class="form-control" name="photo" placeholder="Enter photo">
-                                    <!--<input type="hidden" name="do" value="changeImgae" style="width: 200px; margin-top: 10px">-->
-                                    <button style="border-radius: 20px;margin-left:20%" type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
-                                <div class="tm-product-img-edit mx-auto">
-                                    <img style="width: 150px;height: 100px" src="images/anhphong/img1.0.jpg" alt="Product image" class="img-fluid d-block mx-auto">
-                                    <i
-                                        class="fas fa-cloud-upload-alt tm-upload-icon"
-                                        onclick="document.getElementById('fileInput').click();"
-                                        ></i>
-                                </div>
-                                <div class="custom-file mt-1 mb-1">
-                                    <input type="hidden"  value="${img.roomimgaeID}"
-                                           class="form-control" name="RoomID" placeholder="Enter name">
-                                    <input type="file" 
-                                           class="form-control" name="photo" placeholder="Enter photo">
-                                    <button style="border-radius: 20px;margin-left:20%" type="submit" class="btn btn-primary">Save</button>
-                                </div>
+                                <!--</form>--> 
                             </div>
                         </div>
                         <div class="row tm-edit-product-row">
                             <div class="col-xl-12 col-lg-12 col-md-12">
-                                <form action="RoomsController" method="post" class="tm-edit-product-form">
+                                <!--<form action="ngyena" method="get" class="tm-edit-product-form">-->
                                     <div class="form-group mb-3" style="text-align: center">
                                         <label
                                             for="name"
-                                            >RoomID 
-                                        </label>
-                                        <input type="hidden" name="RoomID" value="${listroom.roomID}"> 
-                                        <input type="hidden" name="image" value="${listroom.image}"> 
-                                        <br>
-                                        <span style="color: red">${listroom.roomID}</span>
-                                    </div>
-                                    <div class="form-group mb-3" style="text-align: center">
-                                        <label
-                                            for="name"
-                                            >Room Number
+                                            >Room Number 
                                         </label>
                                         <input style="text-align: center"
-                                               id="expire_date"
-                                               name="RoomNumber"
-                                               type="number"
-                                               min="0" max="20"
-                                               value="${listroom.roomname}"
-                                               class="form-control validate"
-                                               data-large-mode="true"
-                                               />
+                                                   id="stock"
+                                                   name="RoomNumber"
+                                                   type="number"
+                                                   min="0"
+                                                   max="20"
+                                                   value="${listroom.note}"
+                                                   class="form-control validate"
+                                                   />
                                     </div>
                                     <div class="form-group mb-3" style="text-align: center">
                                         <label
@@ -269,7 +205,7 @@
                                                 name="RoomCategory"
                                                 >
                                             <c:forEach items="${romcate}" var="rs">
-                                                <option value="${rs.roomcateID}" ${rs.roomcateID==listroom.roomcateID?"selected":""}>${rs.catename}</option>
+                                                <option value="${rs.roomcateID}">${rs.catename}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
@@ -281,9 +217,8 @@
                                             </label>
                                             <input style="text-align: center"
                                                    id="expire_date"
-                                                   name="Price"
-                                                   type="number"
-                                                   min="10" max="9999"
+                                                   name="price"
+                                                   type="text"
                                                    value="${listroom.roomprice}"
                                                    class="form-control validate"
                                                    data-large-mode="true"
@@ -307,37 +242,19 @@
                                                 for="stock"
                                                 >Status
                                             </label>
-                                            <input name="do" value="updateroom" hidden="" style="text-align: center">
                                             <select name="Status" style="text-align: center"
                                                     class="custom-select tm-select-accounts"
                                                     id="category"
                                                     >
-                                                <option value="0"${listroom.status==0?"selected":""}>Available</option>
-                                                <option value="1"${listroom.status==1?"selected":""}>Unavailable</option>
-                                                <option value="2"${listroom.status==2?"selected":""}>Other</option>
+                                                <option value="0">Available</option>
+                                                <option value="1">Unavailable</option>
+                                                <option value="2">Other</option>
                                             </select>
                                         </div>
                                     </div>
                             </div>
-                            <div class="row" style="margin: 0 auto  ">
-                                <div class="form-group mb-3 col-xs-6 col-sm-4" style="text-align: center;color: white">
-                                    <span>Square</span>
-                                    <span>${listroom.square}m2</span>
-                                    <input type="hidden" name="Square" value="${listroom.square}"> 
-                                </div>
-                                <div class="form-group mb-3 col-xs-6 col-sm-4" style="text-align: center;color: white">
-                                    <span>Comment</span>
-                                    <span>${listroom.comment}</span>
-                                    <input type="hidden" name="Comment" value="${listroom.comment}"> 
-                                </div>
-                                <div class="form-group mb-3 col-xs-6 col-sm-4" style="text-align: center;color: white">
-                                    <span>Rate</span> <br>
-                                    <span>${listroom.rate}/5</span>
-                                    <input type="hidden" name="Rate" value="${listroom.rate}"> 
-                                </div>
-                            </div>
                             <div class="col-12">
-                                <button onclick="myFunction()" type="submit" class="btn btn-primary btn-block text-uppercase">Update Now</button>
+                                <button style="border-radius: 20px;margin-left:20%" type="submit" class="btn btn-primary">Save</button>
                             </div>
                             </form>
                         </div>
@@ -362,15 +279,11 @@
         <script src="js/bootstrap.min.js"></script>
         <!-- https://getbootstrap.com/ -->
         <script>
-                                    $(function () {
-                                        $("#expire_date").datepicker({
-                                            defaultDate: "10/22/2020"
-                                        });
-                                    });
-            <c:if test = "${update!= null}">
-                                    alert("Update Successfully");
-            </c:if>
-
+                                            $(function () {
+                                                $("#expire_date").datepicker({
+                                                    defaultDate: "10/22/2020"
+                                                });
+                                            });
         </script>
     </body>
 </html>

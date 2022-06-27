@@ -124,7 +124,8 @@ public class ImageController extends HttpServlet {
                                     + " WHERE RoomimgaeID = " + value + "");
 //                            out.println("<h1>Servlet RoomcategoryController at " + filename + "</h1>");
 //                            out.println("<h1>Servlet RoomcategoryController at " + storePath + "/" + path.getFileName() + "</h1>");
-//                            response.sendRedirect("ImageController?do=listImage&RoomID=" + value + "");
+                            request.setAttribute("update", "update");
+                            request.getRequestDispatcher("ImageController?do=listImage&RoomID=" + value + "").forward(request, response);
                         }
                     }
                 }
@@ -156,7 +157,9 @@ public class ImageController extends HttpServlet {
                                     + "   SET [image2] = '" + filename + "'\n"
                                     + " WHERE RoomimgaeID = " + value + "");
 //                            out.println("<h1>Servlet RoomcategoryController at " + storePath + "/" + path.getFileName() + "</h1>");
-                            response.sendRedirect("ImageController?do=listImage&RoomID=" + value + "");
+                            request.setAttribute("update", "update");
+                            request.getRequestDispatcher("ImageController?do=listImage&RoomID=" + value + "").forward(request, response);
+
                         }
                     }
                 }
@@ -188,8 +191,9 @@ public class ImageController extends HttpServlet {
                             dao.crudImage("UPDATE [dbo].[Image]\n"
                                     + "   SET [image3] = '" + filename + "'\n"
                                     + " WHERE RoomimgaeID = " + value + "");
+                            request.setAttribute("update", "update");
 //                            out.println("<h1>Servlet RoomcategoryController at " + storePath + "/" + path.getFileName() + "</h1>");
-                            response.sendRedirect("ImageController?do=listImage&RoomID=" + value + "");
+                            request.getRequestDispatcher("ImageController?do=listImage&RoomID=" + value + "").forward(request, response);
                         }
                     }
                 }

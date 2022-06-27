@@ -30,7 +30,7 @@ public interface RoomDAO {
 
     public Room getRoom(String roomid);
 
-    public void insertRoom(Room Room);
+    public void crudRoom(String sql);
 
     public void updateRoom(Room Room);
 
