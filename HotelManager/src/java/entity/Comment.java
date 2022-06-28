@@ -10,12 +10,21 @@ package entity;
  * @author Thai Quan
  */
 public class Comment {
+    private String CommentId;
     private String content;
     private String username;
 private String Date;
 private String Blogid;
 
     public Comment() {
+    }
+
+    public Comment(String CommentId, String content, String username, String Date, String Blogid) {
+        this.CommentId = CommentId;
+        this.content = content;
+        this.username = username;
+        this.Date = Date;
+        this.Blogid = Blogid;
     }
 
     public Comment(String content, String username, String Date, String Blogid) {
@@ -29,6 +38,14 @@ private String Blogid;
         return content;
     }
 
+    public String getCommentId() {
+        return CommentId;
+    }
+
+    public void setCommentId(String CommentId) {
+        this.CommentId = CommentId;
+    }
+    
     public void setContent(String content) {
         this.content = content;
     }
@@ -59,8 +76,11 @@ private String Blogid;
 
     @Override
     public String toString() {
-        return "Comment{" + "content=" + content + ", username=" + username + ", Date=" + Date + ", Blogid=" + Blogid + '}';
+        return "Comment{" + "CommentId=" + CommentId + ", content=" + content + ", username=" + username + ", Date=" + Date + ", Blogid=" + Blogid + '}';
     }
+
+    
+   
      
 
 

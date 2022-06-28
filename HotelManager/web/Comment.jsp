@@ -36,7 +36,31 @@
                     <p class="be-comment-text">
                         ${list.content}
                     </p>
-                    <p>Reply</p>
+                    <p class="be-comment-text">
+                        ${list.commentId}
+                    </p>
+                    <div class="accordion" id="myaccordion" style="max-width: 320px">   
+                            <div class="card-header btn"  data-toggle="collapse" data-target="#q${list.commentId}" aria-expanded="true"
+                                 data-parent="#myaccordion">
+                                Reply
+                            </div>
+                            <div class="card-body collapse"  data-toggle="collapse"  aria-expanded="false" id="q${list.commentId}">
+                                  <div class="col-sm-12">		
+                            <div class="form-group fl_icon">
+                                <div class="icon"><i class="fa fa-user"></i></div>
+                                <textarea style="width: 1300px;" class="form-input" id="content" placeholder="Comment"  name="content" required></textarea>
+                            </div>
+                            <!--                            <div class="form-group">
+                                                            <textarea class="form-input" required="" placeholder="Your text"  name="content">
+                                                            </textarea>
+                                                        </div>-->
+                        </div>
+                            </div>    
+                     
+
+                     
+
+                    </div>
                 </div>
             </div>
         </c:forEach>

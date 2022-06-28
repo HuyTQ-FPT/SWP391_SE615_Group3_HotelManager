@@ -52,8 +52,7 @@ public class BlogManagerController extends HttpServlet {
                 String image = request.getParameter("image");
                 
                 dao.inSertBlog(accountID, author, description, image, title);
-                response.sendRedirect("BlogManagerController?do=editblog");
-            
+                response.sendRedirect("BlogManagerController?do=editblog");           
             }
             if (dos.equals("editblog")) {
                 Vector<Blog> b = null;
@@ -101,6 +100,7 @@ public class BlogManagerController extends HttpServlet {
                 
                 response.sendRedirect("BlogManagerController?do=editblog");
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

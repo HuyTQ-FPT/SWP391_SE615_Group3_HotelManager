@@ -288,9 +288,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 String content = rs.getString("Content");  
                 String username = rs.getString("username");
                 String date = rs.getString("Date");
+                String CommentID= rs.getString("CommentId");
                 comment.setContent(content);
                 comment. setUsername(username);
-               comment. setDate(date);
+                 comment. setDate(date);
+                 comment. setCommentId(CommentID);
                 list.add(comment);
             }
         } catch (SQLException e) {
@@ -298,11 +300,21 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return list;
     }
+    @Override
+    public void crudImage(String sql) {
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.executeUpdate();
+            System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
-//        List<Comment> list = dao.DisplayComment("1");
-        dao.InsertComment("The nice content", "Thai Quan", "3");
+        List<Comment> list = dao.DisplayComment("4");
+        System.out.println(list);
         
         
         

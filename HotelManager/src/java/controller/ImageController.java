@@ -122,7 +122,7 @@ public class ImageController extends HttpServlet {
                             dao.crudImage("UPDATE [dbo].[Image]\n"
                                     + "   SET [image1] = '" + filename + "'\n"
                                     + " WHERE RoomimgaeID = " + value + "");
-//                            out.println("<h1>Servlet RoomcategoryController at " + filename + "</h1>");
+                         //   out.println("<h1>Servlet RoomcategoryController at " + filename + "</h1>");
 //                            out.println("<h1>Servlet RoomcategoryController at " + storePath + "/" + path.getFileName() + "</h1>");
                             request.setAttribute("update", "update");
                             request.getRequestDispatcher("ImageController?do=listImage&RoomID=" + value + "").forward(request, response);

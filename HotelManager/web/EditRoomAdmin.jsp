@@ -24,6 +24,18 @@
             Product Admin CSS Template
             https://templatemo.com/tm-524-product-admin
         -->
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            function chooseFile(fileInput){
+                if(fileInput.files && fileInput.files[0]){
+                    var reader = new FileReader();
+                    reader.onload = function(e){
+                        $('#image').attr('src',e.target.result);
+                    }
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -150,7 +162,7 @@
                             <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
                                 <form action="ImageController?do=changeImgae1" method="post" enctype="multipart/form-data">
                                     <div class="tm-product-img-edit mx-auto">
-                                        <img style="width: 150px;height: 100px" src="images/anhphong/${img.image1}" alt="Product image" class="img-fluid d-block mx-auto">
+                                        <img id="image" style="width: 150px;height: 100px" src="images/anhphong/${img.image1}" alt="Product image" class="img-fluid d-block mx-auto">
                                         <i
                                             class="fas fa-cloud-upload-alt tm-upload-icon"
                                             onclick="document.getElementById('fileInput').click();"
@@ -159,12 +171,12 @@
                                     <div class="custom-file mt-1 mb-1">
                                         <input type="hidden"  value="${img.roomimgaeID}"
                                                class="form-control" name="RoomID" placeholder="Enter name">
-                                        <input type="file" 
+                                        <input type="file" id="imageFile" onchange="chooseFile(this)" accept="image/gif,image/jpeg,image/png"
                                                class="form-control" name="photo" placeholder="Enter photo">
                                         <!--<input type="hidden" name="do" value="changeImgae" style="width: 200px; margin-top: 10px">-->
                                         <button style="border-radius: 20px;margin-left:20%" type="submit" class="btn btn-primary">Save</button>
                                     </div>
-                                </form> 
+                                <!--</form>--> 
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
                                 <form action="ImageController?do=changeImgae2" method="post" enctype="multipart/form-data">

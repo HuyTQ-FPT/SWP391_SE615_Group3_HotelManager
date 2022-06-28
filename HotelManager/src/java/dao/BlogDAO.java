@@ -28,4 +28,5 @@ public interface BlogDAO {
    public void deleteBlog(String BlogID);
   public List<Comment> DisplayComment(String BlogID);
   public void InsertComment(String content,String username,String BlogID);
+  public void crudImage(String sql);
 }
