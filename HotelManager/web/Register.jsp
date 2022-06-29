@@ -89,11 +89,11 @@
                             <%}%>
                         </div>
                         <div class="form-group">
-                            <input onclick="mess()" type="submit" name="submit" id="submit" class="form-submit button large round success" value="Sign up"/>
+                            <input onclick="mess()" type="submit" name="submit" id="submit" class="form-submit button large round success" value="Đăng ký"/>
                         </div>                       
                     </form>
                     <p class="loginhere">
-                        Have already an account ? <a href="LoginController?do=ForgetPassword" class="loginhere-link">Quên mật khẩu</a>
+                        bạn đã có tài khoản ? <a href="LoginController?do=ForgetPassword" class="loginhere-link">Quên mật khẩu</a>
                     </p>
                 </div>
             </div>

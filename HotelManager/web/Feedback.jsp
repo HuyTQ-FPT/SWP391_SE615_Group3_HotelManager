@@ -1,8 +1,10 @@
 <!doctype html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 	<html>
 		<head>
   		  <title>
 		    FeedBack</title>
+                    
 		  <link rel="stylesheet" href="css/bootstrap.min.css">
 		  <script src="js/bootstrap.min.js"></script>
 		  <script src="js/jquery-3.3.1.min.js"></script>
@@ -13,399 +15,12 @@
 		</head>
 	<style>
 	body{
-		
+		padding: 0px;
+                margin: 0px;
+                box-sizing: border-box;
+                
 }
 /*=========================================================Navber================================================*/
-#navbar{
-	width:100%;
-	background-color:#fff;
-	opacity:1;
-
-}
-#tab{
-	color:#283747;
-	font-size:18px;
-	font-family:sans-serif;
-	text-align:center;
-	background-color:#fff;
-}
-#tab:hover{
-	color:dodgerblue;
-	transition:all 0.15s ease-in-out;
-	
-	}
-#logo{
-	margin-top:-10px;
-	height:80px;
-	width:240px;
-	overflow: visible;
-	background-color:#fff;
-	padding:10px;
-	border:1.5px solid dodgerblue;
-}
-/*=========================================================Header Animation=====================================*/
-#image{
-	animation-duration: 2s;
-	animation-name: text;
-	box-shadow:0 0 10px #555;
-	height:100%;
-	width:100%;
-	margin-top:20px;
-	}
-#image:hover{
-	animation-duration: 2s;
-	animation-name: text;
-	box-shadow:0 0 20px #555;
-	}	
-	
-@keyframes text{
-	0%{ height:0; width:0; opacity:0 ;overflow:hidden;}
-	100%{}
-	}
-#one{
-	animation-duration:1s;
-	animation-name:one;
-	overflow:hidden;
-	height:200px;
-	width:200px;
-	margin-left:0px;
-	margin-top:20px;
-	box-shadow:0 0 10px #555;
-}
-#one:hover{
-	box-shadow:0 0 15px #555;
-	}
-@keyframes one{
-	0%{ margin-top:-400px; opacity:0;}
-	100%{  margin-top:px;}
-	}
-#two{
-	animation:text 1.2s;
-	animation-delay:0;
-	overflow:hidden;
-	animation-name:two;
-	height:200px;
-	width:200px;
-	margin-left:10px;
-	box-shadow:0 0 10px #555;
-	margin-top:20px;
-}
-	#two:hover{
-	box-shadow:0 0 15px #555;}
-@keyframes two{
-	0%{ margin-top:-800px; opacity:0;}
-	50%{ margin-top:-800px; opacity:0;}
-	100%{  margin-top:-px;}
-	}
-#three{
-	animation-name:three;
-	animation-duration:1.6s;
-	overflow:hidden;
-	height:200px;
-	width:200px;
-	margin-left:10px;
-	box-shadow:0 0 10px #555;
-	margin-top:20px;
-	}
-#three:hover{
-	box-shadow:0 0 15px #555;
-	}
-@keyframes three{
-	0%{ margin-top:-400px; opacity:0;}
-	35%{ margin-top:-400px; opacity:0;}
-	70%{ margin-top:-400px; opacity:0;}
-	100%{  margin-top:;}
-	}
-
-#four{
-	animation-duration:2s;
-	animation-name:four;
-	overflow:hidden;
-	height:200px;
-	width:200px;
-	margin-left:0px;
-	margin-top:20px;
-	box-shadow:0 0 10px #555;
-}
-#four:hover{
-	box-shadow:0 0 15px #555;
-	}
-@keyframes four{
-	0%{ height:0; width:0; opacity:0 ;}
-	100%{  margin-top:px;}
-	}
-#five{
-	animation-duration:2.2s;
-	overflow:hidden;
-	animation-name:five;
-	height:200px;
-	width:200px;
-	margin-left:10px;
-	box-shadow:0 0 10px #555;
-	margin-top:20px;
-
-}
-	#five:hover{
-	box-shadow:0 0 15px #555;}
-@keyframes five{
-	0%{ height:0; width:0; opacity:0 ;}
-	100%{  margin-top:px;}
-	}
-#six{
-	animation-name:six;
-	animation-duration:2.4s;
-	overflow:hidden;
-	height:200px;
-	width:200px;
-	margin-left:10px;
-	box-shadow:0 0 10px #555;
-	margin-top:20px;
-
-	}
-#six:hover{
-	box-shadow:0 0 15px #555;
-	}
-@keyframes six{
-	0%{ height:0; width:0; opacity:0 ;}
-	100%{}
-	}
-
-/*=========================================================Gallery==============================================*/
-.box{
-	width:250px;
-	position:relative;
-	perspective:1000px;}	
-.box .box-img{
-	transform: rotateY(0);
-	transition:all 0.5s ease-in-out 0s;
-	}	
-.box:hover .box-img{
-	transform: rotateY(-180deg);
-	}	
-
-.box .box-img img{
-	width:100%;
-	height:auto;
-	animation-name:pics;
-	animation-duration:1s;
-	transition:all 0.5s ease-in-out 0s}
-@keyframes pics{
-	0%{ opacity:0; transition:all 0.5s ease-in-out 0s;}
-	100%{}
-	}
-.box .box-content{
-	margin-left:0px;
-	width:100%;
-	height:100%;
-	position:fixed;
-	top:0px;
-	left:0px;
-	padding:40px 20px;
-	text-align:center;
-	font-weight:700px;
-	color:#FFF;
-	background:dodgerblue;
-	opacity:.9;
-	transform:rotateY(90deg);
-	transition:all 0.5s ease-in-out 0s;
-	overflow:hidden;}
-.box:hover .box-content{
-	margin-left:250px;
-	overflow:hidden;
-	transform:rotateY(0);}
-#tr1:hover .box-img{
-	transform: rotateY(-180deg);
-
-}
-#tr1:hover .box-content{
-
-	margin-left:250px;
-	overflow:hidden;
-	transform:rotateY(0);}
-
-.Specie{
-	margin-top:31%;
-	text-align:center;
-	font-size:20px;
-	font-family:calibri;
-	color:#005;
-	box-shadow:0 0 5px #000000;
-	padding:5px;
-	background-color:#f1f1f1;
-	opacity:.9;}
-.Name{
-	margin-top:28%;
-	text-align:center;
-	font-size:20px;
-	font-family:calibri;
-	color:#005;
-	box-shadow:0 0 5px #000000;
-	padding:5px;
-	background-color:#f1f1f1;
-	opacity:.9;}
-
-
-/*=========================================================footer===============================================*/
-.footer{
-	height:auto;
-	padding:0px ;
-	background-color:#659EF3;
-	font-family:sans-ser;
-}
-#links {
-	text-decoration:none;
-	color:#fff;
-	font-family: Arial;
-	overflow:hidden;
-	text-align:center;
-	text-shadow:0 0 5px #000;
-	}
-#links:hover{
-	text-shadow:0 0 0px #000;
-}
-
-.footer input{
-	height:34px;
-	width:65%;
-	background-color:#FFF;
-	color:#000;
-	font-family:arial;
-	margin:auto;
-	}
-.footer button{
-	font-family:arial;
-    text-shadow:0 0 5px #000000;
-	margin-top:5px;}
-
-.footer .fa {
-  padding: 10px;
-  font-size: 30px;
-  width: 55px;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px 2px;
-  border-radius:50%;
-}
-
-.footer .fa:hover {
-	border-radius:1px solid #fff;
-}
-
-.footer .fa-facebook {
-  color: white;
-  text-shadow:0 0 9px #000000;
-}
-.footer .fa-facebook:hover{
-  background: #3B5998;
-  color: white;
-}
-.footer .fa-twitter {
-  color: white;
-  text-shadow:0 0 10px #000000;
-
-}
-.footer .fa-twitter:hover{
-  background: #55ACEE;
-  color: white;
-}
-.footer .fa-linkedin {
-  color: white;
-  text-shadow:0 0 9px #000000;
-}
-.footer .fa-linkedin:hover{
-  background: #007bb5;
-  color: white;
-}
-
-.footer .fa-youtube {
-  color: white;
-  text-shadow:0 0 10px #000000;
-}
-.footer .fa-youtube:hover{
-  background: #bb0000;
-  color: white;
-}
-.footer .fa-pinterest {
-  color: white;
-  text-shadow:0 0 9px #000000;
-}
-.footer .fa-pinterest:hover{
-  background: #cb2027;
-  color: white;
-}
-
-#bottom-line{
-	height:1px;
-	background-color:#f1f1f1;}
-/*=========================================================Contact us page======================================*/	
-#form{
-	margin-top:-70px;
-}
-#mainform{
-	border:px solid #f1f1f1;
-	padding:20px;
-	height:auto;
-	opacity:.7;
-	animation-name:form;
-	animation-duration:1s;
-	transition:ease-in-out .3s;}
-@keyframes form{
-	0%{ opacity:0;}
-	100%{}
-}
-
-#mainform:hover{
-	box-shadow:0 0 20px #CCCCCC;
-	opacity:1;
-	}
-
-#btn{
-	width:100%;}
-	
-	
-.fa {
-  padding: 10px;
-  font-size: 60px;
-  width: 55px;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px 2px;
-  border-radius:50%;
-}
-
-.fa:hover {
-	border-radius:1px solid #fff;
-}
-
-.fa-facebook {
-  color: white;
-  text-shadow:0 0 5px #000000;
-}
-.fa-facebook:hover{
-  background: #3B5998;
-  color: white;
-  text-decoration:none;
-}
-	
-.fa-twitter {
-  color: white;
-  text-shadow:0 0 5px #000000;
-  text-decoration:none;
-}
-.fa-twitter:hover{
-  background: #55ACEE;
-  color: white;
-  text-decoration:none;
-}
-
-.fa-youtube {
-  color: white;
-  text-shadow:0 0 5px #000000;
-}
-.fa-youtube:hover{
-  background: #bb0000;
-  color: white;
-}
 
 #mail{
 	border-radius:50%;
@@ -500,7 +115,6 @@
 	margin-left:20px;
 	margin-top:20px;}	
 
-
 .box2 .box-img{
 	transform: rotateY(0deg);
 	transition:all 0.5s ease-in-out 0s;
@@ -512,10 +126,6 @@
 
 	opacity:1;
 	}	
-
-
-
-
 .box2 .box-img2{
 	transform: rotateY(-90deg);
 	transition:all 0.5s ease-in-out 0s;
@@ -528,31 +138,46 @@
 #pic{
 	opacity:9.5;
 }
+.fbimg img{
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    width: 700px;
+    height: 500px;
+}
+.mota{
+    position: fixed;
+    top: 530px;
+    right: 50px;
+    width: 650px;
+    height: 200px;
+}
 
 
 </style>	
-		<body>
+<body>
+    <!--=========================================Feed-back Form============================================================-->
+    <br><br><br>
+        <div class="col-md-8" id ="mainform">
+            <div class="col-sm-8">
+                <h2  class="contact-us" style="font-size:72px; color:#000;"><strong style="font-size:5cm; color:#555;">F</strong>eedback</h2>
+            </div>
+            <div class="col-sm-8" >
+                <form action="UserController?do=Feedback&roomID=${requestScope.roomID}&aid=${requestScope.aid}" method="post">
+                    <label><h4>Tên khách hàng:</h4> </label><input readonly="" type="text" size="20"  class=" form-control" value="<%=request.getAttribute("Fname")%>" />
+                    <h4>Bình luận:</h4><textarea class="form-control" rows="6" name="commentfb"  placeholder="Bình luận của bạn" value="" required></textarea>
+                    <br>
+                    <input type="submit" class="btn btn-info" id="btn" style="text-shadow:0 0 3px #000000; font-size:24px;"></button>
+                </form>
+            </div>
+        </div>
+        <div class="fbimg">
+            <img src="images/anhphong/${requestScope.img}">
+            <div class="mota">
+                <h4 style="text-align: center">Mô tả</h4>
+                <p>${requestScope.describe}</p>
+            </div>   
+        </div>
 
-<!--=========================================Feed-back Form============================================================-->
-<br><br><br>
-	<div id="form">	
-
-		<div class="col-md-12" id ="mainform">
-			<div class="col-sm-6">
-			   <h2  class="contact-us" style="font-size:72px; color:#000;"><strong style="font-size:5cm; color:#555;">F</strong>eedback</h2>
-			</div>
-			<div class="col-sm-6" >
-                            <form action="" method="">
-                                    <label><h4>Name:</h4> </label><input readonly="" type="text" size="20"  class=" form-control" value="<%=request.getAttribute("Fname")%>" />
-				<h4>Comments:</h4><textarea class="form-control" rows="6" name="commentfb"  placeholder="Message" value="" required></textarea>
-				<br>
-				<input type="submit" class="btn btn-info" id="btn" style="text-shadow:0 0 3px #000000; font-size:24px;"></button>
-				</form>
-			</div>
-		</div>
-	</div>
-
-
-</div>
-	</body>
+        </body>
 </html>

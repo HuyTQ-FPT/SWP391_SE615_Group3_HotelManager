@@ -4,6 +4,8 @@
     Author     : NTD
 --%>
 
+<%@page import="dao.impl.MessageDAOImpl"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -40,9 +42,10 @@
         <link rel="stylesheet" href="css/select2.min.css">
         <!--responsive css-->
         <link rel="stylesheet" href="css/responsive.css">
-
+        <link rel="stylesheet" href="css/viewcomment.css">                      
     </head>
     <body>
+        <% MessageDAOImpl dao =new MessageDAOImpl(); %>
         <div class="site-navbar-wrap js-site-navbar bg-white">
 
             <div class="container">
@@ -237,6 +240,34 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="container1 mt-5">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-12">
+                                    <div class="headings d-flex justify-content-between align-items-center mb-3">
+                                        <h5>comments(<%=Integer.parseInt(request.getAttribute("countFB").toString())%>)</h5> 
+                                    </div>
+                                    <%
+                                    ResultSet rs =(ResultSet)request.getAttribute("rsfb");
+                                    %>
+                                    <%
+                                    while(rs.next()){       
+                                        System.out.println("feedback");
+                                    %>
+                                    <div class="card p-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="user d-flex flex-row align-items-center">
+                                                <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+                                                <span><small class="font-weight-bold text-primary"><%=rs.getString(15)%></small> <small class="font-weight-bold"><%=rs.getString(6)%></small></span>
+                                            </div>
+                                            <small><%=rs.getString(5)%></small>
+                                        </div>                      
+                                    </div> 
+                                    <% }%>
+                                </div>               
+                            </div>
+                        </div>
+                                
                         <div class="similar-box">
                             <c:if test="${sessionScope.isroomde!=null}">
                                 <h2 style="text-align: center">Các Phòng Tương Tự</h2>
@@ -290,46 +321,7 @@
                                     </c:forEach>
                                 </div>
                             </c:if>
-                            <!--                            <div class="row cat-pd">
-                                                            <div class="col-md-6">
-                                                                <div class="small-box-c">
-                                                                    <div class="small-img-b">
-                                                                        <img class="img-responsive" src="images/tr3.png" alt="#" />
-                                                                    </div>
-                                                                    <div class="dit-t clearfix">
-                                                                        <div class="left-ti">
-                                                                            <h4>Product</h4>
-                                                                            <p>By <span>Beko</span> under <span>Lights</span></p>
-                                                                        </div>
-                                                                        <a href="#" tabindex="0">$1220</a>
-                                                                    </div>
-                                                                    <div class="prod-btn">
-                                                                        <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                                                        <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
-                                                                        <p>23 likes</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="small-box-c">
-                                                                    <div class="small-img-b">
-                                                                        <img class="img-responsive" src="images/tr4.png" alt="#" />
-                                                                    </div>
-                                                                    <div class="dit-t clearfix">
-                                                                        <div class="left-ti">
-                                                                            <h4>Product</h4>
-                                                                            <p>By <span>Beko</span> under <span>Chairs</span></p>
-                                                                        </div>
-                                                                        <a href="#" tabindex="0">$1220</a>
-                                                                    </div>
-                                                                    <div class="prod-btn">
-                                                                        <a href="#"><i class="fa fa-star" aria-hidden="true"></i> Save to wishlist</a>
-                                                                        <a href="#"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like this</a>
-                                                                        <p>23 likes</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>-->
+                            
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-12">

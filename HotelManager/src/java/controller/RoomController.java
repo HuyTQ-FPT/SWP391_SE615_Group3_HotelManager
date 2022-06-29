@@ -16,6 +16,7 @@ import entity.RoomByDate;
 import entity.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Stack;
@@ -109,12 +110,20 @@ public class RoomController extends HttpServlet {
                         + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
                         + "where Room.Status =0 and Room.RoomcateID = " + cateroom + "\n"
                         + "ORDER BY NEWID()");
+
+                ResultSet rs = dao.getData("select * from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID="+Integer.parseInt(RoomID));               
+                ResultSet rs1 = dao.getData("select count(*) from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID="+Integer.parseInt(RoomID));               
+                while (rs1.next()) {                    
+                   request.setAttribute("countFB", rs1.getInt(1)); 
+                }
+                
                 request.setAttribute("Room", rooom);
                 request.setAttribute("vector3", vector3);
                 request.setAttribute("de", de);
                 request.setAttribute("img", img);
                 request.setAttribute("getroomlist", getroomlist);
                 session.setAttribute("isroomde", "isroomde");
+                request.setAttribute("rsfb", rs);
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
                 session.removeAttribute("isroomde");
             }

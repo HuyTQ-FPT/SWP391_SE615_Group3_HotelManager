@@ -1,7 +1,8 @@
 
+
+<%@page import="dao.impl.MessageDAOImpl"%>
 <%@page import="entity.Account"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="dao.impl.MessageDAOImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -270,7 +271,7 @@
                                     </div>                         
                                 </div>
                             </div>
-                            <% }else{ %>
+                            <% }else if(rs.getString(7).equals("incoming_msg")){ %>
                             <div class="outgoing_msg">
                                 <div class="sent_msg">
                                     <p><%=rs.getString(6)%></p>

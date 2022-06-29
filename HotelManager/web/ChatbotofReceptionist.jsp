@@ -225,11 +225,8 @@
             MessageDAOImpl dao = new MessageDAOImpl();
             Account a = (Account) session.getAttribute("login");
             ResultSet rs1 = (ResultSet) dao.getData("select distinct AccountID from Message");
-            int aid=(int)Integer.parseInt(request.getAttribute("accountid").toString());
-            System.out.println(aid+"okeeeee");
+            int aid = (int) Integer.parseInt(request.getAttribute("accountid").toString());
             ResultSet rs = (ResultSet) dao.getData("select * from Message where AccountID=" + aid);
-            
-
         %>
         <script>
             var messageBody = document.querySelector('#messageBody');
@@ -240,21 +237,78 @@
         <h2 class="mb-0 site-logo hh"><a href="HomeController">Hoang Hon</a></h2>
         <div class="container">
             <div class="messaging">
+                <% if (a.getRoleID() == 1) {%>
+                <div class="inbox_msg">
+                    <div class="inbox_people">
+                        <div class="headind_srch">
+                            <div class="srch_bar">
+                                <div class="stylish-input-group">
+                                    <input type="text" class="search-bar"  placeholder="Search" >
+                                    <span class="input-group-addon">
+                                        <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                    </span> </div>
+                            </div>
+                        </div>
+                        <div class="inbox_chat">
+                            <div class="chat_list active_chat">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5>Nhan vien tu van</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mesgs">
+                        <div class="msg_history" id='messageBody'>
+                            <%while (rs.next()) {
+                            %>
+                            <%if (rs.getString(7).equals("outgoing_msg")) {%>
+                            <div class="incoming_msg">             
+                                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>              
+                                <div class="received_msg">
+                                    <div class="received_withd_msg">
+                                        <p><%=rs.getString(6)%></p>
+                                    </div>                         
+                                </div>
+                            </div>
+                            <% } else if (rs.getString(7).equals("incoming_msg")) {%>
+                            <div class="outgoing_msg">
+                                <div class="sent_msg">
+                                    <p><%=rs.getString(6)%></p>
+                                </div>
+                            </div> 
+                            <% }
+                                }%>
+                            <form action="MessageController?do=messCus" method="post">
+                                <input type="hidden" value="<%=a.getAccountID()%>" name="accountID">
+                                <div class="type_msg">
+                                    <div class="input_msg_write">
+                                        <input type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
+                                        <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>                        
+                </div>
+                <% } else {%>
                 <div class="inbox_msg">
                     <div class="inbox_people">
                         <div class="headind_srch">
                             <div class="srch_bar">
                                 <form action="MessageController?do=SearchChatCustomer" method="post">
-                                <div class="stylish-input-group">
-                                    <input type="text" class="search-bar" name="name" placeholder="Search" value="">
-                                    <span class="input-group-addon">
-                                        <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                                    </span> </div>
+                                    <div class="stylish-input-group">
+                                        <input type="text" class="search-bar" name="name" placeholder="Search" value="">
+                                        <span class="input-group-addon">
+                                            <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                        </span> </div>
                                 </form>
                             </div>
                         </div>
                         <div class="inbox_chat">
-                            <%if(request.getAttribute("found")==null){%>
+                            <%if (request.getAttribute("found") == null) {%>
                             <% while (rs1.next()) {
                                     ResultSet rs2 = (ResultSet) dao.getData("select u.* from Account a join [User] u on a.AccountID=u.AccountID where a.AccountID=" + rs1.getInt(1));
                                     while (rs2.next()) {
@@ -282,11 +336,12 @@
                             </a>
                             <% }
                                     }
-                                } }else{
-                            ResultSet rs4 = (ResultSet) request.getAttribute("rs");
-                                while (rs4.next()) {                                        
+                                }
+                            } else {
+                                ResultSet rs4 = (ResultSet) request.getAttribute("rs");
+                                while (rs4.next()) {
                             %>
-                                <a href="MessageController?do=Search_Chat_people&accountid=<%=rs4.getInt(2)%>">                               
+                            <a href="MessageController?do=Search_Chat_people&accountid=<%=rs4.getInt(2)%>">                               
                                 <div class="chat_list">
                                     <div class="chat_people">
                                         <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
@@ -296,14 +351,15 @@
                                     </div>
                                 </div>            
                             </a>
-                                <% } }%>
+                            <% }
+                                }%>
                         </div>
                     </div>
                     <div class="mesgs">
                         <div class="msg_history" id='messageBody'>
-   
-                                       <% while (rs.next()) {                                                
-                                if (rs.getString(7).equals("incoming_msg")) {%>
+
+                            <% while (rs.next()) {
+                                    if (rs.getString(7).equals("incoming_msg")) {%>
                             <div class="incoming_msg">             
                                 <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>              
                                 <div class="received_msg">
@@ -312,14 +368,15 @@
                                     </div>                         
                                 </div>
                             </div>
-                            <% } else {%>
+                            <% } else if (rs.getString(7).equals("outgoing_msg")) {%>
                             <div class="outgoing_msg">
                                 <div class="sent_msg">
                                     <p><%=rs.getString(6)%></p>
                                 </div>
                             </div> 
-                            <% } } %>
-                            <%if(request.getAttribute("found")==null){%>
+                            <% }
+                                } %>
+                            <%if (request.getAttribute("found") == null) {%>
                             <form action="MessageController?do=messRe" method="post">
                                 <input type="hidden" value="<%=aid%>" name="accountID">
                                 <div class="type_msg">
@@ -329,8 +386,8 @@
                                     </div>
                                 </div>
                             </form>
-                                <% }else{%>
-                                <form action="MessageController?do=OnlymessRe" method="post">
+                            <% } else {%>
+                            <form action="MessageController?do=OnlymessRe" method="post">
                                 <input type="hidden" value="<%=aid%>" name="accountID">
                                 <div class="type_msg">
                                     <div class="input_msg_write">
@@ -339,13 +396,28 @@
                                     </div>
                                 </div>
                             </form>
-                                <% }%>
+                            <% }%>
                         </div>
                     </div> 
                 </div>
+                <% }%>
             </div>
         </div>
-    </div>
-</div>
-</body>
+            <script>
+                function Changejsp(){
+                $ajax({
+                    url:"/WebApplication4/user.jsp",
+                    type:"POST",
+                    datatype:"html",
+                    data
+                    data:{
+                        data:"<h2>Login Admin</h2>"
+                    },
+                    success: function(){
+                        
+                    }
+                });
+            }
+            </script>
+    </body>
 </html>

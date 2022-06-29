@@ -202,11 +202,11 @@ public class OrderController extends HttpServlet {
                 response.sendRedirect("HomeController");
             }if (service.equals("yourbill")) {
                 Vector<Reservation> vector = new Vector<Reservation>();
-                String cid = request.getParameter("id");
                 Account acc=(Account)session.getAttribute("login");
                 int l=acc.getAccountID();
                 vector=dao1.Reservation("select * from Reservation where UserID="+l);
                 request.setAttribute("vector", vector);
+                request.setAttribute("aid", l);
                 RequestDispatcher dispath = request.getRequestDispatcher("History.jsp");
                 dispath.forward(request, response);
 

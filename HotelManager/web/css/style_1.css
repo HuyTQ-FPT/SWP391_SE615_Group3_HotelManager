@@ -3042,7 +3042,9 @@ html .ui-button.ui-state-disabled:active {
 .product-page-main {
 	background: #f4f9fd;
 }
-
+.product-page-main .container .container1{
+    width: 120%;
+}
 .prod-page-title {
 	padding: 20px 0px;
 }

@@ -191,6 +191,13 @@ Author     : admin
             top: 10px;
             right: 10px;
         }
+        .location{
+            position: fixed;
+            left: -80px;
+            bottom: 100px;
+        }
+        .text-center
+        
     </style>
     <body>
         <% Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
@@ -245,10 +252,6 @@ Author     : admin
                                                 Account ac = (Account) session.getAttribute("login");
                                                 if (ac != null) {
                                             %>
-<a href="UserController?do=Viewfeedback">             
-<span style="color:#1E90FF;font-size:40px;position: fixed; right: 25px; top: 100px;z-index: 10; cursor: pointer" class="iconify" data-icon="ant-design:message-twotone"></span>         
-<span style="color:orangered;font-size:20px;position: fixed; right: 25px; top: 110px;z-index: 10; cursor: pointer;font-family: fantasy">1</span>
-</a>
             <a href="MessageController">          
 <span style="color:#1E90FF; font-size: 50px;position: fixed; right: 25px; bottom: 25px;z-index: 10; cursor: pointer" class="iconify" data-icon="bx:message-rounded"></span>                
       </a> 
@@ -525,7 +528,7 @@ Author     : admin
                             <div>
                                 <span class="icon-room text-white h2 d-block"></span>
                                 <h2>Location</h2>
-                                <p class="mb-0">New York - 2398 <br>  10 Hadson Carl Street</p>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6403.40234353664!2d107.08224774036356!3d20.95655790979934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a5816439d4427%3A0x199156ac489da67d!2zNDIgVHLhuqduIEjGsG5nIMSQ4bqhbywgQ2FvIFRo4bqvbmcsIFRow6BuaCBwaOG7kSBI4bqhIExvbmcsIFF14bqjbmcgTmluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1656520360741!5m2!1svi!2s" width="400" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
                         </div>
                         <div class="col-md-4 text-center">
