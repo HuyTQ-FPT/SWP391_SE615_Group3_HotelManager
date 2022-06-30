@@ -286,7 +286,7 @@
                                 <div class="type_msg">
                                     <div class="input_msg_write">
                                         <input type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
-                                        <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                        <button class="msg_send_btn" type="submit" onclick="Load()"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -392,7 +392,7 @@
                                 <div class="type_msg">
                                     <div class="input_msg_write">
                                         <input type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
-                                        <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                        <button class="msg_send_btn" type="submit" onclick="Load()"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -404,11 +404,11 @@
             </div>
         </div>
             <script>
-                function Changejsp(){
+                function Load(){
                 $ajax({
-                    url:"/WebApplication4/user.jsp",
-                    type:"POST",
-                    datatype:"html",
+                    url:"/HotelManager/Chat",
+                    type:"get",
+                    datatype:"text",
                     data
                     data:{
                         data:"<h2>Login Admin</h2>"

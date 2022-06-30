@@ -71,7 +71,7 @@ public class MessageController extends HttpServlet {
                     dao.insertMessageCus(new Message(accountid , request.getParameter("message").trim()));
                     ResultSet rs =dao.getData("select distinct AccountID from Message");                                        
                 }                   
-                request.getRequestDispatcher("ViewChatbot.jsp").forward(request, response);
+                request.getRequestDispatcher("ChatbotofReceptionist.jsp").forward(request, response);
             }
             if(service.equals("messRe")){                
                 int accountid = Integer.parseInt(request.getParameter("accountID"));
