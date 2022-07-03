@@ -6,13 +6,11 @@
 package controller;
 
 import dao.impl.DateOfRoomImpl;
-import dao.impl.OrderDAOImpl;
 import dao.impl.ReservationDAOImpl;
 import dao.impl.ServiceDAOImpl;
 import entity.DateOfRoom;
 import entity.Reservation;
 import entity.Service;
-import dao.impl.OrderDAOImpl;
 import dao.impl.ReservationDAOImpl;
 import dao.impl.ServiceDAOImpl;
 import entity.Service;
@@ -55,7 +53,6 @@ public class OrderController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String service = request.getParameter("do");
             DBContext db = new DBContext();
-            OrderDAOImpl dao = new OrderDAOImpl();
             ReservationDAOImpl dao1 = new ReservationDAOImpl();
             DateOfRoomImpl dao2 = new DateOfRoomImpl();
 
@@ -209,6 +206,7 @@ public class OrderController extends HttpServlet {
                 int l = acc.getAccountID();
                 vector = dao1.Reservation("select * from Reservation where UserID=" + l);
                 request.setAttribute("vector", vector);
+                request.setAttribute("aid", l);
                 RequestDispatcher dispath = request.getRequestDispatcher("History.jsp");
                 dispath.forward(request, response);
             }

@@ -208,7 +208,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             <c:if test = "${delete!= null}">
             alert("Delete Successfully RoomID=${RoomID}");
             </c:if>
-
+            <c:if test = "${insert!= null}">
+            alert("Insert Successfully");
+            </c:if>
         </script>
     </body>
 </html>

@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-xl">
+        <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
             <div class="container h-100">
                 <a class="navbar-brand" href="AdminController">
                     <h1 class="tm-site-title mb-0">Admin</h1>
@@ -71,8 +71,8 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="BlogManagerController?do=editblog">Edit Blog</a>
-                                <a class="dropdown-item" href="addblog.jsp">Insert Blog</a>
+                                <a class="dropdown-item" href="BlogManagerController?do=editblog">Chỉnh sửa blog</a>
+                                <a class="dropdown-item" href="addblog.jsp">Thêm Blog</a>
 
                             </div>
                         </li>

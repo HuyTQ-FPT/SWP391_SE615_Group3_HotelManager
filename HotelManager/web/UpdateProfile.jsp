@@ -79,7 +79,7 @@
                                         %>
                                         <h4><%=rs.getString(3)%></h4>
                                         <p class="text-secondary mb-1">Full Stack Developer</p>
-                                        <p class="text-muted font-size-sm">22 years old</p>
+                                        <p class="text-muted font-size-sm">22 tuổi</p>
                                         <a href="LoginController?do=ChangePassword1"><button class="btn btn-primary">Đổi mật khẩu</button></a>
 
                                     </div>

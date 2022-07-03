@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller;
 
+import entity.Message;
 import context.DBContext;
 import dao.impl.AccountDAOImpl;
+import dao.impl.MessageDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
 import entity.User;
@@ -14,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,23 +22,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-/**
- *
- * @author Admin
- */
 @WebServlet(name = "UserController", urlPatterns = {"/UserController"})
 public class UserController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
@@ -51,6 +40,7 @@ public class UserController extends HttpServlet {
             UserDAOImpl daoU = new UserDAOImpl();
             UserDAOImpl dao2 = new UserDAOImpl();
             DBContext dao1 = new DBContext();
+            MessageDAOImpl daom = new MessageDAOImpl();
             String service = request.getParameter("do");
             if (service == null) {
                 service = "Profile";
@@ -97,11 +87,7 @@ public class UserController extends HttpServlet {
                 boolean checkemail = false;
                 boolean checkphone = false;
                 boolean checkcmnd = false;
-                if (phone.length() == 10 && dao2.isNumeric(cmt) && dao2.isNumeric(phone)) {
-                    n = dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));
-                } else { //update thất bại
-                    response.sendRedirect("UserController?do=Viewupdateprofile&er=1");
-
+               
                 if (phone.trim().length()==10 && cmt.trim().length()==12 && dao2.isNumeric(cmt) && dao2.isNumeric(phone)) {
                     n=dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));                    
                 }
@@ -120,8 +106,8 @@ public class UserController extends HttpServlet {
                     session.setAttribute("gender", gender);
                     
                 }
-                if (phone.trim().length()!=10) {
-                    String messerror="So dien thoai chi duoc 10 so";
+                if (dao2.isNumeric(phone)) {
+                    String messerror="SDT chi gom cac ky tu tu 0-9";
                     response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"&me=1");
                 } else if (cmt.trim().length()!=12) { 
                     String messerror="CMND chi duoc 12 so";
@@ -129,31 +115,48 @@ public class UserController extends HttpServlet {
                 } else if (!dao2.isNumeric(cmt)) {
                     String messerror="CMND chi gom cac ky tu tu 0-9";
                     response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"&me=1");
-                } else if (dao2.isNumeric(phone)) {
-                    String messerror="SDT chi gom cac ky tu tu 0-9";
-                    response.sendRedirect("UserController?do=Viewupdateprofile&er=1"+messerror+"me=1");
-                }
-                
+                } else if (phone.trim().length()!=10) {
+                    String messerror="So dien thoai chi duoc 10 so";
+                    response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"me=1");
+                }                
             }
             if(service.equals("Viewfeedback")){
                 Account ac = (Account) session.getAttribute("login");
                 User u = daoU.getUser(ac.getAccountID());
+                int roomID = Integer.parseInt(request.getParameter("roomID").toString());
+                ResultSet rs =dao.getData("select * from Reservation re join Room r\n" +
+"on re.RoomID=r.RoomID join Image i\n" +
+"on i.RoomimgaeID=r.RoomimgaeID where r.RoomID="+roomID);
+                String img="";
+                while (rs.next()) {  
+                    request.setAttribute("img",rs.getString(27));
+                    request.setAttribute("describe", rs.getString(16));                    
+                }
                 request.setAttribute("Fname", u.getUserName());
+                request.setAttribute("aid", ac.getAccountID());
+                System.out.println(ac.getAccountID());
+                request.setAttribute("roomID", roomID);                
                 request.getRequestDispatcher("Feedback.jsp").forward(request, response);
             }
-        }
+            if(service.equals("Feedback")){
+                int roomID = Integer.parseInt(request.getParameter("roomID").toString());
+                LocalDateTime current = LocalDateTime.now();
+                System.out.println(current);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                String formatted = current.format(formatter);
+                int accoutid = Integer.parseInt(request.getParameter("aid").toString());
+                String msg =request.getParameter("commentfb");
+                System.out.println(roomID+" "+formatted+" "+msg+" "+accoutid);
+                if(!msg.equals("")){
+                    daom.insertFeedback(new Message(accoutid, formatted, msg, roomID));
+                    response.sendRedirect("OrderController?do=yourbill");
+                }
+                else response.sendRedirect("UserController?do=Viewfeedback");
+            }
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -164,14 +167,6 @@ public class UserController extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -182,11 +177,6 @@ public class UserController extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

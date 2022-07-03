@@ -19,4 +19,5 @@ public interface ImageDAO {
     public void deleteImage(int riID);
     public Vector<Image> selectImage(String sql);
     public Image imageByID(String sql);
+  
 }

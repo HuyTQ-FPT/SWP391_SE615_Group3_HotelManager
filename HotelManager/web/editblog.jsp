@@ -46,18 +46,17 @@
                                 <thead>      
                                     <tr>
 
-                                        <th scope="col">BlogAuthor</th>
-                                        <th scope="col">BlogDescription</th>
-                                        <th scope="col">BlogImage</th>
-                                        <th scope="col">BlogTitleString</th>                                      
-                                        <th scope="col">Delete</th>
-                                        <th scope="col">Update</th>
+                                        <th scope="col">Tác giả</th>
+                                        <th scope="col">Nội dung</th>
+                                        <th scope="col">Hình ảnh</th>
+                                        <th scope="col">Tiêu đề</th>                                      
+                                        <th scope="col">Xóa</th>
+                                        <th scope="col">Cập nhật</th>
                                     </tr>
                                 </thead>
                                 <c:forEach items="${b}" var="c">
-                                    <form action="BlogManagerController?do=updateblog"method="get">
+                                    <!--<form action="BlogManagerController?do=updateblog"method="get">-->
                                         <tr>
-
                                             <td>${c.blogAuthor}</td>
                                             <td>${c.blogDescription}</td>
                                             <td><img style="width: 350px; height: 250px;" src="images/anhblog/${c.blogImage}" alt=""></td>
@@ -67,6 +66,7 @@
                                         <input name="blogImage" value="${c.blogImage}" type="hidden">
                                         <input name="blogTitleString" value="${c.blogTitleString}" type="hidden">
                                          <input name="date" value="${c.blogDate}" type="hidden">
+                                               <input name="blogid" value="${c.blogID}" type="hidden">
                                         <td>
                                             <a href="BlogManagerController?do=deleteblog&blogid=${c.blogID}" class="tm-product-delete-link" onclick="Delete()"/>
                                                 <i class="far fa-trash-alt tm-product-delete-icon" onclick="delete()"></i>
@@ -74,13 +74,16 @@
                                         </td>
 
                                         <td>
-                                             <input name="BlogID" value="${c.blogID}" type="hidden">
-                                            <button type="submit" name="do" value="updateblog" class="tm-product-delete-link">
+                                             <!--<input name="BlogID" value="${c.blogID}" type="hidden">-->
+                                              <a href="BlogManagerController?do=updateblog&blogid=${c.blogID}" class="tm-product-delete-link"/>
+                                               <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                            </a>
+<!--                                            <button type="submit" name="do" value="updateblog" class="tm-product-delete-link">
                                                 <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
-                                            </button>
+                                            </button>-->
                                         </td>
                                         </tr>
-                                    </form>   
+<!--                                    </form>   -->
                                 </c:forEach>
                             </table>
                         </div>

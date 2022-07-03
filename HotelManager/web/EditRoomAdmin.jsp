@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-<html lang="en">
+<html lang="vi">
     <head>
+        <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -24,13 +24,13 @@
             Product Admin CSS Template
             https://templatemo.com/tm-524-product-admin
         -->
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
-            function chooseFile(fileInput){
-                if(fileInput.files && fileInput.files[0]){
+            function chooseFile(fileInput) {
+                if (fileInput.files && fileInput.files[0]) {
                     var reader = new FileReader();
-                    reader.onload = function(e){
-                        $('#image').attr('src',e.target.result);
+                    reader.onload = function (e) {
+                        $('#image').attr('src', e.target.result);
                     }
                     reader.readAsDataURL(fileInput.files[0]);
                 }
@@ -176,7 +176,7 @@
                                         <!--<input type="hidden" name="do" value="changeImgae" style="width: 200px; margin-top: 10px">-->
                                         <button style="border-radius: 20px;margin-left:20%" type="submit" class="btn btn-primary">Save</button>
                                     </div>
-                                <!--</form>--> 
+                                </form> 
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
                                 <form action="ImageController?do=changeImgae2" method="post" enctype="multipart/form-data">

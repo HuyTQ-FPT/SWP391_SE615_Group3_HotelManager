@@ -7,6 +7,7 @@ import entity.Account;
 import util.SendMail;
 import util.randomPassword;
 import context.DBContext;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -28,10 +29,10 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        try {
+        try{
             HttpSession session = request.getSession();
             AccountDAOImpl dao = new AccountDAOImpl();
-            UserDAOImpl daoU = new UserDAOImpl();
+            UserDAO daoU = new UserDAOImpl();
             DBContext dao1 = new DBContext();
             String service = request.getParameter("do");
             if (service == null) {
@@ -180,7 +181,7 @@ public class LoginController extends HttpServlet {
                 if (daoU.checkUser(email.trim()) == null) {
                     if (!email.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
                         String eEmail = "Email không đúng định dạng!";
-                        String exampleEmail = "Example: SWPGroup3@gmail.com";
+                        String exampleEmail = "Ví dụ: SWPGroup3@gmail.com";
                         request.setAttribute("eEmail", eEmail);
                         request.setAttribute("exampleEmail", exampleEmail);
                         request.setAttribute("email1", email);
@@ -291,14 +292,6 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -311,14 +304,6 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -331,14 +316,9 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

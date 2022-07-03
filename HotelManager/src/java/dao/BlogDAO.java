@@ -16,7 +16,8 @@ import entity.Comment;
 public interface BlogDAO {
      public Blog getBlogList(int bID);
    
-    public void updateBlog(String BlogID,String BlogAuthor, String BlogDescription, String BlogImage, String BlogDate, String BlogTitleString);
+   
+   public void updateBlog(String BlogID, String BlogAuthor, String BlogDescription, String BlogTitleString);
     public void deleteBlog(int bID);
     public Vector<Blog> getBlog(String sql);
     public int getPage();
@@ -29,4 +30,6 @@ public interface BlogDAO {
   public List<Comment> DisplayComment(String BlogID);
   public void InsertComment(String content,String username,String BlogID);
   public void crudImage(String sql);
+  public Vector<Blog> selectBlog(String BlogID);
+     public String getBlogID(String sql);
 }

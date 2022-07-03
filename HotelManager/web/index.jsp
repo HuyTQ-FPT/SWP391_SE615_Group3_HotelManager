@@ -32,7 +32,7 @@ Author     : admin
         <link rel="stylesheet" href="css/animate.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-        
+
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 
         <link rel="stylesheet" href="css/aos.css">
@@ -44,7 +44,7 @@ Author     : admin
         <link rel="stylesheet" href="css/tooplate-style.css">
     </head>
     <style>
-        
+
         .card{
             display: none;
             opacity: 0.9;
@@ -174,46 +174,44 @@ Author     : admin
                 transition-delay: 0.1s;
                 transform: rotate(20deg);
             }
-        input.star-1:checked ~ label.star:before { color: #F62; }
+            input.star-1:checked ~ label.star:before { color: #F62; }
 
-        label.star:hover { transform: rotate(-15deg) scale(1.3); }
+            label.star:hover { transform: rotate(-15deg) scale(1.3); }
 
-        label.star:before {
-            content: '\f006';
-            font-family: FontAwesome;
-        }
-        .feedback{
-            color:#1E90FF; font-size: 50px;position: fixed; right: 25px; bottom: 25px;z-index: 10; cursor: pointer; 
-        }
-        .iconfb{
-            position: fixed;
-            z-index: 10;
-            top: 10px;
-            right: 10px;
-        }
-    </style>
-    <body>
-        <% Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
-            Vector<Room> vector2 = (Vector<Room>) request.getAttribute("vector2");
-            Vector<Service> vector3 = (Vector<Service>) request.getAttribute("vector3");
-            Vector<Room> vector4 = (Vector<Room>) request.getAttribute("vector4");
-            Account a =(Account)session.getAttribute("login");
-        %>
-        <div class="site-wrap">
+            label.star:before {
+                content: '\f006';
+                font-family: FontAwesome;
+            }
+            .feedback{
+                color:#1E90FF; font-size: 50px;position: fixed; right: 25px; bottom: 25px;z-index: 10; cursor: pointer; 
+            }
+            .iconfb{
+                position: fixed;
+                z-index: 10;
+                top: 10px;
+                right: 10px;
+            }
+            .location{
+                position: fixed;
+                left: -80px;
+                bottom: 100px;
+            }
+            .text-center
 
-            <div class="site-mobile-menu">
-                <div class="site-mobile-menu-header">
-                    <div class="site-mobile-menu-close mt-3">
-                        <span class="icon-close2 js-menu-toggle"></span>
-                    </div>
-                </div>
-                <div class="site-mobile-menu-body"></div>
-            </div> <!-- .site-mobile-menu -->
-
-
-            <jsp:include page="header.jsp"></jsp:include>
-            
-            
+        </style>
+        <body>
+            <% Vector<Room> vector = (Vector<Room>) request.getAttribute("vector");
+                Vector<Room> vector2 = (Vector<Room>) request.getAttribute("vector2");
+                Vector<Service> vector3 = (Vector<Service>) request.getAttribute("vector3");
+                Vector<Room> vector4 = (Vector<Room>) request.getAttribute("vector4");
+                Account a = (Account) session.getAttribute("login");
+            %>
+            <div class="site-wrap">
+                <jsp:include page="header.jsp"></jsp:include>
+                    <div class="site-mobile-menu">
+                        <div class="site-mobile-menu-header">
+                            <div class="site-mobile-menu-close mt-3">
+                                <span class="icon-close2 js-menu-toggle"></span>
                 <div class="card" id="team">
                     <div class="card_img">
                         <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
@@ -329,64 +327,335 @@ Author     : admin
                                     </div>                         
                                 </form>
                             </div>
+                            <div class="site-mobile-menu-body"></div>
+                        </div> <!-- .site-mobile-menu -->
+
+
+
+
+
+                        <div class="card" id="team">
+                            <div class="card_img">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                            </div>
+                        <c:if test="${sessionScope.login!=null}">
+                            <div class="card_name">
+                                <p style="color:white;">${sessionScope.login.getUser()}</p>                        
+                            </div>
+                        </c:if>
+
+                        <div class="card_logo">
+                            <a href="https://www.youtube.com/">
+                                <i class='bx bxl-facebook-circle'></i>
+                            </a>
+                            <a href="https://www.youtube.com/">
+                                <i class='bx bxl-youtube' ></i>
+                            </a>
+                            <a href="https://www.youtube.com/">
+                                <i class='bx bxl-github' ></i>
+                            </a>
                         </div>
-                    </div>
-                </div>       
-            </div>                               
-                
-            <div class="site-section bg-light">                
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 mx-auto text-center mb-5 section-heading">
-                            <h2 class="mb-5">Danh sách phòng</h2>
+
+                        <div class="card_button">
+                            <a href="UserController"><button>Edit Profile</button></a>                       
                         </div>
+
                     </div>
-                    <div class="row">
-                        <%for (Room v : vector) {%>
-                        <div class="col-md-6 col-lg-4 mb-5">
-                            <div class="hotel-room text-center">
-                                <a  href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>&cateroom=<%=v.getRoomcateID()%>" class="d-block mb-0 thumbnail"><img style="width: 350px; height: 250px;" src="images/anhphong/<%= v.getImage()%>" 
-                                                                                                                                                                      alt="Image" class="img-fluid"></a>
-                                <div class="stars">
-                                    <form action="">
-                                        <div class="h" style="font-size: 20px;padding-left: 35%;padding-top: 5px">
-                                                        <c:forEach begin="1" end="<%=v.getRate()%>">
-                                                            <span style="padding-right: 6px"class="fa fa-star checked"></span>
-                                                        </c:forEach>
-                                                    </div>
-<!--                                        <input class="star star-4 " id="star-5+<%=v.getRoomID()%>"  name="star"/>
-                                        <label class="star star-4 " for="star-5+<%=v.getRoomID()%>"></label>
-                                        <input class="star star-4" id="star-4+<%=v.getRoomID()%>"  name="star"/>
-                                        <label class="star star-4" for="star-4+<%=v.getRoomID()%>"></label>
-                                        <input class="star star-3" id="star-3+<%=v.getRoomID()%>"  name="star"/>
-                                        <label class="star star-3" for="star-3+<%=v.getRoomID()%>"></label>
-                                        <input class="star star-2" id="star-2+<%=v.getRoomID()%>" name="star"/>
-                                        <label class="star star-2" for="star-2+<%=v.getRoomID()%>"></label>
-                                        <input class="star star-1" id="star-1+<%=v.getRoomID()%>" name="star"/>
-                                        <label class="star star-1" for="star-1+<%=v.getRoomID()%>"></label>-->
+
+
+                </div>
+                <%
+                    ac = (Account) session.getAttribute("login");
+                    if (ac != null) {
+                %>
+                <a href="MessageController">          
+                    <span style="color:#1E90FF; font-size: 50px;position: fixed; right: 25px; bottom: 25px;z-index: 10; cursor: pointer" class="iconify" data-icon="bx:message-rounded"></span>                
+                    </a> 
+                    <% }%>
+                    <div class="slide-one-item home-slider owl-carousel">
+                        <div class="site-blocks-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+                        <div class="container">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
+                                    <form action="RoomController" method="get" class="tm-search-form tm-section-pad-2">
+                                        <input type="hidden" name="do" value="searchRoom">
+                                        <div class="form-row tm-search-form-row">
+                                            <div class="form-group tm-form-element tm-form-element-50">
+                                                <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
+                                                <c:if test="${empty err}">
+                                                    <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Check In">
+                                                </c:if>
+                                                <c:if test="${!empty err}">
+                                                    <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="${err}">
+                                                </c:if>
+                                            </div>
+                                            <div class="form-group tm-form-element tm-form-element-50">
+                                                <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
+                                                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row tm-search-form-row">
+                                            <div class="form-group tm-form-element tm-form-element-2">
+                                                <select name="adult" class="form-control tm-select" id="adult">
+                                                    <option value="">Adult</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                                <i class="fa fa-2x fa-user tm-form-element-icon"></i>
+                                            </div>
+                                            <div class="form-group tm-form-element tm-form-element-2">
+                                                <select name="children" class="form-control tm-select" id="children">
+                                                    <option value="">Children</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                                <i class="fa fa-user tm-form-element-icon tm-form-element-icon-small"></i>
+                                            </div>
+                                            <div class="form-group tm-form-element tm-form-element-2">
+                                                <select name="room" class="form-control tm-select" id="room">
+                                                    <option value="">Room</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                </select>
+                                                <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
+                                            </div>
+                                            <div class="form-group tm-form-element tm-form-element-2">
+                                                <button type="submit" class="btn btn-primary tm-btn-search">Check
+                                                    Availability</button>
+                                            </div>
+                                        </div>                         
                                     </form>
                                 </div>
-                                <div class="hotel-room-body">
-                                    <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
-                                    <strong class="price" style="font-weight: bold; font-size: 14px">€<%=v.getRoomprice()%>/ một đêm</strong>
-                                    <div class="add-to-cart">
-                                        <form action="RoomController">
-                                            <input type="hidden" name="do" value="roomdetail">
-                                            <input type="hidden" name="roomid" value="<%=v.getRoomID() %>">
-                                            <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
-                                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
+                               
+                        </div>
+                    </div>       
+                </div>                               
+
+                <div class="site-section bg-light">                
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 mx-auto text-center mb-5 section-heading">
+                                <h2 class="mb-5">Danh sách phòng</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <%for (Room v : vector) {%>
+                            <div class="col-md-6 col-lg-4 mb-5">
+                                <div class="hotel-room text-center">
+                                    <a  href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>&cateroom=<%=v.getRoomcateID()%>" class="d-block mb-0 thumbnail"><img style="width: 350px; height: 250px;" src="images/anhphong/<%= v.getImage()%>" 
+                                                                                                                                                                          alt="Image" class="img-fluid"></a>
+                                    <div class="stars">
+                                        <form action="">
+                                            <div class="h" style="font-size: 20px;padding-left: 35%;padding-top: 5px">
+                                                    <c:forEach begin="1" end="<%=v.getRate()%>">
+                                                        <span style="padding-right: 6px"class="fa fa-star checked"></span>
+                                                    </c:forEach>
+                                                </div>
+<!--                                        <input class="star star-4 " id="star-5+<%=v.getRoomID()%>"  name="star"/>
+                                    <label class="star star-4 " for="star-5+<%=v.getRoomID()%>"></label>
+                                    <input class="star star-4" id="star-4+<%=v.getRoomID()%>"  name="star"/>
+                                    <label class="star star-4" for="star-4+<%=v.getRoomID()%>"></label>
+                                    <input class="star star-3" id="star-3+<%=v.getRoomID()%>"  name="star"/>
+                                    <label class="star star-3" for="star-3+<%=v.getRoomID()%>"></label>
+                                    <input class="star star-2" id="star-2+<%=v.getRoomID()%>" name="star"/>
+                                    <label class="star star-2" for="star-2+<%=v.getRoomID()%>"></label>
+                                    <input class="star star-1" id="star-1+<%=v.getRoomID()%>" name="star"/>
+                                    <label class="star star-1" for="star-1+<%=v.getRoomID()%>"></label>-->
                                             </form>
+                                        </div>
+                                        <div class="hotel-room-body">
+
+                                            <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
+                                        <strong class="price" style="font-weight: bold; font-size: 14px">€<%=v.getRoomprice()%>/ một đêm</strong>
+                                            <div class="add-to-cart">
+                                                <form action="RoomController">
+                                                    <input type="hidden" name="do" value="roomdetail">
+                                                    <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
+                                                    <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
+                                                    <button  style="margin-top: 10px;position: fixed;left: 43px;" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                            </form>
+
+                                            <form action="CompareRoomController">
+                                                <input type="hidden" name="do" value="ViewCompare">
+                                                <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
+                                              <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
+                                                <button style="margin-left: 150px;position: fixed;left: 37px;top: 29px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
+                                            </form>
+
+
+
+                                        </div> 
+                                    </div>
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+                            <%}%> 
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="site-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 mx-auto text-center mb-5 section-heading">
+                                <h2 class="mb-5">TÍNH NĂNG HIỆN CÓ</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <%for (Service s : vector3) {%>
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="text-center p-4 item">
+                                    <a href="ServiceController?do=servicedetail&ServiceID=<%=s.getServiceID()%>">
+                                        <img style="width:250px; height: 200px" src="images/anhdevice/<%=s.getServiceImage()%>">
+                                            <h2 style="font-weight: bold; padding-top: 20px; font-family: 'Times New Roman'; font-size: 22px; color: orangered;padding-left: 28px; "class="h5"><%=s.getServiceName()%></h2>
+                                    </a>
+                                </div>
+                            </div>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+                <div class="site-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 mx-auto text-center mb-5 section-heading">
+                                <h2 class="mb-5">Phòng còn trống</h2>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <%for (Room r : vector4) {%>
+                            <div class="col-md-6 col-lg-4">
+                                <a href="RoomController?do=roomdetail&roomid=<%=r.getRoomID()%>&cateroom=<%=r.getRoomcateID()%>" class="img-opacity"><img style="width: 400px; height: 250px;" src="images/anhphong/<%=r.getImage()%>" alt="Image" class="img-fluid"></a>                        
+                            </div>
+                            <%}%>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-md-12 text-center">
+                                <div class="site-block-27">
+                                    <ul>
+                                        <c:forEach begin="1" end="${n}" var="c">
+                                            <li><a href="HomeController?page=${c}">${c}</a></li>
+                                            </c:forEach>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="site-section block-15">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 mx-auto text-center mb-5 section-heading">
+                                <h2>Thông tin phòng</h2>
+                            </div>
+                        </div>
+                        <div class="nonloop-block-15 owl-carousel">
+                            <%for (Room e : vector2) {%>
+                            <div class="media-with-text p-md-5">
+                                <div class="img-border-sm mb-4">
+
+                                    <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" class="popup-vimeo image-play">
+                                        <img style="width: 250px; height: 200px;" src="images/anhphong/<%=e.getImage()%>" alt="Image" class="img-fluid">
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" style="font-weight: bold; font-size: 25px;color: black;font-family: Didot"><%=e.getCateroom()%></a>
+                                        <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
+                                        <p><%=e.getRoomdesc().substring(0, 100)%>...</p>
+                                    </div>
+                                </div>         
+                                <%}%>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="site-section block-14 bg-light">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 mx-auto text-center mb-5 section-heading">
+                                    <h2>Phản hồi khách hàng</h2>
+                                </div>
+                            </div>
+                            <div class="nonloop-block-14 owl-carousel">
+
+                                <div class="p-4">
+                                    <div class="d-flex block-testimony">
+                                        <div class="person mr-3">
+                                            <img src="images/person_1.jpg" alt="Image" class="img-fluid rounded">
+                                        </div>
+                                        <div>
+                                            <h2 class="h5">Katie Johnson</h2>
+                                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="d-flex block-testimony">
+                                        <div class="person mr-3">
+                                            <img src="images/person_2.jpg" alt="Image" class="img-fluid rounded">
+                                        </div>
+                                        <div>
+                                            <h2 class="h5">Jane Mars</h2>
+                                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="d-flex block-testimony">
+                                        <div class="person mr-3">
+                                            <img src="images/person_3.jpg" alt="Image" class="img-fluid rounded">
+                                        </div>
+                                        <div>
+                                            <h2 class="h5">Shane Holmes</h2>
+                                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="d-flex block-testimony">
+                                        <div class="person mr-3">
+                                            <img src="images/person_4.jpg" alt="Image" class="img-fluid rounded">
+                                        </div>
+                                        <div>
+                                            <h2 class="h5">Mark Johnson</h2>
+                                            <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <%}%> 
                     </div>
-                </div>
-            </div>
-
-
-
             <div class="site-section">
                 <div class="container">
                     <div class="row">
@@ -524,201 +793,200 @@ Author     : admin
                             <div>
                                 <span class="icon-room text-white h2 d-block"></span>
                                 <h2>Location</h2>
-                                <p class="mb-0">New York - 2398 <br>  10 Hadson Carl Street</p>
-                            </div>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6403.40234353664!2d107.08224774036356!3d20.95655790979934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a5816439d4427%3A0x199156ac489da67d!2zNDIgVHLhuqduIEjGsG5nIMSQ4bqhbywgQ2FvIFRo4bqvbmcsIFRow6BuaCBwaOG7kSBI4bqhIExvbmcsIFF14bqjbmcgTmluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1656520360741!5m2!1svi!2s" width="400" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
-                        <div class="col-md-4 text-center">
-                            <div>
-                                <span class="icon-clock-o text-white h2 d-block"></span>
-                                <h2>Service Times</h2>
-                                <p class="mb-0">Wednesdays at 6:30PM - 7:30PM <br>
-                                    Fridays at Sunset - 7:30PM <br>
-                                    Saturdays at 8:00AM - Sunset</p>
-                            </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div>
+                            <span class="icon-clock-o text-white h2 d-block"></span>
+                            <h2>Service Times</h2>
+                            <p class="mb-0">Wednesdays at 6:30PM - 7:30PM <br>
+                                Fridays at Sunset - 7:30PM <br>
+                                Saturdays at 8:00AM - Sunset</p>
                         </div>
-                        <div class="col-md-4 text-center">
-                            <div>
-                                <span class="icon-comments text-white h2 d-block"></span>
-                                <h2>Get In Touch</h2>
-                                <p class="mb-0">Email: info@yoursite.com <br>
-                                    Phone: (123) 3240-345-9348 </p>
-                            </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div>
+                            <span class="icon-comments text-white h2 d-block"></span>
+                            <h2>Get In Touch</h2>
+                            <p class="mb-0">Email: info@yoursite.com <br>
+                                Phone: (123) 3240-345-9348 </p>
+
                         </div>
                     </div>
                 </div>
+                <jsp:include page="footer.jsp"></jsp:include>
             </div>
-            <jsp:include page="footer.jsp"></jsp:include>
-        </div>
-        <script src="js/jquery-1.11.3.min.js"></script>    
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/jquery-migrate-3.0.1.min.js"></script>
-        <script src="js/jquery-ui.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.stellar.min.js"></script>
-        <script src="js/jquery.countdown.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/bootstrap-datepicker.min.js"></script>
-        <script src="js/aos.js"></script>
-        <script src="js/mediaelement-and-player.min.js"></script>
-        <script src="js/main.js"></script>
-        <!-- load JS files -->
-        <script src="js/jquery-1.11.3.min.js"></script>
-        <!-- jQuery (https://jquery.com/download/) -->
-        <script src="js/popper.min.js"></script>
-        <!-- https://popper.js.org/ -->
-        <script src="js/bootstrap.min.js"></script>
-        <!-- https://getbootstrap.com/ -->
-        <script src="js/datepicker.min.js"></script> 
-        <!-- https://github.com/qodesmith/datepicker -->
-        <script src="js/jquery.singlePageNav.min.js"></script>
-        <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
-        <script src="slick/slick.min.js"></script>
-        <!-- http://kenwheeler.github.io/slick/ -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var mediaElements = document.querySelectorAll('video, audio'),
-                        total = mediaElements.length;
+            <script src="js/jquery-1.11.3.min.js"></script>    
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="js/jquery-ui.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.stellar.min.js"></script>
+            <script src="js/jquery.countdown.min.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/bootstrap-datepicker.min.js"></script>
+            <script src="js/aos.js"></script>
+            <script src="js/mediaelement-and-player.min.js"></script>
+            <script src="js/main.js"></script>
+            <!-- load JS files -->
+            <script src="js/jquery-1.11.3.min.js"></script>
+            <!-- jQuery (https://jquery.com/download/) -->
+            <script src="js/popper.min.js"></script>
+            <!-- https://popper.js.org/ -->
+            <script src="js/bootstrap.min.js"></script>
+            <!-- https://getbootstrap.com/ -->
+            <script src="js/datepicker.min.js"></script> 
+            <!-- https://github.com/qodesmith/datepicker -->
+            <script src="js/jquery.singlePageNav.min.js"></script>
+            <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+            <script src="slick/slick.min.js"></script>
+            <!-- http://kenwheeler.github.io/slick/ -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var mediaElements = document.querySelectorAll('video, audio'),
+                            total = mediaElements.length;
 
-                for (var i = 0; i < total; i++) {
-                    new MediaElementPlayer(mediaElements[i], {
-                        pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                        shimScriptAccess: 'always',
-                        success: function () {
-                            var target = document.body.querySelectorAll('.player'),
-                                    targetTotal = target.length;
-                            for (var j = 0; j < targetTotal; j++) {
-                                target[j].style.visibility = 'visible';
+                    for (var i = 0; i < total; i++) {
+                        new MediaElementPlayer(mediaElements[i], {
+                            pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                            shimScriptAccess: 'always',
+                            success: function () {
+                                var target = document.body.querySelectorAll('.player'),
+                                        targetTotal = target.length;
+                                for (var j = 0; j < targetTotal; j++) {
+                                    target[j].style.visibility = 'visible';
+                                }
                             }
-                        }
-                    });
-                }
-            });
-            /* Google map
-             ------------------------------------------------*/
-            var map = '';
-            var center;
-            function initialize() {
-                var mapOptions = {
-                    zoom: 16,
-                    center: new google.maps.LatLng(13.7567928, 100.5653741),
-                    scrollwheel: false
-                };
-                map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
-                google.maps.event.addDomListener(map, 'idle', function () {
-                    calculateCenter();
-                });
-                google.maps.event.addDomListener(window, 'resize', function () {
-                    map.setCenter(center);
-                });
-            }
-            function calculateCenter() {
-                center = map.getCenter();
-            }
-            function loadGoogleMap() {
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
-                document.body.appendChild(script);
-            }
-            function setCarousel() {
-                if ($('.tm-article-carousel').hasClass('slick-initialized')) {
-                    $('.tm-article-carousel').slick('destroy');
-                }
-                if ($(window).width() < 438) {
-                    // Slick carousel
-                    $('.tm-article-carousel').slick({
-                        infinite: false,
-                        dots: true,
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    });
-                } else {
-                    $('.tm-article-carousel').slick({
-                        infinite: false,
-                        dots: true,
-                        slidesToShow: 2,
-                        slidesToScroll: 1
-                    });
-                }
-            }
-            function setPageNav() {
-                if ($(window).width() > 991) {
-                    $('#tm-top-bar').singlePageNav({
-                        currentClass: 'active',
-                        offset: 79
-                    });
-                } else {
-                    $('#tm-top-bar').singlePageNav({
-                        currentClass: 'active',
-                        offset: 65
-                    });
-                }
-            }
-            function togglePlayPause() {
-                vid = $('.tmVideo').get(0);
-                if (vid.paused) {
-                    vid.play();
-                    $('.tm-btn-play').hide();
-                    $('.tm-btn-pause').show();
-                } else {
-                    vid.pause();
-                    $('.tm-btn-play').show();
-                    $('.tm-btn-pause').hide();
-                }
-            }
-            $(document).ready(function () {
-                $(window).on("scroll", function () {
-                    if ($(window).scrollTop() > 100) {
-                        $(".tm-top-bar").addClass("active");
-                    } else {
-                        //remove the background property so it comes transparent again (defined in your css)
-                        $(".tm-top-bar").removeClass("active");
+                        });
                     }
                 });
-                // Google Map
-                loadGoogleMap();
-                // Date Picker
-                const pickerCheckIn = datepicker('#inputCheckIn');
-                const pickerCheckOut = datepicker('#inputCheckOut');
-                // Slick carousel
-                setCarousel();
-                setPageNav();
-                $(window).resize(function () {
+                /* Google map
+                 ------------------------------------------------*/
+                var map = '';
+                var center;
+                function initialize() {
+                    var mapOptions = {
+                        zoom: 16,
+                        center: new google.maps.LatLng(13.7567928, 100.5653741),
+                        scrollwheel: false
+                    };
+                    map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+                    google.maps.event.addDomListener(map, 'idle', function () {
+                        calculateCenter();
+                    });
+                    google.maps.event.addDomListener(window, 'resize', function () {
+                        map.setCenter(center);
+                    });
+                }
+                function calculateCenter() {
+                    center = map.getCenter();
+                }
+                function loadGoogleMap() {
+                    var script = document.createElement('script');
+                    script.type = 'text/javascript';
+                    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
+                    document.body.appendChild(script);
+                }
+                function setCarousel() {
+                    if ($('.tm-article-carousel').hasClass('slick-initialized')) {
+                        $('.tm-article-carousel').slick('destroy');
+                    }
+                    if ($(window).width() < 438) {
+                        // Slick carousel
+                        $('.tm-article-carousel').slick({
+                            infinite: false,
+                            dots: true,
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        });
+                    } else {
+                        $('.tm-article-carousel').slick({
+                            infinite: false,
+                            dots: true,
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        });
+                    }
+                }
+                function setPageNav() {
+                    if ($(window).width() > 991) {
+                        $('#tm-top-bar').singlePageNav({
+                            currentClass: 'active',
+                            offset: 79
+                        });
+                    } else {
+                        $('#tm-top-bar').singlePageNav({
+                            currentClass: 'active',
+                            offset: 65
+                        });
+                    }
+                }
+                function togglePlayPause() {
+                    vid = $('.tmVideo').get(0);
+                    if (vid.paused) {
+                        vid.play();
+                        $('.tm-btn-play').hide();
+                        $('.tm-btn-pause').show();
+                    } else {
+                        vid.pause();
+                        $('.tm-btn-play').show();
+                        $('.tm-btn-pause').hide();
+                    }
+                }
+                $(document).ready(function () {
+                    $(window).on("scroll", function () {
+                        if ($(window).scrollTop() > 100) {
+                            $(".tm-top-bar").addClass("active");
+                        } else {
+                            //remove the background property so it comes transparent again (defined in your css)
+                            $(".tm-top-bar").removeClass("active");
+                        }
+                    });
+                    // Google Map
+                    loadGoogleMap();
+                    // Date Picker
+                    const pickerCheckIn = datepicker('#inputCheckIn');
+                    const pickerCheckOut = datepicker('#inputCheckOut');
+                    // Slick carousel
                     setCarousel();
                     setPageNav();
+                    $(window).resize(function () {
+                        setCarousel();
+                        setPageNav();
+                    });
+                    // Close navbar after clicked
+                    $('.nav-link').click(function () {
+                        $('#mainNav').removeClass('show');
+                    });
+                    // Control video
+                    $('.tm-btn-play').click(function () {
+                        togglePlayPause();
+                    });
+                    $('.tm-btn-pause').click(function () {
+                        togglePlayPause();
+                    });
+                    // Update the current year in copyright
+                    $('.tm-current-year').text(new Date().getFullYear());
                 });
-                // Close navbar after clicked
-                $('.nav-link').click(function () {
-                    $('#mainNav').removeClass('show');
-                });
-                // Control video
-                $('.tm-btn-play').click(function () {
-                    togglePlayPause();
-                });
-                $('.tm-btn-pause').click(function () {
-                    togglePlayPause();
-                });
-                // Update the current year in copyright
-                $('.tm-current-year').text(new Date().getFullYear());
-            });
-            function show() {
-                if (document.getElementById("team").style.display == "none") {
-                    document.getElementById("team").style.display = "block";
-                } else {
-                    document.getElementById("team").style.display = "none";
+                function show() {
+                    if (document.getElementById("team").style.display == "none") {
+                        document.getElementById("team").style.display = "block";
+                    } else {
+                        document.getElementById("team").style.display = "none";
+                    }
                 }
-            }
-            function Chatbox() {
-                if (document.getElementById("chatbot").style.display == "none") {
-                    document.getElementById("chatbot").style.display = "block";
-                } else {
-                    document.getElementById("chatbot").style.display = "none";
+                function Chatbox() {
+                    if (document.getElementById("chatbot").style.display == "none") {
+                        document.getElementById("chatbot").style.display = "block";
+                    } else {
+                        document.getElementById("chatbot").style.display = "none";
+                    }
                 }
-            }
 
-        </script>
-        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+            </script>
+            <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     </body>
 </html>

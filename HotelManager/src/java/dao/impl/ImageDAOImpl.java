@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao.impl;
 
 import dao.ImageDAO;
@@ -113,14 +108,27 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
         return null;
     }
 
-    public void crudImage(String sql) {
+    public void crudImage(String sql , String des, String Notes) {
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
+             pre.setString(1, des);
+             pre.setString(2, Notes);
             pre.executeUpdate();
             System.out.println("done");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+        public void crudImage1(String sql,String title , String BlogDescription, String BlogAuthor) {
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+             pre.setString(1, title);
+             pre.setString(2, BlogDescription);
+             pre.setString(3, BlogAuthor);
+            pre.executeUpdate();
+            System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -55,9 +55,16 @@
                 padding-top: 300px;
                 width:50%;
             }
+            .hh{
+            position: fixed;
+            top:10px;
+            left: 120px;
+            color: white;
+        }
         </style>    
     </head>
     <body style="padding-top: 100px; height: 200px;">
+        <h2 class="mb-0 site-logo hh"><a href="HomeController">Hoang Hon</a></h2>
          <section id="topic-header">
                 <div class="container">
                     <div class="row">
@@ -66,13 +73,8 @@
                         </div>
                         <!-- End of /.col-md-4 -->
                     </div>
-                    <!-- End of /.row -->
                 </div>
-                <!-- End of /.container -->
             </section>
-            <!-- End of /#Topic-header -->
-
-            <!--================================================== -->
             <div class="hd">
                 <div style="padding-left: 400px; padding-bottom:100px;">
                     <table border="1px" >
@@ -83,6 +85,7 @@
                                 <th class="category-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Check out</th>
                                 <th class="product-name" style="padding-right: 60px; padding-left: 60px; color: white;font-weight: bold; ">Tổng tiền</th>
                                 <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Trạng thái</th>
+                                <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Feedback</th>
                             </tr>
                         </thead> 
                         <tbody>
@@ -91,11 +94,13 @@
                         ResultSet rs=db.getData("select * from  Room r join Reservation j  on r.RoomID= j.RoomID join CateRoom c on c.RoomcateID=r.RoomcateID ");
                         String a="";
                         String b="";
+                        int aid =Integer.parseInt(request.getAttribute("aid").toString());
                         if(rs.next()){
                             a+=rs.getInt(2);
                             b+=rs.getString(27);
                         }
                             for (Reservation pro : vector) {
+                                ResultSet rs1=db.getData("select COUNT(*) from Message m join Account a on m.AccountID=a.AccountID where m.RoomID="+pro.getRoomID()+" and m.AccountID="+aid);
                         %>
                         <tr class="table-body-row"> 
                             <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=a%>-<%=b%> </th>
@@ -104,6 +109,9 @@
                             <th class="product-name" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getTotal() %></th>
                             <% if(pro.getStatus()==1) {%>
                             <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name="">Đã đặt</th>
+                            <%while(rs1.next()){%>
+                            <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name=""><a href="UserController?do=Viewfeedback&roomID=<%=pro.getRoomID()%>"><img style="width: 30px; height: 30px;" src="images/fb.png"><%=rs1.getInt(1)%></a></th>
+                            <% }%>
                         </tr>
                         <%}%>
                         <%}%>

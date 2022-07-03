@@ -1,5 +1,8 @@
 package controller;
 
+import dao.ReceptionistDAO;
+import dao.RoomDAO;
+import dao.UserDAO;
 import dao.impl.ReceptionistDAOImpl;
 import dao.impl.RoomDAOImpl;
 import dao.impl.UserDAOImpl;
@@ -29,9 +32,9 @@ public class ReceptionistController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            ReceptionistDAOImpl dao = new ReceptionistDAOImpl();
-            RoomDAOImpl daoR = new RoomDAOImpl();
-            UserDAOImpl daoU = new UserDAOImpl();
+            ReceptionistDAO dao = new ReceptionistDAOImpl();
+            RoomDAO daoR = new RoomDAOImpl();
+            UserDAO daoU = new UserDAOImpl();
             String service = request.getParameter("do");
             HttpSession session = request.getSession();
             if (service == null) {

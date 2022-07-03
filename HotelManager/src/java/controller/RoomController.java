@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import dao.impl.DevicesDAOImpl;
@@ -16,6 +11,7 @@ import entity.RoomByDate;
 import entity.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Stack;
@@ -67,7 +63,7 @@ public class RoomController extends HttpServlet {
                 String adult = request.getParameter("adult");
                 String room = request.getParameter("room");
                 String children = request.getParameter("children");
-                
+
                 if (adult.isEmpty()) {
                     adult = "1";
                 }
@@ -109,16 +105,24 @@ public class RoomController extends HttpServlet {
                         + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
                         + "where Room.Status =0 and Room.RoomcateID = " + cateroom + "\n"
                         + "ORDER BY NEWID()");
+
+                ResultSet rs = dao.getData("select * from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
+                ResultSet rs1 = dao.getData("select count(*) from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
+                while (rs1.next()) {
+                    request.setAttribute("countFB", rs1.getInt(1));
+                }
+
                 request.setAttribute("Room", rooom);
                 request.setAttribute("vector3", vector3);
                 request.setAttribute("de", de);
                 request.setAttribute("img", img);
                 request.setAttribute("getroomlist", getroomlist);
                 session.setAttribute("isroomde", "isroomde");
+                request.setAttribute("rsfb", rs);
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
                 session.removeAttribute("isroomde");
             }
-            if (service.equals("CateRoom")) {
+                       if (service.equals("CateRoom")) {
                 String cateid = request.getParameter("cate");
                 int id = Integer.parseInt(cateid);
                 Vector<Room> vector = dao.getRoomList("select * from Room Inner JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"

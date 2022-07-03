@@ -1,10 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package dao.impl;
 
+package dao.impl;
 
 import entity.Message;
 import context.DBContext;
@@ -12,24 +7,26 @@ import dao.MessageDAO;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MessageDAOImpl extends DBContext implements MessageDAO{
-
+    
     @Override
-    public Vector<Message> getAllImage() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Vector<Message> getAllImage() throws Exception{
+        return new Vector<>();
     }
 
     @Override
-    public int insertMessageCus(Message mess) {
+    public int insertMessageCus(Message mess) throws Exception{
         int n = 0;
-        String sql = "insert into Message values(?,'','',12/6/2022,?,'incoming_msg')";
+        String sql = "insert into Message values(?,'','',?,?,'incoming_msg',0)";
           try {
-            //System.out.println(sql);
 //        create statement: execute sql
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, mess.getAccountID());
-            pre.setString(2, mess.getContent());
+            pre.setString(2, mess.getDate());
+            pre.setString(3, mess.getContent());
                 //run
                 n = pre.executeUpdate();
             } catch (SQLException ex) {
@@ -38,15 +35,32 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
             return n;
     }
     @Override
-    public int insertMessageRe(Message mess) {
+    public int insertFeedback(Message mess) throws Exception{
         int n = 0;
-        String sql = "insert into Message values(?,'','',12/6/2022,?,'outgoing_msg')";
+        String sql = "insert into Message values(?,'','',?,N'"+mess.getContent()+"','',?)";
           try {
-            //System.out.println(sql);
 //        create statement: execute sql
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setInt(1, mess.getAccountID());
-            pre.setString(2, mess.getContent());
+            pre.setString(2, mess.getDate());
+            pre.setInt(3, mess.getRoomID());
+                //run
+                n = pre.executeUpdate();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return n;
+    }
+    @Override
+    public int insertMessageRe(Message mess) throws Exception {
+        int n = 0;
+        String sql = "insert into Message values(?,'','',?,?,'outgoing_msg',0)";
+          try {
+//        create statement: execute sql
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, mess.getAccountID());
+            pre.setString(2, mess.getDate());
+            pre.setString(3, mess.getContent());
                 //run
                 n = pre.executeUpdate();
             } catch (SQLException ex) {
@@ -56,16 +70,20 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
     }
 
     @Override
-    public void updateMessage(int mID, Message updateMessage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateMessage(int mID, Message updateMessage) throws Exception {
+      
     }
 
     @Override
-    public void deleteMessage(int mID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteMessage(int mID) throws Exception {
+       
     }
     public static void main(String[] args) {
         MessageDAOImpl dao =new MessageDAOImpl();
-        dao.insertMessageCus(new Message(2,"chi tu van giup e duoc khong a?"));
+        try {
+            dao.insertFeedback(new Message(1, "2022/06/29", "Phòng đẹp", 2));
+        } catch (Exception ex) {
+            Logger.getLogger(MessageDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
