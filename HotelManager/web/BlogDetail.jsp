@@ -75,7 +75,7 @@
                 alert("please fill all fields");
                 return false;
             }
-        
+
         }
 
     </script>
@@ -113,7 +113,7 @@
                                 <div class="blog__sidebar">
 
                                     <div class="blog__sidebar__item">
-                                        <h4>Categories</h4>
+                                        <h4>Thể loại</h4>
                                         <ul>
                                             <li><a href="#">Phòng đơn</a></li>
                                             <li><a href="#">Phòng đôi</a></li>
@@ -154,17 +154,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="blog__sidebar__item">
-                                        <h4>Search By</h4>
-                                        <div class="blog__sidebar__item__tags">
-                                            <a href="#">Apple</a>
-                                            <a href="#">Beauty</a>
-                                            <a href="#">Vegetables</a>
-                                            <a href="#">Fruit</a>
-                                            <a href="#">Healthy Food</a>
-                                            <a href="#">Lifestyle</a>
-                                        </div>
-                                    </div>
+                                 
                                 </div>
                             </div>
                         <c:forEach items="${c}" var="c">
@@ -221,7 +211,7 @@
                         <div class="col-xs-12 col-sm-12">
                             <div class="form-group fl_icon">
                                 <div class="icon"><i class="fa fa-user"></i></div>
-                                <input type="text" placeholder="Your name" class="form-input" id="username" name="username" required/>
+                                <input type="text"  class="form-input" id="username" name="username" required/>
 
                             </div>
                         </div>
@@ -229,7 +219,7 @@
                         <div class="col-sm-12">		
                             <div class="form-group fl_icon">
                                 <div class="icon"><i class="fa fa-user"></i></div>
-                                <textarea class="form-input" id="content" placeholder="Comment"  name="content" required></textarea>
+                                <textarea class="form-input" id="content" placeholder="Bình luận"  name="content" required></textarea>
                             </div>
                             <!--                            <div class="form-group">
                                                             <textarea class="form-input" required="" placeholder="Your text"  name="content">
@@ -239,7 +229,7 @@
                          <c:forEach items="${c}" var="c">
                         <input type="hidden" value="${c.blogID}" id="blogid" name="blogid"/>
                        </c:forEach>
-                        <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Post" onclick="Comment()"/>
+                        <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Gửi" onclick="Comment()"/>
                     </div>
                 </form>
     

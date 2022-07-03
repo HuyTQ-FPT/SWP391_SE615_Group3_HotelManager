@@ -36,9 +36,7 @@
                     <p class="be-comment-text">
                         ${list.content}
                     </p>
-                    <p class="be-comment-text">
-                        ${list.commentId}
-                    </p>
+    
                     <div class="accordion" id="myaccordion" style="max-width: 320px">   
                             <div class="card-header btn"  data-toggle="collapse" data-target="#q${list.commentId}" aria-expanded="true"
                                  data-parent="#myaccordion">

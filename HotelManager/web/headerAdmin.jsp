@@ -71,8 +71,8 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="BlogManagerController?do=editblog">Edit Blog</a>
-                                <a class="dropdown-item" href="addblog.jsp">Insert Blog</a>
+                                <a class="dropdown-item" href="BlogManagerController?do=editblog">Chỉnh sửa blog</a>
+                                <a class="dropdown-item" href="addblog.jsp">Thêm Blog</a>
 
                             </div>
                         </li>

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class BlogDAOImpl extends DBContext implements BlogDAO {
 
-   @Override
+    @Override
     public Vector<Blog> getBlog(String sql) {
         Vector<Blog> vector = new Vector<Blog>();
         try {
@@ -73,6 +73,25 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
     }
 
     @Override
+    public String getBlogID(String sql) {
+        String n1="";
+        int n = 0;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+
+                n = id;
+                n1 = Integer.toString(n);
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n1;
+    }
+
+    @Override
     public Vector<Blog> getBlogByPage(int n) {
         Vector<Blog> vector = new Vector<Blog>();
         int begin = 1;
@@ -84,7 +103,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogDate desc) AS RowNum\n"
                 + "               FROM Blog\n"
                 + "               ) AS RowNum\n"
-                + "                WHERE RowNum BETWEEN " + begin + " AND " + end ;
+                + "                WHERE RowNum BETWEEN " + begin + " AND " + end;
         try {
             ResultSet rs = getData(sql);
             while (rs.next()) {
@@ -180,18 +199,19 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
-     @Override
-    public Vector<Blog> getBlogByPagesearch(int n,String author){
-         Vector<Blog> vector = new Vector<Blog>();
+
+    @Override
+    public Vector<Blog> getBlogByPagesearch(int n, String author) {
+        Vector<Blog> vector = new Vector<Blog>();
         int begin = 1;
         int end = 3;
         for (int i = 2; i <= n; i++) {
             begin += 3;
             end += 3;
         }
-      
+
         String sql = "SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY BlogDate asc) AS RowNum\n"
-                + "                               FROM Blog where BlogAuthor like '%"+author+"%'\n"
+                + "                               FROM Blog where BlogAuthor like '%" + author + "%'\n"
                 + "                              ) AS RowNum\n"
                 + "                              WHERE RowNum BETWEEN " + begin + " AND " + end;
         try {
@@ -214,7 +234,22 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
     }
 
     @Override
-    public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage,String BlogTitle) {
+    public Vector<Blog> selectBlog(String BlogID) {
+        Vector<Blog> vector = new Vector<Blog>();
+
+        String sql = "select * from Blog where BlogID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, BlogID);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vector;
+    }
+
+    @Override
+    public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String BlogTitle) {
         String query = "INSERT INTO [dbo].[Blog]\n"
                 + "           ([AccountID]\n"
                 + "           ,[BlogAuthor]\n"
@@ -226,73 +261,70 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 + "           (?,?,?,?,GETDATE(),?)";
         try {
 //            ResultSet rs = null;
-             PreparedStatement pre = conn.prepareStatement(query);
+            PreparedStatement pre = conn.prepareStatement(query);
             pre.setInt(1, AccountID);
             pre.setString(2, BlogAuthor);
             pre.setString(3, BlogDescription);
-            pre.setString(4, BlogImage);        
+            pre.setString(4, BlogImage);
             pre.setString(5, BlogTitle);
-           pre.executeUpdate();
+            pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
 
     @Override
-    public void updateBlog(String BlogID,String BlogAuthor, String BlogDescription, String BlogImage, String BlogDate, String BlogTitleString) {
+    public void updateBlog(String BlogID, String BlogAuthor, String BlogDescription, String BlogTitleString) {
         String query = "UPDATE [dbo].[Blog]\n"
                 + "   SET [BlogAuthor] = ?\n"
                 + "      ,[BlogDescription] = ?\n"
-                + "      ,[BlogImage] = ?\n"
-                + "      ,[BlogDate] = ?\n"
                 + "      ,[BlogTitle] = ?\n"
                 + " WHERE BlogID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(query);
             pre.setString(1, BlogAuthor);
             pre.setString(2, BlogDescription);
-            pre.setString(3, BlogImage);
-            pre.setString(4, BlogDate);
-            pre.setString(5, BlogTitleString);
-            pre.setString(6, BlogID);
-           
+            pre.setString(3, BlogTitleString);
+            pre.setString(4, BlogID);
+
             pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @Override
-      public void InsertComment(String content,String username,String BlogID) {
-         String sql = "INSERT INTO [dbo].[Comment]([Content],[username],[Date],[BlogID])VALUES(?,?,GETDATE(),?)";
+    public void InsertComment(String content, String username, String BlogID) {
+        String sql = "INSERT INTO [dbo].[Comment]([Content],[username],[Date],[BlogID])VALUES(?,?,GETDATE(),?)";
         try {
 //            ResultSet rs = null;
-             PreparedStatement pre = conn.prepareStatement(sql);
+            PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, content);
             pre.setString(2, username);
             pre.setString(3, BlogID);
-           pre.executeUpdate();
+            pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-      @Override
+
+    @Override
     public List<Comment> DisplayComment(String BlogID) {
         List<Comment> list = new ArrayList<Comment>();
-        String sql = "select * from Comment where BlogID = "+BlogID+"";
+        String sql = "select * from Comment where BlogID = " + BlogID + "";
         try {
             PreparedStatement ptmt = conn.prepareStatement(sql);
             ResultSet rs = ptmt.executeQuery();
             while (rs.next()) {
                 Comment comment = new Comment();
-                String content = rs.getString("Content");  
+                String content = rs.getString("Content");
                 String username = rs.getString("username");
                 String date = rs.getString("Date");
-                String CommentID= rs.getString("CommentId");
+                String CommentID = rs.getString("CommentId");
                 comment.setContent(content);
-                comment. setUsername(username);
-                 comment. setDate(date);
-                 comment. setCommentId(CommentID);
+                comment.setUsername(username);
+                comment.setDate(date);
+                comment.setCommentId(CommentID);
                 list.add(comment);
             }
         } catch (SQLException e) {
@@ -300,6 +332,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return list;
     }
+
     @Override
     public void crudImage(String sql) {
         try {
@@ -313,16 +346,15 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
 
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
-        List<Comment> list = dao.DisplayComment("4");
-        System.out.println(list);
-        
-        
-        
-      
+//      Vector<Blog> vector = new Vector<Blog>();
+//      vector  = dao.getBlogID(" SELECT MAX(BlogID)\n" +
+//"FROM [SWPgroup3].[dbo].[Blog]");
+        String n = dao.getBlogID(" SELECT MAX(BlogID)\n"
+                + "FROM [SWPgroup3].[dbo].[Blog]");
+        System.out.println(n);
 
     }
 
-   
     @Override
     public void deleteBlog(int bID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -333,5 +365,4 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   
 }

@@ -307,6 +307,63 @@ public class ImageController extends HttpServlet {
                 request.setAttribute("update", "update");
                 request.getRequestDispatcher("ImageController?do=listImage&RoomID=" + RoomID + "").forward(request, response);
             }
+            String values = "";
+            ArrayList<String> blog = new ArrayList<String>();
+            if (service.equals("changeImgae5")) {
+
+                while (iter.hasNext()) {
+                    FileItem item = iter.next();
+                    HashMap<String, String> fileds = new HashMap<>();
+                    if (item.isFormField()) {
+                        fileds.put(item.getFieldName(), item.getString());
+                        String name = item.getFieldName();
+                        values = item.getString();
+                        String valuess = new String(values.getBytes("ISO-8859-1"), "UTF-8");
+                        blog.add(valuess);
+                    } else {
+
+                        Random rand = new Random();
+                        int n = rand.nextInt(50);
+                        String s = String.valueOf(n);
+                        filename = item.getName();
+                        filename += s;
+                        if (filename == null || filename.equals("")) {
+                            break;
+                        } else {
+
+                            Path path = Paths.get(filename);
+                            String storePath = servletContext.getRealPath("/images/anhblog");
+                            File uploadFile = new File(storePath + "/" + path.getFileName());
+                            item.write(uploadFile);
+                            blog.add(filename);
+                           
+                        }
+                    }
+                }
+                String BlogID = blog.get(4);
+                String author = blog.get(3);
+                String BlogDescription = blog.get(2);
+                String BlogTitle = blog.get(0);
+                String image = blog.get(5);
+                
+//                out.println("<h1>UPDATE [dbo].[Blog]\n"                                  
+//                                    + " SET   [BlogAuthor] = '" + author  + "'\n"
+//                                    + "      ,[BlogDescription] = '" + BlogDescription  + "'\n"
+//                                    + "      ,[BlogImage] = '" + image  + "'\n"                                
+//                                    + "      ,[BlogTitle] = '" + BlogTitle + "'\n"
+//                                    + " WHERE [BlogID] = " + BlogID + " </h1>");
+                 dao.crudImage1("UPDATE [dbo].[Blog]\n"                                  
+                                    + "   SET   [BlogAuthor] = ?\n"
+                                    + "      ,[BlogDescription] = ?\n"
+                                    + "      ,[BlogImage] = '" + image  + "'\n"                                
+                                    + "      ,[BlogTitle] = ?\n"
+                                    + " WHERE [BlogID] = " + BlogID + "",author.replaceAll("\\s\\s+", " ").trim(),BlogDescription.replaceAll("\\s\\s+", " ").trim(),BlogTitle.replaceAll("\\s\\s+", " ").trim());
+                   request.setAttribute("update", "update");
+               response.sendRedirect("BlogManagerController?do=editblog");
+            }
+            ArrayList<String> bl = new ArrayList<>();
+            //MultipartRequest multi=new MultipartRequest(request,".",10*1024*1024,"UTF-8");
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

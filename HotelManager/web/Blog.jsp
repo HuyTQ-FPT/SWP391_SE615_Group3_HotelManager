@@ -78,7 +78,7 @@
                                 <div class="blog__sidebar">
 
                                     <div class="blog__sidebar__item">
-                                        <h4>Categories</h4>
+                                        <h4>Thể loại</h4>
                                         <ul>
                                             <li><a href="#">Phòng đơn</a></li>
                                             <li><a href="#">Phòng đôi</a></li>
@@ -88,7 +88,7 @@
                                         </ul>
                                     </div>
                                     <div class="blog__sidebar__item">
-                                        <h4>Recent News</h4>
+                                        <h4>Tin tức nổi bật</h4>
                                     <c:forEach items="${b}" var="c">
                                         <div class="blog__sidebar__recent">
                                             <a href="#" class="blog__sidebar__recent__item">
@@ -110,10 +110,10 @@
                         <div class="col-lg-8 col-md-7">
                             <div class="label">
                                 <label>
-                                    <a href="BlogController?do=sortnew">Newest</a>
+                                    <a href="BlogController?do=sortnew">Mới nhất</a>
                                 </label>
                                 <label>
-                                    <a href="BlogController?do=sortold">Oldest</a>
+                                    <a href="BlogController?do=sortold">Cũ nhất</a>
                                 </label>
                                 <label style="padding-left:300px;">
                                 <div class="topnav"> 
@@ -140,11 +140,11 @@
                                             </div>
                                             <div class="blog__item__text">
                                                 <ul>
-                                                    <li><i class="fa fa-calendar-o"></i>${c.blogDate} by <label style="color: red">${c.blogAuthor}</label></li>                                               
+                                                    <li><i class="fa fa-calendar-o"></i>${c.blogDate} bởi <label style="color: red">${c.blogAuthor}</label></li>                                               
                                                 </ul>
                                                 <h5><a style="font-family: Roboto;" href="#">${c.blogTitleString}</a></h5>
 <!--                                                <p>${c.blogDescription}</p>-->
-                                                <a href="BlogController?do=detailBlog&blogID=${c.blogID}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                                                <a href="BlogController?do=detailBlog&blogID=${c.blogID}" class="blog__btn">Đọc thêm <span class="arrow_right"></span></a>
                                             </div>
                                         </div>                                 
                                     </div>

@@ -3,284 +3,192 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Add Product - Dashboard HTML Template</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
-    />
-    <!-- https://fonts.google.com/specimen/Roboto -->
-    <link rel="stylesheet" href="css/fontawesome.min.css" />
-    <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
-    <!-- http://api.jqueryui.com/datepicker/ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="css/templatemo-style.css">
-    <!--
-	Product Admin CSS Template
-	https://templatemo.com/tm-524-product-admin
-	-->
-  </head>
-
-  <body>
-    <nav class="navbar navbar-expand-xl">
-      <div class="container h-100">
-        <a class="navbar-brand" href="index.html">
-          <h1 class="tm-site-title mb-0">Product Admin</h1>
-        </a>
-        <button
-          class="navbar-toggler ml-auto mr-0"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <i class="fas fa-bars tm-nav-icon"></i>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mx-auto h-100">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i class="far fa-file-alt"></i>
-                <span> Reports <i class="fas fa-angle-down"></i> </span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Daily Report</a>
-                <a class="dropdown-item" href="#">Weekly Report</a>
-                <a class="dropdown-item" href="#">Yearly Report</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="products.html">
-                <i class="fas fa-shopping-cart"></i> Products
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="accounts.html">
-                <i class="far fa-user"></i> Accounts
-              </a>
-            </li>
-             <li class="nav-item dropdown nav-item active">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fab fa-blogger"></i>
-                                <span>
-                                    Blog <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="BlogManagerController?do=updateblog">Update Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController?do=insertblog">Insert Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController">Delete Blog</a>
-                            </div>
-           </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i class="fas fa-cog"></i>
-                <span> Settings <i class="fas fa-angle-down"></i> </span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">Billing</a>
-                <a class="dropdown-item" href="#">Customize</a>
-              </div>
-            </li>
-          </ul>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link d-block" href="login.html">
-                Admin, <b>Logout</b>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <div class="container tm-mt-big tm-mb-big">
-      <div class="row">
-        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
-          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-            <div class="row">
-              <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Update Blog</h2>             
-              </div>
-            </div>
-            <div class="row tm-edit-product-row">
-              <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form action="BlogManagerController" method="get" class="tm-edit-product-form" enctype="multipart/form-data">
-                  <div class="form-group mb-3">
-                    <label
-                      for="name"
-                      >BlogTitle
-                    </label>
-                    <input
-                      id="name"
-                      name="title"
-                      value="${blogTitleString}"
-                      type="text"
-                      class="form-control validate"
-                      required
-                    />
-                  </div>
-                    <div class="form-group mb-3">
-                    <label
-                      for="name"
-                      >Date
-                    </label>
-                    <input
-                      id="name"
-                      name="date"
-                      type="text"
-                         value="${blogDate}"
-                      class="form-control validate"
-                      required
-                    />
-                  </div>
-                  <div class="form-group mb-3">
-                    <label
-                      for="description"
-                      >Description</label
-                    >
-                    <textarea 
-                      class="form-control validate"
-                      rows="3" name="description"
-                         
-                      required
-                    >${blogDescription}</textarea>
-                  </div>
-                    <div class="form-group mb-3">
-                    <label
-                      for="name"
-                      >Author
-                    </label>
-                    <input
-                      id="name"
-                      name="author"
-                      type="text"
-                         value="${author}"
-                      class="form-control validate"
-                      required
-                    />
-                 
-                  </div>
-                       <div class="form-group mb-3">
-                    <label
-                      for="name"
-                      >Image
-                    </label>
-                    <input
-                      id="name"
-                      name="image"
-                      type="text"
-                         value="${blogImage}"
-                      class="form-control validate"
-                      required
-                    />
-                 
-                  </div>
-                      
-                   </div>
-                      
-<!--                 <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                     <td><img style="width: 350px; height: 250px;" src="images/anhblog/${blogImage}" alt=""></td>
-                         <img src ="" alt="" id="image" width ="200" height="200">
-                         <input type="file" name="image" id ="imageFile" onchange="chooseFile(this)"    
-                                accept="image/gif,image/jpeg,image/png ">
-                         
-                  </div>-->
-              </div>
-<!--              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
-                <div class="tm-product-img-dummy mx-auto">
-                  <i
-                    class="fas fa-cloud-upload-alt tm-upload-icon"
-                    onclick="document.getElementById('fileInput').click();"
-                  ></i>
-                </div>
-                <div class="custom-file mt-3 mb-3">
-                  <input id="fileInput" type="file" style="display:none;" />
-                  <input
-                    type="button"
-                    class="btn btn-primary btn-block mx-auto"
-                    value="UPLOAD PRODUCT IMAGE"
-                    onclick="document.getElementById('fileInput').click();"
-                  />
-                </div>
-              </div>-->
-              <div class="col-12">
-                  <input type="hidden" value="updatebloggg" name="do">
-                     <input type="hidden" value="${BlogID}" name="BlogID">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Update</button>
-              </div>
-            </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <footer class="tm-footer row tm-mt-small">
-        <div class="col-12 font-weight-light">
-          <p class="text-center text-white mb-0 px-4 small">
-            Copyright &copy; <b>2018</b> All rights reserved. 
-            
-            Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
-        </p>
-        </div>
-    </footer> 
-
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <!-- https://jquery.com/download/ -->
-    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
-    <!-- https://jqueryui.com/download/ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- https://getbootstrap.com/ -->
-    <script>
-      $(function() {
-        $("#expire_date").datepicker();
-      });
-    </script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <script>
-        function chooseFile(fileInput){
-            if(fileInput.files && fileInput.files[0]){
-                var reader = new FileReader();
-                reader.onload = function (e){
-                    $('#image').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(fileInput.files[0]);
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Add Product - Dashboard HTML Template</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+            />
+        <!-- https://fonts.google.com/specimen/Roboto -->
+        <link rel="stylesheet" href="css/fontawesome.min.css" />
+        <!-- https://fontawesome.com/ -->
+        <link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+        <!-- http://api.jqueryui.com/datepicker/ -->
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <!-- https://getbootstrap.com/ -->
+        <link rel="stylesheet" href="css/templatemo-style.css">
+        <!--
+            Product Admin CSS Template
+            https://templatemo.com/tm-524-product-admin
+        -->
+        <script type="text/javascript">
+            function Delete() {
+                alert("Update success");
             }
-        }
         </script>
-      
-  </body>
+    </head>
+
+    <body>
+        <%@include file="headerAdmin.jsp" %>
+        <div class="container tm-mt-big tm-mb-big">
+            <div class="row">
+                <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+                    <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                        <div class="row">
+                            <div class="col-12">
+                                <h2 class="tm-block-title d-inline-block">Cập nhật thông tin</h2>             
+                            </div>
+                        </div>
+
+
+
+                        <div class="row tm-edit-product-row">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
+                                <form action="ImageController?do=changeImgae5" method="post" enctype="multipart/form-data" >
+
+                                    <c:forEach items="${b}" var="c">
+                                        <div class="form-group mb-3">
+                                            <label
+                                                for="name"
+                                                >BlogTitle
+                                            </label>
+                                            <input
+                                                id="name"
+                                                name="title"
+                                                value="${c.blogTitleString}"
+                                                type="text"
+                                                class="form-control validate"
+                                                required
+                                                />
+                                        </div>
+
+
+
+                                        <div class="form-group mb-3">
+                                            <label
+                                                for="name"
+                                                >Date
+                                            </label>
+                                            <input
+                                                id="name"
+                                                name="date"
+                                                type="text"
+                                                value="${c.blogDate}"
+                                                class="form-control validate"
+                                                required
+                                                />
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label
+                                                for="description"
+                                                >Description</label
+                                            >
+                                            <textarea 
+                                                class="form-control validate"
+                                                rows="3" name="description"
+
+                                                required
+                                                >${c.blogDescription}</textarea>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label
+                                                for="name"
+                                                >Author
+                                            </label>
+                                            <input
+                                                id="name"
+                                                name="author"
+                                                type="text"
+                                                value="${c.blogAuthor}"
+                                                class="form-control validate"
+                                                required
+                                                />
+
+                                        </div>
+
+
+                                </div>
+                                <div class="tm-product-img-edit mx-auto">
+                                    <img id="image" style="width: 350px;height: 250px" src="images/anhblog/${c.blogImage}" alt="" class="img-fluid d-block mx-auto">
+                                    <i
+                                        class="fas fa-cloud-upload-alt tm-upload-icon"
+                                        onclick="document.getElementById('fileInput').click();"
+                                        ></i>                                    
+                                    <input
+                                        id="name"
+                                        name="Blogid"
+                                        value="${c.blogID}"
+                                        type="hidden"
+                                        class="form-control validate"
+                                        required
+                                        >
+
+                                    <div class="custom-file mt-1 mb-1">
+
+
+                                        <input type="file" id="imageFile" onchange="chooseFile(this)" accept="image/gif,image/jpeg,image/png"
+                                               class="form-control" name="photo" placeholder="Enter photo">
+                                        <!--<input type="hidden" name="do" value="changeImgae" style="width: 200px; margin-top: 10px">-->
+
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                                <div class="col-12">
+                                    <!--                            <input type="hidden" value="updatebloggg" name="do">
+                                                                <input type="hidden" value="${c.blogID}" name="BlogID">-->
+                                    <button type="submit" class="btn btn-primary btn-block text-uppercase" onclick="Delete()">Update</button>
+                                </div>
+                            </c:forEach>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="tm-footer row tm-mt-small">
+            <div class="col-12 font-weight-light">
+                <p class="text-center text-white mb-0 px-4 small">
+                    Copyright &copy; <b>2018</b> All rights reserved. 
+
+                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                </p>
+            </div>
+        </footer> 
+
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <!-- https://jquery.com/download/ -->
+        <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+        <!-- https://jqueryui.com/download/ -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- https://getbootstrap.com/ -->
+        <script>
+                                        $(function () {
+                                            $("#expire_date").datepicker();
+                                        });
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <script>
+                                        function chooseFile(fileInput) {
+                                            if (fileInput.files && fileInput.files[0]) {
+                                                var reader = new FileReader();
+                                                reader.onload = function (e) {
+                                                    $('#image').attr('src', e.target.result);
+                                                }
+                                                reader.readAsDataURL(fileInput.files[0]);
+                                            }
+                                        }
+        </script>
+
+    </body>
 </html>

@@ -124,5 +124,16 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
             e.printStackTrace();
         }
     }
-
+        public void crudImage1(String sql,String title , String BlogDescription, String BlogAuthor) {
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+             pre.setString(1, title);
+             pre.setString(2, BlogDescription);
+             pre.setString(3, BlogAuthor);
+            pre.executeUpdate();
+            System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
