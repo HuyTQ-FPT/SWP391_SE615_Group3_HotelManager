@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-xl">
+        <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
             <div class="container h-100">
                 <a class="navbar-brand" href="AdminController">
                     <h1 class="tm-site-title mb-0">Admin</h1>

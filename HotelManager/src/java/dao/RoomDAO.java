@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Image;
 import entity.Room;
 import entity.RoomByDate;
 import java.sql.Date;
@@ -19,6 +20,12 @@ public interface RoomDAO {
     public void updateStatus(int rID, int rStatus) throws Exception;
 
     public Vector<Room> selectRoom(String roomName, int status) throws Exception;
+
+    public Vector<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception;
+
+    public Image searchRoomidAndImage(int RoomID) throws Exception;
+
+    public Room getOneRoom(int roomid) throws Exception;
 
     public int getPage();
 

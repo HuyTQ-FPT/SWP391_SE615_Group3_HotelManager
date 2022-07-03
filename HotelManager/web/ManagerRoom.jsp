@@ -411,8 +411,8 @@
                                 <input type="hidden" name="rid" value="<%= r.getRoomID()%>"> 
 
                                 <select name="status"  >
-                                    <option value="1" <%if (r.getStatus() == 1) {%>selected<%}%>>Phòng trống</option>
-                                    <option value="2" <%if (r.getStatus() == 2) {%>selected<%}%>>Phòng đã được đặt</option>
+                                    <option value="0" <%if (r.getStatus() == 0) {%>selected<%}%>>Phòng trống</option>
+                                    <option value="1" <%if (r.getStatus() == 1) {%>selected<%}%>>Phòng đã được đặt</option>
 
                                 </select>   
                                 <button class="supprimer" type="submit" name="submit"  onclick="confirmation()">Cập Nhật</button>

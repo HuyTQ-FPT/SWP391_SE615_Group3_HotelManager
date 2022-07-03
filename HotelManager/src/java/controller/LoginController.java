@@ -7,6 +7,7 @@ import entity.Account;
 import util.SendMail;
 import util.randomPassword;
 import context.DBContext;
+import dao.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -31,7 +32,7 @@ public class LoginController extends HttpServlet {
         try{
             HttpSession session = request.getSession();
             AccountDAOImpl dao = new AccountDAOImpl();
-            UserDAOImpl daoU = new UserDAOImpl();
+            UserDAO daoU = new UserDAOImpl();
             DBContext dao1 = new DBContext();
             String service = request.getParameter("do");
             if (service == null) {
@@ -180,7 +181,7 @@ public class LoginController extends HttpServlet {
                 if (daoU.checkUser(email.trim()) == null) {
                     if (!email.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
                         String eEmail = "Email không đúng định dạng!";
-                        String exampleEmail = "Example: SWPGroup3@gmail.com";
+                        String exampleEmail = "Ví dụ: SWPGroup3@gmail.com";
                         request.setAttribute("eEmail", eEmail);
                         request.setAttribute("exampleEmail", exampleEmail);
                         request.setAttribute("email1", email);
