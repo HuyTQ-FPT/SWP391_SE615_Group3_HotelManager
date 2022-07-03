@@ -264,7 +264,7 @@ Author     : admin
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
                                         <c:if test="${empty err}">
-                                            <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Check In">
+                                            <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Ngày đến">
                                             </c:if>
                                             <c:if test="${!empty err}">
                                             <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="${err}">
@@ -272,13 +272,13 @@ Author     : admin
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                            <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Ngày đi">
                                         </div>
                                     </div>
                                     <div class="form-row tm-search-form-row">
                                         <div class="form-group tm-form-element tm-form-element-2">
                                             <select name="adult" class="form-control tm-select" id="adult">
-                                                <option value="">Adult</option>
+                                                <option value="">Người lớn</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -294,7 +294,7 @@ Author     : admin
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-2">
                                             <select name="children" class="form-control tm-select" id="children">
-                                                <option value="">Children</option>
+                                                <option value="">Trẻ em</option>
                                                 <option value="0">0</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -311,7 +311,7 @@ Author     : admin
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-2">
                                             <select name="room" class="form-control tm-select" id="room">
-                                                <option value="">Room</option>
+                                                <option value="">Phòng</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -324,8 +324,7 @@ Author     : admin
                                             <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-2">
-                                            <button type="submit" class="btn btn-primary tm-btn-search">Check
-                                                Availability</button>
+                                            <button type="submit" class="btn btn-primary tm-btn-search">Tìm kiếm phòng</button>
                                         </div>
                                     </div>                         
                                 </form>
@@ -375,7 +374,7 @@ Author     : admin
                                             <input type="hidden" name="do" value="roomdetail">
                                             <input type="hidden" name="roomid" value="<%=v.getRoomID() %>">
                                             <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
-                                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>BOOK</a></button>
+                                                <button class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
                                             </form>
                                     </div>
                                 </div>
@@ -478,7 +477,7 @@ Author     : admin
                                 </div>
                                 <div>
                                     <h2 class="h5">Katie Johnson</h2>
-                                    <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                                    <blockquote>&ldquo;Mọi người hãy ghé qua nơi tuyệt vời này. Let go!&rdquo;</blockquote>
                                 </div>
                             </div>
                         </div>
@@ -489,7 +488,7 @@ Author     : admin
                                 </div>
                                 <div>
                                     <h2 class="h5">Jane Mars</h2>
-                                    <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                                    <blockquote>&ldquo;Căn phòng này thật hoàn hảo !&rdquo;</blockquote>
                                 </div>
                             </div>
                         </div>
@@ -500,7 +499,7 @@ Author     : admin
                                 </div>
                                 <div>
                                     <h2 class="h5">Shane Holmes</h2>
-                                    <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                                    <blockquote>&ldquo;Khách sạn này xứng đánh 5 sao với sự đầu tư đầy đủ và đẹp đẽ này!&rdquo;</blockquote>
                                 </div>
                             </div>
                         </div>
@@ -511,7 +510,7 @@ Author     : admin
                                 </div>
                                 <div>
                                     <h2 class="h5">Mark Johnson</h2>
-                                    <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                                    <blockquote>&ldquo;Tôi yêu nơi này mong lần tới sẽ được đến đây!&rdquo;</blockquote>
                                 </div>
                             </div>
                         </div>

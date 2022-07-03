@@ -334,34 +334,14 @@
                     </div>
                     <div class="col-md-3 col-sm-12">
                         <div class="price-box-right">
-                            <h4>Price</h4>
-                            <h3>${Room.roomprice}<span>pr.peice</span></h3>
-                            <p>Option</p>
-                            <select class="form-control select2">
-                                <option>Flying Carpet Green rug</option>
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
-                                <option value="CA">California</option>
-                                <option value="NV">Nevada</option>
-                                <option value="OR">Oregon</option>
-                                <option value="WA">Washington</option>
-                                <option value="AZ">Arizona</option>
-                                <option value="CO">Colorado</option>
-                                <option value="ID">Idaho</option>
-                                <option value="MT">Montana</option>
-                                <option value="NE">Nebraska</option>
-                                <option value="NM">New Mexico</option>
-                                <option value="ND">North Dakota</option>
-                                <option value="UT">Utah</option>
-                                <option value="WY">Wyoming</option>
-                                <option value="AL">Alabama</option>
-                                <option value="AR">Arkansas</option>
-                                <option value="IL">Illinois</option>
-                                <option value="IA">Iowa</option>
-                                <option value="KS">Kansas</option>
-                                <option value="KY">Kentucky</option>
-                            </select>
-                            <a href="#">Contact company</a>
+                            <h4 style="font-size: 24px">Giá tiền</h4>
+                               <h3>€${Room.roomprice}<span style="font-weight: bold"> /1 đêm</span></h3>
+                            <c:if test="${sessionScope.login!=null}" >
+                            <a href="OrderController?do=user&id=${Room.roomID}&user=${sessionScope.account.getAccountID()}">Đặt phòng </a>
+                            </c:if>
+                            <c:if test="${sessionScope.login==null}" >
+                            <a href="LoginController">Booking</a>
+                            </c:if>
                             <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>
                         </div>
                     </div>

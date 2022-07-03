@@ -74,7 +74,8 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("rs", rs);
                 request.setAttribute("id", id);
                 request.getRequestDispatcher("BillHotel.jsp").forward(request, response);
-            }if (service.equalsIgnoreCase("guest")) {
+            }
+            if (service.equalsIgnoreCase("guest")) {
                 String i = request.getParameter("id");
                 int id = Integer.parseInt(i);
                 Vector<Service> vector = daos.getServiceList();
@@ -124,18 +125,18 @@ public class OrderController extends HttpServlet {
                 String adult = request.getParameter("Adult").trim();
                 String child = request.getParameter("Child").trim();
                 // Lấy price service
-                String []serviceId = request.getParameterValues("service");
-                String serv="";
+                String[] serviceId = request.getParameterValues("service");
+                String serv = "";
                 double price = 0;
                 // lay service price and name
-                if (!(serviceId.length==0)) {
+                if (!(serviceId.length == 0)) {
                     for (int i = 0; i < serviceId.length; i++) {
-                        Integer f=Integer.parseInt(serviceId[i]);
-                    ResultSet rs = db.getData("select * from Service where ServiceID=" + f);
-                    while (rs.next()) {
-                        price += rs.getDouble(6);
-                        serv+=rs.getString(2)+";";
-                    }
+                        Integer f = Integer.parseInt(serviceId[i]);
+                        ResultSet rs = db.getData("select * from Service where ServiceID=" + f);
+                        while (rs.next()) {
+                            price += rs.getDouble(6);
+                            serv += rs.getString(2) + ";";
+                        }
                     }
                 }
                 int a = Integer.parseInt(adult) + Integer.parseInt(child); // number of person
@@ -148,11 +149,11 @@ public class OrderController extends HttpServlet {
                 Date date2 = (Date) format.parse(checkout);
                 java.sql.Date cDate = new java.sql.Date(date2.getTime());
                 double total = price + Double.parseDouble(money);
-                
+
                 long millis = System.currentTimeMillis();
                 java.sql.Date date = new java.sql.Date(millis);
-                Account acc=(Account)session.getAttribute("login");
-                int l=acc.getAccountID();
+                Account acc = (Account) session.getAttribute("login");
+                int l = acc.getAccountID();
                 Reservation re = new Reservation(l, id, firstname, email, address, phone, a, sDate, cDate, total, 1, date);
                 // lưu trong session
                 vector.add(re);
@@ -184,13 +185,13 @@ public class OrderController extends HttpServlet {
 
                 Date date2 = (Date) format.parse(checkout);
                 java.sql.Date cDate = new java.sql.Date(date2.getTime());
-                
+
                 long millis = System.currentTimeMillis();
                 java.sql.Date date = new java.sql.Date(millis);
-                
-                Account acc=(Account)session.getAttribute("login");
-                int l=acc.getAccountID();
-                double total=Double.parseDouble(money);
+
+                Account acc = (Account) session.getAttribute("login");
+                int l = acc.getAccountID();
+                double total = Double.parseDouble(money);
                 Reservation re = new Reservation(l, id, firstname, email, address, phone, Integer.parseInt(a), sDate, cDate, total, 1, date);
                 vector.add(re);
                 // lưu trong session
@@ -200,16 +201,38 @@ public class OrderController extends HttpServlet {
                 dao2.addReservation(d);
                 int n = dao1.addReservation(re);
                 response.sendRedirect("HomeController");
-            }if (service.equals("yourbill")) {
+            }
+            if (service.equals("yourbill")) {
                 Vector<Reservation> vector = new Vector<Reservation>();
                 String cid = request.getParameter("id");
-                Account acc=(Account)session.getAttribute("login");
-                int l=acc.getAccountID();
-                vector=dao1.Reservation("select * from Reservation where UserID="+l);
+                Account acc = (Account) session.getAttribute("login");
+                int l = acc.getAccountID();
+                vector = dao1.Reservation("select * from Reservation where UserID=" + l);
                 request.setAttribute("vector", vector);
                 RequestDispatcher dispath = request.getRequestDispatcher("History.jsp");
                 dispath.forward(request, response);
-
+            }
+            if (service.equals("showCartAdmin")) {
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
+                        + " join Room r on r.RoomID=re.RoomID\n"
+                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
+                request.setAttribute("rs", rs);
+                RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
+                dispath.forward(request, response);
+            } if (service.equals("AddCartAdmin")) {
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
+                        + " join Room r on r.RoomID=re.RoomID\n"
+                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
+                request.setAttribute("rs", rs);
+                RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
+                dispath.forward(request, response);
+            }if (service.equals("UpdateCartAmin")) {
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
+                        + " join Room r on r.RoomID=re.RoomID\n"
+                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
+                request.setAttribute("rs", rs);
+                RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
+                dispath.forward(request, response);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
