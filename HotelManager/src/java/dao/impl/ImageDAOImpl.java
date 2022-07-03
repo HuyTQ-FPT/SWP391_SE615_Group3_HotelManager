@@ -113,9 +113,11 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
         return null;
     }
 
-    public void crudImage(String sql) {
+    public void crudImage(String sql , String des, String Notes) {
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
+             pre.setString(1, des);
+             pre.setString(2, Notes);
             pre.executeUpdate();
             System.out.println("done");
         } catch (Exception e) {

@@ -122,11 +122,12 @@ public class ServiceController extends HttpServlet {
             }
             if (doo.equals("insertRoomCategory")) {
                 String Roomcatename = request.getParameter("Roomcatename");
-                roomcate.insertRoomCategory(Roomcatename);
+//                roomcate.insertRoomCategory(Roomcatename);
                 Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
                 request.setAttribute("romcate", romcate);
-//                out.println("<h1>Servlet RoomcategoryController at " + romcate.lastElement().getRoomcateID()+ "</h1>");
-                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + romcate.lastElement().getRoomcateID() + "");
+                out.println("<h1>Servlet RoomcategoryController at " + Roomcatename+ "</h1>");
+                System.out.println(Roomcatename);
+//                response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + romcate.lastElement().getRoomcateID() + "");
             }
             if (doo.equals("deletetRoomCategory")) {
                 roomcate.deleteRoomCategory(cateroom);

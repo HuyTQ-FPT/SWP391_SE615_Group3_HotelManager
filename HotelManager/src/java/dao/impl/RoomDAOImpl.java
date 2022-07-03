@@ -723,7 +723,13 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     public void crudImage(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            PreparedStatement pre = conn.prepareStatement(string);
+            pre.execute();
+            System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

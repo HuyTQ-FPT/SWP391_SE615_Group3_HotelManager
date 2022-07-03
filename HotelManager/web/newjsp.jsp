@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -175,7 +176,7 @@
                 </div>
             </div>
         </nav>
-        <form action="RoomsController?do=insertrooms" method="post" enctype="multipart/form-data">
+        <form action="ImageController?do=changeImgae4" method="post" enctype="multipart/form-data">
             <div class="container tm-mt-big tm-mb-big">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
@@ -187,129 +188,118 @@
                             </div>
                             <div class="row tm-edit-product-row">
                                 <div class="col-xl-12 col-lg-12 col-md-12">
-                                        <div class="form-group mb-3" style="text-align: center">
+                                    <div class="form-group mb-3" style="text-align: center">
+                                        <label
+                                            for="name"
+                                            >RoomID 
+                                        </label>
+                                        <input type="hidden" name="RoomID" value="${listroom.roomID}">
+                                        <br>
+                                        <span style="color: red">${listroom.roomID}</span>
+                                    </div>
+                                    <div class="form-group mb-3" style="text-align: center">
+                                        <label
+                                            for="name"
+                                            >Room Number
+                                        </label>
+                                        <input style="text-align: center"
+                                               id="expire_date"
+                                               name="RoomNumber"
+                                               type="number"
+                                               min="0" max="20"
+                                               value="${listroom.roomname}"
+                                               class="form-control validate"
+                                               data-large-mode="true"
+                                               />
+                                    </div>
+                                    <div class="form-group mb-3" style="text-align: center">
+                                        <label
+                                            for="description"
+                                            >Description</label>
+                                        <textarea style="text-align: center"               
+                                                  class="form-control validate tm-small"
+                                                  rows="5"
+                                                  required
+                                                  name="Description"
+                                                  >${listroom.roomdesc}</textarea>
+                                    </div>
+                                    <div class="form-group mb-3" style="text-align: center">
+                                        <label 
+                                            for="category"
+                                            >RoomCategory</label
+                                        >
+                                        <select style="text-align: center"
+                                                class="custom-select tm-select-accounts"
+                                                id="category" 
+                                                name="RoomCategory"
+                                                >
+                                            <c:forEach items="${romcate}" var="rs">
+                                                <option value="${rs.roomcateID}" ${rs.roomcateID==listroom.roomcateID?"selected":""}>${rs.catename}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="row" style="text-align: center">
+                                        <div class="form-group mb-3 col-xs-6 col-sm-4">
                                             <label
-                                                for="name"
-                                                >Room Number 
+                                                for="expire_date"
+                                                >Price
+                                            </label>
+                                            <input style="text-align: center"
+                                                   id="expire_date"
+                                                   name="Price"
+                                                   type="number"
+                                                   min="10" max="9999"
+                                                   value="${listroom.roomprice}"
+                                                   class="form-control validate"
+                                                   data-large-mode="true"
+                                                   />
+                                        </div>
+                                        <div class="form-group mb-3 col-xs-6 col-sm-4">
+                                            <label
+                                                for="stock"
+                                                >Note
                                             </label>
                                             <input style="text-align: center"
                                                    id="stock"
-                                                   name="RoomNumber"
-                                                   type="number"
-                                                   min="0"
-                                                   max="20"
-                                                   value=""
+                                                   name="Note"
+                                                   type="text"
+                                                   value="${listroom.note}"
                                                    class="form-control validate"
                                                    />
                                         </div>
-                                        <div class="form-group mb-3" style="text-align: center">
+                                        <div class="form-group mb-3 col-xs-6 col-sm-4">
                                             <label
-                                                for="description"
-                                                >Description</label>
-                                            <textarea style="text-align: center"               
-                                                      class="form-control validate tm-small"
-                                                      rows="5"
-                                                      required
-                                                      name="Description"
-                                                      ></textarea>
-                                        </div>
-                                        <div class="form-group mb-3" style="text-align: center">
-                                            <label 
-                                                for="category"
-                                                >RoomCategory</label
-                                            >
-                                            <select style="text-align: center"
+                                                for="stock"
+                                                >Status
+                                            </label>
+                                            <!--<input name="do" value="updateroom" hidden="" style="text-align: center">-->
+                                            <select name="Status" style="text-align: center"
                                                     class="custom-select tm-select-accounts"
-                                                    id="category" 
-                                                    name="RoomCategory"
+                                                    id="category"
                                                     >
-                                                <c:forEach items="${romcate}" var="rs">
-                                                    <option value="${rs.roomcateID}" ${rs.roomcateID==listroom.roomcateID?"selected":""}>${rs.catename}</option>
-                                                </c:forEach>
+                                                <option value="0"${listroom.status==0?"selected":""}>Available</option>
+                                                <option value="1"${listroom.status==1?"selected":""}>Unavailable</option>
+                                                <option value="2"${listroom.status==2?"selected":""}>Other</option>
                                             </select>
                                         </div>
-                                        <div class="row" style="text-align: center">
-                                            <div class="form-group mb-3 col-xs-6 col-sm-3">
-                                                <label
-                                                    for="expire_date"
-                                                    >Price
-                                                </label>
-                                                <input style="text-align: center"
-                                                       id="expire_date"
-                                                       name="price"
-                                                       type="text"
-                                                       value=""
-                                                       min="0"
-                                                       max="9999"
-                                                       required
-                                                       class="form-control validate"
-                                                       data-large-mode="true"
-                                                       />
-                                            </div>
-                                            <div class="form-group mb-3 col-xs-6 col-sm-3">
-                                                <label
-                                                    for="stock"
-                                                    >Note
-                                                </label>
-                                                <input style="text-align: center"
-                                                       id="stock"
-                                                       name="Note"
-                                                       type="text"
-                                                       value=""
-                                                       class="form-control validate"
-                                                       />
-                                            </div>
-                                            <div class="form-group mb-3 col-xs-6 col-sm-3">
-                                                <label
-                                                    for="stock"
-                                                    >Status
-                                                </label>
-                                                <select name="Status" style="text-align: center"
-                                                        class="custom-select tm-select-accounts"
-                                                        id="category"
-                                                        >
-                                                    <option value="0">Available</option>
-                                                    <option value="1">Unavailable</option>
-                                                    <option value="2">Other</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group mb-3 col-xs-6 col-sm-3">
-                                                <label
-                                                    for="expire_date"
-                                                    >Square
-                                                </label>
-                                                <input style="text-align: center"
-                                                       id="expire_date"
-                                                       name="Square"
-                                                       type="text"
-                                                       value=""
-                                                       required
-                                                       class="form-control validate"
-                                                       data-large-mode="true"
-                                                       min="20"
-                                                       max="100"
-                                                       />
-                                            </div>
-                                        </div>
-                                        <div class="row" style="text-align: center">
-                                            <div class="form-group mb-3 col-xs-6 col-sm-3" style="margin: 0 auto">
-                                                <label
-                                                    for="expire_date"
-                                                    >NumberPerson
-                                                </label>
-                                                <input style="text-align: center"
-                                                       id="expire_date"
-                                                       name="NumberPerson"
-                                                       type="text"
-                                                       value=""
-                                                       min="0"
-                                                       max="10"
-                                                       required
-                                                       class="form-control validate"
-                                                       data-large-mode="true"
-                                                       />
-                                            </div>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin: 0 auto  ">
+                                    <div class="form-group mb-3 col-xs-6 col-sm-4" style="text-align: center;color: white">
+                                        <span>Square</span>
+                                        <span>${listroom.square}m2</span>
+                                        <input type="hidden" name="Square" value="${listroom.square}"> 
+                                    </div>
+                                    <div class="form-group mb-3 col-xs-6 col-sm-4" style="text-align: center;color: white">
+                                        <span>Comment</span>
+                                        <span>${listroom.comment}</span>
+                                        <input type="hidden" name="Comment" value="${listroom.comment}"> 
+                                    </div>
+                                    <div class="form-group mb-3 col-xs-6 col-sm-4" style="text-align: center;color: white">
+                                        <span>Rate</span> <br>
+                                        <span>${listroom.rate}/5</span>
+                                        <input type="hidden" name="Rate" value="${listroom.rate}"> 
+                                    </div>
                                 </div>
                                 <div class="row" style="width: 70%; margin: 0 auto; margin-bottom: 20px">
                                     <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
@@ -351,7 +341,7 @@
                                     </div>
                                     <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
                                         <div class="tm-product-img-edit mx-auto">
-                                            <img id="image4" style="width: 150px;height: 100px" src="images/anhphong/${img.image4}" alt="Product image" class="img-fluid d-block mx-auto">
+                                            <img id="image4" style="width: 150px;height: 100px" src="images/anhphong/img1.0.jpg" alt="Product image" class="img-fluid d-block mx-auto">
                                             <i
                                                 class="fas fa-cloud-upload-alt tm-upload-icon"
                                                 onclick="document.getElementById('fileInput').click();"
