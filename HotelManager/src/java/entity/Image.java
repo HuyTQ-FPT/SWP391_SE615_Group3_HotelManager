@@ -27,6 +27,14 @@ public class Image {
         this.image4 = image4;
     }
 
+    public Image(String image1, String image2, String image3, String image4) {
+        this.image1 = image1;
+        this.image2 = image2;
+        this.image3 = image3;
+        this.image4 = image4;
+    }
+    
+
     public int getRoomimgaeID() {
         return RoomimageID;
     }

@@ -11,19 +11,19 @@ package entity;
  */
 public class Room {
 
-    int RoomID;
-    String Roomname;
-    String Roomdesc;
-    int RoomcateID;
-    String image;
-    double Roomprice;
-    int NumberPerson;
-    float Square;
-    String Comment;
-    int Rate;
-    String Note;
-    String cateroom;
-    int status;
+    private int RoomID;
+    private String Roomname;
+    private String Roomdesc;
+    private int RoomcateID;
+    private String image;
+    private double Roomprice;
+    private int NumberPerson;
+    private float Square;
+    private String Comment;
+    private int Rate;
+    private String Note;
+    private String cateroom;
+    private int status;
 
     public Room(int RoomID, String Roomname, String Roomdesc, int RoomcateID, String image, double Roomprice, int NumberPerson, float Square, String Comment, int Rate, String Note, String cateroom) {
         this.RoomID = RoomID;
@@ -70,7 +70,20 @@ public class Room {
         this.cateroom = cateroom;
         this.status = status;
     }
-    
+
+    public Room(int RoomID, String Roomname, String Roomdesc, int RoomcateID, double Roomprice, int NumberPerson, float Square, String Comment, int Rate, String Note, int status) {
+        this.RoomID = RoomID;
+        this.Roomname = Roomname;
+        this.Roomdesc = Roomdesc;
+        this.RoomcateID = RoomcateID;
+        this.Roomprice = Roomprice;
+        this.NumberPerson = NumberPerson;
+        this.Square = Square;
+        this.Comment = Comment;
+        this.Rate = Rate;
+        this.Note = Note;
+        this.status = status;
+    }
 
     public Room() {
     }
@@ -178,11 +191,10 @@ public class Room {
     public void setCateroom(String cateroom) {
         this.cateroom = cateroom;
     }
-    
 
     @Override
     public String toString() {
-        return "Room{" + "RoomID=" + RoomID + ", Roomname=" + Roomname + ", Roomdesc=" + Roomdesc + ", RoomcateID=" + RoomcateID + ", image=" + image + ", Roomprice=" + Roomprice + ", NumberPerson=" + NumberPerson + ", Square=" + Square + ", Comment=" + Comment + ", Rate=" + Rate + ", Note=" + Note + "Cateroom=" + cateroom + "status=" +status +'}';//To change body of generated methods, choose Tools | Templates.
+        return "Room{" + "RoomID=" + RoomID + ", Roomname=" + Roomname + ", Roomdesc=" + Roomdesc + ", RoomcateID=" + RoomcateID + ", image=" + image + ", Roomprice=" + Roomprice + ", NumberPerson=" + NumberPerson + ", Square=" + Square + ", Comment=" + Comment + ", Rate=" + Rate + ", Note=" + Note + "Cateroom=" + cateroom + "status=" + status + '}';//To change body of generated methods, choose Tools | Templates.
     }
 
 }

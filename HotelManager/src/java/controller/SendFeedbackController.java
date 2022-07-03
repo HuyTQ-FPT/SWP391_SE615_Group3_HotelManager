@@ -1,5 +1,6 @@
 package controller;
 
+import dao.SendFeedbackDAO;
 import dao.impl.SendFeedbackDAOIpml;
 import entity.sendFeedback;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class SendFeedbackController extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
 
-            SendFeedbackDAOIpml daoS = new SendFeedbackDAOIpml();
+            SendFeedbackDAO daoS = new SendFeedbackDAOIpml();
             HttpSession session = request.getSession();
             String service = request.getParameter("do");
             if (service == null) { // trả về trang liên lạc
