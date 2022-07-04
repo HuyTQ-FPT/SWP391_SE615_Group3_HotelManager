@@ -6,6 +6,7 @@
 package controller;
 
 import dao.impl.DevicesDAOImpl;
+import dao.impl.ImageDAOImpl;
 import dao.impl.RoomCategoryDAOImpl;
 import dao.impl.RoomDAOImpl;
 import entity.Device;
@@ -61,6 +62,7 @@ public class RoomDeviceController extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             String dos = request.getParameter("do");
             RoomDAOImpl dao = new RoomDAOImpl();
+            ImageDAOImpl daos = new ImageDAOImpl();
             RoomCategoryDAOImpl roomcate = new RoomCategoryDAOImpl();
             String cateroom = request.getParameter("cateroom");
             String cate;
@@ -77,14 +79,14 @@ public class RoomDeviceController extends HttpServlet {
                         = dao.getRoomList1("select * from room  join CateRoom  on Room.RoomcateID = CateRoom.RoomcateID join [Image] on Room.RoomimgaeID = [Image].RoomimgaeID\n"
                                 + "                             	where " + cate + " (Roomdesc like'%" + "" + "%' or Roomprice like'%" + "" + "%') \n"
                                 + "                               	order by Room.RoomID asc");
-                int page = dao.getPage("select Count(*) from Room");
-                request.setAttribute("devicesss", "devicesss");
+//                int page = dao.getPage("select Count(*) from Room");
+//                request.setAttribute("devicesss", "devicesss");
                 request.setAttribute("listroom", listroom);
-                request.setAttribute("page", page);
-                Room rooom = dao.getRooms(cateroom);
-                Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
-                request.setAttribute("romcate", romcate);
-                request.setAttribute("rooom", rooom);
+//                request.setAttribute("page", page);
+//                Room rooom = dao.getRooms(cateroom);
+//                Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
+//                request.setAttribute("romcate", romcate);
+//                request.setAttribute("rooom", rooom);
 //              out.println("<h1>Servlet RoomcategoryController at " + listroom + ""
 //              + "va" + page + "</h1>");
 //              out.println("<h1>Servlet RoomcategoryController at " + listroom +"</h1>");
@@ -93,7 +95,7 @@ public class RoomDeviceController extends HttpServlet {
             }
             if (dos.equals("insertRoomCategory")) {
                 String Roomcatename = request.getParameter("Roomcatename");
-                roomcate.insertRoomCategory(Roomcatename);
+                roomcate.insertRoomCategory(Roomcatename,"");
                 Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
                 request.setAttribute("romcate", romcate);
 //                out.println("<h1>Servlet RoomcategoryController at " + romcate.lastElement().getRoomcateID()+ "</h1>");
@@ -105,7 +107,7 @@ public class RoomDeviceController extends HttpServlet {
             }
             if (dos.equals("updatetRoomCategory")) {
                 String Roomcatename = request.getParameter("Roomcatename");
-                roomcate.updateRoomCategory(cateroom, Roomcatename);
+                roomcate.updateRoomCategory(cateroom, Roomcatename,"");
                 response.sendRedirect("RoomsController?do=listroom&cateroom=" + cateroom + "");
             }
             if (dos.equals("insertRoom")) {
@@ -183,66 +185,51 @@ public class RoomDeviceController extends HttpServlet {
                         int n = rand.nextInt(99);
                         String s = String.valueOf(n);
                         filename = item.getName();
-                        String filenames = s.concat(filename);
+                        filename += s;
                         if (filename == null || filename.equals("")) {
                             break;
                         } else {
-                            Path path = Paths.get(filenames);
+                            Path path = Paths.get(filename);
                             String storePath = servletContext.getRealPath("/images/anhphong");
                             File uploadFile = new File(storePath + "/" + path.getFileName());
                             item.write(uploadFile);
-                            room.add(filenames);
+                            room.add(filename);
                         }
                     }
                 }
                 String des = room.get(1);
-                String RoomID = room.get(0);
-////              Image img = dao.imageByID("select * from [image] join Room on [Image].RoomimgaeID = Room.RoomimgaeID where RoomID = " + RoomID + "");
+//                String RoomID = room.get(0);
                 String RoomNumber = room.get(0);
-//                String RoomCategory = room.get(3);
-//                String Price = room.get(4);
-//                String Note = room.get(5);
-//                String Status = room.get(6);
-//                String Square = room.get(7);
-//                String Comment = room.get(8);
-//                String Rate = room.get(9);
-//                String image1 = room.get(10);
-//                String image2 = room.get(11);
-//                String image3 = room.get(12);
-//                String image4 = room.get(13);
-//                if (image1.length() <= 2) {
-//                    image1 = img.getImage1();
-//                }
-//                if (image2.length() <= 2) {
-//                    image2 = img.getImage2();
-//                }
-//                if (image3.length() <= 2) {
-//                    image3 = img.getImage3();
-//                }
-//                if (image4.length() <= 2) {
-//                    image4 = img.getImage4();
-//                }
-//                    dao.crudImage("UPDATE [dbo].[Image]\n"
-//                            + "   SET [image1] = '" + image1 + "'\n"
-//                            + "      ,[image2] = '" + image3 + "'\n"
-//                            + "      ,[image3] = '" + image2 + "'\n"
-//                            + "      ,[image4] = '" + image4 + "'\n"
-//                            + " WHERE RoomimgaeID = " + RoomID + "\n"
-//                            + "\n"
-//                            + " UPDATE [dbo].[Room]\n"
-//                            + "   SET [Roomname] ='" + RoomNumber + "'\n"
-//                            + "      ,[Roomdesc] = '" + des + "'\n"
-//                            + "      ,[RoomcateID] = " + RoomCategory + "\n"
-//                            + "      ,[RoomimgaeID] = " + img.getRoomimgaeID() + "\n"
-//                            + "      ,[Roomprice] = " + Price + "\n"
-//                            + "      ,[NumberPerson] = 1\n"
-//                            + "      ,[Square] = " + Square + "\n"
-//                            + "      ,[Comment] = '" + Comment + "'\n"
-//                            + "      ,[Rate] = " + Rate + "\n"
-//                            + "      ,[Note] = '" + Note + "'\n"
-//                            + "      ,[Status] = " + Status + "\n"
-//                            + " WHERE RoomID = " + RoomID + "");
-                out.println("<h1>Servlet RoomcategoryController at " + RoomNumber + "</h1>");
+                String RoomCategory = room.get(2);
+                String Price = room.get(3);
+                String Note = room.get(4);
+                String Status = room.get(5);
+                String Square = room.get(6);
+                String NumberPerson = room.get(7);
+                String image1 = room.get(8);
+                String image2 = room.get(9);
+                String image3 = room.get(10);
+                String image4 = room.get(11);
+                if (image1.length() <= 2) {
+                    image1 = "";
+                }
+                if (image2.length() <= 2) {
+                    image2 = "";
+                }
+                if (image3.length() <= 2) {
+                    image3 = "";
+                }
+                if (image4.length() <= 2) {
+                    image4 = "";
+                }
+                daos.crudRoom("insert into [Image] (image1, image2, image3, image4)\n"
+                        + "                values ('" + image1 + "','" + image2 + "','" + image3 + "','" + image4 + "');\n"
+                        + "                insert into Room(Roomname, Roomdesc, RoomcateID, RoomimgaeID, Roomprice, NumberPerson, [Square], Comment, Rate, Note,[Status])\n"
+                        + "                values ('" + RoomNumber + "',?," + RoomCategory + ",@@identity," + Price + "," + NumberPerson + "," + Square + ",'','',?," + Status + ");", des, Note);
+//                out.println("<h1>insert into [Image] (image1, image2, image3, image4)\n"
+//                        + "                values ('" + image1 + "','" + image2 + "','" + image3 + "','" + image4 + "');\n"
+//                        + "                insert into Room(Roomname, Roomdesc, RoomcateID, RoomimgaeID, Roomprice, NumberPerson, [Square], Comment, Rate, Note,[Status])\n"
+//                        + "                values (" + RoomNumber + ",?," + RoomCategory + ",@@identity," + Price + "," + NumberPerson + "," + Square + ",'',null,?," + Status + ");</h1>");
 
 //                out.println("<h1>UPDATE [dbo].[Image]\n"
 //                        + "   SET [image1] = '" + image1 + "'\n"
@@ -264,8 +251,8 @@ public class RoomDeviceController extends HttpServlet {
 //                        + "      ,[Note] = '" + Note + "'\n"
 //                        + "      ,[Status] = " + Status + "\n"
 //                        + " WHERE RoomID = " + RoomID + "</h1>");
-//                    request.setAttribute("update", "update");
-//                    request.getRequestDispatcher("ImageController?do=listImage&RoomID=" + RoomID + "").forward(request, response);
+                    request.setAttribute("update", "update");
+                    request.getRequestDispatcher("RoomsController?do=listroom").forward(request, response);
             }
 
         }

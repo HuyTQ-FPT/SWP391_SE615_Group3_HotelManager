@@ -141,130 +141,199 @@
                 </div>
             </div>
         </nav>
+        <h1 style="text-align: center; color: wheat">List RoomCategori Manager </h1>
         <div class="">
             <div class="row tm-content-row">
-                <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block tm-block-products">
-                        <div class="tm-product-table-container">
-                            <table class="table table-hover tm-table-small tm-product-table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">&nbsp;</th>
-                                        <th scope="col">DeviceName</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Delete</th>
-                                        <th scope="col">Update</th>
-                                        <th scope="col">&nbsp;</th>
-                                    </tr>
-                                </thead>
-                                <c:forEach items="${de}" var="de">
-                                    <form action="ServiceController" method="get">
-                                        <tbody>
+                <!--                <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+                                    <div class="tm-bg-primary-dark tm-block tm-block-products">
+                                        <div class="tm-product-table-container">
+                                            <table class="table table-hover tm-table-small tm-product-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">&nbsp;</th>
+                                                        <th scope="col">DeviceName</th>
+                                                        <th scope="col">Price</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col">Delete</th>
+                                                        <th scope="col">Update</th>
+                                                        <th scope="col">&nbsp;</th>
+                                                    </tr>
+                                                </thead>
 
-                                            <tr>
-                                                <th scope="row"><input type="hidden" /></th>
-                                                <td ><input class="form-control validate" type="text" name="DeviceName" value="${de.deviceName}"></td>
-                                                <td ><input class="form-control validate" type="number" name="Price" value=""></td>
-                                                <td ><input class="form-control validate" type="number" name="Status" value=""></td>
-                                                <td ><input class="form-control validate" type="number" name="Quantity" value=""></td>
-                                        <input type="hidden" name="DeviceID" value="${de.deviceID}">
-                                        <input type="hidden" name="RoomcateID" value="${de.roomcateID}">
-                                        <td>
-                                            <a href="ServiceController?do=deleteroom&RoomcateID=${de.roomcateID}&DeviceID=${de.deviceID}" class="tm-product-delete-link">
-                                                <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <button type="submit" name="do" value="updateroomdevice" class="tm-product-delete-link">
-                                                <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
-                                            </button>
-                                        </td>
-                                        </tr>
-                                        </tbody>
-                                    </form>
-                                </c:forEach>
-                                <form action="ServiceController" method="get">
-                                    <input type="hidden" name="cateroom" value="${rooom.roomcateID}">
-                                    <input type="hidden" name="do" value="getdeviceroom">
-                                    <input value="${sessionScope.Mess}" class="btn btn-primary btn-block text-uppercase mb-3" type="text" placeholder="Tìm kiếm.." name="Mess">
-                                </form>
-                            </table>
-                        </div>
-                        <div style="padding-left: 32%;"class="site-block-27">
-                            <ul>
-                                <li><a href="#">&lt;</a></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
-                            </ul>
-                        </div>
+                    <form action="ServiceController" method="get">
+                        <tbody>
 
-                        <!-- table container -->
-                        <form action="ServiceController" method="get">
-                            <tbody>
-                                <tr>
-                                    <th scope="row"><input type="hidden" /></th>
-                            <h5 style="display: inline-block; margin-left: 1%; font-family: PlayFair Display; color: white">INSERT ROOM DEVICE</h5>   
-                            <span>
-                                <td ><input class="form-control validate" type="text" name="DeviceName" value="" placeholder="DeviceName"></td>
-                                <td ><input class="form-control validate" type="number" name="Price" value="" placeholder="Price"></td>
-                                <td ><input class="form-control validate" type="number" name="Status" value="" placeholder="Status"></td>
-                                <td ><input class="form-control validate" type="number" name="Quantity" value="" placeholder="Quantity"></td>
-                            </span>
-                            <input type="hidden" name="RoomcateID" value="${rooom.roomcateID}">
-                            <td>
-                                <button type="submit" name="do" value="insertdeviceroom" class="tm-product-delete-link">
-                                    <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
-                                </button>
-                            </td>
-                            </tr>
-                            </tbody>
-                        </form>
-                    </div>
+                            <tr>
+                                <th scope="row"><input type="hidden" /></th>
+                                <td ><input class="form-control validate" type="text" name="DeviceName" value=""></td>
+                                <td ><input class="form-control validate" type="number" name="Price" value=""></td>
+                                <td ><input class="form-control validate" type="number" name="Status" value=""></td>
+                                <td ><input class="form-control validate" type="number" name="Quantity" value=""></td>
+                        <input type="hidden" name="DeviceID" value="">
+                        <input type="hidden" name="RoomcateID" value="">
+                        <td>
+                            <a href="ServiceController?do=deleteroom&RoomcateID=&DeviceID=" class="tm-product-delete-link">
+                                <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <button type="submit" name="do" value="updateroomdevice" class="tm-product-delete-link">
+                                <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                            </button>
+                        </td>
+                        </tr>
+                        </tbody>
+                    </form>
+
+                
+                -->         
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+                    <form action="ServiceController" method="get">
+                        <input type="hidden" name="cateroom" value="">
+                        <input type="hidden" name="do" value="getdeviceroom">
+                        <input value="" class="btn btn-primary btn-block text-uppercase mb-3" type="text" placeholder="Tìm kiếm.." name="Mess">
+                    </form>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+                <!--
+            </table>
+        </div>
+        <div style="padding-left: 32%;"class="site-block-27">
+            <ul>
+                <li><a href="#">&lt;</a></li>
+                <li class="active"><span>1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&gt;</a></li>
+            </ul>
+        </div>
+
+         table container 
+        <form action="ServiceController" method="get">
+            <tbody>
+                <tr>
+                    <th scope="row"><input type="hidden" /></th>
+            <h5 style="display: inline-block; margin-left: 1%; font-family: PlayFair Display; color: white">INSERT ROOM DEVICE</h5>   
+            <span>
+                <td ><input class="form-control validate" type="text" name="DeviceName" value="" placeholder="DeviceName"></td>
+                <td ><input class="form-control validate" type="number" name="Price" value="" placeholder="Price"></td>
+                <td ><input class="form-control validate" type="number" name="Status" value="" placeholder="Status"></td>
+                <td ><input class="form-control validate" type="number" name="Quantity" value="" placeholder="Quantity"></td>
+            </span>
+            <input type="hidden" name="RoomcateID" value="">
+            <td>
+                <button type="submit" name="do" value="insertdeviceroom" class="tm-product-delete-link">
+                    <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                </button>
+            </td>
+            </tr>
+            </tbody>
+        </form>
+    </div>
+</div>-->
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
-                        <h2 class="tm-block-title">${rooom.cateroom}</h2>
+                        <h2 class="tm-block-title"></h2>
                         <div class="tm-product-table-container">
                             <table class="table tm-table-small tm-product-table">
                                 <tbody>
+                                <th scope="col">DeviceName</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Quantity</th>
                                     <c:forEach items="${romcate}" var="r">
-                                    <form action="ServiceController" method="get">
-                                        <tr>
-                                            <td class="text-center"><a href="ServiceController?do=getdeviceroom&cateroom=${r.roomcateID}" style="color: red; font-size: 50px">.</a> <input type="text" name="Roomcatename" value="${r.catename}"> </td>
-                                            <td>
-                                                <a href="ServiceController?do=deletetRoomCategory&cateroom=${r.roomcateID}" class="tm-product-delete-link">
-                                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                                </a>
-                                            </td>
-                                        <input type="hidden" value="${r.roomcateID}" name="cateroom">
+                                    <tr>
+
                                         <td>
-                                            <button type="submit" name="do" value="updatetRoomCategory" class="tm-product-delete-link">
-                                                <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
-                                            </button>
+                                            <h3> <p><strong>${r.catename}</strong></p></h3>
                                         </td>
-                                        </tr>
-                                    </form>
+                                        <td>
+                                            <h3> <p><strong>${r.note}</strong></p></h3>
+                                        </td>
+                                        <td >
+                                            <a data-toggle="modal" data-target="#exampleModal" class="tm-product-delete-link">
+                                                <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                            </a>
+                                        </td>
+                                        <td style="background-color: 435C70">
+                                            <a href="RoomcategoryController?do=listroombycate&cateroomid=${r.roomcateID}" style="border-radius: 10px" class="btn btn-info" role="button">
+                                                Danh Sách Phòng</a></td>
+                                        <td>
+                                            <a href="InsertCateroom.jsp" type="submit" name="do" value="updatetRoomCategory" class="tm-product-delete-link">
+                                                <i class="fas fa-arrow-alt-circle-up tm-product-delete-icon"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">XÓA LOẠI PHÒNG</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body" style="font-size: 30px;color: red">
+                                                    XÁC NHẬN MUỐN XÓA
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">HỦY</button>
+                                                    <a href="RoomcategoryController?do=deleteRoomCategori&cateroomid=${r.roomcateID}" type="button" class="btn btn-primary">XÁC NHẬN</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </c:forEach>
                                 </tbody>
                             </table>
                         </div>
-                        <!-- table container -->    
-                        <form action="ServiceController" method="get">
-                            <tr>
-                                <td class="text-center"><input class="form-control validate" type="text" name="Roomcatename" value="" style="text-align: center;" placeholder="ADD NEW ROOMCATEGORY"></td>
-                            <input type="hidden" name="do" value="insertRoomCategory">
-                            </tr>
-                            <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
-                                Add new category
-                            </button>
-                        </form>
+                        <!-- table container -->     
+                        <a href="" class="btn btn-default btn-rounded mb-4 btn btn-primary btn-block text-uppercase mb-3" data-toggle="modal" data-target="#modalLoginForm">Launch
+                            THÊM LOẠI PHÒNG MỚI</a>
                     </div>
+                    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold">THÊM LOẠI PHÒNG MỚI</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="" method="">
+                                    <div class="modal-body mx-3">
+                                        <div class="md-form mb-5">
+                                            <i class="fas fa-envelope prefix grey-text"></i>
+                                            <input type="email" id="defaultForm-email" class="form-control validate">
+                                            <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+                                        </div>
+
+                                        <div class="md-form mb-4">
+                                            <i class="fas fa-lock prefix grey-text"></i>
+                                            <input type="password" id="defaultForm-pass" class="form-control validate">
+                                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button class="btn btn-default">Login</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin: 0 auto"class="site-block-27">
+                    <ul>
+                        <!--<li class="active"><span>1</span></li>-->
+                        <c:forEach var = "i" begin = "1" end = "${n}">
+                            <li class="${i==j? "active":""}"><a href="RoomcategoryController?do=getroombycategori&i=${i}">${i}</a></li>
+                            </c:forEach>
+                    </ul>
                 </div>
                 <!--                <table class="table table-hover tm-table-small tm-product-table">
                                     <thead>
@@ -313,6 +382,9 @@
                     window.location.href = "edit-product.html";
                 });
             });
+            <c:if test = "${update!= null}">
+            alert("Update Successfully");
+            </c:if>
         </script>
     </body>
 </html>

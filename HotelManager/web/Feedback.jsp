@@ -20,8 +20,6 @@
                 box-sizing: border-box;
                 
 }
-/*=========================================================Navber================================================*/
-
 #mail{
 	border-radius:50%;
 	height:40px;
@@ -156,7 +154,6 @@
 
 </style>	
 <body>
-    <!--=========================================Feed-back Form============================================================-->
     <br><br><br>
         <div class="col-md-8" id ="mainform">
             <div class="col-sm-8">
@@ -178,6 +175,5 @@
                 <p>${requestScope.describe}</p>
             </div>   
         </div>
-
         </body>
 </html>

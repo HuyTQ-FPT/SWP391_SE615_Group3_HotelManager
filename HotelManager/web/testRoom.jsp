@@ -289,306 +289,317 @@
                     </div>       
                 </div>
             </div>
-                <div style="font-size: 20px;margin-left: 20%; padding-top: 50px;padding-bottom: 30px;" class="col-md-6">
-                    <h2 style="color: red"class="display-4" data-aos="fade-up">Enjoy Your Stay</h2>
+            <div style="font-size: 20px;margin-left: 20%; padding-top: 50px;padding-bottom: 30px;" class="col-md-6">
+                <h2 style="color: red"class="display-4" data-aos="fade-up">Enjoy Your Stay</h2>
                     <p data-aos="fade-up" data-aos-delay="100" "><span style="color: blue;">Giá cả</span> và <span style="color: blue;">chất lượng</span> ngang bằng nhau chỉ giúp bạn bước chân vào cuộc chơi. <span style="color: blue;">Dịch vụ </span> sẽ giúp bạn chiến thắng cuộc chơi. </p>
-              </div>
-                    <!-- End of /#Topic-header -->
+            </div>
+            <!-- End of /#Topic-header -->
 
-                    <!-- PRODUCTS Start
-                    ================================================== -->
-                    <%Vector<Room> vector = (Vector<Room>) request.getAttribute("vector"); %>
-                   <section style="background-color: #f6f6f6" id="shop">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-10">
-                            <div class="products" style="padding-top: 50px;">
+            <!-- PRODUCTS Start
+            ================================================== -->
+            <%Vector<Room> vector = (Vector<Room>) request.getAttribute("vector"); %>
+            <section style="background-color: #f6f6f6" id="shop">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="products" style="padding-top: 50px;">
                                 <h2 style="font-family: Orbitron;">Danh sách các phòng</h2>
                             </div>
-                                    <!-- End of /.Products-heading -->
-                                    <div class="product-grid">
-                                        <ul>
-                                            <%for (Room v : vector) {%>
-                                            <li>
-                                                <div class="products">
-                                                    <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
-                                                        <img src="images/anhphong/<%=v.getImage()%>" alt="">
-                                                    </a>
-                                                    <div class="h" style="font-size: 20px">
-                                                        <c:forEach begin="1" end="<%=v.getRate()%>">
-                                                            <span class="fa fa-star checked"></span>
-                                                        </c:forEach>
+                            <!-- End of /.Products-heading -->
+                            <div class="product-grid">
+                                <ul>
+                                    <%for (Room v : vector) {%>
+                                    <li style="position: relative">
+                                        <div class="products">
+                                            <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
+                                                <img src="images/anhphong/<%=v.getImage()%>" alt="" style="margin-top: 30px">
+                                            </a>
+                                            <div class="h" style="font-size: 20px">
+                                                    <c:forEach begin="1" end="<%=v.getRate()%>">
+                                                        <span class="fa fa-star checked"></span>
+                                                    </c:forEach>
 
-                                                    </div>
-                                                        <h4 style="font-size: 25px; text-align: center; padding-top: 20px; font-weight: bold;  font-family: Orbitron;"><i class='fas fa-user-alt' style="font-size:25px;padding-right: 15px">:</i><%=v.getNumberPerson()%></p></h4>
+                                                </div>
+                                                <h4 style="font-size: 25px; text-align: center; padding-top: 20px; font-weight: bold;  font-family: Orbitron;"><i class='fas fa-user-alt' style="font-size:25px;padding-right: 15px">:</i><%=v.getNumberPerson()%></p></h4>
                                                 <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
                                                     <h4 style="color: #b09700;font-size: 25px; text-align: center;font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%>-<%=v.getRoomname()%></h4>
-                                                </a>
-                                                <h1 style="color: red;font-size: 18px" class="price"> €<%=v.getRoomprice()%>/một đêm</h1>
-                                                    <div>
-                                                        <a class="view-link shutter" href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
-                                                            <i class="fa fa-plus-circle"></i>Đặt Phòng</a>
+                                            </a>
+                                            <h1 style="color: red;font-size: 18px" class="price"> €<%=v.getRoomprice()%>/một đêm</h1>
+                                              <div class="hotel-room-body">
+                                                        <div class="add-to-cart">
+                                                            <form action="RoomController">
+                                                                <input type="hidden" name="do" value="roomdetail">
+                                                                <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
+                                                                <button  style="margin-top: 10px;position: fixed;top:29px;left:-47px" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
+                                                            </form>
+                                                            <form action="CompareRoomController">
+                                                                <input type="hidden" name="do" value="ViewCompare">
+                                                                <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
+                                                                <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
+                                                                <button style="margin-left: 150px;position: fixed;left: -28px;top: 39px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
+                                                        </form>
                                                     </div>
                                                 </div>
-                                                <!-- End of /.products -->
-                                            </li>
-                                            <%}%>
+                                        </div>
+                                        <!-- End of /.products -->
+                                    </li>
+                                    <%}%>
+                                </ul>
+                            </div>
+                            <div class="hieu">
+                                <div class="col-md-12 text-center">
+                                    <div class="site-block-27" >
+                                        <ul>
+                                            <c:if test="${!empty n}">
+                                                <c:forEach begin="1" end="${n}" var="c" >
+                                                    <li><a href="RoomController?page=${c}">${c}</a></li>
+                                                    </c:forEach>
+                                                </c:if>
+                                                <c:if test="${!empty n1}">
+                                                    <c:forEach begin="1" end="${n1}" var="c" >
+                                                    <li><a href="RoomController?do=sortByPriceMax&page=${c}">${c}</a></li>
+                                                    </c:forEach>
+                                                </c:if>
+                                                <c:if test="${!empty n2}">
+                                                    <c:forEach begin="1" end="${n2}" var="c" >
+                                                    <li><a href="RoomController?do=sortByPriceMin&page=${c}">${c}</a></li>
+                                                    </c:forEach>
+                                                </c:if>
+                                                <c:if test="${!empty n3}">
+                                                    <c:forEach begin="1" end="${n3}" var="c" >
+                                                    <li><a href="RoomController?do=sortByRate&page=${c}">${c}</a></li>
+                                                    </c:forEach>
+                                                </c:if>
+                                                <c:if test="${!empty n4}">
+                                                    <c:forEach begin="1" end="${n4}" var="c" >
+                                                    <li><a href="RoomController?do=sortByPriceBetween&page=${c}">${c}</a></li>
+                                                    </c:forEach>
+                                                </c:if>
                                         </ul>
                                     </div>
-                                    <div class="hieu">
-                                        <div class="col-md-12 text-center">
-                                            <div class="site-block-27" >
-                                                <ul>
-                                                    <c:if test="${!empty n}">
-                                                        <c:forEach begin="1" end="${n}" var="c" >
-                                                            <li><a href="RoomController?page=${c}">${c}</a></li>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${!empty n1}">
-                                                            <c:forEach begin="1" end="${n1}" var="c" >
-                                                            <li><a href="RoomController?do=sortByPriceMax&page=${c}">${c}</a></li>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${!empty n2}">
-                                                            <c:forEach begin="1" end="${n2}" var="c" >
-                                                            <li><a href="RoomController?do=sortByPriceMin&page=${c}">${c}</a></li>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${!empty n3}">
-                                                            <c:forEach begin="1" end="${n3}" var="c" >
-                                                            <li><a href="RoomController?do=sortByRate&page=${c}">${c}</a></li>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${!empty n4}">
-                                                            <c:forEach begin="1" end="${n4}" var="c" >
-                                                            <li><a href="RoomController?do=sortByPriceBetween&page=${c}">${c}</a></li>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                                <!-- End of /.col-md-9 -->
-                                <div style="padding-top: 80px;" class="col-md-2">
-                                    <div class="blog-sidebar">
-                                        <div class="block">
-                                            <h4>Categories</h4>
-                                            <div class="list-group" style="width: 250px">
-                                                <a href="RoomController?do=CateRoom&cate=1" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Standard
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=2" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Superior
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=3" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Deluxe
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=4" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Suite
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=5" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Connecting room
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="block">
-                                            <h4>Sắp xếp :</h4>
-                                            <form action="RoomController" method="get">
-                                                <input type="hidden" name="do" value="sortByPriceBetween"  >
-                                                <input type="hidden" name="page" value="1">
-                                                <table>
-                                                    <tr>
-                                                        <td>From</td><td><input style="width: 100px;"type="number" name="price1" min="0" max="10000" value=""/></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>To</td><td><input style="width: 100px;" type="number" name="price2" min="0" max="100000" value=""/></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td></td><td><input type="submit" value="Find"/></td>
-                                                    </tr>
-                                                </table>
-                                            </form>
-                                            <div class="list-group" style="width: 250px; padding-top: 20px" >
-                                                <a href="RoomController?do=sortByPriceMax&page=1" class="list-group-item"> Giá cao nhất </a>
-                                                <a href="RoomController?do=sortByPriceMin&page=1" class="list-group-item"> Giá thấp nhất </a>
-                                                <a href="RoomController?do=sortByRate&page=1" class="list-group-item"> Đánh giá </a>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <!-- End of /.col-md-3 -->
-
-                                </div>
-                                <!-- End of /.row -->
                             </div>
-                            <!-- End of /.container -->
-                    </section>
+                        </div>
+                        <!-- End of /.col-md-9 -->
+                        <div style="padding-top: 80px;" class="col-md-2">
+                            <div class="blog-sidebar">
+                                <div class="block">
+                                    <h4>Categories</h4>
+                                    <div class="list-group" style="width: 250px">
+                                            <a href="RoomController?do=CateRoom&cate=1" class="list-group-item" style="font-size: 15px">
+                                                <i class="fa  fa-dot-circle-o"></i> Standard
+                                            </a>
+                                            <a href="RoomController?do=CateRoom&cate=2" class="list-group-item" style="font-size: 15px">
+                                                <i class="fa  fa-dot-circle-o"></i> Superior
+                                            </a>
+                                            <a href="RoomController?do=CateRoom&cate=3" class="list-group-item" style="font-size: 15px">
+                                                <i class="fa  fa-dot-circle-o"></i> Deluxe
+                                            </a>
+                                            <a href="RoomController?do=CateRoom&cate=4" class="list-group-item" style="font-size: 15px">
+                                                <i class="fa  fa-dot-circle-o"></i> Suite
+                                            </a>
+                                            <a href="RoomController?do=CateRoom&cate=5" class="list-group-item" style="font-size: 15px">
+                                                <i class="fa  fa-dot-circle-o"></i> Connecting room
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="block">
+                                        <h4>Sắp xếp :</h4>
+                                        <form action="RoomController" method="get">
+                                            <input type="hidden" name="do" value="sortByPriceBetween"  >
+                                            <input type="hidden" name="page" value="1">
+                                            <table>
+                                                <tr>
+                                                    <td>From</td><td><input style="width: 100px;"type="number" name="price1" min="0" max="10000" value=""/></td>
+                                            </tr>
+                                            <tr>
+                                                <td>To</td><td><input style="width: 100px;" type="number" name="price2" min="0" max="100000" value=""/></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td><td><input type="submit" value="Find"/></td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                    <div class="list-group" style="width: 250px; padding-top: 20px" >
+                                            <a href="RoomController?do=sortByPriceMax&page=1" class="list-group-item"> Giá cao nhất </a>
+                                            <a href="RoomController?do=sortByPriceMin&page=1" class="list-group-item"> Giá thấp nhất </a>
+                                            <a href="RoomController?do=sortByRate&page=1" class="list-group-item"> Đánh giá </a>
+                                        </div>
+                                    </div>
 
-                </div>
-                <script src="js/jquery-1.11.3.min.js"></script>    
-                <script src="js/jquery-3.3.1.min.js"></script>
-                <script src="js/jquery-migrate-3.0.1.min.js"></script>
-                <script src="js/jquery-ui.js"></script>
-                <script src="js/popper.min.js"></script>
-                <script src="js/bootstrap.min.js"></script>
-                <script src="js/owl.carousel.min.js"></script>
-                <script src="js/jquery.stellar.min.js"></script>
-                <script src="js/jquery.countdown.min.js"></script>
-                <script src="js/jquery.magnific-popup.min.js"></script>
-                <script src="js/bootstrap-datepicker.min.js"></script>
-                <script src="js/aos.js"></script>
-                <script src="js/mediaelement-and-player.min.js"></script>
-                <script src="js/main.js"></script>
-                <!-- load JS files -->
-                <script src="js/jquery-1.11.3.min.js"></script>
-                <!-- jQuery (https://jquery.com/download/) -->
-                <script src="js/popper.min.js"></script>
-                <!-- https://popper.js.org/ -->
-                <script src="js/bootstrap.min.js"></script>
-                <!-- https://getbootstrap.com/ -->
-                <script src="js/datepicker.min.js"></script> 
-                <!-- https://github.com/qodesmith/datepicker -->
-                <script src="js/jquery.singlePageNav.min.js"></script>
-                <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
-                <script src="slick/slick.min.js"></script>
-                <!-- http://kenwheeler.github.io/slick/ -->
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        var mediaElements = document.querySelectorAll('video, audio'),
-                                total = mediaElements.length;
+                                </div>
+                                <!-- End of /.col-md-3 -->
 
-                        for (var i = 0; i < total; i++) {
-                            new MediaElementPlayer(mediaElements[i], {
-                                pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                                shimScriptAccess: 'always',
-                                success: function () {
-                                    var target = document.body.querySelectorAll('.player'),
-                                            targetTotal = target.length;
-                                    for (var j = 0; j < targetTotal; j++) {
-                                        target[j].style.visibility = 'visible';
-                                    }
+                            </div>
+                            <!-- End of /.row -->
+                        </div>
+                        <!-- End of /.container -->
+                </section>
+
+            </div>
+            <script src="js/jquery-1.11.3.min.js"></script>    
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="js/jquery-ui.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.stellar.min.js"></script>
+            <script src="js/jquery.countdown.min.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/bootstrap-datepicker.min.js"></script>
+            <script src="js/aos.js"></script>
+            <script src="js/mediaelement-and-player.min.js"></script>
+            <script src="js/main.js"></script>
+            <!-- load JS files -->
+            <script src="js/jquery-1.11.3.min.js"></script>
+            <!-- jQuery (https://jquery.com/download/) -->
+            <script src="js/popper.min.js"></script>
+            <!-- https://popper.js.org/ -->
+            <script src="js/bootstrap.min.js"></script>
+            <!-- https://getbootstrap.com/ -->
+            <script src="js/datepicker.min.js"></script> 
+            <!-- https://github.com/qodesmith/datepicker -->
+            <script src="js/jquery.singlePageNav.min.js"></script>
+            <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+            <script src="slick/slick.min.js"></script>
+            <!-- http://kenwheeler.github.io/slick/ -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var mediaElements = document.querySelectorAll('video, audio'),
+                            total = mediaElements.length;
+
+                    for (var i = 0; i < total; i++) {
+                        new MediaElementPlayer(mediaElements[i], {
+                            pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                            shimScriptAccess: 'always',
+                            success: function () {
+                                var target = document.body.querySelectorAll('.player'),
+                                        targetTotal = target.length;
+                                for (var j = 0; j < targetTotal; j++) {
+                                    target[j].style.visibility = 'visible';
                                 }
-                            });
-                        }
-                    });
-                    /* Google map
-                     ------------------------------------------------*/
-                    var map = '';
-                    var center;
-                    function initialize() {
-                        var mapOptions = {
-                            zoom: 16,
-                            center: new google.maps.LatLng(13.7567928, 100.5653741),
-                            scrollwheel: false
-                        };
-                        map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
-                        google.maps.event.addDomListener(map, 'idle', function () {
-                            calculateCenter();
-                        });
-                        google.maps.event.addDomListener(window, 'resize', function () {
-                            map.setCenter(center);
-                        });
-                    }
-                    function calculateCenter() {
-                        center = map.getCenter();
-                    }
-                    function loadGoogleMap() {
-                        var script = document.createElement('script');
-                        script.type = 'text/javascript';
-                        script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
-                        document.body.appendChild(script);
-                    }
-                    function setCarousel() {
-                        if ($('.tm-article-carousel').hasClass('slick-initialized')) {
-                            $('.tm-article-carousel').slick('destroy');
-                        }
-                        if ($(window).width() < 438) {
-                            // Slick carousel
-                            $('.tm-article-carousel').slick({
-                                infinite: false,
-                                dots: true,
-                                slidesToShow: 1,
-                                slidesToScroll: 1
-                            });
-                        } else {
-                            $('.tm-article-carousel').slick({
-                                infinite: false,
-                                dots: true,
-                                slidesToShow: 2,
-                                slidesToScroll: 1
-                            });
-                        }
-                    }
-                    function setPageNav() {
-                        if ($(window).width() > 991) {
-                            $('#tm-top-bar').singlePageNav({
-                                currentClass: 'active',
-                                offset: 79
-                            });
-                        } else {
-                            $('#tm-top-bar').singlePageNav({
-                                currentClass: 'active',
-                                offset: 65
-                            });
-                        }
-                    }
-                    function togglePlayPause() {
-                        vid = $('.tmVideo').get(0);
-                        if (vid.paused) {
-                            vid.play();
-                            $('.tm-btn-play').hide();
-                            $('.tm-btn-pause').show();
-                        } else {
-                            vid.pause();
-                            $('.tm-btn-play').show();
-                            $('.tm-btn-pause').hide();
-                        }
-                    }
-                    $(document).ready(function () {
-                        $(window).on("scroll", function () {
-                            if ($(window).scrollTop() > 100) {
-                                $(".tm-top-bar").addClass("active");
-                            } else {
-                                //remove the background property so it comes transparent again (defined in your css)
-                                $(".tm-top-bar").removeClass("active");
                             }
                         });
-                        // Google Map
-                        loadGoogleMap();
-                        // Date Picker
-                        const pickerCheckIn = datepicker('#inputCheckIn');
-                        const pickerCheckOut = datepicker('#inputCheckOut');
+                    }
+                });
+                /* Google map
+                 ------------------------------------------------*/
+                var map = '';
+                var center;
+                function initialize() {
+                    var mapOptions = {
+                        zoom: 16,
+                        center: new google.maps.LatLng(13.7567928, 100.5653741),
+                        scrollwheel: false
+                    };
+                    map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+                    google.maps.event.addDomListener(map, 'idle', function () {
+                        calculateCenter();
+                    });
+                    google.maps.event.addDomListener(window, 'resize', function () {
+                        map.setCenter(center);
+                    });
+                }
+                function calculateCenter() {
+                    center = map.getCenter();
+                }
+                function loadGoogleMap() {
+                    var script = document.createElement('script');
+                    script.type = 'text/javascript';
+                    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
+                    document.body.appendChild(script);
+                }
+                function setCarousel() {
+                    if ($('.tm-article-carousel').hasClass('slick-initialized')) {
+                        $('.tm-article-carousel').slick('destroy');
+                    }
+                    if ($(window).width() < 438) {
                         // Slick carousel
+                        $('.tm-article-carousel').slick({
+                            infinite: false,
+                            dots: true,
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        });
+                    } else {
+                        $('.tm-article-carousel').slick({
+                            infinite: false,
+                            dots: true,
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        });
+                    }
+                }
+                function setPageNav() {
+                    if ($(window).width() > 991) {
+                        $('#tm-top-bar').singlePageNav({
+                            currentClass: 'active',
+                            offset: 79
+                        });
+                    } else {
+                        $('#tm-top-bar').singlePageNav({
+                            currentClass: 'active',
+                            offset: 65
+                        });
+                    }
+                }
+                function togglePlayPause() {
+                    vid = $('.tmVideo').get(0);
+                    if (vid.paused) {
+                        vid.play();
+                        $('.tm-btn-play').hide();
+                        $('.tm-btn-pause').show();
+                    } else {
+                        vid.pause();
+                        $('.tm-btn-play').show();
+                        $('.tm-btn-pause').hide();
+                    }
+                }
+                $(document).ready(function () {
+                    $(window).on("scroll", function () {
+                        if ($(window).scrollTop() > 100) {
+                            $(".tm-top-bar").addClass("active");
+                        } else {
+                            //remove the background property so it comes transparent again (defined in your css)
+                            $(".tm-top-bar").removeClass("active");
+                        }
+                    });
+                    // Google Map
+                    loadGoogleMap();
+                    // Date Picker
+                    const pickerCheckIn = datepicker('#inputCheckIn');
+                    const pickerCheckOut = datepicker('#inputCheckOut');
+                    // Slick carousel
+                    setCarousel();
+                    setPageNav();
+                    $(window).resize(function () {
                         setCarousel();
                         setPageNav();
-                        $(window).resize(function () {
-                            setCarousel();
-                            setPageNav();
-                        });
-                        // Close navbar after clicked
-                        $('.nav-link').click(function () {
-                            $('#mainNav').removeClass('show');
-                        });
-                        // Control video
-                        $('.tm-btn-play').click(function () {
-                            togglePlayPause();
-                        });
-                        $('.tm-btn-pause').click(function () {
-                            togglePlayPause();
-                        });
-                        // Update the current year in copyright
-                        $('.tm-current-year').text(new Date().getFullYear());
                     });
-                    function show() {
-                        if (document.getElementById("team").style.display == "none") {
-                            document.getElementById("team").style.display = "block";
-                        } else {
-                            document.getElementById("team").style.display = "none";
-                        }
+                    // Close navbar after clicked
+                    $('.nav-link').click(function () {
+                        $('#mainNav').removeClass('show');
+                    });
+                    // Control video
+                    $('.tm-btn-play').click(function () {
+                        togglePlayPause();
+                    });
+                    $('.tm-btn-pause').click(function () {
+                        togglePlayPause();
+                    });
+                    // Update the current year in copyright
+                    $('.tm-current-year').text(new Date().getFullYear());
+                });
+                function show() {
+                    if (document.getElementById("team").style.display == "none") {
+                        document.getElementById("team").style.display = "block";
+                    } else {
+                        document.getElementById("team").style.display = "none";
                     }
-                </script>
-                <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-                <jsp:include page="footer.jsp"></jsp:include>
-            </body>
-        </html>
+                }
+            </script>
+            <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+            <jsp:include page="footer.jsp"></jsp:include>
+        </body>
+    </html>

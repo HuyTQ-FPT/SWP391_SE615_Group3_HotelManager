@@ -38,28 +38,27 @@ public class MessageController extends HttpServlet {
                 Account a = (Account)session.getAttribute("login");
                 if(a.getRoleID()==1){
                     request.setAttribute("accountid", a.getAccountID());
-                    request.getRequestDispatcher("ChatbotofReceptionist.jsp").forward(request, response);
+                    request.getRequestDispatcher("ViewChatbot.jsp").forward(request, response);
                 }                  
                 else {
                     ResultSet rs =dao.getData("select distinct top(1) AccountID from Message");                   
                     while (rs.next()) {                         
                         request.setAttribute("accountid", rs.getInt(1));
                     }                                                           
-                    request.getRequestDispatcher("ChatbotofReceptionist.jsp").forward(request, response);
+                    request.getRequestDispatcher("ViewChatbot.jsp").forward(request, response);
                 }                     
             }
              if(service.equals("SearchChatCustomer")){
                  String name =request.getParameter("name");
                  System.out.println(name+"naemansmd");
                  if(!name.isEmpty()){                
-                 System.out.println(name+"11111111111");
                  ResultSet rs =dao.getData("select u.* from Account a join [User] u\n" +
 "on a.AccountID=u.AccountID\n" +
 "where u.UserName like '%"+name+"%' and a.RoleID=1");                 
                      request.setAttribute("accountid", 1);
                     request.setAttribute("found", "");                 
                     request.setAttribute("rs", rs);                 
-                    request.getRequestDispatcher("ChatbotofReceptionist.jsp").forward(request, response);
+                    request.getRequestDispatcher("ViewChatbot.jsp").forward(request, response);
              } else{
                      response.sendRedirect("MessageController");
                  }}
@@ -70,8 +69,8 @@ public class MessageController extends HttpServlet {
                 if(!request.getParameter("message").equals("")){
                     dao.insertMessageCus(new Message(accountid , request.getParameter("message").trim()));
                     ResultSet rs =dao.getData("select distinct AccountID from Message");                                        
-                }                   
-                request.getRequestDispatcher("ChatbotofReceptionist.jsp").forward(request, response);
+                }
+                request.getRequestDispatcher("ViewChatbot.jsp").forward(request, response);
             }
             if(service.equals("messRe")){                
                 int accountid = Integer.parseInt(request.getParameter("accountID"));
@@ -84,7 +83,7 @@ public class MessageController extends HttpServlet {
             }
             if(service.equals("OnlymessRe")){                
                 int accountid = Integer.parseInt(request.getParameter("accountID"));
-                if(!request.getParameter("message").equals("")){
+                if(!request.getParameter("mssage").equals("")){
                      dao.insertMessageRe(new Message(accountid , request.getParameter("message").trim())); 
                     ResultSet rs =dao.getData("select distinct AccountID from Message");                   
                 }
@@ -99,27 +98,18 @@ public class MessageController extends HttpServlet {
                 request.setAttribute("accountid", Integer.parseInt(request.getParameter("accountid")));
                 request.setAttribute("found", "");                 
                 request.setAttribute("rs",rs);
-                request.getRequestDispatcher("ChatbotofReceptionist.jsp").forward(request, response);
+                request.getRequestDispatcher("ViewChatbot.jsp").forward(request, response);
             }
             if(service.equals("Chat_people")){
                 request.setAttribute("accountid", Integer.parseInt(request.getParameter("accountid")));
                 request.setAttribute("showmess", "");
-                request.getRequestDispatcher("ChatbotofReceptionist.jsp").forward(request, response);
+                request.getRequestDispatcher("ViewChatbot.jsp").forward(request, response);
             }
         }catch(Exception e){
             request.getRequestDispatcher("Filter.jsp").forward(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -130,14 +120,6 @@ public class MessageController extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -147,15 +129,9 @@ public class MessageController extends HttpServlet {
             Logger.getLogger(MessageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

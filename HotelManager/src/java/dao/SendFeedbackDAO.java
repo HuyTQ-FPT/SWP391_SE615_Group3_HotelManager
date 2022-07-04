@@ -3,10 +3,6 @@ package dao;
 import entity.sendFeedback;
 import java.util.Vector;
 
-/**
- *
- * @author Minh hieu
- */
 public interface SendFeedbackDAO {
 
     public Vector<sendFeedback> getMessage() throws Exception;

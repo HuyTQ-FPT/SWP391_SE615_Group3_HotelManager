@@ -47,7 +47,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ServiceController?do=getdeviceroom">
+                            <a class="nav-link" href="RoomcategoryController?do=getroombycategori&i=1">
                                 <i class="fas fa-shopping-cart"></i>
                                 Phòng
                             </a>
@@ -99,7 +99,8 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link d-block" href="LoginController?do=logout">
-                                Admin, <b>Logout</b>
+                            Admin, <span>Đăng xuất</span>
+                                    
                             </a>
                         </li>
                     </ul>

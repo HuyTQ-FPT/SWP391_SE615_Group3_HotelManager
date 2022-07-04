@@ -1,4 +1,3 @@
-
 package controller;
 
 import dao.impl.BlogDAOImpl;
@@ -30,37 +29,36 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @WebServlet(name = "BlogManagerController", urlPatterns = {"/BlogManagerController"})
 public class BlogManagerController extends HttpServlet {
 
-  
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             BlogDAOImpl dao = new BlogDAOImpl();
             String dos = request.getParameter("do");
-           
-            if (dos.equals("insertblog")) {          
+
+            if (dos.equals("insertblog")) {
                 String title = request.getParameter("title").trim();
                 int accountID = 9;
                 String description = request.getParameter("description").trim();
                 String author = request.getParameter("author").trim();
                 String image = request.getParameter("image");
-             
+
                 dao.inSertBlog(accountID, author, description, image, title);
-                String blogid = dao.getBlogID(" SELECT MAX(BlogID)\n" +
-"FROM [SWPgroup3].[dbo].[Blog]");
+                String blogid = dao.getBlogID(" SELECT MAX(BlogID)\n"
+                        + "FROM [SWPgroup3].[dbo].[Blog]");
 //                           out.println("<h1>UPDATE [dbo].[Blog]\n"
 //                                        + "   SET \n"
 //                                       
 //                                        + " WHERE BlogID = " + blogid + "</h1>");
-               request.getRequestDispatcher("BlogManagerController?do=updateblog&blogid=" + blogid + " ").forward(request, response);
+                request.getRequestDispatcher("BlogManagerController?do=updateblog&blogid=" + blogid + " ").forward(request, response);
             }
             if (dos.equals("editblog")) {
                 Vector<Blog> b = null;
                 int n = dao.getPage();
                 request.setAttribute("n", n);
-         
+
                 String page = request.getParameter("page");
                 if (page == null) {
                     b = dao.getBlogByPage(1);
@@ -77,10 +75,10 @@ public class BlogManagerController extends HttpServlet {
                 response.sendRedirect("BlogManagerController?do=editblog&page=" + n + "");
             }
             if (dos.equals("updateblog")) {
-                 Vector<Blog> b = null;              
-                request.setAttribute("b", b);       
+                Vector<Blog> b = null;
+                request.setAttribute("b", b);
                 String blogid = request.getParameter("blogid");
-                b= dao.getBlog("select * from Blog where BlogID ="+blogid+"");
+                b = dao.getBlog("select * from Blog where BlogID =" + blogid + "");
                 request.setAttribute("b", b);
 //                String author = request.getParameter("blogauthor");
 //                String blogDescription = request.getParameter("blogDescription");
@@ -105,32 +103,27 @@ public class BlogManagerController extends HttpServlet {
 //                                        + "   SET \n"
 //                                       
 //                                        + " WHERE BlogID = " + BlogID + "</h1>");
-               dao.updateBlog(BlogID, author, blogDescription, blogTitleString);
+                dao.updateBlog(BlogID, author, blogDescription, blogTitleString);
                 response.sendRedirect("BlogManagerController?do=editblog");
             }
-           
-        
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

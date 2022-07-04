@@ -9,11 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign Up Form by Colorlib</title>
-
-    <!-- Font Icon -->
-   
-
-    <!-- Main css -->
     <link rel="stylesheet" href="css/style_2_1.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     
@@ -103,6 +98,5 @@
                         <script>
                             $.notify("Hello World");
                         </script>
-    <!-- JS -->
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
 </html>

@@ -4,10 +4,6 @@ import entity.Account;
 import entity.User;
 import java.util.Vector;
 
-/**
- *
- * @author Admin
- */
 public interface AccountDAO {
 
     public Vector<Account> getAccountList(int aID) throws Exception;

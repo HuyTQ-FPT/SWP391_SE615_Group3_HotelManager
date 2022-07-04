@@ -13,7 +13,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Work+Sans:300,400,700" rel="stylesheet">
         <link rel="stylesheet" href="fonts/icomoon/style.css">
-
+        <link rel="stylesheet" href="css/font-awesome.min.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/magnific-popup.css">
         <link rel="stylesheet" href="css/jquery-ui.css">
@@ -21,16 +21,20 @@
         <link rel="stylesheet" href="css/owl.theme.default.min.css">
         <link rel="stylesheet" href="css/bootstrap-datepicker.css">
         <link rel="stylesheet" href="css/animate.css">
-
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
-
-
-
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
         <link rel="stylesheet" href="css/aos.css">
-
         <link rel="stylesheet" href="css/style.css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <style>
+            .style{
+
+                position: absolute;
+                left: 20px;
+                top:40px;
+                font-size: 10px;
+            }
+        </style>
     </head>
     <div class="site-wrap">
 
@@ -50,8 +54,7 @@
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-7 text-center" data-aos="fade">
-                        <span class="caption mb-3">Chat With Us</span>
-                        <h1 class="mb-4">Get In Touch</h1>
+
                     </div>
                 </div>
             </div>
@@ -68,9 +71,9 @@
                         <form action="SendFeedbackController" method="post" class="p-5 bg-white">
                             <h4 id="er" style="color: red;font-size: 15px;">${requestScope.mEss}</h4>
 
-                            <div class="row form-group">
+                            <div class="row form-group ">
                                 <div class="col-md-12">
-                                    <label class="font-weight-bold" for="email">Email</label>
+                                    <i class='bx bxs-star style' style="color:red;"></i>    <label class="font-weight-bold " for="email">Email</label>
                                     <input type="email" id="email" class="form-control" name="email"  pattern="[a-zA-Z]\w+@(\w+.)+([a-zA-Z]+)"  maxlength="40" placeholder="Email*">
                                 </div>
                             </div>
@@ -78,14 +81,14 @@
 
                             <div class="row form-group">
                                 <div class="col-md-12 mb-3 mb-md-0">
-                                    <label class="font-weight-bold" for="">Tiêu đề</label>
+                                    <i class='bx bxs-star style' style="color:red;"></i>   <label class="font-weight-bold" for="">Tiêu đề</label>
                                     <input type="text" id="phone" class="form-control" name="title" pattern=".*\S" title="Không được để khoảng trắng" required maxlength="40" placeholder="Tiêu đề*">
                                 </div>
                             </div>
 
                             <div class="row form-group">
                                 <div class="col-md-12">
-                                    <label class="font-weight-bold" for="message">Nội dung</label> 
+                                    <i class='bx bxs-star style' style="color:red;"></i>       <label class="font-weight-bold" for="message">Nội dung</label> 
                                     <textarea name="message" id="message" cols="30" rows="5" name="message" pattern=".*\S"   title="Không được để khoảng trắng" maxlength="100" class="form-control" required placeholder="Nội dung*"></textarea>
                                 </div>
                             </div>
@@ -103,14 +106,14 @@
 
                     <div class="col-lg-4">
                         <div class="p-4 mb-3 bg-white">
-                            <h3 class="h5 text-black mb-3">Contact Info</h3>
-                            <p class="mb-0 font-weight-bold">Address</p>
+                            <h3 class="h5 text-black mb-3">Thông tin liên lạc</h3>
+                            <p class="mb-0 font-weight-bold">Địa chỉ</p>
                             <p class="mb-4">Khu GD&ĐT, khu CNC Hoà Lạc, KM29, Đại lộ Thăng Long, huyện Thạch Thất, TP Hà Nội, Hà Nội</p>
 
-                            <p class="mb-0 font-weight-bold">Phone</p>
+                            <p class="mb-0 font-weight-bold">Điện thoại</p>
                             <p class="mb-4"><a href="#">+1 232 3235 324</a></p>
 
-                            <p class="mb-0 font-weight-bold">Email Address</p>
+                            <p class="mb-0 font-weight-bold">Email</p>
                             <p class="mb-0"><a href="#">youremail@example.com</a></p>
 
                         </div>

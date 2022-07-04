@@ -1,12 +1,17 @@
 package controller;
 
+import dao.RoomDAO;
+import dao.UserDAO;
+import dao.impl.RoomDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
+import entity.Room;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -29,13 +34,17 @@ public class AdminController extends HttpServlet {
         try {
 
             HttpSession session = request.getSession();
-            UserDAOImpl daoU = new UserDAOImpl();
+            UserDAO daoU = new UserDAOImpl();
+            RoomDAO daoR = new RoomDAOImpl();
             String service = request.getParameter("do");
             if (service == null) {
                 service = "indexAdmin";
 
             }
             if (service.equals("indexAdmin")) { // trang chủ admin
+
+                Vector<Room> vectorR = daoR.getRoomListAll("select*from Room");
+                request.setAttribute("vectorR", vectorR);
                 request.getRequestDispatcher("indexadmin.jsp").forward(request, response);
             }
 

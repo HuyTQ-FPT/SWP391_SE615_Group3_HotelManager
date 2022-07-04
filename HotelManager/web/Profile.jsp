@@ -1,9 +1,4 @@
 
-<%-- 
-    Document   : Profile
-    Created on : Jun 4, 2022, 11:45:10 PM
-    Author     : admin
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.sql.ResultSet"%>
 <!DOCTYPE html>
@@ -32,14 +27,11 @@
     <%ResultSet rs =(ResultSet)request.getAttribute("profile");%>
     <div class="container">
         <div class="main-body">
-
-            <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="HomeController">Home</a></li>
                 </ol>
             </nav>
-            <!-- /Breadcrumb -->
 
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">

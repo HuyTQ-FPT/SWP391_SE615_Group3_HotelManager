@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao.impl;
 
 import dao.UserDAO;
@@ -17,10 +13,6 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Admin
- */
 public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
@@ -43,8 +35,6 @@ public class UserDAOImpl extends DBContext implements UserDAO {
        
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
         try {
-            //System.out.println(sql);
-//        create statement: execute sql
             conn = getConnection();
             pre = conn.prepareStatement(sqlPre);
             pre.setString(1, User.getUserName());
@@ -55,8 +45,6 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             pre.setInt(6, User.getUserGender());
             pre.setDate(7, User.getBirthday());
             pre.setInt(8, User.getUserID());
-
-            //run
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -72,7 +60,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public void deleteUser(int uid) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     @Override
@@ -111,8 +99,6 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?,Birthday=? where UserID=?";
 
         try {
-            //System.out.println(sql);
-//        create statement: execute sql
             conn= getConnection();
             pre = conn.prepareStatement(sqlPre);
             pre.setString(1, User.getUserName());
@@ -122,7 +108,6 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             pre.setString(5, User.getUserPhone());
             pre.setDate(6, User.getBirthday());
             pre.setInt(7, User.getUserID());
-            //run
             pre.executeUpdate();
         } catch (SQLException ex) {
             throw ex;

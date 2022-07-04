@@ -4,7 +4,9 @@ package dao.impl;
 import entity.Message;
 import context.DBContext;
 import dao.MessageDAO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -20,52 +22,72 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
     @Override
     public int insertMessageCus(Message mess) throws Exception{
         int n = 0;
+        Connection conn = null;
+        PreparedStatement pre = null;
+        
         String sql = "insert into Message values(?,'','',?,?,'incoming_msg',0)";
           try {
-//        create statement: execute sql
-            PreparedStatement pre = conn.prepareStatement(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            
             pre.setInt(1, mess.getAccountID());
             pre.setString(2, mess.getDate());
             pre.setString(3, mess.getContent());
-                //run
                 n = pre.executeUpdate();
             } catch (SQLException ex) {
                 ex.printStackTrace();
-            }
+            }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
             return n;
     }
     @Override
     public int insertFeedback(Message mess) throws Exception{
         int n = 0;
+        Connection conn = null;
+        PreparedStatement pre = null;
         String sql = "insert into Message values(?,'','',?,N'"+mess.getContent()+"','',?)";
           try {
-//        create statement: execute sql
-            PreparedStatement pre = conn.prepareStatement(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
             pre.setInt(1, mess.getAccountID());
+            
             pre.setString(2, mess.getDate());
             pre.setInt(3, mess.getRoomID());
-                //run
                 n = pre.executeUpdate();
             } catch (SQLException ex) {
                 ex.printStackTrace();
-            }
+            }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
             return n;
     }
     @Override
     public int insertMessageRe(Message mess) throws Exception {
         int n = 0;
+        Connection conn = null;
+        PreparedStatement pre = null;
         String sql = "insert into Message values(?,'','',?,?,'outgoing_msg',0)";
           try {
-//        create statement: execute sql
-            PreparedStatement pre = conn.prepareStatement(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            pre = conn.prepareStatement(sql);
             pre.setInt(1, mess.getAccountID());
             pre.setString(2, mess.getDate());
             pre.setString(3, mess.getContent());
-                //run
                 n = pre.executeUpdate();
             } catch (SQLException ex) {
                 ex.printStackTrace();
-            }
+            }finally {
+
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
             return n;
     }
 
@@ -77,13 +99,5 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
     @Override
     public void deleteMessage(int mID) throws Exception {
        
-    }
-    public static void main(String[] args) {
-        MessageDAOImpl dao =new MessageDAOImpl();
-        try {
-            dao.insertFeedback(new Message(1, "2022/06/29", "Phòng đẹp", 2));
-        } catch (Exception ex) {
-            Logger.getLogger(MessageDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }
