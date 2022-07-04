@@ -330,7 +330,7 @@
                 </div>
 
                 <div class="card_button">
-                    <a href="ReceptionistController?do=profile"><button>Edit Profile</button></a>                       
+                    <a href="ReceptionistController?do=profile"><button>Thông tin</button></a>                       
                 </div>
 
             </div>
@@ -380,7 +380,7 @@
                 <thead>
                     <tr class="title">
                         <th>STT</th>
-                        <th>Tên phòng</th>
+                        <th>Số phòng</th>
                         <th>Miêu tả phòng </th>
                         <th>Giá phòng</th>
                         <th>Số người</th>

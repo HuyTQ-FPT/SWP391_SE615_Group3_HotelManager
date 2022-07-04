@@ -102,14 +102,14 @@
             <!-- Account page navigation-->
             <nav class="nav nav-borders">
 
-                <a class="nav-link" href="ReceptionistController"  target="__blank">HomeReceptionist</a>
+                <a class="nav-link" href="ReceptionistController"  target="__blank">Trang chủ</a>
             </nav>
             <hr class="mt-0 mb-4">
             <div class="row">
                 <div class="col-xl-4">
                     <!-- Profile picture card-->
                     <div class="card mb-4 mb-xl-0">
-                        <div class="card-header">Profile Picture</div>
+                        <div class="card-header">Thông tin ảnh</div>
                         <div class="card-body text-center">
                             <!-- Profile picture image-->
                             <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
@@ -127,12 +127,12 @@
                 <div class="col-xl-8">
                     <!-- Account details card-->
                     <div class="card mb-4">
-                        <div class="card-header">Account Details</div>
+                       
                         <div class="card-body">
                             <form>
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
-                                    <label class="small mb-1" for="inputYourname"  >Your Name</label>
+                                    <label class="small mb-1" for="inputYourname"  >Tên</label>
                                     <input class="form-control" id="inputUsername" readonly type="text"  value="<%=user.getUserName()%>">
                                 </div>
                                 <!-- Form Row-->
@@ -152,7 +152,7 @@
                                         <input class="form-control" id="inputLastName" readonly type="text" placeholder="Enter your last name" value="<%=user.getCMT()%>">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputAdress">Address</label>
+                                        <label class="small mb-1" for="inputAdress">Địa chỉ</label>
                                         <input class="form-control" id="inputLocation" readonly type="tel" placeholder="Enter your Location" value="<%=user.getUserAdress()%>">
                                     </div>
                                 </div>
@@ -160,19 +160,19 @@
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputPhone">Phone number</label>
+                                        <label class="small mb-1" for="inputPhone">Số điện thoại</label>
                                         <input class="form-control" id="inputPhone" type="tel" readonly value="<%=user.getUserPhone()%>">
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputBirthday">Birthday</label>
+                                        <label class="small mb-1" for="inputBirthday">Ngày sinh</label>
                                         <input class="form-control" id="inputBirthday" type="text" readonly name="birthday"  value="<%=user.getBirthday()%>">
                                     </div>
                                 </div>
                                 <!-- Save changes button-->
 
 
-                                <a href="ReceptionistController?do=ViewupdateRecept"  class="btn btn-primary" >Edit Profile </a> 
+                                <a href="ReceptionistController?do=ViewupdateRecept"  class="btn btn-primary" >Chỉnh sửa thông tin </a> 
                             </form>
                         </div>
                     </div>

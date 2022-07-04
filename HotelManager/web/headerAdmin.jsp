@@ -99,7 +99,8 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link d-block" href="LoginController?do=logout">
-                                Admin, <b>Logout</b>
+                            Admin, <span>Đăng xuất</span>
+                                    
                             </a>
                         </li>
                     </ul>

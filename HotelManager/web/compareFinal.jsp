@@ -102,7 +102,7 @@
         </div>
 
         <h2 style="margin-top: 20px">SO SÁNH PHÒNG</h2>
-        <div class="d-flex " style="margin-top: 100px;margin-left: 100px">
+        <div class="d-flex " style="margin-top: 100px;margin-left: 60px">
 
             <div class="" id="table1" >
                 <table border="1">
@@ -159,12 +159,12 @@
 
                                 <div class="add-to-cart">
                                     <form>    
-                                        <button style="position: fixed;top: 895px; right: -90px" 
+                                        <button style="position: fixed;top: 895px; right: -45px" 
                                                 class="add-to-cart-btn" ><i class="fas fa-eye"></i><a>Chi tiết phòng</a></button>
                                     </form>
                                     <form>
                                         <div class="add-to-cart">
-                                            <button style="position: fixed;top: 895px; right:-281px" 
+                                            <button style="position: fixed;top: 895px; right:-239px" 
                                                     class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i><a>Đặt phòng</a></button>
                                         </div>
                                     </form>
@@ -173,7 +173,7 @@
                                         <input type="hidden" name="roomid" value="${Rooom.getRoomID()}">
                                         <input type="hidden" name="cateroom" value="${cateid}">
                                         <div class="add-to-cart">
-                                            <button  style="position: fixed;top: 895px; right:-481px" 
+                                            <button  style="position: fixed;top: 895px; right:-444px" 
                                                      class="add-to-cart-btn" ><i class="fas fa-compress"></i><a>So sánh</a></button>
                                         </div>
                                     </form>
@@ -227,12 +227,12 @@
 
                                 <div class="add-to-cart">
                                     <form>    
-                                        <button style="position: fixed;top: 895px;right: -721px" 
+                                        <button style="position: fixed;top: 895px;right: -684px" 
                                                 class="add-to-cart-btn" ><i class="fas fa-eye"></i><a>Chi tiết phòng</a></button>
                                     </form>
                                     <form>
                                         <div class="add-to-cart">
-                                            <button style="position: fixed;top: 895px; right:-923px" 
+                                            <button style="position: fixed;top: 895px; right:-884px" 
                                                     class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i><a>Đặt phòng</a></button>
                                         </div>
                                     </form>
@@ -241,7 +241,7 @@
                                         <input type="hidden" name="roomid" value="${Rooom1.getRoomID()}">
                                       <input type="hidden" name="cateroom" value="${cateid}">
                                         <div class="add-to-cart">
-                                            <button style="position: fixed;top: 895px; right:-1112px" 
+                                            <button style="position: fixed;top: 895px; right:-1072px" 
                                                     class="add-to-cart-btn" ><i class="fas fa-compress"></i><a>So Sánh</a></button>
                                         </div>
                                     </form>

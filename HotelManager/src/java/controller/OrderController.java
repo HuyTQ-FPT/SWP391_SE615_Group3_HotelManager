@@ -1,4 +1,3 @@
-
 package controller;
 
 import dao.impl.DateOfRoomImpl;
@@ -180,12 +179,9 @@ public class OrderController extends HttpServlet {
                 dao2.addReservation(d);
                 int n = dao1.addReservation(re);
                 response.sendRedirect("HomeController");
-<<<<<<< Updated upstream
             }
             if (service.equals("yourbill")) {
-=======
-            }if (service.equals("yourbill")) {// Lịch sử mua hàng
->>>>>>> Stashed changes
+
                 Vector<Reservation> vector = new Vector<Reservation>();
                 String cid = request.getParameter("id");
                 Account acc = (Account) session.getAttribute("login");
@@ -203,14 +199,16 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("rs", rs);
                 RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
-            } if (service.equals("AddCartAdmin")) {
+            }
+            if (service.equals("AddCartAdmin")) {
                 ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
                         + " join Room r on r.RoomID=re.RoomID\n"
                         + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
                 request.setAttribute("rs", rs);
                 RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
-            }if (service.equals("UpdateCartAmin")) {
+            }
+            if (service.equals("UpdateCartAmin")) {
                 ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
                         + " join Room r on r.RoomID=re.RoomID\n"
                         + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");

@@ -153,7 +153,7 @@
 
                     <div class="wrapper col-md-5 ">
                         <div class="search-input" >
-                            <input  oninput="searchNameByAjax(this,${roomid},${cateid})" type="text" placeholder="Tìm kiếm tên phòng...">
+                            <input  oninput="searchNameByAjax(this,${roomid},${cateid})" maxlength="30" type="text" placeholder="Tìm kiếm tên phòng...">
                             <div class="icon"><i class="fas fa-search"></i></div>
                             <div class="autocom-box1"  id="hieu">
                                 <!--                                <li style="list-style: none">

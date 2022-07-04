@@ -383,14 +383,14 @@ Author     : admin
                                                     <input type="hidden" name="do" value="roomdetail">
                                                     <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
                                                     <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
-                                                    <button  style="margin-top: 10px;position: fixed;left: 43px;" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
+                                                    <button  style="margin-top: 10px;position: fixed;left: 10px;" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
                                             </form>
 
                                             <form action="CompareRoomController">
                                                 <input type="hidden" name="do" value="ViewCompare">
                                                 <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
                                                 <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
-                                                <button style="margin-left: 150px;position: fixed;left: 37px;top: 29px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
+                                                <button style="margin-left: 150px;position: fixed;left: 40px;top: 29px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
                                             </form>
                                         </div> 
                                     </div>

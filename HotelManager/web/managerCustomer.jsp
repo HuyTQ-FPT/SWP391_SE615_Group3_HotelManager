@@ -269,7 +269,7 @@
         <section class="ftco-section">
             <div class="card" id="team">
                 <div class="card_img">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                    <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                 </div>
                 <c:if test="${sessionScope.login!=null}">
                     <div class="card_name">
@@ -290,7 +290,7 @@
                 </div>
 
                 <div class="card_button">
-                    <a href="UserController"><button>Edit Profile</button></a>                       
+                    <a href="ReceptionistController?do=profile"><button>Thông tin</button></a>                          
                 </div>
 
             </div>
