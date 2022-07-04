@@ -406,7 +406,7 @@
                 function Load(){
                     var msg = document.getElementById("contentChat").value;
                     var getAcid = document.getElementById("getAcid").value;
-                $ajax({
+               $.ajax({
                     url:"/HotelManager/Chat",
                     type:"get",
                     data:{
@@ -416,7 +416,7 @@
                     success: function(data){
                         alert(msg+getAcid)
                         var x=document.getElementById("messageBody");
-                        x.innerHTML+=data;
+                         x.innerHTML =  x.innerHTML + data;
                     }
                 });
             }

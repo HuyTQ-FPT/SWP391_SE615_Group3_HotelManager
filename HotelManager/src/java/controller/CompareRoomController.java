@@ -70,7 +70,7 @@ public class CompareRoomController extends HttpServlet {
                 Vector<Room> vectorR = daoR.searchRoomNamebyAjax(name, cateID);
 
                 PrintWriter out = response.getWriter();
-
+                                                                
                 if (name.isEmpty()) {
                     out.print("");
                 } else if (vectorR.size() == 0) {

@@ -51,37 +51,35 @@
 
                                             </ul>
                                         </li>
-                                   
-                                        <c:if test="${sessionScope.login==null}">
-                                        <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>
-                                        </c:if>
-                                         <c:if test="${sessionScope.login!=null}">
-                                             <li><a style="font-family: PlayFair Display" href="OrderController?do=yourbill&id=${sessionScope.account.getAccountID()}">Your Cart</a></li>
-                                        </c:if>
+
+                                        <%
+                                            Account ac = (Account) session.getAttribute("login");
+                                            if (ac == null) {
+                                        %>
                                         <li><a style="font-family: PlayFair Display" href="BlogController?do=getBlog">Thông tin</a></li>
-                                      
-                                            <%
-                                                Account ac = (Account) session.getAttribute("login");
-                                                if (ac == null) {
-                                            %>
-                                              <li><a style="font-family: PlayFair Display" href="contact.jsp">Liên hệ</a></li>
+                                        <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>
+                                        <li><a style="font-family: PlayFair Display" href="contact.jsp">Liên hệ</a></li>
                                         <li class="login"><a style="font-family: PlayFair Display" href="LoginController">Đăng Nhập</a></li>
                                         <li class="register"><a style="font-family: PlayFair Display" href="Register.jsp">Đăng ký</a></li>
                                             <% } else if (ac.getRoleID() == 1) {%>
-                                          <li><a style="font-family: PlayFair Display" href="contact.jsp">Liên hệ</a></li>
+                                        <li><a style="font-family: PlayFair Display" href="BlogController?do=getBlog">Thông tin</a></li>
+                                        <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>
+                                        <li><a style="font-family: PlayFair Display" href="OrderController?do=yourbill&id=<%=ac.getAccountID()%>">Your Cart</a></li>
+                                        <li><a style="font-family: PlayFair Display" href="contact.jsp">Liên hệ</a></li>
                                         <li class="login"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Đăng xuất</a></li>
 
                                         <li class="user"><a id="showmore" onclick="show()" style="font-family: PlayFair Display; cursor: pointer;"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></a>
 
                                         </li>   
                                         <%} else if (ac.getRoleID() == 2) {%>
-                                          <li><a style="font-family: PlayFair Display" href="contact.jsp">Liên hệ</a></li>
+                                        <li><a style="font-family: PlayFair Display" href="BlogController?do=getBlog">Thông tin</a></li>
+                                        <li><a style="font-family: PlayFair Display" href="contact.jsp">Liên hệ</a></li>
                                         <li class="login"><a style="font-family: PlayFair Display; margin-right: 14px" href="ReceptionistController">Lễ Tân</a></li>
                                         <li class="register"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Đăng xuất</a></li>
                                             <%} else if (ac.getRoleID() == 3) {%>
                                         <li class="login"><a style="font-family: PlayFair Display; margin-right: 14px" href="AdminController">Admin</a></li>
                                         <li class="register"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Đăng xuất</a></li>
-                                        <%}%>
+                                            <%}%>
                                     </ul>
                                 </div>
                             </nav>

@@ -307,7 +307,7 @@
 
                     <!-- PRODUCTS Start
                     ================================================== -->
-                <%Vector<RoomByDate> vector = (Vector<RoomByDate>) request.getAttribute("vector"); %>
+                    <%Vector<RoomByDate> vector = (Vector<RoomByDate>) request.getAttribute("vector"); %>
                     <section id="shop">
                         <div class="container">
                             <div class="row">
@@ -319,7 +319,7 @@
                                     <div class="product-grid">
                                         <ul>
                                             <%for (RoomByDate v : vector) {%>
-                                            <li>
+                                            <li style="position: relative">
                                                 <div class="products">
                                                     <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
                                                         <img src="images/anhphong/<%=v.getImage()%>" alt="">
@@ -330,61 +330,77 @@
                                                         </c:forEach>
 
                                                     </div>
-                                                        <h4 style="font-size: 25px; text-align: center; padding-top: 20px; font-weight: bold;  font-family: Orbitron;"><i class='fas fa-user-alt' style="font-size:25px;padding-right: 15px">:</i><%=v.getNumberPerson()%></p></h4>
-                                                <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
-                                                    <h4 style="color: #b09700;font-size: 25px; text-align: center;font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%>-<%=v.getRoomname()%></h4>
+                                                    <h4 style="font-size: 25px; text-align: center; padding-top: 20px; font-weight: bold;  font-family: Orbitron;"><i class='fas fa-user-alt' style="font-size:25px;padding-right: 15px">:</i><%=v.getNumberPerson()%></p></h4>
+                                                    <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
+                                                        <h4 style="color: #b09700;font-size: 25px; text-align: center;font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%>-<%=v.getRoomname()%></h4>
                                                 </a>
                                                 <h1 style="color: red;font-size: 18px" class="price"> €<%=v.getRoomprice()%>/một đêm</h1>
-                                                    <div>
-                                                        <a class="view-link shutter" href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%> ">
-                                                            <i class="fa fa-plus-circle"></i>Đặt Phòng</a>
-                                                    </div>
-                                                </div>
-                                                <!-- End of /.products -->
-                                            </li>
-                                            <%}%>
-                                        </ul>
-                                    </div>
-                                    <div class="hieu">
-                                        <div class="col-md-12 text-center">
-                                            <div class="site-block-27" >
-                                                <ul>
-                                                    <c:if test="${!empty n}">
-                                                        <c:forEach begin="1" end="${n}" var="c" >
-                                                            <li><a href="RoomController?page=${c}">${c}</a></li>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${!empty n1}">
-                                                            <c:forEach begin="1" end="${n1}" var="c" >
-                                                            <li><a href="RoomController?do=sortByPriceMax&page=${c}">${c}</a></li>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${!empty n2}">
-                                                            <c:forEach begin="1" end="${n2}" var="c" >
-                                                            <li><a href="RoomController?do=sortByPriceMin&page=${c}">${c}</a></li>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${!empty n3}">
-                                                            <c:forEach begin="1" end="${n3}" var="c" >
-                                                            <li><a href="RoomController?do=sortByRate&page=${c}">${c}</a></li>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${!empty n4}">
-                                                            <c:forEach begin="1" end="${n4}" var="c" >
-                                                            <li><a href="RoomController?do=sortByPriceBetween&page=${c}">${c}</a></li>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                </ul>
+                                                    
+                                                <div class="hotel-room-body">
+                                              
+                                                <div class="add-to-cart">
+                                                        <form action="RoomController">
+                                                            <input type="hidden" name="do" value="roomdetail">
+                                                            <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
+                                                            <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
+                                                            <button  style="margin-top: 10px;position: fixed;left: 10px;" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
+                                                    </form>
+
+                                                    <form action="CompareRoomController">
+                                                        <input type="hidden" name="do" value="ViewCompare">
+                                                        <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
+                                                        <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
+                                                        <button style="margin-left: 150px;position: fixed;left: 40px;top: 29px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
+                                                    </form>
+                                                </div> 
                                             </div>
+                                                              
+                                                </div>
+                                            <!-- End of /.products -->
+                                        </li>
+                                        <%}%>
+                                    </ul>
+                                </div>
+                                <div class="hieu">
+                                    <div class="col-md-12 text-center">
+                                        <div class="site-block-27" >
+                                            <ul>
+                                                <c:if test="${!empty n}">
+                                                    <c:forEach begin="1" end="${n}" var="c" >
+                                                        <li><a href="RoomController?page=${c}">${c}</a></li>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${!empty n1}">
+                                                        <c:forEach begin="1" end="${n1}" var="c" >
+                                                        <li><a href="RoomController?do=sortByPriceMax&page=${c}">${c}</a></li>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${!empty n2}">
+                                                        <c:forEach begin="1" end="${n2}" var="c" >
+                                                        <li><a href="RoomController?do=sortByPriceMin&page=${c}">${c}</a></li>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${!empty n3}">
+                                                        <c:forEach begin="1" end="${n3}" var="c" >
+                                                        <li><a href="RoomController?do=sortByRate&page=${c}">${c}</a></li>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                    <c:if test="${!empty n4}">
+                                                        <c:forEach begin="1" end="${n4}" var="c" >
+                                                        <li><a href="RoomController?do=sortByPriceBetween&page=${c}">${c}</a></li>
+                                                        </c:forEach>
+                                                    </c:if>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End of /.col-md-9 -->
-                                <div class="col-md-2">
-                                    <div class="blog-sidebar">
-                                        <div class="block">
-                                            <h4>Catagories</h4>
-                                            <div class="list-group" style="width: 250px">
+                            </div>
+                            <!-- End of /.col-md-9 -->
+                            <div class="col-md-2">
+                                <div class="blog-sidebar">
+                                    <div class="block">
+                                        <h4>Catagories</h4>
+                                        <div class="list-group" style="width: 250px">
                                                 <a href="RoomController?do=CateRoom&cate=1" class="list-group-item" style="font-size: 15px">
                                                     <i class="fa  fa-dot-circle-o"></i> Standard
                                                 </a>
