@@ -1,20 +1,15 @@
 
-
-<%@page import="dao.impl.MessageDAOImpl"%>
 <%@page import="entity.Account"%>
 <%@page import="java.sql.ResultSet"%>
+<%@page import="dao.impl.MessageDAOImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 
 <html>
     <head>
-
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"
-
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet"s
     </head>
     <style>
         body{
@@ -141,7 +136,7 @@
             font-size: 12px;
             margin: 8px 0 0;
         }
-        .received_withd_msg { width: 57%;margin-top: 7px;margin-bottom: 7px;}
+        .received_withd_msg { width: 57%; margin-top: 7px;margin-bottom: 7px;}
         .mesgs {
             float: left;
             padding: 30px 15px 0 25px;
@@ -224,8 +219,10 @@
     <body>
         <%
             MessageDAOImpl dao = new MessageDAOImpl();
-            Account a =(Account)session.getAttribute("login");
-            ResultSet rs =(ResultSet)dao.getData("select * from Message where AccountID="+a.getAccountID());            
+            Account a = (Account) session.getAttribute("login");
+            ResultSet rs1 = (ResultSet) dao.getData("select distinct AccountID from Message");
+            int aid = (int) Integer.parseInt(request.getAttribute("accountid").toString());
+            ResultSet rs = (ResultSet) dao.getData("select * from Message where AccountID=" + aid);
         %>
         <script>
             var messageBody = document.querySelector('#messageBody');
@@ -236,6 +233,7 @@
         <h2 class="mb-0 site-logo hh"><a href="HomeController">Hoang Hon</a></h2>
         <div class="container">
             <div class="messaging">
+                <% if (a.getRoleID() == 1) {%>
                 <div class="inbox_msg">
                     <div class="inbox_people">
                         <div class="headind_srch">
@@ -259,10 +257,11 @@
                         </div>
                     </div>
                     <div class="mesgs">
-                        <div class="msg_history" id='messageBody'>
-                            <%while (rs.next()) {                                    
+                        <div class="msg_history">
+                            <div id="messageBody">
+                            <%while (rs.next()) {
                             %>
-                            <%if(rs.getString(7).equals("outgoing_msg")){%>
+                            <%if (rs.getString(7).equals("outgoing_msg")) {%>
                             <div class="incoming_msg">             
                                 <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>              
                                 <div class="received_msg">
@@ -271,28 +270,151 @@
                                     </div>                         
                                 </div>
                             </div>
-                            <% }else if(rs.getString(7).equals("incoming_msg")){ %>
+                            <% } else if (rs.getString(7).equals("incoming_msg")) {%>
                             <div class="outgoing_msg">
                                 <div class="sent_msg">
                                     <p><%=rs.getString(6)%></p>
                                 </div>
                             </div> 
-                            <% } }%>
-                                <form action="MessageController?do=messCus" method="post">
-                                    <input type="hidden" value="<%=a.getAccountID()%>" name="accountID">
-                            <div class="type_msg">
-                                <div class="input_msg_write">
-                                    <input type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
-                                    <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
-                                </div>
+                            <% }
+                                }%>
                             </div>
-                            </form>
+                                <input id="getAcid" type="hidden" value="<%=a.getAccountID()%>" name="accountID">
+                                <div class="type_msg">
+                                    <div class="input_msg_write">
+                                        <input id="contentChat" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
+                                        <button class="msg_send_btn" onclick="Load(<%=a.getAccountID()%>)"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>                          
                         </div>
                     </div>                        
                 </div>
+                <% } else {%>
+                <div class="inbox_msg">
+                    <div class="inbox_people">
+                        <div class="headind_srch">
+                            <div class="srch_bar">
+                                <form action="MessageController?do=SearchChatCustomer" method="post">
+                                    <div class="stylish-input-group">
+                                        <input type="text" class="search-bar" name="name" placeholder="Search" value="">
+                                        <span class="input-group-addon">
+                                            <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                        </span> </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="inbox_chat">
+                            <%if (request.getAttribute("found") == null) {%>
+                            <% while (rs1.next()) {
+                                    ResultSet rs2 = (ResultSet) dao.getData("select u.* from Account a join [User] u on a.AccountID=u.AccountID where a.AccountID=" + rs1.getInt(1));
+                                    while (rs2.next()) {
+                                        if (rs1.getInt(1) == Integer.parseInt(request.getAttribute("accountid").toString())) {%>
+                            <a href="MessageController?do=Chat_people&accountid=<%=rs1.getInt(1)%>">                               
+                                <div class="chat_list active_chat">
+                                    <div class="chat_people">
+                                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                        <div class="chat_ib">
+                                            <h5><%=rs2.getString(3)%></h5>
+                                        </div>
+                                    </div>
+                                </div>            
+                            </a>
+                            <% } else {%>
+                            <a href="MessageController?do=Chat_people&accountid=<%=rs1.getInt(1)%>">                               
+                                <div class="chat_list">
+                                    <div class="chat_people">
+                                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                        <div class="chat_ib">
+                                            <h5><%=rs2.getString(3)%></h5>
+                                        </div>
+                                    </div>
+                                </div>       
+                            </a>
+                            <% }
+                                    }
+                                }
+                            } else {
+                                ResultSet rs4 = (ResultSet) request.getAttribute("rs");
+                                while (rs4.next()) {
+                            %>
+                            <a href="MessageController?do=Search_Chat_people&accountid=<%=rs4.getInt(2)%>">                               
+                                <div class="chat_list">
+                                    <div class="chat_people">
+                                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                        <div class="chat_ib">
+                                            <h5><%=rs4.getString(3)%></h5>
+                                        </div>
+                                    </div>
+                                </div>            
+                            </a>
+                            <% }
+                                }%>
+                        </div>
+                    </div>
+                    <div class="mesgs">
+                        <div class="msg_history" id='messageBody'>
+                            <% while (rs.next()) {
+                                    if (rs.getString(7).equals("incoming_msg")) {%>
+                            <div class="incoming_msg">             
+                                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>              
+                                <div class="received_msg">
+                                    <div class="received_withd_msg">
+                                        <p><%=rs.getString(6)%></p>
+                                    </div>                         
+                                </div>
+                            </div>
+                            <% } else if (rs.getString(7).equals("outgoing_msg")) {%>
+                            <div class="outgoing_msg">
+                                <div class="sent_msg">
+                                    <p><%=rs.getString(6)%></p>
+                                </div>
+                            </div> 
+                            <% }
+                                } %>
+                            <%if (request.getAttribute("found") == null) {%>
+                            <form action="MessageController?do=messRe" method="post">
+                                <input type="hidden" value="<%=aid%>" name="accountID">
+                                <div class="type_msg">
+                                    <div class="input_msg_write">
+                                        <input type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
+                                        <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                            <% } else {%>
+                            <form action="MessageController?do=OnlymessRe" method="post">
+                                <input id="getAcid" type="hidden" value="<%=aid%>" name="accountID">
+                                <div class="type_msg">
+                                    <div class="input_msg_write">
+                                        <input id="contentChat" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
+                                        <button class="msg_send_btn" type="submit" onclick="Load(<%=aid%>,)"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                            <% }%>
+                        </div>
+                    </div> 
+                </div>
+                <% }%>
             </div>
         </div>
-    </div>
-</div>
-</body>
+            <script>
+                function Load(param){
+                    var msg = document.getElementById("contentChat").value;
+                    var cid = param;
+                $ajax({
+                    url:"/HotelManager/Chat",
+                    type:"get",
+                    data:{
+                        message: msg,
+                        accountID: cid
+                    },
+                    success: function(data){
+                        var row =document.getElementById("messageBody");
+                        row.innerHTML+=data;
+                    }
+                });
+            }
+            </script>
+    </body>
 </html>

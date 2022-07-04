@@ -261,7 +261,8 @@
                         </div>
                     </div>
                     <div class="mesgs">
-                        <div class="msg_history" id='messageBody'>
+                        <div class="msg_history">
+                            <div id="messageBody">
                             <%while (rs.next()) {
                             %>
                             <%if (rs.getString(7).equals("outgoing_msg")) {%>
@@ -281,15 +282,14 @@
                             </div> 
                             <% }
                                 }%>
-                            <form action="MessageController?do=messCus" method="post">
-                                <input type="hidden" value="<%=a.getAccountID()%>" name="accountID">
+                            </div>
+                                <input id="getAcid" type="hidden" value="<%=a.getAccountID()%>" name="accountID">
                                 <div class="type_msg">
                                     <div class="input_msg_write">
-                                        <input type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
-                                        <button class="msg_send_btn" type="submit" onclick="Load()"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                        <input id="contentChat" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
+                                        <button class="msg_send_btn" onclick="Load()"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
                                     </div>
-                                </div>
-                            </form>
+                                </div>                          
                         </div>
                     </div>                        
                 </div>
@@ -357,7 +357,6 @@
                     </div>
                     <div class="mesgs">
                         <div class="msg_history" id='messageBody'>
-
                             <% while (rs.next()) {
                                     if (rs.getString(7).equals("incoming_msg")) {%>
                             <div class="incoming_msg">             
@@ -388,10 +387,10 @@
                             </form>
                             <% } else {%>
                             <form action="MessageController?do=OnlymessRe" method="post">
-                                <input type="hidden" value="<%=aid%>" name="accountID">
+                                <input id="getAcid" type="hidden" value="<%=aid%>" name="accountID">
                                 <div class="type_msg">
                                     <div class="input_msg_write">
-                                        <input type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
+                                        <input id="contentChat" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
                                         <button class="msg_send_btn" type="submit" onclick="Load()"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
@@ -405,16 +404,19 @@
         </div>
             <script>
                 function Load(){
+                    var msg = document.getElementById("contentChat").value;
+                    var getAcid = document.getElementById("getAcid").value;
                 $ajax({
                     url:"/HotelManager/Chat",
                     type:"get",
-                    datatype:"text",
-                    data
                     data:{
-                        data:"<h2>Login Admin</h2>"
+                        message: msg,
+                        accountID: getAcid
                     },
-                    success: function(){
-                        
+                    success: function(data){
+                        alert(msg+getAcid)
+                        var x=document.getElementById("messageBody");
+                        x.innerHTML+=data;
                     }
                 });
             }

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : History
-    Created on : Jun 21, 2022, 10:16:32 AM
-    Author     : admin
---%>
 
 <%@page import="java.sql.ResultSet"%>
 <%@page import="context.DBContext"%>
@@ -42,7 +37,7 @@
         <script src="js/main.js" type="text/javascript"></script>
         <style>
             .hd button{
-                background-color: #4CAF50; /* Green */
+                background-color: #4CAF50; 
                 border: none;
                 color: white;
                 padding: 15px 32px;
@@ -71,7 +66,6 @@
                         <div class="col-md-6">
                             <h1 style="color: orangered">Lịch sử đặt phòng</h1>
                         </div>
-                        <!-- End of /.col-md-4 -->
                     </div>
                 </div>
             </section>
@@ -120,13 +114,6 @@
             </div>
         </div>
     </body>
-           
-               <!-- Breadcrumbs Start
-                ================================================== -->
-                    
-           
-        <!-- FOOTER Start
-        ================================================== -->
         <jsp:include page="footer.jsp"></jsp:include>
 
 </html>
