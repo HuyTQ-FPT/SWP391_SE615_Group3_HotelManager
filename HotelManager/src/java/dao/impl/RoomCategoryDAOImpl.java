@@ -39,11 +39,17 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
 
     public static void main(String[] args) {
         RoomCategoryDAOImpl dao = new RoomCategoryDAOImpl();
-//        Vector<RoomCategory> vector = dao.getRoomCategoryList("select * from CateRoom");
+//        Vector<RoomCategory> vector = dao.getRoomCategoryList("with t as(select *, ROW_NUMBER() OVER (order by CateRoom.RoomCateID)\n"
+//                + "                AS RowNum from CateRoom )\n"
+//                + "				select * from t \n"
+//                + "				Where RowNum between 1 AND 3");
+//int n = dao.getPage("select count (*) from CateRoom");
+//        System.out.println(n);
 //        for (RoomCategory roomCategory : vector) {
-//        System.out.println(vector.lastElement().getRoomcateID());
-//        dao.insertRoomCategory("nguyen van a");
-        dao.deleteRoomCategory("15");
+////        System.out.println(vector.lastElement().getRoomcateID());
+////        dao.insertRoomCategory("nguyen van a");
+//            System.out.println(roomCategory);
+////        dao.deleteRoomCategory("15");
 //        }
     }
 
@@ -53,31 +59,52 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
     }
 
     @Override
-    public void insertRoomCategory(String roomcatename) {
-        String query = "insert into CateRoom (Catename) \n"
-                + "values (?);\n"
-                + "insert into Room ([Roomname],[Roomdesc],[RoomcateID],[RoomimgaeID] ,\n"
-                + "[Roomprice],[NumberPerson],[Square],[Comment],[Rate],[Note],[Status]) \n"
-                + "values (null, null, @@identity, null, null, null, null, null, null, null, null);";
+    public void insertRoomCategory(String roomcatename, String roomcatedes) {
+        String query = "insert into CateRoom (Catename, [note]) \n"
+                + "                values (?,?);";
         try {
             PreparedStatement pre = conn.prepareStatement(query);
             pre.setString(1, roomcatename);
+            pre.setString(2, roomcatedes);
             pre.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public int getPage(String sql) {
+        int n = 0;
+        try {
+            int totalPage = 0;
+            int countPage = 0;
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                totalPage = rs.getInt(1);
+                countPage = totalPage / 3;
+                if (totalPage % 3 != 0) {
+                    countPage++;
+                }
+                return countPage;
+            }
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+
     @Override
-    public void updateRoomCategory(String RoomCategoryid, String roomcatename) {
+    public void updateRoomCategory(String RoomCategoryid, String roomcatename, String roomcatedes) {
         String query = "UPDATE [dbo].[CateRoom]\n"
                 + "   SET [Catename] = ?\n"
-                + "   ,[Note] = null\n"
+                + "   ,[Note] = ?\n"
                 + "   WHERE RoomcateID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(query);
             pre.setString(1, roomcatename);
-            pre.setString(2, RoomCategoryid);
+            pre.setString(2, roomcatedes);
+            pre.setString(3, RoomCategoryid);
             pre.executeUpdate();
             System.out.println("done");
         } catch (Exception e) {

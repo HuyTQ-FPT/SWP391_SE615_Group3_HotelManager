@@ -10,9 +10,9 @@ public interface RoomCategoryDAO {
 
     public RoomCategory getAccount(int cateid);
 
-    public void insertRoomCategory(String roomcatename);
+    public void insertRoomCategory(String roomcatename, String roomcatedes);
 
-    public void updateRoomCategory(String RoomCategoryid, String roomcatename);
+    public void updateRoomCategory(String RoomCategoryid, String roomcatename, String roomcatedes);
 
     public void deleteRoomCategory(String roomcate);
 

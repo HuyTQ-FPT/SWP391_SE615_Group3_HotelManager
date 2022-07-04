@@ -135,7 +135,7 @@ public class ServiceController extends HttpServlet {
             }
             if (doo.equals("updatetRoomCategory")) {
                 String Roomcatename = request.getParameter("Roomcatename");
-                roomcate.updateRoomCategory(cateroom, Roomcatename);
+                roomcate.updateRoomCategory(cateroom, Roomcatename,"");
                 response.sendRedirect("ServiceController?do=getdeviceroom&cateroom=" + cateroom + "&Mess=" + Messs + "");
             }
         }

@@ -263,7 +263,7 @@ public class ImageController extends HttpServlet {
                 if (image4.length() <= 2 || image4.equals("")) {
                     image4 = img.getImage4();
                 }
-                dao.crudImage("UPDATE [dbo].[Image]\n"
+                dao.crudRoom("UPDATE [dbo].[Image]\n"
                         + "   SET [image1] = '" + image1 + "'\n"
                         + "      ,[image2] = '" + image3 + "'\n"
                         + "      ,[image3] = '" + image2 + "'\n"

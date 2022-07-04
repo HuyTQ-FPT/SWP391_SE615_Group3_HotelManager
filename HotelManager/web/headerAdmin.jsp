@@ -47,7 +47,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ServiceController?do=getdeviceroom">
+                            <a class="nav-link" href="RoomcategoryController?do=getroombycategori&i=1">
                                 <i class="fas fa-shopping-cart"></i>
                                 Phòng
                             </a>
