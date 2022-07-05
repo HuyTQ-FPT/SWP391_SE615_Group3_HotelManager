@@ -203,10 +203,10 @@
                                 <input  type="checkbox" name="service" value="<%=e.getServiceID()%>">
                                 <label style="display:inline-block;"for="vehicle1"><%=e.getServiceName()%> </label><br>
                                 <%}%>
-                                <label style="padding-top: 30px;"for="ccnum">Check in</label>
-                                <input name="checkin" type="date"  class="form-control" id="inputCheckIn" placeholder="Check In" style="font-size: 20px" min="<%=date%>" required>
+                                <label style="padding-top: 30px;">Check in</label>
+                                <input name="checkin" type="date" class="form-control" id="inputCheckIn" style="font-size: 20px" min="<%=date%>" required>
                                 <label for="expmonth" style="padding-top: 10px">Check out</label>
-                                <input name="checkout" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out" style="font-size: 20px" min="<%=date%>" required>
+                                <input name="checkout" type="date" class="form-control" id="inputCheckOut" style="font-size: 20px" min="<%=date%>" required>
 
                             </div>
 

@@ -1,4 +1,5 @@
 
+<%@page import="java.sql.ResultSet"%>
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <link rel="stylesheet" 
@@ -55,54 +56,74 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     <div class="row">
                         <div> <!--class="col-lg-12 col-md-12"-->
                             <div class="cart-table-wrap" >
-                            
+                            <% ResultSet rs= (ResultSet)request.getAttribute("rs");
+                            while(rs.next()){
+                            %>
                             <form action="ControllerAdmin" method="get" style="padding-bottom: 100px; padding-top: 50px;padding-left: 80px;font-size: 30px" >
                                 <input type="hidden" name="do" value="updateO">
                                 <table class="table">                                    
                                     <tr>
-                                        <th style="padding-top: 16px;">Order ID</th>
+                                        <th style="padding-top: 16px;">Tên</th>
                                         <td>
                                             <input value="" type="text" name="id" readonly>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="padding-top: 16px;">Customer ID</th>
+                                        <th style="padding-top: 16px;">Hình ảnh</th>
                                         <td>
                                             <input value="" type="text" name="cid" readonly>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="padding-top: 16px;">Customer Name</th>
+                                        <th style="padding-top: 16px;">Tên khách hàng</th>
                                         <td>
                                             <input value="" type="text" name="cname" >
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="padding-top: 16px;">Phone Number</th>
+                                        <th style="padding-top: 16px;">Email</th>
                                         <td>
                                             <input value="" type="text" name="phone">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="padding-top: 16px;">Gmail</th>
+                                        <th style="padding-top: 16px;">Địa chỉ</th>
                                         <td>
                                             <input value="" type="text" name="gmail">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="padding-top: 16px;">Address</th>
+                                        <th style="padding-top: 16px;">Số điện thoại</th>
                                         <td>
                                             <input value="" type="text" name="add">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="padding-top: 16px;">Total</th>
+                                        <th style="padding-top: 16px;">Số người đến</th>
                                         <td>
                                             <input value="" type="text" name="total">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="padding-top: 16px;">Status</th>
+                                        <th style="padding-top: 16px;">Ngày đến</th>
+                                        <td>
+                                            <input value="" type="text" name="total">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="padding-top: 16px;">Ngày đi</th>
+                                        <td>
+                                            <input value="" type="text" name="total">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="padding-top: 16px;">Tổng giá</th>
+                                        <td>
+                                            <input value="" type="text" name="total">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="padding-top: 16px;">Trạng thái</th>
                                     <td style="padding-top: 12px;"> 
                                     <select name="status" style="font-size: 18px;">
                                         <option value="1" >New</option>
@@ -112,14 +133,20 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                      </td>
                                     </tr>
                                     <tr>
+                                        <th style="padding-top: 16px;">Ngày đặt hóa đơn</th>
+                                        <td>
+                                            <input value="" type="text" name="total">
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td></td>
                                         <td style="padding-left: 400px; color: red">
                                             <button type="submit" onclick="showMess()">Update</button>
                                         </td>
                                     </tr>
                                 </table>
-
                             </form>
+                            <%}%>
                         </div>
                     </div>
                 </div>

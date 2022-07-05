@@ -53,7 +53,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 <tr>  
                     <th style="text-align: center">Tên</th>  
                     <th style="text-align: center">Hình ảnh</th>  
-                    <th style="text-align: center">Tên người dùng</th>  
+                    <th style="text-align: center">Tên khách hàng</th>  
                     <th style="text-align: center">Email</th>  
                     <th style="text-align: center">Địa chỉ</th>  
                     <th style="text-align: center">Số điện thoại</th>  
@@ -86,7 +86,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <td style="background-color: 435C70 ; text-align: center"><%=rs.getString(10) %></td>  
                         <td style="background-color: 435C70 ; text-align: center"><%=rs.getString(11) %></td>  
                         <td style="background-color: 435C70 ; text-align: center"><%=rs.getString(12) %></td>  
-                        <td style="background-color: 435C70 " ><a style="border-radius: 10px;" href="" class="btn btn-info" role="button">Cập nhật hoá đơn</a></td>  
+                        <td style="background-color: 435C70 " ><a style="border-radius: 10px;" href="OrderController?do=UpdateCartAdmin&id=<%=rs.getInt(13) %>" class="btn btn-info" role="button">Cập nhật hoá đơn</a></td>  
                         <td style="background-color: 435C70">
                             <a style="margin-left: 20px" href="" class="tm-product-delete-link">
                                 <i class="far fa-trash-alt tm-product-delete-icon">

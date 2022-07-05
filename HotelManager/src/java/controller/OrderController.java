@@ -70,13 +70,11 @@ public class OrderController extends HttpServlet {
             }
             if (service.equalsIgnoreCase("user")) {
                 String userid = request.getParameter("user");
-                System.out.println(userid);
                 String i = request.getParameter("id");
                 int id = Integer.parseInt(i);
                 Vector<Service> vector = daos.getServiceList();
-                ResultSet rs1 = db.getData(" select * from Account a  INNER JOIN [User] u \n"
-                        + " on a.AccountID=u.AccountID" + userid);
-
+                ResultSet rs1 = db.getData("select * from Account a  INNER JOIN [User] u \n"
+                        + " on a.AccountID=u.AccountID where a.AccountID=" + userid);
                 ResultSet rs = db.getData("select* from Room r\n"
                         + " inner join Image i on r.RoomimgaeID=i.RoomimgaeID \n"
                         + "join CateRoom c on \n"
@@ -98,8 +96,8 @@ public class OrderController extends HttpServlet {
                 String email = request.getParameter("email").trim();
                 String address = request.getParameter("address").trim();
                 String phone = request.getParameter("phone").trim();
-                String checkin = request.getParameter("checkin").trim();
-                String checkout = request.getParameter("checkout").trim();
+                String checkin = request.getParameter("checkin");
+                String checkout = request.getParameter("checkout");
                 String adult = request.getParameter("Adult").trim();
                 String child = request.getParameter("Child").trim();
                 // Lấy price service
@@ -107,27 +105,30 @@ public class OrderController extends HttpServlet {
                 String serv = "";
                 double price = 0;
                 // lay service price and name
-                if (!(serviceId.length == 0)) {
-                    for (int i = 0; i < serviceId.length; i++) {
-                        Integer f = Integer.parseInt(serviceId[i]);
-                        ResultSet rs = db.getData("select * from Service where ServiceID=" + f);
-                        while (rs.next()) {
-                            price += rs.getDouble(6);
-                            serv += rs.getString(2) + ";";
+                if (serviceId != null) {
+                    if (!(serviceId.length == 0)) {
+                        for (int i = 0; i < serviceId.length; i++) {
+                            Integer f = Integer.parseInt(serviceId[i]);
+                            ResultSet rs = db.getData("select * from Service where ServiceID=" + f);
+                            while (rs.next()) {
+                                price += rs.getDouble(6);
+                                serv += rs.getString(2) + ";";
+                            }
                         }
                     }
                 }
                 int a = Integer.parseInt(adult) + Integer.parseInt(child); // number of person
                 int id = Integer.parseInt(key);
                 // ép type date check in check out
-                SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 Date date1 = (Date) format.parse(checkin);
                 java.sql.Date sDate = new java.sql.Date(date1.getTime());
 
                 Date date2 = (Date) format.parse(checkout);
                 java.sql.Date cDate = new java.sql.Date(date2.getTime());
-                double total = price + Double.parseDouble(money);
 
+                double total = price + Double.parseDouble(money);
                 long millis = System.currentTimeMillis();
                 java.sql.Date date = new java.sql.Date(millis);
                 Account acc = (Account) session.getAttribute("login");
@@ -151,13 +152,13 @@ public class OrderController extends HttpServlet {
                 String email = request.getParameter("email").trim();
                 String address = request.getParameter("address").trim();
                 String phone = request.getParameter("phone").trim();
-                String checkin = request.getParameter("checkin").trim();
-                String checkout = request.getParameter("checkout").trim();
+                String checkin = request.getParameter("checkin");
+                String checkout = request.getParameter("checkout");
                 String a = request.getParameter("number").trim();
                 // Lấy price service
                 int id = Integer.parseInt(key);
                 // ép type date check in check out
-                SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 Date date1 = (Date) format.parse(checkin);
                 java.sql.Date sDate = new java.sql.Date(date1.getTime());
 
@@ -181,19 +182,16 @@ public class OrderController extends HttpServlet {
                 response.sendRedirect("HomeController");
             }
             if (service.equals("yourbill")) {
-
                 Vector<Reservation> vector = new Vector<Reservation>();
                 String cid = request.getParameter("id");
-                Account acc = (Account) session.getAttribute("login");
-                int l = acc.getAccountID();
-                vector = dao1.Reservation("select * from Reservation where UserID=" + l);
+                vector = dao1.Reservation("select * from Reservation where UserID=" + cid);
                 request.setAttribute("vector", vector);
-                request.setAttribute("aid", l);
+                request.setAttribute("aid", cid);
                 RequestDispatcher dispath = request.getRequestDispatcher("History.jsp");
                 dispath.forward(request, response);
             }
             if (service.equals("showCartAdmin")) {
-                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID  from Reservation re\n"
                         + " join Room r on r.RoomID=re.RoomID\n"
                         + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
                 request.setAttribute("rs", rs);
@@ -201,17 +199,19 @@ public class OrderController extends HttpServlet {
                 dispath.forward(request, response);
             }
             if (service.equals("AddCartAdmin")) {
-                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID  from Reservation re\n"
                         + " join Room r on r.RoomID=re.RoomID\n"
                         + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
                 request.setAttribute("rs", rs);
                 RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
             }
-            if (service.equals("UpdateCartAmin")) {
+            if (service.equals("UpdateCartAdmin")) {
+                String oid = request.getParameter("id");
+                int id = Integer.parseInt(oid);
                 ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
                         + " join Room r on r.RoomID=re.RoomID\n"
-                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
+                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID where re.RoomID=" + id);
                 request.setAttribute("rs", rs);
                 RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
