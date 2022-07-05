@@ -72,7 +72,7 @@
 
                                         </li>   
                                         <%} else if (ac.getRoleID() == 2) {%>
-                                        <li><a style="font-family: PlayFair Display" href="BlogController?do=getBlog">Thông tin</a></li>
+                                      //   <li><a style="font-family: PlayFair Display" href="BlogController?do=getBlog">Thông tin</a></li>
                                         <li><a style="font-family: PlayFair Display" href="contact.jsp">Liên hệ</a></li>
                                         <li class="login"><a style="font-family: PlayFair Display; margin-right: 14px" href="ReceptionistController">Lễ Tân</a></li>
                                         <li class="register"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Đăng xuất</a></li>

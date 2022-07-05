@@ -21,10 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Minh Hiếu
- */
+
 @WebServlet(name = "ReceptionistController", urlPatterns = {"/ReceptionistController"})
 public class ReceptionistController extends HttpServlet {
 
@@ -40,39 +37,30 @@ public class ReceptionistController extends HttpServlet {
             if (service == null) {
                 service = "Room";
             }
-            if (service.equalsIgnoreCase("Room")) { //In ra tất cả các phòng
-
-                Vector<Room> vectorR = daoR.getRoomListAll("select*from Room");
+            if (service.equals("Room")) { //In ra tất cả các phòng
+                Vector<Room> vectorR = daoR.getRoomListAll("select * from Room");
                 request.setAttribute("vectorR", vectorR);
                 request.getRequestDispatcher("managerRoom.jsp").forward(request, response);
-
             }
-
             if (service.equals("updateStatus")) { // cập nhật trạng thái phòng
-
                 String rId = request.getParameter("rid");
                 String status = request.getParameter("status");
                 int Rid = Integer.parseInt(rId);
                 int status1 = Integer.parseInt(status);
                 daoR.updateStatus(Rid, status1);
                 response.sendRedirect("ReceptionistController");
-
             }
             if (service.equalsIgnoreCase("Cus")) { // In ra tất cả các khách hàng
-
                 Vector<User> vectorU = dao.getCustomerListByReceptionist();
                 request.setAttribute("vectorU", vectorU);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
-
             }
+           
             if (service.equalsIgnoreCase("profile")) { // xem thông tin
-
                 Account ac = (Account) session.getAttribute("login");
-
                 User u = daoU.getUser(ac.getAccountID());
                 request.setAttribute("u", u);
                 request.getRequestDispatcher("profileReceptionist.jsp").forward(request, response);
-
             }
             if (service.equalsIgnoreCase("ViewupdateRecept")) { // chuyen toi update profile 
                 Account ac = (Account) session.getAttribute("login");
@@ -80,7 +68,6 @@ public class ReceptionistController extends HttpServlet {
                 session.setAttribute("u", u);
                 request.setAttribute("a", u);
                 request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
-
             }
             if (service.equalsIgnoreCase("updateRecept")) { // cập nhật thông tin
 
@@ -167,14 +154,6 @@ public class ReceptionistController extends HttpServlet {
 
     }
 
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -187,14 +166,7 @@ public class ReceptionistController extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -207,14 +179,9 @@ public class ReceptionistController extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

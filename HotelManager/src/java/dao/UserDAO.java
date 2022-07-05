@@ -16,6 +16,8 @@ public interface UserDAO {
     public void deleteUser(int uid) throws Exception;
 
     public User getUser(int accountID) throws Exception;
+    
+    public User getUserByaID(int accountID) throws Exception;
 
     public boolean isNumeric(String str) throws Exception;
 

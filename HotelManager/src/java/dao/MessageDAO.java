@@ -6,7 +6,7 @@ import java.util.Vector;
 
 
 public interface MessageDAO {
-    public Vector<Message> getAllImage() throws Exception;
+    public Vector<Message> getAllComment() throws Exception;
     public int insertMessageCus(Message mess) throws Exception;
     public int insertFeedback(Message mess) throws Exception;
     public int insertMessageRe(Message mess) throws Exception;

@@ -6,7 +6,7 @@ import java.util.Vector;
 
 public interface AccountDAO {
 
-    public Vector<Account> getAccountList(int aID) throws Exception;
+    public Vector<Account> getAccountList() throws Exception;
 
     public Account getAccount(String aName, String aPass) throws Exception;
 

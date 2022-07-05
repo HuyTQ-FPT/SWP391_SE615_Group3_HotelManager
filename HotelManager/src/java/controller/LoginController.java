@@ -76,7 +76,6 @@ public class LoginController extends HttpServlet {
                         response.addCookie(pass);
                         response.addCookie(user);
                     }
-                    System.out.println(rs.getString(2));
                     if (rs.getString(2).equals("1")) {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
                         response.sendRedirect("HomeController");

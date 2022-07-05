@@ -180,7 +180,7 @@ public class OrderController extends HttpServlet {
                 int n = dao1.addReservation(re);
                 response.sendRedirect("HomeController");
             }
-            if (service.equals("yourbill")) {
+            if (service.equals("yourbill")) {// Lịch sử mua hàng
 
                 Vector<Reservation> vector = new Vector<Reservation>();
                 String cid = request.getParameter("id");

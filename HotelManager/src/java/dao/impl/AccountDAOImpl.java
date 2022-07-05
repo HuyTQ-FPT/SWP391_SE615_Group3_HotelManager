@@ -16,8 +16,37 @@ import java.util.logging.Logger;
 public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
-    public Vector<Account> getAccountList(int aID) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Vector<Account> getAccountList() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
+        Vector<Account> vector = new Vector<>();
+        try {
+            String sql = "select * from Account";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int AccountID = rs.getInt(1);
+                int RoleID = rs.getInt(2);
+                String Username = rs.getString(3);
+                String Password = rs.getString(4);
+                Account a = new Account(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
+                vector.add(a);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;   
     }
 
     @Override
@@ -47,6 +76,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         }
         return null;
     }
+
 
     @Override
     public void insertAccount(int aRole, String aName, String aPass) throws Exception {

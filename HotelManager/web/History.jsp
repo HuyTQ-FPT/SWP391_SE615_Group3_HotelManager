@@ -94,6 +94,14 @@
                             b+=rs.getString(27);
                         }
                             for (Reservation pro : vector) {
+                                    boolean check = false;
+                                    Cookie c[] = request.getCookies();       
+                                        for (Cookie o : c) {
+                                            if (o.getName().equals(String.valueOf(pro.getUserID()))) {
+                                                check = true;
+                                            }
+                                        }
+   
                                 ResultSet rs1=db.getData("select COUNT(*) from Message m join Account a on m.AccountID=a.AccountID where m.RoomID="+pro.getRoomID()+" and m.AccountID="+aid);
                         %>
                         <tr class="table-body-row"> 
@@ -103,12 +111,15 @@
                             <th class="product-name" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getTotal() %></th>
                             <% if(pro.getStatus()==1) {%>
                             <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name="">Đã đặt</th>
-                            <%while(rs1.next()){%>
+                            <%while(rs1.next()){
+                                if(!check){
+                            %>                         
                             <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name=""><a href="UserController?do=Viewfeedback&roomID=<%=pro.getRoomID()%>"><img style="width: 30px; height: 30px;" src="images/fb.png"><%=rs1.getInt(1)%></a></th>
+                            <% } else {%>
+                            <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name="">Tài khoản đang bị report</th>
                             <% }%>
-                        </tr>
-                        <%}%>
-                        <%}%>
+                        </tr>                        
+                        <% } } }%>
                     </tbody>
                 </table>
             </div>
