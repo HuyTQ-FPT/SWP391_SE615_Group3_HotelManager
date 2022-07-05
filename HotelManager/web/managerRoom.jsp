@@ -303,7 +303,7 @@
     </head>
     <body>
         <%
-            Vector<Room> vector = (Vector<Room>) request.getAttribute("vectorR");
+            Vector<Room> vector = (Vector<Room>)request.getAttribute("vectorR");
 
         %>
         <section class="ftco-section">
@@ -363,8 +363,9 @@
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active"><a href="ReceptionistController" class="nav-link">Quản lí<br>Phòng</a></li>
-                            <!--                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>-->
+                                                      
                             <li class="nav-item "><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
+                            <li class="nav-item "><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
                         </ul>
                     </div>
                 </div>
@@ -392,10 +393,7 @@
 
                     </tr>
                 </thead>
-                <%                    for (Room r : vector) {%>
-
-
-
+                <% for (Room r : vector) {%>
                 <tbody>
                     <tr class="name">
                         <td><%=r.getRoomID()%></td>

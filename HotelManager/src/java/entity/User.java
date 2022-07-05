@@ -53,6 +53,12 @@ public class User {
         this.UserAdress = UserAdress;
         this.CMT = CMT;
     }
+    public User(String UserName, String UserPhone, String UserEmail, String UserAdress) {
+        this.UserName = UserName;
+        this.UserPhone = UserPhone;
+        this.UserEmail = UserEmail;
+        this.UserAdress = UserAdress;
+    }
 
     public User(int UserID, int AccountID, String UserName, String UserPhone, String UserEmail, int UserGender, Date Birthday, String UserAdress, String CMT, String ImgCMT, Account ac) {
         this.UserID = UserID;
