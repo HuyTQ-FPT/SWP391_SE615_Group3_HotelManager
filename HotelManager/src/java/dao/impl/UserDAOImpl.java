@@ -63,6 +63,33 @@ public class UserDAOImpl extends DBContext implements UserDAO {
        
     }
 
+        @Override
+    public User getUserByaID(int Accountid) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
+        String sql = "select u.* from Account a join [User] u\n" +
+"on a.AccountID=u.AccountID\n" +
+"where a.AccountID=?";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, Accountid);
+            rs = pre.executeQuery();
+            if (rs.next()) {
+                return new User(rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(8));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return null;
+    }
     @Override
 
     public User getUser(int accountID) throws Exception {

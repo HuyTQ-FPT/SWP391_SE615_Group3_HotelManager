@@ -35,6 +35,13 @@ public class Message {
         this.Date = Date;
         this.content = content;
     }
+    public Message(int MessageID, int AccountID, String Date, String content, int RoomID) {
+        this.MessageID = MessageID;
+        this.AccountID = AccountID;
+        this.Date = Date;
+        this.content = content;
+        this.RoomID = RoomID;
+    }
 
     public Message(int MessageID, int AccountID, String MessageTo, String MessageFrom, String Date) {
         this.MessageID = MessageID;
@@ -49,6 +56,11 @@ public class Message {
         this.Date = Date;
         this.content = content;
         this.RoomID= RoomID;
+    }
+    public Message(int AccountID, String Date, String content) {
+        this.AccountID = AccountID;
+        this.Date = Date;
+        this.content = content;
     }
     public Message(int AccountID, String content) {
         this.AccountID = AccountID;

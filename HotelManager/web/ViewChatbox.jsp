@@ -279,11 +279,10 @@
                             <% }
                                 }%>
                             </div>
-                                <input id="getAcid" type="hidden" value="<%=a.getAccountID()%>" name="accountID">
                                 <div class="type_msg">
                                     <div class="input_msg_write">
-                                        <input id="contentChat" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
-                                        <button class="msg_send_btn" onclick="Load(<%=a.getAccountID()%>)"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                        <input id="textMessage" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
+                                        <button class="msg_send_btn" onclick="sendMessage(<%=a.getAccountID()%>)"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
                                     </div>
                                 </div>                          
                         </div>
@@ -352,7 +351,8 @@
                         </div>
                     </div>
                     <div class="mesgs">
-                        <div class="msg_history" id='messageBody'>
+                        <div class="msg_history">
+                            <div id="messageBody">
                             <% while (rs.next()) {
                                     if (rs.getString(7).equals("incoming_msg")) {%>
                             <div class="incoming_msg">             
@@ -371,26 +371,21 @@
                             </div> 
                             <% }
                                 } %>
+                              </div>
                             <%if (request.getAttribute("found") == null) {%>
-                            <form action="MessageController?do=messRe" method="post">
-                                <input type="hidden" value="<%=aid%>" name="accountID">
                                 <div class="type_msg">
                                     <div class="input_msg_write">
-                                        <input type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
-                                        <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                        <input id="textMessage" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
+                                        <button class="msg_send_btn" onclick="sendMessage(<%=aid%>)"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
-                            </form>
                             <% } else {%>
-                            <form action="MessageController?do=OnlymessRe" method="post">
-                                <input id="getAcid" type="hidden" value="<%=aid%>" name="accountID">
                                 <div class="type_msg">
                                     <div class="input_msg_write">
-                                        <input id="contentChat" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
-                                        <button class="msg_send_btn" type="submit" onclick="Load(<%=aid%>,)"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                        <input id="textMessage" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
+                                        <button class="msg_send_btn" onclick="sendMessage(<%=aid%>)"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
-                            </form>
                             <% }%>
                         </div>
                     </div> 
@@ -399,10 +394,11 @@
             </div>
         </div>
             <script>
-                function Load(param){
-                    var msg = document.getElementById("contentChat").value;
+
+                function sendMessage(param){
+                    var msg = document.getElementById("textMessage").value;
                     var cid = param;
-                $ajax({
+                $.ajax({
                     url:"/HotelManager/Chat",
                     type:"get",
                     data:{
@@ -410,11 +406,27 @@
                         accountID: cid
                     },
                     success: function(data){
-                        var row =document.getElementById("messageBody");
-                        row.innerHTML+=data;
+                        var row = document.getElementById("messageBody");
+                        row.innerHTML =row.innerHTML + data;
                     }
                 });
-            }
+                
+            } 
+            
+            var websocket = new WebSocket("ws://localhost:8080/HotelManager/Chat");
+				websocket.onmessage = function(message) {processMessage(message);};
+
+			function processMessage(message) {
+				var row = document.getElementById("messageBody");
+                                row.innerHTML =row.innerHTML + message.data;
+			}
+
+			function sendMessage(param) {
+				if (typeof websocket != 'undefined' && websocket.readyState == WebSocket.OPEN) {
+					websocket.send(textMessage.value);
+					textMessage.value = "";
+				}
+			}
             </script>
     </body>
 </html>

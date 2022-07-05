@@ -264,8 +264,6 @@
         <%
             Vector<User> vector = (Vector<User>) request.getAttribute("vectorU");
         %>
-        <!--        <div class="col-sm-8"><a class="managerPro" href="ControllerOrder"><h5>OrderList Manager</h5></a></div>
-                <div class="col-sm-8"><a class="managerCus" href="ControllerProduct"><h5>Products Manager</h5></a></div>-->
         <section class="ftco-section">
             <div class="card" id="team">
                 <div class="card_img">
@@ -314,6 +312,7 @@
                             <li class="nav-item "><a href="ReceptionistController" class="nav-link">Quản lí<br>phòng </a></li>
                             <!--                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>-->
                             <li class="nav-item active"><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
+                            <li class="nav-item"><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
                         </ul>
                     </div>
 
@@ -333,6 +332,7 @@
                         <th>Email</th>
                         <th>Giới tính</th>
                         <th>CMT</th>
+                        <th>Chi tiết đơn đặt phòng</th>
 
 
                     </tr>
@@ -350,9 +350,7 @@
                         <td><%=u.getUserGender()%></td>
 
                         <td><%=u.getCMT()%></td>
-
-
-
+                        <td><a href="ReceptionistController?do=viewOrder&uID=<%= u.getUserID()%>">Xem</a><td>
                     </tr> 
 
                     <%}%>
