@@ -239,7 +239,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="SendFeedbackController?do=listMessFeedBack">
+                            <a class="nav-link active" href="RequestController?do=listMessFeedBack">
                                 <i class="fas fa-newspaper "></i></i> Yêu cầu
                             </a>
                         </li>
@@ -282,7 +282,7 @@
             <div class="row tm-content-row">
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block" >
-                        <form action="SendFeedbackController?do=searchName" method="post">
+                        <form action="RequestController?do=searchName" method="post">
                             <input style="
                                    margin-left: 100px;
                                    " name="nameTitle" type="text"  placeholder="Tìm kiếm tiêu đề">
@@ -352,7 +352,7 @@
                                         <div class="tm-status-circle ">
                                         </div><%=s.getEmail()%>
                                     </td>
-                                    <td><a class="btn-primary"  href="SendFeedbackController?do=SeenMessage&mid=<%=s.getmId()%>" ><%=s.getTitle()%></a></td>
+                                    <td><a class="btn-primary"  href="RequestController?do=SeenMessage&mid=<%=s.getmId()%>" ><%=s.getTitle()%></a></td>
                                         <% if (s.getIsRead().equals("0")) {%>
                                     <td>
 
@@ -403,7 +403,7 @@
                                             <a class="next" href="${href}nameTitle=${nameTitle}&index=${index+1}">  ></a>
                                         </c:when>
                                         <c:otherwise>
-                                            <a class="next" href="${href}nameTitle=${nameTitle}&index=${index+1}">  ></a>
+                                            <a class="next disabled" href="${href}nameTitle=${nameTitle}&index=${index+1}">  ></a>
                                         </c:otherwise>
                                     </c:choose>
                                 </div> 
@@ -426,7 +426,7 @@
         <script>
                                         function deleteId(id) {
                                             if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
-                                                window.location = "SendFeedbackController?do=deleteMessage&mId=" + id;
+                                                window.location = "RequestController?do=deleteMessage&mId=" + id;
                                             }
 
                                         }

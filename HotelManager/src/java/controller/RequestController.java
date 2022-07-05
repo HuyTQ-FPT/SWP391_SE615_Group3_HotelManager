@@ -13,13 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import util.SendMail;
 
 /**
  *
  * @author Minh Hiếu
  */
-@WebServlet(name = "SendFeedbackController", urlPatterns = {"/SendFeedbackController"})
-public class SendFeedbackController extends HttpServlet {
+@WebServlet(name = "RequestController", urlPatterns = {"/RequestController"})
+public class RequestController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
@@ -64,7 +65,7 @@ public class SendFeedbackController extends HttpServlet {
                 }
                 vectorS = daoS.pagingMessage(index);
                 vectorS1 = daoS.getMessageUnread();
-                String href = "SendFeedbackController?do=listMessFeedBack&";
+                String href = "RequestController?do=listMessFeedBack&";
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("count", count);
                 request.setAttribute("href", href);
@@ -91,7 +92,7 @@ public class SendFeedbackController extends HttpServlet {
                 daoS.delete(id);
                 String Mess = "Xoá thành công.";
                 request.setAttribute("Mess", Mess);
-                request.getRequestDispatcher("SendFeedbackController?do=listMessFeedBack").forward(request, response);
+                request.getRequestDispatcher("RequestController?do=listMessFeedBack").forward(request, response);
 
             }
             if (service.equalsIgnoreCase("updateIsRead")) { // cập nhật trạng thái đọc
@@ -100,7 +101,7 @@ public class SendFeedbackController extends HttpServlet {
                 String isRead = request.getParameter("isRead");
                 System.out.println(isRead);
                 daoS.updateRead(id, isRead);
-                request.getRequestDispatcher("SendFeedbackController?do=listMessFeedBack").forward(request, response);
+                request.getRequestDispatcher("RequestController?do=listMessFeedBack").forward(request, response);
 
             }
             if (service.equalsIgnoreCase("searchName")) { // tìm kiến tên tiêu đề
@@ -124,7 +125,7 @@ public class SendFeedbackController extends HttpServlet {
                 }
                 vectorS1 = daoS.getMessageUnread();
                 vectorS = daoS.searchName(index, nameTitle);
-                String href = "SendFeedbackController?do=searchName&";
+                String href = "RequestController?do=searchName&";
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("count", count);
                 request.setAttribute("href", href);
@@ -135,8 +136,35 @@ public class SendFeedbackController extends HttpServlet {
                 session.setAttribute("index", index);
                 request.getRequestDispatcher("requestMessage.jsp").forward(request, response);
             }
+            if (service.equalsIgnoreCase("viewReply")) {
+                int id = Integer.parseInt(request.getParameter("mID").trim());
+                String email = request.getParameter("email").trim();
+                request.setAttribute("email", email);
+                request.setAttribute("mID", id);
+                request.getRequestDispatcher("replyRequest.jsp").forward(request, response);
+            }
+            if (service.equals("sendReply")) {
+                SendMail sm = new SendMail();
+                String email = request.getParameter("inputEmail").trim();
+                String name = request.getParameter("name").trim();
+                String title = request.getParameter("inputTitle").trim();
+                String content = request.getParameter("inputContent").trim();
+
+                String mess = "   Giải đáp thắc mắc!\n"
+                        + "Tiêu đề:" + title + "\n"
+                        + "  Nội dung:" + content + "\n"
+                        + "" + name + " đã trả lời yêu cầu. Cảm ơn vì đã gửi yêu cầu tới chúng tôi!!!\n"
+                        + "Có câu hỏi gì liên quan tới khách sạn vui lòng liên hệ qua đường link này:http://localhost:8080/HotelManager/contact.jsp";
+
+                sm.send(email, "Phản hồi yêu cầu.", mess, sm.getFromEmail(), sm.getPassword());
+                session.setAttribute("email", email);
+                String mess1 = "Gửi thành công.";
+                request.setAttribute("mess1", mess1);
+                request.getRequestDispatcher("replyRequest.jsp").forward(request, response);
+
+            }
         } catch (Exception ex) {
-            Logger.getLogger(SendFeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RequestController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("errorMess", ex.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
@@ -157,7 +185,7 @@ public class SendFeedbackController extends HttpServlet {
             processRequest(request, response);
 
         } catch (Exception ex) {
-            Logger.getLogger(SendFeedbackController.class
+            Logger.getLogger(RequestController.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -177,7 +205,7 @@ public class SendFeedbackController extends HttpServlet {
             processRequest(request, response);
 
         } catch (Exception ex) {
-            Logger.getLogger(SendFeedbackController.class
+            Logger.getLogger(RequestController.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }

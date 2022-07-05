@@ -350,11 +350,15 @@
                         <td><%=u.getUserGender()%></td>
 
                         <td><%=u.getCMT()%></td>
-                        <td><a href="ReceptionistController?do=viewOrder&uID=<%= u.getUserID()%>">Xem</a><td>
+                        <td><a href="ReceptionistController?do=viewOrder&uID=<%= u.getUserID()%>">Xem</a></td>
                     </tr> 
 
                     <%}%>
-                <script>
+               
+                </tbody>
+            </table>
+        </div> 
+                     <script>
                     function show() {
                         if (document.getElementById("team").style.display == "none") {
                             document.getElementById("team").style.display = "block";
@@ -363,8 +367,5 @@
                         }
                     }
                 </script>
-                </tbody>
-            </table>
-        </div> 
     </body>
 </html>

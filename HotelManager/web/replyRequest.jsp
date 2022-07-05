@@ -1,14 +1,14 @@
 <%-- 
-    Document   : viewFeedBack
-    Created on : Jun 15, 2022, 9:53:41 AM
-    Author     : MInh Hiếu
+    Document   : replyRequest
+    Created on : Jul 5, 2022, 4:21:09 PM
+    Author     : Minh Hiếu
 --%>
 
-<%@page import="entity.sendFeedback"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+    <head>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View Request</title>
@@ -23,9 +23,26 @@
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     </head>
-
-    <body id="reportsPage">
-        <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
+       <style>
+        .form-group{
+            position: relative;
+        }
+        .style{
+            position: absolute;
+            left: 20px;
+            top:40px;
+            font-size: 10px;
+        }
+        .style1{
+            position: absolute;
+            left: 20px;
+            top:310px;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body id="reportsPage">
+      <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
             <div class="container h-100">
                 <a class="navbar-brand" href="AdminController">
                     <h1 class="tm-site-title mb-0">Admin</h1>
@@ -120,75 +137,79 @@
             </div>
 
         </nav>
-        <%
-            sendFeedback s = (sendFeedback) request.getAttribute("seen");
-        %>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <p class="text-white mt-5 mb-5"></p>
+    <div class="tm-block-col tm-col-account-settings" style="margin-left: auto; margin-right: auto ">
+        <div class="tm-bg-primary-dark tm-block tm-block-settings" >
+
+            <h4 style="color: red;font-size: 15px;">${requestScope.err}</h4>
+            <h4 style="color: red;font-size: 15px;">${requestScope.mess1}</h4>
+            <form action="RequestController?do=sendReply" method="POST" class="tm-signup-form row">
+
+                <div class="form-group col-lg-12">
+                    <i class="fas fa-star style" style="color:red;"></i>         <label for="email">Email nhận</label>
+                    <input style="background-color: white; color: #54657D;"
+                           id="email"
+                           name="inputEmail"
+                           type="email"
+                           maxlength="100" 
+                           required
+                           value="${email}"
+                           readonly
+                           class="form-control  validate"
+                           />
                 </div>
-            </div>
-            <div class="row tm-content-row">
-
-
-
-
-                <div class="col-12 tm-block-col">
-                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-                        <h2 class="tm-block-title">Nội dung</h2>
-
-
-                        <table class="table">
-
-                            <thead>
-                                <tr>
-                                    <th scope="col"> Email</th>
-                                    <th scope="col">Tiêu đề</th>
-                                    <th  scope="col">Nội dung</th>
-                                    <th  scope="col"></th>
-
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>  <%=s.getEmail()%> </td>
-                                    <td><p style="width: 150px; word-break: break-all"><%=s.getTitle()%></p></td>
-                                    <td ><p style="width: 200px; word-break: break-all"><%=s.getContent()%></p></td>
-                                    <td >   <a href="RequestController?do=viewReply&mID=<%=s.getmId()%>&email=<%=s.getEmail()%> "> <button  style=""  class="btn btn-primary">  Trả lời </button></a></td>
-
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-                        <button  style="margin-top: 20px" onclick="deleteId('<%=s.getmId()%>')" class="btn btn-primary">  Xoá </a></button>
-                        <a style="float: right; margin-top: 20px" class="btn btn-danger" href="RequestController?do=listMessFeedBack&index=${index}">Trang trước</a>
-
-                    </div>
+                <div class="form-group col-lg-12">
+                    <i class="fas fa-star style" style="color:red;"></i> <label for="inputYourname">Tên người gửi</label>
+                    <input pattern=".*\S" title="Không được để khoảng trắng"  style="background-color: white; color: #54657D;"
+                           id="name"
+                           name="name"
+                           type="text"
+                           maxlength="50"
+                           required
+                           value=""
+                           class="form-control validate"
+                           />
                 </div>
-            </div>
+                <div class="form-group col-lg-12">
+                    <label for="inputCMT">Tiêu đề</label>
+                    <i class="fas fa-star style" style="color:red;"></i>     <input pattern=".*\S" title="Không được để khoảng trắng" t style="background-color: white; color: #54657D;"
+                                                                                   id=""
+                                                                                   name="inputTitle"
+                                                                                   type="text"
+                                                                                   maxlength="40" required 
+                                                                                   value=""
+
+                                                                                   class="form-control validate"
+                                                                                   />
+                </div>
+                <div class="form-group col-lg-12">
+                    <label for="inputAdress">Nội dung</label>
+                    <i class="fas fa-star style" style="color:red;"></i>     <input style="background-color: white; color: #54657D;"
+                                                                                    id="email"
+                                                                                    name="inputContent"
+                                                                                    type="text"
+                                                                                    pattern=".*\S" title="Không được để khoảng trắng" 
+                                                                                    required maxlength="100"
+                                                                                    value=""
+                                                                                    class="form-control validate"
+                                                                                    />
+                </div>
+
+
+                <div class="col-12">
+                    <button
+                        type="submit"
+                        name="submit"
+                        class="btn btn-primary btn-block text-uppercase"
+                        >
+                        Lưu
+                    </button>
+                </div>
+            </form>
         </div>
-        <script src="js/jquery-3.3.1.min.js"></script>
+    </div>
+              <script src="js/jquery-3.3.1.min.js"></script>
         <!-- https://jquery.com/download/ -->
-        <script src="js/moment.min.js"></script>
-        <!-- https://momentjs.com/ -->
-        <script src="js/Chart.min.js"></script>
-        <!-- http://www.chartjs.org/docs/latest/ -->
         <script src="js/bootstrap.min.js"></script>
         <!-- https://getbootstrap.com/ -->
-        <script src="js/tooplate-scripts.js"></script>
-        <script>
-                            function deleteId(id) {
-                                if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
-                                    window.location = "RequestController?do=deleteMessage&mId=" + id;
-                                }
-
-                            }
-
-        </script>
-    </body>
+</body>
 </html>

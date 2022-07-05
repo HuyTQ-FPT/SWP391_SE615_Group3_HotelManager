@@ -16,7 +16,7 @@ import javax.mail.internet.*;
 public class SendMail {
 
     final String fromEmail = "hieulbmhe151429@fpt.edu.vn";
-    final String password = "lebaminhhieu";
+    final  String password = "Lebaminhhieu1!";
 
     public SendMail() {
     }

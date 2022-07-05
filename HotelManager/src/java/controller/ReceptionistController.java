@@ -7,6 +7,7 @@ import dao.impl.ReceptionistDAOImpl;
 import dao.impl.RoomDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
+import entity.Reservation;
 import entity.Room;
 import entity.User;
 import java.io.IOException;
@@ -20,7 +21,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 
 @WebServlet(name = "ReceptionistController", urlPatterns = {"/ReceptionistController"})
 public class ReceptionistController extends HttpServlet {
@@ -55,7 +55,7 @@ public class ReceptionistController extends HttpServlet {
                 request.setAttribute("vectorU", vectorU);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
             }
-           
+
             if (service.equalsIgnoreCase("profile")) { // xem thông tin
                 Account ac = (Account) session.getAttribute("login");
                 User u = daoU.getUser(ac.getAccountID());
@@ -146,6 +146,15 @@ public class ReceptionistController extends HttpServlet {
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
 
             }
+            if (service.equals("viewOrder")) {
+                int uID = Integer.parseInt(request.getParameter("uID").trim());
+                Reservation reservation = dao.viewOrderDetails(uID);
+                Vector<Reservation> vectorReservation = dao.OrderDetails(uID);
+
+                request.setAttribute("vectorReservation", vectorReservation);
+                request.setAttribute("reservation", reservation);
+                request.getRequestDispatcher("viewOrderCustomer.jsp").forward(request, response);
+            }
         } catch (Exception ex) {
             Logger.getLogger(ReceptionistController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("errorMess", ex.getMessage());
@@ -165,7 +174,6 @@ public class ReceptionistController extends HttpServlet {
                     .getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

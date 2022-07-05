@@ -1,27 +1,41 @@
-
 package entity;
 
 import java.sql.Date;
 
-
 public class Reservation {
+
     private int BillID;
-	private int UserID ;
-	private int RoomID ;
-        private String Name;
-        private String Email;
-        private String Address;
-        private String Phone;
-	private int NumberOfPerson;
-        private Date Checkin ;
-        private Date Checkout ;
-	private double Total;
-	private int Status;
-	private Date Date ; 
+    private int UserID;
+    private int RoomID;
+    private String Roomname;
+    private double Roomprice;
+    private String Name;
+    private String Email;
+    private String Address;
+    private String Phone;
+    private int NumberOfPerson;
+    private Date Checkin;
+    private Date Checkout;
+    private double Total;
+    private int Status;
+    private Date Date;
 
     public Reservation() {
     }
-
+    public Reservation(int BillID, int UserID, String Name, String Roomname, String Address,String Email, String Phone, Date Checkin, Date Checkout,double Roomprice, double Total, int Status) {
+        this.BillID = BillID;
+        this.UserID = UserID;
+        this.Name = Name;
+        this.Roomname = Roomname;
+        this.Address = Address;
+        this.Email = Email;
+        this.Phone = Phone;
+        this.Checkin = Checkin;
+        this.Checkout = Checkout;
+         this.Roomprice = Roomprice;
+        this.Total = Total;
+        this.Status = Status;
+    }
     public Reservation(int UserID, int RoomID, String Name, String Email, String Address, String Phone, int NumberOfPerson, Date Checkin, Date Checkout, double Total, int Status, Date Date) {
         this.UserID = UserID;
         this.RoomID = RoomID;
@@ -36,7 +50,7 @@ public class Reservation {
         this.Status = Status;
         this.Date = Date;
     }
-    
+
     public Reservation(int BillID, int UserID, int RoomID, String Name, String Email, String Address, String Phone, int NumberOfPerson, Date Checkin, Date Checkout, double Total, int Status, Date Date) {
         this.BillID = BillID;
         this.UserID = UserID;
@@ -51,6 +65,22 @@ public class Reservation {
         this.Total = Total;
         this.Status = Status;
         this.Date = Date;
+    }
+
+    public String getRoomname() {
+        return Roomname;
+    }
+
+    public void setRoomname(String Roomname) {
+        this.Roomname = Roomname;
+    }
+
+    public double getRoomprice() {
+        return Roomprice;
+    }
+
+    public void setRoomprice(double Roomprice) {
+        this.Roomprice = Roomprice;
     }
 
     public int getBillID() {

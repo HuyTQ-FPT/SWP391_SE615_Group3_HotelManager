@@ -77,7 +77,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="SendFeedbackController?do=listMessFeedBack">
+                            <a class="nav-link" href="RequestController?do=listMessFeedBack">
                                 <i class="fas fa-newspaper"></i></i> Yêu cầu
                             </a>
                         </li>

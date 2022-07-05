@@ -1,13 +1,19 @@
+<%-- 
+    Document   : viewOrderCustomer
+    Created on : Jul 5, 2022, 2:35:58 PM
+    Author     :Minh Hieu
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="entity.User"%>
-<%@page import="java.util.Vector"%>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Danh sách khách hàng</title>
+        <title>Receptionist</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -16,6 +22,9 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+
         <style>
             body {
                 color: #566787;
@@ -160,13 +169,10 @@
             .name{
                 font-size: 13px;
             }
-            /*            .table-wrapper{
-                            margin-left: 50px;
-                        }*/
             .log-out{
                 position: fixed;
-                right: 100px;
-                top:20px;
+                right: 110px;
+                top:35px;
                 border-radius: 5px;
                 background-color: #F1BC31;
                 margin-right: 20px;
@@ -193,7 +199,7 @@
                 color: white;
                 position: relative;
                 position: fixed;
-                top: 45px;
+                top: 60px;
                 right: 30px;
                 border-radius: 10px;
                 overflow: hidden;
@@ -256,14 +262,68 @@
                 transition-delay: 0.1s;
                 transform: rotate(0deg);
             }
+            .selectStatus{
+                margin-right: 600px;
+            }
+
+            .pagination {
+                display: inline-block;
+            }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+            .supprimer {
+                /*                background-color: transparent;
+                                text-decoration: underline;
+                                border: none;*/
+                color: blue;
+                cursor: pointer;
+                border-radius: 5px;
+                background-color: #F1BC31;
+                padding: 4px 10px;
+            }
+
+            supprimer:focus {
+                outline: none;
+            }
+            .but{
+                cursor: pointer;
+                border-radius: 5px;
+                background-color: #F1BC31;
+                padding: 2px 15px;
+            }
+            .form-group{
+                position: relative;
+            }
+            .style{
+                position: absolute;
+                left: 0px;
+                top:0px;
+                font-size: 10px;
+            }
+            table,th,td {
+
+                border: 3px solid black;
+                border-collapse: collapse;
+                color: black;
+            }
+            th, td {
+                font-size: 20px;
+                padding: 10px;
+                color: black;
+            }
         </style>
-        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+
     </head>
+
+
+
     <body>
-        <%
-            Vector<User> vector = (Vector<User>) request.getAttribute("vectorU");
-        %>
+
         <section class="ftco-section">
             <div class="card" id="team">
                 <div class="card_img">
@@ -296,23 +356,22 @@
                 <div class="container">
                     <span class="admin"></i>Lễ Tân</span>
                     <form action="LoginController?do=logout" method="post">
-                        <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
+                        <button type="submit" name="log-out" style="top:10px" class="log-out">Đăng xuất</button>
                     </form>
                     <form action="ReceptionistController?do=searchName" class="searchform order-lg-last" method="post"  style="
                           margin-right: 100px;
                           margin-top: 10px;
                           ">
-                        <div class="form-group d-flex" >
-                            <input name="Name" type="text" class="form-control pl-3" placeholder="Tìm kiếm tên" style="order-radius:8px">
-                            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
-                        </div>
+                        <!--                        <div class="form-group d-flex" >
+                                                    <input name="Name" type="text" class="form-control pl-3" placeholder="Tìm kiếm tên" style="order-radius:8px">
+                                                    <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
+                                                </div>-->
                     </form>
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item "><a href="ReceptionistController" class="nav-link">Quản lí<br>phòng </a></li>
-                            <!--                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>-->
                             <li class="nav-item active"><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
-                            <li class="nav-item"><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
+                            <li class="nav-item "><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
                         </ul>
                     </div>
 
@@ -322,50 +381,67 @@
             </nav>
 
         </section>
-        <div class="table-wrapper">
-            <table class="table table-striped table-hover table-bordered" style="Margin-left:10px;"> 
-                <thead>
-                    <tr class="title" >
-                        <th>STT</th>
-                        <th>Tên</th>
-                        <th>Điện thoại</th>
-                        <th>Email</th>
-                        <th>Giới tính</th>
-                        <th>CMT</th>
-                        <th>Chi tiết đơn đặt phòng</th>
+        <c:if test="${!empty vectorReservation}">
+            <div style="margin-left: 30px">
+                <h3>Tên:${reservation.getName()}</h3>
+                <h3>Email:${reservation.getEmail()}</h3>
+                <h3>Số điện thoại:${reservation.getPhone()}</h3>
+                <h3>Địa chỉ:${reservation.getAddress()}</h3>
+<!--                <h3>Status:${reservation.getStatus()}</h3>-->
+            </div>
+            <c:set  var="sum" value="0"></c:set>
+            <c:set  var="count" value="1"></c:set>
+                <table border="1" style="margin-left: 100px; margin-top: 50px">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Số phòng</th>
+                            <th>Ngày đặt</th>
+                            <th>Ngày trả</th>
+                            <th>Giá Phòng</th>
+                            <th>Total</th>
+
+                        </tr>
+                    </thead>
+                <c:forEach  items="${vectorReservation}" var="v">
+                    <tbody>
+
+                        <tr>
+                            <td>${count}</td>
+                            <td>${v.roomname}</td>
+                            <td>${v.checkin}</td>
+                            <td>${v.checkout}</td>
+                            <td>${v.roomprice}</td>
+                            <td>${v.total}</td>
+
+                        </tr>
 
 
-                    </tr>
-                </thead>
-                <tbody>      
-                    <%for (User u : vector) {%>
-
-
-
-                    <tr class="name">
-                        <td><%= u.getUserID()%></td>
-                        <td><%=u.getUserName()%></td>
-                        <td><%=u.getUserPhone()%></td>
-                        <td><%=u.getUserEmail()%></td>
-                        <td><%=u.getUserGender()%></td>
-
-                        <td><%=u.getCMT()%></td>
-                        <td><a href="ReceptionistController?do=viewOrder&uID=<%= u.getUserID()%>">Xem</a></td>
-                    </tr> 
-
-                    <%}%>
-               
-                </tbody>
+                        <c:set value="${sum=sum+v.total}" var="sum"></c:set>
+                        <c:set value="${count=count+1}" var="count"></c:set>
+                        </tbody>
+                </c:forEach>
             </table>
-        </div> 
-                     <script>
-                    function show() {
-                        if (document.getElementById("team").style.display == "none") {
-                            document.getElementById("team").style.display = "block";
-                        } else {
-                            document.getElementById("team").style.display = "none";
-                        }
-                    }
-                </script>
+            <h3 style=" margin-top: 44px;margin-left: 500px;">Tổng tiền:<span style="color: red">${sum}</span></h3>
+            </c:if>
+            <c:if test="${empty vectorReservation}">
+            <h3>Chưa từng đặt phòng!!</h3>
+        </c:if>
+        <div class="hotel-room-body">
+            <form action="ReceptionistController?do=Cus" method="post">
+                <button type="submit"  style="border-radius: 5px; background-color:#F1BC31;margin-top: 40px; border: 3px solid " ><span style="color: black">Trang trước</span></button>
+            </form>
+
+        </div>
+
+        <script>
+            function show() {
+                if (document.getElementById("team").style.display == "none") {
+                    document.getElementById("team").style.display = "block";
+                } else {
+                    document.getElementById("team").style.display = "none";
+                }
+            }
+        </script>
     </body>
 </html>
