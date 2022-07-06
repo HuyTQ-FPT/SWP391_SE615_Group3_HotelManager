@@ -56,7 +56,8 @@ public class LoginController extends HttpServlet {
                 }
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
-            if (service.equals("CheckLogin")) { // kiểm tra username/password => đăng nhập thành công hay không
+            if (service.equals("CheckLogin")) {
+                // kiểm tra username/password => đăng nhập thành công hay không
                 String username = request.getParameter("username").trim();
                 String password = request.getParameter("password").trim();
                 ResultSet rs = dao1.getData("select * from Account where [user]='" + username + "' and [password]='" + password + "'");

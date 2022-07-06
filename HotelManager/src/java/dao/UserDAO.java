@@ -1,11 +1,11 @@
 package dao;
 
 import entity.User;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public interface UserDAO {
 
-    public Vector<User> getUserList() throws Exception;
+    public ArrayList<User> getUserList() throws Exception;
 
     public void insertUser(User User) throws Exception;
 

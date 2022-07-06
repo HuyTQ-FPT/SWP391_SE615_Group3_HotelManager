@@ -2,11 +2,11 @@ package dao;
 
 import entity.Account;
 import entity.User;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public interface AccountDAO {
 
-    public Vector<Account> getAccountList() throws Exception;
+    public ArrayList<Account> getAccountList() throws Exception;
 
     public Account getAccount(String aName, String aPass) throws Exception;
 
@@ -18,7 +18,7 @@ public interface AccountDAO {
 
     public Account checkAccount(String aName) throws Exception;
 
-    public Vector<Account> getAccountByRole(int aRole) throws Exception;
+    public ArrayList<Account> getAccountByRole(int aRole) throws Exception;
 
     public int Register(Account ac, String name, String email) throws Exception;
 

@@ -140,14 +140,14 @@
     position: fixed;
     top: 10px;
     right: 20px;
-    width: 700px;
+    width: 730px;
     height: 500px;
 }
 .mota{
     position: fixed;
     top: 530px;
-    right: 50px;
-    width: 650px;
+    right: 30px;
+    width: 690px;
     height: 200px;
 }
 

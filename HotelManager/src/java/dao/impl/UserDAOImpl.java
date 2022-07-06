@@ -9,14 +9,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
-    public Vector<User> getUserList() throws Exception {
+    public ArrayList<User> getUserList() throws Exception {
         return null;
 
     }

@@ -66,6 +66,9 @@ public class Message {
         this.AccountID = AccountID;
         this.content = content;
     }
+    public Message(int AccountID) {
+        this.AccountID = AccountID;
+    }
 
     public int getMessageID() {
         return MessageID;

@@ -9,19 +9,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AccountDAOImpl extends DBContext implements AccountDAO {
 
     @Override
-    public Vector<Account> getAccountList() throws Exception {
+    public ArrayList<Account> getAccountList() throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        Vector<Account> vector = new Vector<>();
+        ArrayList<Account> vector = new ArrayList<>();
         try {
             String sql = "select * from Account";
             conn = getConnection();
@@ -146,7 +146,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     }
 
     @Override
-    public Vector<Account> getAccountByRole(int aRole) throws Exception {
+    public ArrayList<Account> getAccountByRole(int aRole) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

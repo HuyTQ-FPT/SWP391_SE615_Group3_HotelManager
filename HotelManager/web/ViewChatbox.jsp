@@ -220,7 +220,8 @@
         <%
             MessageDAOImpl dao = new MessageDAOImpl();
             Account a = (Account) session.getAttribute("login");
-            ResultSet rs1 = (ResultSet) dao.getData("select distinct AccountID from Message");
+            int userID = (int)a.getAccountID();
+            ResultSet rs1 = (ResultSet) dao.getData("select distinct AccountID from Message where RoomID=0");
             int aid = (int) Integer.parseInt(request.getAttribute("accountid").toString());
             ResultSet rs = (ResultSet) dao.getData("select * from Message where AccountID=" + aid);
         %>
@@ -258,7 +259,7 @@
                     </div>
                     <div class="mesgs">
                         <div class="msg_history">
-                            <div id="messageBody">
+                            <div id="boxchat">
                             <%while (rs.next()) {
                             %>
                             <%if (rs.getString(7).equals("outgoing_msg")) {%>
@@ -267,6 +268,7 @@
                                 <div class="received_msg">
                                     <div class="received_withd_msg">
                                         <p><%=rs.getString(6)%></p>
+                                        <span style="font-size: 12px;" class="time_date"><%=rs.getString(5)%></span>
                                     </div>                         
                                 </div>
                             </div>
@@ -274,6 +276,7 @@
                             <div class="outgoing_msg">
                                 <div class="sent_msg">
                                     <p><%=rs.getString(6)%></p>
+                                    <span style="font-size: 12px;" class="time_date"><%=rs.getString(5)%></span>
                                 </div>
                             </div> 
                             <% }
@@ -281,8 +284,9 @@
                             </div>
                                 <div class="type_msg">
                                     <div class="input_msg_write">
+                                         <input id="RepGetUserId" type="hidden" value="<%=aid%>">
                                         <input id="textMessage" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
-                                        <button class="msg_send_btn" onclick="sendMessage(<%=a.getAccountID()%>)"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                        <button class="msg_send_btn" onclick="sendMessage()"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
                                     </div>
                                 </div>                          
                         </div>
@@ -302,12 +306,12 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="inbox_chat">
+                        <div class="inbox_chat" id="MenuCus">
                             <%if (request.getAttribute("found") == null) {%>
                             <% while (rs1.next()) {
                                     ResultSet rs2 = (ResultSet) dao.getData("select u.* from Account a join [User] u on a.AccountID=u.AccountID where a.AccountID=" + rs1.getInt(1));
                                     while (rs2.next()) {
-                                        if (rs1.getInt(1) == Integer.parseInt(request.getAttribute("accountid").toString())) {%>
+                                        if (rs1.getInt(1) == aid){%>
                             <a href="MessageController?do=Chat_people&accountid=<%=rs1.getInt(1)%>">                               
                                 <div class="chat_list active_chat">
                                     <div class="chat_people">
@@ -323,8 +327,10 @@
                                 <div class="chat_list">
                                     <div class="chat_people">
                                         <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                                        <div class="chat_ib">
+                                        <div id="<%=rs1.getString(1)%>" class="chat_ib">
+                                            <!--<h5 style="font-weight: bold;font-size:14px;"></h5>-->
                                             <h5><%=rs2.getString(3)%></h5>
+                                            
                                         </div>
                                     </div>
                                 </div>       
@@ -352,7 +358,7 @@
                     </div>
                     <div class="mesgs">
                         <div class="msg_history">
-                            <div id="messageBody">
+                            <div id="boxchat">
                             <% while (rs.next()) {
                                     if (rs.getString(7).equals("incoming_msg")) {%>
                             <div class="incoming_msg">             
@@ -360,6 +366,7 @@
                                 <div class="received_msg">
                                     <div class="received_withd_msg">
                                         <p><%=rs.getString(6)%></p>
+                                        <span style="font-size: 12px;" class="time_date"><%=rs.getString(5)%></span>
                                     </div>                         
                                 </div>
                             </div>
@@ -367,6 +374,7 @@
                             <div class="outgoing_msg">
                                 <div class="sent_msg">
                                     <p><%=rs.getString(6)%></p>
+                                    <span style="font-size: 12px;" class="time_date"><%=rs.getString(5)%></span>
                                 </div>
                             </div> 
                             <% }
@@ -375,15 +383,17 @@
                             <%if (request.getAttribute("found") == null) {%>
                                 <div class="type_msg">
                                     <div class="input_msg_write">
+                                         <input id="RepGetUserId" type="hidden" value="<%=aid%>">
                                         <input id="textMessage" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
-                                        <button class="msg_send_btn" onclick="sendMessage(<%=aid%>)"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                        <button class="msg_send_btn" onclick="sendMessage()"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             <% } else {%>
                                 <div class="type_msg">
                                     <div class="input_msg_write">
+                                        <input id="RepGetUserId" type="hidden" value="<%=aid%>">
                                         <input id="textMessage" type="text" name="message" class="write_msg" placeholder="Type a message" value=""/>
-                                        <button class="msg_send_btn" onclick="sendMessage(<%=aid%>)"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
+                                        <button class="msg_send_btn" onclick="sendMessage()"><i class="fa fa-paper-plane-o butonmess" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             <% }%>
@@ -393,40 +403,44 @@
                 <% }%>
             </div>
         </div>
-            <script>
-
-                function sendMessage(param){
-                    var msg = document.getElementById("textMessage").value;
-                    var cid = param;
-                $.ajax({
-                    url:"/HotelManager/Chat",
-                    type:"get",
-                    data:{
-                        message: msg,
-                        accountID: cid
-                    },
-                    success: function(data){
-                        var row = document.getElementById("messageBody");
-                        row.innerHTML =row.innerHTML + data;
-                    }
-                });
-                
-            } 
-            
-            var websocket = new WebSocket("ws://localhost:8080/HotelManager/Chat");
+            <script type="text/javascript">
+                var userID = "<%=userID%>";
+                var aid = "<%=aid%>";
+                var websocket = new WebSocket("ws://localhost:42554/HotelManager/ChatSocket");
+				websocket.onopen = function(message) {processOpen(userID+" "+aid);};
 				websocket.onmessage = function(message) {processMessage(message);};
+				websocket.onclose = function(message) {processClose(message);};
+				websocket.onerror = function(message) {processError(message);};
 
+			function processOpen(message) {    
+                             websocket.send(message);                           
+			}
 			function processMessage(message) {
-				var row = document.getElementById("messageBody");
-                                row.innerHTML =row.innerHTML + message.data;
+                            if(message.data.length<19){
+                                myArray = message.data.split(" ");
+                                document.getElementById(myArray[0]).insertAdjacentHTML('beforeend', myArray[1]);
+                            }else if(message.data.length>805){
+                                document.getElementById("MenuCus").insertAdjacentHTML('beforeend', message.data);
+                            }else{
+                                document.getElementById("boxchat").insertAdjacentHTML('beforeend', message.data);
+                            }                           
+			}
+			function processClose(message) {
+				alert(massage.data);
+			}
+			function processError(message) {
+				alert(massage.data);
 			}
 
-			function sendMessage(param) {
+			function sendMessage() {
 				if (typeof websocket != 'undefined' && websocket.readyState == WebSocket.OPEN) {
 					websocket.send(textMessage.value);
 					textMessage.value = "";
 				}
 			}
             </script>
+            
+            
+            
     </body>
 </html>

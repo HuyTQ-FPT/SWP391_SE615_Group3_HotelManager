@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="entity.Account"%>
 <%@page import="dao.impl.UserDAOImpl"%>
 <%@page import="entity.Message"%>
@@ -265,8 +266,8 @@
     </head>
     <body>
         <%
-            Vector<Message> vector = (Vector<Message>) request.getAttribute("vector");
-            Vector<Account> listAccount = (Vector<Account>) request.getAttribute("listAccount");
+            ArrayList<Message> vector = (ArrayList<Message>) request.getAttribute("vector");
+            ArrayList<Account> listAccount = (ArrayList<Account>) request.getAttribute("listAccount");
             UserDAOImpl dao = new UserDAOImpl();
         %>
         <section class="ftco-section">

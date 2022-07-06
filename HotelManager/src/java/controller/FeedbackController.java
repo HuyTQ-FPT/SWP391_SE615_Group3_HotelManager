@@ -8,6 +8,7 @@ import entity.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,8 +35,8 @@ public class FeedbackController extends HttpServlet {
                 service = "Viewfeedback";
             }
             if (service.equals("Viewfeedback")) { //In ra tất cả các comment
-                Vector vector =dao.getAllComment();
-                Vector listAccount =dao2.getAccountList();
+                ArrayList vector =dao.getAllComment();
+                ArrayList listAccount =dao2.getAccountList();
                 
                 request.setAttribute("vector", vector);
                 request.setAttribute("listAccount", listAccount);

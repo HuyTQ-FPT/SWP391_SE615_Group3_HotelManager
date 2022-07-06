@@ -10,19 +10,19 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MessageDAOImpl extends DBContext implements MessageDAO{
     
     @Override
-    public Vector<Message> getAllComment() throws Exception{
+    public ArrayList<Message> getAllComment() throws Exception{
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        Vector<Message> vector = new Vector<>();
+        ArrayList<Message> vector = new ArrayList<>();
         try {
             String sql = "select * from Message where RoomID!=0";
             conn = getConnection();
@@ -51,7 +51,35 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
         }
         return vector;
     }
+    @Override
+    public ArrayList<Integer> getAllAcccountMessage() throws Exception{
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
 
+        ArrayList<Integer> vector = new ArrayList<>();
+        try {
+            String sql = "select distinct AccountID from Message";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int AccountID = rs.getInt(1);
+                vector.add(AccountID);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+    }
+    
     @Override
     public int insertMessageCus(Message mess) throws Exception{
         int n = 0;
@@ -59,6 +87,31 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
         PreparedStatement pre = null;
         
         String sql = "insert into Message values(?,'','',?,?,'incoming_msg',0)";
+          try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            
+            pre.setInt(1, mess.getAccountID());
+            pre.setString(2, mess.getDate());
+            pre.setString(3, mess.getContent());
+                n = pre.executeUpdate();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+            return n;
+    }
+  
+    @Override
+    public int insertNewmessagecus(Message mess) throws Exception{
+        int n = 0;
+        Connection conn = null;
+        PreparedStatement pre = null;
+        
+        String sql = "insert into Message values(?,'1','',?,?,'incoming_msg',0)";
           try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
@@ -148,6 +201,46 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
             closePreparedStatement(pre);
             closeConnection(conn);
 
+        }
+    }
+
+    @Override
+    public int getRoleIDByUserId(int userID) throws Exception {
+        int roleID=0;
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        try {
+            String sql = "select a.* from Account a join [User] u\n" +
+"on a.AccountID=u.AccountID\n" +
+"where u.UserID="+userID;
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                roleID=rs.getInt(2);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return roleID;
+    }
+    public static void main(String[] args) {
+        MessageDAOImpl dao =new MessageDAOImpl();
+        try {
+            ArrayList<Integer> list=dao.getAllAcccountMessage();
+            for (Integer integer : list) {
+                System.out.println(integer);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(MessageDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

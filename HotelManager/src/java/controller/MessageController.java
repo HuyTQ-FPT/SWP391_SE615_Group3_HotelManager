@@ -38,7 +38,7 @@ public class MessageController extends HttpServlet {
                     request.setAttribute("accountid", a.getAccountID());
                     request.getRequestDispatcher("ViewChatbox.jsp").forward(request, response);
                 } else {
-                    ResultSet rs = dao.getData("select distinct top(1) AccountID from Message");
+                    ResultSet rs = dao.getData("select distinct top(1) AccountID from Message where RoomID=0");
                     while (rs.next()) {
                         request.setAttribute("accountid", rs.getInt(1));
                     }
@@ -47,7 +47,6 @@ public class MessageController extends HttpServlet {
             }
             if (service.equals("SearchChatCustomer")) {
                 String name = request.getParameter("name");
-                System.out.println(name + "naemansmd");
                 if (!name.isEmpty()) {
                     ResultSet rs = dao.getData("select u.* from Account a join [User] u\n"
                             + "on a.AccountID=u.AccountID\n"
@@ -59,33 +58,6 @@ public class MessageController extends HttpServlet {
                 } else {
                     response.sendRedirect("MessageController");
                 }
-            }
-
-            if (service.equals("messCus")) {
-                request.setAttribute("mess", request.getParameter("message"));
-                int accountid = Integer.parseInt(request.getParameter("accountID"));
-                if (!request.getParameter("message").equals("")) {
-                    dao.insertMessageCus(new Message(accountid, request.getParameter("message").trim()));
-                    ResultSet rs = dao.getData("select distinct AccountID from Message");
-                }
-                request.getRequestDispatcher("ViewChatbox.jsp").forward(request, response);
-            }
-            if (service.equals("messRe")) {
-                int accountid = Integer.parseInt(request.getParameter("accountID"));
-                request.setAttribute("accountid", accountid);
-                if (!request.getParameter("message").equals("")) {
-                    dao.insertMessageRe(new Message(accountid, request.getParameter("message").trim()));
-                    ResultSet rs = dao.getData("select distinct AccountID from Message");
-                }
-                response.sendRedirect("MessageController?do=Chat_people&accountid=" + accountid);
-            }
-            if (service.equals("OnlymessRe")) {
-                int accountid = Integer.parseInt(request.getParameter("accountID"));
-                if (!request.getParameter("mssage").equals("")) {
-                    dao.insertMessageRe(new Message(accountid, request.getParameter("message").trim()));
-                    ResultSet rs = dao.getData("select distinct AccountID from Message");
-                }
-                response.sendRedirect("MessageController?do=Search_Chat_people&accountid=" + accountid);
             }
             if (service.equals("Search_Chat_people")) {
                 request.setAttribute("accountid", Integer.parseInt(request.getParameter("accountid")));
