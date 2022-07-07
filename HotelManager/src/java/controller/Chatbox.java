@@ -70,7 +70,7 @@ public class Chatbox {
                         break;
                     }
                 }
-                System.out.println(exitAccount);
+                System.out.println(Roleid);
                 User u = Udao.getUserByaID(aid);
                 for (Session session : users) {
                     int SessionAid = 0;
@@ -115,9 +115,15 @@ public class Chatbox {
                             Mdao.insertMessageRe(new Message(aid, date, message));
                         }
                         session.getBasicRemote().sendText(aid + " " + "<span>*</span>");
-                    }else if (Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid == aid) {
+                    }else if(Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid == aid) {
                         if (Roleid == 1) {
                             Mdao.insertMessageCus(new Message(aid, date, message));
+                        } else {
+                            Mdao.insertMessageRe(new Message(aid, date, message));
+                        }
+                    }else {
+                        if (Roleid == 1) {
+                            Mdao.insertNewmessagecus(new Message(aid, date, message));
                         } else {
                             Mdao.insertMessageRe(new Message(aid, date, message));
                         }

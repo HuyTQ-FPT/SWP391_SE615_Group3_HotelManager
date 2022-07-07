@@ -443,10 +443,8 @@
                             }                           
 			}
 			function processClose(message) {
-				alert(massage.data);
 			}
 			function processError(message) {
-				alert(massage.data);
 			}
 
 			function sendMessage() {
