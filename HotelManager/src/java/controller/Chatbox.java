@@ -51,7 +51,7 @@ public class Chatbox {
             } else {
                 System.out.println(userSession.getUserProperties().get("username"));
                 int aid = 0;
-                int userid = 0;                               
+                int userid = 0;
                 String s1 = username;
                 String[] words = s1.split("\\s");//tach chuoi dua tren khoang trang
                 //su dung vong lap foreach de in cac element cua mang chuoi thu duoc
@@ -65,13 +65,13 @@ public class Chatbox {
                 int Roleid = Mdao.getRoleIDByUserId(userid);
                 boolean exitAccount = false;
                 for (Integer a : listAc) {
-                    if(aid==a){
-                        exitAccount=true;
+                    if (aid == a) {
+                        exitAccount = true;
                         break;
                     }
                 }
                 System.out.println(exitAccount);
-                User u = Udao.getUserByaID(aid);                
+                User u = Udao.getUserByaID(aid);
                 for (Session session : users) {
                     int SessionAid = 0;
                     int SessionUserid = 0;
@@ -89,11 +89,6 @@ public class Chatbox {
                     String sent = "";
                     String revice = "";
                     if (SessionUserid == userid) {
-                        if (Roleid == 1) {
-                    Mdao.insertMessageCus(new Message(aid, date, message));
-                } else {
-                    Mdao.insertMessageRe(new Message(aid, date, message));
-                }
                         sent += "<div class=\"outgoing_msg\">\n"
                                 + "                                <div class=\"sent_msg\">\n"
                                 + "                                    <p>" + message + "</p>\n"
@@ -101,12 +96,7 @@ public class Chatbox {
                                 + "                                </div>\n"
                                 + "                            </div>";
                         session.getBasicRemote().sendText(sent);
-                    } else if (SessionAid == aid) { 
-                        if (Roleid == 1) {
-                    Mdao.insertMessageCus(new Message(aid, date, message));
-                } else {
-                    Mdao.insertMessageRe(new Message(aid, date, message));
-                }
+                    } else if (SessionAid == aid) {
                         revice += "<div class=\"incoming_msg\">             \n"
                                 + "                                <div class=\"incoming_msg_img\"> <img src=\"https://ptetutorials.com/images/user-profile.png\" alt=\"sunil\"> </div>              \n"
                                 + "                                <div class=\"received_msg\">\n"
@@ -120,18 +110,24 @@ public class Chatbox {
                     }
                     if (Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid != aid) {
                         if (Roleid == 1) {
-                    Mdao.insertNewmessagecus(new Message(aid, date, message));
-                } else {
-                    Mdao.insertMessageRe(new Message(aid, date, message));
-                }
+                            Mdao.insertNewmessagecus(new Message(aid, date, message));
+                        } else {
+                            Mdao.insertMessageRe(new Message(aid, date, message));
+                        }
                         session.getBasicRemote().sendText(aid + " " + "<span>*</span>");
+                    }else if (Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid == aid) {
+                        if (Roleid == 1) {
+                            Mdao.insertMessageCus(new Message(aid, date, message));
+                        } else {
+                            Mdao.insertMessageRe(new Message(aid, date, message));
+                        }
                     }
                     if (Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid != aid && !exitAccount) {
                         if (Roleid == 1) {
-                    Mdao.insertNewmessagecus(new Message(aid, date, message));
-                } else {
-                    Mdao.insertMessageRe(new Message(aid, date, message));
-                }
+                            Mdao.insertNewmessagecus(new Message(aid, date, message));
+                        } else {
+                            Mdao.insertMessageRe(new Message(aid, date, message));
+                        }
                         session.getBasicRemote().sendText("<a href=\"MessageController?do=Chat_people&accountid=" + aid + "\">                               \n"
                                 + "                                <div class=\"chat_list\">\n"
                                 + "                                    <div class=\"chat_people\">\n"

@@ -143,7 +143,7 @@ public class UserController extends HttpServlet {
                 String msg =request.getParameter("commentfb");
                 if(!msg.equals("")){
                     daom.insertFeedback(new Message(accoutid, formatted, msg, roomID));
-                    response.sendRedirect("OrderController?do=yourbill");
+                    response.sendRedirect("OrderController?do=yourbill&id="+accoutid);
                 }
                 else response.sendRedirect("UserController?do=Viewfeedback");
             }

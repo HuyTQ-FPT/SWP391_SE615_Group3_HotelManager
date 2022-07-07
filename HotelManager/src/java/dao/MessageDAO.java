@@ -15,4 +15,6 @@ public interface MessageDAO {
     public int getRoleIDByUserId(int userID) throws Exception;
     public void updateMessage(int mID ,Message updateMessage) throws Exception;
     public void deleteMessage(int mID) throws Exception;
+    public boolean checkNewmessage(int AccountID) throws Exception;
+    public void resetNewmessage(int AccountID) throws Exception;
 }

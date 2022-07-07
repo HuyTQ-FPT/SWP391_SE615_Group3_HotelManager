@@ -32,7 +32,7 @@ public class MessageController extends HttpServlet {
             if (service == null) {
                 service = "Viewchatbox";
             }
-            if (service.equals("Viewchatbox")) {
+            if (service.equals("Viewchatbox")) {                
                 Account a = (Account) session.getAttribute("login");
                 if (a.getRoleID() == 1) {
                     request.setAttribute("accountid", a.getAccountID());
@@ -72,6 +72,7 @@ public class MessageController extends HttpServlet {
             }
             if (service.equals("Chat_people")) {
                 request.setAttribute("accountid", Integer.parseInt(request.getParameter("accountid")));
+                dao.resetNewmessage(Integer.parseInt(request.getParameter("accountid")));
                 request.setAttribute("showmess", "");
                 request.getRequestDispatcher("ViewChatbox.jsp").forward(request, response);
             }

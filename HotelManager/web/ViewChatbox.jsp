@@ -318,6 +318,15 @@
                                         <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                                         <div class="chat_ib">
                                             <h5><%=rs2.getString(3)%></h5>
+                                            <%boolean check=false;
+                                                ResultSet rs5 =dao.getData("select * from Message where AccountID="+rs1.getInt(1)+" and MessageTo='1'");
+                                            while (rs5.next()) { 
+                                                check=true;
+                                            }
+                                            if(check){
+                                            %>
+                                            <span>*</span>
+                                            <% }%>
                                         </div>
                                     </div>
                                 </div>            
@@ -330,7 +339,15 @@
                                         <div id="<%=rs1.getString(1)%>" class="chat_ib">
                                             <!--<h5 style="font-weight: bold;font-size:14px;"></h5>-->
                                             <h5><%=rs2.getString(3)%></h5>
-                                            
+                                            <%boolean check=false;
+                                                ResultSet rs5 =dao.getData("select * from Message where AccountID="+rs1.getInt(1)+" and MessageTo='1'");
+                                            while (rs5.next()) { 
+                                                check=true;
+                                            }
+                                            if(check){
+                                            %>
+                                            <span>*</span>
+                                            <% }%>
                                         </div>
                                     </div>
                                 </div>       

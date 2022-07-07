@@ -185,7 +185,7 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
 
     @Override
     public void deleteMessage(int mID) throws Exception {
-               Connection conn = null;
+        Connection conn = null;
         PreparedStatement pre = null;
         String sql = "delete from Message where MessageID=?";
           try {
@@ -232,15 +232,47 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
         }
         return roleID;
     }
-    public static void main(String[] args) {
-        MessageDAOImpl dao =new MessageDAOImpl();
-        try {
-            ArrayList<Integer> list=dao.getAllAcccountMessage();
-            for (Integer integer : list) {
-                System.out.println(integer);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(MessageDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+
+    @Override
+    public boolean checkNewmessage(int AccountID) throws Exception {
+        boolean check=false;
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        String sql = "select * from Message where AccountID="+AccountID+" and MessageTo='1'";
+          try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+              while (rs.next()) {                  
+                  check=true;
+              }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+          return check;
+    }
+
+    @Override
+    public void resetNewmessage(int AccountID) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        String sql = "update Message set MessageTo='0' where AccountID="+AccountID;
+          try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            pre.executeUpdate();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
     }
 }
