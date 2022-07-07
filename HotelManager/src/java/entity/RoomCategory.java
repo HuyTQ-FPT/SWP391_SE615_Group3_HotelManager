@@ -5,6 +5,7 @@ public class RoomCategory {
     private int RoomcateID ;
 	private String Catename;
 	private String Note;
+        private int count;
 
     public RoomCategory() {
     }
@@ -14,6 +15,22 @@ public class RoomCategory {
         this.Catename = Catename;
         this.Note = Note;
     }
+
+    public RoomCategory(int RoomcateID, String Catename, int count) {
+        this.RoomcateID = RoomcateID;
+        this.Catename = Catename;
+        this.count = count;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    
+    
 
     public int getRoomcateID() {
         return RoomcateID;
@@ -43,6 +60,9 @@ public class RoomCategory {
     @Override
     public String toString() {
         return "RoomCategory{" + "RoomcateID=" + RoomcateID + ", Catename=" + Catename + ", Note=" + Note + '}';
+    }
+    public String toString1() {
+        return "RoomCategory{" + "RoomcateID=" + RoomcateID + ", Catename=" + Catename + ", count=" + count+ '}';
     }
         
 }

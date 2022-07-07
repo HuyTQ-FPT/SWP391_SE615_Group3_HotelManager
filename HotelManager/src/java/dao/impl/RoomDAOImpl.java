@@ -5,6 +5,7 @@ import entity.Image;
 import entity.Room;
 import entity.RoomByDate;
 import context.DBContext;
+import entity.RoomCategory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -691,17 +692,6 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return null;
     }
 
-    public static void main(String[] args) {
-        RoomDAOImpl r = new RoomDAOImpl();
-        try {
-            Room r1 = r.getOneRoom(1);
-            System.out.println(r1);
-        } catch (Exception ex) {
-            Logger.getLogger(RoomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
     @Override
     public Vector<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception {
         Connection conn = null;
@@ -747,8 +737,8 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         PreparedStatement pre = null;
         ResultSet rs = null;
         String sql = "select * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
-                + "                     JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
-                + "                   where RoomID = " + roomid;
+                + "  JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                + "    where RoomID = " + roomid;
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
@@ -765,6 +755,62 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
 
         }
         return null;
+    }
+
+    @Override
+    public Vector< RoomCategory> numberOfRoomsByCategory() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Vector< RoomCategory> vector = new Vector<>();
+
+        String sql = "select c.RoomcateID,c.Catename ,COUNT(r.RoomcateID) as count from CateRoom c inner join Room r on c.RoomcateID = r.RoomcateID \n"
+                + "group by c.RoomcateID,c.Catename";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+
+                vector.add(new RoomCategory(rs.getInt("RoomcateID"), rs.getString("Catename"), rs.getInt("count")));
+
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+    }
+
+    @Override
+    public Vector<Room> sumOfRoom() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Vector< Room> vector = new Vector<>();
+
+        String sql = "select Room.[Status],COUNT(Room.[Status]) as Sumstatus from Room \n"
+                + "group by  Room.[Status]";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                    vector.add(new Room(rs.getInt("Status"), rs.getInt("Sumstatus")));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
     }
 
     @Override
@@ -786,6 +832,20 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        RoomDAOImpl r = new RoomDAOImpl();
+        try {
+            Vector< Room> v = r.sumOfRoom();
+            for (Room room : v) {
+                System.out.println(room.toString1());
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(RoomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

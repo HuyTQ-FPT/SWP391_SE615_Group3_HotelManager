@@ -6,6 +6,7 @@ import java.util.Vector;
 
 public interface ReceptionistDAO {
     public Vector<User> getCustomerListByReceptionist() throws Exception;
+    public Vector<User> getListByReceptionist() throws Exception;
     public Vector<User> getSearchNameCustomerListByReceptionist(String uName) throws Exception ;
 
     public void insertReceptionist(User User) throws Exception;

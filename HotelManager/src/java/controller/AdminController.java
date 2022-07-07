@@ -1,12 +1,23 @@
 package controller;
 
+import dao.MessageDAO;
+import dao.ReceptionistDAO;
+import dao.ReservationDAO;
 import dao.RoomDAO;
+import dao.SendFeedbackDAO;
 import dao.UserDAO;
+import dao.impl.MessageDAOImpl;
+import dao.impl.ReceptionistDAOImpl;
+import dao.impl.ReservationDAOImpl;
 import dao.impl.RoomDAOImpl;
+import dao.impl.SendFeedbackDAOIpml;
 import dao.impl.UserDAOImpl;
 import entity.Account;
+import entity.Message;
 import entity.Room;
+import entity.RoomCategory;
 import entity.User;
+import entity.sendFeedback;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -36,15 +47,32 @@ public class AdminController extends HttpServlet {
             HttpSession session = request.getSession();
             UserDAO daoU = new UserDAOImpl();
             RoomDAO daoR = new RoomDAOImpl();
+            ReceptionistDAO daoReceptionist = new ReceptionistDAOImpl();
+            SendFeedbackDAO daoRequest = new SendFeedbackDAOIpml();
+            MessageDAO daoMessage = new MessageDAOImpl();
+            ReservationDAO daoReservation = new ReservationDAOImpl();
             String service = request.getParameter("do");
             if (service == null) {
                 service = "indexAdmin";
 
             }
             if (service.equals("indexAdmin")) { // trang chủ admin
-
-                Vector<Room> vectorR = daoR.getRoomListAll("select*from Room");
+                Vector<Room> vectorRoom = daoR.getRoomListAll("select * from Room"); // phòng
+                Vector<User> vectorUser = daoReceptionist.getCustomerListByReceptionist(); // số khách hàng
+                Vector<User> vectorReceptionist = daoReceptionist.getListByReceptionist(); //số lễ tân
+                Vector<sendFeedback> vectorRequest = daoRequest.getMessage(); // số yêu cầu
+                Vector<Message> vectorMessage = daoMessage.getAllComment();// số phản hồi
+                int sumReservation = daoReservation.sumReservation(); // tổng tiền
+                Vector<RoomCategory> vectorR = daoR.numberOfRoomsByCategory(); // thống kê theo loại phòng
+                 Vector<Room> vectorStatus = daoR.sumOfRoom(); 
                 request.setAttribute("vectorR", vectorR);
+                request.setAttribute("vectorRoom", vectorRoom);
+                request.setAttribute("vectorUser", vectorUser);
+                request.setAttribute("vectorReceptionis", vectorReceptionist);
+                request.setAttribute("vectorRequest", vectorRequest);
+                request.setAttribute("vectorMessage", vectorMessage);
+                request.setAttribute("sumReservation", sumReservation);
+                request.setAttribute("vectorStatus", vectorStatus);
                 request.getRequestDispatcher("indexadmin.jsp").forward(request, response);
             }
 

@@ -3,13 +3,12 @@ package dao;
 import entity.Image;
 import entity.Room;
 import entity.RoomByDate;
+import entity.RoomCategory;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Vector;
 
 public interface RoomDAO {
-
-    public Vector<Room> getRoomList(String sql);
 
     public Vector<Room> getRoomListAll(String sql) throws Exception;
 
@@ -22,6 +21,14 @@ public interface RoomDAO {
     public Image searchRoomidAndImage(int RoomID) throws Exception;
 
     public Room getOneRoom(int roomid) throws Exception;
+
+    public Vector<RoomCategory> numberOfRoomsByCategory() throws Exception;
+    public Vector<Room> sumOfRoom() throws Exception;
+
+    
+    
+    
+    public Vector<Room> getRoomList(String sql);
 
     public int getPage();
 

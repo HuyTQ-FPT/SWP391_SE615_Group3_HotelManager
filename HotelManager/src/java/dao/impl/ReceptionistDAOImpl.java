@@ -214,4 +214,47 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
         return vector;
     }
 
+    @Override
+    public Vector<User> getListByReceptionist() throws Exception {
+       Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
+        Vector<User> vector = new Vector<>();
+        try {
+            String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
+                    + "where c.RoleID=2";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int uID = rs.getInt(1);
+                int uAID = rs.getInt(2);
+                String uName = rs.getString(3);
+                String uPhone = rs.getString(4);
+                String uEmail = rs.getString(5);
+                int uGender = rs.getInt(6);
+                Date birthday = rs.getDate(7);
+                String uAdress = rs.getString(8);
+                String uCMT = rs.getString(9);
+                String uImgCmt = rs.getString(10);
+
+                User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, birthday, uAdress, uCMT, uImgCmt);
+                vector.add(u);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+
+    }
+
 }

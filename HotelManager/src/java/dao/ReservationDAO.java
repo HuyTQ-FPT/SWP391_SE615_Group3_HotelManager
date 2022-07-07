@@ -8,4 +8,6 @@ public interface ReservationDAO {
     public int updateReservation(Reservation re);
     public int addReservation(Reservation re);
     public Vector<Reservation> Reservation(String sql);
+    
+    public int sumReservation() throws Exception;
 }

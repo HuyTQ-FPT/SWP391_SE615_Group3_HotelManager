@@ -233,11 +233,8 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
     public static void main(String[] args) {
         SendFeedbackDAOIpml s = new SendFeedbackDAOIpml();
         try {
-            Vector<sendFeedback> k = s.searchName(1, "swp");
-            for (sendFeedback feedback : k) {
-                System.out.println(feedback);
-
-            }
+            Vector<sendFeedback> k = s.getMessage();
+            System.out.println(k.size());
         } catch (Exception e) {
         }
     }

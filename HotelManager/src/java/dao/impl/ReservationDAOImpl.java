@@ -1,19 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao.impl;
 
 import dao.ReservationDAO;
 import entity.Reservation;
 import context.DBContext;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -115,9 +114,46 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
     }
     public static void main(String[] args) {
         ReservationDAOImpl dao= new ReservationDAOImpl();
-                Date a = Date.valueOf("2022-05-03");
-        Date b = Date.valueOf("2022-07-03");
-        Reservation re =new Reservation(4, 8, "Rose", "rs2001@gmail.com", "Hanoi", "0904652125", 4, a, b, 1600, 1,a );
-        int n= dao.addReservation(re);
+//                Date a = Date.valueOf("2022-05-03");
+//        Date b = Date.valueOf("2022-07-03");
+//        Reservation re =new Reservation(4, 8, "Rose", "rs2001@gmail.com", "Hanoi", "0904652125", 4, a, b, 1600, 1,a );
+//        int n= dao.addReservation(re);
+        try {
+            dao.sumReservation();
+        } catch (Exception ex) {
+            Logger.getLogger(ReservationDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+
+    @Override
+    public int sumReservation() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+      
+        try {
+            String sql = "select SUM(Total) as Total from Reservation";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                
+                    return  rs.getInt("Total");
+
+                
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return 0;
+    }
+   
 }
