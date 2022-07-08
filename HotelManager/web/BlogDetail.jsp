@@ -1,8 +1,4 @@
-<%-- 
-    Document   : BlogDetail.jsp
-    Created on : Jun 6, 2022, 1:57:30 AM
-    Author     : Thai Quan
---%>
+
 
 <%@page import="entity.Account"%>
 <%@page import="entity.Blog"%>
@@ -34,6 +30,123 @@
 
 
         <link rel="stylesheet" href="css/style_2.css" type="text/css">
+        <script type="text/javascript">
+            function Comment() {
+                var xhttp;
+                var username = document.myform.username.value;
+                var content = document.myform.content.value;
+                var blogid = document.myform.blogid.value;
+                var url = "CommentController?do=displaycomment&content=" + content + "&username=" + username + "&blogid=" + blogid;
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
+                }
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState == 4) {
+                        var data = xhttp.responseText;
+                        document.getElementById("mycomment").innerHTML = data;
+                    }
+
+                }
+                xhttp.open("POST", url, true);
+                xhttp.send();
+
+                var arr = document.getElementsByTagName('input');
+                var name = arr[0].value;
+                var arr1 = document.getElementsByTagName('textarea');
+                var content = arr1[0].value;
+                if (name.trim() == "" && content.trim() == "") {
+                    alert("please fill all fields");
+                    return false;
+                }
+                   
+            }
+
+        </script>
+      
+        <script type="text/javascript">
+            function Delete1(commentId) {
+                 location.reload();
+                var xhttp;
+               
+                var blogid = document.getElementById("myform2"+commentId).blogid1.value;  
+                var url = "CommentController?do=RemoveComment&commentid=" + commentId + "&blogid=" + blogid;
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
+                }
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState == 4) {
+                        var data = xhttp.responseText;
+                        document.getElementById("mycomment").innerHTML = data;
+                    }
+                    
+                }
+                xhttp.open("POST", url, true);
+                xhttp.send();
+
+                var arr = document.getElementsByTagName('input');
+                var name = arr[0].value;
+                var arr1 = document.getElementsByTagName('textarea');
+                var content = arr1[0].value;
+                if (name.trim() == "" && content.trim() == "") {
+                    alert("please fill all fields");
+                    return false;
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            function Update1(commentId) {     
+                var xhttp;       
+               var content = document.getElementById("myform3"+commentId).content3.value;
+               var blogid = document.getElementById("myform3"+commentId).blogidd.value;  
+                var url = "CommentController?do=UpdateComment&commentid=" + commentId + "&content=" + content + "&blogid=" + blogid;
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
+                }
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState == 4) {
+                        var data = xhttp.responseText;
+                        document.getElementById("mycomment3").innerHTML = data;
+                    }
+                }
+                xhttp.open("POST", url, true);
+                xhttp.send();
+            }
+           
+        </script>
+
+
+        <script type="text/javascript">
+            function Comment1() {
+                var xhttp;
+                var content = document.myform1.content1.value;
+                var username = document.myform1.username1.value;
+                var blogid = document.myform1.blogid1.value;
+                var commentid = document.myform1.commentid.value;
+                var url = "ReplyController?content1=" + content + "&username=" + username + "&commentid=" + commentid + "&blogid=" + blogid;
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
+                }
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState == 4) {
+                        var data = xhttp.responseText;
+                        document.getElementById("mycomment1").innerHTML = data;
+                    }
+
+                }
+                xhttp.open("POST", url, true);
+                xhttp.send();
+            }
+
+        </script>
+
     </head>
     <style>
         .login{
@@ -45,40 +158,7 @@
             right: 40px;
         }
     </style>
-    <script type="text/javascript">
-        function  Comment() {
-            var xhttp;
-            var username = document.myform.username.value;
-            var content = document.myform.content.value;
-            var blogid = document.myform.blogid.value;
-            var url = "CommentController?content=" + content + "&username=" + username + "&blogid=" +blogid;
-            if (window.XMLHttpRequest) {
-                xhttp = new XMLHttpRequest();
-            } else {
-                xhttp = new ActiveObject("Microsoft.XMLHTTP");
-            }
-            xhttp.onreadystatechange = function () {
-                if (xhttp.readyState == 4) {
-                    var data = xhttp.responseText;
-                    document.getElementById("mycomment").innerHTML = data;
-                }
 
-            }
-            xhttp.open("POST", url, true);
-            xhttp.send();
-            
-            var arr = document.getElementsByTagName('input');
-            var name = arr[0].value;
-            var arr1 = document.getElementsByTagName('textarea');
-            var content = arr1[0].value;
-            if (name.trim() == "" && content.trim() == "") {
-                alert("please fill all fields");
-                return false;
-            }
-
-        }
-
-    </script>
     <body>
 
         <div class="site-wrap">
@@ -150,11 +230,12 @@
                                                 <div class="blog__sidebar__recent__item__text">
                                                     <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
                                                     <span>MAR 05, 2019</span>
+
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
-                                 
+
                                 </div>
                             </div>
                         <c:forEach items="${c}" var="c">
@@ -172,7 +253,7 @@
                                                     <img src="images/img_1.jpg" alt="">
                                                 </div>
                                                 <div class="blog__details__author__text">
-                                                    <h6>${c.blogAuthor}</h6>
+                                                    <h6 onclick="reload()">${c.blogAuthor}</h6>
                                                     <span>Admin</span>
                                                 </div>
                                             </div>
@@ -201,17 +282,17 @@
             </section>
             <!-- Blog Details Section End -->
 
-            <div id ="mycomment"> </div>
+            <div id ="mycomment"> </div>  
             <div class="be-comment-block">
                 <h1 class="comments-title">Comments</h1>
 
-   
+
                 <form name="myform">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
                             <div class="form-group fl_icon">
                                 <div class="icon"><i class="fa fa-user"></i></div>
-                                <input type="text"  class="form-input" id="username" name="username" required/>
+                                <input type="text"  value="${sessionScope.user}" readonly class="form-input" id="username" name="username" required readonly/>
 
                             </div>
                         </div>
@@ -226,20 +307,15 @@
                                                             </textarea>
                                                         </div>-->
                         </div>
-                         <c:forEach items="${c}" var="c">
-                        <input type="hidden" value="${c.blogID}" id="blogid" name="blogid"/>
-                       </c:forEach>
+                        <c:forEach items="${c}" var="c">
+                            <input type="hidden" value="${c.blogID}" id="blogid" name="blogid"/>
+                        </c:forEach>
                         <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Gửi" onclick="Comment()"/>
                     </div>
                 </form>
-    
-
-
-
-
 
             </div>
-            <!-- Related Blog Section Begin -->
+         
             <section class="related-blog spad">
                 <div class="container">
                     <div class="row">
@@ -262,7 +338,7 @@
                                         </ul>
 
                                         <h5><a href="BlogController?do=detailBlog&blogID=${c.blogID}">${c.blogTitleString}</a></h5>
-<!--                                        <p>${c.blogDescription}</p>-->
+
                                     </div>
                                 </div>
                             </div>                       
@@ -326,9 +402,9 @@
                     <div class="row pt-5 mt-5 text-center">
                         <div class="col-md-12">
                             <p>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                           
                                 Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="icon-heart text-primary" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                              
                             </p>
                         </div>
 
