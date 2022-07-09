@@ -82,6 +82,7 @@ public class CommentController extends HttpServlet {
                 String username = request.getParameter("username");
                 String BlogID = request.getParameter("blogid");
                 String ParentID = "0";
+                String ParentIDD = request.getParameter("commentid");
                 if (content.trim() == "" || username.trim() == "") {
 
                 } else {
@@ -93,7 +94,9 @@ public class CommentController extends HttpServlet {
                     dao.InsertComment(content, username, BlogID, ParentID);
                     List<Comment> list = dao.DisplayComment(BlogID);
 
-                    request.setAttribute("listcomment", list);
+                    request.setAttribute("listcomment", list);     
+//                    List<Comment> list1 = dao.DisplayCommenttt(ParentIDD);
+//                     request.setAttribute("listcomment1", list1);
                     RequestDispatcher rd = request.getRequestDispatcher("Comment.jsp");
                     rd.forward(request, response);
 //            out.println("<h1>Servlet RoomcategoryController at " + list+ "</h1>"); 

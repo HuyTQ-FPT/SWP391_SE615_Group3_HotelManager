@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Thai Quan
  */
-@WebFilter(filterName = "CustomerFIilter", urlPatterns = {"/CommentController"})
+@WebFilter(filterName = "CustomerFIilter", urlPatterns = {""})
 public class CustomerFIilter implements Filter {
     
     private static final boolean debug = true;

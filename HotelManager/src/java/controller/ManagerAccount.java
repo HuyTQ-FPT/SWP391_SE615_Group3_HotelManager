@@ -5,33 +5,52 @@
  */
 package controller;
 
-import dao.impl.BlogDAOImpl;
-import entity.Comment;
+import dao.impl.AccountDAOImpl;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Thai Quan
  */
-@WebServlet(name = "ReplyController", urlPatterns = {"/ReplyController"})
-public class ReplyController extends HttpServlet {
+@WebServlet(name = "ManagerAccount", urlPatterns = {"/ManagerAccount"})
+public class ManagerAccount extends HttpServlet {
 
-  
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
+          HttpSession session = request.getSession();
+          AccountDAOImpl dao = new AccountDAOImpl();
         try (PrintWriter out = response.getWriter()) {
-             out.println("<h1>Servlet RoomcategoryController at </h1>");
-           
+            /* TODO output your page here. You may use following sample code. */
+               Account ac = new Account();
+                ac = (Account) session.getAttribute("login");              
+                    List<Account> list = dao.getAccountList();
+                    request.setAttribute("lista", list);
+                    
+                    request.getRequestDispatcher("uprole.jsp").forward(request, response);
+//                  out.println("<h1>Servlet admin at</h1>");
+               
+                
         }
     }
 
@@ -47,7 +66,11 @@ public class ReplyController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ManagerAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -61,35 +84,10 @@ public class ReplyController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       BlogDAOImpl dao = new BlogDAOImpl();
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        if (request.getCharacterEncoding() != null) {
-            request.setCharacterEncoding("UTF-8");
-        }
-        try (PrintWriter out = response.getWriter()) {
-            String content = request.getParameter("content1");
-            String username = request.getParameter("username");;
-            String BlogID = request.getParameter("blogid");;
-            String ParentID = request.getParameter("commentid");
-          String CommentID = request.getParameter("commentid");
-                Comment cmt = new Comment();
-                cmt.setContent(content);
-                cmt.setUsername(username);
-                cmt.setParentId(ParentID);
-                cmt.setBlogid(BlogID);
-                cmt.setCommentId(CommentID);
-               dao.InsertComment(content, username, BlogID, ParentID);
-                List<Comment> list1 = dao.DisplayCommenttt(ParentID);
-                request.setAttribute("listcomment1", list1);
-                RequestDispatcher rd = request.getRequestDispatcher("Reply.jsp");
-                rd.forward(request, response);
-             
-//      out.println("<h1>Servlet RoomcategoryController at " + username+ "</h1>"); 
-            
-    
-        } catch (Exception e) {
-            e.printStackTrace();
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ManagerAccount.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -102,4 +100,5 @@ public class ReplyController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }
