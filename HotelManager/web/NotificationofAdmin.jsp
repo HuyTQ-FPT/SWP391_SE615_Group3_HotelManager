@@ -1,14 +1,19 @@
-
-<%@page import="entity.Room"%>
+<%@page import="entity.Notification"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entity.Account"%>
+<%@page import="dao.impl.UserDAOImpl"%>
+<%@page import="entity.Message"%>
+<%@page import="entity.User"%>
 <%@page import="java.util.Vector"%>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Receptionist</title>
+        <title>Danh sách khách hàng</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -17,8 +22,6 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
         <style>
             body {
                 color: #566787;
@@ -30,7 +33,9 @@
                 margin: 30px 0;
             }
             .table-wrapper {
+                overflow: scroll;
                 min-width: 1000px;
+                max-height: 400px;
                 background: #fff;
                 padding: 20px;
                 box-shadow: 0 1px 1px rgba(0,0,0,.05);
@@ -163,10 +168,13 @@
             .name{
                 font-size: 13px;
             }
+            /*            .table-wrapper{
+                            margin-left: 50px;
+                        }*/
             .log-out{
                 position: fixed;
-                right: 110px;
-                top:35px;
+                right: 100px;
+                top:20px;
                 border-radius: 5px;
                 background-color: #F1BC31;
                 margin-right: 20px;
@@ -193,7 +201,7 @@
                 color: white;
                 position: relative;
                 position: fixed;
-                top: 60px;
+                top: 45px;
                 right: 30px;
                 border-radius: 10px;
                 overflow: hidden;
@@ -256,64 +264,66 @@
                 transition-delay: 0.1s;
                 transform: rotate(0deg);
             }
-            .selectStatus{
-                margin-right: 600px;
-            }
-
-            .pagination {
-                display: inline-block;
-            }
-
-            .pagination a {
-                color: black;
-                float: left;
-                padding: 8px 16px;
-                text-decoration: none;
-            }
-            .supprimer {
-                /*                background-color: transparent;
-                                text-decoration: underline;
-                                border: none;*/
-                color: blue;
-                cursor: pointer;
-                border-radius: 5px;
-                background-color: #F1BC31;
-                padding: 4px 10px;
-            }
-
-            supprimer:focus {
-                outline: none;
-            }
-            .but{
-                cursor: pointer;
-                border-radius: 5px;
-                background-color: #F1BC31;
-                padding: 2px 15px;
-            }
-            .form-group{
-                position: relative;
-            }
-            .style{
-                position: absolute;
-                left: 0px;
-                top:0px;
-                font-size: 10px;
-            }
             .notif{
                 position: fixed;
-                right: 40px;
+                right: 910px;
                 color: #F1BC31;
-                font-size: 20px;
+                font-size: 25px;
             }
             .notif a:hover{
                 color: white;
             }
+        .texxt1{
+            position: fixed;
+            bottom: 60px;
+            left: 660px;
+            border-radius: 5px;
+            background-color: #F5A623;
+            color: black;
+            margin: 0px 30px;
+        }
+        .button{
+            position: fixed;
+            bottom: 90px;
+            left: 1270px;
+            width: 80px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: #F5A623;
+            color: white;
+        }
+        .button:hover{
+            cursor: pointer;
+            transform: scale(0.98);
+        }
+        .text{position: fixed;
+            bottom: 85px;
+            left: 360px;
+            width: 300px;
+            height:50px;
+            border-radius: 5px;
+            background-color: #F5A623;
+            color: black;
+        }
+        .recep{
+            position: fixed;
+            bottom: 75px;
+            left: 40px;
+            width: 220px;
+            height: 70px;
+            border-radius: 5px;
+            background-color: #F5A623;
+            color: black;
+            font-weight: bold;
+            margin-right: 30px;
+        }
         </style>
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     </head>
     <body>
         <%
-            Vector<Room> vector = (Vector<Room>)request.getAttribute("vectorR");
-
+            ArrayList<Notification> list = (ArrayList<Notification>)request.getAttribute("list");
         %>
         <section class="ftco-section">
             <div class="card" id="team">
@@ -339,114 +349,90 @@
                 </div>
 
                 <div class="card_button">
-                    <a href="ReceptionistController?do=profile"><button>Thông tin</button></a>                       
+                    <a href="ReceptionistController?do=profile"><button>Thông tin</button></a>                          
                 </div>
 
             </div>
-            <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="padding: 15px">
+            <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
-                    <span class="admin">Lễ Tân</span>
-                    
+                    <span class="admin"></i>Lễ Tân</span>
                     <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
                     </form>
-                    <!--search RoomName-->
-                    <form action="ReceptionistController?do=searchRoomAndStatus" class="searchform order-lg-last" method="post"  style="
+                    <form action="FeedbackController?do=SearchName" class="searchform order-lg-last" method="post"  style="
                           margin-right: 100px;
                           margin-top: 10px;
                           ">
-                        <div class="form-group d-flex"  >                
-                            <input name="nameRoom" type="text" class="form-control pl-3" placeholder="Tìm kiếm phòng" style="order-radius:8px" >
-
-                            <select name="status" style="order-radius:8px"  >
-
-
-                                <option value="-1">----------------</option>
-                                <option value="0" >Phòng trống</option>
-                                <option value="1" >Phòng đã được đặt</option>
-
-                            </select>  
-                            <button type="submit" name="submit" style=" border-radius:8px"class="form-control search"><span class="fa fa-search"></span></button>
+                        <div class="form-group d-flex" >
+                            <input name="Name" type="text" class="form-control pl-3" placeholder="Tìm kiếm tên" style="order-radius:8px">
+                            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
                         </div>
                     </form>
-
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active"><a href="ReceptionistController" class="nav-link">Quản lí<br>Phòng</a></li>
-                                                      
-                            <li class="nav-item "><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
-                            <li class="nav-item "><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
+                            <li class="nav-item "><a href="ReceptionistController" class="nav-link">Quản lí<br>phòng </a></li>
+                            <!--                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>-->
+                            <li class="nav-item"><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
+                            <li class="nav-item active"><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
                         </ul>
                     </div>
+
                 </div>
                 <div class="oke" onclick="show()"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></div>
-                           
+                <div class="notif"><a href=""><span class="iconify" data-icon="clarity:notification-solid"></a></span><h10 style="font-size:12px;">Admin</h10></div>
             </nav>
-
-
-
-
-        </section>
-        <div class="table-wrapper">                    
-            <table class="table table-striped table-hover table-bordered"> 
+        </section> 
+        <% if(list.size()>0){%>
+        <div class="table-wrapper">
+            <table class="table table-striped table-hover table-bordered" style="Margin-left:10px;overflow: hidden;" > 
                 <thead>
-                    <tr class="title">
-                        <th>STT</th>
-                        <th>Số phòng</th>
-                        <th>Miêu tả phòng </th>
-                        <th>Giá phòng</th>
-                        <th>Số người</th>
-                        <th>Diện tích</th>
-                        <th>Đánh giá</th>
-                        <!--<th>Note</th>-->
-                        <th>Tình trạng</th>
-
-
+                    <tr class="title" >
+                        <th style="width:20px"></th>
+                        <th style="width:50px">Admin</th>
+                        <th style="width:150px">Tiêu đề</th>
+                        <th style="width:530px">Nội dung</th>
+                        <th style="width:60px">Ngày</th>                        
                     </tr>
                 </thead>
-                <% for (Room r : vector) {%>
                 <tbody>
-                    <tr class="name">
-                        <td><%=r.getRoomID()%></td>
-                        <td><%=r.getRoomname()%></td>
-                        <td><%=r.getRoomdesc()%></td>
-                        <td><%=r.getRoomprice()%></td>
-                        <td><%=r.getNumberPerson()%></td>
-                        <td><%=r.getSquare()%></td>
-                        <td><%=r.getRate()%></td>
-                        <td>
-                            <form action="ReceptionistController">
-                                <input type="hidden" name="do" value="updateStatus">     
-                                <input type="hidden" name="rid" value="<%= r.getRoomID()%>"> 
-
-                                <select name="status"  >
-                                    <option value="0" <%if (r.getStatus() == 0) {%>selected<%}%>>Phòng trống</option>
-                                    <option value="1" <%if (r.getStatus() == 1) {%>selected<%}%>>Phòng đã được đặt</option>
-                                </select>   
-                                <button class="supprimer" type="submit" name="submit"  onclick="confirmation()">Cập Nhật</button>
-                            </form>
-                        </td>
-
+                    <c:forEach items="${list}" var="n">
+                        <tr class="name">
+                        <td><img src="https://ptetutorials.com/images/user-profile.png" style="width: 25px;height:25px"></td>
+                        <td>Admin</td>
+                        <td>${n.getTitle()}</td>
+                        <td>${n.getContent()}</td>
+                        <td>${n.getDate()}</td>
                     </tr>
-                <script>
-
-                    //Confinm Up
-                    function confirmation() {
-                        var result = "Bạn có muốn cập nhật bây giờ?";
-                        alert(result);
-                    }
-                    function show() {
-                        if (document.getElementById("team").style.display == "none") {
-                            document.getElementById("team").style.display = "block";
-                        } else {
-                            document.getElementById("team").style.display = "none";
-                        }
-                    }
-                </script>
+                    </c:forEach>
+                     
                 </tbody>
-                <%}%>
             </table>
-        </div> 
-        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+        </div>
+              <% }else{%>   
+        <h1 class="emty">Hòm thư đang rỗng</h1>
+                <% }%>
+                    <div>
+                        <button class="recep">Gửi thông báo tới Admin</button>
+                    </div>
+                    <br>
+                    <form action="NotificationController?do=SentAdmin" method="post">
+                        <div class="BoxSentMess">                  
+                        <div class="Main">
+                            <input required="" id="title" name="title" type="text" maxlength="100" placeholder="Tiêu đề" class="text">
+                            <textarea required="" id="content" name="content" type="text" rows="3" cols="60" placeholder="Nội dung tin nhắn" class="texxt1"></textarea>
+                            <button onclick="Showmess()" class="button" type="submit">Sent</button>
+                        </div>
+                    </div>
+                    </form>
+                      
+                        <script>
+                                        function Showmess(){
+                                        var title =document.getElementById("title").value;
+                                        var content =document.getElementById("content").value;
+                                        if(title!="" && content!=""){
+                                            alert("Tin nhắn đã được gửi thành công đến Admin!");
+                                        }
+                                    }
+                                    </script>
     </body>
 </html>

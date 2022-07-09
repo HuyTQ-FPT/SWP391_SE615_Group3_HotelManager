@@ -147,6 +147,9 @@ public class UserController extends HttpServlet {
                 }
                 else response.sendRedirect("UserController?do=Viewfeedback");
             }
+        }catch(Exception ex){
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            request.getRequestDispatcher("Filter.jsp").forward(request, response);
         }
     }
 

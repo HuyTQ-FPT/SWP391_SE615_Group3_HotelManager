@@ -13,10 +13,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author admin
- */
+
 public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
     @Override

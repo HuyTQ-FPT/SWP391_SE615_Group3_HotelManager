@@ -100,6 +100,11 @@
                                 <a class="dropdown-item" href="#">Customize</a>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NotificationController">
+                                <i class="fas fa-bell"></i> Thông báo
+                            </a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">

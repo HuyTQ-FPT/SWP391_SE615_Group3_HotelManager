@@ -21,12 +21,13 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <!-- https://getbootstrap.com/ -->
         <link rel="stylesheet" href="css/templatemo-style.css">
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <!--
             Product Admin CSS Template
             https://templatemo.com/tm-524-product-admin
         -->
     </head>
-
+    
     <body id="reportsPage">
         <div class="" id="home">
             <%@include file="headerAdmin.jsp" %>
@@ -115,9 +116,35 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+<<<<<<< Updated upstream
                     <div class="tm-bg-primary-dark tm-block">
                         <h2 class="tm-block-title">Thống kê thiết bị</h2>
                         <canvas id="barChart"></canvas>
+=======
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller">
+                        <h2 class="tm-block-title">Storage Information</h2>
+                        <div id="pieChartContainer">
+                            <canvas id="pieChart" class="chartjs-render-monitor" width="200" height="200"></canvas>
+                        </div>                        
+                    </div>
+                </div>
+                
+                <!--notification-->
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+                    <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-overflow">
+                        <h2 class="tm-block-title">Notification List</h2>
+                        <div class="tm-notification-items">                           
+                            <div class="media tm-notification-item notifather">
+                                <div class="tm-gray-circle"><img src="images/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                                <div class="media-body">
+                                    <p class="mb-2"><b>Cinthela</b> and <b>6 others</b> sent you 
+                                        <a href="#" class="tm-notification-link">product updates</a>.</p>
+                                    <span class="tm-small tm-text-color-secondary">6h ago.</span>
+                                    <a href="#"><i class='bx bxs-message-square-x notifi' style="color:window"></i></a>
+                                </div>
+                            </div>                   
+                        </div>
+>>>>>>> Stashed changes
                     </div>
                 </div>
                 <!--                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
@@ -218,6 +245,7 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script src="js/tooplate-scripts.js"></script>
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     <script>
 
         let cateName = [], cateCOunt = []

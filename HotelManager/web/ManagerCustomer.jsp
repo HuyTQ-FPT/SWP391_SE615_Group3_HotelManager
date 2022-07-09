@@ -256,6 +256,15 @@
                 transition-delay: 0.1s;
                 transform: rotate(0deg);
             }
+            .notif{
+                position: fixed;
+                right: 40px;
+                color: #F1BC31;
+                font-size: 20px;
+            }
+            .notif a:hover{
+                color: white;
+            }
         </style>
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
@@ -318,7 +327,7 @@
 
                 </div>
                 <div class="oke" onclick="show()"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></div>
-
+                
             </nav>
 
         </section>

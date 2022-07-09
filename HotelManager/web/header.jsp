@@ -64,7 +64,7 @@
                                             <% } else if (ac.getRoleID() == 1) {%>
                                         <li><a style="font-family: PlayFair Display" href="BlogController?do=getBlog">Thông tin</a></li>
                                         <li><a style="font-family: PlayFair Display" href="events.html">Sự kiện</a></li>
-                                        <li><a style="font-family: PlayFair Display" href="OrderController?do=yourbill&id=<%=ac.getAccountID()%>">Your Cart</a></li>
+                                        <li><a style="font-family: PlayFair Display" href="OrderController?do=yourbill&id=<%=ac.getAccountID()%>">Đơn Hàng</a></li>
                                         <li><a style="font-family: PlayFair Display" href="contact.jsp">Liên hệ</a></li>
                                         <li class="login"><a style="font-family: PlayFair Display" href="LoginController?do=logout">Đăng xuất</a></li>
 

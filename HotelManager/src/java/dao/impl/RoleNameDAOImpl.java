@@ -5,10 +5,7 @@
  */
 package dao.impl;
 
-/**
- *
- * @author Admin
- */
+
 public class RoleNameDAOImpl {
     
 }

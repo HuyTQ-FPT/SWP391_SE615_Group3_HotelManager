@@ -3,20 +3,26 @@ package controller;
 import dao.ReceptionistDAO;
 import dao.RoomDAO;
 import dao.UserDAO;
+import dao.impl.NotificationDAOImpl;
 import dao.impl.ReceptionistDAOImpl;
 import dao.impl.RoomDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
+import entity.Notification;
 import entity.Reservation;
 import entity.Room;
 import entity.User;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,23 +38,35 @@ public class ReceptionistController extends HttpServlet {
              request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
             ReceptionistDAO dao = new ReceptionistDAOImpl();
+            NotificationDAOImpl daoN= new NotificationDAOImpl();
             RoomDAO daoR = new RoomDAOImpl();
             UserDAO daoU = new UserDAOImpl();
             String service = request.getParameter("do");
             HttpSession session = request.getSession();
+            LocalDateTime current = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            String formatted = current.format(formatter);
+            Account a=(Account)session.getAttribute("login");
             if (service == null) {
                 service = "Room";
             }
-            if (service.equals("Room")) { //In ra tất cả các phòng
+            if (service.equals("Room")) { //In ra tất cả các phòng                
                 Vector<Room> vectorR = daoR.getRoomListAll("select * from Room");
                 request.setAttribute("vectorR", vectorR);
                 request.getRequestDispatcher("managerRoom.jsp").forward(request, response);
             }
-            if (service.equals("updateStatus")) { // cập nhật trạng thái phòng
+            if (service.equals("updateStatus")) { // cập nhật trạng thái phòng               
                 String rId = request.getParameter("rid");
                 String status = request.getParameter("status");
-                int Rid = Integer.parseInt(rId);
                 int status1 = Integer.parseInt(status);
+                String content="";
+                if(status1==0){
+                    content="Phòng từ trạng thái đã được đặt sang trạng thái rỗng";
+                }else{
+                    content="Phòng từ trạng thái rỗng sang trạng thái đã được đặt";
+                }              
+                daoN.insertNotification(new Notification("Cập nhập trạng thái phòng", a.getUser().toString(), rId.toString(), content.toString(), formatted.toString()));      
+                int Rid = Integer.parseInt(rId);
                 daoR.updateStatus(Rid, status1);
                 response.sendRedirect("ReceptionistController");
             }
