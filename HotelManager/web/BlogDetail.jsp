@@ -30,122 +30,8 @@
 
 
         <link rel="stylesheet" href="css/style_2.css" type="text/css">
-        <script type="text/javascript">
-            function Comment() {
-                var xhttp;
-                var username = document.myform.username.value;
-                var content = document.myform.content.value;
-                var blogid = document.myform.blogid.value;
-                var url = "CommentController?do=displaycomment&content=" + content + "&username=" + username + "&blogid=" + blogid;
-                if (window.XMLHttpRequest) {
-                    xhttp = new XMLHttpRequest();
-                } else {
-                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
-                }
-                xhttp.onreadystatechange = function () {
-                    if (xhttp.readyState == 4) {
-                        var data = xhttp.responseText;
-                        document.getElementById("mycomment").innerHTML = data;
-                    }
-
-                }
-                xhttp.open("POST", url, true);
-                xhttp.send();
-
-                var arr = document.getElementsByTagName('input');
-                var name = arr[0].value;
-                var arr1 = document.getElementsByTagName('textarea');
-                var content = arr1[0].value;
-                if (name.trim() == "" && content.trim() == "") {
-                    alert("please fill all fields");
-                    return false;
-                }
-                   
-            }
-
-        </script>
-      
-        <script type="text/javascript">
-            function Delete1(commentId) {
-                 location.reload();
-                var xhttp;
-               
-                var blogid = document.getElementById("myform2"+commentId).blogid1.value;  
-                var url = "CommentController?do=RemoveComment&commentid=" + commentId + "&blogid=" + blogid;
-                if (window.XMLHttpRequest) {
-                    xhttp = new XMLHttpRequest();
-                } else {
-                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
-                }
-                xhttp.onreadystatechange = function () {
-                    if (xhttp.readyState == 4) {
-                        var data = xhttp.responseText;
-                        document.getElementById("mycomment").innerHTML = data;
-                    }
-                    
-                }
-                xhttp.open("POST", url, true);
-                xhttp.send();
-
-                var arr = document.getElementsByTagName('input');
-                var name = arr[0].value;
-                var arr1 = document.getElementsByTagName('textarea');
-                var content = arr1[0].value;
-                if (name.trim() == "" && content.trim() == "") {
-                    alert("please fill all fields");
-                    return false;
-                }
-            }
-        </script>
-        <script type="text/javascript">
-            function Update1(commentId) {     
-                var xhttp;       
-               var content = document.getElementById("myform3"+commentId).content3.value;
-               var blogid = document.getElementById("myform3"+commentId).blogidd.value;  
-                var url = "CommentController?do=UpdateComment&commentid=" + commentId + "&content=" + content + "&blogid=" + blogid;
-                if (window.XMLHttpRequest) {
-                    xhttp = new XMLHttpRequest();
-                } else {
-                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
-                }
-                xhttp.onreadystatechange = function () {
-                    if (xhttp.readyState == 4) {
-                        var data = xhttp.responseText;
-                        document.getElementById("mycomment3").innerHTML = data;
-                    }
-                }
-                xhttp.open("POST", url, true);
-                xhttp.send();
-            }
-           
-        </script>
-
-
-        <script type="text/javascript">
-            function Comment1() {
-                var xhttp;
-                var content = document.myform1.content1.value;
-                var username = document.myform1.username1.value;
-                var blogid = document.myform1.blogid1.value;
-                var commentid = document.myform1.commentid.value;
-                var url = "ReplyController?content1=" + content + "&username=" + username + "&commentid=" + commentid + "&blogid=" + blogid;
-                if (window.XMLHttpRequest) {
-                    xhttp = new XMLHttpRequest();
-                } else {
-                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
-                }
-                xhttp.onreadystatechange = function () {
-                    if (xhttp.readyState == 4) {
-                        var data = xhttp.responseText;
-                        document.getElementById("mycomment1").innerHTML = data;
-                    }
-
-                }
-                xhttp.open("POST", url, true);
-                xhttp.send();
-            }
-
-        </script>
+        
+       
 
     </head>
     <style>
@@ -193,8 +79,9 @@
                                 <div class="blog__sidebar">
 
                                     <div class="blog__sidebar__item">
-                                        <h4>Thể loại</h4>
+                                        <h4 >Thể loại</h4>
                                         <ul>
+                                         
                                             <li><a href="#">Phòng đơn</a></li>
                                             <li><a href="#">Phòng đôi</a></li>
                                             <li><a href="#">Gia đình</a></li>
@@ -281,7 +168,87 @@
                 </div>
             </section>
             <!-- Blog Details Section End -->
+            <div id="content">
+                <c:forEach items="${listcomment}" var="list">
+            <div class="be-comment">
+                <div class="be-img-comment">	
+                    <a href="blog-detail-2.html">
+                        <img  src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
+                    </a>
+                </div>
+                <div class="be-comment-content">
 
+                    <span class="be-comment-name">
+                        <a href="blog-detail-2.html">${list.username}</a>
+                    </span>
+                    <span class="be-comment-time">
+                        <i style="padding-left: 40px;"class="fa fa-clock-o"></i>
+                        ${list.date}
+                    </span>
+                     <input type="hidden" value="${list.commentId}" id="blogid" name="commentid"/>  
+                     <form id="myform3${list.commentId}" name="myform3${list.commentId}"> 
+                         <input value="${list.content}"style="width:1400px; display: inline-block;"id="content3" name="content3" class="be-comment-text">
+                    <div style="display: inline-block;"class="nav-item dropdown">
+                        <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fab fa-blogger"></i>
+                            <span>
+                                Blog <i class="fas fa-angle-down"></i>
+                            </span>
+                        </a>
+                          
+                       
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                               
+                            <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Gửi"/>
+                              <input type="hidden" value="${list.commentId}" id="commentidd${list.commentId}" name="commentidd"/>
+                                   <input type="hidden" value="${list.blogid}" id="blogidd" name="blogidd"/>  
+<!--                                     <input type="hidden" value="${list.content}" id="contentid" name="content3"/>-->
+                                   <a class="dropdown-item" onclick="Update1(${list.commentId})">Chỉnh sửa</a>
+                               </form>
+                            <form id="myform2${list.commentId}" name="myform2${list.commentId}"> 
+                                <input type="hidden" value="${list.commentId}" id="blogid" name="commentid"/>
+                                   <input type="hidden" value="${list.blogid}" id="blogid1" name="blogid1"/>  
+                                <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Gửi"/>
+                                <a class="dropdown-item"  onclick="Delete1(${list.commentId})"  >Xóa</a>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="accordion" id="myaccordion" style="max-width: 320px">   
+                        <div class="card-header btn"  data-toggle="collapse" data-target="#q${list.commentId}" aria-expanded="true"
+                             data-parent="#myaccordion">
+                            Reply
+                        </div>
+                             
+                      
+                        <div class="card-body collapse"  data-toggle="collapse"  aria-expanded="false" id="q${list.commentId}">
+                             
+                            
+                            <form name="myform1">         
+                                <div class="form-group fl_icon">
+                                    <div class="icon"><i class="fa fa-user"></i></div>
+                                    <input type="text"  value="${sessionScope.user}" readonly class="form-input" id="username1" name="username1" required readonly/>
+
+                                </div>
+                                <div class="form-group fl_icon">
+
+                                    <textarea style="width: 1300px;" class="form-input"  id="content1"   name="content1" required> @${list.username} </textarea>
+                                </div>
+                                <input type="hidden" value="${list.commentId}" id="commentid" name="commentid"/>  
+                                <input type="hidden" value="${list.blogid}" id="blogid1" name="blogid1"/>  
+
+                                <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Gửi" onclick="Comment1()"/>
+
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+                
+            </div>
             <div id ="mycomment"> </div>  
             <div class="be-comment-block">
                 <h1 class="comments-title">Comments</h1>
@@ -310,12 +277,13 @@
                         <c:forEach items="${c}" var="c">
                             <input type="hidden" value="${c.blogID}" id="blogid" name="blogid"/>
                         </c:forEach>
-                        <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Gửi" onclick="Comment()"/>
+                            <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Gửi" onclick="Comment()"/> 
+                           
                     </div>
                 </form>
 
             </div>
-         
+        <input type="button" id="btn1" value="Ẩn"/> 
             <section class="related-blog spad">
                 <div class="container">
                     <div class="row">
@@ -430,7 +398,125 @@
 
         <script src="js/main.js"></script>
 
+ <script language="javascript">
+            document.getElementById("btn1").onclick = function () {
+                document.getElementById("content").style.display = 'none';
+            };
+        </script>
+ <script type="text/javascript">
+            function Comment() {
+                var xhttp;
+                var username = document.myform.username.value;
+                var content = document.myform.content.value;
+                var blogid = document.myform.blogid.value;
+                var url = "CommentController?do=displaycomment&content=" + content + "&username=" + username + "&blogid=" + blogid;
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
+                }
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState == 4) {
+                        var data = xhttp.responseText;
+                        document.getElementById("mycomment").innerHTML = data;
+                    }
+
+                }
+                xhttp.open("POST", url, true);
+                xhttp.send();
+
+                var arr = document.getElementsByTagName('input');
+                var name = arr[0].value;
+                var arr1 = document.getElementsByTagName('textarea');
+                var content = arr1[0].value;
+                if (name.trim() == "" && content.trim() == "") {
+                    alert("please fill all fields");
+                    return false;
+                }             
+            }
+
+        </script>
+      
+        <script type="text/javascript">
+            function Delete1(commentId) {
+                
+                var xhttp;
+               
+                var blogid = document.getElementById("myform2"+commentId).blogid1.value;  
+                var url = "CommentController?do=RemoveComment&commentid=" + commentId + "&blogid=" + blogid;
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
+                }
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState == 4) {
+                        var data = xhttp.responseText;
+                        document.getElementById("mycomment").innerHTML = data;
+                    }
+                    
+                }
+                xhttp.open("POST", url, true);
+                xhttp.send();
+
+                var arr = document.getElementsByTagName('input');
+                var name = arr[0].value;
+                var arr1 = document.getElementsByTagName('textarea');
+                var content = arr1[0].value;
+                if (name.trim() == "" && content.trim() == "") {
+                    alert("please fill all fields");
+                    return false;
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            function Update1(commentId) {     
+                var xhttp;       
+               var content = document.getElementById("myform3"+commentId).content3.value;
+               var blogid = document.getElementById("myform3"+commentId).blogidd.value;  
+                var url = "CommentController?do=UpdateComment&commentid=" + commentId + "&content=" + content + "&blogid=" + blogid;
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
+                }
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState == 4) {
+                        var data = xhttp.responseText;
+                        document.getElementById("mycomment3").innerHTML = data;
+                    }
+                }
+                xhttp.open("POST", url, true);
+                xhttp.send();
+            }
+           
+        </script>
 
 
+        <script type="text/javascript">
+            function Comment1(commentId) {
+                var xhttp;
+             var content = document.getElementById("myform1"+commentId).content1.value;
+               var username = document.getElementById("myform1"+commentId).username2.value;
+               var blogid = document.getElementById("myform1"+commentId).blogid1.value;  
+               
+                var url = "ReplyController?content1=" + content + "&username=" + username + "&commentid=" + commentId + "&blogid=" + blogid;
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveObject("Microsoft.XMLHTTP");
+                }
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState == 4) {
+                        var data = xhttp.responseText;
+                        document.getElementById("mycomment1"+commentId).innerHTML = data;
+                    }
+
+                }
+                xhttp.open("POST", url, true);
+                xhttp.send();
+            }
+
+        </script>
     </body>
 </html>

@@ -9,8 +9,10 @@ import dao.impl.BlogDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
 import entity.Blog;
+import entity.Comment;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,7 +66,7 @@ public class BlogController extends HttpServlet {
                 request.getRequestDispatcher("Blog.jsp").forward(request, response);
             };
             HttpSession session = request.getSession();
-            UserDAOImpl daoU = new UserDAOImpl();
+           
 
             if (dos.equals("detailBlog")) {
                 Account ac = new Account();
@@ -79,6 +81,8 @@ public class BlogController extends HttpServlet {
                     request.setAttribute("c", c);
                     Vector<Blog> b = dao.getBlog("select * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
                     request.setAttribute("b", b);
+                    List<Comment> list = dao.DisplayComment(BlogID);
+                    request.setAttribute("listcomment", list);
                     request.getRequestDispatcher("BlogDetail.jsp").forward(request, response);
                 } else {
                     String BlogID = request.getParameter("blogID");

@@ -120,7 +120,6 @@ public class OrderController extends HttpServlet {
                 int a = Integer.parseInt(adult) + Integer.parseInt(child); // number of person
                 int id = Integer.parseInt(key);
                 // ép type date check in check out
-
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 Date date1 = (Date) format.parse(checkin);
                 java.sql.Date sDate = new java.sql.Date(date1.getTime());
@@ -206,16 +205,53 @@ public class OrderController extends HttpServlet {
                 RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
             }
-            if (service.equals("UpdateCartAdmin")) {
+            if (service.equals("ShowUpdateCartAdmin")) {
                 String oid = request.getParameter("id");
                 int id = Integer.parseInt(oid);
-                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID from Reservation re\n"
                         + " join Room r on r.RoomID=re.RoomID\n"
                         + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID where re.RoomID=" + id);
                 request.setAttribute("rs", rs);
-                RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
+                RequestDispatcher dispath = request.getRequestDispatcher("UpdateCart.jsp");
                 dispath.forward(request, response);
             }
+            if (service.equals("UpdateCartAdmin")) {
+                String rname = request.getParameter("rname");
+                String rid = request.getParameter("ID");
+                String bid = request.getParameter("BID");
+                String cid = request.getParameter("cid");
+                String cname = request.getParameter("cname");
+                String email = request.getParameter("email").trim();
+                String address = request.getParameter("address").trim();
+                String phone = request.getParameter("phone").trim();
+                String number = request.getParameter("number").trim();
+                String cin = request.getParameter("cin").trim();
+                String cout = request.getParameter("cout");
+                String total = request.getParameter("total");
+                String status = request.getParameter("status").trim();
+                String date = request.getParameter("date");
+
+                int total1 = Integer.parseInt(total);
+                int roomid = Integer.parseInt(rid);
+                int csid = Integer.parseInt(cid);
+                int billid = Integer.parseInt(cid);
+                int NOP = Integer.parseInt(number);
+                int stt = Integer.parseInt(status);
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = (Date) format.parse(cin);
+                java.sql.Date sDate = new java.sql.Date(date1.getTime());
+
+                Date date2 = (Date) format.parse(cout);
+                java.sql.Date cDate = new java.sql.Date(date2.getTime());
+                Date date3 = (Date) format.parse(date);
+                java.sql.Date dDate = new java.sql.Date(date3.getTime());
+
+                Reservation re = new Reservation(billid, csid, roomid, cname, email, address, phone, NOP, sDate, cDate, total1, stt, dDate);
+                RequestDispatcher dispath = request.getRequestDispatcher("UpdateCart.jsp");
+                dispath.forward(request, response);
+            }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

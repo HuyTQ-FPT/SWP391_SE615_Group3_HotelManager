@@ -76,6 +76,11 @@
 
                             </div>
                         </li>
+                           <li class="nav-item">
+                            <a class="nav-link" href="ManagerAccount">
+                                <i class="fas fa-address-card"></i></i> Role
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="RequestController?do=listMessFeedBack">
                                 <i class="fas fa-newspaper"></i></i> Yêu cầu
