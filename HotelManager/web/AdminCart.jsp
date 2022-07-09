@@ -84,9 +84,13 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <td style="background-color: 435C70 ; text-align: center"><%=rs.getString(8) %></td>  
                         <td style="background-color: 435C70 ; text-align: center"><%=rs.getString(9) %></td>  
                         <td style="background-color: 435C70 ; text-align: center"><%=rs.getString(10) %></td>  
-                        <td style="background-color: 435C70 ; text-align: center"><%=rs.getString(11) %></td>  
-                        <td style="background-color: 435C70 ; text-align: center"><%=rs.getString(12) %></td>  
-                        <td style="background-color: 435C70 " ><a style="border-radius: 10px;" href="OrderController?do=UpdateCartAdmin&id=<%=rs.getInt(13) %>" class="btn btn-info" role="button">Cập nhật hoá đơn</a></td>  
+                        <%if(rs.getInt(11)==1){%>
+                        <td style="background-color: 435C70 ; text-align: center">Đang xử lí</td>  
+                        <%} else if(rs.getInt(11)==2){%>
+                        <td style="background-color: 435C70 ; text-align: center">Hoàn thành</td>  
+                        <%}%>
+                        <td style="background-color: 435C70 ; text-align: center"><%=rs.getString(12)%></td> 
+                        <td style="background-color: 435C70 " ><a style="border-radius: 10px;" href="OrderController?do=ShowUpdateCartAdmin&id=<%=rs.getInt(13) %>" class="btn btn-info" role="button">Cập nhật hoá đơn</a></td>  
                         <td style="background-color: 435C70">
                             <a style="margin-left: 20px" href="" class="tm-product-delete-link">
                                 <i class="far fa-trash-alt tm-product-delete-icon">
