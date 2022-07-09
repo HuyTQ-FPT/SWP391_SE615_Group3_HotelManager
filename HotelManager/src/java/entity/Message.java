@@ -1,7 +1,7 @@
 
 package entity;
 
-public class Message{
+public class Message {
     
     private int MessageID;
     private int AccountID;
