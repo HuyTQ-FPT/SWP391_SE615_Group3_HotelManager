@@ -5,6 +5,7 @@ import entity.Image;
 import entity.Room;
 import entity.RoomByDate;
 import context.DBContext;
+import entity.Device;
 import entity.RoomCategory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -628,7 +629,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         ResultSet rs = null;
 
         Vector<Room> vector = new Vector<Room>();
-        String sql = "select * from [Room] where Roomname like '%" + rName + "%'";
+        String sql = "select * from [Room] where Roomname like N'%" + rName + "%'";
         if (status > 0) {
             sql = sql.concat(" and [status]=" + status);
         }
@@ -800,7 +801,35 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {
-                    vector.add(new Room(rs.getInt("Status"), rs.getInt("Sumstatus")));
+                vector.add(new Room(rs.getInt("Status"), rs.getInt("Sumstatus")));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+    }
+
+    @Override
+    public Vector<Device> numberOfDevice() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Vector<Device> vector = new Vector<>();
+
+        String sql = "select d.DeviceName , SUM(r.Quantity) as Quantity from  RoomDevice r INNER JOIN Device d on \n"
+                + "                r.DeviceID = d.DeviceID\n"
+                + "                group by d.DeviceName";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                vector.add(new Device(rs.getString("DeviceName"), rs.getInt("Quantity")));
             }
         } catch (Exception e) {
             throw e;

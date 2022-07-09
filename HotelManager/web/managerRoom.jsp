@@ -352,8 +352,8 @@
 
 
                                 <option value="-1">----------------</option>
-                                <option value="1" >Phòng trống</option>
-                                <option value="2" >Phòng đã được đặt</option>
+                                <option value="0" >Phòng trống</option>
+                                <option value="1" >Phòng đã được đặt</option>
 
                             </select>  
                             <button type="submit" name="submit" style=" border-radius:8px"class="form-control search"><span class="fa fa-search"></span></button>

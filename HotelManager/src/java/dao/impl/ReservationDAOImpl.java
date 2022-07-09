@@ -1,4 +1,3 @@
-
 package dao.impl;
 
 import dao.ReservationDAO;
@@ -84,11 +83,12 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         }
         return 0;
     }
+
     public Vector<Reservation> Reservation(String sql) {
         Vector<Reservation> re = new Vector<Reservation>();
-        try{
+        try {
             //        create statement: execute sql
-             ResultSet rs = getData(sql);
+            ResultSet rs = getData(sql);
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int UserID = rs.getInt(2);
@@ -98,12 +98,12 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
                 String Address = rs.getString(6);
                 String Phone = rs.getString(7);
                 int NumberOfPerson = rs.getInt(8);
-                Date checkin =rs.getDate(9);
-                Date checkout =rs.getDate(10);
-                double total =rs.getDouble(11);
+                Date checkin = rs.getDate(9);
+                Date checkout = rs.getDate(10);
+                double total = rs.getDouble(11);
                 int Status = rs.getInt(12);
-                Date dat =rs.getDate(13);
-                
+                Date dat = rs.getDate(13);
+
                 Reservation im = new Reservation(UserID, RoomID, Name, Email, Address, Phone, NumberOfPerson, checkin, checkout, total, Status, dat);
                 re.add(im);
             }
@@ -112,17 +112,24 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         }
         return re;
     }
+
     public static void main(String[] args) {
-        ReservationDAOImpl dao= new ReservationDAOImpl();
-//                Date a = Date.valueOf("2022-05-03");
+        ReservationDAOImpl dao = new ReservationDAOImpl();
+        try {
+            //                Date a = Date.valueOf("2022-05-03");
 //        Date b = Date.valueOf("2022-07-03");
 //        Reservation re =new Reservation(4, 8, "Rose", "rs2001@gmail.com", "Hanoi", "0904652125", 4, a, b, 1600, 1,a );
 //        int n= dao.addReservation(re);
-        try {
-            dao.sumReservation();
+            Date to = Date.valueOf("2022-05-21");
+            Date from = Date.valueOf("2022-06-28");
+            Vector<Reservation> v = dao.selectAllYear();
+            for (Reservation reservation : v) {
+                System.out.println(reservation);
+            }
         } catch (Exception ex) {
             Logger.getLogger(ReservationDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     @Override
@@ -130,7 +137,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-      
+
         try {
             String sql = "select SUM(Total) as Total from Reservation";
             conn = getConnection();
@@ -138,15 +145,13 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             rs = pre.executeQuery();
 
             while (rs.next()) {
-                
-                    return  rs.getInt("Total");
 
-                
+                return rs.getInt("Total");
 
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
@@ -155,5 +160,162 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         }
         return 0;
     }
-   
+
+    @Override
+    public Vector<Reservation> totalOfRoomSearch(String name, Date to, Date from) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Vector<Reservation> vector = new Vector<>();
+        String sql = "select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
+                + "where r.RoomID like '%" + name + "%' \n"
+                + "group by r.RoomID,r.Roomname,re.Total \n"
+                + "order by r.RoomID asc";
+        if (to != null && from != null) {
+            sql = " select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
+                    + "                  where r.RoomID like '%" + name + "%' and  re.Checkin >= '" + to + "'  and   re.Checkin <= '" + from + "'\n"
+                    + "                    group by r.RoomID,r.Roomname,re.Total \n"
+                    + "                    order by r.RoomID asc";
+        }
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+
+                vector.add(new Reservation(rs.getInt("RoomID"), rs.getString("Roomname"), rs.getDouble("Total")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+
+        return vector;
+    }
+
+    @Override
+    public Vector<Reservation> totalOfRoom() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Vector<Reservation> vector = new Vector<>();
+        String sql = "select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
+                + "\n"
+                + "group by r.RoomID,r.Roomname,re.Total \n"
+                + "order by r.RoomID asc";
+
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+
+                vector.add(new Reservation(rs.getInt("RoomID"), rs.getString("Roomname"), rs.getDouble("Total")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+
+        return vector;
+    }
+
+    @Override
+    public Vector<Reservation> totalOfRoomByMonth(Integer month, Integer year) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Vector<Reservation> vector = new Vector<>();
+        String sql = "";
+        if (month == null && year == null) {
+
+            sql = "select  MONTH(Checkin)as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation       \n"
+                    + "group by MONTH(Checkin),YEAR(Checkin)\n"
+                    + "order by MONTH(Checkin),YEAR(Checkin)";
+        }
+        if (month != null && year != null) {
+            sql = "select  MONTH(Checkin) as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation       \n"
+                    + "where MONTH(Checkin) =" + month + " and  YEAR(Checkin) = " + year + "\n"
+                    + "group by MONTH(Checkin),YEAR(Checkin)\n"
+                    + "order by MONTH(Checkin),YEAR(Checkin)";
+        }
+        if (month == null && year != null) {
+            sql = "select  MONTH(Checkin)as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation       \n"
+                    + "where YEAR(Checkin) = " + year + "\n"
+                    + "group by MONTH(Checkin),YEAR(Checkin)\n"
+                    + "order by MONTH(Checkin),YEAR(Checkin)";
+        }
+        if (month != null & year == null) {
+            sql = "select  MONTH(Checkin)as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation      \n"
+                    + "                    where  MONTH(Checkin)=" + month + "\n"
+                    + "                   group by MONTH(Checkin),YEAR(Checkin)\n"
+                    + "                   order by MONTH(Checkin),YEAR(Checkin)";
+        }
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+
+                vector.add(new Reservation(rs.getInt("Status"), rs.getInt("NumberOfPerson"), rs.getDouble("Total")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+    }
+
+    @Override
+    public Vector<Reservation> selectAllYear() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Vector<Reservation> vector = new Vector<>();
+        String sql = "select  YEAR(Checkin) as Year from Reservation       \n"
+                + "group by YEAR(Checkin)\n"
+                + "order by YEAR(Checkin)";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+
+                vector.add(new Reservation(rs.getInt("Year")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+    }
+
 }

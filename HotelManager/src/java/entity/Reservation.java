@@ -18,11 +18,13 @@ public class Reservation {
     private Date Checkout;
     private double Total;
     private int Status;
+    private int Year;
     private Date Date;
 
     public Reservation() {
     }
-    public Reservation(int BillID, int UserID, String Name, String Roomname, String Address,String Email, String Phone, Date Checkin, Date Checkout,double Roomprice, double Total, int Status) {
+
+    public Reservation(int BillID, int UserID, String Name, String Roomname, String Address, String Email, String Phone, Date Checkin, Date Checkout, double Roomprice, double Total, int Status) {
         this.BillID = BillID;
         this.UserID = UserID;
         this.Name = Name;
@@ -32,10 +34,11 @@ public class Reservation {
         this.Phone = Phone;
         this.Checkin = Checkin;
         this.Checkout = Checkout;
-         this.Roomprice = Roomprice;
+        this.Roomprice = Roomprice;
         this.Total = Total;
         this.Status = Status;
     }
+
     public Reservation(int UserID, int RoomID, String Name, String Email, String Address, String Phone, int NumberOfPerson, Date Checkin, Date Checkout, double Total, int Status, Date Date) {
         this.UserID = UserID;
         this.RoomID = RoomID;
@@ -65,6 +68,30 @@ public class Reservation {
         this.Total = Total;
         this.Status = Status;
         this.Date = Date;
+    }
+
+    public Reservation(int RoomID, String Roomname, double Total) {
+        this.RoomID = RoomID;
+        this.Roomname = Roomname;
+        this.Total = Total;
+    }
+
+    public Reservation(int Status, int NumberOfPerson, double Total) {
+        this.Status = Status;
+        this.NumberOfPerson = NumberOfPerson;
+        this.Total = Total;
+    }
+
+    public Reservation(int Year) {
+        this.Year = Year;
+    }
+
+    public int getYear() {
+        return Year;
+    }
+
+    public void setYear(int Year) {
+        this.Year = Year;
     }
 
     public String getRoomname() {

@@ -68,7 +68,7 @@
                     <div class="col-md-12 col-lg-8 mb-5">
 
 
-                        <form action="SendFeedbackController" method="post" class="p-5 bg-white">
+                        <form action="RequestController" method="post" class="p-5 bg-white">
                             <h4 id="er" style="color: red;font-size: 15px;">${requestScope.mEss}</h4>
 
                             <div class="row form-group ">

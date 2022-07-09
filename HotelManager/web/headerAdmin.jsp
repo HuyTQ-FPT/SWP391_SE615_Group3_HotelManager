@@ -41,8 +41,8 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Báo cáo ngày</a>
-                                <a class="dropdown-item" href="#">Báo cáo tuần</a>
+                                <a class="dropdown-item" href="AdminController?do=ReportDay">Báo cáo doanh số theo phòng</a>
+                                <a class="dropdown-item" href="AdminController?do=ReportMonth">Báo cáo tháng</a>
                                 <a class="dropdown-item" href="#">Báo cáo năm</a>
                             </div>
                         </li>
@@ -99,8 +99,8 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link d-block" href="LoginController?do=logout">
-                            Admin, <span>Đăng xuất</span>
-                                    
+                                Admin, <span>Đăng xuất</span>
+
                             </a>
                         </li>
                     </ul>

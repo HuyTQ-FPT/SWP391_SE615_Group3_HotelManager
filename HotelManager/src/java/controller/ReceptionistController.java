@@ -29,6 +29,8 @@ public class ReceptionistController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try {
+             request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
             ReceptionistDAO dao = new ReceptionistDAOImpl();
             RoomDAO daoR = new RoomDAOImpl();
             UserDAO daoU = new UserDAOImpl();

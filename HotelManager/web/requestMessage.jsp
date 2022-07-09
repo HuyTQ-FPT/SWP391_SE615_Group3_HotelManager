@@ -332,7 +332,7 @@
 
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
+                                    <th scope="col">STT</th>
                                     <th scope="col"> Email</th>
                                     <th scope="col">Tiêu đề</th>
                                     <th scope="col">Đã đọc</th>
@@ -342,12 +342,12 @@
                             </thead>
                             <%
                                 for (sendFeedback s : v) {
-
+                                 int count =1;
 
                             %>
                             <tbody>
                                 <tr>
-                                    <th scope="row"><b><%=s.getmId()%></b></th>
+                                    <th scope="row"><b><%=count%></b></th>
                                     <td>
                                         <div class="tm-status-circle ">
                                         </div><%=s.getEmail()%>
@@ -373,7 +373,7 @@
                                     <td><button style="border-radius: 5px; padding: 3px" onclick="deleteId('<%=s.getmId()%>')" class="btn btn-primary">  Xoá </a></button></td>
 
                                 </tr>
-
+                                <%count=count+1;%>
                             </tbody>
                             <%}%>
                         </table>

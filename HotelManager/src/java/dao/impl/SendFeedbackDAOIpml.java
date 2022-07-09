@@ -206,7 +206,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         ResultSet rs = null;
         Vector<sendFeedback> v = new Vector<>();
         String sql = "select * from \n"
-                + "(select ROW_NUMBER() over (order by mId asc) as r, * from dbo.[MessageRequest] where dbo.[MessageRequest].title like '%" + title + "%') \n"
+                + "(select ROW_NUMBER() over (order by mId asc) as r, * from dbo.[MessageRequest] where dbo.[MessageRequest].title like N'%" + title + "%') \n"
                 + "as x\n"
                 + "where r between ? and ?";
         try {
@@ -229,23 +229,13 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         }
         return v;
     }
-
-    public static void main(String[] args) {
-        SendFeedbackDAOIpml s = new SendFeedbackDAOIpml();
-        try {
-            Vector<sendFeedback> k = s.getMessage();
-            System.out.println(k.size());
-        } catch (Exception e) {
-        }
-    }
-
     @Override
     public Vector<sendFeedback> getMessageOfTitle(String title) throws Exception {
         Vector<sendFeedback> v = new Vector<>();
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        String sql = "select * from [MessageRequest] where title like '%" + title + "%'  order by mId asc";
+        String sql = "select * from [MessageRequest] where title like N'%" + title + "%'  order by mId asc";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
