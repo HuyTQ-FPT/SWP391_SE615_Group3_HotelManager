@@ -164,8 +164,8 @@
                                         </select>
                                     </div>
                                     <div class="col-50">
-                                        <label style="display: inline-block; padding-top: 30px;font-size: 18px;margin-left: 0px;" for="state">Trẻ nhỏ</label>
-                                        <select style="font-size: 20px;width: 170px;"  name="Child">
+                                        <label style="display: inline-block; padding-top: 30px;font-size: 20px;margin-left: 0px;" for="state">Trẻ nhỏ</label>
+                                        <select style="font-size: 20px;width: 180px;"  name="Child" selected>
                                             <option value="1"> 1 </option>
                                             <option value="2"> 2 </option>
                                             <option value="3"> 3 </option>
