@@ -66,7 +66,7 @@
                                 <div class="col-md-3 ">
                                     <div class="card card-tale  media tm-notification-item">
                                         <div class="card-body">
-                                            <p class="mb-4 tm-block-title">Đánh giá: <b class="tm-notification-link ">${vectorMessage.size()}</b> </p>
+                                            <p class="mb-4 tm-block-title">Đánh giá: <b class="tm-notification-link ">${listMessage.size()}</b> </p>
 
 
                                         </div>
@@ -120,6 +120,14 @@
                     <div class="tm-bg-primary-dark tm-block">
                         <h2 class="tm-block-title">Thống kê thiết bị</h2>
                         <canvas id="barChart"></canvas>
+
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+
+                    <div class="tm-bg-primary-dark tm-block">
+                        <h2 class="tm-block-title">Thống kê dịch vụ</h2>
+                        <canvas id="ServiceChart"></canvas>
 
                     </div>
                 </div>
@@ -180,7 +188,7 @@
             </script>
 
             <script>
-                let status = [], nameStatus = [], device = [], nameDevice = []
+                let status = [], nameStatus = [], device = [], nameDevice = [], service = [], nameService = []
                 <c:forEach items="${vectorStatus}" var="sr">
 
                 if (${sr.status} == 0) {
@@ -193,22 +201,20 @@
                     nameStatus.push(${sr.sumstatus})
                 }
 
-
-
                 </c:forEach>
                 <c:forEach items="${vectorDevice}" var="vd">
-
-
                 device.push(${vd.quantity})
-
                 nameDevice.push('${vd.deviceName}')
+                </c:forEach>
 
-
-
-
+                <c:forEach items="${daoReservationOfService}" var="Rf">
+                service.push(${Rf.total})
+                nameService.push('${Rf.serviceName}')
                 </c:forEach>
                 Chart.defaults.global.defaultFontColor = 'white';
+                  
                 let ctxLine,
+                        Utils,
                         ctxBar,
                         ctxPie,
                         optionsLine,
@@ -221,13 +227,14 @@
                         DeviceChart,
                         Hieu,
                         barChart,
+                        ServiceChart,
                         lineChart;
-        //            barChart, pieChart;
+                //            barChart, pieChart;
                 // DOM is ready
                 $(function () {
                     RoomChart1(status, nameStatus); // Line Chart
                     drawBarChart(device, nameDevice); // Bar Chart
-        //            drawPieChart(); // Pie Chart
+                    ServiceChart1(service, nameService);
 
                     $(window).resize(function () {
                         updateLineChart();

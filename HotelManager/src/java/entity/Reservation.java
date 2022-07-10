@@ -10,6 +10,8 @@ public class Reservation {
     private String Roomname;
     private double Roomprice;
     private String Name;
+    private String ServiceName;
+    
     private String Email;
     private String Address;
     private String Phone;
@@ -82,6 +84,20 @@ public class Reservation {
         this.Total = Total;
     }
 
+    public Reservation(String ServiceName, double Total) {
+        this.ServiceName = ServiceName;
+        this.Total = Total;
+    }
+
+    public String getServiceName() {
+        return ServiceName;
+    }
+
+    public void setServiceName(String ServiceName) {
+        this.ServiceName = ServiceName;
+    }
+
+  
     public Reservation(int Year) {
         this.Year = Year;
     }

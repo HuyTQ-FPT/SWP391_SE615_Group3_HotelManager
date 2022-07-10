@@ -13,6 +13,7 @@ public interface ReservationDAO {
     public Vector<Reservation> Reservation(String sql);
 
     public int sumReservation() throws Exception;
+    public Vector<Reservation> sumService() throws Exception;
 
     public Vector<Reservation> totalOfRoomSearch(String name, Date from, Date to) throws Exception;
     public Vector<Reservation> totalOfRoom() throws Exception;

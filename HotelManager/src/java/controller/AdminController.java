@@ -66,17 +66,19 @@ public class AdminController extends HttpServlet {
                 Vector<User> vectorUser = daoReceptionist.getCustomerListByReceptionist(); // số khách hàng
                 Vector<User> vectorReceptionist = daoReceptionist.getListByReceptionist(); //số lễ tân
                 Vector<sendFeedback> vectorRequest = daoRequest.getMessage(); // số yêu cầu
-                ArrayList<Message> vectorMessage = daoMessage.getAllComment();// số phản hồi
+                ArrayList<Message> listMessage = daoMessage.getAllComment();// số phản hồi
                 int sumReservation = daoReservation.sumReservation(); // tổng tiền
                 Vector<RoomCategory> vectorR = daoR.numberOfRoomsByCategory(); // thống kê theo loại phòng
                 Vector<Room> vectorStatus = daoR.sumOfRoom();
                 Vector<Device> vectorDevice = daoR.numberOfDevice(); // Thống kê thiết bị
+                Vector<Reservation> daoReservationOfService =daoReservation.sumService() ; // Thống kê thiết bị
                 request.setAttribute("vectorR", vectorR);
                 request.setAttribute("vectorRoom", vectorRoom);
                 request.setAttribute("vectorUser", vectorUser);
                 request.setAttribute("vectorReceptionis", vectorReceptionist);
                 request.setAttribute("vectorRequest", vectorRequest);
-              //  request.setAttribute("vectorMessage", vectorMessage);
+                request.setAttribute("daoReservationOfService", daoReservationOfService);
+                request.setAttribute("listMessage", listMessage);
                 request.setAttribute("sumReservation", sumReservation);
                 request.setAttribute("vectorStatus", vectorStatus);
                 request.setAttribute("vectorDevice", vectorDevice);

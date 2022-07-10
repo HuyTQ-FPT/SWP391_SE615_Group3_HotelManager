@@ -13,7 +13,6 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
     @Override
@@ -166,12 +165,12 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         Vector<Reservation> vector = new Vector<>();
         String sql = "select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
                 + "where r.RoomID like '%" + name + "%' \n"
-                + "group by r.RoomID,r.Roomname,re.Total \n"
+                + "group by r.RoomID,r.Roomname \n"
                 + "order by r.RoomID asc";
         if (to != null && from != null) {
             sql = " select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
                     + "                  where r.RoomID like '%" + name + "%' and  re.Checkin >= '" + to + "'  and   re.Checkin <= '" + from + "'\n"
-                    + "                    group by r.RoomID,r.Roomname,re.Total \n"
+                    + "                    group by r.RoomID,r.Roomname\n"
                     + "                    order by r.RoomID asc";
         }
         try {
@@ -204,8 +203,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         ResultSet rs = null;
         Vector<Reservation> vector = new Vector<>();
         String sql = "select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
-                + "\n"
-                + "group by r.RoomID,r.Roomname,re.Total \n"
+                + "group by r.RoomID,r.Roomname\n"
                 + "order by r.RoomID asc";
 
         try {
@@ -313,6 +311,41 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
         }
         return vector;
+    }
+
+    @Override
+    public Vector<Reservation>sumService() throws Exception {
+          Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        Vector<Reservation> vector = new Vector<>();
+        String sql = "select ServiceName, COUNT( ServiceName)as Total from [Reservation]\n"
+                + "group by ServiceName" ;
+        
+         try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                vector.add(new Reservation(rs.getString("ServiceName"), rs.getInt(2)));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+    
+    
+    
+    
+    
     }
 
 }
