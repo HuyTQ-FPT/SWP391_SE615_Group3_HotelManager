@@ -71,8 +71,11 @@ public class Chatbox {
                     }
                 }
                 System.out.println(Roleid);
+                System.out.println(exitAccount);
                 User u = Udao.getUserByaID(aid);
+                int countSession=0;
                 for (Session session : users) {
+                    countSession+=1;
                     int SessionAid = 0;
                     int SessionUserid = 0;
                     String ValueSS = "";
@@ -121,14 +124,8 @@ public class Chatbox {
                         } else {
                             Mdao.insertMessageRe(new Message(aid, date, message));
                         }
-                    }else {
-                        if (Roleid == 1) {
-                            Mdao.insertNewmessagecus(new Message(aid, date, message));
-                        } else {
-                            Mdao.insertMessageRe(new Message(aid, date, message));
-                        }
                     }
-                    if (Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid != aid && !exitAccount) {
+                    if (!exitAccount && Mdao.getRoleIDByUserId(userid) != 2) {
                         if (Roleid == 1) {
                             Mdao.insertNewmessagecus(new Message(aid, date, message));
                         } else {
@@ -147,6 +144,10 @@ public class Chatbox {
                                 + "                                </div>       \n"
                                 + "                            </a>");
                     }
+                }
+                if(Mdao.getRoleIDByUserId(userid)==1 && countSession==1){
+                            Mdao.insertNewmessagecus(new Message(aid, date, message));                       
+
                 }
             }
         }

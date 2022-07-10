@@ -52,6 +52,43 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
         return vector;
     }
     @Override
+    public ArrayList<Message> getCommentByName(String Name) throws Exception{
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
+        ArrayList<Message> vector = new ArrayList<>();
+        try {
+            String sql = "select m.* from Message m join Account a\n" +
+"on m.AccountID=a.AccountID join [User] u\n" +
+"on a.AccountID=u.AccountID where u.UserName like '%"+Name+"%' and m.RoomID!=0";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int MessageID = rs.getInt(1);
+                int AccountID = rs.getInt(2);
+                String Date = rs.getString(5);
+                String Content = rs.getString(6);
+                int RoomID = rs.getInt(8);
+
+                Message u = new Message(MessageID,AccountID, Date, Content, RoomID);
+                vector.add(u);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+    }
+    @Override
     public ArrayList<Integer> getAllAcccountMessage() throws Exception{
         Connection conn = null;
         PreparedStatement pre = null;

@@ -69,14 +69,7 @@ public class LoginController extends HttpServlet {
                         pass.setMaxAge(60 * 60 * 24 * 7);
                         response.addCookie(pass);
                         response.addCookie(user);
-                    } else {
-                        Cookie user = new Cookie("user", "");
-                        Cookie pass = new Cookie("pass", "");
-                        user.setMaxAge(0);
-                        pass.setMaxAge(0);
-                        response.addCookie(pass);
-                        response.addCookie(user);
-                    }
+                    } 
                     if (rs.getString(2).equals("1")) {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
                         response.sendRedirect("HomeController");
@@ -287,8 +280,7 @@ public class LoginController extends HttpServlet {
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("errorMess", ex.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("Filter.jsp").forward(request, response);
         }
     }
 

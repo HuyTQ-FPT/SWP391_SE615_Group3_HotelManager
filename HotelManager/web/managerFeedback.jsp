@@ -260,6 +260,15 @@
                 transition-delay: 0.1s;
                 transform: rotate(0deg);
             }
+            .notif{
+                position: fixed;
+                right: 910px;
+                color: #F1BC31;
+                font-size: 25px;
+            }
+            .notif a:hover{
+                color: white;
+            }
         </style>
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
@@ -304,7 +313,7 @@
                     <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
                     </form>
-                    <form action="ReceptionistController?do=searchName" class="searchform order-lg-last" method="post"  style="
+                    <form action="FeedbackController?do=SearchName" class="searchform order-lg-last" method="post"  style="
                           margin-right: 100px;
                           margin-top: 10px;
                           ">
@@ -324,7 +333,7 @@
 
                 </div>
                 <div class="oke" onclick="show()"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></div>
-
+                <div class="notif"><a href="NotificationController?do=Admin"><span class="iconify" data-icon="clarity:notification-solid"></a></span><h10 style="font-size:12px;">Admin</h10></div>
             </nav>
 
         </section>
@@ -347,7 +356,7 @@
                 </thead>
                 <tbody>      
                     <%for (Message m : vector) {
-                    User u =dao.getUserByaID(m.getAccountID());
+                            User u = dao.getUserByaID(m.getAccountID());
                     %>
                     <tr class="name">
                         <td><img src="https://ptetutorials.com/images/user-profile.png" style="width: 25px;height:25px"></td>
@@ -358,26 +367,43 @@
                         <td><%=m.getDate()%></td>
                         <td><%=m.getContent()%></td>
                         <td style="width:30px"><%=m.getRoomID()%></td>
-                        <td style="width:30px"><a href="FeedbackController?do=Deletefeedback&mID=<%=m.getMessageID()%>"><i class="material-icons" style="color:Black">&#xE872;</i></a></td>
-                        <% boolean check=false;
+                            <form action="FeedbackController?do=Deletefeedback" method="post">
+                    <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
+                    <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
+                    <input type="hidden" value="<%=m.getContent()%>" name="content"> 
+                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:Black">&#xE872;</i></button></td>
+                </form>
+                        </td>
+                        <% boolean check = false;
                             Cookie c[] = request.getCookies();
-                        for(Account a : listAccount){       
-                            for (Cookie o : c) {                         
-                                if ( (o.getName().equals(String.valueOf(a.getAccountID()))) && (Integer.parseInt(o.getValue())==m.getMessageID())) {
-                                    check=true;
+                            for (Account a : listAccount) {
+                                for (Cookie o : c) {
+                                    if ((o.getName().equals(String.valueOf(a.getAccountID()))) && (Integer.parseInt(o.getValue()) == m.getMessageID())) {
+                                        check = true;
+                                    }
                                 }
                             }
-                        }
-                        if(!check){
+                            if (!check) {
                         %>
-                        <td style="width:30px"><a href="FeedbackController?do=ReportAccount&aID=<%=m.getAccountID()%>&mID=<%=m.getMessageID()%>"><i class="material-icons" style="color:red">assistant_photo</i></a></td>
-                        <td style="width:30px"></td>
-                            <% }else {%>
-                        <td style="width:30px"></td>
-                        <td style="width:30px"><a href="FeedbackController?do=ExitReport&aID=<%=m.getAccountID()%>&mID=<%=m.getMessageID()%>"><i class="material-icons" style="color:red">assistant_photo</i></a></td>
-                        <% }%>
-                        </tr> 
-                    <% }%>
+
+                <form action="FeedbackController?do=ReportAccount" method="post">
+                    <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
+                    <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
+                    <input type="hidden" value="<%=m.getContent()%>" name="content"> 
+                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:red">assistant_photo</i></button></td>
+                    <td style="width:30px"></td>
+                </form>
+
+                <% } else {%>
+                <form action="FeedbackController?do=ExitReport" method="post">
+                    <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
+                    <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
+                    <td style="width:30px"></td>
+                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:red">assistant_photo</i></button></td>                      
+                </form>       
+                <% }%>
+                </tr> 
+                <% }%>
                 </tbody>
             </table>
         </div> 

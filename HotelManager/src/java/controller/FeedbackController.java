@@ -3,11 +3,16 @@ package controller;
 
 import dao.impl.AccountDAOImpl;
 import dao.impl.MessageDAOImpl;
+import dao.impl.NotificationDAOImpl;
 import dao.impl.UserDAOImpl;
+import entity.Account;
+import entity.Notification;
 import entity.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.servlet.ServletException;
@@ -26,6 +31,9 @@ public class FeedbackController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            NotificationDAOImpl daoN=new NotificationDAOImpl();
             MessageDAOImpl dao =new MessageDAOImpl();
             UserDAOImpl dao1 =new UserDAOImpl();
             AccountDAOImpl dao2 =new AccountDAOImpl();
@@ -36,26 +44,56 @@ public class FeedbackController extends HttpServlet {
             }
             if (service.equals("Viewfeedback")) { //In ra tất cả các comment
                 ArrayList vector =dao.getAllComment();
-                ArrayList listAccount =dao2.getAccountList();
-                
+                ArrayList listAccount =dao2.getAccountList(); 
+                request.setAttribute("vector", vector);
+                request.setAttribute("listAccount", listAccount);
+                request.getRequestDispatcher("managerFeedback.jsp").forward(request, response);
+            }
+            if (service.equals("SearchName")) { //In ra tất cả các comment
+                String name=request.getParameter("Name");
+                ArrayList vector =dao.getCommentByName(name);
+                ArrayList listAccount =dao2.getAccountList(); 
                 request.setAttribute("vector", vector);
                 request.setAttribute("listAccount", listAccount);
                 request.getRequestDispatcher("managerFeedback.jsp").forward(request, response);
             }
             if (service.equals("Deletefeedback")) { //In ra tất cả các comment
+                Account a=(Account)session.getAttribute("login");
+                String content = request.getParameter("content");
+                String aid = request.getParameter("aID");
+                LocalDateTime current = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                String formatted = current.format(formatter);
+                daoN.insertNotification(new Notification("Xóa feedback của Account", a.getUser(), aid, content, formatted));
                 int mid =Integer.parseInt(request.getParameter("mID").toString());
                 dao.deleteMessage(mid);
                 response.sendRedirect("FeedbackController");
             }
             if (service.equals("ReportAccount")) { //In ra tất cả các comment
-                int mid =Integer.parseInt(request.getParameter("mID").toString());
-                int aid =Integer.parseInt(request.getParameter("aID").toString());                
+                Account a=(Account)session.getAttribute("login");
+                String aId = request.getParameter("aID").toString();
+                String mId = request.getParameter("mID").toString();
+                String content = request.getParameter("content");
+                LocalDateTime current = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                String formatted = current.format(formatter);
+                daoN.insertNotification(new Notification("Report tài khoản", a.getUser(), aId, content, formatted));
+                int mid =Integer.parseInt(aId);
+                int aid =Integer.parseInt(mId);                
                 Cookie aID = new Cookie(request.getParameter("aID"), request.getParameter("mID"));
                 aID.setMaxAge(60 * 60 * 24 * 7);
                 response.addCookie(aID);
                 response.sendRedirect("FeedbackController");
             }
             if (service.equals("ExitReport")) { //In ra tất cả các comment
+               Account a=(Account)session.getAttribute("login");
+                String aId = request.getParameter("aID").toString();
+                String mId = request.getParameter("mID").toString();
+                String content = "Tài khoản đã được gỡ report và bạn có thể feedback trở lại trong thời gian tới";
+                LocalDateTime current = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                String formatted = current.format(formatter);
+                daoN.insertNotification(new Notification("Gỡ report của Account", a.getUser(), aId, content, formatted));
                 int mid =Integer.parseInt(request.getParameter("mID").toString());
                 int aid =Integer.parseInt(request.getParameter("aID").toString());    
                 Cookie aID = new Cookie(request.getParameter("aID"), request.getParameter("mID"));
@@ -65,7 +103,7 @@ public class FeedbackController extends HttpServlet {
             }
         }catch(Exception ex){
             ex.printStackTrace();
-            request.getRequestDispatcher("Filter.jsp").forward(request, response);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         } 
     }
 

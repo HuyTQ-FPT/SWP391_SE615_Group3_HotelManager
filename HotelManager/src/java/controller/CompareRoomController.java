@@ -50,14 +50,15 @@ public class CompareRoomController extends HttpServlet {
                 String RoomID = request.getParameter("roomid").trim();
                 String cateroom = request.getParameter("cateroom").trim();
                 int roomid = Integer.parseInt(RoomID);
+                int cateid = Integer.parseInt(cateroom);
                 Image img = daoR.searchRoomidAndImage(roomid);
                 Room rooom = daoR.getOneRoom(roomid);
-                Vector<Device> vectorD = daoD.getDevicebycateroom(cateroom);
+                Vector<Device> vectorD = daoD.getDeviceByCateId(cateid);
 
                 request.setAttribute("Rooom", rooom);
                 request.setAttribute("img", img);
                 request.setAttribute("roomid", RoomID);
-                request.setAttribute("cateid", cateroom);
+                request.setAttribute("cateid", cateid);
                 request.setAttribute("vectorD", vectorD);
                 request.getRequestDispatcher("compare.jsp").forward(request, response);
 
@@ -70,7 +71,7 @@ public class CompareRoomController extends HttpServlet {
                 Vector<Room> vectorR = daoR.searchRoomNamebyAjax(name, cateID);
 
                 PrintWriter out = response.getWriter();
-                                                                
+
                 if (name.isEmpty()) {
                     out.print("");
                 } else if (vectorR.size() == 0) {

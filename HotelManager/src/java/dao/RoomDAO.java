@@ -1,5 +1,6 @@
 package dao;
 
+import entity.Device;
 import entity.Image;
 import entity.Room;
 import entity.RoomByDate;
@@ -23,6 +24,7 @@ public interface RoomDAO {
     public Room getOneRoom(int roomid) throws Exception;
 
     public Vector<RoomCategory> numberOfRoomsByCategory() throws Exception;
+    public Vector<Device> numberOfDevice() throws Exception;
     public Vector<Room> sumOfRoom() throws Exception;
 
     

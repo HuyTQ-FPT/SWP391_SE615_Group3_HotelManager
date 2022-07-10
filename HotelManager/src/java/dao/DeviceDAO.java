@@ -7,6 +7,7 @@ import java.util.Vector;
 
 public interface DeviceDAO {
 
+    public Vector<Device> getDeviceByCateId(int cateRoom) throws Exception;
     public Vector<Device> getAllDevice();
 
     public Vector<Device> getDevicebycateroom(String cateRoom, int n);

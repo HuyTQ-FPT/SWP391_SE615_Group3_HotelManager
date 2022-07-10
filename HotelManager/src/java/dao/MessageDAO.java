@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public interface MessageDAO {
     public ArrayList<Message> getAllComment() throws Exception;
+    public ArrayList<Message> getCommentByName(String name) throws Exception;
     public ArrayList<Integer> getAllAcccountMessage() throws Exception;
     public int insertMessageCus(Message mess) throws Exception;
     public int insertNewmessagecus(Message mess) throws Exception;

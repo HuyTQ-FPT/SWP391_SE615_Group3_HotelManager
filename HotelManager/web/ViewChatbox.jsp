@@ -423,7 +423,7 @@
             <script type="text/javascript">
                 var userID = "<%=userID%>";
                 var aid = "<%=aid%>";
-                var websocket = new WebSocket("ws://localhost:42554/HotelManager/ChatSocket");
+                var websocket = new WebSocket("ws://localhost:8080/HotelManager/ChatSocket");
 				websocket.onopen = function(message) {processOpen(userID+" "+aid);};
 				websocket.onmessage = function(message) {processMessage(message);};
 				websocket.onclose = function(message) {processClose(message);};
