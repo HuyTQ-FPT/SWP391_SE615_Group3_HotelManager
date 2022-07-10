@@ -78,7 +78,7 @@ public class CommentController extends HttpServlet {
                 request.setCharacterEncoding("UTF-8");
             }
             try (PrintWriter out = response.getWriter()) {
-                String content = request.getParameter("content");
+                String content = request.getParameter("content").trim();
                 String username = request.getParameter("username");
                 String BlogID = request.getParameter("blogid");
                 String ParentID = "0";
@@ -95,6 +95,8 @@ public class CommentController extends HttpServlet {
                     List<Comment> list = dao.DisplayComment(BlogID);
 
                     request.setAttribute("listcomment", list);     
+                    List<Comment> list1 = dao.DisplayCommenttt(ParentIDD);
+                request.setAttribute("listcomment1", list1);
 //                    List<Comment> list1 = dao.DisplayCommenttt(ParentIDD);
 //                     request.setAttribute("listcomment1", list1);
                     RequestDispatcher rd = request.getRequestDispatcher("Comment.jsp");

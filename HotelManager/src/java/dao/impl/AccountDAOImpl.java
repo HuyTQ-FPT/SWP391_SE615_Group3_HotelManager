@@ -90,6 +90,7 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         ResultSet rs = null;
 
         int n = 0;
+       
         String sql = "UPDATE [SWPgroup3].[dbo].[Account]\n"
                 + "   SET [password] =?\n"
                 + " WHERE [user]=?";
@@ -108,7 +109,6 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
             closeResultSet(rs);
             closePreparedStatement(pre);
             closeConnection(conn);
-
         }
         return n;
     }
@@ -144,7 +144,23 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         }
         return null;
     }
-
+@Override
+     public void updateRole(int RoleID, String user) {
+          Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        int n = 0;
+        String sql = "UPDATE [dbo].[Account] SET [RoleID] = ? WHERE [user] = ?";
+        try {
+             conn = getConnection();
+            pre = conn.prepareStatement(sql);       
+            pre.setInt(1, RoleID);
+            pre.setString(2, user);
+              n = pre.executeUpdate();
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+    }   
     @Override
     public ArrayList<Account> getAccountByRole(int aRole) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -210,9 +226,8 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
             closeResultSet(rs);
             closePreparedStatement(pre);
             closeConnection(conn);
-
         }
         return n;
     }
-
+          
 }

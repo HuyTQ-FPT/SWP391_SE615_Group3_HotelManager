@@ -657,8 +657,8 @@ thead {
                     <thead>
                         <tr>
                             <th class="cart_product" style="text-align: center">Người dùng</th>
-                            <th style="text-align: center">Lễ tân</th>
-                            <th style="text-align: center">Khách hàng</th>                         
+                            <th style="text-align: center">Khách hàng</th>
+                            <th style="text-align: center">Lễ tân</th>                         
                             <th style="text-align: center">MẬT KHẨU</th>
                             <th style="text-align: center">Cập nhật</th>                      
                             </th>
@@ -666,7 +666,7 @@ thead {
                     </thead>
                     <tbody>
                     <c:forEach items="${lista}" var="c">
-                        <form action="Manageraccount" method="get">
+                        <form action="Updateaccount" method="get">
                         <tr>
                             <td class="cart_product" style="text-align: center">
                                 <a href="#">${c.user}
@@ -675,16 +675,17 @@ thead {
                             </td>
                         <input type="hidden" name="user" value="${c.user}">
                             <td class="cart_description" style="text-align: center">
-                                <input type="checkbox" ${c.roleID==1?"checked":""} onclick="return false;" >
+                                <input type="radio" value="1" name="customer"  ${c.roleID==1?"checked":""} >
                             </td>
                           
-                            <td class="price" style="text-align: center"><span><input type="checkbox"  name="admin" ${c.roleID==2?"checked":""} ></span>
+                            <td class="price" style="text-align: center">
+                                <input type="radio" value="2" name="customer" ${c.roleID==2?"checked":""} >
                             </td>
                             <td class="qty">
                                 <input class="form-control input-sm" type="text" value="${c.password}" style="text-align: center;background-color: #50697f;" name="pass" readonly="">
                             </td>
                             <td class="price" style="text-align: center">
-                                <span><button type="submit">Update</button></span>
+                                <span><button type="submit" onclick="Update()">Cập nhật</button></span>
                             </td>                        
                         </tr>
                         </form>
@@ -697,4 +698,9 @@ thead {
             
         
     </body>
+    <script>
+        function Update(){
+            alert("Cập nhật thành công");
+        }
+    </script>
 </html>
