@@ -51,7 +51,7 @@
                 font-size: 22px;
             }
             .search-box {
-                position: relative;        
+                position: relative;
                 float: right;
             }
             .search-box input {
@@ -104,7 +104,7 @@
             }
             table.table td i {
                 font-size: 19px;
-            }    
+            }
             .pagination {
                 float: right;
                 margin: 0 0 5px;
@@ -123,11 +123,11 @@
             }
             .pagination li a:hover {
                 color: #666;
-            }	
+            }
             .pagination li.active a {
                 background: #03A9F4;
             }
-            .pagination li.active a:hover {        
+            .pagination li.active a:hover {
                 background: #0397d6;
             }
             .pagination li.disabled i {
@@ -362,10 +362,7 @@
                           margin-right: 100px;
                           margin-top: 10px;
                           ">
-                        <!--                        <div class="form-group d-flex" >
-                                                    <input name="Name" type="text" class="form-control pl-3" placeholder="Tìm kiếm tên" style="order-radius:8px">
-                                                    <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
-                                                </div>-->
+
                     </form>
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
@@ -381,7 +378,7 @@
             </nav>
 
         </section>
-        <c:if test="${!empty vectorReservation}">
+        <c:if test="${!empty listReservation}">
             <div style="margin-left: 30px">
                 <h3>Tên:${reservation.getName()}</h3>
                 <h3>Email:${reservation.getEmail()}</h3>
@@ -403,7 +400,7 @@
 
                         </tr>
                     </thead>
-                <c:forEach  items="${vectorReservation}" var="v">
+                <c:forEach  items="${listReservation}" var="v">
                     <tbody>
 
                         <tr>
@@ -424,7 +421,7 @@
             </table>
             <h3 style=" margin-top: 44px;margin-left: 500px;">Tổng tiền:<span style="color: red">${sum}</span></h3>
             </c:if>
-            <c:if test="${empty vectorReservation}">
+            <c:if test="${empty listReservation}">
             <h3>Chưa từng đặt phòng!!</h3>
         </c:if>
         <div class="hotel-room-body">

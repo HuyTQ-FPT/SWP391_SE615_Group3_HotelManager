@@ -1,6 +1,6 @@
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="entity.Room"%>
-<%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <!DOCTYPE html>
@@ -312,7 +312,7 @@
     </head>
     <body>
         <%
-            Vector<Room> vector = (Vector<Room>)request.getAttribute("vectorR");
+            ArrayList<Room> list = (ArrayList<Room>)request.getAttribute("listRoom");
 
         %>
         <section class="ftco-section">
@@ -404,7 +404,7 @@
 
                     </tr>
                 </thead>
-                <% for (Room r : vector) {%>
+                <% for (Room r : list) {%>
                 <tbody>
                     <tr class="name">
                         <td><%=r.getRoomID()%></td>
@@ -433,7 +433,7 @@
                     //Confinm Up
                     function confirmation() {
                         var result = "Bạn có muốn cập nhật bây giờ?";
-                        alert(result);
+                        confirm(result);
                     }
                     function show() {
                         if (document.getElementById("team").style.display == "none") {

@@ -17,12 +17,10 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,10 +33,10 @@ public class ReceptionistController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try {
-             request.setCharacterEncoding("UTF-8");
+            request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
             ReceptionistDAO dao = new ReceptionistDAOImpl();
-            NotificationDAOImpl daoN= new NotificationDAOImpl();
+            NotificationDAOImpl daoN = new NotificationDAOImpl();
             RoomDAO daoR = new RoomDAOImpl();
             UserDAO daoU = new UserDAOImpl();
             String service = request.getParameter("do");
@@ -46,33 +44,33 @@ public class ReceptionistController extends HttpServlet {
             LocalDateTime current = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             String formatted = current.format(formatter);
-            Account a=(Account)session.getAttribute("login");
+            Account a = (Account) session.getAttribute("login");
             if (service == null) {
                 service = "Room";
             }
             if (service.equals("Room")) { //In ra tất cả các phòng                
-                Vector<Room> vectorR = daoR.getRoomListAll("select * from Room");
-                request.setAttribute("vectorR", vectorR);
+                ArrayList<Room> listRoom = daoR.getRoomListAll("select * from Room");
+                request.setAttribute("listRoom", listRoom);
                 request.getRequestDispatcher("managerRoom.jsp").forward(request, response);
             }
             if (service.equals("updateStatus")) { // cập nhật trạng thái phòng               
                 String rId = request.getParameter("rid");
                 String status = request.getParameter("status");
                 int status1 = Integer.parseInt(status);
-                String content="";
-                if(status1==0){
-                    content="Phòng từ trạng thái đã được đặt sang trạng thái rỗng";
-                }else{
-                    content="Phòng từ trạng thái rỗng sang trạng thái đã được đặt";
-                }              
-                daoN.insertNotification(new Notification("Cập nhập trạng thái phòng", a.getUser().toString(), rId.toString(), content.toString(), formatted.toString()));      
+                String content = "";
+                if (status1 == 0) {
+                    content = "Phòng từ trạng thái đã được đặt sang trạng thái rỗng";
+                } else {
+                    content = "Phòng từ trạng thái rỗng sang trạng thái đã được đặt";
+                }
+                daoN.insertNotification(new Notification("Cập nhập trạng thái phòng", a.getUser().toString(), rId.toString(), content.toString(), formatted.toString()));
                 int Rid = Integer.parseInt(rId);
                 daoR.updateStatus(Rid, status1);
                 response.sendRedirect("ReceptionistController");
             }
             if (service.equalsIgnoreCase("Cus")) { // In ra tất cả các khách hàng
-                Vector<User> vectorU = dao.getCustomerListByReceptionist();
-                request.setAttribute("vectorU", vectorU);
+                ArrayList<User> listUser = dao.getCustomerListByReceptionist();
+                request.setAttribute("listUser", listUser);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
             }
 
@@ -98,7 +96,6 @@ public class ReceptionistController extends HttpServlet {
                 String uAddress = (String) request.getParameter("inputAddress").trim();
                 String uPhone = (String) request.getParameter("inputPhone").trim();
                 Date birthday = Date.valueOf(request.getParameter("birthday").trim());
-                System.out.println(birthday);
 
                 //convert
                 int id = Integer.parseInt(uID);
@@ -151,27 +148,26 @@ public class ReceptionistController extends HttpServlet {
 
                 String nameRoom = request.getParameter("nameRoom").trim();
                 int status = Integer.parseInt(request.getParameter("status").trim());
-                System.out.println(nameRoom + "+" + status);
-                Vector<Room> vectorR = daoR.selectRoom(nameRoom, status);
+                ArrayList<Room> listRoom = daoR.selectRoom(nameRoom, status);
 
-                request.setAttribute("vectorR", vectorR);
+                request.setAttribute("listRoom", listRoom);
                 request.getRequestDispatcher("managerRoom.jsp").forward(request, response);
 
             }
 
             if (service.equalsIgnoreCase("searchName")) { // tìm tên khách hàng
                 String name = request.getParameter("Name").trim();
-                Vector<User> vectorU = dao.getSearchNameCustomerListByReceptionist(name);
-                request.setAttribute("vectorU", vectorU);
+                ArrayList<User> listUser = dao.getSearchNameCustomerListByReceptionist(name);
+                request.setAttribute("listUser", listUser);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
 
             }
             if (service.equals("viewOrder")) {
                 int uID = Integer.parseInt(request.getParameter("uID").trim());
                 Reservation reservation = dao.viewOrderDetails(uID);
-                Vector<Reservation> vectorReservation = dao.OrderDetails(uID);
+                ArrayList<Reservation> listReservation = dao.OrderDetails(uID);
 
-                request.setAttribute("vectorReservation", vectorReservation);
+                request.setAttribute("listReservation", listReservation);
                 request.setAttribute("reservation", reservation);
                 request.getRequestDispatcher("viewOrderCustomer.jsp").forward(request, response);
             }

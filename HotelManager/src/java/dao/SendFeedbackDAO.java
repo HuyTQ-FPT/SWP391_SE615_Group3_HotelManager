@@ -1,13 +1,13 @@
 package dao;
 
 import entity.sendFeedback;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public interface SendFeedbackDAO {
 
-    public Vector<sendFeedback> getMessage() throws Exception;
+    public ArrayList<sendFeedback> getMessage() throws Exception;
 
-    public Vector<sendFeedback> getMessageUnread() throws Exception;
+    public ArrayList<sendFeedback> getMessageUnread() throws Exception;
 
     public void insert(sendFeedback message) throws Exception;
 
@@ -17,10 +17,10 @@ public interface SendFeedbackDAO {
 
     public void delete(int id) throws Exception;
 
-    public Vector<sendFeedback> pagingMessage(int index) throws Exception;
+    public ArrayList<sendFeedback> pagingMessage(int index) throws Exception;
 
-    public Vector<sendFeedback> searchName(int index, String title) throws Exception;
+    public ArrayList<sendFeedback> searchName(int index, String title) throws Exception;
 
-    public Vector<sendFeedback> getMessageOfTitle(String title) throws Exception;
+    public ArrayList<sendFeedback> getMessageOfTitle(String title) throws Exception;
 
 }

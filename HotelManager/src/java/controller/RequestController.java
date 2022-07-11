@@ -4,7 +4,7 @@ import dao.SendFeedbackDAO;
 import dao.impl.SendFeedbackDAOIpml;
 import entity.sendFeedback;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -47,8 +47,8 @@ public class RequestController extends HttpServlet {
 
             if (service.equalsIgnoreCase("listMessFeedBack")) { // in ra tất cả yêu cầu
 
-                Vector<sendFeedback> vectorS = new Vector<>();
-                Vector<sendFeedback> vectorS1 = new Vector<>();
+                ArrayList<sendFeedback> listS = new ArrayList<>();
+                ArrayList<sendFeedback> listS1 = new ArrayList<>();
                 String indexPage = request.getParameter("index");
 
                 if (indexPage == null) {
@@ -59,19 +59,18 @@ public class RequestController extends HttpServlet {
                 int count = daoS.getMessage().size();
 
                 int endPage = count / 3;
-                System.out.println(endPage);
                 if (count % 3 != 0) {
                     endPage++;
                 }
-                vectorS = daoS.pagingMessage(index);
-                vectorS1 = daoS.getMessageUnread();
+                listS = daoS.pagingMessage(index);
+                listS1 = daoS.getMessageUnread();
                 String href = "RequestController?do=listMessFeedBack&";
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("count", count);
                 request.setAttribute("href", href);
                 request.setAttribute("index", index);
-                request.setAttribute("vetorS", vectorS);
-                request.setAttribute("vetorS1", vectorS1);
+                request.setAttribute("vetorS", listS);
+                request.setAttribute("vetorS1", listS1);
                 session.setAttribute("index", index);
 
                 request.getRequestDispatcher("requestMessage.jsp").forward(request, response);
@@ -108,8 +107,8 @@ public class RequestController extends HttpServlet {
                 String nameTitle = request.getParameter("nameTitle").trim();
                 String indexPage = request.getParameter("index");
                 // index page always start at 1
-                Vector<sendFeedback> vectorS = new Vector<>();
-                Vector<sendFeedback> vectorS1 = new Vector<>();
+                ArrayList<sendFeedback> listS = new ArrayList<>();
+                ArrayList<sendFeedback> listS1 = new ArrayList<>();
 
                 if (indexPage == null) {
                     indexPage = "1";
@@ -123,15 +122,15 @@ public class RequestController extends HttpServlet {
                 if (count % 3 != 0) {
                     endPage++;
                 }
-                vectorS1 = daoS.getMessageUnread();
-                vectorS = daoS.searchName(index, nameTitle);
+                listS1 = daoS.getMessageUnread();
+                listS = daoS.searchName(index, nameTitle);
                 String href = "RequestController?do=searchName&";
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("count", count);
                 request.setAttribute("href", href);
                 request.setAttribute("index", index);
-                request.setAttribute("vetorS", vectorS);
-                request.setAttribute("vetorS1", vectorS1);
+                request.setAttribute("vetorS", listS);
+                request.setAttribute("vetorS1", listS1);
                 request.setAttribute("nameTitle", nameTitle);
                 session.setAttribute("index", index);
                 request.getRequestDispatcher("requestMessage.jsp").forward(request, response);

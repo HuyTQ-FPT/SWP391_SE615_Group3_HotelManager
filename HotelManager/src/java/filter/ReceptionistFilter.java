@@ -115,7 +115,7 @@ public class ReceptionistFilter implements Filter {
         HttpSession session = httpRequest.getSession();
         Account ac = (Account) session.getAttribute("login");
 
-        if (ac == null || ac.getRoleID() != 2) {
+        if (ac == null || ac.getRoleID() != 2 ) {
              httpResponse.sendRedirect("Filter.jsp");
         }
 

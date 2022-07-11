@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Vector;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,12 +17,12 @@ import java.util.Vector;
 public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
 
     @Override
-    public Vector<User> getCustomerListByReceptionist() throws Exception {
+    public ArrayList<User> getCustomerListByReceptionist() throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        Vector<User> vector = new Vector<>();
+        ArrayList<User> ArrayList = new ArrayList<>();
         try {
             String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
                     + "where c.RoleID=1";
@@ -43,7 +43,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
                 String uImgCmt = rs.getString(10);
 
                 User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, birthday, uAdress, uCMT, uImgCmt);
-                vector.add(u);
+                ArrayList.add(u);
 
             }
 
@@ -55,7 +55,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
             closeConnection(conn);
 
         }
-        return vector;
+        return ArrayList;
 
     }
 
@@ -106,12 +106,12 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
     }
 
     @Override
-    public Vector<User> getSearchNameCustomerListByReceptionist(String uName) throws Exception {
+    public ArrayList<User> getSearchNameCustomerListByReceptionist(String uName) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        Vector<User> vector = new Vector<>();
+        ArrayList<User> ArrayList = new ArrayList<>();
         String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
                 + "where u.UserName like N'%" + uName + "%' and c.RoleID=1";
         try {
@@ -133,7 +133,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
                 String uImgCmt = rs.getString(10);
 
                 User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, birthday, uAdress, uCMT, uImgCmt);
-                vector.add(u);
+                ArrayList.add(u);
 
             }
 
@@ -145,7 +145,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
             closeConnection(conn);
 
         }
-        return vector;
+        return ArrayList;
     }
 
     @Override
@@ -181,12 +181,12 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
     }
 
     @Override
-    public Vector<Reservation> OrderDetails(int uID) throws Exception {
+    public ArrayList<Reservation> OrderDetails(int uID) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        Vector<Reservation> vector = new Vector<>();
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "select r.BillID,r.UserID,r.Name,ro.Roomname,r.Address,r.Email,r.Phone,r.Checkin,r.Checkout,ro.RoomPrice,r.Total,r.[Status] from [Reservation] r inner join [User] u on r.UserID= u.UserID\n"
                 + "              inner join Room ro on r.RoomID = ro.RoomID  \n"
                 + "              where u.UserID=" + uID;
@@ -199,7 +199,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
             while (rs.next()) {
                 Reservation r = new Reservation(rs.getInt("BillID"), uID, rs.getString("Name"), rs.getString("Roomname"), rs.getString("Address"), rs.getString("Email"), rs.getString("Phone"),
                         rs.getDate("Checkin"), rs.getDate("Checkout"), rs.getDouble("Roomprice"), rs.getDouble("Total"), rs.getInt("Status"));
-                vector.add(r);
+                ArrayList.add(r);
 
             }
 
@@ -211,16 +211,16 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
             closeConnection(conn);
 
         }
-        return vector;
+        return ArrayList;
     }
 
     @Override
-    public Vector<User> getListByReceptionist() throws Exception {
+    public ArrayList<User> getListByReceptionist() throws Exception {
        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        Vector<User> vector = new Vector<>();
+        ArrayList<User> ArrayList = new ArrayList<>();
         try {
             String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
                     + "where c.RoleID=2";
@@ -241,7 +241,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
                 String uImgCmt = rs.getString(10);
 
                 User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, birthday, uAdress, uCMT, uImgCmt);
-                vector.add(u);
+                ArrayList.add(u);
 
             }
 
@@ -253,7 +253,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
             closeConnection(conn);
 
         }
-        return vector;
+        return ArrayList;
 
     }
 

@@ -1,5 +1,5 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="entity.User"%>
-<%@page import="java.util.Vector"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -42,7 +42,7 @@
                 font-size: 22px;
             }
             .search-box {
-                position: relative;        
+                position: relative;
                 float: right;
             }
             .search-box input {
@@ -95,7 +95,7 @@
             }
             table.table td i {
                 font-size: 19px;
-            }    
+            }
             .pagination {
                 float: right;
                 margin: 0 0 5px;
@@ -114,11 +114,11 @@
             }
             .pagination li a:hover {
                 color: #666;
-            }	
+            }
             .pagination li.active a {
                 background: #03A9F4;
             }
-            .pagination li.active a:hover {        
+            .pagination li.active a:hover {
                 background: #0397d6;
             }
             .pagination li.disabled i {
@@ -271,7 +271,7 @@
     </head>
     <body>
         <%
-            Vector<User> vector = (Vector<User>) request.getAttribute("vectorU");
+            ArrayList<User> list = (ArrayList<User>) request.getAttribute("listUser");
         %>
         <section class="ftco-section">
             <div class="card" id="team">
@@ -327,7 +327,7 @@
 
                 </div>
                 <div class="oke" onclick="show()"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></div>
-                
+
             </nav>
 
         </section>
@@ -347,7 +347,7 @@
                     </tr>
                 </thead>
                 <tbody>      
-                    <%for (User u : vector) {%>
+                    <%for (User u : list) {%>
 
 
 
@@ -356,25 +356,30 @@
                         <td><%=u.getUserName()%></td>
                         <td><%=u.getUserPhone()%></td>
                         <td><%=u.getUserEmail()%></td>
-                        <td><%=u.getUserGender()%></td>
+                        <td><%if (u.getUserGender() == 1) {
+                                out.print("nam");
+                            } else {
+                                out.print("nữ");
+                            }%>
+                        </td>
 
                         <td><%=u.getCMT()%></td>
                         <td><a href="ReceptionistController?do=viewOrder&uID=<%= u.getUserID()%>">Xem</a></td>
                     </tr> 
 
                     <%}%>
-               
+
                 </tbody>
             </table>
         </div> 
-                     <script>
-                    function show() {
-                        if (document.getElementById("team").style.display == "none") {
-                            document.getElementById("team").style.display = "block";
-                        } else {
-                            document.getElementById("team").style.display = "none";
-                        }
-                    }
-                </script>
+        <script>
+            function show() {
+                if (document.getElementById("team").style.display == "none") {
+                    document.getElementById("team").style.display = "block";
+                } else {
+                    document.getElementById("team").style.display = "none";
+                }
+            }
+        </script>
     </body>
 </html>

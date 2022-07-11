@@ -21,11 +21,8 @@ import entity.RoomCategory;
 import entity.User;
 import entity.sendFeedback;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -62,26 +59,26 @@ public class AdminController extends HttpServlet {
 
             }
             if (service.equals("indexAdmin")) { // trang chủ admin
-                Vector<Room> vectorRoom = daoR.getRoomListAll("select * from Room"); // phòng
-                Vector<User> vectorUser = daoReceptionist.getCustomerListByReceptionist(); // số khách hàng
-                Vector<User> vectorReceptionist = daoReceptionist.getListByReceptionist(); //số lễ tân
-                Vector<sendFeedback> vectorRequest = daoRequest.getMessage(); // số yêu cầu
+                ArrayList<Room> listRoom = daoR.getRoomListAll("select * from Room"); // phòng
+                ArrayList<User> listUser = daoReceptionist.getCustomerListByReceptionist(); // số khách hàng
+                ArrayList<User> listReceptionist = daoReceptionist.getListByReceptionist(); //số lễ tân
+                ArrayList<sendFeedback> listRequest = daoRequest.getMessage(); // số yêu cầu
                 ArrayList<Message> listMessage = daoMessage.getAllComment();// số phản hồi
                 int sumReservation = daoReservation.sumReservation(); // tổng tiền
-                Vector<RoomCategory> vectorR = daoR.numberOfRoomsByCategory(); // thống kê theo loại phòng
-                Vector<Room> vectorStatus = daoR.sumOfRoom();
-                Vector<Device> vectorDevice = daoR.numberOfDevice(); // Thống kê thiết bị
-                Vector<Reservation> daoReservationOfService =daoReservation.sumService() ; // Thống kê thiết bị
-                request.setAttribute("vectorR", vectorR);
-                request.setAttribute("vectorRoom", vectorRoom);
-                request.setAttribute("vectorUser", vectorUser);
-                request.setAttribute("vectorReceptionis", vectorReceptionist);
-                request.setAttribute("vectorRequest", vectorRequest);
-                request.setAttribute("daoReservationOfService", daoReservationOfService);
+                ArrayList<RoomCategory> listroomCategory = daoR.numberOfRoomsByCategory(); // thống kê theo loại phòng
+                ArrayList<Room> listStatus = daoR.sumOfRoom();
+                ArrayList<Device> listDevice = daoR.numberOfDevice(); // Thống kê thiết bị
+                ArrayList<Reservation> listReservationOfService = daoReservation.sumService(); // Thống kê thiết bị
+                request.setAttribute("listroomCategory", listroomCategory);
+                request.setAttribute("listRoom", listRoom);
+                request.setAttribute("listUser", listUser);
+                request.setAttribute("listReceptionis", listReceptionist);
+                request.setAttribute("listRequest", listRequest);
+                request.setAttribute("listReservationOfService", listReservationOfService);
                 request.setAttribute("listMessage", listMessage);
                 request.setAttribute("sumReservation", sumReservation);
-                request.setAttribute("vectorStatus", vectorStatus);
-                request.setAttribute("vectorDevice", vectorDevice);
+                request.setAttribute("listStatus", listStatus);
+                request.setAttribute("listDevice", listDevice);
                 request.getRequestDispatcher("indexadmin.jsp").forward(request, response);
             }
 
@@ -114,7 +111,6 @@ public class AdminController extends HttpServlet {
 
                 String uPhone = (String) request.getParameter("inputPhone").trim();
                 Date birthday = Date.valueOf(request.getParameter("inputBirthday").trim());
-                System.out.println(birthday);
 
                 //convert
                 int id = Integer.parseInt(uID);
@@ -155,24 +151,31 @@ public class AdminController extends HttpServlet {
 
             }
             if (service.equals("ReportDay")) {
-                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-                Vector<Reservation> vectorReservation = daoReservation.totalOfRoom();
 
-                request.setAttribute("vectorReservation", vectorReservation);
+                ArrayList<Reservation> listReservation = daoReservation.totalOfRoom();
+                request.setAttribute("listReservation", listReservation);
                 request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
             }
             if (service.equals("ReportDay1")) {
                 String name = request.getParameter("name").trim();
                 String checkin = request.getParameter("checkin").trim();
                 String checkout = request.getParameter("checkout").trim();
+                if (!name.matches("^[0-9]+$")) {
+                    String err1 = "Vui lòng nhập số dương.";
+                    request.setAttribute("err1", err1);
+                    request.setAttribute("name", name);
+                    request.setAttribute("checkin", checkin);
+                    request.setAttribute("checkout", checkout);
+                    request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                }
                 if (checkin.isEmpty() && checkout.isEmpty() && name.isEmpty()) {
-                    Vector<Reservation> vectorReservation = daoReservation.totalOfRoomSearch(name, null, null);
-                    request.setAttribute("vectorReservation", vectorReservation);
+                    ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, null, null);
+                    request.setAttribute("listReservation", listReservation);
                     request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                 }
                 if (checkin.isEmpty() && checkout.isEmpty() && name != null) {
-                    Vector<Reservation> vectorReservation = daoReservation.totalOfRoomSearch(name, null, null);
-                    request.setAttribute("vectorReservation", vectorReservation);
+                    ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, null, null);
+                    request.setAttribute("listReservation", listReservation);
                     request.setAttribute("name", name);
                     request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                 }
@@ -187,8 +190,8 @@ public class AdminController extends HttpServlet {
 
                     Date to = Date.valueOf(checkin);
                     Date from = Date.valueOf(checkout);
-                    Vector<Reservation> vectorReservation = daoReservation.totalOfRoomSearch(name, to, from);
-                    request.setAttribute("vectorReservation", vectorReservation);
+                    ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, to, from);
+                    request.setAttribute("listReservation", listReservation);
                     request.setAttribute("name", name);
                     request.setAttribute("checkin", checkin);
                     request.setAttribute("checkout", checkout);
@@ -197,10 +200,10 @@ public class AdminController extends HttpServlet {
 
             }
             if (service.equals("ReportMonth")) {
-                Vector<Reservation> vectorReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, null);
-                Vector<Reservation> vectorReservationAllYear = daoReservation.selectAllYear();
-                request.setAttribute("vectorReservationTotalOfMotnh", vectorReservationTotalOfMotnh);
-                request.setAttribute("vectorReservationAllYear", vectorReservationAllYear);
+                ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, null);
+                ArrayList<Reservation> listReservationAllYear = daoReservation.selectAllYear();
+                request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
+                request.setAttribute("listReservationAllYear", listReservationAllYear);
                 request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
 
             }
@@ -208,38 +211,47 @@ public class AdminController extends HttpServlet {
             if (service.equals("ReportMonth1")) {
                 int month = 0;
                 int sum = 0;
-                if (!request.getParameter("name").isEmpty()) {
+                String month1 = request.getParameter("name").trim();
+                ArrayList<Reservation> listReservationAllYear = daoReservation.selectAllYear();
+                request.setAttribute("listReservationAllYear", listReservationAllYear);
+                if (!month1.isEmpty()) {
+                    if (request.getParameter("name").matches("^[0-9]+$")) {
+                        month = Integer.parseInt(month1);
+                    } else {
+                        String err1 = "Vui lòng nhập số dương.";
+                        request.setAttribute("err1", err1);
+                        request.setAttribute("name", month1);
+                        request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
 
-                    month = Integer.parseInt(request.getParameter("name"));
+                    }
                 }
                 int year = Integer.parseInt(request.getParameter("year"));
-                Vector<Reservation> vectorReservationAllYear = daoReservation.selectAllYear();
-                request.setAttribute("vectorReservationAllYear", vectorReservationAllYear);
+
                 if (month == 0 && year == 0) {
                     response.sendRedirect("AdminController?do=ReportMonth");
                 } else {
 
                     if (year == 0) {
-                        Vector<Reservation> vectorReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, null);
-                        request.setAttribute("vectorReservationTotalOfMotnh", vectorReservationTotalOfMotnh);
+                        ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, null);
+                        request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                         request.setAttribute("year", year);
                         request.setAttribute("name", "");
                         request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
                     } else if (year != 0 && month == 0) {
 
-                        Vector<Reservation> vectorReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, year);
-                        for (Reservation r : vectorReservationTotalOfMotnh) {
+                        ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, year);
+                        for (Reservation r : listReservationTotalOfMotnh) {
                             sum += r.getTotal();
                         }
-                        request.setAttribute("vectorReservationTotalOfMotnh", vectorReservationTotalOfMotnh);
+                        request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                         request.setAttribute("year", year);
                         request.setAttribute("name", "");
                         request.setAttribute("sum", sum);
                         request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
 
                     } else {
-                        Vector<Reservation> vectorReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, year);
-                        request.setAttribute("vectorReservationTotalOfMotnh", vectorReservationTotalOfMotnh);
+                        ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, year);
+                        request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                         request.setAttribute("year", year);
                         request.setAttribute("name", month);
                         request.getRequestDispatcher("reportMonth.jsp").forward(request, response);

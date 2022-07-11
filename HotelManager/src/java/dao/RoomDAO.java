@@ -5,27 +5,27 @@ import entity.Image;
 import entity.Room;
 import entity.RoomByDate;
 import entity.RoomCategory;
-import java.sql.Date;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public interface RoomDAO {
 
-    public Vector<Room> getRoomListAll(String sql) throws Exception;
+    public ArrayList<Room> getRoomListAll(String sql) throws Exception;
 
     public void updateStatus(int rID, int rStatus) throws Exception;
 
-    public Vector<Room> selectRoom(String roomName, int status) throws Exception;
+    public ArrayList<Room> selectRoom(String roomName, int status) throws Exception;
 
-    public Vector<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception;
+    public ArrayList<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception;
 
     public Image searchRoomidAndImage(int RoomID) throws Exception;
 
     public Room getOneRoom(int roomid) throws Exception;
 
-    public Vector<RoomCategory> numberOfRoomsByCategory() throws Exception;
-    public Vector<Device> numberOfDevice() throws Exception;
-    public Vector<Room> sumOfRoom() throws Exception;
+    public ArrayList<RoomCategory> numberOfRoomsByCategory() throws Exception;
+    public ArrayList<Device> numberOfDevice() throws Exception;
+    public ArrayList<Room> sumOfRoom() throws Exception;
+    public RoomCategory getRoomCate(int cateID) throws Exception;
 
     
     

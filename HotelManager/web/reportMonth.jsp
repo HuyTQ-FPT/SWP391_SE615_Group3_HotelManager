@@ -21,35 +21,30 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <!-- https://getbootstrap.com/ -->
         <link rel="stylesheet" href="css/templatemo-style.css">
-        <!--
-            Product Admin CSS Template
-            https://templatemo.com/tm-524-product-admin
-        
-        -->
-    </head>
+       
     <body id="reportsPage">
         <div class="" id="home">
             <%@include file="headerAdmin.jsp" %>
 
         </div>
         <h4 style="font-size: 20px ; color: red">${errr}</h4>
+        <h4 style="font-size: 20px ; color: red">${err1}</h4>
+        <label style=" margin-left: 15px;color: white;">Tìm kiếm tháng....</label>
         <form action="AdminController?do=ReportMonth1" method="post" >
-            <div class="form-group col-lg-6">
-                <label>Tìm kiếm tháng....</label>
-                <input style="background-color: white; color: #54657D;" type="text" name="name" pattern="[0-9]+" maxlength="2" title="Không được nhập số âm và chữ"  class="form-control" value="${name}">
-                <select name="year" style="order-radius:8px"  >
+            <div class="form-group col-lg-3 d-flex">
+                <input style="background-color: white; color: #54657D;" type="text" name="name" pattern=".*\S+.*" maxlength="2" title="Không được tất cả là khoảng trắng"  class="form-control" value="${name}">
+                <select name="year" style="border-radius:8px"  >
                     <option value="0"  >---------</option>
-                    <c:forEach items="${vectorReservationAllYear}" var="vY">
+                    <c:forEach items="${listReservationAllYear}" var="vY">
                         <option value="${vY.year}">${vY.year}</option>
                     </c:forEach>
                 </select>  
             </div> 
-
-            <input type="submit"  value="Báo cáo" class="btn btn-success">
+                <input type="submit"  value="Báo cáo" class="btn btn-success" style="border-radius:8px; margin-left: 15px">
         </form>
-        <c:if test="${!empty vectorReservationTotalOfMotnh}">
+        <c:if test="${!empty listReservationTotalOfMotnh}">
             <c:if test="${year!=0 && year!=null}">
-
+                
                 <div style="position: relative">
                     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-10 tm-block-col ok" style="   position: absolute;
                          top:-180px;
@@ -67,28 +62,14 @@
                 </div>
 
             </c:if>
-
             <div class="container" >
-
-
                 <canvas  id="MonthAllTotal"></canvas>
             </div>
 
         </c:if>
-        <c:if test="${empty vectorReservationTotalOfMotnh}">
-
-
-
-            <h2 class="tm-block-title text-center" style="font-size: 30px">Không có dữ liệu, vui lòng thử lại.</h2>
-
+        <c:if test="${empty listReservationTotalOfMotnh}">
+           <h2 class="tm-block-title text-center" style="font-size: 30px">Không có dữ liệu, vui lòng thử lại.</h2>
         </c:if>
-
-
-
-
-
-
-
     </div>
 
 
@@ -105,7 +86,7 @@
     <script>
 
         let month = [], totalMotnh = []
-        <c:forEach items="${vectorReservationTotalOfMotnh}" var="v">
+        <c:forEach items="${listReservationTotalOfMotnh}" var="v">
 
         month.push('${v.status}/${v.numberOfPerson}')
             totalMotnh.push(${v.total})

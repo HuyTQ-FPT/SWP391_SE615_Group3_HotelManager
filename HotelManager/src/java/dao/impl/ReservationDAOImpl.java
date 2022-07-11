@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -118,7 +119,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 //        int n= dao.addReservation(re);
             Date to = Date.valueOf("2022-05-21");
             Date from = Date.valueOf("2022-06-28");
-            Vector<Reservation> v = dao.selectAllYear();
+            ArrayList<Reservation> v = dao.selectAllYear();
             for (Reservation reservation : v) {
                 System.out.println(reservation);
             }
@@ -158,11 +159,11 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
     }
 
     @Override
-    public Vector<Reservation> totalOfRoomSearch(String name, Date to, Date from) throws Exception {
+    public ArrayList<Reservation> totalOfRoomSearch(String name, Date to, Date from) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Vector<Reservation> vector = new Vector<>();
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
                 + "where r.RoomID like '%" + name + "%' \n"
                 + "group by r.RoomID,r.Roomname \n"
@@ -180,7 +181,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
             while (rs.next()) {
 
-                vector.add(new Reservation(rs.getInt("RoomID"), rs.getString("Roomname"), rs.getDouble("Total")));
+                ArrayList.add(new Reservation(rs.getInt("RoomID"), rs.getString("Roomname"), rs.getDouble("Total")));
 
             }
 
@@ -193,15 +194,15 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
         }
 
-        return vector;
+        return ArrayList;
     }
 
     @Override
-    public Vector<Reservation> totalOfRoom() throws Exception {
+    public ArrayList<Reservation> totalOfRoom() throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Vector<Reservation> vector = new Vector<>();
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
                 + "group by r.RoomID,r.Roomname\n"
                 + "order by r.RoomID asc";
@@ -213,7 +214,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
             while (rs.next()) {
 
-                vector.add(new Reservation(rs.getInt("RoomID"), rs.getString("Roomname"), rs.getDouble("Total")));
+                ArrayList.add(new Reservation(rs.getInt("RoomID"), rs.getString("Roomname"), rs.getDouble("Total")));
 
             }
 
@@ -226,15 +227,15 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
         }
 
-        return vector;
+        return ArrayList;
     }
 
     @Override
-    public Vector<Reservation> totalOfRoomByMonth(Integer month, Integer year) throws Exception {
+    public ArrayList<Reservation> totalOfRoomByMonth(Integer month, Integer year) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Vector<Reservation> vector = new Vector<>();
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "";
         if (month == null && year == null) {
 
@@ -267,7 +268,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
             while (rs.next()) {
 
-                vector.add(new Reservation(rs.getInt("Status"), rs.getInt("NumberOfPerson"), rs.getDouble("Total")));
+                ArrayList.add(new Reservation(rs.getInt("Status"), rs.getInt("NumberOfPerson"), rs.getDouble("Total")));
 
             }
 
@@ -279,15 +280,15 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             closeConnection(conn);
 
         }
-        return vector;
+        return ArrayList;
     }
 
     @Override
-    public Vector<Reservation> selectAllYear() throws Exception {
+    public ArrayList<Reservation> selectAllYear() throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Vector<Reservation> vector = new Vector<>();
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "select  YEAR(Checkin) as Year from Reservation       \n"
                 + "group by YEAR(Checkin)\n"
                 + "order by YEAR(Checkin)";
@@ -298,7 +299,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
             while (rs.next()) {
 
-                vector.add(new Reservation(rs.getInt("Year")));
+                ArrayList.add(new Reservation(rs.getInt("Year")));
 
             }
 
@@ -310,15 +311,15 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             closeConnection(conn);
 
         }
-        return vector;
+        return ArrayList;
     }
 
     @Override
-    public Vector<Reservation>sumService() throws Exception {
+    public ArrayList<Reservation>sumService() throws Exception {
           Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Vector<Reservation> vector = new Vector<>();
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "select ServiceName, COUNT( ServiceName)as Total from [Reservation]\n"
                 + "group by ServiceName" ;
         
@@ -328,7 +329,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             rs = pre.executeQuery();
 
             while (rs.next()) {
-                vector.add(new Reservation(rs.getString("ServiceName"), rs.getInt(2)));
+                ArrayList.add(new Reservation(rs.getString("ServiceName"), rs.getInt(2)));
 
             }
 
@@ -340,12 +341,6 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             closeConnection(conn);
 
         }
-        return vector;
-    
-    
-    
-    
-    
+        return ArrayList;   
     }
-
 }

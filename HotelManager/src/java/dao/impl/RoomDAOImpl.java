@@ -13,9 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class RoomDAOImpl extends DBContext implements RoomDAO {
 
@@ -555,12 +554,12 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<Room> getRoomListAll(String sql) throws Exception {
+    public ArrayList<Room> getRoomListAll(String sql) throws Exception {
 
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        Vector<Room> vector = new Vector<Room>();
+        ArrayList<Room> vector = new ArrayList<Room>();
         try {
             rs = getData(sql);
             while (rs.next()) {
@@ -619,14 +618,14 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
     }
 
-    public Vector<Room> selectRoom(String rName, int status) throws Exception {
+    public ArrayList<Room> selectRoom(String rName, int status) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        Vector<Room> vector = new Vector<Room>();
+        ArrayList<Room> vector = new ArrayList<Room>();
         String sql = "select * from [Room] where Roomname like N'%" + rName + "%'";
-        if (status > 0) {
+        if (status >= 0) {
             sql = sql.concat(" and [status]=" + status);
         }
 
@@ -648,7 +647,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 String Note = rs.getString(11);
 
                 int status1 = rs.getInt(12);
-                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, status1);
+                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, rs.getInt("status"));
 
                 vector.add(im);
             }
@@ -690,11 +689,11 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception {
+    public ArrayList<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Vector<Room> vector = new Vector<Room>();
+        ArrayList<Room> vector = new ArrayList<>();
         String sql = "select * from Room where Roomname like '%" + roomName + "%' and  RoomcateID=" + cateID;
         try {
             conn = getConnection();
@@ -755,11 +754,11 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector< RoomCategory> numberOfRoomsByCategory() throws Exception {
+    public ArrayList< RoomCategory> numberOfRoomsByCategory() throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Vector< RoomCategory> vector = new Vector<>();
+        ArrayList< RoomCategory> vector = new ArrayList<>();
 
         String sql = "select c.RoomcateID,c.Catename ,COUNT(r.RoomcateID) as count from CateRoom c inner join Room r on c.RoomcateID = r.RoomcateID \n"
                 + "group by c.RoomcateID,c.Catename";
@@ -784,11 +783,11 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<Room> sumOfRoom() throws Exception {
+    public ArrayList<Room> sumOfRoom() throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Vector< Room> vector = new Vector<>();
+        ArrayList< Room> vector = new ArrayList<>();
 
         String sql = "select Room.[Status],COUNT(Room.[Status]) as Sumstatus from Room \n"
                 + "group by  Room.[Status]";
@@ -811,11 +810,11 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Vector<Device> numberOfDevice() throws Exception {
+    public ArrayList<Device> numberOfDevice() throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Vector<Device> vector = new Vector<>();
+        ArrayList<Device> vector = new ArrayList<>();
 
         String sql = "select d.DeviceName , SUM(r.Quantity) as Quantity from  RoomDevice r INNER JOIN Device d on \n"
                 + "                r.DeviceID = d.DeviceID\n"
@@ -839,6 +838,32 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
+    public RoomCategory getRoomCate(int cateID) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        ArrayList<RoomCategory> vector = new ArrayList<>();
+
+        String sql = "select c.* from Room r inner join CateRoom c on r.RoomcateID = c.RoomcateID where r.RoomcateID=" + cateID;
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                return new RoomCategory(rs.getInt("RoomcateID"), rs.getString("Catename"));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return null;
+    }
+
+    @Override
     public void crudRoom(String sql) {
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -857,20 +882,6 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        RoomDAOImpl r = new RoomDAOImpl();
-        try {
-            Vector< Room> v = r.sumOfRoom();
-            for (Room room : v) {
-                System.out.println(room.toString1());
-            }
-
-        } catch (Exception ex) {
-            Logger.getLogger(RoomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
 }

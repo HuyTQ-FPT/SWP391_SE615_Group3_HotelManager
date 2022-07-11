@@ -2,6 +2,7 @@ package dao;
 
 import entity.Reservation;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public interface ReservationDAO {
@@ -13,10 +14,9 @@ public interface ReservationDAO {
     public Vector<Reservation> Reservation(String sql);
 
     public int sumReservation() throws Exception;
-    public Vector<Reservation> sumService() throws Exception;
-
-    public Vector<Reservation> totalOfRoomSearch(String name, Date from, Date to) throws Exception;
-    public Vector<Reservation> totalOfRoom() throws Exception;
-    public Vector<Reservation> totalOfRoomByMonth(Integer month, Integer year) throws Exception;
-    public Vector<Reservation> selectAllYear() throws Exception;
+    public ArrayList<Reservation> sumService() throws Exception;
+    public ArrayList<Reservation> totalOfRoomSearch(String name, Date from, Date to) throws Exception;
+    public ArrayList<Reservation> totalOfRoom() throws Exception;
+    public ArrayList<Reservation> totalOfRoomByMonth(Integer month, Integer year) throws Exception;
+    public ArrayList<Reservation> selectAllYear() throws Exception;
 }

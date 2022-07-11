@@ -111,36 +111,25 @@
                             </div>
                             <div class="description-box">
                                 <div class="dex-a">
+                                    <p style="margin-bottom: 15px;font-family: sans-serif; font-size: 15px"><span style="font-weight: bold">SỐ PHÒNG:</span>${Rooom.roomname}</p>
+                                    <p style="margin-bottom: 15px;font-family: sans-serif;font-size: 15px"><span style="font-weight: bold">LOẠI PHÒNG:</span>${roomCategory.catename}</p>
                                     <h4 style="text-align: center">Mô TẢ</h4>
 
                                     <p>${Rooom.roomdesc}</p>
                                     <br>
-                                    <p>DIỆN TÍCH: ${Rooom.square}m2</p>
+                                    <p style="margin-top: 9px ;font-size: 15px"> <span style="margin-top: 9px ;font-weight: bold" >DIỆN TÍCH:</span> ${Rooom.square}m2</p>
+                                    <p style="margin-top: 9px ;font-size: 15px"><span style="margin-top:15px ;font-weight: bold">SỐ NGƯỜI:</span> ${Rooom.numberPerson}</p>
 
-                                    <div class="spe-a">
-                                        <h4>Tiện Ích Phòng</h4>
-                                        <ul>
-                                            <li class="clearfix">
-                                                <div class="col-md-4">
-                                                    <h5 style="color: red">Đồ dùng</h5>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <h5 style="color: red">Số Lượng</h5>
-                                                </div>
-                                            </li>
-                                            <c:forEach items="${vectorD}" var="d">
-                                                <li class="clearfix">
-                                                    <div class="col-md-4">
-                                                        <h5><p>${d.deviceName}</p></h5>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <p>${d.quantity}</p>
-                                                    </div>
-                                                </li>
-                                            </c:forEach>
-                                        </ul>
+                                    <div class="d-flex">
+                                        <p ><span style="margin-top: 9px ;font-weight: bold;font-size: 15px ">ĐÁNH GIÁ:
+                                                <c:forEach begin="1" end="${Rooom.rate}">
+                                                    <span style="padding: 10px; color: red" class="fas fa-star"></span>
+                                                </c:forEach>
+                                            </span>
+                                        </p>
                                     </div>
-                                    <p>Price:${Rooom.roomprice}</p>
+
+                                    <p style="margin-top: 9px;font-size: 15px "><span style="margin-top: 9px ;font-weight: bold" >TIỀN:</span>${Rooom.roomprice}</p>
 
 
 
@@ -156,14 +145,8 @@
                             <input  oninput="searchNameByAjax(this,${roomid},${cateid})" maxlength="30" type="text" placeholder="Tìm kiếm tên phòng...">
                             <div class="icon"><i class="fas fa-search"></i></div>
                             <div class="autocom-box1"  id="hieu">
-                                <!--                                <li style="list-style: none">
-                                                                    <a href="">  <span style="margin-left: 120px">tên phòng</span> </a><br>
-                                                                    <a href=""> <img src="images/anhphong/" style="width: 100px; height: 100px"></a>   <a href=""><span style="margin-left: 15px" >Loại phòng</span></a> <br>
-                                
-                                                                    <a href=""><span style="margin-left: 240px">Thêm vào so sánh</span></a> 
-                                                                </li>-->
 
-  
+
                             </div>
                         </div>
 
@@ -200,33 +183,33 @@
 
                 <script src="js/main.js"></script>
                 <script>
-                                            var slideIndex = 1;
-                                            showDivs(slideIndex);
-                                            function plusDivs(n) {
-                                                showDivs(slideIndex += n);
-                                            }
+                                        var slideIndex = 1;
+                                        showDivs(slideIndex);
+                                        function plusDivs(n) {
+                                            showDivs(slideIndex += n);
+                                        }
 
-                                            function showDivs(n) {
-                                                var i;
-                                                var x = document.getElementsByClassName("mySlides");
-                                                if (n > x.length) {
-                                                    slideIndex = 1
-                                                }
-                                                if (n < 1) {
-                                                    slideIndex = x.length
-                                                }
-                                                for (i = 0; i < x.length; i++) {
-                                                    x[i].style.display = "none";
-                                                }
-                                                x[slideIndex - 1].style.display = "block";
+                                        function showDivs(n) {
+                                            var i;
+                                            var x = document.getElementsByClassName("mySlides");
+                                            if (n > x.length) {
+                                                slideIndex = 1
                                             }
+                                            if (n < 1) {
+                                                slideIndex = x.length
+                                            }
+                                            for (i = 0; i < x.length; i++) {
+                                                x[i].style.display = "none";
+                                            }
+                                            x[slideIndex - 1].style.display = "block";
+                                        }
 
 
 
                 </script>
                 <script>
 
-                    function searchNameByAjax(param, param1,param2) {
+                    function searchNameByAjax(param, param1, param2) {
                         var txtSearch = param.value;
                         var id = param1;
                         var cateID = param2;

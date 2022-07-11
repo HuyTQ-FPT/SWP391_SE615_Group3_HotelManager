@@ -5,9 +5,7 @@ import context.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import dao.SendFeedbackDAO;
 
 /**
@@ -17,8 +15,8 @@ import dao.SendFeedbackDAO;
 public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
 
     @Override
-    public Vector<sendFeedback> getMessage() throws Exception {
-        Vector<sendFeedback> v = new Vector<>();
+    public ArrayList<sendFeedback> getMessage() throws Exception {
+        ArrayList<sendFeedback> v = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
@@ -140,8 +138,8 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
     }
 
     @Override
-    public Vector<sendFeedback> getMessageUnread() throws Exception {
-        Vector<sendFeedback> v = new Vector<>();
+    public ArrayList<sendFeedback> getMessageUnread() throws Exception {
+        ArrayList<sendFeedback> v = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
@@ -166,12 +164,12 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
     }
 
     @Override
-    public Vector<sendFeedback> pagingMessage(int index) throws Exception {
+    public ArrayList<sendFeedback> pagingMessage(int index) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        Vector<sendFeedback> vector = new Vector<>();
+        ArrayList<sendFeedback> ArrayList = new ArrayList<>();
         String sql = "select * from \n"
                 + "(select ROW_NUMBER() over (order by mId asc) as r, * from dbo.[MessageRequest]) \n"
                 + "as x\n"
@@ -184,7 +182,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
             pre.setInt(2, index * 3);
             rs = pre.executeQuery();
             while (rs.next()) {
-                vector.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
+                ArrayList.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
             }
         } catch (Exception e) {
             throw e;
@@ -196,15 +194,15 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
 
         }
 
-        return vector;
+        return ArrayList;
     }
 
     @Override
-    public Vector<sendFeedback> searchName(int index, String title) throws Exception {
+    public ArrayList<sendFeedback> searchName(int index, String title) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        Vector<sendFeedback> v = new Vector<>();
+        ArrayList<sendFeedback> v = new ArrayList<>();
         String sql = "select * from \n"
                 + "(select ROW_NUMBER() over (order by mId asc) as r, * from dbo.[MessageRequest] where dbo.[MessageRequest].title like N'%" + title + "%') \n"
                 + "as x\n"
@@ -230,8 +228,8 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         return v;
     }
     @Override
-    public Vector<sendFeedback> getMessageOfTitle(String title) throws Exception {
-        Vector<sendFeedback> v = new Vector<>();
+    public ArrayList<sendFeedback> getMessageOfTitle(String title) throws Exception {
+        ArrayList<sendFeedback> v = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;

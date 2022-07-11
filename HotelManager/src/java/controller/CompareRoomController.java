@@ -9,9 +9,10 @@ import dao.impl.RoomDAOImpl;
 import entity.Device;
 import entity.Image;
 import entity.Room;
+import entity.RoomCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -53,13 +54,15 @@ public class CompareRoomController extends HttpServlet {
                 int cateid = Integer.parseInt(cateroom);
                 Image img = daoR.searchRoomidAndImage(roomid);
                 Room rooom = daoR.getOneRoom(roomid);
-                Vector<Device> vectorD = daoD.getDeviceByCateId(cateid);
-
+                RoomCategory roomCategory = daoR.getRoomCate(cateid);
+               
+                
                 request.setAttribute("Rooom", rooom);
                 request.setAttribute("img", img);
                 request.setAttribute("roomid", RoomID);
                 request.setAttribute("cateid", cateid);
-                request.setAttribute("vectorD", vectorD);
+                request.setAttribute("roomCategory", roomCategory);
+              
                 request.getRequestDispatcher("compare.jsp").forward(request, response);
 
             }
@@ -68,17 +71,17 @@ public class CompareRoomController extends HttpServlet {
                 int RoomID = Integer.parseInt(request.getParameter("RoomID").trim());
                 int cateID = Integer.parseInt(request.getParameter("cateID").trim());
 
-                Vector<Room> vectorR = daoR.searchRoomNamebyAjax(name, cateID);
+               ArrayList<Room> listRoom = daoR.searchRoomNamebyAjax(name, cateID);
 
                 PrintWriter out = response.getWriter();
 
                 if (name.isEmpty()) {
                     out.print("");
-                } else if (vectorR.size() == 0) {
+                } else if (listRoom.size() == 0) {
                     out.print("<p style=\"padding:20px\">Không tìm thấy kết quả cho từ khoá: <span style=\"color:red\">" + name + "</span><p>");
                 } else {
                     out.print(" <div class=\"manufactury\">");
-                    for (Room room : vectorR) {
+                    for (Room room : listRoom) {
                         Image image = daoR.searchRoomidAndImage(room.getRoomID());
                         if (room.getRoomID() != RoomID) {
 

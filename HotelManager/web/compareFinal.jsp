@@ -73,7 +73,7 @@
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
 
-                    
+
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
-                          
+
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -127,12 +127,13 @@
 
                     <tr >
                         <th style="font-size:15px;padding: 10px">
-                            <span> Thông tin phòng:   </span>
+                            <span> Thông tin phòng </span>
                         </th>
                     </tr>
-                    <tr>
+                    <tr >
                         <th style="text-align: center;padding: 10px;">Diện tích</th>
                         <td style="text-align: center;padding: 10px;">${Rooom.getSquare()} m2</td>
+                        </th>
                     </tr>
                     <tr>
                         <th style="text-align: center;padding: 10px;">Số người</th>
@@ -239,7 +240,7 @@
                                     <form action="CompareRoomController" method="post">
                                         <input type="hidden" name="do" value="ViewCompare">
                                         <input type="hidden" name="roomid" value="${Rooom1.getRoomID()}">
-                                      <input type="hidden" name="cateroom" value="${cateid}">
+                                        <input type="hidden" name="cateroom" value="${cateid}">
                                         <div class="add-to-cart">
                                             <button style="position: fixed;top: 895px; right:-1072px" 
                                                     class="add-to-cart-btn" ><i class="fas fa-compress"></i><a>So Sánh</a></button>
@@ -338,5 +339,5 @@
 
 
         </script>
-       </body>
+    </body>
 </html>

@@ -39,7 +39,7 @@
                                 <div class="col-md-3 ">
                                     <div class="card card-tale  media tm-notification-item">
                                         <div class="card-body">
-                                            <p class="mb-4 tm-block-title">Phòng: <b class="tm-notification-link ">${vectorRoom.size()}</b> </p>
+                                            <p class="mb-4 tm-block-title">Phòng: <b class="tm-notification-link ">${listRoom.size()}</b> </p>
 
 
                                         </div>
@@ -48,7 +48,7 @@
                                 <div class="col-md-3 ">
                                     <div class="card card-tale  media tm-notification-item">
                                         <div class="card-body">
-                                            <p class="mb-4 tm-block-title"> Khách hàng: <b class="tm-notification-link ">${vectorUser.size()}</b> </p>
+                                            <p class="mb-4 tm-block-title"> Khách hàng: <b class="tm-notification-link ">${listUser.size()}</b> </p>
 
 
                                         </div>
@@ -57,7 +57,7 @@
                                 <div class="col-md-3 ">
                                     <div class="card card-tale  media tm-notification-item">
                                         <div class="card-body">
-                                            <p class="mb-4 tm-block-title">Nhân viên: <b class="tm-notification-link ">${vectorReceptionis.size()} </b></p>
+                                            <p class="mb-4 tm-block-title">Nhân viên: <b class="tm-notification-link ">${listReceptionis.size()} </b></p>
 
 
                                         </div>
@@ -75,7 +75,7 @@
                                 <div class="col-md-3 ">
                                     <div class="card card-tale  media tm-notification-item">
                                         <div class="card-body">
-                                            <p class="mb-4 tm-block-title">Yêu cầu: <b class="tm-notification-link ">${vectorRequest.size()}</b> </p>
+                                            <p class="mb-4 tm-block-title">Yêu cầu: <b class="tm-notification-link ">${listRequest.size()}</b> </p>
 
 
                                         </div>
@@ -148,7 +148,7 @@
             <script>
 
                 let cateName = [], cateCOunt = []
-                <c:forEach items="${vectorR}" var="v">
+                <c:forEach items="${listroomCategory}" var="v">
 
                 cateName.push('${v.catename}')
                 cateCOunt.push(${v.count})
@@ -189,7 +189,7 @@
 
             <script>
                 let status = [], nameStatus = [], device = [], nameDevice = [], service = [], nameService = []
-                <c:forEach items="${vectorStatus}" var="sr">
+                <c:forEach items="${listStatus}" var="sr">
 
                 if (${sr.status} == 0) {
                     status.push('Phòng trống')
@@ -202,12 +202,12 @@
                 }
 
                 </c:forEach>
-                <c:forEach items="${vectorDevice}" var="vd">
+                <c:forEach items="${listDevice}" var="vd">
                 device.push(${vd.quantity})
                 nameDevice.push('${vd.deviceName}')
                 </c:forEach>
 
-                <c:forEach items="${daoReservationOfService}" var="Rf">
+                <c:forEach items="${listReservationOfService}" var="Rf">
                 service.push(${Rf.total})
                 nameService.push('${Rf.serviceName}')
                 </c:forEach>
@@ -229,8 +229,7 @@
                         barChart,
                         ServiceChart,
                         lineChart;
-                //            barChart, pieChart;
-                // DOM is ready
+          
                 $(function () {
                     RoomChart1(status, nameStatus); // Line Chart
                     drawBarChart(device, nameDevice); // Bar Chart

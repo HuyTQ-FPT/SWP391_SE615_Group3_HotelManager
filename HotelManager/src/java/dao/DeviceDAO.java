@@ -3,15 +3,16 @@ package dao;
 
 import entity.Device;
 import entity.Room;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public interface DeviceDAO {
 
-    public Vector<Device> getDeviceByCateId(int cateRoom) throws Exception;
+    public ArrayList<Device> getDeviceByCateId(int cateRoom) throws Exception;
     public Vector<Device> getAllDevice();
 
     public Vector<Device> getDevicebycateroom(String cateRoom, int n);
-    public Vector<Device> getDevicebycateroom(String cateRoom);
+    public Vector<Device> getDevicebycateroom(String cateRoom) ;
 
     public void insertDevice(String name, String price, String status, String RoomcateID, String Quantity);
 

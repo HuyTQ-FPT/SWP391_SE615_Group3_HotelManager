@@ -31,10 +31,11 @@
 
         </div>
                 <h4 style="font-size: 20px ; color: red">${errr}</h4>
+                <h4 style="font-size: 20px ; color: red">${err1}</h4>
             <form action="AdminController?do=ReportDay1" method="post" >
             <div class="form-group col-lg-6">
-                <label>Tìm kiếm số phòng....</label>
-                <input style="background-color: white; color: #54657D;" type="text" name="name" maxlength="10" class="form-control" value="${name}">
+                <label style="background-color: white; color: #54657D;">Tìm kiếm số phòng....</label>
+                <input style="background-color: white; color: #54657D;" type="text" name="name" pattern=".*\S+.*"   title="Không được để khoảng trắng" maxlength="10" class="form-control" value="${name}">
             </div> 
             <div class="form-group col-lg-6">
                 <label>Từ ngày</label>

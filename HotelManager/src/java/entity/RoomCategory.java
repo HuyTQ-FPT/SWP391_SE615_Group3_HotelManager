@@ -22,6 +22,11 @@ public class RoomCategory {
         this.count = count;
     }
 
+    public RoomCategory(int RoomcateID, String Catename) {
+        this.RoomcateID = RoomcateID;
+        this.Catename = Catename;
+    }
+        
     public int getCount() {
         return count;
     }
