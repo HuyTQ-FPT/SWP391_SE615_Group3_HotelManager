@@ -158,8 +158,22 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return 0;
     }
 
+    public int removeReservation(int id) {
+        int n = 0;
+        String sql = "delete from Reservation where BillID=" + id;
+        try {
+            Statement state = conn.createStatement();
+            n = state.executeUpdate(sql);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+
     @Override
+
     public ArrayList<Reservation> totalOfRoomSearch(String name, Date to, Date from) throws Exception {
+
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
@@ -315,15 +329,15 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
     }
 
     @Override
-    public ArrayList<Reservation>sumService() throws Exception {
-          Connection conn = null;
+    public ArrayList<Reservation> sumService() throws Exception {
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
         ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "select ServiceName, COUNT( ServiceName)as Total from [Reservation]\n"
-                + "group by ServiceName" ;
-        
-         try {
+                + "group by ServiceName";
+
+        try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
@@ -341,6 +355,6 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             closeConnection(conn);
 
         }
-        return ArrayList;   
+        return ArrayList;
     }
 }

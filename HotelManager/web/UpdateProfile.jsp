@@ -117,9 +117,9 @@
                                         </div>
                                         <div class="col-sm-9 text-secondary">
                                             <%if(request.getAttribute("messerror")==null){%>
-                                            <input maxlength="30" required="" type="text" name="name" class="form-control" value="<%=rs.getString(7)%>">
+                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" name="name" class="form-control" value="<%=rs.getString(7)%>">
                                             <% }else{%>
-                                            <input maxlength="30" required="" type="text" name="name" class="form-control" value="<%=session.getAttribute("name")%>">
+                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" name="name" class="form-control" value="<%=session.getAttribute("name")%>">
                                             <% }%>
                                         </div>
                                     </div>
@@ -153,18 +153,18 @@
                                             <% }%>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    <div class="row mb-3 form-group">
                                         <div class="col-sm-3">
                                             <h6 class="mb-0">CMND</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
                                             <%if(request.getAttribute("messerror")==null){%>
                                             <%if(rs.getString(13)==null){%>
-                                             <input maxlength="30" required="" type="text" name="cmt" class="form-control" placeholder="Số CMND rỗng">
+                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" name="cmt" class="form-control" placeholder="Số CMND rỗng">
                                             <% }else {%>
-                                            <input maxlength="30" required="" type="text" name="cmt" class="form-control" placeholder="Nhập số CMND" value="<%=rs.getString(13)%>">
+                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" name="cmt" class="form-control" placeholder="Nhập số CMND" value="<%=rs.getString(13)%>">
                                             <%} }else{%>
-                                            <input maxlength="30" required="" type="text" name="cmt" class="form-control" placeholder="Nhập số CMND" value="<%=session.getAttribute("cmt")%>">
+                                            <i class='bx bxs-star style' style="color:red;"></i><input maxlength="30" required="" type="text" name="cmt" class="form-control" placeholder="Nhập số CMND" value="<%=session.getAttribute("cmt")%>">
                                             <% }%>
                                         </div>
                                     </div>

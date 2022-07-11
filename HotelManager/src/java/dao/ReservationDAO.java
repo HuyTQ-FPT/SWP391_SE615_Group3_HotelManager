@@ -12,7 +12,8 @@ public interface ReservationDAO {
     public int addReservation(Reservation re);
 
     public Vector<Reservation> Reservation(String sql);
-
+    public int removeReservation(int id);
+    
     public int sumReservation() throws Exception;
     public ArrayList<Reservation> sumService() throws Exception;
     public ArrayList<Reservation> totalOfRoomSearch(String name, Date from, Date to) throws Exception;

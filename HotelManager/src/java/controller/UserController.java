@@ -114,7 +114,7 @@ public class UserController extends HttpServlet {
                     response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"&me=1");
                 } else if (phone.trim().length()!=10) {
                     String messerror="So dien thoai chi duoc 10 so";
-                    response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"me=1");
+                    response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"&me=1");
                 }                
             }
             if(service.equals("Viewfeedback")){

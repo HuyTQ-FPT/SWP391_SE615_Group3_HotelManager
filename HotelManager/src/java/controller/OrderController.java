@@ -69,7 +69,7 @@ public class OrderController extends HttpServlet {
                 request.getRequestDispatcher("BillHotel.jsp").forward(request, response);
             }
             if (service.equalsIgnoreCase("user")) {
-                String userid = request.getParameter("user");
+                String userid = request.getParameter("userid");
                 String i = request.getParameter("id");
                 int id = Integer.parseInt(i);
                 Vector<Service> vector = daos.getServiceList();
@@ -130,9 +130,8 @@ public class OrderController extends HttpServlet {
                 double total = price + Double.parseDouble(money);
                 long millis = System.currentTimeMillis();
                 java.sql.Date date = new java.sql.Date(millis);
-                Account acc = (Account) session.getAttribute("login");
-                int l = acc.getAccountID();
-                Reservation re = new Reservation(l, id, firstname, email, address, phone, a, sDate, cDate, total, 1, date);
+                int user = Integer.parseInt(userid);
+                Reservation re = new Reservation(user, id, firstname, email, address, phone, a, sDate, cDate, total, 1, date);
                 // lưu trong session
                 vector.add(re);
                 request.setAttribute("vector", vector);
@@ -190,7 +189,7 @@ public class OrderController extends HttpServlet {
                 dispath.forward(request, response);
             }
             if (service.equals("showCartAdmin")) {
-                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID  from Reservation re\n"
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID  from Reservation re\n"
                         + " join Room r on r.RoomID=re.RoomID\n"
                         + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
                 request.setAttribute("rs", rs);
@@ -198,19 +197,55 @@ public class OrderController extends HttpServlet {
                 dispath.forward(request, response);
             }
             if (service.equals("AddCartAdmin")) {
-                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID  from Reservation re\n"
+                String rname = request.getParameter("rname");
+                String rid = request.getParameter("ID");
+                String cid = request.getParameter("cus");
+                String cname = request.getParameter("cname");
+                String email = request.getParameter("email").trim();
+                String address = request.getParameter("address").trim();
+                String phone = request.getParameter("phone").trim();
+                String number = request.getParameter("number").trim();
+                String cin = request.getParameter("cin").trim();
+                String cout = request.getParameter("cout");
+                String total = request.getParameter("total");
+                String status = request.getParameter("status").trim();
+                String date = request.getParameter("date");
+
+                double total1 = Double.parseDouble(total);
+                int roomid = Integer.parseInt(rname);
+                int csid = Integer.parseInt(cid);
+                int NOP = Integer.parseInt(number);
+                int stt = Integer.parseInt(status);
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = (Date) format.parse(cin);
+                java.sql.Date sDate = new java.sql.Date(date1.getTime());
+
+                Date date2 = (Date) format.parse(cout);
+                java.sql.Date cDate = new java.sql.Date(date2.getTime());
+                Date date3 = (Date) format.parse(date);
+                java.sql.Date dDate = new java.sql.Date(date3.getTime());
+
+                ResultSet rs1 = dao1.getData("select * from [User] where UserID="+cid);
+                if(rs1.next()){
+                    cname= rs1.getString(3);
+                }
+                Reservation re = new Reservation(csid, roomid, cname, email, address, phone, NOP, sDate, cDate, total1, stt, dDate);
+                int n = dao1.addReservation(re);
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID  from Reservation re\n"
                         + " join Room r on r.RoomID=re.RoomID\n"
                         + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
                 request.setAttribute("rs", rs);
                 RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
+
             }
             if (service.equals("ShowUpdateCartAdmin")) {
                 String oid = request.getParameter("id");
                 int id = Integer.parseInt(oid);
-                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID from Reservation re\n"
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID from Reservation re\n"
                         + " join Room r on r.RoomID=re.RoomID\n"
-                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID where re.RoomID=" + id);
+                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID where re.BillID=" + id);
                 request.setAttribute("rs", rs);
                 RequestDispatcher dispath = request.getRequestDispatcher("UpdateCart.jsp");
                 dispath.forward(request, response);
@@ -231,10 +266,10 @@ public class OrderController extends HttpServlet {
                 String status = request.getParameter("status").trim();
                 String date = request.getParameter("date");
 
-                int total1 = Integer.parseInt(total);
-                int roomid = Integer.parseInt(rid);
+                double total1 = Double.parseDouble(total);
+                int roomid = Integer.parseInt(rname);
                 int csid = Integer.parseInt(cid);
-                int billid = Integer.parseInt(cid);
+                int billid = Integer.parseInt(bid);
                 int NOP = Integer.parseInt(number);
                 int stt = Integer.parseInt(status);
 
@@ -248,7 +283,37 @@ public class OrderController extends HttpServlet {
                 java.sql.Date dDate = new java.sql.Date(date3.getTime());
 
                 Reservation re = new Reservation(billid, csid, roomid, cname, email, address, phone, NOP, sDate, cDate, total1, stt, dDate);
-                RequestDispatcher dispath = request.getRequestDispatcher("UpdateCart.jsp");
+                int n = dao1.updateReservation(re);
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID  from Reservation re\n"
+                        + " join Room r on r.RoomID=re.RoomID\n"
+                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
+                request.setAttribute("rs", rs);
+                RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
+                dispath.forward(request, response);
+
+            }
+            if (service.equals("getUser")) {
+                String name = request.getParameter("cus");
+                String cid = request.getParameter("rname");
+                String total = request.getParameter("number");
+                System.out.println(name);
+                System.out.println(total);
+                System.out.println(cid);
+                request.setAttribute("name", name);
+                request.setAttribute("cid", cid);
+                request.setAttribute("total", total);
+                session.setMaxInactiveInterval(1*1);
+                session.setAttribute("total",total);
+                RequestDispatcher dispath = request.getRequestDispatcher("AddCart.jsp");
+                dispath.forward(request, response);
+            }if (service.equals("delete")) {
+                String cid = request.getParameter("id");
+                dao1.removeReservation(Integer.parseInt(cid));
+                 ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID  from Reservation re\n"
+                        + " join Room r on r.RoomID=re.RoomID\n"
+                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
+                request.setAttribute("rs", rs);
+                RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
             }
 

@@ -59,11 +59,14 @@ public class AdminController extends HttpServlet {
 
             }
             if (service.equals("indexAdmin")) { // trang chủ admin
+
                 ArrayList<Room> listRoom = daoR.getRoomListAll("select * from Room"); // phòng
                 ArrayList<User> listUser = daoReceptionist.getCustomerListByReceptionist(); // số khách hàng
                 ArrayList<User> listReceptionist = daoReceptionist.getListByReceptionist(); //số lễ tân
                 ArrayList<sendFeedback> listRequest = daoRequest.getMessage(); // số yêu cầu
+
                 ArrayList<Message> listMessage = daoMessage.getAllComment();// số phản hồi
+
                 int sumReservation = daoReservation.sumReservation(); // tổng tiền
                 ArrayList<RoomCategory> listroomCategory = daoR.numberOfRoomsByCategory(); // thống kê theo loại phòng
                 ArrayList<Room> listStatus = daoR.sumOfRoom();
