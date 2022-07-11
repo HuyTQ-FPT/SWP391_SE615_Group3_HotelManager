@@ -48,7 +48,7 @@
                         <div class="row tm-edit-product-row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <% ResultSet rs = (ResultSet) request.getAttribute("rs");
-                                    while (rs.next()) {
+                                    if (rs.next()) {
                                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                                         Date date1 = (Date) format.parse(rs.getString(8));
                                         Date date2 = (Date) format.parse(rs.getString(8));
@@ -57,7 +57,9 @@
                                         java.sql.Date sDate = new java.sql.Date(date2.getTime());
                                         java.sql.Date dDate = new java.sql.Date(date3.getTime());
                                 %>
-                                <form action="ImageController?do=changeImgae5" method="post" enctype="multipart/form-data" >
+                                <form action="OrderController" method="get"  >
+                                    <input type="hidden" name="do" value="UpdateCartAdmin">
+                                    <input type="hidden" name="cid" value="<%=rs.getInt(15)%>">
                                     <input type="hidden" name="ID" value="<%=rs.getString(13) %>">
                                     <input type="hidden" name="BID" value="<%=rs.getInt(14) %>">
                                     <div class="form-group mb-3">
@@ -111,7 +113,7 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="date">Ngày đặt hóa đơn </label>
-                                        <input name="title" value="<%=dDate %>"type="text"class="form-control validate"required />
+                                        <input name="date" value="<%=dDate %>"type="text"class="form-control validate"required />
                                     </div>
 
                             </div>

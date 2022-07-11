@@ -39,7 +39,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
     <body id="reportsPage">
         <jsp:include page="headerAdmin.jsp"></jsp:include>
         <h1 style="text-align: center; color: wheat">Quản lí đặt phòng </h1>
-        <a style="border-radius: 10px; float: right; margin-bottom: 10px" href="RoomsController?do=insertRoom" class="btn btn-danger">Thêm mới đặt phòng </a>
+        <a style="border-radius: 10px; float: right; margin-bottom: 10px" href="AddCart.jsp" class="btn btn-danger">Thêm mới đặt phòng </a>
          <form action="ControllerAdmin" method="get" style="margin-left: 20px">
                         <input type="hidden" name="do" value="sortByDate">
                         <input type="date" name="date1"> 
@@ -90,9 +90,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <td style="background-color: 435C70 ; text-align: center">Hoàn thành</td>  
                         <%}%>
                         <td style="background-color: 435C70 ; text-align: center"><%=rs.getString(12)%></td> 
-                        <td style="background-color: 435C70 " ><a style="border-radius: 10px;" href="OrderController?do=ShowUpdateCartAdmin&id=<%=rs.getInt(13) %>" class="btn btn-info" role="button">Cập nhật hoá đơn</a></td>  
+                        <td style="background-color: 435C70 " ><a style="border-radius: 10px;" href="OrderController?do=ShowUpdateCartAdmin&id=<%=rs.getInt(14)%>" class="btn btn-info" role="button">Cập nhật hoá đơn</a></td>  
                         <td style="background-color: 435C70">
-                            <a style="margin-left: 20px" href="" class="tm-product-delete-link">
+                            <a style="margin-left: 20px" href="OrderController?do=delete&id=<%=rs.getInt(14) %>" onclick="Delete()" class="tm-product-delete-link">
                                 <i class="far fa-trash-alt tm-product-delete-icon">
                                 </i></a></td>  
                     </tr>  
@@ -107,6 +107,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             </div>
         </footer>
         <script>
+            function Delete(){
+            alert("Delete Succesfully!");      
+        }
         </script>
     </body>
 </html>

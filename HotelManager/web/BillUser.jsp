@@ -137,7 +137,7 @@
                         <input type="hidden" name="do" value="infor"> 
                         <% int id = (Integer) request.getAttribute("id");%>
                         <input type="hidden" name="id" value="<%=id%>">
-                        <input type="hidden" name="user" value="${sessionScope.account.getAccountID()}"> 
+                        <input type="hidden" name="user" value="${sessionScope.login.getAccountID()}"> 
                         <div class="row">
                             <div class="col-50">
                                 <h3>Đơn đặt phòng</h3>

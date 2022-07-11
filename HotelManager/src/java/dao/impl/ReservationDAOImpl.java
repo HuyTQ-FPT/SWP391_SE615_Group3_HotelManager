@@ -155,5 +155,18 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         }
         return 0;
     }
+
+    @Override
+    public int removeReservation(int id) {
+         int n = 0;
+        String sql = "delete from Reservation where BillID=" + id;
+        try {
+            Statement state = conn.createStatement();
+            n = state.executeUpdate(sql);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
    
 }
