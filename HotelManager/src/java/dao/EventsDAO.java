@@ -7,13 +7,14 @@ package dao;
 
 import entity.Events;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  *
  * @author admin
  */
 public interface EventsDAO {
-     public ArrayList<Events> getEventsList() throws Exception;
+     public Vector<Events> getEventsList() throws Exception;
 
     public void insertEvents(Events event) throws Exception;
 

@@ -21,7 +21,7 @@ import java.util.Vector;
 public class EventsDAOImpl extends DBContext implements EventsDAO{
 
     @Override
-    public ArrayList<Events> getEventsList() throws Exception {
+    public Vector<Events> getEventsList() throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
@@ -34,20 +34,10 @@ public class EventsDAOImpl extends DBContext implements EventsDAO{
             rs = pre.executeQuery();
 
             while (rs.next()) {
-                int uID = rs.getInt(1);
-                int uAID = rs.getInt(2);
-                String uName = rs.getString(3);
-                String uPhone = rs.getString(4);
-                String uEmail = rs.getString(5);
+                int eID = rs.getInt(1);
+                String eName = rs.getString(3);
+                String ePhone = rs.getString(4);
                 int uGender = rs.getInt(6);
-                Date birthday = rs.getDate(7);
-                String uAdress = rs.getString(8);
-                String uCMT = rs.getString(9);
-                String uImgCmt = rs.getString(10);
-
-                User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, birthday, uAdress, uCMT, uImgCmt);
-                vector.add(u);
-
             }
 
         } catch (Exception e) {
