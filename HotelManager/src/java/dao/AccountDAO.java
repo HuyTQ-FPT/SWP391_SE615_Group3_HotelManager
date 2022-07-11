@@ -23,5 +23,5 @@ public interface AccountDAO {
     public int Register(Account ac, String name, String email) throws Exception;
 
     public int updateAccountAndUser(String aPassword, String uGmail) throws Exception;
-
+    public void updateRole(int RoleID, String user);
 }

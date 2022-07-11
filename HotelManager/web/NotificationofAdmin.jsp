@@ -1,3 +1,5 @@
+<%@page import="entity.Notification"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entity.Account"%>
 <%@page import="dao.impl.UserDAOImpl"%>
@@ -31,7 +33,9 @@
                 margin: 30px 0;
             }
             .table-wrapper {
+                overflow: scroll;
                 min-width: 1000px;
+                max-height: 400px;
                 background: #fff;
                 padding: 20px;
                 box-shadow: 0 1px 1px rgba(0,0,0,.05);
@@ -269,15 +273,57 @@
             .notif a:hover{
                 color: white;
             }
+        .texxt1{
+            position: fixed;
+            bottom: 60px;
+            left: 660px;
+            border-radius: 5px;
+            background-color: #F5A623;
+            color: black;
+            margin: 0px 30px;
+        }
+        .button{
+            position: fixed;
+            bottom: 90px;
+            left: 1270px;
+            width: 80px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: #F5A623;
+            color: white;
+        }
+        .button:hover{
+            cursor: pointer;
+            transform: scale(0.98);
+        }
+        .text{position: fixed;
+            bottom: 85px;
+            left: 360px;
+            width: 300px;
+            height:50px;
+            border-radius: 5px;
+            background-color: #F5A623;
+            color: black;
+        }
+        .recep{
+            position: fixed;
+            bottom: 75px;
+            left: 40px;
+            width: 220px;
+            height: 70px;
+            border-radius: 5px;
+            background-color: #F5A623;
+            color: black;
+            font-weight: bold;
+            margin-right: 30px;
+        }
         </style>
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     </head>
     <body>
         <%
-            ArrayList<Message> vector = (ArrayList<Message>) request.getAttribute("vector");
-            ArrayList<Account> listAccount = (ArrayList<Account>) request.getAttribute("listAccount");
-            UserDAOImpl dao = new UserDAOImpl();
+            ArrayList<Notification> list = (ArrayList<Notification>)request.getAttribute("list");
         %>
         <section class="ftco-section">
             <div class="card" id="team">
@@ -333,79 +379,60 @@
 
                 </div>
                 <div class="oke" onclick="show()"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></div>
-                <div class="notif"><a href="NotificationController?do=Admin"><span class="iconify" data-icon="clarity:notification-solid"></a></span><h10 style="font-size:12px;">Admin</h10></div>
+                <div class="notif"><a href=""><span class="iconify" data-icon="clarity:notification-solid"></a></span><h10 style="font-size:12px;">Admin</h10></div>
             </nav>
-
-        </section>
+        </section> 
+        <% if(list.size()>0){%>
         <div class="table-wrapper">
-            <table class="table table-striped table-hover table-bordered" style="Margin-left:10px;"> 
+            <table class="table table-striped table-hover table-bordered" style="Margin-left:10px;overflow: hidden;" > 
                 <thead>
                     <tr class="title" >
-                        <th></th>
-                        <th>Tên</th>
-                        <th>Điện thoại</th>
-                        <th>Email</th>
-                        <th>Địa chỉ</th>
-                        <th>Ngày gửi feedback</th>
-                        <th>Nội dung</th>
-                        <th style="width:30px">Mã phòng</th>
-                        <th style="width:30px; color:Black">Xóa feedback</th>
-                        <th style="width:30px">Report tài khoản</th>                        
-                        <th style="width:30px">Gỡ Report tài khoản</th>                        
+                        <th style="width:20px"></th>
+                        <th style="width:50px">Admin</th>
+                        <th style="width:150px">Tiêu đề</th>
+                        <th style="width:530px">Nội dung</th>
+                        <th style="width:60px">Ngày</th>                        
                     </tr>
                 </thead>
-                <tbody>      
-                    <%for (Message m : vector) {
-                            User u = dao.getUserByaID(m.getAccountID());
-                    %>
-                    <tr class="name">
+                <tbody>
+                    <c:forEach items="${list}" var="n">
+                        <tr class="name">
                         <td><img src="https://ptetutorials.com/images/user-profile.png" style="width: 25px;height:25px"></td>
-                        <td><%= u.getUserName()%></td>
-                        <td><%=u.getUserPhone()%></td>
-                        <td><%=u.getUserEmail()%></td>
-                        <td><%=u.getUserAdress()%></td>
-                        <td><%=m.getDate()%></td>
-                        <td><%=m.getContent()%></td>
-                        <td style="width:30px"><%=m.getRoomID()%></td>
-                            <form action="FeedbackController?do=Deletefeedback" method="post">
-                    <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
-                    <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
-                    <input type="hidden" value="<%=m.getContent()%>" name="content"> 
-                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:Black">&#xE872;</i></button></td>
-                </form>
-                        </td>
-                        <% boolean check = false;
-                            Cookie c[] = request.getCookies();
-                            for (Account a : listAccount) {
-                                for (Cookie o : c) {
-                                    if ((o.getName().equals(String.valueOf(a.getAccountID()))) && (Integer.parseInt(o.getValue()) == m.getMessageID())) {
-                                        check = true;
-                                    }
-                                }
-                            }
-                            if (!check) {
-                        %>
-
-                <form action="FeedbackController?do=ReportAccount" method="post">
-                    <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
-                    <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
-                    <input type="hidden" value="<%=m.getContent()%>" name="content"> 
-                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:red">assistant_photo</i></button></td>
-                    <td style="width:30px"></td>
-                </form>
-
-                <% } else {%>
-                <form action="FeedbackController?do=ExitReport" method="post">
-                    <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
-                    <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
-                    <td style="width:30px"></td>
-                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:red">assistant_photo</i></button></td>                      
-                </form>       
-                <% }%>
-                </tr> 
-                <% }%>
+                        <td>Admin</td>
+                        <td>${n.getTitle()}</td>
+                        <td>${n.getContent()}</td>
+                        <td>${n.getDate()}</td>
+                    </tr>
+                    </c:forEach>
+                     
                 </tbody>
             </table>
-        </div> 
+        </div>
+              <% }else{%>   
+        <h1 class="emty">Hòm thư đang rỗng</h1>
+                <% }%>
+                    <div>
+                        <button class="recep">Gửi thông báo tới Admin</button>
+                    </div>
+                    <br>
+                    <form action="NotificationController?do=SentAdmin" method="post">
+                        <div class="BoxSentMess">                  
+                        <div class="Main">
+                            <input required="" id="title" name="title" type="text" maxlength="100" placeholder="Tiêu đề" class="text">
+                            <textarea required="" id="content" name="content" type="text" rows="3" cols="60" placeholder="Nội dung tin nhắn" class="texxt1"></textarea>
+                            <button onclick="Showmess()" class="button" type="submit">Sent</button>
+                        </div>
+                    </div>
+                    </form>
+                      
+                        <script>
+                                        function Showmess(){
+                                        var title =document.getElementById("title").value;
+                                        var content =document.getElementById("content").value;
+                                        if(title!="" && content!=""){
+                                            alert("Tin nhắn đã được gửi thành công đến Admin!");
+                                        }
+                                    }
+                                    </script>
     </body>
 </html>

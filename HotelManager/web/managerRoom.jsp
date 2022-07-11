@@ -299,6 +299,15 @@
                 top:0px;
                 font-size: 10px;
             }
+            .notif{
+                position: fixed;
+                right: 40px;
+                color: #F1BC31;
+                font-size: 20px;
+            }
+            .notif a:hover{
+                color: white;
+            }
         </style>
     </head>
     <body>
@@ -332,11 +341,11 @@
                 <div class="card_button">
                     <a href="ReceptionistController?do=profile"><button>Thông tin</button></a>                       
                 </div>
-
             </div>
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="padding: 15px">
                 <div class="container">
-                    <span class="admin"></i>Lễ Tân</span>
+                    <span class="admin">Lễ Tân</span>
+                    
                     <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
                     </form>
@@ -352,8 +361,8 @@
 
 
                                 <option value="-1">----------------</option>
-                                <option value="1" >Phòng trống</option>
-                                <option value="2" >Phòng đã được đặt</option>
+                                <option value="0" >Phòng trống</option>
+                                <option value="1" >Phòng đã được đặt</option>
 
                             </select>  
                             <button type="submit" name="submit" style=" border-radius:8px"class="form-control search"><span class="fa fa-search"></span></button>
@@ -370,6 +379,7 @@
                     </div>
                 </div>
                 <div class="oke" onclick="show()"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></div>
+                           
             </nav>
 
 
@@ -405,13 +415,12 @@
                         <td><%=r.getRate()%></td>
                         <td>
                             <form action="ReceptionistController">
-                                <input type="hidden" name="do" value="updateStatus">   
+                                <input type="hidden" name="do" value="updateStatus">     
                                 <input type="hidden" name="rid" value="<%= r.getRoomID()%>"> 
 
                                 <select name="status"  >
                                     <option value="0" <%if (r.getStatus() == 0) {%>selected<%}%>>Phòng trống</option>
                                     <option value="1" <%if (r.getStatus() == 1) {%>selected<%}%>>Phòng đã được đặt</option>
-
                                 </select>   
                                 <button class="supprimer" type="submit" name="submit"  onclick="confirmation()">Cập Nhật</button>
                             </form>
@@ -422,13 +431,8 @@
 
                     //Confinm Up
                     function confirmation() {
-
                         var result = "Bạn có muốn cập nhật bây giờ?";
-                        if (confirm(result)) {
-                            alert("Bạn đã cập nhật thành công.");
-                        }
-
-
+                        alert(result);
                     }
                     function show() {
                         if (document.getElementById("team").style.display == "none") {
@@ -442,6 +446,6 @@
                 <%}%>
             </table>
         </div> 
-
+        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     </body>
 </html>

@@ -113,7 +113,7 @@ public class ReceptionistDAOImpl extends DBContext implements ReceptionistDAO {
 
         Vector<User> vector = new Vector<>();
         String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
-                + "where u.UserName like '%" + uName + "%' and c.RoleID=1";
+                + "where u.UserName like N'%" + uName + "%' and c.RoleID=1";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);

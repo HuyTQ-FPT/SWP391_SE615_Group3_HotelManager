@@ -344,7 +344,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
     @Override
     public List<Comment> DisplayComment(String BlogID) {
         List<Comment> list = new ArrayList<Comment>();
-        String sql = "select * from Comment where BlogID = " + BlogID + " and ParentID = 0";
+            String sql = "select * from Comment where BlogID = " + BlogID + " and ParentID = 0";
         try {
             PreparedStatement ptmt = conn.prepareStatement(sql);
             ResultSet rs = ptmt.executeQuery();

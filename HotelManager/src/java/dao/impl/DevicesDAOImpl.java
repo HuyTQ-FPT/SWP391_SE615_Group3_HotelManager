@@ -1,30 +1,27 @@
-        /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 package dao.impl;
 
 import entity.Device;
 import entity.Service;
 import context.DBContext;
 import dao.DeviceDAO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-/**
- *
- * @author Admin
- */
 public class DevicesDAOImpl extends DBContext implements DeviceDAO {
-
+    
     @Override
     public Vector<Device> getAllDevice() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void insertDevice(String name, String price, String status, String RoomcateID, String Quantity) {
         String query = "insert into Device (DeviceName, DeviceCate, Price, [Status]) \n"
@@ -43,7 +40,7 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
             e.printStackTrace();
         }
     }
-
+    
     @Override
     public void updateDeviceQuan(String quan, String deviceid, String roomcateid) {
         String query = "UPDATE RoomDevice\n"
@@ -60,7 +57,7 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
             e.printStackTrace();
         }
     }
-
+    
     @Override
     public void updateDeviceinfor(String name, String price, String status, String deviceid) {
         String query = "UPDATE Device\n"
@@ -79,7 +76,7 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
             e.printStackTrace();
         }
     }
-
+    
     @Override
     public void deleteDevice(String Roomcateid, String DeviceID) {
         String query = "DELETE FROM [dbo].[RoomDevice]\n"
@@ -94,7 +91,7 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
             e.printStackTrace();
         }
     }
-
+    
     public int getPage() {
         int n = 0;
         String sql = "select COUNT(*) from RoomDevice INNER JOIN "
@@ -120,13 +117,13 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
         }
         return n;
     }
-
+    
     @Override
     public Vector<Device> getDevicebycateroom(String cateRoom) {
         Vector<Device> vector = new Vector<Device>();
         String sql = "select * from RoomDevice INNER JOIN Device on "
                 + "RoomDevice.DeviceID = Device.DeviceID "
-                + "where RoomDevice.RoomcateID = ?";
+                + "where RoomDevice.DeviceID = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, cateRoom);
@@ -140,6 +137,7 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
         }
         return vector;
     }
+    
     public Vector<Device> getDevicebycateroom(String cateRoom, int n) {
         Vector<Device> vector = new Vector<Device>();
         int begin = 1;
@@ -164,7 +162,7 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
         }
         return vector;
     }
-
+    
     @Override
     public Vector<Device> searchDevicebyname(String mess, String roomcateid) {
         Vector<Device> vector = new Vector<Device>();
@@ -188,7 +186,7 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
         }
         return vector;
     }
-
+    
     public static void main(String[] args) {
 
 //        dao.updateDeviceinfor("Điều Hòa Nhỏ", "11212", "1", "12");
@@ -200,7 +198,36 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 //        for (Device device : de) {
 //            System.out.println(device);
 //        }
-
     }
-
+    
+    @Override
+    public Vector<Device> getDeviceByCateId(int cateRoom) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        
+        Vector<Device> vector = new Vector<Device>();
+        String sql = "select Device.DeviceName,RoomDevice.Quantity from RoomDevice INNER JOIN Device on \n"
+                + "RoomDevice.DeviceID = Device.DeviceID \n"
+                + "where RoomDevice.RoomID = " + cateRoom;
+        
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                
+                vector.add(new Device(rs.getString("DeviceName"), rs.getInt("Quantity")));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+            
+        }
+        return vector;
+    }
+    
 }

@@ -168,7 +168,7 @@
                 </div>
             </section>
             <!-- Blog Details Section End -->
-            <div id="content">
+            <div style="padding-top: 40px;" id="displaycomment">
                 <c:forEach items="${listcomment}" var="list">
             <div class="be-comment">
                 <div class="be-img-comment">	
@@ -215,45 +215,47 @@
                         </div>
                     </div>
 
-                    <div class="accordion" id="myaccordion" style="max-width: 320px">   
-                        <div class="card-header btn"  data-toggle="collapse" data-target="#q${list.commentId}" aria-expanded="true"
-                             data-parent="#myaccordion">
-                            Reply
-                        </div>
-                             
-                      
-                        <div class="card-body collapse"  data-toggle="collapse"  aria-expanded="false" id="q${list.commentId}">
-                             
-                            
-                            <form name="myform1">         
-                                <div class="form-group fl_icon">
-                                    <div class="icon"><i class="fa fa-user"></i></div>
-                                    <input type="text"  value="${sessionScope.user}" readonly class="form-input" id="username1" name="username1" required readonly/>
+                   <div class="accordion" id="myaccordion" style="max-width: 320px">   
+                            <div class="card-header btn"  data-toggle="collapse" data-target="#q${list.commentId}" aria-expanded="true"
+                                 data-parent="#myaccordion">
+                                Reply
+                            </div>
+                                 
+                            <div style="padding-top: 20px;" id ="mycomment1${list.commentId}"> </div>
+                                <div class="card-body collapse"  data-toggle="collapse"  aria-expanded="false" id="q${list.commentId}">                                 
+                                    <form id="myform1${list.commentId}" name="myform1${list.commentId}">         
+                                        <div class="form-group fl_icon">
+                                            <div class="icon"><i class="fa fa-user"></i></div>
+                                            <input type="text"  value="${sessionScope.user}" readonly class="form-input" id="username2" name="username2" required readonly/>
 
+                                        </div>
+                                        <div class="form-group fl_icon">
+
+                                            <textarea style="width: 1300px;" class="form-input"  id="content1"   name="content1" required> @${list.username} </textarea>
+                                        </div>
+                                        <input type="hidden" value="${list.commentId}" id="commentid" name="commentid"/>  
+                                        <input type="hidden" value="${list.blogid}" id="blogid1" name="blogid1"/>  
+
+                                        <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Gửi" onclick="Comment1(${list.commentId})"/>
+
+
+                                    </form>
                                 </div>
-                                <div class="form-group fl_icon">
-
-                                    <textarea style="width: 1300px;" class="form-input"  id="content1"   name="content1" required> @${list.username} </textarea>
-                                </div>
-                                <input type="hidden" value="${list.commentId}" id="commentid" name="commentid"/>  
-                                <input type="hidden" value="${list.blogid}" id="blogid1" name="blogid1"/>  
-
-                                <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Gửi" onclick="Comment1()"/>
-
-                                
-                            </form>
+                            </div>
                         </div>
-                    </div>
                 </div>
-            </div>
+          
         </c:forEach>
-                
+                </div>
+                <input style="margin:50px; margin-bottom:0px;" type="button" id="btn1" value="Bình luận"/> 
+              
             </div>
             <div id ="mycomment"> </div>  
-            <div class="be-comment-block">
+            <div style="padding-top:20px;" class="be-comment-block">
+           
+
+                <div style="display: none"id="commentblog">
                 <h1 class="comments-title">Comments</h1>
-
-
                 <form name="myform">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
@@ -281,9 +283,9 @@
                            
                     </div>
                 </form>
-
             </div>
-        <input type="button" id="btn1" value="Ẩn"/> 
+            </div>
+        <input style="margin:50px; margin-bottom:0px;display: none;" type="button" id="btn2" value="Quay lại"/> 
             <section class="related-blog spad">
                 <div class="container">
                     <div class="row">
@@ -400,11 +402,22 @@
 
  <script language="javascript">
             document.getElementById("btn1").onclick = function () {
-                document.getElementById("content").style.display = 'none';
+               document.getElementById("displaycomment").style.display = 'none';
+                document.getElementById("commentblog").style.display = 'block';
+                 document.getElementById("btn2").style.display = 'block';
+            };
+        </script>
+        <script language="javascript">
+            document.getElementById("btn2").onclick = function () {
+                document.getElementById("displaycomment").style.display = 'block';
+                  document.getElementById("btn2").style.display = 'none';
+                   document.getElementById("commentblog").style.display = 'none';
             };
         </script>
  <script type="text/javascript">
             function Comment() {
+                document.getElementById("btn2").style.display = 'none';
+                document.getElementById("btn1").style.display = 'none';
                 var xhttp;
                 var username = document.myform.username.value;
                 var content = document.myform.content.value;
@@ -467,6 +480,7 @@
                     alert("please fill all fields");
                     return false;
                 }
+                location.reload();
             }
         </script>
         <script type="text/javascript">
@@ -518,5 +532,14 @@
             }
 
         </script>
+        <script>
+            
+        document.getElementById('myButton'+commentId).onclick = function () {
+            document.getElementById('content3'+commentId).removeAttribute('readonly');
+//                alert(commentId);
+        }; 
+           
+    
+    </script>
     </body>
 </html>

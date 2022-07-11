@@ -1,10 +1,4 @@
-/*
 
-Product Admin CSS Template
-
-https://templatemo.com/tm-524-product-admin
-
-*/
 
 html {
   font-size: 16px;
@@ -69,10 +63,10 @@ button:focus {
   box-shadow: 1px 1px 5px 0 #455c71;
   min-height: 350px;
   height: 100%;
-  max-height: 450px;
+  max-height: 500px;
 }
 .tm-block-avatar,
-.tm-block-settings {
+.tmblock-settings {
   max-height: none;
 }
 .tm-block-avatar {

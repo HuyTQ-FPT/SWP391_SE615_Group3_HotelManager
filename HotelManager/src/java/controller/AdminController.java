@@ -13,7 +13,9 @@ import dao.impl.RoomDAOImpl;
 import dao.impl.SendFeedbackDAOIpml;
 import dao.impl.UserDAOImpl;
 import entity.Account;
+import entity.Device;
 import entity.Message;
+import entity.Reservation;
 import entity.Room;
 import entity.RoomCategory;
 import entity.User;
@@ -22,6 +24,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +46,8 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
 
             HttpSession session = request.getSession();
             UserDAO daoU = new UserDAOImpl();
@@ -61,18 +66,26 @@ public class AdminController extends HttpServlet {
                 Vector<User> vectorUser = daoReceptionist.getCustomerListByReceptionist(); // số khách hàng
                 Vector<User> vectorReceptionist = daoReceptionist.getListByReceptionist(); //số lễ tân
                 Vector<sendFeedback> vectorRequest = daoRequest.getMessage(); // số yêu cầu
-               // Vector<Message> vectorMessage = daoMessage.getAllComment();// số phản hồi
+<<<<<<< Updated upstream
+                ArrayList<Message> listMessage = daoMessage.getAllComment();// số phản hồi
+=======
+                ArrayList<Message> vectorMessage = daoMessage.getAllComment();// số phản hồi
+>>>>>>> Stashed changes
                 int sumReservation = daoReservation.sumReservation(); // tổng tiền
                 Vector<RoomCategory> vectorR = daoR.numberOfRoomsByCategory(); // thống kê theo loại phòng
-                 Vector<Room> vectorStatus = daoR.sumOfRoom(); 
+                Vector<Room> vectorStatus = daoR.sumOfRoom();
+                Vector<Device> vectorDevice = daoR.numberOfDevice(); // Thống kê thiết bị
+                Vector<Reservation> daoReservationOfService =daoReservation.sumService() ; // Thống kê thiết bị
                 request.setAttribute("vectorR", vectorR);
                 request.setAttribute("vectorRoom", vectorRoom);
                 request.setAttribute("vectorUser", vectorUser);
                 request.setAttribute("vectorReceptionis", vectorReceptionist);
                 request.setAttribute("vectorRequest", vectorRequest);
-              //  request.setAttribute("vectorMessage", vectorMessage);
+                request.setAttribute("daoReservationOfService", daoReservationOfService);
+                request.setAttribute("listMessage", listMessage);
                 request.setAttribute("sumReservation", sumReservation);
                 request.setAttribute("vectorStatus", vectorStatus);
+                request.setAttribute("vectorDevice", vectorDevice);
                 request.getRequestDispatcher("indexadmin.jsp").forward(request, response);
             }
 
@@ -145,6 +158,100 @@ public class AdminController extends HttpServlet {
                 }
 
             }
+            if (service.equals("ReportDay")) {
+                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+                Vector<Reservation> vectorReservation = daoReservation.totalOfRoom();
+
+                request.setAttribute("vectorReservation", vectorReservation);
+                request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+            }
+            if (service.equals("ReportDay1")) {
+                String name = request.getParameter("name").trim();
+                String checkin = request.getParameter("checkin").trim();
+                String checkout = request.getParameter("checkout").trim();
+                if (checkin.isEmpty() && checkout.isEmpty() && name.isEmpty()) {
+                    Vector<Reservation> vectorReservation = daoReservation.totalOfRoomSearch(name, null, null);
+                    request.setAttribute("vectorReservation", vectorReservation);
+                    request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                }
+                if (checkin.isEmpty() && checkout.isEmpty() && name != null) {
+                    Vector<Reservation> vectorReservation = daoReservation.totalOfRoomSearch(name, null, null);
+                    request.setAttribute("vectorReservation", vectorReservation);
+                    request.setAttribute("name", name);
+                    request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                }
+                if (!checkin.isEmpty() && checkout.isEmpty() || checkin.isEmpty() && !checkout.isEmpty()) {
+                    String errr = "Vui lòng nhập vào 2 trường Từ ngày và Đến ngày.";
+                    request.setAttribute("errr", errr);
+                    request.setAttribute("name", name);
+                    request.setAttribute("checkin", checkin);
+                    request.setAttribute("checkout", checkout);
+                    request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                } else {
+
+                    Date to = Date.valueOf(checkin);
+                    Date from = Date.valueOf(checkout);
+                    Vector<Reservation> vectorReservation = daoReservation.totalOfRoomSearch(name, to, from);
+                    request.setAttribute("vectorReservation", vectorReservation);
+                    request.setAttribute("name", name);
+                    request.setAttribute("checkin", checkin);
+                    request.setAttribute("checkout", checkout);
+                    request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                }
+
+            }
+            if (service.equals("ReportMonth")) {
+                Vector<Reservation> vectorReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, null);
+                Vector<Reservation> vectorReservationAllYear = daoReservation.selectAllYear();
+                request.setAttribute("vectorReservationTotalOfMotnh", vectorReservationTotalOfMotnh);
+                request.setAttribute("vectorReservationAllYear", vectorReservationAllYear);
+                request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
+
+            }
+
+            if (service.equals("ReportMonth1")) {
+                int month = 0;
+                int sum = 0;
+                if (!request.getParameter("name").isEmpty()) {
+
+                    month = Integer.parseInt(request.getParameter("name"));
+                }
+                int year = Integer.parseInt(request.getParameter("year"));
+                Vector<Reservation> vectorReservationAllYear = daoReservation.selectAllYear();
+                request.setAttribute("vectorReservationAllYear", vectorReservationAllYear);
+                if (month == 0 && year == 0) {
+                    response.sendRedirect("AdminController?do=ReportMonth");
+                } else {
+
+                    if (year == 0) {
+                        Vector<Reservation> vectorReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, null);
+                        request.setAttribute("vectorReservationTotalOfMotnh", vectorReservationTotalOfMotnh);
+                        request.setAttribute("year", year);
+                        request.setAttribute("name", "");
+                        request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
+                    } else if (year != 0 && month == 0) {
+
+                        Vector<Reservation> vectorReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, year);
+                        for (Reservation r : vectorReservationTotalOfMotnh) {
+                            sum += r.getTotal();
+                        }
+                        request.setAttribute("vectorReservationTotalOfMotnh", vectorReservationTotalOfMotnh);
+                        request.setAttribute("year", year);
+                        request.setAttribute("name", "");
+                        request.setAttribute("sum", sum);
+                        request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
+
+                    } else {
+                        Vector<Reservation> vectorReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, year);
+                        request.setAttribute("vectorReservationTotalOfMotnh", vectorReservationTotalOfMotnh);
+                        request.setAttribute("year", year);
+                        request.setAttribute("name", month);
+                        request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
+                    }
+                }
+
+            }
+
         } catch (Exception ex) {
             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("errorMess", ex.getMessage());
@@ -165,8 +272,10 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (Exception ex) {
-            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -183,8 +292,10 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (Exception ex) {
-            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdminController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

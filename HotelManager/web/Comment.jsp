@@ -26,7 +26,7 @@
 
 
         <title>JSP Page</title>
-       
+
     </head>
     <body>
 
@@ -37,7 +37,7 @@
                         <img  src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
                     </a>
                 </div>
-             
+
                 <div class="be-comment-content">
 
                     <span class="be-comment-name">
@@ -49,15 +49,15 @@
                     </span>
                     <input type="hidden" value="${list.commentId}" id="blogid" name="commentid"/>  
                     <form id="myform3${list.commentId}" name="myform3${list.commentId}"> 
-                        <input value="${list.content}"style="width:1400px; display: inline-block;"id="content3" name="content3" readonly class="be-comment-text">
-                        <input id="myButton" type="button" value="update" />
+                        <input value="${list.content}"style="width:1400px; display: inline-block;" id="content3${list.commentId}" name="content3" readonly class="be-comment-text">
+                        <input id="myButton${list.commentId}" type="button" value="update"  />
                         <div style="display: inline-block;"class="nav-item dropdown">
                             <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fab fa-blogger"></i>
                                 <span>
                                     Blog <i class="fas fa-angle-down"></i>
-                                </span>
+                                </span>r
                             </a>
 
 
@@ -77,14 +77,13 @@
                                 </form>
                             </div>
                         </div>
-
                         <div class="accordion" id="myaccordion" style="max-width: 320px">   
                             <div class="card-header btn"  data-toggle="collapse" data-target="#q${list.commentId}" aria-expanded="true"
                                  data-parent="#myaccordion">
                                 Reply
-                            </div>
-                                 
-                            <div style="padding-top: 20px;" id ="mycomment1${list.commentId}"> </div>
+                            </div>                      
+                            <div style="padding-top: 20px;" id ="mycomment1${list.commentId}"> 
+                           
                                 <div class="card-body collapse"  data-toggle="collapse"  aria-expanded="false" id="q${list.commentId}">                                 
                                     <form id="myform1${list.commentId}" name="myform1${list.commentId}">         
                                         <div class="form-group fl_icon">
@@ -107,11 +106,8 @@
                             </div>
                         </div>
                 </div>
-            </c:forEach>
+            </div>
+        </c:forEach>
     </body>
-     <script>
-document.getElementById('myButton').onclick = function() {
-    document.getElementById('content3').removeAttribute('readonly');
-};
-</script>
+    
 </html>

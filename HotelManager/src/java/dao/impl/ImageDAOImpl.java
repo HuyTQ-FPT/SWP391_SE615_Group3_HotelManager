@@ -9,10 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-/**
- *
- * @author Admin
- */
+
 public class ImageDAOImpl extends DBContext implements ImageDAO {
 
     @Override
