@@ -341,7 +341,6 @@
                 <div class="card_button">
                     <a href="ReceptionistController?do=profile"><button>Thông tin</button></a>                       
                 </div>
-
             </div>
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="padding: 15px">
                 <div class="container">
