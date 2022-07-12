@@ -9,14 +9,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
-    @Override
+      @Override
     public int updateReservation(Reservation re) {
         int n = 0;
         String sql = "UPDATE [SWPgroup3].[dbo].[Reservation]\n"
@@ -281,8 +284,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             rs = pre.executeQuery();
 
             while (rs.next()) {
-
-                ArrayList.add(new Reservation(rs.getInt("Status"), rs.getInt("NumberOfPerson"), rs.getDouble("Total")));
+                       ArrayList.add(new Reservation(rs.getInt("Status"), rs.getInt("NumberOfPerson"), rs.getDouble("Total")));
 
             }
 

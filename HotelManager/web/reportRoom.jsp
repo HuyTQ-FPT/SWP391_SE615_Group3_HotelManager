@@ -34,8 +34,8 @@
                 <h4 style="font-size: 20px ; color: red">${err1}</h4>
             <form action="AdminController?do=ReportDay1" method="post" >
             <div class="form-group col-lg-6">
-                <label style="background-color: white; color: #54657D;">Tìm kiếm số phòng....</label>
-                <input style="background-color: white; color: #54657D;" type="text" name="name" pattern=".*\S+.*"   title="Không được để khoảng trắng" maxlength="10" class="form-control" value="${name}">
+                <label  color: #54657D;">Tìm kiếm số phòng</label>
+                <input style="background-color: white; color: #54657D;" type="text" name="name" pattern=".*\S+.*"   title="Không được để khoảng trắng" maxlength="5" class="form-control" value="${name}">
             </div> 
             <div class="form-group col-lg-6">
                 <label>Từ ngày</label>
@@ -47,7 +47,7 @@
             </div>
             <input type="submit"  value="Báo cáo" class="btn btn-success">
         </form>
-        <c:if test="${!empty vectorReservation}">
+        <c:if test="${!empty listReservation}">
 
             <div class="container" >
 
@@ -56,7 +56,7 @@
             </div>
 
         </c:if>
-        <c:if test="${empty vectorReservation}">
+        <c:if test="${empty listReservation}">
 
 
 
@@ -86,7 +86,7 @@
     <script>
 
         let roomName = [], totalRoom = []
-        <c:forEach items="${vectorReservation}" var="v">
+        <c:forEach items="${listReservation}" var="v">
 
         roomName.push('${v.roomname}')
         totalRoom.push(${v.total})

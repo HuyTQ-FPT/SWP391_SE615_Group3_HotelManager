@@ -135,14 +135,14 @@ public class RequestController extends HttpServlet {
                 session.setAttribute("index", index);
                 request.getRequestDispatcher("requestMessage.jsp").forward(request, response);
             }
-            if (service.equalsIgnoreCase("viewReply")) {
+            if (service.equalsIgnoreCase("viewReply")) { // chuyển tới trang trả lời
                 int id = Integer.parseInt(request.getParameter("mID").trim());
                 String email = request.getParameter("email").trim();
                 request.setAttribute("email", email);
                 request.setAttribute("mID", id);
                 request.getRequestDispatcher("replyRequest.jsp").forward(request, response);
             }
-            if (service.equals("sendReply")) {
+            if (service.equals("sendReply")) { // nhập thông tin trả lời
                 SendMail sm = new SendMail();
                 String email = request.getParameter("inputEmail").trim();
                 String name = request.getParameter("name").trim();

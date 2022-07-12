@@ -26,6 +26,7 @@ public interface RoomDAO {
     public ArrayList<Device> numberOfDevice() throws Exception;
     public ArrayList<Room> sumOfRoom() throws Exception;
     public RoomCategory getRoomCate(int cateID) throws Exception;
+    public Room checkRoom(int roomName) throws Exception;
 
     
     

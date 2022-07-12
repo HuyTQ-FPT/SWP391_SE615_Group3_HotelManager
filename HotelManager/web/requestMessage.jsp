@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="entity.sendFeedback"%>
-<%@page import="java.util.Vector"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -203,8 +203,8 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Báo cáo ngày</a>
-                                <a class="dropdown-item" href="#">Báo cáo tuần</a>
+                                <a class="dropdown-item" href="AdminController?do=ReportDay">Báo cáo doanh số theo phòng</a>
+                                <a class="dropdown-item" href="AdminController?do=ReportMonth">Báo cáo tháng</a>
                                 <a class="dropdown-item" href="#">Báo cáo năm</a>
                             </div>
                         </li>
@@ -270,8 +270,8 @@
 
         </nav>
         <%
-            Vector<sendFeedback> v = (Vector<sendFeedback>) request.getAttribute("vetorS");
-            Vector<sendFeedback> v1 = (Vector<sendFeedback>) request.getAttribute("vetorS1");
+            ArrayList<sendFeedback> v = (ArrayList<sendFeedback>) request.getAttribute("vetorS");
+            ArrayList<sendFeedback> v1 = (ArrayList<sendFeedback>) request.getAttribute("vetorS1");
         %>
         <div class="container">
             <div class="row">
@@ -342,7 +342,7 @@
                             </thead>
                             <%
                                 for (sendFeedback s : v) {
-                                 int count =1;
+                                    int count = 1;
 
                             %>
                             <tbody>
@@ -373,7 +373,7 @@
                                     <td><button style="border-radius: 5px; padding: 3px" onclick="deleteId('<%=s.getmId()%>')" class="btn btn-primary">  Xoá </a></button></td>
 
                                 </tr>
-                                <%count=count+1;%>
+                                <%count = count + 1;%>
                             </tbody>
                             <%}%>
                         </table>

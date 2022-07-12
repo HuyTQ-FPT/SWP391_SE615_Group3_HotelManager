@@ -22,6 +22,7 @@ import entity.User;
 import entity.sendFeedback;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +54,7 @@ public class AdminController extends HttpServlet {
             SendFeedbackDAO daoRequest = new SendFeedbackDAOIpml();
             MessageDAO daoMessage = new MessageDAOImpl();
             ReservationDAO daoReservation = new ReservationDAOImpl();
+            DecimalFormat formatter = new DecimalFormat("###,###,###");
             String service = request.getParameter("do");
             if (service == null) {
                 service = "indexAdmin";
@@ -77,7 +79,7 @@ public class AdminController extends HttpServlet {
                 request.setAttribute("listRequest", listRequest);
                 request.setAttribute("listReservationOfService", listReservationOfService);
                 request.setAttribute("listMessage", listMessage);
-                request.setAttribute("sumReservation", sumReservation);
+                request.setAttribute("sumReservation", formatter.format(sumReservation));
                 request.setAttribute("listStatus", listStatus);
                 request.setAttribute("listDevice", listDevice);
                 request.getRequestDispatcher("indexadmin.jsp").forward(request, response);
@@ -151,17 +153,23 @@ public class AdminController extends HttpServlet {
                 }
 
             }
-            if (service.equals("ReportDay")) {
+            if (service.equals("ReportDay")) { // báo cáo tổng thu nhập trên mỗi phòng
 
                 ArrayList<Reservation> listReservation = daoReservation.totalOfRoom();
                 request.setAttribute("listReservation", listReservation);
                 request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
             }
-            if (service.equals("ReportDay1")) {
+            if (service.equals("ReportDay1")) { // tìm kiếm và báo cáo tổng thu nhập trên mỗi phòng
                 String name = request.getParameter("name").trim();
                 String checkin = request.getParameter("checkin").trim();
                 String checkout = request.getParameter("checkout").trim();
-                if (!name.matches("^[0-9]+$")) {
+
+                if (checkin.isEmpty() && checkout.isEmpty() && name.isEmpty()) {
+                    String err1 = "Vui lòng điền thông tin.";
+                    request.setAttribute("err1", err1);
+                    request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                }
+                if (!name.isEmpty() && !name.matches("^[0-9]+$")) {
                     String err1 = "Vui lòng nhập số dương.";
                     request.setAttribute("err1", err1);
                     request.setAttribute("name", name);
@@ -169,18 +177,22 @@ public class AdminController extends HttpServlet {
                     request.setAttribute("checkout", checkout);
                     request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                 }
-                if (checkin.isEmpty() && checkout.isEmpty() && name.isEmpty()) {
-                    ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, null, null);
-                    request.setAttribute("listReservation", listReservation);
-                    request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                if (checkin.isEmpty() && checkout.isEmpty() && !name.isEmpty()) {
+                    int roomName = Integer.parseInt(name);
+                    if (daoR.checkRoom(roomName) != null) {
+                        ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, null, null);
+                        request.setAttribute("listReservation", listReservation);
+                        request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                    } else {
+                        String err1 = "Tên phòng không tồn tại.";
+                        request.setAttribute("err1", err1);
+                        request.setAttribute("name", name);
+                        request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                    }
+
                 }
-                if (checkin.isEmpty() && checkout.isEmpty() && name != null) {
-                    ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, null, null);
-                    request.setAttribute("listReservation", listReservation);
-                    request.setAttribute("name", name);
-                    request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
-                }
-                if (!checkin.isEmpty() && checkout.isEmpty() || checkin.isEmpty() && !checkout.isEmpty()) {
+                if (!name.isEmpty() && !checkin.isEmpty() && checkout.isEmpty() || !name.isEmpty() && checkin.isEmpty() && !checkout.isEmpty()
+                        || name.isEmpty() && !checkin.isEmpty() && checkout.isEmpty() || name.isEmpty() && checkin.isEmpty() && !checkout.isEmpty()) {
                     String errr = "Vui lòng nhập vào 2 trường Từ ngày và Đến ngày.";
                     request.setAttribute("errr", errr);
                     request.setAttribute("name", name);
@@ -188,19 +200,26 @@ public class AdminController extends HttpServlet {
                     request.setAttribute("checkout", checkout);
                     request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                 } else {
+                    int roomName = Integer.parseInt(name);
+                    if (daoR.checkRoom(roomName) != null) {
+                        Date to = Date.valueOf(checkin);
+                        Date from = Date.valueOf(checkout);
+                        ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, to, from);
+                        request.setAttribute("listReservation", listReservation);
+                        request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                    } else {
+                        String err1 = "Tên phòng không tồn tại.";
+                        request.setAttribute("err1", err1);
+                        request.setAttribute("name", name);
+                        request.setAttribute("checkin", checkin);
+                        request.setAttribute("checkout", checkout);
+                        request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                    }
 
-                    Date to = Date.valueOf(checkin);
-                    Date from = Date.valueOf(checkout);
-                    ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, to, from);
-                    request.setAttribute("listReservation", listReservation);
-                    request.setAttribute("name", name);
-                    request.setAttribute("checkin", checkin);
-                    request.setAttribute("checkout", checkout);
-                    request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                 }
 
             }
-            if (service.equals("ReportMonth")) {
+            if (service.equals("ReportMonth")) { // view số liệu theo tháng
                 ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, null);
                 ArrayList<Reservation> listReservationAllYear = daoReservation.selectAllYear();
                 request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
@@ -209,7 +228,7 @@ public class AdminController extends HttpServlet {
 
             }
 
-            if (service.equals("ReportMonth1")) {
+            if (service.equals("ReportMonth1")) { // Báo cáo số liệu theo tháng
                 int month = 0;
                 int sum = 0;
                 String month1 = request.getParameter("name").trim();
@@ -243,18 +262,18 @@ public class AdminController extends HttpServlet {
                         ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, year);
                         for (Reservation r : listReservationTotalOfMotnh) {
                             sum += r.getTotal();
+
                         }
                         request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                         request.setAttribute("year", year);
                         request.setAttribute("name", "");
-                        request.setAttribute("sum", sum);
+                        request.setAttribute("sum", formatter.format(sum));
                         request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
 
                     } else {
                         ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, year);
                         request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                         request.setAttribute("year", year);
-                        request.setAttribute("name", month);
                         request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
                     }
                 }

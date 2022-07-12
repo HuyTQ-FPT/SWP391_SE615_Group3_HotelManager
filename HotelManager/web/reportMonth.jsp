@@ -4,8 +4,13 @@
     Author     : Minh Hieu
 --%>
 
+<%@page import="entity.Reservation"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -21,7 +26,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <!-- https://getbootstrap.com/ -->
         <link rel="stylesheet" href="css/templatemo-style.css">
-       
+
     <body id="reportsPage">
         <div class="" id="home">
             <%@include file="headerAdmin.jsp" %>
@@ -36,24 +41,24 @@
                 <select name="year" style="border-radius:8px"  >
                     <option value="0"  >---------</option>
                     <c:forEach items="${listReservationAllYear}" var="vY">
-                        <option value="${vY.year}">${vY.year}</option>
+                        <option>${vY.year}</option>
                     </c:forEach>
                 </select>  
             </div> 
-                <input type="submit"  value="Báo cáo" class="btn btn-success" style="border-radius:8px; margin-left: 15px">
+            <input type="submit"  value="Báo cáo" class="btn btn-success" style="border-radius:8px; margin-left: 15px">
         </form>
         <c:if test="${!empty listReservationTotalOfMotnh}">
             <c:if test="${year!=0 && year!=null}">
-                
+
                 <div style="position: relative">
                     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-10 tm-block-col ok" style="   position: absolute;
-                         top:-180px;
+                         top:-150px;
                          left: 1080px;">
                         <div class="col-md-4">
                             <div class="card card-tale">
                                 <div class="card-body">
-                                    <a href="" style="; text-decoration: none"><p class="mb-4" style="color: black">Tổng tiền trong năm ${year} </p>
-                                        <p class="fs-30 mb-2">${sum}</p>
+                                    <a href="" style=" text-decoration: none"><p class="mb-4" style="color: black">Tổng tiền trong năm ${year} </p>
+                                        <p class="fs-30 mb-2">${sum}  đ</p>
                                     </a> 
                                 </div>
                             </div>
@@ -68,7 +73,7 @@
 
         </c:if>
         <c:if test="${empty listReservationTotalOfMotnh}">
-           <h2 class="tm-block-title text-center" style="font-size: 30px">Không có dữ liệu, vui lòng thử lại.</h2>
+            <h2 class="tm-block-title text-center" style="font-size: 30px">Không có dữ liệu, vui lòng thử lại.</h2>
         </c:if>
     </div>
 
@@ -84,15 +89,20 @@
     <!-- https://getbootstrap.com/ -->
     <script src="js/tooplate-scripts.js"></script>
     <script>
+        <%       DecimalFormat formatter = new DecimalFormat("###,###,###");%>
 
-        let month = [], totalMotnh = []
+
+        let month = [], totalMotnh = [];
+        <fmt:setLocale value="vi"/>
+        <fmt:formatNumber value="${v.total}"/>
+
         <c:forEach items="${listReservationTotalOfMotnh}" var="v">
 
-        month.push('${v.status}/${v.numberOfPerson}')
-            totalMotnh.push(${v.total})
-
-
+        month.push('${v.status}/${v.numberOfPerson}');
+         totalMotnh.push(${v.total});
         </c:forEach>
+
+
             Chart.defaults.global.defaultFontColor = 'white';
             window.onload = function () {
                 MonthAllTotal1("MonthAllTotal", month, totalMotnh);

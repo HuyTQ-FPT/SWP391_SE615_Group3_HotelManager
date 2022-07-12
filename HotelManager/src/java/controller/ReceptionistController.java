@@ -14,6 +14,7 @@ import entity.Room;
 import entity.User;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class ReceptionistController extends HttpServlet {
             NotificationDAOImpl daoN = new NotificationDAOImpl();
             RoomDAO daoR = new RoomDAOImpl();
             UserDAO daoU = new UserDAOImpl();
+            DecimalFormat formatter1 = new DecimalFormat("###,###,###");
             String service = request.getParameter("do");
             HttpSession session = request.getSession();
             LocalDateTime current = LocalDateTime.now();
@@ -163,11 +165,16 @@ public class ReceptionistController extends HttpServlet {
 
             }
             if (service.equals("viewOrder")) {
+
+                long sum = 0;
                 int uID = Integer.parseInt(request.getParameter("uID").trim());
                 Reservation reservation = dao.viewOrderDetails(uID);
                 ArrayList<Reservation> listReservation = dao.OrderDetails(uID);
-
+                for (Reservation r1 : listReservation) {
+                    sum += r1.getTotal();
+                }
                 request.setAttribute("listReservation", listReservation);
+                request.setAttribute("sum", formatter1.format(sum));
                 request.setAttribute("reservation", reservation);
                 request.getRequestDispatcher("viewOrderCustomer.jsp").forward(request, response);
             }
