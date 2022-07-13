@@ -1,3 +1,13 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 14/07/2022    1.0        HieuLBM          Comment
+ */
 package dao.impl;
 
 import entity.RequestMessage;
@@ -9,11 +19,19 @@ import java.util.ArrayList;
 import dao.RequestMessageDAO;
 
 /**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with RequestMessage and associate tables
  *
- * @author Minh Hiếu
+ * @author HieuLBM
  */
 public class RequestMessageDAOIpml extends DBContext implements RequestMessageDAO {
 
+    /**
+     * get a list request from the MessageRequest table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<RequestMessage> getMessage() throws Exception {
         ArrayList<RequestMessage> v = new ArrayList<>();
@@ -39,6 +57,12 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
         return v;
     }
 
+    /**
+     * add request from the MessageRequest table
+     *
+     * @param message
+     * @throws Exception
+     */
     @Override
     public void insert(RequestMessage message) throws Exception {
         Connection conn = null;
@@ -61,6 +85,14 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
         }
     }
 
+    /**
+     * update request from the MessageRequest table
+     *
+     * @param id
+     * @param isread
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateRead(int id, String isread) throws Exception {
         Connection conn = null;
@@ -85,6 +117,13 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
         return n;
     }
 
+    /**
+     * get a request from the MessageRequest table
+     *
+     * @param Id
+     * @return
+     * @throws Exception
+     */
     @Override
     public RequestMessage getMessageById(int Id) throws Exception {
         Connection conn = null;
@@ -115,6 +154,12 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
         return message;
     }
 
+    /**
+     * delete a request from the MessageRequest table
+     *
+     * @param id
+     * @throws Exception
+     */
     @Override
     public void delete(int id) throws Exception {
         Connection conn = null;
@@ -137,6 +182,12 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
         }
     }
 
+    /**
+     * get a list unread request from the MessageRequest table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<RequestMessage> getMessageUnread() throws Exception {
         ArrayList<RequestMessage> v = new ArrayList<>();
@@ -163,6 +214,13 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
         return v;
     }
 
+    /**
+     * get paging from the MessageRequest table
+     *
+     * @param index
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<RequestMessage> pagingMessage(int index) throws Exception {
         Connection conn = null;
@@ -197,6 +255,14 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
         return ArrayList;
     }
 
+    /**
+     * get paging and search from the MessageRequest table
+     *
+     * @param index
+     * @param title
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<RequestMessage> searchName(int index, String title) throws Exception {
         Connection conn = null;
@@ -227,6 +293,14 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
         }
         return v;
     }
+
+    /**
+     * get search from the MessageRequest table
+     *
+     * @param title
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<RequestMessage> getMessageOfTitle(String title) throws Exception {
         ArrayList<RequestMessage> v = new ArrayList<>();

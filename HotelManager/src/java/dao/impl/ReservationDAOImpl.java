@@ -1,3 +1,13 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
+ */
 package dao.impl;
 
 import dao.ReservationDAO;
@@ -12,6 +22,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with Reservation and associate tables
+ *
+ * @author
+ */
 public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
     @Override
@@ -108,10 +124,30 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return re;
     }
 
+    public int removeReservation(int id) {
+        int n = 0;
+        String sql = "delete from Reservation where BillID=" + id;
+        try {
+            Statement state = conn.createStatement();
+            n = state.executeUpdate(sql);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+
+    /**
+     * get the total amount from from Reservation table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public int sumReservation() throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         try {
@@ -137,24 +173,23 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return 0;
     }
 
-    public int removeReservation(int id) {
-        int n = 0;
-        String sql = "delete from Reservation where BillID=" + id;
-        try {
-            Statement state = conn.createStatement();
-            n = state.executeUpdate(sql);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return n;
-    }
-
+    /**
+     * search from Reservation table
+     *
+     * @param name
+     * @param from
+     * @param to
+     * @return
+     * @throws Exception
+     */
     @Override
 
     public ArrayList<Reservation> totalOfRoomSearch(String name, Date to, Date from) throws Exception {
 
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
@@ -190,10 +225,18 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return ArrayList;
     }
 
+    /**
+     * Show revenue by Room Reservation table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Reservation> totalOfRoom() throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
@@ -223,10 +266,20 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return ArrayList;
     }
 
+    /**
+     * search and display how much each Room earns from Reservation table
+     *
+     * @param month
+     * @param year
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Reservation> totalOfRoomByMonth(int month, int year) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "";
@@ -275,10 +328,18 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return ArrayList;
     }
 
+    /**
+     * show year from Reservation table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Integer> selectAllYear() throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         ArrayList<Integer> ArrayList = new ArrayList<>();
         String sql = "select  YEAR(Checkin) as Year from Reservation       \n"
@@ -306,10 +367,18 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return ArrayList;
     }
 
+    /**
+     * Show the service that the customer has used from Reservation table
+     *
+     * @return 
+     * @throws Exception
+     */
     @Override
     public ArrayList<Reservation> sumService() throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "select ServiceName, COUNT( ServiceName) as Total from [Reservation]\n"
@@ -338,10 +407,18 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
     }
 
+    /**
+     * show month from Reservation table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Integer> selectAllMotnh() throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         ArrayList<Integer> ArrayList = new ArrayList<>();
         String sql = "  select  MONTH(Checkin) as Month  from Reservation      \n"
@@ -370,10 +447,19 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return ArrayList;
     }
 
+    /**
+     * show booking information from Reservation table
+     *
+     * @param uID
+     * @return
+     * @throws Exception
+     */
     @Override
     public Reservation viewOrderDetails(int uID) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sql = "select r.BillID,r.UserID,r.Name,ro.Roomname,r.Address,r.Email,r.Phone,r.Checkin,r.Checkout,ro.RoomPrice,r.Total,r.[Status] from [Reservation] r inner join [User] u on r.UserID= u.UserID\n"
@@ -402,10 +488,19 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return null;
     }
 
+    /**
+     * show booking information from Reservation table
+     *
+     * @param uID
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Reservation> OrderDetails(int uID) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         ArrayList<Reservation> ArrayList = new ArrayList<>();

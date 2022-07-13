@@ -1,3 +1,13 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
+ */
 package dao.impl;
 
 import dao.UserDAO;
@@ -10,6 +20,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with User and associate tables
+ *
+ * @author
+ */
 public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
@@ -118,6 +134,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     @Override
     public void updateUserEcept(User User) throws Exception {
         Connection conn = null;
+         /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
 
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?,Birthday=? where UserID=?";
@@ -125,6 +142,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sqlPre);
+
             pre.setString(1, User.getUserName());
             pre.setString(2, User.getUserAdress());
             pre.setString(3, User.getCMT());
@@ -151,10 +169,19 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         return true;
     }
 
+    /**
+     * Check customer information by email from User table
+     *
+     * @param uGmail
+     * @return
+     * @throws Exception
+     */
     @Override
     public User checkUser(String uGmail) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         String sql = "select * from [User] \n"
                 + " where UserEmail=?";
@@ -179,10 +206,18 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         return null;
     }
 
+    /**
+     * get a list of all customers from the Users table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<User> getCustomerListByReceptionist() throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         ArrayList<User> ArrayList = new ArrayList<>();
@@ -211,7 +246,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
@@ -221,10 +256,19 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         return ArrayList;
     }
 
+    /**
+     * search name from the Users table
+     *
+     * @param uName
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<User> getSearchNameCustomerListByReceptionist(String uName) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         ArrayList<User> ArrayList = new ArrayList<>();
@@ -264,10 +308,19 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         return ArrayList;
     }
 
+    /**
+     * get all User by roleID from the Users table
+     *
+     * @return
+     * @throws Exception
+     */
+
     @Override
     public ArrayList<User> getListByReceptionist() throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         ArrayList<User> ArrayList = new ArrayList<>();
@@ -296,7 +349,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);

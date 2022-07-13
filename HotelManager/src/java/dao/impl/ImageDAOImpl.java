@@ -1,3 +1,13 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
+ */
 package dao.impl;
 
 import dao.ImageDAO;
@@ -10,7 +20,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-
+/**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with Image and associate tables
+ *
+ * @author
+ */
 public class ImageDAOImpl extends DBContext implements ImageDAO {
 
     @Override
@@ -106,23 +121,24 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
         return null;
     }
 
-    public void crudRoom(String sql , String des, String Notes) {
+    public void crudRoom(String sql, String des, String Notes) {
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
-             pre.setString(1, des);
-             pre.setString(2, Notes);
+            pre.setString(1, des);
+            pre.setString(2, Notes);
             pre.execute();
             System.out.println("done");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-        public void crudImage1(String sql,String title , String BlogDescription, String BlogAuthor) {
+
+    public void crudImage1(String sql, String title, String BlogDescription, String BlogAuthor) {
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
-             pre.setString(1, title);
-             pre.setString(2, BlogDescription);
-             pre.setString(3, BlogAuthor);
+            pre.setString(1, title);
+            pre.setString(2, BlogDescription);
+            pre.setString(3, BlogAuthor);
             pre.executeUpdate();
             System.out.println("done");
         } catch (Exception e) {
@@ -130,10 +146,18 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
         }
     }
 
+    /**
+     * get list a image from Image table
+     *
+     * @param RoomID
+     * @throws Exception
+     */
     @Override
     public Image searchRoomidAndImage(int RoomID) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sql = "select i.image1,i.image2,i.image3,i.image4 from [Image] i inner join [Room] r on i.RoomimgaeID = r.RoomimgaeID\n"

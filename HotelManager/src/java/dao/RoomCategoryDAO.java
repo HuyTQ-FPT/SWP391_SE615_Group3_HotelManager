@@ -38,4 +38,12 @@ public interface RoomCategoryDAO {
      * @throws java.lang.Exception
      */
     public ArrayList<RoomCategory> numberOfRoomsByCategory() throws Exception;
+     /**
+     * get count RoomcateID from RoomCategory table
+     *@param cateID is an <code>RoomCategory</code> object.
+     * @return <code>ArrayList<RoomCategory></code> object.
+     * @throws java.lang.Exception
+     */
+    
+    public RoomCategory getRoomCate(int cateID) throws Exception;
 }

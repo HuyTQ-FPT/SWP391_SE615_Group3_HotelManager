@@ -88,7 +88,6 @@ public interface ReservationDAO {
      *
      * @param month in a String
      * @param year in a Date
-     * @param to in a Date
      * @return <code>ArrayList<Reservation></code> object.
      * @throws java.lang.Exception
      */

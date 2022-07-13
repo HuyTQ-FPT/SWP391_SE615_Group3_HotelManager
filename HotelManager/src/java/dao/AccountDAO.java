@@ -23,7 +23,7 @@ public interface AccountDAO {
     /**
      * Get all Account from database
      *
-     * @return a list of <code>Account</code> objects. It is a
+     * @return a list of <code>Account</code> objects
      * <code>java.util.ArrayList</code> object
      * @throws java.lang.Exception
      */

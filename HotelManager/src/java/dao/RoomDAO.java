@@ -10,8 +10,6 @@
  */
 package dao;
 
-import entity.Device;
-import entity.Image;
 import entity.Room;
 import entity.RoomByDate;
 import entity.RoomCategory;
@@ -71,8 +69,6 @@ public interface RoomDAO {
      */
     public Room getOneRoom(int roomid) throws Exception;
 
-    
-
     /**
      * get count Room from Room table
      *
@@ -81,15 +77,13 @@ public interface RoomDAO {
      */
     public ArrayList<Room> sumOfRoom() throws Exception;
 
-    public RoomCategory getRoomCate(int cateID) throws Exception;
-
     /**
      * check room Name from Room table
+     *
      * @param roomName is an String
      * @return String
      * @throws java.lang.Exception
      */
-
     public String checkRoom(String roomName) throws Exception;
 
     public Vector<Room> getRoomList(String sql);

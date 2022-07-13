@@ -1,3 +1,13 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
+ */
 package dao.impl;
 
 import entity.Device;
@@ -11,6 +21,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with Devices and associate tables
+ *
+ * @author
+ */
 public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 
     @Override
@@ -184,10 +200,18 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
         return vector;
     }
 
+    /**
+     * get list device and count from Device table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Device> numberOfDevice() throws Exception {
         Connection conn = null;
+         /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         ArrayList<Device> vector = new ArrayList<>();
 

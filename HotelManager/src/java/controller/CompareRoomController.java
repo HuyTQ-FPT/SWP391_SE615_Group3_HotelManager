@@ -2,9 +2,11 @@ package controller;
 
 import dao.DeviceDAO;
 import dao.ImageDAO;
+import dao.RoomCategoryDAO;
 import dao.RoomDAO;
 import dao.impl.DevicesDAOImpl;
 import dao.impl.ImageDAOImpl;
+import dao.impl.RoomCategoryDAOImpl;
 import dao.impl.RoomDAOImpl;
 import entity.Image;
 import entity.Room;
@@ -43,6 +45,7 @@ public class CompareRoomController extends HttpServlet {
             RoomDAO daoR = new RoomDAOImpl();
             ImageDAO daoI = new ImageDAOImpl();
             DeviceDAO daoD = new DevicesDAOImpl();
+            RoomCategoryDAO roomCategoryDAO = new RoomCategoryDAOImpl();
             String service = request.getParameter("do");
 
             if (service.equals("ViewCompare")) { // xem thông tin phòng
@@ -53,7 +56,7 @@ public class CompareRoomController extends HttpServlet {
                 int cateid = Integer.parseInt(cateroom);
                 Image img = daoI.searchRoomidAndImage(roomid);
                 Room rooom = daoR.getOneRoom(roomid);
-                RoomCategory roomCategory = daoR.getRoomCate(cateid);
+                RoomCategory roomCategory = roomCategoryDAO.getRoomCate(cateid);
                
                 
                 request.setAttribute("Rooom", rooom);

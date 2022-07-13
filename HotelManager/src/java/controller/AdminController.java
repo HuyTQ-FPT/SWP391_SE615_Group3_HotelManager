@@ -75,7 +75,7 @@ public class AdminController extends HttpServlet {
                 ArrayList<RoomCategory> listroomCategory = roomCategoryDAO.numberOfRoomsByCategory(); // thống kê theo loại phòng
                 ArrayList<Room> listStatus = daoR.sumOfRoom();
                 ArrayList<Device> listDevice = deviceDAO.numberOfDevice(); // Thống kê thiết bị
-                ArrayList<Reservation> listReservationOfService = daoReservation.sumService(); // Thống kê thiết bị
+                ArrayList<Reservation> listReservationOfService = daoReservation.sumService(); // thống kê dịch vụ
                 request.setAttribute("listroomCategory", listroomCategory);
                 request.setAttribute("listRoom", listRoom);
                 request.setAttribute("listUser", listUser);
