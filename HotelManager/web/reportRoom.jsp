@@ -30,28 +30,32 @@
             <%@include file="headerAdmin.jsp" %>
 
         </div>
-                <h4 style="font-size: 20px ; color: red">${errr}</h4>
-                <h4 style="font-size: 20px ; color: red">${err1}</h4>
-            <form action="AdminController?do=ReportDay1" method="post" >
-            <div class="form-group col-lg-6">
-                <label  color: #54657D;">Tìm kiếm số phòng</label>
-                <input style="background-color: white; color: #54657D;" type="text" name="name" pattern=".*\S+.*"   title="Không được để khoảng trắng" maxlength="5" class="form-control" value="${name}">
+        <h4 style="font-size: 20px ; color: red">${errr}</h4>
+        <h4 style="font-size: 20px ; color: red">${err1}</h4>
+        <form action="AdminController?do=ReportDay1" method="post" >
+            <label style=" color: white;margin-left: 12px">Tìm kiếm số phòng</label>
+            <div class="form-group col-lg-2 d-flex">
+                <input style="background-color: white; color: #54657D; border-radius: 10px" type="text" name="name" pattern=".*\S+.*"   title="Không được để khoảng trắng" maxlength="5" class="form-control" value="${name}">
+                <input style="margin-left: 20px;border-radius: 10px;padding: 5px" type="submit"  value="Báo cáo" class="btn btn-success">
             </div> 
-            <div class="form-group col-lg-6">
-                <label>Từ ngày</label>
-                <input style="background-color: white; color: #54657D;" type="date" name="checkin" class="form-control" value="${checkin}">
-            </div> 
-            <div class="form-group col-lg-6">
-                <label>Đến ngày </label>
-                <input style="background-color: white; color: #54657D;" type="date" name="checkout" class="form-control" value="${checkout}">
+                <div class="d-flex">
+
+                <div class="form-group col-lg-2">
+                    <label>Từ ngày</label>
+                    <input style="background-color: white; color: #54657D;" type="date" name="checkin" class="form-control" value="${checkin}">
+                </div> 
+                <div class="form-group col-lg-2">
+                    <label>Đến ngày </label>
+                    <input style="background-color: white; color: #54657D;" type="date" name="checkout" class="form-control" value="${checkout}">
+                </div>
             </div>
-            <input type="submit"  value="Báo cáo" class="btn btn-success">
+
         </form>
         <c:if test="${!empty listReservation}">
 
             <div class="container" >
 
-                
+
                 <canvas  id="RoomAllChart"></canvas>
             </div>
 
@@ -63,11 +67,6 @@
             <h2 class="tm-block-title text-center" style="font-size: 30px">Không có dữ liệu, vui lòng thử lại.</h2>
 
         </c:if>
-
-
-
-
-
 
 
     </div>

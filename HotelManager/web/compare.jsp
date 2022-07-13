@@ -60,8 +60,6 @@
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
 
-                            <h1 class="mb-2">Welcome To Suites</h1>
-                            <h2 class="caption">Hotel &amp; Resort</h2>
                         </div>
                     </div>
                 </div>
@@ -71,8 +69,7 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
-                            <h1 class="mb-2">Unique Experience</h1>
-                            <h2 class="caption">Enjoy With Us</h2>
+
                         </div>
                     </div>
                 </div>
@@ -82,15 +79,14 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
-                            <h1 class="mb-2">Relaxing Room</h1>
-                            <h2 class="caption">Your Room, Your Stay</h2>
+
                         </div>
                     </div>
                 </div>
             </div> 
 
         </div>
-
+        <h3 style="margin-top: 20px">SO SÁNH PHÒNG</h3>
         <div class="product-page-main">
             <div class="container">
 
@@ -160,13 +156,13 @@
                                 <input type="hidden" name="do" value="roomdetail">
                                 <input type="hidden" name="roomid" value="${Rooom.roomID}">
                                 <input type="hidden" name="cateroom" value="${cateid}">
-                                <button style="position: fixed;top: 1000px; right: -45px" 
+                                <button style="position: fixed;top: 1050px; right: -45px" 
                                         class="add-to-cart-btn" ><i class="fas fa-eye"></i><a>Chi tiết phòng</a></button>
                             </form>
                             <c:if test="${sessionScope.login!=null}" >
                                 <form>
                                     <div class="add-to-cart">
-                                        <button style="position: fixed;top: 1000px; right:-239px" 
+                                        <button style="position: fixed;top:1050px; right:-239px" 
                                                 class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i>  <a href="OrderController?do=user&id=${Rooom.roomID}&userid=${sessionScope.login.getAccountID()}" style="color: white">Đặt phòng </a></button>
                                     </div>
                                 </form>
@@ -176,7 +172,7 @@
 
                                 <form>
                                     <div class="add-to-cart">
-                                        <button style="position: fixed;top: 1000px; right:-239px" 
+                                        <button style="position: fixed;top: 1050px; right:-239px" 
                                                 class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i> <a href="LoginController" style="color: white">Đặt phòng</a></button>
                                     </div>
                                 </form>

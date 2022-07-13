@@ -5,7 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="entity.sendFeedback"%>
+<%@page import="entity.RequestMessage"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -270,8 +270,8 @@
 
         </nav>
         <%
-            ArrayList<sendFeedback> v = (ArrayList<sendFeedback>) request.getAttribute("vetorS");
-            ArrayList<sendFeedback> v1 = (ArrayList<sendFeedback>) request.getAttribute("vetorS1");
+            ArrayList<RequestMessage> v = (ArrayList<RequestMessage>) request.getAttribute("vetorS");
+            ArrayList<RequestMessage> v1 = (ArrayList<RequestMessage>) request.getAttribute("vetorS1");
         %>
         <div class="container">
             <div class="row">
@@ -341,7 +341,7 @@
                                 </tr>
                             </thead>
                             <%
-                                for (sendFeedback s : v) {
+                                for (RequestMessage s : v) {
                                     int count = 1;
 
                             %>

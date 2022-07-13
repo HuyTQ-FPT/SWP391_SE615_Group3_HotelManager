@@ -9,17 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
-      @Override
+    @Override
     public int updateReservation(Reservation re) {
         int n = 0;
         String sql = "UPDATE [SWPgroup3].[dbo].[Reservation]\n"
@@ -111,25 +107,6 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             ex.printStackTrace();
         }
         return re;
-    }
-
-    public static void main(String[] args) {
-        ReservationDAOImpl dao = new ReservationDAOImpl();
-        try {
-            //                Date a = Date.valueOf("2022-05-03");
-//        Date b = Date.valueOf("2022-07-03");
-//        Reservation re =new Reservation(4, 8, "Rose", "rs2001@gmail.com", "Hanoi", "0904652125", 4, a, b, 1600, 1,a );
-//        int n= dao.addReservation(re);
-            Date to = Date.valueOf("2022-05-21");
-            Date from = Date.valueOf("2022-06-28");
-            ArrayList<Reservation> v = dao.selectAllYear();
-            for (Reservation reservation : v) {
-                System.out.println(reservation);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(ReservationDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
     @Override
@@ -284,7 +261,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             rs = pre.executeQuery();
 
             while (rs.next()) {
-                       ArrayList.add(new Reservation(rs.getInt("Status"), rs.getInt("NumberOfPerson"), rs.getDouble("Total")));
+                ArrayList.add(new Reservation(rs.getInt("Status"), rs.getInt("NumberOfPerson"), rs.getDouble("Total")));
 
             }
 
@@ -300,11 +277,11 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
     }
 
     @Override
-    public ArrayList<Reservation> selectAllYear() throws Exception {
+    public ArrayList<Integer> selectAllYear() throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-        ArrayList<Reservation> ArrayList = new ArrayList<>();
+        ArrayList<Integer> ArrayList = new ArrayList<>();
         String sql = "select  YEAR(Checkin) as Year from Reservation       \n"
                 + "group by YEAR(Checkin)\n"
                 + "order by YEAR(Checkin)";
@@ -315,7 +292,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
             while (rs.next()) {
 
-                ArrayList.add(new Reservation(rs.getInt("Year")));
+                ArrayList.add(rs.getInt("Year"));
 
             }
 
@@ -336,7 +313,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         PreparedStatement pre = null;
         ResultSet rs = null;
         ArrayList<Reservation> ArrayList = new ArrayList<>();
-        String sql = "select ServiceName, COUNT( ServiceName)as Total from [Reservation]\n"
+        String sql = "select ServiceName, COUNT( ServiceName) as Total from [Reservation]\n"
                 + "group by ServiceName";
 
         try {
@@ -345,7 +322,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             rs = pre.executeQuery();
 
             while (rs.next()) {
-                ArrayList.add(new Reservation(rs.getString("ServiceName"), rs.getInt(2)));
+                ArrayList.add(new Reservation(rs.getString("ServiceName"), rs.getInt("Total")));
 
             }
 
@@ -361,4 +338,37 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return ArrayList;
 
     }
+
+    @Override
+    public ArrayList<Integer> selectAllMotnh() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        ArrayList<Integer> ArrayList = new ArrayList<>();
+        String sql = "  select  MONTH(Checkin) as Month  from Reservation      \n"
+                + "                group by MONTH(Checkin)\n"
+                + "                order by MONTH(Checkin)";
+
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                ArrayList.add(rs.getInt("Month"));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+
+        return ArrayList;
+    }
+
 }

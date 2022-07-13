@@ -885,18 +885,19 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public Room checkRoom(int roomName) throws Exception {
+    public String checkRoom(String roomName) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        String sql = "select * from Room where Roomname =" + roomName;
+        String sql = "select * from Room where Roomname = '"+roomName+"'";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
             if (rs.next()) {
-                return new Room(rs.getInt("RoomId"), rs.getString("Roomname"), rs.getString("Roomdesc"), rs.getInt("RoomcateID"), rs.getDouble("Roomprice"), rs.getInt("NumberPerson"), rs.getFloat("Square"), rs.getString("Comment"), rs.getInt("Rate"), rs.getString("Note"), rs.getInt("status"));
+                return rs.getString("Roomname");
+
             }
 
         } catch (Exception e) {

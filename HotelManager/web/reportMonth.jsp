@@ -34,30 +34,35 @@
         </div>
         <h4 style="font-size: 20px ; color: red">${errr}</h4>
         <h4 style="font-size: 20px ; color: red">${err1}</h4>
-        <label style=" margin-left: 15px;color: white;">Tìm kiếm tháng....</label>
+        <label style=" margin-left: 15px;color: white;">Tìm kiếm tháng/năm</label>
         <form action="AdminController?do=ReportMonth1" method="post" >
-            <div class="form-group col-lg-3 d-flex">
-                <input style="background-color: white; color: #54657D;" type="text" name="name" pattern=".*\S+.*" maxlength="2" title="Không được tất cả là khoảng trắng"  class="form-control" value="${name}">
+            <div class="form-group col-lg-4 d-flex">
+                 <select name="month" style="border-radius:8px"  >
+                   <option value="0"  >---------</option>
+                    <c:forEach items="${listReservationAllMonth}" var="lm">
+                        <option >${lm}</option>
+                    </c:forEach>
+                </select>  
                 <select name="year" style="border-radius:8px"  >
                     <option value="0"  >---------</option>
                     <c:forEach items="${listReservationAllYear}" var="vY">
-                        <option>${vY.year}</option>
+                        <option>${vY}</option>
                     </c:forEach>
                 </select>  
+            <input type="submit"  value="Báo cáo" class="btn btn-success" style="border-radius:8px; margin-left: 15px;padding: 5px">
             </div> 
-            <input type="submit"  value="Báo cáo" class="btn btn-success" style="border-radius:8px; margin-left: 15px">
         </form>
         <c:if test="${!empty listReservationTotalOfMotnh}">
             <c:if test="${year!=0 && year!=null}">
 
                 <div style="position: relative">
                     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-10 tm-block-col ok" style="   position: absolute;
-                         top:-150px;
-                         left: 1080px;">
+                         top:-90px;
+                         left: 1106px;">
                         <div class="col-md-4">
                             <div class="card card-tale">
                                 <div class="card-body">
-                                    <a href="" style=" text-decoration: none"><p class="mb-4" style="color: black">Tổng tiền trong năm ${year} </p>
+                                    <a href="#" style=" text-decoration: none"><p class="mb-4" style="color: black">Tổng tiền trong năm ${year} </p>
                                         <p class="fs-30 mb-2">${sum}  đ</p>
                                     </a> 
                                 </div>

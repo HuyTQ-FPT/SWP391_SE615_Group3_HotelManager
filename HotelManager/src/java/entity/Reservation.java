@@ -11,7 +11,6 @@ public class Reservation {
     private double Roomprice;
     private String Name;
     private String ServiceName;
-    
     private String Email;
     private String Address;
     private String Phone;
@@ -21,6 +20,7 @@ public class Reservation {
     private double Total;
     private int Status;
     private int Year;
+    private int Month;
     private Date Date;
 
     public Reservation() {
@@ -89,17 +89,20 @@ public class Reservation {
         this.Total = Total;
     }
 
+    public void setMonth(int Month) {
+        this.Month = Month;
+    }
+
+    public int getMonth() {
+        return Month;
+    }
+
     public String getServiceName() {
         return ServiceName;
     }
 
     public void setServiceName(String ServiceName) {
         this.ServiceName = ServiceName;
-    }
-
-  
-    public Reservation(int Year) {
-        this.Year = Year;
     }
 
     public int getYear() {
@@ -233,5 +236,13 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation{" + "BillID=" + BillID + ", UserID=" + UserID + ", RoomID=" + RoomID + ", Name=" + Name + ", Email=" + Email + ", Address=" + Address + ", Phone=" + Phone + ", NumberOfPerson=" + NumberOfPerson + ", Checkin=" + Checkin + ", Checkout=" + Checkout + ", Total=" + Total + ", Status=" + Status + ", Date=" + Date + '}';
+    }
+
+    public String toString1() {
+        return "1" + Month;
+    }
+
+    public String toString2() {
+        return "1" + Month;
     }
 }

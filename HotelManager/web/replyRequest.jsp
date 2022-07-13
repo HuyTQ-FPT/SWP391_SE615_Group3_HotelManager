@@ -201,7 +201,7 @@
                         name="submit"
                         class="btn btn-primary btn-block text-uppercase"
                         >
-                        Lưu
+                        GỬI
                     </button>
                 </div>
             </form>

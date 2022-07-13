@@ -4,13 +4,13 @@ import dao.MessageDAO;
 import dao.ReceptionistDAO;
 import dao.ReservationDAO;
 import dao.RoomDAO;
-import dao.SendFeedbackDAO;
+import dao.RequestMessageDAO;
 import dao.UserDAO;
 import dao.impl.MessageDAOImpl;
 import dao.impl.ReceptionistDAOImpl;
 import dao.impl.ReservationDAOImpl;
 import dao.impl.RoomDAOImpl;
-import dao.impl.SendFeedbackDAOIpml;
+import dao.impl.RequestMessageDAOIpml;
 import dao.impl.UserDAOImpl;
 import entity.Account;
 import entity.Device;
@@ -19,7 +19,7 @@ import entity.Reservation;
 import entity.Room;
 import entity.RoomCategory;
 import entity.User;
-import entity.sendFeedback;
+import entity.RequestMessage;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.DecimalFormat;
@@ -51,7 +51,7 @@ public class AdminController extends HttpServlet {
             UserDAO daoU = new UserDAOImpl();
             RoomDAO daoR = new RoomDAOImpl();
             ReceptionistDAO daoReceptionist = new ReceptionistDAOImpl();
-            SendFeedbackDAO daoRequest = new SendFeedbackDAOIpml();
+            RequestMessageDAO daoRequest = new RequestMessageDAOIpml();
             MessageDAO daoMessage = new MessageDAOImpl();
             ReservationDAO daoReservation = new ReservationDAOImpl();
             DecimalFormat formatter = new DecimalFormat("###,###,###");
@@ -64,7 +64,7 @@ public class AdminController extends HttpServlet {
                 ArrayList<Room> listRoom = daoR.getRoomListAll("select * from Room"); // phòng
                 ArrayList<User> listUser = daoReceptionist.getCustomerListByReceptionist(); // số khách hàng
                 ArrayList<User> listReceptionist = daoReceptionist.getListByReceptionist(); //số lễ tân
-                ArrayList<sendFeedback> listRequest = daoRequest.getMessage(); // số yêu cầu
+                ArrayList<RequestMessage> listRequest = daoRequest.getMessage(); // số yêu cầu
                 ArrayList<Message> listMessage = daoMessage.getAllComment();// số phản hồi
 
                 int sumReservation = daoReservation.sumReservation(); // tổng tiền
@@ -178,8 +178,8 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                 }
                 if (checkin.isEmpty() && checkout.isEmpty() && !name.isEmpty()) {
-                    int roomName = Integer.parseInt(name);
-                    if (daoR.checkRoom(roomName) != null) {
+
+                    if (daoR.checkRoom(name) != null) {
                         ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, null, null);
                         request.setAttribute("listReservation", listReservation);
                         request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
@@ -200,8 +200,8 @@ public class AdminController extends HttpServlet {
                     request.setAttribute("checkout", checkout);
                     request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                 } else {
-                    int roomName = Integer.parseInt(name);
-                    if (daoR.checkRoom(roomName) != null) {
+
+                    if (daoR.checkRoom(name) != null) {
                         Date to = Date.valueOf(checkin);
                         Date from = Date.valueOf(checkout);
                         ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, to, from);
@@ -221,30 +221,22 @@ public class AdminController extends HttpServlet {
             }
             if (service.equals("ReportMonth")) { // view số liệu theo tháng
                 ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, null);
-                ArrayList<Reservation> listReservationAllYear = daoReservation.selectAllYear();
+                ArrayList<Integer> listReservationAllYear = daoReservation.selectAllYear();
+                ArrayList<Integer> listReservationAllMonth = daoReservation.selectAllMotnh();
                 request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                 request.setAttribute("listReservationAllYear", listReservationAllYear);
+                request.setAttribute("listReservationAllMonth", listReservationAllMonth);
                 request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
 
             }
 
             if (service.equals("ReportMonth1")) { // Báo cáo số liệu theo tháng
-                int month = 0;
-                int sum = 0;
-                String month1 = request.getParameter("name").trim();
-                ArrayList<Reservation> listReservationAllYear = daoReservation.selectAllYear();
+                ArrayList<Integer> listReservationAllYear = daoReservation.selectAllYear();
+                ArrayList<Integer> listReservationAllMonth = daoReservation.selectAllMotnh();
+                request.setAttribute("listReservationAllMonth", listReservationAllMonth);
                 request.setAttribute("listReservationAllYear", listReservationAllYear);
-                if (!month1.isEmpty()) {
-                    if (request.getParameter("name").matches("^[0-9]+$")) {
-                        month = Integer.parseInt(month1);
-                    } else {
-                        String err1 = "Vui lòng nhập số dương.";
-                        request.setAttribute("err1", err1);
-                        request.setAttribute("name", month1);
-                        request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
-
-                    }
-                }
+                int month = Integer.parseInt(request.getParameter("month"));
+                int sum = 0;
                 int year = Integer.parseInt(request.getParameter("year"));
 
                 if (month == 0 && year == 0) {
@@ -255,7 +247,6 @@ public class AdminController extends HttpServlet {
                         ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, null);
                         request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                         request.setAttribute("year", year);
-                        request.setAttribute("name", "");
                         request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
                     } else if (year != 0 && month == 0) {
 
@@ -266,7 +257,6 @@ public class AdminController extends HttpServlet {
                         }
                         request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                         request.setAttribute("year", year);
-                        request.setAttribute("name", "");
                         request.setAttribute("sum", formatter.format(sum));
                         request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
 

@@ -19,5 +19,6 @@ public interface ReservationDAO {
     public ArrayList<Reservation> totalOfRoomSearch(String name, Date from, Date to) throws Exception;
     public ArrayList<Reservation> totalOfRoom() throws Exception;
     public ArrayList<Reservation> totalOfRoomByMonth(Integer month, Integer year) throws Exception;
-    public ArrayList<Reservation> selectAllYear() throws Exception;
+    public ArrayList<Integer> selectAllYear() throws Exception;
+    public ArrayList<Integer> selectAllMotnh() throws Exception;
 }
