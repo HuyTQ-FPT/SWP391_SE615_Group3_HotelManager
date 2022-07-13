@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2022, FPT University
  * SWP391 - SE1615 - Group3
@@ -8,6 +9,8 @@
  *               1.0                         First Deploy
  * 13/07/2022    1.0        HieuLBM          Comment
  */
+
+
 package dao.impl;
 
 import entity.Device;
@@ -29,10 +32,6 @@ import java.util.Vector;
  */
 public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 
-    @Override
-    public Vector<Device> getAllDevice() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void insertDevice(String name, String price, String status, String RoomcateID, String Quantity) {
@@ -235,4 +234,6 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
         }
         return vector;
     }
+
 }
+

@@ -216,11 +216,6 @@ public class MessageDAOImpl extends DBContext implements MessageDAO{
     }
 
     @Override
-    public void updateMessage(int mID, Message updateMessage) throws Exception {
-
-    }
-
-    @Override
     public void deleteMessage(int mID) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;

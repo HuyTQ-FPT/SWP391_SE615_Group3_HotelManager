@@ -6,7 +6,7 @@
  * Record of change:
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
- * 13/07/2022    1.0        HieuLBM          Comment
+ * 13/07/2022    1.0        HuyTQ            Comment
  */
 package dao;
 
@@ -16,13 +16,10 @@ import java.util.ArrayList;
 /**
  * Lớp này chứa các interface của UserDAOImpl
  *
- * @author
+ * @author HuyTQ
  */
 public interface UserDAO {
 
-    public ArrayList<User> getUserList() throws Exception;
-
-    public void insertUser(User User) throws Exception;
 
     /**
      * update a user from User table
@@ -32,9 +29,14 @@ public interface UserDAO {
      */
     public void updateUserEcept(User User) throws Exception;
 
+    /**
+     * update a user from User table
+     *
+     * @param User is a <code>User</code> object
+     * @throws java.lang.Exception
+     */
     public int updateUser(User User) throws Exception;
 
-    public void deleteUser(int uid) throws Exception;
 
     /**
      * get a customer information from User table
@@ -45,8 +47,22 @@ public interface UserDAO {
      */
     public User getUser(int accountID) throws Exception;
 
+    /**
+     * get a customer information from User table
+     *
+     * @param accountID is an int
+     * @return <code>User</code> object.
+     * @throws java.lang.Exception
+     */
     public User getUserByaID(int accountID) throws Exception;
 
+    /**
+     * Check String input is string of number
+     *
+     * @param str is an String
+     * @return true/false.
+     * @throws java.lang.Exception
+     */
     public boolean isNumeric(String str) throws Exception;
 
     /**

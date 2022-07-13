@@ -6,7 +6,7 @@
  * Record of change:
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
- * 13/07/2022    1.0        HieuLBM          Comment
+ * 13/07/2022    1.0        HuyTQ            Comment
  */
 package dao;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Lớp này chứa các interface của AccountDAOImpl
  *
- * @author
+ * @author HuyTQ
  */
 public interface AccountDAO {
 
@@ -39,11 +39,15 @@ public interface AccountDAO {
      */
     public Account getAccount(String aName, String aPass) throws Exception;
 
-    public void insertAccount(int aRole, String aName, String aPass) throws Exception;
-
+    /**
+     * update request from the MessageRequest table
+     *
+     * @param aUser is an String
+     * @param aPassword is an String
+     * @return Integer
+     * @throws java.lang.Exception
+     */
     public int updateAccount(String aUser, String aPassword) throws Exception;
-
-    public void deleteAccount(String aName) throws Exception;
 
     /**
      * checks name to get user's information
@@ -54,11 +58,34 @@ public interface AccountDAO {
      */
     public Account checkAccount(String aName) throws Exception;
 
-    public ArrayList<Account> getAccountByRole(int aRole) throws Exception;
-
+    /**
+     * Register account customer and insert to database
+     *
+     * @param ac is an Account
+     * @param name is an String
+     * @param email is an String
+     * @return Integer
+     * @throws java.lang.Exception
+     */
     public int Register(Account ac, String name, String email) throws Exception;
 
+    /**
+     * update account and user in Account table and User table
+     *
+     * @param aPassword is an String
+     * @param uGmail is an String
+     * @return Integer
+     * @throws java.lang.Exception
+     */
     public int updateAccountAndUser(String aPassword, String uGmail) throws Exception;
 
+    /**
+     * update role account 
+     *
+     * @param RoleID is an Integer
+     * @param user is an String
+     * @return int
+     * @throws java.lang.Exception
+     */
     public void updateRole(int RoleID, String user);
 }

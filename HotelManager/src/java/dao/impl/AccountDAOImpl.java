@@ -6,7 +6,7 @@
  * Record of change:
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
- * 13/07/2022    1.0        HieuLBM          Comment
+ * 14/07/2022    1.0        HuyTQ          Comment
  */
 package dao.impl;
 
@@ -107,11 +107,6 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     }
 
     @Override
-    public void insertAccount(int aRole, String aName, String aPass) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int updateAccount(String aUser, String aPassword) throws Exception {
         Connection conn = null;
         /* Prepared statement for executing sql queries */
@@ -143,10 +138,6 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         return n;
     }
 
-    @Override
-    public void deleteAccount(String aName) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     /**
      * checks name to get user's information
@@ -200,12 +191,9 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
-    @Override
-    public ArrayList<Account> getAccountByRole(int aRole) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public int Register(Account ac, String name, String email) throws Exception {

@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2022, FPT University
  * SWP391 - SE1615 - Group3
@@ -6,7 +7,7 @@
  * Record of change:
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
- * 13/07/2022    1.0        HieuLBM          Comment
+ * 14/07/2022    1.0        HuyTQ          Comment
  */
 package dao.impl;
 
@@ -27,17 +28,6 @@ import java.util.ArrayList;
  * @author
  */
 public class UserDAOImpl extends DBContext implements UserDAO {
-
-    @Override
-    public ArrayList<User> getUserList() throws Exception {
-        return null;
-
-    }
-
-    @Override
-    public void insertUser(User User) throws Exception {
-
-    }
 
     @Override
     public int updateUser(User User) throws Exception {
@@ -70,10 +60,6 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         return n;
     }
 
-    @Override
-    public void deleteUser(int uid) throws Exception {
-
-    }
 
     @Override
     public User getUserByaID(int Accountid) throws Exception {

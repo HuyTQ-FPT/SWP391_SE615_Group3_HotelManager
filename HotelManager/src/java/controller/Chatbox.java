@@ -53,8 +53,7 @@ public class Chatbox {
                 int aid = 0;
                 int userid = 0;
                 String s1 = username;
-                String[] words = s1.split("\\s");//tach chuoi dua tren khoang trang
-                //su dung vong lap foreach de in cac element cua mang chuoi thu duoc
+                String[] words = s1.split("\\s");
                 for (String w : words) {
                     userid = Integer.parseInt(w);
                     break;
@@ -70,8 +69,6 @@ public class Chatbox {
                         break;
                     }
                 }
-                System.out.println(Roleid);
-                System.out.println(exitAccount);
                 User u = Udao.getUserByaID(aid);
                 int countSession=0;
                 for (Session session : users) {
@@ -80,8 +77,7 @@ public class Chatbox {
                     int SessionUserid = 0;
                     String ValueSS = "";
                     ValueSS = (String) session.getUserProperties().get("username");
-                    String[] words1 = ValueSS.split("\\s");//tach chuoi dua tren khoang trang
-                    //su dung vong lap foreach de in cac element cua mang chuoi thu duoc
+                    String[] words1 = ValueSS.split("\\s");
                     for (String w : words1) {
                         SessionUserid = Integer.parseInt(w);
                         break;
@@ -113,23 +109,23 @@ public class Chatbox {
                     }
                     if (Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid != aid) {
                         if (Roleid == 1) {
-                            Mdao.insertNewmessagecus(new Message(aid, date, message));
+                            Mdao.insertNewmessagecus(new Message(aid, date, message.trim()));
                         } else {
                             Mdao.insertMessageRe(new Message(aid, date, message));
                         }
                         session.getBasicRemote().sendText(aid + " " + "<span>*</span>");
                     }else if(Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid == aid) {
                         if (Roleid == 1) {
-                            Mdao.insertMessageCus(new Message(aid, date, message));
+                            Mdao.insertMessageCus(new Message(aid, date, message.trim()));
                         } else {
-                            Mdao.insertMessageRe(new Message(aid, date, message));
+                            Mdao.insertMessageRe(new Message(aid, date, message.trim()));
                         }
                     }
                     if (!exitAccount && Mdao.getRoleIDByUserId(userid) != 2) {
                         if (Roleid == 1) {
-                            Mdao.insertNewmessagecus(new Message(aid, date, message));
+                            Mdao.insertNewmessagecus(new Message(aid, date, message.trim()));
                         } else {
-                            Mdao.insertMessageRe(new Message(aid, date, message));
+                            Mdao.insertMessageRe(new Message(aid, date, message.trim()));
                         }
                         session.getBasicRemote().sendText("<a href=\"MessageController?do=Chat_people&accountid=" + aid + "\">                               \n"
                                 + "                                <div class=\"chat_list\">\n"
@@ -146,7 +142,7 @@ public class Chatbox {
                     }
                 }
                 if(Mdao.getRoleIDByUserId(userid)==1 && countSession==1){
-                            Mdao.insertNewmessagecus(new Message(aid, date, message));                       
+                            Mdao.insertNewmessagecus(new Message(aid, date, message.trim()));                       
 
                 }
             }

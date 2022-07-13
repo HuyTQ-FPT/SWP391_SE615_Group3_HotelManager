@@ -30,8 +30,6 @@ public interface DeviceDAO {
      */
     public ArrayList<Device> numberOfDevice() throws Exception;
 
-    public Vector<Device> getAllDevice();
-
     public Vector<Device> getDevicebycateroom(String cateRoom, int n);
 
     public Vector<Device> getDevicebycateroom(String cateRoom);
