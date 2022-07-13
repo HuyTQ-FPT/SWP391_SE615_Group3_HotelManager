@@ -4,6 +4,7 @@ import dao.ImageDAO;
 import entity.Image;
 import entity.Room;
 import context.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -127,5 +128,31 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Image searchRoomidAndImage(int RoomID) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
+        String sql = "select i.image1,i.image2,i.image3,i.image4 from [Image] i inner join [Room] r on i.RoomimgaeID = r.RoomimgaeID\n"
+                + "where r.RoomID=" + RoomID;
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            if (rs.next()) {
+                return new Image(rs.getString("image1"), rs.getString("image2"), rs.getString("image3"), rs.getString("image4"));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return null;
     }
 }

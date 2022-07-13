@@ -554,14 +554,16 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     @Override
-    public ArrayList<Room> getRoomListAll(String sql) throws Exception {
-
+    public ArrayList<Room> getRoomListAll() throws Exception {
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-
-        ArrayList<Room> vector = new ArrayList<Room>();
+        String sql = "select * from Room";
+        ArrayList<Room> vector = new ArrayList<>();
         try {
-            rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -584,7 +586,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-
+            closeConnection(conn);
         }
 
         return vector;
@@ -662,31 +664,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
-    @Override
-    public Image searchRoomidAndImage(int RoomID) throws Exception {
-        Connection conn = null;
-        PreparedStatement pre = null;
-        ResultSet rs = null;
-
-        String sql = "select i.image1,i.image2,i.image3,i.image4 from [Image] i inner join [Room] r on i.RoomimgaeID = r.RoomimgaeID\n"
-                + "where r.RoomID=" + RoomID;
-        try {
-            conn = getConnection();
-            pre = conn.prepareStatement(sql);
-            rs = pre.executeQuery();
-            if (rs.next()) {
-                return new Image(rs.getString("image1"), rs.getString("image2"), rs.getString("image3"), rs.getString("image4"));
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            closeResultSet(rs);
-            closePreparedStatement(pre);
-            closeConnection(conn);
-
-        }
-        return null;
-    }
+   
 
     @Override
     public ArrayList<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception {
@@ -753,35 +731,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return null;
     }
 
-    @Override
-    public ArrayList< RoomCategory> numberOfRoomsByCategory() throws Exception {
-        Connection conn = null;
-        PreparedStatement pre = null;
-        ResultSet rs = null;
-        ArrayList< RoomCategory> vector = new ArrayList<>();
-
-        String sql = "select c.RoomcateID,c.Catename ,COUNT(r.RoomcateID) as count from CateRoom c inner join Room r on c.RoomcateID = r.RoomcateID \n"
-                + "group by c.RoomcateID,c.Catename";
-        try {
-            conn = getConnection();
-            pre = conn.prepareStatement(sql);
-            rs = pre.executeQuery();
-            while (rs.next()) {
-
-                vector.add(new RoomCategory(rs.getInt("RoomcateID"), rs.getString("Catename"), rs.getInt("count")));
-
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            closeResultSet(rs);
-            closePreparedStatement(pre);
-            closeConnection(conn);
-
-        }
-        return vector;
-    }
-
+    
     @Override
     public ArrayList<Room> sumOfRoom() throws Exception {
         Connection conn = null;
@@ -809,33 +759,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
-    @Override
-    public ArrayList<Device> numberOfDevice() throws Exception {
-        Connection conn = null;
-        PreparedStatement pre = null;
-        ResultSet rs = null;
-        ArrayList<Device> vector = new ArrayList<>();
-
-        String sql = "select d.DeviceName , SUM(r.Quantity) as Quantity from  RoomDevice r INNER JOIN Device d on \n"
-                + "                r.DeviceID = d.DeviceID\n"
-                + "                group by d.DeviceName";
-        try {
-            conn = getConnection();
-            pre = conn.prepareStatement(sql);
-            rs = pre.executeQuery();
-            while (rs.next()) {
-                vector.add(new Device(rs.getString("DeviceName"), rs.getInt("Quantity")));
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            closeResultSet(rs);
-            closePreparedStatement(pre);
-            closeConnection(conn);
-
-        }
-        return vector;
-    }
+    
 
     @Override
     public RoomCategory getRoomCate(int cateID) throws Exception {
@@ -890,7 +814,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        String sql = "select * from Room where Roomname = '"+roomName+"'";
+        String sql = "select * from Room where Roomname = '" + roomName + "'";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);

@@ -53,7 +53,7 @@
             </div> 
         </form>
         <c:if test="${!empty listReservationTotalOfMotnh}">
-            <c:if test="${year!=0 && year!=null}">
+            <c:if test="${year!=0 && year!=null && month==0}">
 
                 <div style="position: relative">
                     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-10 tm-block-col ok" style="   position: absolute;

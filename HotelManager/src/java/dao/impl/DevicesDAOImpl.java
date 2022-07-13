@@ -185,22 +185,20 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
     }
 
     @Override
-    public ArrayList<Device> getDeviceByCateId(int cateRoom) throws Exception {
+    public ArrayList<Device> numberOfDevice() throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
+        ArrayList<Device> vector = new ArrayList<>();
 
-        ArrayList<Device> vector = new ArrayList<Device>();
-        String sql = "select Device.DeviceName,RoomDevice.Quantity from RoomDevice INNER JOIN Device on \n"
-                + "RoomDevice.DeviceID = Device.DeviceID \n"
-                + "where RoomDevice.RoomID = " + cateRoom;
-
+        String sql = "select d.DeviceName , SUM(r.Quantity) as Quantity from  RoomDevice r INNER JOIN Device d on \n"
+                + "                r.DeviceID = d.DeviceID\n"
+                + "                group by d.DeviceName";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {
-
                 vector.add(new Device(rs.getString("DeviceName"), rs.getInt("Quantity")));
             }
         } catch (Exception e) {
@@ -213,5 +211,4 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
         }
         return vector;
     }
-
 }

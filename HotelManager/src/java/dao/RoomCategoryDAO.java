@@ -1,11 +1,26 @@
-
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
+ */
 package dao;
 
 import entity.RoomCategory;
+import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ * Lớp này chứa các interface của RoomCategoryDAOImpl
+ *
+ * @author
+ */
 public interface RoomCategoryDAO {
-    
+
     public Vector<RoomCategory> getRoomCategoryList(String sql);
 
     public RoomCategory getAccount(int cateid);
@@ -16,4 +31,11 @@ public interface RoomCategoryDAO {
 
     public void deleteRoomCategory(String roomcate);
 
+    /**
+     * get count RoomcateID from RoomCategory table
+     *
+     * @return <code>ArrayList<RoomCategory></code> object.
+     * @throws java.lang.Exception
+     */
+    public ArrayList<RoomCategory> numberOfRoomsByCategory() throws Exception;
 }

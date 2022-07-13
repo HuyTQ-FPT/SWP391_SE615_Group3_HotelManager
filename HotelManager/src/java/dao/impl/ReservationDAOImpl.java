@@ -12,7 +12,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
-
 public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
     @Override
@@ -225,31 +224,31 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
     }
 
     @Override
-    public ArrayList<Reservation> totalOfRoomByMonth(Integer month, Integer year) throws Exception {
+    public ArrayList<Reservation> totalOfRoomByMonth(int month, int year) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
         ArrayList<Reservation> ArrayList = new ArrayList<>();
         String sql = "";
-        if (month == null && year == null) {
+        if (month == 0 && year == 0) {
 
             sql = "select  MONTH(Checkin)as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation       \n"
                     + "group by MONTH(Checkin),YEAR(Checkin)\n"
                     + "order by MONTH(Checkin),YEAR(Checkin)";
         }
-        if (month != null && year != null) {
+        if (month != 0 && year != 0) {
             sql = "select  MONTH(Checkin) as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation       \n"
                     + "where MONTH(Checkin) =" + month + " and  YEAR(Checkin) = " + year + "\n"
                     + "group by MONTH(Checkin),YEAR(Checkin)\n"
                     + "order by MONTH(Checkin),YEAR(Checkin)";
         }
-        if (month == null && year != null) {
+        if (month == 0 && year != 0) {
             sql = "select  MONTH(Checkin)as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation       \n"
                     + "where YEAR(Checkin) = " + year + "\n"
                     + "group by MONTH(Checkin),YEAR(Checkin)\n"
                     + "order by MONTH(Checkin),YEAR(Checkin)";
         }
-        if (month != null & year == null) {
+        if (month != 0 & year == 0) {
             sql = "select  MONTH(Checkin)as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation      \n"
                     + "                    where  MONTH(Checkin)=" + month + "\n"
                     + "                   group by MONTH(Checkin),YEAR(Checkin)\n"
@@ -368,6 +367,72 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
         }
 
+        return ArrayList;
+    }
+
+    @Override
+    public Reservation viewOrderDetails(int uID) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
+        String sql = "select r.BillID,r.UserID,r.Name,ro.Roomname,r.Address,r.Email,r.Phone,r.Checkin,r.Checkout,ro.RoomPrice,r.Total,r.[Status] from [Reservation] r inner join [User] u on r.UserID= u.UserID\n"
+                + "              inner join Room ro on r.RoomID = ro.RoomID  \n"
+                + "              where u.UserID=" + uID;
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+
+            rs = pre.executeQuery();
+
+            if (rs.next()) {
+                return new Reservation(rs.getInt("BillID"), uID, rs.getString("Name"), rs.getString("Roomname"), rs.getString("Address"), rs.getString("Email"), rs.getString("Phone"),
+                        rs.getDate("Checkin"), rs.getDate("Checkout"), rs.getDouble("Roomprice"), rs.getDouble("Total"), rs.getInt("Status"));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<Reservation> OrderDetails(int uID) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
+        String sql = "select r.BillID,r.UserID,r.Name,ro.Roomname,r.Address,r.Email,r.Phone,r.Checkin,r.Checkout,ro.RoomPrice,r.Total,r.[Status] from [Reservation] r inner join [User] u on r.UserID= u.UserID\n"
+                + "              inner join Room ro on r.RoomID = ro.RoomID  \n"
+                + "              where u.UserID=" + uID;
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                Reservation r = new Reservation(rs.getInt("BillID"), uID, rs.getString("Name"), rs.getString("Roomname"), rs.getString("Address"), rs.getString("Email"), rs.getString("Phone"),
+                        rs.getDate("Checkin"), rs.getDate("Checkout"), rs.getDouble("Roomprice"), rs.getDouble("Total"), rs.getInt("Status"));
+                ArrayList.add(r);
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
         return ArrayList;
     }
 

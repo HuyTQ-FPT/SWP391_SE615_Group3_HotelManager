@@ -1,16 +1,18 @@
 package controller;
 
+import dao.DeviceDAO;
 import dao.MessageDAO;
-import dao.ReceptionistDAO;
 import dao.ReservationDAO;
 import dao.RoomDAO;
 import dao.RequestMessageDAO;
+import dao.RoomCategoryDAO;
 import dao.UserDAO;
+import dao.impl.DevicesDAOImpl;
 import dao.impl.MessageDAOImpl;
-import dao.impl.ReceptionistDAOImpl;
 import dao.impl.ReservationDAOImpl;
 import dao.impl.RoomDAOImpl;
 import dao.impl.RequestMessageDAOIpml;
+import dao.impl.RoomCategoryDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
 import entity.Device;
@@ -50,7 +52,9 @@ public class AdminController extends HttpServlet {
             HttpSession session = request.getSession();
             UserDAO daoU = new UserDAOImpl();
             RoomDAO daoR = new RoomDAOImpl();
-            ReceptionistDAO daoReceptionist = new ReceptionistDAOImpl();
+            DeviceDAO deviceDAO = new DevicesDAOImpl();
+            RoomCategoryDAO roomCategoryDAO = new RoomCategoryDAOImpl();
+
             RequestMessageDAO daoRequest = new RequestMessageDAOIpml();
             MessageDAO daoMessage = new MessageDAOImpl();
             ReservationDAO daoReservation = new ReservationDAOImpl();
@@ -61,16 +65,16 @@ public class AdminController extends HttpServlet {
 
             }
             if (service.equals("indexAdmin")) { // trang chủ admin
-                ArrayList<Room> listRoom = daoR.getRoomListAll("select * from Room"); // phòng
-                ArrayList<User> listUser = daoReceptionist.getCustomerListByReceptionist(); // số khách hàng
-                ArrayList<User> listReceptionist = daoReceptionist.getListByReceptionist(); //số lễ tân
+                ArrayList<Room> listRoom = daoR.getRoomListAll(); // phòng
+                ArrayList<User> listUser = daoU.getCustomerListByReceptionist(); // số khách hàng
+                ArrayList<User> listReceptionist = daoU.getListByReceptionist(); //số lễ tân
                 ArrayList<RequestMessage> listRequest = daoRequest.getMessage(); // số yêu cầu
                 ArrayList<Message> listMessage = daoMessage.getAllComment();// số phản hồi
 
                 int sumReservation = daoReservation.sumReservation(); // tổng tiền
-                ArrayList<RoomCategory> listroomCategory = daoR.numberOfRoomsByCategory(); // thống kê theo loại phòng
+                ArrayList<RoomCategory> listroomCategory = roomCategoryDAO.numberOfRoomsByCategory(); // thống kê theo loại phòng
                 ArrayList<Room> listStatus = daoR.sumOfRoom();
-                ArrayList<Device> listDevice = daoR.numberOfDevice(); // Thống kê thiết bị
+                ArrayList<Device> listDevice = deviceDAO.numberOfDevice(); // Thống kê thiết bị
                 ArrayList<Reservation> listReservationOfService = daoReservation.sumService(); // Thống kê thiết bị
                 request.setAttribute("listroomCategory", listroomCategory);
                 request.setAttribute("listRoom", listRoom);
@@ -207,6 +211,12 @@ public class AdminController extends HttpServlet {
                         ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, to, from);
                         request.setAttribute("listReservation", listReservation);
                         request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                    } else if (daoR.checkRoom(name) == null && name.isEmpty()) {
+                        String err1 = "Vui lòng nhập Từ ngày < Đến ngày";
+                        request.setAttribute("err1", err1);
+                        request.setAttribute("checkin", checkin);
+                        request.setAttribute("checkout", checkout);
+                        request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                     } else {
                         String err1 = "Tên phòng không tồn tại.";
                         request.setAttribute("err1", err1);
@@ -215,12 +225,12 @@ public class AdminController extends HttpServlet {
                         request.setAttribute("checkout", checkout);
                         request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                     }
-
                 }
 
             }
+
             if (service.equals("ReportMonth")) { // view số liệu theo tháng
-                ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, null);
+                ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(0, 0);
                 ArrayList<Integer> listReservationAllYear = daoReservation.selectAllYear();
                 ArrayList<Integer> listReservationAllMonth = daoReservation.selectAllMotnh();
                 request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
@@ -244,19 +254,20 @@ public class AdminController extends HttpServlet {
                 } else {
 
                     if (year == 0) {
-                        ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, null);
+                        ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, year);
                         request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                         request.setAttribute("year", year);
                         request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
                     } else if (year != 0 && month == 0) {
 
-                        ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(null, year);
+                        ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, year);
                         for (Reservation r : listReservationTotalOfMotnh) {
                             sum += r.getTotal();
 
                         }
                         request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                         request.setAttribute("year", year);
+                        request.setAttribute("month", month);
                         request.setAttribute("sum", formatter.format(sum));
                         request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
 

@@ -1,17 +1,14 @@
-
 package dao.impl;
 
 import dao.UserDAO;
-import entity.Account;
 import entity.User;
 import context.DBContext;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UserDAOImpl extends DBContext implements UserDAO {
 
@@ -32,7 +29,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-       
+
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
         try {
             conn = getConnection();
@@ -52,7 +49,6 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             closeResultSet(rs);
             closePreparedStatement(pre);
             closeConnection(conn);
-           
 
         }
         return n;
@@ -60,18 +56,18 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public void deleteUser(int uid) throws Exception {
-       
+
     }
 
-        @Override
+    @Override
     public User getUserByaID(int Accountid) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
 
-        String sql = "select u.* from Account a join [User] u\n" +
-"on a.AccountID=u.AccountID\n" +
-"where a.AccountID=?";
+        String sql = "select u.* from Account a join [User] u\n"
+                + "on a.AccountID=u.AccountID\n"
+                + "where a.AccountID=?";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
@@ -90,16 +86,17 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         }
         return null;
     }
+
     @Override
 
     public User getUser(int accountID) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
-      
+
         String sql = "select * from [User] where AccountID=?";
         try {
-            conn= getConnection();
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
             pre.setInt(1, accountID);
             rs = pre.executeQuery();
@@ -113,7 +110,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
             closeResultSet(rs);
             closePreparedStatement(pre);
             closeConnection(conn);
-           
+
         }
         return null;
     }
@@ -122,11 +119,11 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     public void updateUserEcept(User User) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
-      
+
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?,Birthday=? where UserID=?";
 
         try {
-            conn= getConnection();
+            conn = getConnection();
             pre = conn.prepareStatement(sqlPre);
             pre.setString(1, User.getUserName());
             pre.setString(2, User.getUserAdress());
@@ -156,13 +153,13 @@ public class UserDAOImpl extends DBContext implements UserDAO {
 
     @Override
     public User checkUser(String uGmail) throws Exception {
-       Connection conn = null;
+        Connection conn = null;
         PreparedStatement pre = null;
         ResultSet rs = null;
         String sql = "select * from [User] \n"
                 + " where UserEmail=?";
         try {
-            conn= getConnection();
+            conn = getConnection();
             pre = conn.prepareStatement(sql);
 
             pre.setString(1, uGmail);
@@ -182,4 +179,131 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         return null;
     }
 
- }
+    @Override
+    public ArrayList<User> getCustomerListByReceptionist() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
+        ArrayList<User> ArrayList = new ArrayList<>();
+        try {
+            String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
+                    + "where c.RoleID=1";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int uID = rs.getInt(1);
+                int uAID = rs.getInt(2);
+                String uName = rs.getString(3);
+                String uPhone = rs.getString(4);
+                String uEmail = rs.getString(5);
+                int uGender = rs.getInt(6);
+                Date birthday = rs.getDate(7);
+                String uAdress = rs.getString(8);
+                String uCMT = rs.getString(9);
+                String uImgCmt = rs.getString(10);
+
+                User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, birthday, uAdress, uCMT, uImgCmt);
+                ArrayList.add(u);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return ArrayList;
+    }
+
+    @Override
+    public ArrayList<User> getSearchNameCustomerListByReceptionist(String uName) throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
+        ArrayList<User> ArrayList = new ArrayList<>();
+        String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
+                + "where u.UserName like N'%" + uName + "%' and c.RoleID=1";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int uID = rs.getInt(1);
+                int uAID = rs.getInt(2);
+                uName = rs.getString(3);
+                String uPhone = rs.getString(4);
+                String uEmail = rs.getString(5);
+                int uGender = rs.getInt(6);
+                Date birthday = rs.getDate(7);
+                String uAdress = rs.getString(8);
+                String uCMT = rs.getString(9);
+                String uImgCmt = rs.getString(10);
+
+                User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, birthday, uAdress, uCMT, uImgCmt);
+                ArrayList.add(u);
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return ArrayList;
+    }
+
+    @Override
+    public ArrayList<User> getListByReceptionist() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+
+        ArrayList<User> ArrayList = new ArrayList<>();
+        try {
+            String sql = "select u.*  from Account c inner join [User] u on c.AccountID = u.AccountID\n"
+                    + "where c.RoleID=2";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int uID = rs.getInt(1);
+                int uAID = rs.getInt(2);
+                String uName = rs.getString(3);
+                String uPhone = rs.getString(4);
+                String uEmail = rs.getString(5);
+                int uGender = rs.getInt(6);
+                Date birthday = rs.getDate(7);
+                String uAdress = rs.getString(8);
+                String uCMT = rs.getString(9);
+                String uImgCmt = rs.getString(10);
+
+                User u = new User(uID, uAID, uName, uPhone, uEmail, uGender, birthday, uAdress, uCMT, uImgCmt);
+                ArrayList.add(u);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return ArrayList;
+
+    }
+}

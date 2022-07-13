@@ -50,8 +50,8 @@ public class CompareTwoController extends HttpServlet {
                 int RoomID1 = Integer.parseInt(request.getParameter("Roomid1").trim());
                 int cateID = Integer.parseInt(request.getParameter("cateID").trim());
 
-                Image img = daoR.searchRoomidAndImage(RoomID);
-                Image img1 = daoR.searchRoomidAndImage(RoomID1);
+                Image img = daoI.searchRoomidAndImage(RoomID);
+                Image img1 = daoI.searchRoomidAndImage(RoomID1);
                 Room rooom = daoR.getOneRoom(RoomID);
                 Room rooom1 = daoR.getOneRoom(RoomID1);
 

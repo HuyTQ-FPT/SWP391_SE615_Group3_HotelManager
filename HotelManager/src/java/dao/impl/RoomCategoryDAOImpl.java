@@ -1,14 +1,14 @@
-
 package dao.impl;
 
 import dao.RoomCategoryDAO;
 import entity.RoomCategory;
 import context.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
-
 
 public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
 
@@ -30,21 +30,6 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
         return vector;
     }
 
-    public static void main(String[] args) {
-        RoomCategoryDAOImpl dao = new RoomCategoryDAOImpl();
-//        Vector<RoomCategory> vector = dao.getRoomCategoryList("with t as(select *, ROW_NUMBER() OVER (order by CateRoom.RoomCateID)\n"
-//                + "                AS RowNum from CateRoom )\n"
-//                + "				select * from t \n"
-//                + "				Where RowNum between 1 AND 3");
-//int n = dao.getPage("select count (*) from CateRoom");
-//        System.out.println(n);
-//        for (RoomCategory roomCategory : vector) {
-////        System.out.println(vector.lastElement().getRoomcateID());
-////        dao.insertRoomCategory("nguyen van a");
-//            System.out.println(roomCategory);
-////        dao.deleteRoomCategory("15");
-//        }
-    }
 
     @Override
     public RoomCategory getAccount(int cateid) {
@@ -120,6 +105,35 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public ArrayList< RoomCategory> numberOfRoomsByCategory() throws Exception {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        ArrayList<RoomCategory> vector = new ArrayList<>();
+
+        String sql = "select c.RoomcateID,c.Catename ,COUNT(r.RoomcateID) as count from CateRoom c inner join Room r on c.RoomcateID = r.RoomcateID \n"
+                + "group by c.RoomcateID,c.Catename";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+
+                vector.add(new RoomCategory(rs.getInt("RoomcateID"), rs.getString("Catename"), rs.getInt("count")));
+
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
     }
 
 }
