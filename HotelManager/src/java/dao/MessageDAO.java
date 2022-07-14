@@ -32,7 +32,7 @@ public interface MessageDAO {
     /**
      * Get list message by name from database
      *
-     * * @param mName is an String
+     * @param mName is an String
      * @return a list of <code>Message</code> objects. It is a
      * <code>java.util.ArrayList</code> object
      * @throws java.lang.Exception
@@ -51,7 +51,7 @@ public interface MessageDAO {
     /**
      * add message of customer in Message table of database
      *
-     * * @param mess is a Message abject
+     * @param mess is a Message abject
      * @return Integer
      * @throws java.lang.Exception
      */
@@ -60,7 +60,7 @@ public interface MessageDAO {
     /**
      * add new message if receptionist not yet seen in Message table of database
      *
-     * * @param mess is a Message abject
+     * @param mess is a Message abject
      * @return Integer
      * @throws java.lang.Exception
      */
@@ -69,7 +69,7 @@ public interface MessageDAO {
     /**
      * add feedback in Message table of database
      *
-     * * @param mess is a Message abject
+     * @param mess is a Message abject
      * @return Integer
      * @throws java.lang.Exception
      */
@@ -78,7 +78,7 @@ public interface MessageDAO {
     /**
      * add message of receptionist in Message table of database
      *
-     * * @param mess is a Message abject
+     * @param mess is a Message abject
      * @return Integer
      * @throws java.lang.Exception
      */
@@ -87,7 +87,7 @@ public interface MessageDAO {
     /**
      * get roleID by userID from database
      *
-     * * @param mess is a Message abject
+     * @param userID is Integer
      * @return Integer
      * @throws java.lang.Exception
      */

@@ -25,15 +25,24 @@ import java.util.ArrayList;
  * The class has methods needed for initialize connection with database and
  * execute queries with User and associate tables
  *
- * @author
+ * @author HuyTQ
  */
 public class UserDAOImpl extends DBContext implements UserDAO {
 
+    /**
+     * update user from the User table
+     *
+     * @param User
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateUser(User User) throws Exception {
         int n = 0;
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?, UserGender=?, Birthday=? where UserID=?";
@@ -60,11 +69,19 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         return n;
     }
 
-
+    /**
+     * get a customer information by user id from User table
+     *
+     * @param Accountid
+     * @return 
+     * @throws Exception
+     */
     @Override
     public User getUserByaID(int Accountid) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sql = "select u.* from Account a join [User] u\n"
@@ -89,11 +106,19 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         return null;
     }
 
+    /**
+     * get a customer information from User table
+     *
+     * @param Accountid
+     * @return 
+     * @throws Exception
+     */
     @Override
-
     public User getUser(int accountID) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sql = "select * from [User] where AccountID=?";
@@ -117,6 +142,12 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         return null;
     }
 
+    /**
+     * update a user from User table
+     *
+     * @param User
+     * @throws Exception
+     */
     @Override
     public void updateUserEcept(User User) throws Exception {
         Connection conn = null;
@@ -145,6 +176,13 @@ public class UserDAOImpl extends DBContext implements UserDAO {
         }
     }
 
+    /**
+     * Check String input is string of number
+     *
+     * @param str
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean isNumeric(String str) throws Exception {
         for (char c : str.toCharArray()) {

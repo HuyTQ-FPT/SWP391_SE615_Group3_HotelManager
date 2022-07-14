@@ -36,7 +36,9 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
     public ArrayList<RequestMessage> getMessage() throws Exception {
         ArrayList<RequestMessage> v = new ArrayList<>();
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         String sql = "select * from [MessageRequest] order by mId asc";
         try {
@@ -66,7 +68,9 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
     @Override
     public void insert(RequestMessage message) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         String sql = "INSERT INTO [MessageRequest] VALUES (?,?,?,0)";
         try {
@@ -96,7 +100,9 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
     @Override
     public int updateRead(int id, String isread) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         int n = 0;
         String sql = " UPDATE [SWPgroup3].[dbo].[MessageRequest] SET [isRead] = ?  WHERE [mId] = ?";
@@ -127,7 +133,9 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
     @Override
     public RequestMessage getMessageById(int Id) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         RequestMessage message = new RequestMessage();
@@ -163,7 +171,9 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
     @Override
     public void delete(int id) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sql = "DELETE FROM [SWPgroup3].[dbo].[MessageRequest]\n"
@@ -192,7 +202,9 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
     public ArrayList<RequestMessage> getMessageUnread() throws Exception {
         ArrayList<RequestMessage> v = new ArrayList<>();
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sql = "  select * from [MessageRequest] where isRead=0";
@@ -224,7 +236,9 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
     @Override
     public ArrayList<RequestMessage> pagingMessage(int index) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         ArrayList<RequestMessage> ArrayList = new ArrayList<>();
@@ -266,7 +280,9 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
     @Override
     public ArrayList<RequestMessage> searchName(int index, String title) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         ArrayList<RequestMessage> v = new ArrayList<>();
         String sql = "select * from \n"
@@ -305,7 +321,9 @@ public class RequestMessageDAOIpml extends DBContext implements RequestMessageDA
     public ArrayList<RequestMessage> getMessageOfTitle(String title) throws Exception {
         ArrayList<RequestMessage> v = new ArrayList<>();
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         String sql = "select * from [MessageRequest] where title like N'%" + title + "%'  order by mId asc";
         try {

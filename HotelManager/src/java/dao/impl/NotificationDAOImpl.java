@@ -1,4 +1,13 @@
-
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 14/07/2022    1.0        HuyTQ            Comment
+ */
 package dao.impl;
 
 import context.DBContext;
@@ -12,12 +21,24 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with Notification and associate tables
+ *
+ * @author HuyTQ
+ */
 public class NotificationDAOImpl extends DBContext implements NotificationDAO{
 
+    /**
+     * add notification from the Notification table
+     *
+     * @param n
+     * @throws Exception
+     */
     @Override
     public void insertNotification(Notification n) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
         
         String sql = "insert into Notification values(?,?,?,?,?,0)";
@@ -38,9 +59,17 @@ public class NotificationDAOImpl extends DBContext implements NotificationDAO{
             closeConnection(conn);
         }
     }
+    
+    /**
+     * add message of admin from the Notification table
+     *
+     * @param n
+     * @throws Exception
+     */
     @Override
     public void insertMessageadmin(Notification n) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;       
         String sql = "insert into Notification values(?,?,'0',?,?,1)";
           try {
@@ -59,10 +88,19 @@ public class NotificationDAOImpl extends DBContext implements NotificationDAO{
             closeConnection(conn);
         }
     }
+    
+    /**
+     * get a list notification from the Notification table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Notification> getAllNotification() throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         ArrayList<Notification> vector = new ArrayList<>();
@@ -93,10 +131,20 @@ public class NotificationDAOImpl extends DBContext implements NotificationDAO{
         }
         return vector;
     }
+    
+    /**
+     * get a list message of admin from the Notification table
+     *
+     * @param nameAccount
+     * @return
+     * @throws Exception
+     */
     @Override
     public ArrayList<Notification> getMessagedmin(String nameAccount) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         ArrayList<Notification> vector = new ArrayList<>();
@@ -128,12 +176,20 @@ public class NotificationDAOImpl extends DBContext implements NotificationDAO{
         return vector;
     }
 
+    
+    /**
+     * delete a notification from the Notification table
+     *
+     * @param nId
+     * @throws Exception
+     */
     @Override
-    public void deleteNotification(int nID) throws Exception {
+    public void deleteNotification(int nId) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
         
-        String sql = "delete from Notification where NID="+nID;
+        String sql = "delete from Notification where NID="+nId;
           try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);

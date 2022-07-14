@@ -48,7 +48,7 @@ public interface UserDAO {
     public User getUser(int accountID) throws Exception;
 
     /**
-     * get a customer information from User table
+     * get a customer information by user id from User table
      *
      * @param accountID is an int
      * @return <code>User</code> object.

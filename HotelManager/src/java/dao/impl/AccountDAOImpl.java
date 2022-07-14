@@ -6,7 +6,7 @@
  * Record of change:
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
- * 14/07/2022    1.0        HuyTQ          Comment
+ * 14/07/2022    1.0        HuyTQ            Comment
  */
 package dao.impl;
 
@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * The class has methods needed for initialize connection with database and
  * execute queries with Account and associate tables
  *
- * @author
+ * @author HuyTQ
  */
 public class AccountDAOImpl extends DBContext implements AccountDAO {
 
@@ -106,6 +106,14 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         return null;
     }
 
+    /**
+     * update account from the Account table
+     *
+     * @param aUser
+     * @param aPassword
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateAccount(String aUser, String aPassword) throws Exception {
         Connection conn = null;
@@ -175,17 +183,27 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         return null;
     }
 
+    /**
+     * update role user from the User table
+     *
+     * @param roleId
+     * @param user
+     * @return
+     * @throws Exception
+     */
     @Override
-    public void updateRole(int RoleID, String user) {
+    public void updateRole(int roleId, String user) {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         int n = 0;
         String sql = "UPDATE [dbo].[Account] SET [RoleID] = ? WHERE [user] = ?";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
-            pre.setInt(1, RoleID);
+            pre.setInt(1, roleId);
             pre.setString(2, user);
             n = pre.executeUpdate();
         } catch (Exception e) {
@@ -195,6 +213,15 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
     }
 
 
+    /**
+     * register account customer and insert to the Account table
+     *
+     * @param ac
+     * @param name
+     * @param email
+     * @return
+     * @throws Exception
+     */
     @Override
     public int Register(Account ac, String name, String email) throws Exception {
         Connection conn = null;
@@ -234,6 +261,14 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         return n;
     }
 
+    /**
+     * update account and user from the Account table and User table
+     *
+     * @param aPassword
+     * @param uGmail
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateAccountAndUser(String aPassword, String uGmail) throws Exception {
         Connection conn = null;
