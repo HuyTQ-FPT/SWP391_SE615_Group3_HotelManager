@@ -119,12 +119,14 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 //        int n= dao.addReservation(re);
             Date to = Date.valueOf("2022-05-21");
             Date from = Date.valueOf("2022-06-28");
-            ArrayList<Reservation> v = dao.selectAllYear();
+            String a="2022-02-21";
+            String b="2022-05-24";
+            Vector<Reservation> v = dao.searchRoom(a, b);
             for (Reservation reservation : v) {
                 System.out.println(reservation);
             }
         } catch (Exception ex) {
-            Logger.getLogger(ReservationDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
     }
@@ -358,5 +360,105 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
         return ArrayList;
 
+    }
+
+    @Override
+    public int getPage() throws Exception {
+        int n = 0;
+        String sql="select Count(*) from Reservation";
+        try {
+            int totalPage = 0;
+            int countPage = 0;
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                totalPage = rs.getInt(1);
+                countPage = totalPage / 6;
+                if (totalPage % 6 != 0) {
+                    countPage++;
+                }
+                return countPage;
+            }
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+
+    @Override
+    public Vector<Reservation>getReservationByPage(int n) throws Exception {
+        Vector<Reservation> vector = new Vector<Reservation>();
+        int begin = 1;
+        int end = 6;
+        for (int i = 2; i <= n; i++) {
+            begin += 6;
+            end += 6;
+        }
+        String sql = "with t as(select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID,ROW_NUMBER() OVER (order by re.BillID) \n"
+                + "AS RowNum FROM Reservation re join Room r on r.RoomID=re.RoomID\n"
+                + "          join [Image] i on r.RoomimgaeID=i.RoomimgaeID \n"
+                + ")\n"
+                + "select * from t Where RowNum between " + begin + " AND " + end;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                String Roomname = rs.getString(1);
+                String image1 = rs.getString(2);
+                String Name = rs.getString(3);
+                String Email = rs.getString(4);
+                String Address = rs.getString(5);
+                String Phone = rs.getString(6);
+                int NumberOfPerson = rs.getInt(7);
+                Date Checkin = rs.getDate(8);
+                Date Checkout = rs.getDate(9);
+                double Total = rs.getDouble(10);
+                int Status = rs.getInt(11);
+                Date dDate = rs.getDate(12);
+                int RoomID = rs.getInt(13);
+                int BillID = rs.getInt(14);
+                int UserID = rs.getInt(15);
+                Reservation im = new Reservation(BillID, UserID, RoomID, Roomname, image1, Name, Email, Address, Phone, NumberOfPerson, Checkin, Checkout, Total, Status, dDate);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;
+    }
+
+    @Override
+    public Vector<Reservation> searchRoom(String a, String b) throws Exception {
+       Vector<Reservation> vector = new Vector<Reservation>();
+        
+        String sql = "select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID \n"
+                + "  FROM Reservation re join Room r on r.RoomID=re.RoomID\n"
+                + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID \n"
+                + " where re.Checkout <='"+b+"'and re.Checkin >='"+a+"'" ;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                String Roomname = rs.getString(1);
+                String image1 = rs.getString(2);
+                String Name = rs.getString(3);
+                String Email = rs.getString(4);
+                String Address = rs.getString(5);
+                String Phone = rs.getString(6);
+                int NumberOfPerson = rs.getInt(7);
+                Date Checkin = rs.getDate(8);
+                Date Checkout = rs.getDate(9);
+                double Total = rs.getDouble(10);
+                int Status = rs.getInt(11);
+                Date dDate = rs.getDate(12);
+                int RoomID = rs.getInt(13);
+                int BillID = rs.getInt(14);
+                int UserID = rs.getInt(15);
+                Reservation im = new Reservation(BillID, UserID, RoomID, Roomname, image1, Name, Email, Address, Phone, NumberOfPerson, Checkin, Checkout, Total, Status, dDate);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;
     }
 }

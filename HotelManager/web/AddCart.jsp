@@ -70,33 +70,17 @@
             font-weight:normal;
         }
     </style>
-    <script type="text/javascript">
-        function  Add() {
-            var arr = document.getElementsByTagName('input');
-            var name = arr[0].value;
-
-            var arr1 = document.getElementsByTagName('textarea');
-            var content = arr1[0].value;
-            if (name.trim() == "" || content.trim() == "") {
-                alert("Vui lòng điền vào chỗ trống");
-            } else {
-                alert("Thêm thành công");
+    <script>
+    function Reload(){
+            let checkin = document.forms["myForm"]["cin"].value;
+            let checkout = document.forms["myForm"]["cout"].value;
+            if (!(checkout >= checkin)) {
+            alert('Ngày check out phải lớn hơn Checkin');
+            document.myForm.cin.focus();
+            return false;
+            } else{
+                alert('Thêm thành công!');
             }
-        }
-        function User() {
-            var x = document.getElementById("number").value;
-            var y = document.getElementById("cid").value;
-            var z = document.getElementById("cus").value;
-            console.log(x);
-            var url = "OrderController?do=getUser&rname=" +y+"&number="+x+"&cus="+z;
-            console.log(url);
-            if (window.XMLHttpRequest) {
-                xhttp = new XMLHttpRequest();
-            } else {
-                xhttp = new ActiveObject("Microsoft.XMLHTTP");
-            }
-            xhttp.open("POST", url, true);
-            xhttp.send();
         }
     </script>
     <body>
@@ -106,7 +90,7 @@
             ResultSet rs1 = db.getData("select * from [User]");
             ResultSet rs2 = db.getData("select * from [User] where UserID=1");
             String a="1";
-            String b="2";
+            String b="1";
             String c="null";
             if (request.getAttribute("name") != null) {
                 System.out.println("ok");
@@ -132,28 +116,8 @@
                         </div>
                         <div class="row tm-edit-product-row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
-                                <%if(c.equalsIgnoreCase("null") || c==""){%>
-                                <form action="OrderController" method="post" class="tm-edit-product-form">
+                                <form action="OrderController" method="get" class="tm-edit-product-form" name="myForm" onsubmit="return Reload()">
                                     <input type="hidden" name="do" value="getUser">
-                                <%}%>
-                                <% if(!c.equalsIgnoreCase("null")){%>
-                                <form action="OrderController" method="get" class="tm-edit-product-form">
-                                    <input type="hidden" name="do" value="AddCartAdmin">
-                                <%}%>
-                                    <div class="form-group mb-3">
-                                        <label for="name">Tên phòng </label>
-                                        <select style="text-align: center"
-                                                class="custom-select tm-select-accounts"
-                                                id="cid" 
-                                                name="rname" 
-                                                >
-                                            <% while (rs.next()) {%>
-                                            <option value="<%=rs.getInt(1)%>"  <%=rs.getInt(1) == Integer.parseInt(b) ? "selected" : ""%>><%=rs.getString(2)%></option>
-
-                                            <%}%>
-                                        </select>
-                                    </div>
-
                                     <div class="form-group mb-3">
                                         <label for="name">Tên khách hàng </label>
                                         <select style="text-align: center"
@@ -173,32 +137,46 @@
                                         <label for="name">Email </label>
                                         <% if (rs2.next()) {
                                         %>
-                                        <input name="email" value="<%=rs2.getString(5)%>" type="text"class="form-control validate" />
+                                        <input name="email" style="background-color: #435c70;" value="<%=rs2.getString(5)%>" type="text"class="form-control validate"  readonly/>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Địa chỉ </label>
-                                        <input name="address" value="<%=rs2.getString(8)%>"  type="text"class="form-control validate"/>
+                                        <input name="address" style="background-color: #435c70;" value="<%=rs2.getString(8)%>"  type="text"class="form-control validate" readonly/>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Số điện thoại </label>
-                                        <input name="phone" value="<%=rs2.getString(4)%>" type="text"class="form-control validate" />
+                                        <input name="phone"  style="background-color: #435c70;" value="<%=rs2.getString(4)%>" type="text"class="form-control validate"  readonly/>
                                     </div>
                                     <%}%>
                                     <div class="form-group mb-3">
+                                        <label for="name">Tên phòng </label>
+                                        <select style="text-align: center"
+                                                class="custom-select tm-select-accounts"
+                                                id="cid" 
+                                                name="rname" >
+                                            <% while (rs.next()) {%>
+                                            <option value="<%=rs.getInt(1)%>"  <%=rs.getInt(1) == Integer.parseInt(b) ? "selected" : ""%>><%=rs.getString(2)%></option>
+
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
                                         <label for="name">Số người đến </label>
-                                        <input name="number" id="number" type="text"  onchange="User()" class="form-control validate"required />
+                                        <input name="number" id="number" type="number" min="1" max="12" class="form-control validate"required />
+                                    </div>
+                                         <%long millis = System.currentTimeMillis();
+                                    java.sql.Date date = new java.sql.Date(millis);%>
+                                    <div class="form-group mb-3" >
+                                        <label for="name">Ngày đi </label>
+                                        <input name="cin" min="<%=date%>"  type="date"class="form-control validate"required />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Ngày đến </label>
-                                        <input name="cin"  type="date"class="form-control validate"required />
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <label for="name">Ngày đi </label>
-                                        <input name="cout" type="date"class="form-control validate"required />
+                                        <input name="cout" min="<%=date%>" type="date"class="form-control validate"required />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Tổng giá </label>
-                                        <input name="total" id="total" type="text"class="form-control validate"required />
+                                        <input name="total" id="total" type="number" min="100" max="1000000" class="form-control validate"required />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name" style="padding-right: 10px">Trạng thái </label>
@@ -207,13 +185,9 @@
                                             <option value="2">Hoàn thành</option>
                                         </select>
                                     </div>
-                                    <div class="form-group mb-3">
-                                        <label for="date">Ngày đặt hóa đơn </label>
-                                        <input name="date" type="date"class="form-control validate"required />
-                                    </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit"  class="btn btn-primary btn-block text-uppercase" onclick="Add()">Thêm đặt phòng</button>
+                                <button type="submit"  class="btn btn-primary btn-block text-uppercase">Thêm đặt phòng</button>
                             </div>
                             </form>
                         </div>

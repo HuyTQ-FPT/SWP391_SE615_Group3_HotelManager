@@ -8,6 +8,7 @@ public class Reservation {
     private int UserID;
     private int RoomID;
     private String Roomname;
+    private String img;
     private double Roomprice;
     private String Name;
     private String ServiceName;
@@ -72,6 +73,24 @@ public class Reservation {
         this.Date = Date;
     }
 
+    public Reservation(int BillID, int UserID, int RoomID, String Roomname, String img, String Name, String Email, String Address, String Phone, int NumberOfPerson, Date Checkin, Date Checkout, double Total, int Status, Date Date) {
+        this.BillID = BillID;
+        this.UserID = UserID;
+        this.RoomID = RoomID;
+        this.Roomname = Roomname;
+        this.img = img;
+        this.Name = Name;
+        this.Email = Email;
+        this.Address = Address;
+        this.Phone = Phone;
+        this.NumberOfPerson = NumberOfPerson;
+        this.Checkin = Checkin;
+        this.Checkout = Checkout;
+        this.Total = Total;
+        this.Status = Status;
+        this.Date = Date;
+    }
+
     public Reservation(int RoomID, String Roomname, double Total) {
         this.RoomID = RoomID;
         this.Roomname = Roomname;
@@ -120,6 +139,14 @@ public class Reservation {
 
     public double getRoomprice() {
         return Roomprice;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public void setRoomprice(double Roomprice) {

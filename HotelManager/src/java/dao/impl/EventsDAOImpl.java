@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -15,7 +16,7 @@ import java.util.Vector;
  *
  * @author admin
  */
-public class EventsDAOImpl extends DBContext implements EventsDAO{
+public class EventsDAOImpl extends DBContext implements EventsDAO {
 
     @Override
     public Vector<Events> getEventsList() throws Exception {
@@ -32,9 +33,13 @@ public class EventsDAOImpl extends DBContext implements EventsDAO{
 
             while (rs.next()) {
                 int eID = rs.getInt(1);
-                String eName = rs.getString(3);
-                String ePhone = rs.getString(4);
-                int uGender = rs.getInt(6);
+                String eName = rs.getString(2);
+                String eImg = rs.getString(3);
+                Date eDate = rs.getDate(4);
+                String eCode = rs.getString(6);
+                int quan = rs.getInt(7);
+                Events i = new Events(eID, eName, eImg, eDate, eCode, quan);
+                vector.add(i);
             }
 
         } catch (Exception e) {
@@ -55,12 +60,24 @@ public class EventsDAOImpl extends DBContext implements EventsDAO{
 
     @Override
     public int updateEvents(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int n = 0;
+        Connection conn = null;
+        PreparedStatement pre = null;
+        String sql = "update [Events] set Quantity= Quantity-1\n"
+                + "where EventId= "+id;
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
     }
 
     @Override
     public void deleteEvents(int id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

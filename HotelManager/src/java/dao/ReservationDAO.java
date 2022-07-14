@@ -13,7 +13,9 @@ public interface ReservationDAO {
 
     public Vector<Reservation> Reservation(String sql);
     public int removeReservation(int id);
-    
+    public int getPage() throws Exception;
+    public Vector<Reservation> getReservationByPage(int n) throws Exception;
+    public Vector<Reservation> searchRoom(String a, String b) throws Exception;
     public int sumReservation() throws Exception;
     public ArrayList<Reservation> sumService() throws Exception;
     public ArrayList<Reservation> totalOfRoomSearch(String name, Date from, Date to) throws Exception;

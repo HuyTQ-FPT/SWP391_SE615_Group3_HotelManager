@@ -29,7 +29,34 @@
         -->
         <script type="text/javascript">
             function Delete() {
-                alert("Update success");
+                let checkin = document.forms["myForm"]["cin"].value;
+                let checkout = document.forms["myForm"]["cout"].value;
+                let e = document.forms["myForm"]["email"].value;
+                let p = document.forms["myForm"]["phone"].value;
+                let a = document.forms["myForm"]["cname"].value;
+                let b = document.forms["myForm"]["address"].value;
+                var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+                var regexPhone = /0[0-9]{9,10}/;
+                if (!(checkout >= checkin)) {
+                    alert('Ngày check out phải lớn hơn Checkin');
+                    document.myForm.cin.focus();
+                    return false;
+                }
+                if (a.trim() == "" || b.trim() == "") {
+                    alert('Vui lòng điền vào chỗ trống');
+                    return false;
+                }if (!regexEmail.test(e)) {
+                    alert('Địa chỉ Email không hợp lệ');
+                    document.myForm.email.focus();
+                    return false;
+                }
+                if (!regexPhone.test(p)) {
+                    alert('Số điện thoại không hợp lệ');
+                    document.myForm.phone.focus();
+                    return false;
+                } else {
+                    alert("Update success");
+                }
             }
         </script>
     </head>
@@ -51,20 +78,20 @@
                                     if (rs.next()) {
                                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                                         Date date1 = (Date) format.parse(rs.getString(8));
-                                        Date date2 = (Date) format.parse(rs.getString(8));
+                                        Date date2 = (Date) format.parse(rs.getString(9));
                                         Date date3 = (Date) format.parse(rs.getString(12));
                                         java.sql.Date cDate = new java.sql.Date(date1.getTime());
                                         java.sql.Date sDate = new java.sql.Date(date2.getTime());
                                         java.sql.Date dDate = new java.sql.Date(date3.getTime());
                                 %>
-                                <form action="OrderController" method="get"  >
+                                <form action="OrderController" method="get" name="myForm" onsubmit="return Delete()" >
                                     <input type="hidden" name="do" value="UpdateCartAdmin">
                                     <input type="hidden" name="cid" value="<%=rs.getInt(15)%>">
-                                    <input type="hidden" name="ID" value="<%=rs.getString(13) %>">
-                                    <input type="hidden" name="BID" value="<%=rs.getInt(14) %>">
+                                    <input type="hidden" name="ID" value="<%=rs.getString(13)%>">
+                                    <input type="hidden" name="BID" value="<%=rs.getInt(14)%>">
                                     <div class="form-group mb-3">
-                                        <label for="name">Tên phòng </label>
-                                        <input name="rname" value="<%=rs.getString(1)%>"type="text"class="form-control validate"required />
+                                        <label for="name">Số phòng </label>
+                                        <input name="rname" value="<%=rs.getString(1)%>"type="number" min="1" max="30"  class="form-control validate"required />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name" style="padding-right: 10px">Hình ảnh </label>
@@ -82,27 +109,27 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Địa chỉ </label>
-                                        <input name="address" value="<%=rs.getString(5)%>"type="text"class="form-control validate"required />
+                                        <input name="address" value="<%=rs.getString(5)%>"type="text" maxlength="70" class="form-control validate"required />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Số điện thoại </label>
-                                        <input name="phone" value="<%=rs.getString(6)%>"type="text"class="form-control validate"required />
+                                        <input name="phone" value="<%=rs.getString(6)%>"type="text" class="form-control validate"required />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Số người đến </label>
-                                        <input name="number" value="<%=rs.getInt(7)%>"type="text"class="form-control validate"required />
+                                        <input name="number" value="<%=rs.getInt(7)%>"type="number" max="12" class="form-control validate"required />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Ngày đến </label>
-                                        <input name="cin" value="<%=cDate %>" type="date"class="form-control validate"required />
+                                        <input name="cin" value="<%=cDate%>" type="date"class="form-control validate"required />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Ngày đi </label>
-                                        <input name="cout" value="<%=sDate %>"type="date"class="form-control validate"required />
+                                        <input name="cout" value="<%=sDate%>" type="date"class="form-control validate"required />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Tổng giá </label>
-                                        <input name="total" value="<%=rs.getString(10)%>"type="text"class="form-control validate"required />
+                                        <input name="total" value="<%=rs.getString(10)%>" type="number" min="100" max="5000000" class="form-control validate"required />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name" style="padding-right: 10px">Trạng thái </label>
@@ -113,14 +140,14 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="date">Ngày đặt hóa đơn </label>
-                                        <input name="date" value="<%=dDate %>"type="text"class="form-control validate"required />
+                                        <input name="date" value="<%=dDate%>"type="date" class="form-control validate"required />
                                     </div>
 
                             </div>
                             <div class="col-12">
                                 <!--                            <input type="hidden" value="updatebloggg" name="do">
                                                             <input type="hidden" value="" name="BlogID">-->
-                                <button type="submit" class="btn btn-primary btn-block text-uppercase" onclick="Delete()">Update</button>
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Update</button>
                             </div>
                             </form>
                             <%}%>
@@ -151,18 +178,6 @@
                                     });
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-        <script>
-                                    function chooseFile(fileInput) {
-                                        if (fileInput.files && fileInput.files[0]) {
-                                            var reader = new FileReader();
-                                            reader.onload = function (e) {
-                                                $('#image').attr('src', e.target.result);
-                                            }
-                                            reader.readAsDataURL(fileInput.files[0]);
-                                        }
-                                    }
-        </script>
 
     </body>
 </html>

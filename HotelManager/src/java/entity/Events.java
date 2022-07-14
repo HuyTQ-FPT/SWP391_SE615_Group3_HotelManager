@@ -33,6 +33,15 @@ public class Events {
         this.Quantity = Quantity;
     }
 
+    public Events(int EventID, String EventName, String EventImage, Date EventDate, String EventCode, int Quantity) {
+        this.EventID = EventID;
+        this.EventName = EventName;
+        this.EventImage = EventImage;
+        this.EventDate = EventDate;
+        this.EventCode = EventCode;
+        this.Quantity = Quantity;
+    }
+
     public int getEventID() {
         return EventID;
     }

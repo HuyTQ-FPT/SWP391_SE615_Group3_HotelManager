@@ -145,13 +145,17 @@
                                     if(rs1.next()){
                                 %>
                                 <label for="fname"><i class="fa fa-user"></i> Tên đầy đủ(*)</label>
-                                <input type="text" name="firstname" placeholder="<%=rs1.getString(7) %>" value="<%=rs1.getString(7) %>" readonly>
+                                <input type="hidden" name="firstname" placeholder="<%=rs1.getString(7) %>" value="<%=rs1.getString(7) %>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(7) %></p>
                                 <label for="email"><i class="fa fa-envelope"></i> Email(*)</label>
-                                <input type="text" id="email" name="email" placeholder="<%=rs1.getString(9) %>" value="<%=rs1.getString(9) %>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(9) %></p>
+                                <input type="hidden" id="email" name="email" placeholder="<%=rs1.getString(9) %>" value="<%=rs1.getString(9) %>" readonly>
                                 <label for="address"><i class="fa fa-address-card-o"></i> Địa chỉ</label>
-                                <input type="text" id="adr" name="address" placeholder="<%=rs1.getString(12) %>" value="<%=rs1.getString(12) %>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(12) %></p>
+                                <input type="hidden" id="adr" name="address" placeholder="<%=rs1.getString(12) %>" value="<%=rs1.getString(12) %>" readonly>
                                 <label for="city"><i class="fa fa-institution"></i> Số điện thoại(*)</label>
-                                <input type="text" id="city" name="phone" placeholder="<%=rs1.getString(8) %>"  value="<%=rs1.getString(8) %>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(8) %></p>
+                                <input type="hidden" id="city" name="phone" placeholder="<%=rs1.getString(8) %>"  value="<%=rs1.getString(8) %>" readonly>
                                     <%}%>
                                 <div class="row">
                                     <div class="col-50">
