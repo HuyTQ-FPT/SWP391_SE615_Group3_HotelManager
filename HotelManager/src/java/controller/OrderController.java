@@ -69,14 +69,12 @@ public class OrderController extends HttpServlet {
                 request.getRequestDispatcher("BillHotel.jsp").forward(request, response);
             }
             if (service.equalsIgnoreCase("user")) {
-                String userid = request.getParameter("user");
-                System.out.println(userid);
+                String userid = request.getParameter("userid");
                 String i = request.getParameter("id");
                 int id = Integer.parseInt(i);
                 Vector<Service> vector = daos.getServiceList();
-                ResultSet rs1 = db.getData(" select * from Account a  INNER JOIN [User] u \n"
-                        + " on a.AccountID=u.AccountID" + userid);
-
+                ResultSet rs1 = db.getData("select * from Account a  INNER JOIN [User] u \n"
+                        + " on a.AccountID=u.AccountID where a.AccountID=" + userid);
                 ResultSet rs = db.getData("select* from Room r\n"
                         + " inner join Image i on r.RoomimgaeID=i.RoomimgaeID \n"
                         + "join CateRoom c on \n"
@@ -98,8 +96,8 @@ public class OrderController extends HttpServlet {
                 String email = request.getParameter("email").trim();
                 String address = request.getParameter("address").trim();
                 String phone = request.getParameter("phone").trim();
-                String checkin = request.getParameter("checkin").trim();
-                String checkout = request.getParameter("checkout").trim();
+                String checkin = request.getParameter("checkin");
+                String checkout = request.getParameter("checkout");
                 String adult = request.getParameter("Adult").trim();
                 String child = request.getParameter("Child").trim();
                 // Lấy price service
@@ -107,32 +105,33 @@ public class OrderController extends HttpServlet {
                 String serv = "";
                 double price = 0;
                 // lay service price and name
-                if (!(serviceId.length == 0)) {
-                    for (int i = 0; i < serviceId.length; i++) {
-                        Integer f = Integer.parseInt(serviceId[i]);
-                        ResultSet rs = db.getData("select * from Service where ServiceID=" + f);
-                        while (rs.next()) {
-                            price += rs.getDouble(6);
-                            serv += rs.getString(2) + ";";
+                if (serviceId != null) {
+                    if (!(serviceId.length == 0)) {
+                        for (int i = 0; i < serviceId.length; i++) {
+                            Integer f = Integer.parseInt(serviceId[i]);
+                            ResultSet rs = db.getData("select * from Service where ServiceID=" + f);
+                            while (rs.next()) {
+                                price += rs.getDouble(6);
+                                serv += rs.getString(2) + ";";
+                            }
                         }
                     }
                 }
                 int a = Integer.parseInt(adult) + Integer.parseInt(child); // number of person
                 int id = Integer.parseInt(key);
                 // ép type date check in check out
-                SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 Date date1 = (Date) format.parse(checkin);
                 java.sql.Date sDate = new java.sql.Date(date1.getTime());
 
                 Date date2 = (Date) format.parse(checkout);
                 java.sql.Date cDate = new java.sql.Date(date2.getTime());
-                double total = price + Double.parseDouble(money);
 
+                double total = price + Double.parseDouble(money);
                 long millis = System.currentTimeMillis();
                 java.sql.Date date = new java.sql.Date(millis);
-                Account acc = (Account) session.getAttribute("login");
-                int l = acc.getAccountID();
-                Reservation re = new Reservation(l, id, firstname, email, address, phone, a, sDate, cDate, total, 1, date);
+                int user = Integer.parseInt(userid);
+                Reservation re = new Reservation(user, id, firstname, email, address, phone, a, sDate, cDate, total, 1, date);
                 // lưu trong session
                 vector.add(re);
                 request.setAttribute("vector", vector);
@@ -151,13 +150,13 @@ public class OrderController extends HttpServlet {
                 String email = request.getParameter("email").trim();
                 String address = request.getParameter("address").trim();
                 String phone = request.getParameter("phone").trim();
-                String checkin = request.getParameter("checkin").trim();
-                String checkout = request.getParameter("checkout").trim();
+                String checkin = request.getParameter("checkin");
+                String checkout = request.getParameter("checkout");
                 String a = request.getParameter("number").trim();
                 // Lấy price service
                 int id = Integer.parseInt(key);
                 // ép type date check in check out
-                SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 Date date1 = (Date) format.parse(checkin);
                 java.sql.Date sDate = new java.sql.Date(date1.getTime());
 
@@ -180,42 +179,222 @@ public class OrderController extends HttpServlet {
                 int n = dao1.addReservation(re);
                 response.sendRedirect("HomeController");
             }
-            if (service.equals("yourbill")) {
-
+            if (service.equals("yourbill")) {// Lịch sử mua hàng
                 Vector<Reservation> vector = new Vector<Reservation>();
                 String cid = request.getParameter("id");
-                Account acc = (Account) session.getAttribute("login");
-                int l = acc.getAccountID();
-                vector = dao1.Reservation("select * from Reservation where UserID=" + l);
+                vector = dao1.Reservation("select BillID,UserID,RoomID,Name,Email,[Address],Phone,NumberOfPerson,Checkin,Checkout,Total,[Status], [Date] from Reservation where UserID=" + cid);
                 request.setAttribute("vector", vector);
-                request.setAttribute("aid", l);
+                request.setAttribute("aid", cid);
                 RequestDispatcher dispath = request.getRequestDispatcher("History.jsp");
                 dispath.forward(request, response);
             }
             if (service.equals("showCartAdmin")) {
-                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
-                        + " join Room r on r.RoomID=re.RoomID\n"
-                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
-                request.setAttribute("rs", rs);
+                Vector<Reservation> vector = null;
+                int n = dao1.getPage();
+                String page = request.getParameter("page");
+                if (page == null) {
+                    vector = dao1.getReservationByPage(1);
+                } else {
+                    vector = dao1.getReservationByPage(Integer.parseInt(page));
+                }
+                request.setAttribute("rs", vector);
+                request.setAttribute("n", n);
                 RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
             }
             if (service.equals("AddCartAdmin")) {
-                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
+                String rname = request.getParameter("rname");
+                String rid = request.getParameter("ID");
+                String cid = request.getParameter("cus");
+                String cname = request.getParameter("cname");
+                String email = request.getParameter("email").trim();
+                String address = request.getParameter("address").trim();
+                String phone = request.getParameter("phone").trim();
+                String number = request.getParameter("number").trim();
+                String cin = request.getParameter("cin").trim();
+                String cout = request.getParameter("cout");
+                String total = request.getParameter("total");
+                String status = request.getParameter("status").trim();
+                String date = request.getParameter("date");
+
+                double total1 = Double.parseDouble(total);
+                int roomid = Integer.parseInt(rname);
+                int csid = Integer.parseInt(cid);
+                int NOP = Integer.parseInt(number);
+                int stt = Integer.parseInt(status);
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = (Date) format.parse(cin);
+                java.sql.Date sDate = new java.sql.Date(date1.getTime());
+
+                Date date2 = (Date) format.parse(cout);
+                java.sql.Date cDate = new java.sql.Date(date2.getTime());
+                Date date3 = (Date) format.parse(date);
+                java.sql.Date dDate = new java.sql.Date(date3.getTime());
+
+                ResultSet rs1 = dao1.getData("select * from [User] where UserID=" + cid);
+                if (rs1.next()) {
+                    cname = rs1.getString(3);
+                }
+                Reservation re = new Reservation(csid, roomid, cname, email, address, phone, NOP, sDate, cDate, total1, stt, dDate);
+                int n = dao1.addReservation(re);
+                Vector<Reservation> vector = null;
+                int c = dao1.getPage();
+                String page = request.getParameter("page");
+                if (page == null) {
+                    vector = dao1.getReservationByPage(1);
+                } else {
+                    vector = dao1.getReservationByPage(Integer.parseInt(page));
+                }
+                request.setAttribute("rs", vector);
+                request.setAttribute("n", c);
+                RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
+                dispath.forward(request, response);
+
+            }
+            if (service.equals("ShowUpdateCartAdmin")) {
+                String oid = request.getParameter("id");
+                int id = Integer.parseInt(oid);
+                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID from Reservation re\n"
                         + " join Room r on r.RoomID=re.RoomID\n"
-                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
+                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID where re.BillID=" + id);
                 request.setAttribute("rs", rs);
+                RequestDispatcher dispath = request.getRequestDispatcher("UpdateCart.jsp");
+                dispath.forward(request, response);
+            }
+            if (service.equals("sortByDate")) {
+                String cin = request.getParameter("date1");
+                String cout = request.getParameter("date2");
+                 Vector<Reservation> vector=dao1.searchRoom(cin, cout);
+                request.setAttribute("rs", vector);
+                request.setAttribute("date1", cin);
+                request.setAttribute("date2", cout);
                 RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
             }
-            if (service.equals("UpdateCartAmin")) {
-                ResultSet rs = dao1.getData(" select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date] from Reservation re\n"
-                        + " join Room r on r.RoomID=re.RoomID\n"
-                        + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID ");
-                request.setAttribute("rs", rs);
+            if (service.equals("UpdateCartAdmin")) {
+                String rname = request.getParameter("rname");
+                String rid = request.getParameter("ID");
+                String bid = request.getParameter("BID");
+                String cid = request.getParameter("cid");
+                String cname = request.getParameter("cname").replaceAll("\\s\\s+", " ").trim();
+                String email = request.getParameter("email").replaceAll("\\s\\s+", " ").trim();
+                String address = request.getParameter("address").replaceAll("\\s\\s+", " ").trim();
+                String phone = request.getParameter("phone").replaceAll("\\s\\s+", " ").trim();
+                String number = request.getParameter("number").trim();
+                String cin = request.getParameter("cin").trim();
+                String cout = request.getParameter("cout");
+                String total = request.getParameter("total");
+                String status = request.getParameter("status").trim();
+                String date = request.getParameter("date");
+
+                double total1 = Double.parseDouble(total);
+                int roomid = Integer.parseInt(rname);
+                int csid = Integer.parseInt(cid);
+                int billid = Integer.parseInt(bid);
+                int NOP = Integer.parseInt(number);
+                int stt = Integer.parseInt(status);
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = (Date) format.parse(cin);
+                java.sql.Date sDate = new java.sql.Date(date1.getTime());
+
+                Date date2 = (Date) format.parse(cout);
+                java.sql.Date cDate = new java.sql.Date(date2.getTime());
+                Date date3 = (Date) format.parse(date);
+                java.sql.Date dDate = new java.sql.Date(date3.getTime());
+
+                Reservation re = new Reservation(billid, csid, roomid, cname, email, address, phone, NOP, sDate, cDate, total1, stt, dDate);
+                int n = dao1.updateReservation(re);
+                Vector<Reservation> vector = null;
+                int c = dao1.getPage();
+                String page = request.getParameter("page");
+                if (page == null) {
+                    vector = dao1.getReservationByPage(1);
+                } else {
+                    vector = dao1.getReservationByPage(Integer.parseInt(page));
+                }
+                request.setAttribute("rs", vector);
+                request.setAttribute("n", c);
+                RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
+                dispath.forward(request, response);
+
+            }
+            if (service.equals("getUser")) {
+                String cid = request.getParameter("cus");
+                String number= request.getParameter("number");
+                String rname= request.getParameter("rname");
+                if(number!=null && number!=""){
+                String rid = request.getParameter("ID");
+                String cname = request.getParameter("cname");
+                String email = request.getParameter("email").trim();
+                String address = request.getParameter("address").trim();
+                String phone = request.getParameter("phone").trim();
+                String cin = request.getParameter("cin").trim();
+                String cout = request.getParameter("cout");
+                String total = request.getParameter("total");
+                String status = request.getParameter("status").trim();
+
+                double total1 = Double.parseDouble(total);
+                int roomid = Integer.parseInt(rname);
+                int csid = Integer.parseInt(cid);
+                int NOP = Integer.parseInt(number);
+                int stt = Integer.parseInt(status);
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = (Date) format.parse(cin);
+                java.sql.Date sDate = new java.sql.Date(date1.getTime());
+
+                Date date2 = (Date) format.parse(cout);
+                java.sql.Date cDate = new java.sql.Date(date2.getTime());
+                
+                long millis = System.currentTimeMillis();
+                java.sql.Date date = new java.sql.Date(millis);
+                java.sql.Date dDate = new java.sql.Date(date.getTime());
+
+                ResultSet rs1 = dao1.getData("select * from [User] where UserID=" + cid);
+                if (rs1.next()) {
+                    cname = rs1.getString(3);
+                }
+                Reservation re = new Reservation(csid, roomid, cname, email, address, phone, NOP, sDate, cDate, total1, stt, dDate);
+                int n = dao1.addReservation(re);
+                Vector<Reservation> vector = null;
+                int c = dao1.getPage();
+                String page = request.getParameter("page");
+                if (page == null) {
+                    vector = dao1.getReservationByPage(1);
+                } else {
+                    vector = dao1.getReservationByPage(Integer.parseInt(page));
+                }
+                request.setAttribute("rs", vector);
+                request.setAttribute("n", c);
+                RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
+                dispath.forward(request, response);
+                }
+                
+                request.setAttribute("name", cid);
+                request.setAttribute("total", number);
+                request.setAttribute("cid", rname);
+                RequestDispatcher dispath = request.getRequestDispatcher("AddCart.jsp");
+                dispath.forward(request, response);
+            }
+            if (service.equals("delete")) {
+                String cid = request.getParameter("id");
+                dao1.removeReservation(Integer.parseInt(cid));
+                Vector<Reservation> vector = null;
+                int c = dao1.getPage();
+                String page = request.getParameter("page");
+                if (page == null) {
+                    vector = dao1.getReservationByPage(1);
+                } else {
+                    vector = dao1.getReservationByPage(Integer.parseInt(page));
+                }
+                request.setAttribute("rs", vector);
+                request.setAttribute("n", c);
                 RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

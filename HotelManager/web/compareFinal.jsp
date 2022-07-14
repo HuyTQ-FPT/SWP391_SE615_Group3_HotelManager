@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -65,6 +66,7 @@
         </style>
     </head>
     <body>
+           <fmt:setLocale value="vi"/>
         <%@include file="header.jsp" %>
         <div class="slide-one-item home-slider owl-carousel">
 
@@ -73,7 +75,7 @@
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
 
-                    
+
                         </div>
                     </div>
                 </div>
@@ -83,7 +85,7 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
-                          
+
                         </div>
                     </div>
                 </div>
@@ -93,7 +95,7 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -127,12 +129,13 @@
 
                     <tr >
                         <th style="font-size:15px;padding: 10px">
-                            <span> Thông tin phòng:   </span>
+                            <span> Thông tin phòng </span>
                         </th>
                     </tr>
-                    <tr>
+                    <tr >
                         <th style="text-align: center;padding: 10px;">Diện tích</th>
                         <td style="text-align: center;padding: 10px;">${Rooom.getSquare()} m2</td>
+                        </th>
                     </tr>
                     <tr>
                         <th style="text-align: center;padding: 10px;">Số người</th>
@@ -150,7 +153,7 @@
                     </tr>
                     <tr>
                         <th style="text-align: center;padding: 10px;">Giá tiền</th>
-                        <td style="text-align: center;padding: 10px;">${Rooom.getRoomprice()}</td>
+                        <td style="text-align: center;padding: 10px;"><fmt:formatNumber value="${Rooom.roomprice}"/> đ</td>
                     </tr>
                     <tr >
                         <th style="color: white; padding: 20px">.</th>
@@ -158,16 +161,31 @@
                             <div class="hotel-room-body">
 
                                 <div class="add-to-cart">
-                                    <form>    
+                                    <form action="RoomController">
+                                        <input type="hidden" name="do" value="roomdetail">
+                                        <input type="hidden" name="roomid" value="${Rooom.roomID}">
+                                        <input type="hidden" name="cateroom" value="${cateid}">
                                         <button style="position: fixed;top: 895px; right: -45px" 
                                                 class="add-to-cart-btn" ><i class="fas fa-eye"></i><a>Chi tiết phòng</a></button>
                                     </form>
-                                    <form>
-                                        <div class="add-to-cart">
-                                            <button style="position: fixed;top: 895px; right:-239px" 
-                                                    class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i><a>Đặt phòng</a></button>
-                                        </div>
-                                    </form>
+                                    <c:if test="${sessionScope.login!=null}" >
+                                        <form>
+                                            <div class="add-to-cart">
+                                                <button style="position: fixed;top: 895px; right:-239px" 
+                                                        class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i>  <a href="OrderController?do=user&id=${Rooom.roomID}&userid=${sessionScope.login.getAccountID()}" style="color: white">Đặt phòng </a></button>
+                                            </div>
+                                        </form>
+
+                                    </c:if>
+                                    <c:if test="${sessionScope.login==null}" >
+
+                                        <form>
+                                            <div class="add-to-cart">
+                                                <button style="position: fixed;top: 895px; right:-239px" 
+                                                        class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i> <a href="LoginController" style="color: white">Đặt phòng</a></button>
+                                            </div>
+                                        </form>
+                                    </c:if>
                                     <form action="CompareRoomController" method="post">
                                         <input type="hidden" name="do" value="ViewCompare">
                                         <input type="hidden" name="roomid" value="${Rooom.getRoomID()}">
@@ -217,7 +235,7 @@
                             </div>
                     </tr>
                     <tr>
-                        <td style="text-align: center; padding: 10px;">${Rooom1.getRoomprice()}</td>
+                        <td style="text-align: center; padding: 10px;"><fmt:formatNumber value="${Rooom1.getRoomprice()}"/> đ</td>
                     </tr>
 
                     <tr>
@@ -226,20 +244,35 @@
                             <div class="hotel-room-body">
 
                                 <div class="add-to-cart">
-                                    <form>    
+                                  <form action="RoomController">
+                                        <input type="hidden" name="do" value="roomdetail">
+                                        <input type="hidden" name="roomid" value="${Rooom1.roomID}">
+                                        <input type="hidden" name="cateroom" value="${cateid}"> 
                                         <button style="position: fixed;top: 895px;right: -684px" 
                                                 class="add-to-cart-btn" ><i class="fas fa-eye"></i><a>Chi tiết phòng</a></button>
                                     </form>
-                                    <form>
-                                        <div class="add-to-cart">
-                                            <button style="position: fixed;top: 895px; right:-884px" 
-                                                    class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i><a>Đặt phòng</a></button>
-                                        </div>
-                                    </form>
+                                    <c:if test="${sessionScope.login!=null}" >
+                                        <form>
+                                            <div class="add-to-cart">
+                                                <button style="position: fixed;top: 895px; right:-884px" 
+                                                        class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i> <a href="OrderController?do=user&id=${Rooom1.roomID}&userid=${sessionScope.login.getAccountID()}" style="color: white">Đặt phòng </a></button>
+                                            </div>
+                                        </form>
+
+                                    </c:if>
+                                    <c:if test="${sessionScope.login==null}" >
+
+                                        <form>
+                                            <div class="add-to-cart">
+                                                <button style="position: fixed;top: 895px; right:-884px" 
+                                                        class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i><a href="LoginController" style="color: white">Đặt phòng</a></button>
+                                            </div>
+                                        </form>
+                                    </c:if>
                                     <form action="CompareRoomController" method="post">
                                         <input type="hidden" name="do" value="ViewCompare">
                                         <input type="hidden" name="roomid" value="${Rooom1.getRoomID()}">
-                                      <input type="hidden" name="cateroom" value="${cateid}">
+                                        <input type="hidden" name="cateroom" value="${cateid}">
                                         <div class="add-to-cart">
                                             <button style="position: fixed;top: 895px; right:-1072px" 
                                                     class="add-to-cart-btn" ><i class="fas fa-compress"></i><a>So Sánh</a></button>
@@ -338,5 +371,5 @@
 
 
         </script>
-       </body>
+    </body>
 </html>

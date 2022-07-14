@@ -1,27 +1,92 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
+ */
 package dao;
 
-import entity.Image;
 import entity.Room;
 import entity.RoomByDate;
-import java.sql.Date;
-import java.sql.SQLException;
+import entity.RoomCategory;
+import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ * Lớp này chứa các interface của RoomDAOImpl
+ *
+ * @author
+ */
 public interface RoomDAO {
 
-    public Vector<Room> getRoomList(String sql);
+    /**
+     * get list Room from Room table
+     *
+     * @return <code>ArrayList<Room></code> object.
+     * @throws java.lang.Exception
+     */
+    public ArrayList<Room> getRoomListAll() throws Exception;
 
-    public Vector<Room> getRoomListAll(String sql) throws Exception;
-
+    /**
+     * update Room from Room table
+     *
+     * @param rID is an int.
+     * @param rStatus is an int.
+     * @throws java.lang.Exception
+     */
     public void updateStatus(int rID, int rStatus) throws Exception;
 
-    public Vector<Room> selectRoom(String roomName, int status) throws Exception;
+    /**
+     * get list and search Room from Room table
+     *
+     * @param roomName <code>Room</code> object.
+     * @param status <code>Room</code> object.
+     * @return <code>ArrayList<Room></code> object.
+     * @throws java.lang.Exception
+     */
+    public ArrayList<Room> selectRoom(String roomName, int status) throws Exception;
 
-    public Vector<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception;
+    /**
+     * get list and search Room from Room table
+     *
+     * @param roomName <code>Room</code> object.
+     * @param cateID <code>Room</code> object.
+     * @return <code>ArrayList<Room></code> object.
+     * @throws java.lang.Exception
+     */
+    public ArrayList<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception;
 
-    public Image searchRoomidAndImage(int RoomID) throws Exception;
-
+    /**
+     * get a Room from Room table
+     *
+     * @param roomid <code>Room</code> object.
+     * @return <code>Room</code> object.
+     * @throws java.lang.Exception
+     */
     public Room getOneRoom(int roomid) throws Exception;
+
+    /**
+     * get count Room from Room table
+     *
+     * @return <code>ArrayList<Room></code> object.
+     * @throws java.lang.Exception
+     */
+    public ArrayList<Room> sumOfRoom() throws Exception;
+
+    /**
+     * check room Name from Room table
+     *
+     * @param roomName is an String
+     * @return String
+     * @throws java.lang.Exception
+     */
+    public String checkRoom(String roomName) throws Exception;
+
+    public Vector<Room> getRoomList(String sql);
 
     public int getPage();
 

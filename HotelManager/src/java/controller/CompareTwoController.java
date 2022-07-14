@@ -9,9 +9,9 @@ import dao.impl.RoomDAOImpl;
 import entity.Device;
 import entity.Image;
 import entity.Room;
+import entity.RoomCategory;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -48,25 +48,24 @@ public class CompareTwoController extends HttpServlet {
             if (service.equals("CompareTwoRoom")) { // so sánh 2 phòng
                 int RoomID = Integer.parseInt(request.getParameter("Roomid").trim());
                 int RoomID1 = Integer.parseInt(request.getParameter("Roomid1").trim());
-                String cateID = request.getParameter("cateID").trim();
+                int cateID = Integer.parseInt(request.getParameter("cateID").trim());
 
-                Image img = daoR.searchRoomidAndImage(RoomID);
-                Image img1 = daoR.searchRoomidAndImage(RoomID1);
+                Image img = daoI.searchRoomidAndImage(RoomID);
+                Image img1 = daoI.searchRoomidAndImage(RoomID1);
                 Room rooom = daoR.getOneRoom(RoomID);
                 Room rooom1 = daoR.getOneRoom(RoomID1);
-                Vector<Device> vectorD = daoD.getDevicebycateroom(cateID);
 
                 request.setAttribute("Rooom", rooom);
                 request.setAttribute("Rooom1", rooom1);
                 request.setAttribute("img", img);
                 request.setAttribute("img1", img1);
                 request.setAttribute("cateid", cateID);
-                request.setAttribute("vectorD", vectorD);
+
                 request.getRequestDispatcher("compareFinal.jsp").forward(request, response);
 
             }
 
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(CompareTwoController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("errorMess", ex.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);

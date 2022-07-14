@@ -17,6 +17,7 @@ public class Room {
     private String Note;
     private String cateroom;
     private int status;
+    private int Sumstatus;
 
     public Room(int RoomID, String Roomname, String Roomdesc, int RoomcateID, String image, double Roomprice, int NumberPerson, float Square, String Comment, int Rate, String Note, String cateroom) {
         this.RoomID = RoomID;
@@ -77,6 +78,24 @@ public class Room {
         this.Note = Note;
         this.status = status;
     }
+
+    public Room(int status, int Sumstatus) {
+        this.status = status;
+        this.Sumstatus = Sumstatus;
+    }
+
+    public int getSumstatus() {
+        return Sumstatus;
+    }
+
+    public void setSumstatus(int Sumstatus) {
+        this.Sumstatus = Sumstatus;
+    }
+
+   
+
+   
+    
 
     public Room() {
     }
@@ -188,6 +207,9 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" + "RoomID=" + RoomID + ", Roomname=" + Roomname + ", Roomdesc=" + Roomdesc + ", RoomcateID=" + RoomcateID + ", image=" + image + ", Roomprice=" + Roomprice + ", NumberPerson=" + NumberPerson + ", Square=" + Square + ", Comment=" + Comment + ", Rate=" + Rate + ", Note=" + Note + "Cateroom=" + cateroom + "status=" + status + '}';//To change body of generated methods, choose Tools | Templates.
+    }
+    public String toString1() {
+        return RoomcateID + cateroom + "status=" + status + '}';//To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -6,63 +6,37 @@
 package controller;
 
 import dao.impl.BlogDAOImpl;
+import dao.impl.UserDAOImpl;
+import entity.Account;
 import entity.Blog;
+import entity.Comment;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Admin
- */
 @WebServlet(name = "BlogController", urlPatterns = {"/BlogController"})
 public class BlogController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-            BlogDAOImpl dao = new BlogDAOImpl();          
-             String dos = request.getParameter("do");
-             if(dos == null){
-//             Vector<Blog> b = dao.getBlog("select * from Blog ");
-            int a =1;
-             Vector<Blog> b = null;
-             int n = dao.getPage();
-              request.setAttribute("n", n);
-//              request.setAttribute("vector4", vector4);
-                String page = request.getParameter("page");
-                if (page == null) {
-                    b = dao.getBlogByPage(1);
-                } else {
-                    b = dao.getBlogByPage(Integer.parseInt(page));
-                }
-                 request.setAttribute("a", a);
-                request.setAttribute("b", b);
-            request.getRequestDispatcher("Blog.jsp").forward(request, response);  
-             }
-             if(dos.equals("getBlog")){
-//                  Vector<Blog> b = dao.getBlog("select * from Blog ");          
-             Vector<Blog> b = null;
-             int n = dao.getPage();
-             int a =1;
-              request.setAttribute("n", n);
-//              request.setAttribute("vector4", vector4);
+            /* TODO output your page here. You may use following sample code. */
+            BlogDAOImpl dao = new BlogDAOImpl();
+            String dos = request.getParameter("do");
+            if (dos == null) {
+
+                int a = 1;
+                Vector<Blog> b = null;
+                int n = dao.getPage();
+                request.setAttribute("n", n);
                 String page = request.getParameter("page");
                 if (page == null) {
                     b = dao.getBlogByPage(1);
@@ -70,21 +44,61 @@ public class BlogController extends HttpServlet {
                     b = dao.getBlogByPage(Integer.parseInt(page));
                 }
                 request.setAttribute("a", a);
-                 request.setAttribute("b", b);
-            request.getRequestDispatcher("Blog.jsp").forward(request, response);              
-             };
-             if(dos.equals("detailBlog")){       
-                String BlogID = request.getParameter("blogID");
-                Vector<Blog> c = dao.getBlog("select * from Blog where [BlogID]='" + BlogID + "'");
-                request.setAttribute("c", c);
-                Vector<Blog> b = dao.getBlog("select * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
                 request.setAttribute("b", b);
-                request.getRequestDispatcher("BlogDetail.jsp").forward(request, response);      
-             }
-              if(dos.equals("sortnew")){       
-                    Vector<Blog> b = null;
-                    int n = dao.getPage();
-                      request.setAttribute("n", n);
+                request.getRequestDispatcher("Blog.jsp").forward(request, response);
+            }
+            if (dos.equals("getBlog")) {
+         
+                Vector<Blog> b = null;
+                int n = dao.getPage();
+                int a = 1;
+                request.setAttribute("n", n);
+                String page = request.getParameter("page");
+                if (page == null) {
+                    b = dao.getBlogByPage(1);
+                } else {
+                    b = dao.getBlogByPage(Integer.parseInt(page));
+                }
+                request.setAttribute("a", a);
+                request.setAttribute("b", b);
+                request.getRequestDispatcher("Blog.jsp").forward(request, response);
+            };
+            HttpSession session = request.getSession();
+            if (dos.equals("detailBlog")) {
+                Account ac = new Account();
+                ac = (Account) session.getAttribute("login");
+                if (ac != null) {
+                    int id = ac.getAccountID();
+                    String accountid = Integer.toString(id);
+                    String username = dao.selectUsername(accountid);
+                    session.setAttribute("user", username);
+                    String BlogID = request.getParameter("blogID");
+                    Vector<Blog> c = dao.getBlog("select * from Blog where [BlogID]='" + BlogID + "'");
+                    request.setAttribute("c", c);
+                    Vector<Blog> b = dao.getBlog("select * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
+                    request.setAttribute("b", b);
+                    Vector<Blog> b1 = dao.getBlog("select top 3 * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
+                    request.setAttribute("b1", b1);
+                    List<Comment> list = dao.DisplayComment(BlogID);
+                    request.setAttribute("listcomment", list);
+                    request.getRequestDispatcher("BlogDetail.jsp").forward(request, response);
+                } else {
+                    String BlogID = request.getParameter("blogID");
+                    Vector<Blog> c = dao.getBlog("select * from Blog where [BlogID]='" + BlogID + "'");
+                    request.setAttribute("c", c);
+                    Vector<Blog> b = dao.getBlog("select * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
+                    request.setAttribute("b", b);
+                     Vector<Blog> b1 = dao.getBlog("select top 3 * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
+                    request.setAttribute("b1", b1);
+                    request.getRequestDispatcher("BlogDetail.jsp").forward(request, response);
+                }
+               
+
+            }
+            if (dos.equals("sortnew")) {
+                Vector<Blog> b = null;
+                int n = dao.getPage();
+                request.setAttribute("n", n);
 //              request.setAttribute("vector4", vector4);
                 String page = request.getParameter("page");
                 int a = 2;
@@ -93,15 +107,15 @@ public class BlogController extends HttpServlet {
                 } else {
                     b = dao.getBlogByPagesortnew(Integer.parseInt(page));
                 }
-                 request.setAttribute("b", b);
-                 request.setAttribute("a", a);
-            request.getRequestDispatcher("Blog.jsp").forward(request, response);       
-              }
-              if(dos.equals("sortold")){
-                   Vector<Blog> b = null;
-                    int n = dao.getPage();
-                      request.setAttribute("n", n);
-//              request.setAttribute("vector4", vector4);
+                request.setAttribute("b", b);
+                request.setAttribute("a", a);
+                request.getRequestDispatcher("Blog.jsp").forward(request, response);
+            }
+            if (dos.equals("sortold")) {
+                Vector<Blog> b = null;
+                int n = dao.getPage();
+                request.setAttribute("n", n);
+
                 String page = request.getParameter("page");
                 int a = 3;
                 if (page == null) {
@@ -109,27 +123,27 @@ public class BlogController extends HttpServlet {
                 } else {
                     b = dao.getBlogByPagesortold(Integer.parseInt(page));
                 }
-                 request.setAttribute("b", b);
-                 request.setAttribute("a", a);
-            request.getRequestDispatcher("Blog.jsp").forward(request, response);       
-              }
-              if(dos.equals("search")){
-                  String author = request.getParameter("search");
-                   Vector<Blog> b = null;
-                    int n = dao.getPage();
-                      request.setAttribute("n", n);
-//              request.setAttribute("vector4", vector4);
+                request.setAttribute("b", b);
+                request.setAttribute("a", a);
+                request.getRequestDispatcher("Blog.jsp").forward(request, response);
+            }
+            if (dos.equals("search")) {
+                String author = request.getParameter("search");
+                Vector<Blog> b = null;
+                int n = dao.getPage();
+                request.setAttribute("n", n);
+
                 String page = request.getParameter("page");
                 int a = 4;
                 if (page == null) {
-                    b = dao.getBlogByPagesearch(1,author);
+                    b = dao.getBlogByPagesearch(1, author);
                 } else {
-                    b = dao.getBlogByPagesearch(Integer.parseInt(page),author);
+                    b = dao.getBlogByPagesearch(Integer.parseInt(page), author);
                 }
-                 request.setAttribute("b", b);
-                 request.setAttribute("a", a);
-            request.getRequestDispatcher("Blog.jsp").forward(request, response);    
-              }
+                request.setAttribute("b", b);
+                request.setAttribute("a", a);
+                request.getRequestDispatcher("Blog.jsp").forward(request, response);
+            }
         }
     }
 

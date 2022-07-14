@@ -1,23 +1,33 @@
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
  */
 package dao.impl;
 
 import dao.ReservationDAO;
 import entity.Reservation;
 import context.DBContext;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with Reservation and associate tables
  *
- * @author admin
+ * @author
  */
 public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
@@ -85,11 +95,12 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         }
         return 0;
     }
+
     public Vector<Reservation> Reservation(String sql) {
         Vector<Reservation> re = new Vector<Reservation>();
-        try{
+        try {
             //        create statement: execute sql
-             ResultSet rs = getData(sql);
+            ResultSet rs = getData(sql);
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int UserID = rs.getInt(2);
@@ -99,12 +110,12 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
                 String Address = rs.getString(6);
                 String Phone = rs.getString(7);
                 int NumberOfPerson = rs.getInt(8);
-                Date checkin =rs.getDate(9);
-                Date checkout =rs.getDate(10);
-                double total =rs.getDouble(11);
+                Date checkin = rs.getDate(9);
+                Date checkout = rs.getDate(10);
+                double total = rs.getDouble(11);
                 int Status = rs.getInt(12);
-                Date dat =rs.getDate(13);
-                
+                Date dat = rs.getDate(13);
+
                 Reservation im = new Reservation(UserID, RoomID, Name, Email, Address, Phone, NumberOfPerson, checkin, checkout, total, Status, dat);
                 re.add(im);
             }
@@ -113,11 +124,511 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         }
         return re;
     }
-    public static void main(String[] args) {
-        ReservationDAOImpl dao= new ReservationDAOImpl();
-                Date a = Date.valueOf("2022-05-03");
-        Date b = Date.valueOf("2022-07-03");
-        Reservation re =new Reservation(4, 8, "Rose", "rs2001@gmail.com", "Hanoi", "0904652125", 4, a, b, 1600, 1,a );
-        int n= dao.addReservation(re);
+
+    public int removeReservation(int id) {
+        int n = 0;
+        String sql = "delete from Reservation where BillID=" + id;
+        try {
+            Statement state = conn.createStatement();
+            n = state.executeUpdate(sql);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
     }
+
+    /**
+     * get the total amount from from Reservation table
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int sumReservation() throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+
+        try {
+            String sql = "select SUM(Total) as Total from Reservation";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+
+                return rs.getInt("Total");
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return 0;
+    }
+
+    /**
+     * search from Reservation table
+     *
+     * @param name
+     * @param from
+     * @param to
+     * @return
+     * @throws Exception
+     */
+    @Override
+
+    public ArrayList<Reservation> totalOfRoomSearch(String name, Date to, Date from) throws Exception {
+
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
+        String sql = "select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
+                + "where r.RoomID like '%" + name + "%' \n"
+                + "group by r.RoomID,r.Roomname \n"
+                + "order by r.RoomID asc";
+        if (to != null && from != null) {
+            sql = " select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
+                    + "                  where r.RoomID like '%" + name + "%' and  re.Checkin >= '" + to + "'  and   re.Checkin <= '" + from + "'\n"
+                    + "                    group by r.RoomID,r.Roomname\n"
+                    + "                    order by r.RoomID asc";
+        }
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+
+                ArrayList.add(new Reservation(rs.getInt("RoomID"), rs.getString("Roomname"), rs.getDouble("Total")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+
+        return ArrayList;
+    }
+
+    /**
+     * Show revenue by Room Reservation table
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ArrayList<Reservation> totalOfRoom() throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
+        String sql = "select r.RoomID,r.Roomname,SUM(re.Total) as Total from Reservation re full outer join  Room r on re.RoomID = r.RoomID\n"
+                + "group by r.RoomID,r.Roomname\n"
+                + "order by r.RoomID asc";
+
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+
+                ArrayList.add(new Reservation(rs.getInt("RoomID"), rs.getString("Roomname"), rs.getDouble("Total")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+
+        return ArrayList;
+    }
+
+    /**
+     * search and display how much each Room earns from Reservation table
+     *
+     * @param month
+     * @param year
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ArrayList<Reservation> totalOfRoomByMonth(int month, int year) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
+        String sql = "";
+        if (month == 0 && year == 0) {
+
+            sql = "select  MONTH(Checkin)as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation       \n"
+                    + "group by MONTH(Checkin),YEAR(Checkin)\n"
+                    + "order by MONTH(Checkin),YEAR(Checkin)";
+        }
+        if (month != 0 && year != 0) {
+            sql = "select  MONTH(Checkin) as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation       \n"
+                    + "where MONTH(Checkin) =" + month + " and  YEAR(Checkin) = " + year + "\n"
+                    + "group by MONTH(Checkin),YEAR(Checkin)\n"
+                    + "order by MONTH(Checkin),YEAR(Checkin)";
+        }
+        if (month == 0 && year != 0) {
+            sql = "select  MONTH(Checkin)as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation       \n"
+                    + "where YEAR(Checkin) = " + year + "\n"
+                    + "group by MONTH(Checkin),YEAR(Checkin)\n"
+                    + "order by MONTH(Checkin),YEAR(Checkin)";
+        }
+        if (month != 0 & year == 0) {
+            sql = "select  MONTH(Checkin)as Status, YEAR(Checkin) as NumberOfPerson, SUM(Total) as Total  from Reservation      \n"
+                    + "                    where  MONTH(Checkin)=" + month + "\n"
+                    + "                   group by MONTH(Checkin),YEAR(Checkin)\n"
+                    + "                   order by MONTH(Checkin),YEAR(Checkin)";
+        }
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                ArrayList.add(new Reservation(rs.getInt("Status"), rs.getInt("NumberOfPerson"), rs.getDouble("Total")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return ArrayList;
+    }
+
+    /**
+     * show year from Reservation table
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ArrayList<Integer> selectAllYear() throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        ArrayList<Integer> ArrayList = new ArrayList<>();
+        String sql = "select  YEAR(Checkin) as Year from Reservation       \n"
+                + "group by YEAR(Checkin)\n"
+                + "order by YEAR(Checkin)";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+
+                ArrayList.add(rs.getInt("Year"));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return ArrayList;
+    }
+
+    /**
+     * Show the service that the customer has used from Reservation table
+     *
+     * @return 
+     * @throws Exception
+     */
+    @Override
+    public ArrayList<Reservation> sumService() throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
+        String sql = "select ServiceName, COUNT( ServiceName) as Total from [Reservation]\n"
+                + "group by ServiceName";
+
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                ArrayList.add(new Reservation(rs.getString("ServiceName"), rs.getInt("Total")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+
+        return ArrayList;
+
+    }
+
+    @Override
+    public int getPage() throws Exception {
+        int n = 0;
+        String sql="select Count(*) from Reservation";
+        try {
+            int totalPage = 0;
+            int countPage = 0;
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                totalPage = rs.getInt(1);
+                countPage = totalPage / 6;
+                if (totalPage % 6 != 0) {
+                    countPage++;
+                }
+                return countPage;
+            }
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+
+    @Override
+    public Vector<Reservation>getReservationByPage(int n) throws Exception {
+        Vector<Reservation> vector = new Vector<Reservation>();
+        int begin = 1;
+        int end = 6;
+        for (int i = 2; i <= n; i++) {
+            begin += 6;
+            end += 6;
+        }
+        String sql = "with t as(select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID,ROW_NUMBER() OVER (order by re.BillID) \n"
+                + "AS RowNum FROM Reservation re join Room r on r.RoomID=re.RoomID\n"
+                + "          join [Image] i on r.RoomimgaeID=i.RoomimgaeID \n"
+                + ")\n"
+                + "select * from t Where RowNum between " + begin + " AND " + end;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                String Roomname = rs.getString(1);
+                String image1 = rs.getString(2);
+                String Name = rs.getString(3);
+                String Email = rs.getString(4);
+                String Address = rs.getString(5);
+                String Phone = rs.getString(6);
+                int NumberOfPerson = rs.getInt(7);
+                Date Checkin = rs.getDate(8);
+                Date Checkout = rs.getDate(9);
+                double Total = rs.getDouble(10);
+                int Status = rs.getInt(11);
+                Date dDate = rs.getDate(12);
+                int RoomID = rs.getInt(13);
+                int BillID = rs.getInt(14);
+                int UserID = rs.getInt(15);
+                Reservation im = new Reservation(BillID, UserID, RoomID, Roomname, image1, Name, Email, Address, Phone, NumberOfPerson, Checkin, Checkout, Total, Status, dDate);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;
+    }
+
+    @Override
+    public Vector<Reservation> searchRoom(String a, String b) throws Exception {
+       Vector<Reservation> vector = new Vector<Reservation>();
+        
+        String sql = "select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID \n"
+                + "  FROM Reservation re join Room r on r.RoomID=re.RoomID\n"
+                + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID \n"
+                + " where re.Checkout <='"+b+"'and re.Checkin >='"+a+"'" ;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                String Roomname = rs.getString(1);
+                String image1 = rs.getString(2);
+                String Name = rs.getString(3);
+                String Email = rs.getString(4);
+                String Address = rs.getString(5);
+                String Phone = rs.getString(6);
+                int NumberOfPerson = rs.getInt(7);
+                Date Checkin = rs.getDate(8);
+                Date Checkout = rs.getDate(9);
+                double Total = rs.getDouble(10);
+                int Status = rs.getInt(11);
+                Date dDate = rs.getDate(12);
+                int RoomID = rs.getInt(13);
+                int BillID = rs.getInt(14);
+                int UserID = rs.getInt(15);
+                Reservation im = new Reservation(BillID, UserID, RoomID, Roomname, image1, Name, Email, Address, Phone, NumberOfPerson, Checkin, Checkout, Total, Status, dDate);
+                vector.add(im);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;
+    }
+    /**
+     * show month from Reservation table
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ArrayList<Integer> selectAllMotnh() throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        ArrayList<Integer> ArrayList = new ArrayList<>();
+        String sql = "  select  MONTH(Checkin) as Month  from Reservation      \n"
+                + "                group by MONTH(Checkin)\n"
+                + "                order by MONTH(Checkin)";
+
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                ArrayList.add(rs.getInt("Month"));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+
+        return ArrayList;
+    }
+
+    /**
+     * show booking information from Reservation table
+     *
+     * @param uID
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Reservation viewOrderDetails(int uID) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+
+        String sql = "select r.BillID,r.UserID,r.Name,ro.Roomname,r.Address,r.Email,r.Phone,r.Checkin,r.Checkout,ro.RoomPrice,r.Total,r.[Status] from [Reservation] r inner join [User] u on r.UserID= u.UserID\n"
+                + "              inner join Room ro on r.RoomID = ro.RoomID  \n"
+                + "              where u.UserID=" + uID;
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+
+            rs = pre.executeQuery();
+
+            if (rs.next()) {
+                return new Reservation(rs.getInt("BillID"), uID, rs.getString("Name"), rs.getString("Roomname"), rs.getString("Address"), rs.getString("Email"), rs.getString("Phone"),
+                        rs.getDate("Checkin"), rs.getDate("Checkout"), rs.getDouble("Roomprice"), rs.getDouble("Total"), rs.getInt("Status"));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return null;
+    }
+
+    /**
+     * show booking information from Reservation table
+     *
+     * @param uID
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ArrayList<Reservation> OrderDetails(int uID) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+
+        ArrayList<Reservation> ArrayList = new ArrayList<>();
+        String sql = "select r.BillID,r.UserID,r.Name,ro.Roomname,r.Address,r.Email,r.Phone,r.Checkin,r.Checkout,ro.RoomPrice,r.Total,r.[Status] from [Reservation] r inner join [User] u on r.UserID= u.UserID\n"
+                + "              inner join Room ro on r.RoomID = ro.RoomID  \n"
+                + "              where u.UserID=" + uID;
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                Reservation r = new Reservation(rs.getInt("BillID"), uID, rs.getString("Name"), rs.getString("Roomname"), rs.getString("Address"), rs.getString("Email"), rs.getString("Phone"),
+                        rs.getDate("Checkin"), rs.getDate("Checkout"), rs.getDouble("Roomprice"), rs.getDouble("Total"), rs.getInt("Status"));
+                ArrayList.add(r);
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return ArrayList;
+    }
+
 }

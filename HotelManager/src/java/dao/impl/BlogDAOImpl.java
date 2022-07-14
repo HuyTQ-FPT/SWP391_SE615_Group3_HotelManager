@@ -14,14 +14,21 @@ import context.DBContext;
 import entity.Comment;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ *
+ * @author Admin
+ */
 public class BlogDAOImpl extends DBContext implements BlogDAO {
 
     @Override
     public Vector<Blog> getBlog(String sql) {
         Vector<Blog> vector = new Vector<Blog>();
+         
         try {
-            ResultSet rs = getData(sql);
+          ResultSet rs = getData(sql);
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int AccountID = rs.getInt(2);
@@ -35,19 +42,47 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+ 
         }
         return vector;
     }
+@Override
+    public int getComment() {
+        int n = 0;
+        String sql = "select COUNT(*) from Comment";
+        Vector<Blog> vector = new Vector<Blog>();
+      
+        try {
+            int totalPage = 0;
+            int countPage = 0;
+          PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                totalPage = rs.getInt(1);
+                countPage = totalPage / 4;
+                if (totalPage % 4 != 0) {
+                    countPage++;
+                }
+                return countPage;
+            }
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        
 
+        }
+        return n;
+    }
     @Override
     public int getPage() {
         int n = 0;
         String sql = "select COUNT(*) from Blog";
         Vector<Blog> vector = new Vector<Blog>();
+      
         try {
             int totalPage = 0;
             int countPage = 0;
-            PreparedStatement pre = conn.prepareStatement(sql);
+          PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = getData(sql);
             while (rs.next()) {
                 totalPage = rs.getInt(1);
@@ -60,6 +95,8 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        
+
         }
         return n;
     }
@@ -68,8 +105,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
     public String getBlogID(String sql) {
         String n1="";
         int n = 0;
+      
         try {
-            ResultSet rs = getData(sql);
+          ResultSet rs = getData(sql);
             while (rs.next()) {
                 int id = rs.getInt(1);
 
@@ -82,7 +120,59 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return n1;
     }
+@Override
+    public String selectUsername(String AccountID) {
+        String sql = "select UserName from [User] where AccountID = "+AccountID+"";
+        String n1="";
+        int n = 0;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+              n1 = rs.getString(1);
 
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n1;
+    }
+       @Override
+    public List<Comment> getCommentByPage(int n) {
+        List<Comment> list = new ArrayList<Comment>();
+        int begin = 1;
+        int end = 4;
+        for (int i = 2; i <= n; i++) {
+            begin += 4;
+            end += 4;
+        }
+        
+        String sql = " SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY CommentID desc) AS RowNum\n" +
+"                            FROM Comment\n" +
+"                            ) AS RowNum\n" +
+"                              WHERE RowNum BETWEEN "+ begin + " AND " + end;
+        try {
+            ResultSet rs = getData(sql);
+            while (rs.next()) {
+                Comment comment = new Comment();
+                String content = rs.getString("Content");
+                String username = rs.getString("username");
+                String date = rs.getString("Date");
+                String CommentID = rs.getString("CommentId");             
+                String ParentID = rs.getString("ParentID");
+                  String Blogid = rs.getString("Blogid");     
+                comment.setContent(content);
+                comment.setUsername(username);
+                comment.setDate(date);
+                comment.setCommentId(CommentID);
+                comment.setParentId(ParentID);
+                 comment.setBlogid(Blogid);
+                list.add(comment);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
     @Override
     public Vector<Blog> getBlogByPage(int n) {
         Vector<Blog> vector = new Vector<Blog>();
@@ -159,7 +249,29 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             e.printStackTrace();
         }
     }
-
+  @Override
+    public void deleteCommentParent(String CommentID,String ParentID) {
+        String query = "delete from Comment where CommentID = ? or ParentID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, CommentID);    
+            pre.setString(2, ParentID);    
+            pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void deleteComment(String CommentID) {
+        String query = "delete from Comment where CommentID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, CommentID);             
+            pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public Vector<Blog> getBlogByPagesortold(int n) {
         Vector<Blog> vector = new Vector<Blog>();
@@ -239,7 +351,27 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
+ @Override
+    public Blog selectBlog1(String sql) {
 
+        try {
+           ResultSet rs = getData(sql);
+         while (rs.next()) {
+                int AccountID = rs.getInt(2);
+                String BlogAuthor = rs.getString(3);
+                String BlogDescription = rs.getString(4);
+                String Date = rs.getString(6);
+                int BlogID = rs.getInt(1);
+                String BlogTitle = rs.getString(7);
+                String BlogImage = rs.getString(5);
+                return new Blog(BlogID, AccountID, BlogAuthor, BlogDescription, BlogImage, Date, BlogTitle);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+     return null;
+    }
+    
     @Override
     public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String BlogTitle) {
         String query = "INSERT INTO [dbo].[Blog]\n"
@@ -252,7 +384,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 + "     VALUES \n"
                 + "           (?,?,?,?,GETDATE(),?)";
         try {
-//            ResultSet rs = null;
+
             PreparedStatement pre = conn.prepareStatement(query);
             pre.setInt(1, AccountID);
             pre.setString(2, BlogAuthor);
@@ -284,26 +416,37 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void InsertComment(String content, String username, String BlogID) {
-        String sql = "INSERT INTO [dbo].[Comment]([Content],[username],[Date],[BlogID])VALUES(?,?,GETDATE(),?)";
+@Override
+    public void updateContent(String CommentID, String Content) {
+        String query = "UPDATE [dbo].[Comment] SET [Content] = ? WHERE CommentID = ?";
         try {
-//            ResultSet rs = null;
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, content);
-            pre.setString(2, username);
-            pre.setString(3, BlogID);
+            PreparedStatement pre = conn.prepareStatement(query);    
+            pre.setString(1, Content);
+            pre.setString(2, CommentID);
             pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     @Override
-    public List<Comment> DisplayComment(String BlogID) {
+    public void InsertComment(String content, String username, String BlogID,String ParentID) {
+        String sql = "INSERT INTO [dbo].[Comment]([Content],[username],[Date],[ParentID],[BlogID])VALUES(?,?,GETDATE(),?,?)";
+        try {
+//            ResultSet rs = null;
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, content);
+            pre.setString(2, username);
+            pre.setString(4, BlogID);
+            pre.setString(3, ParentID);
+            pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public List<Comment> DisplayAllComment(String BlogID) {
         List<Comment> list = new ArrayList<Comment>();
-        String sql = "select * from Comment where BlogID = " + BlogID + "";
+            String sql = "select * from Comment where BlogID = " + BlogID ;
         try {
             PreparedStatement ptmt = conn.prepareStatement(sql);
             ResultSet rs = ptmt.executeQuery();
@@ -313,10 +456,14 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 String username = rs.getString("username");
                 String date = rs.getString("Date");
                 String CommentID = rs.getString("CommentId");
+                 BlogID = rs.getString("BlogID");
+                String ParentID = rs.getString("ParentID");
+                comment.setBlogid(BlogID);
                 comment.setContent(content);
                 comment.setUsername(username);
                 comment.setDate(date);
                 comment.setCommentId(CommentID);
+                comment.setParentId(ParentID);
                 list.add(comment);
             }
         } catch (SQLException e) {
@@ -324,7 +471,90 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return list;
     }
-
+ @Override
+    public List<Comment> DisplayCommentBlog(String BlogID) {
+        List<Comment> list = new ArrayList<Comment>();
+            String sql = "select * from Comment where BlogID = " + BlogID + " and ParentID = 0";
+        try {
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+            ResultSet rs = ptmt.executeQuery();
+            while (rs.next()) {
+                Comment comment = new Comment();
+                String content = rs.getString("Content");
+                String username = rs.getString("username");
+                String date = rs.getString("Date");
+                String CommentID = rs.getString("CommentId");
+                 BlogID = rs.getString("BlogID");
+                String ParentID = rs.getString("CommentId");
+                comment.setBlogid(BlogID);
+                comment.setContent(content);
+                comment.setUsername(username);
+                comment.setDate(date);
+                comment.setCommentId(CommentID);
+                comment.setParentId(ParentID);
+                list.add(comment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    @Override
+    public List<Comment> DisplayComment(String BlogID) {
+        List<Comment> list = new ArrayList<Comment>();
+            String sql = "select * from Comment where BlogID = " + BlogID + " and ParentID = 0";
+        try {
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+            ResultSet rs = ptmt.executeQuery();
+            while (rs.next()) {
+                Comment comment = new Comment();
+                String content = rs.getString("Content");
+                String username = rs.getString("username");
+                String date = rs.getString("Date");
+                String CommentID = rs.getString("CommentId");
+                 BlogID = rs.getString("BlogID");
+                String ParentID = rs.getString("CommentId");
+                comment.setBlogid(BlogID);
+                comment.setContent(content);
+                comment.setUsername(username);
+                comment.setDate(date);
+                comment.setCommentId(CommentID);
+                comment.setParentId(ParentID);
+                list.add(comment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+ @Override
+    public List<Comment> DisplayCommenttt(String CommentID) {
+        List<Comment> list = new ArrayList<Comment>();
+        String sql = "select * from Comment where ParentID = " + CommentID + "";
+        try {
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+            ResultSet rs = ptmt.executeQuery();
+            while (rs.next()) {
+                Comment comment = new Comment();
+                String content = rs.getString("Content");
+                String username = rs.getString("username");
+                  String blogid = rs.getString("blogid");
+                String date = rs.getString("Date");
+                CommentID = rs.getString("CommentId");
+                String ParentID = rs.getString("ParentID");
+                comment.setBlogid(blogid);
+                comment.setContent(content);
+                comment.setUsername(username);
+                comment.setDate(date);
+                comment.setCommentId(CommentID);
+                comment.setParentId(ParentID);
+                list.add(comment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
     @Override
     public void crudImage(String sql) {
         try {
@@ -338,12 +568,10 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
 
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
-//      Vector<Blog> vector = new Vector<Blog>();
-//      vector  = dao.getBlogID(" SELECT MAX(BlogID)\n" +
-//"FROM [SWPgroup3].[dbo].[Blog]");
-        String n = dao.getBlogID(" SELECT MAX(BlogID)\n"
-                + "FROM [SWPgroup3].[dbo].[Blog]");
-        System.out.println(n);
+        
+          List<Comment> list = new ArrayList<Comment>();
+          list = dao.getCommentByPage(1);
+        System.out.println(list);
 
     }
 

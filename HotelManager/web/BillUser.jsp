@@ -137,7 +137,7 @@
                         <input type="hidden" name="do" value="infor"> 
                         <% int id = (Integer) request.getAttribute("id");%>
                         <input type="hidden" name="id" value="<%=id%>">
-                        <input type="hidden" name="user" value="${sessionScope.account.getAccountID()}"> 
+                        <input type="hidden" name="user" value="${sessionScope.login.getAccountID()}"> 
                         <div class="row">
                             <div class="col-50">
                                 <h3>Đơn đặt phòng</h3>
@@ -145,13 +145,17 @@
                                     if(rs1.next()){
                                 %>
                                 <label for="fname"><i class="fa fa-user"></i> Tên đầy đủ(*)</label>
-                                <input type="text" name="firstname" placeholder="<%=rs1.getString(7) %>" value="<%=rs1.getString(7) %>" readonly>
+                                <input type="hidden" name="firstname" placeholder="<%=rs1.getString(7) %>" value="<%=rs1.getString(7) %>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(7) %></p>
                                 <label for="email"><i class="fa fa-envelope"></i> Email(*)</label>
-                                <input type="text" id="email" name="email" placeholder="<%=rs1.getString(9) %>" value="<%=rs1.getString(9) %>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(9) %></p>
+                                <input type="hidden" id="email" name="email" placeholder="<%=rs1.getString(9) %>" value="<%=rs1.getString(9) %>" readonly>
                                 <label for="address"><i class="fa fa-address-card-o"></i> Địa chỉ</label>
-                                <input type="text" id="adr" name="address" placeholder="<%=rs1.getString(12) %>" value="<%=rs1.getString(12) %>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(12) %></p>
+                                <input type="hidden" id="adr" name="address" placeholder="<%=rs1.getString(12) %>" value="<%=rs1.getString(12) %>" readonly>
                                 <label for="city"><i class="fa fa-institution"></i> Số điện thoại(*)</label>
-                                <input type="text" id="city" name="phone" placeholder="<%=rs1.getString(8) %>"  value="<%=rs1.getString(8) %>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(8) %></p>
+                                <input type="hidden" id="city" name="phone" placeholder="<%=rs1.getString(8) %>"  value="<%=rs1.getString(8) %>" readonly>
                                     <%}%>
                                 <div class="row">
                                     <div class="col-50">
@@ -164,8 +168,8 @@
                                         </select>
                                     </div>
                                     <div class="col-50">
-                                        <label style="display: inline-block; padding-top: 30px;font-size: 18px;margin-left: 0px;" for="state">Trẻ nhỏ</label>
-                                        <select style="font-size: 20px;width: 170px;"  name="Child">
+                                        <label style="display: inline-block; padding-top: 30px;font-size: 20px;margin-left: 0px;" for="state">Trẻ nhỏ</label>
+                                        <select style="font-size: 20px;width: 180px;"  name="Child" selected>
                                             <option value="1"> 1 </option>
                                             <option value="2"> 2 </option>
                                             <option value="3"> 3 </option>
@@ -203,10 +207,10 @@
                                 <input  type="checkbox" name="service" value="<%=e.getServiceID()%>">
                                 <label style="display:inline-block;"for="vehicle1"><%=e.getServiceName()%> </label><br>
                                 <%}%>
-                                <label style="padding-top: 30px;"for="ccnum">Check in</label>
-                                <input name="checkin" type="date"  class="form-control" id="inputCheckIn" placeholder="Check In" style="font-size: 20px" min="<%=date%>" required>
+                                <label style="padding-top: 30px;">Check in</label>
+                                <input name="checkin" type="date" class="form-control" id="inputCheckIn" style="font-size: 20px" min="<%=date%>" required>
                                 <label for="expmonth" style="padding-top: 10px">Check out</label>
-                                <input name="checkout" type="date" class="form-control" id="inputCheckOut" placeholder="Check Out" style="font-size: 20px" min="<%=date%>" required>
+                                <input name="checkout" type="date" class="form-control" id="inputCheckOut" style="font-size: 20px" min="<%=date%>" required>
 
                             </div>
 

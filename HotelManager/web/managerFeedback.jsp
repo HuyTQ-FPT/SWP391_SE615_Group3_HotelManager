@@ -1,14 +1,17 @@
-
-<%@page import="entity.Room"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entity.Account"%>
+<%@page import="dao.impl.UserDAOImpl"%>
+<%@page import="entity.Message"%>
+<%@page import="entity.User"%>
 <%@page import="java.util.Vector"%>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Receptionist</title>
+        <title>Danh sách khách hàng</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -17,8 +20,6 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
         <style>
             body {
                 color: #566787;
@@ -163,10 +164,13 @@
             .name{
                 font-size: 13px;
             }
+            /*            .table-wrapper{
+                            margin-left: 50px;
+                        }*/
             .log-out{
                 position: fixed;
-                right: 110px;
-                top:35px;
+                right: 100px;
+                top:20px;
                 border-radius: 5px;
                 background-color: #F1BC31;
                 margin-right: 20px;
@@ -193,7 +197,7 @@
                 color: white;
                 position: relative;
                 position: fixed;
-                top: 60px;
+                top: 45px;
                 right: 30px;
                 border-radius: 10px;
                 overflow: hidden;
@@ -256,55 +260,24 @@
                 transition-delay: 0.1s;
                 transform: rotate(0deg);
             }
-            .selectStatus{
-                margin-right: 600px;
+            .notif{
+                position: fixed;
+                right: 910px;
+                color: #F1BC31;
+                font-size: 25px;
             }
-
-            .pagination {
-                display: inline-block;
-            }
-
-            .pagination a {
-                color: black;
-                float: left;
-                padding: 8px 16px;
-                text-decoration: none;
-            }
-            .supprimer {
-                /*                background-color: transparent;
-                                text-decoration: underline;
-                                border: none;*/
-                color: blue;
-                cursor: pointer;
-                border-radius: 5px;
-                background-color: #F1BC31;
-                padding: 4px 10px;
-            }
-
-            supprimer:focus {
-                outline: none;
-            }
-            .but{
-                cursor: pointer;
-                border-radius: 5px;
-                background-color: #F1BC31;
-                padding: 2px 15px;
-            }
-            .form-group{
-                position: relative;
-            }
-            .style{
-                position: absolute;
-                left: 0px;
-                top:0px;
-                font-size: 10px;
+            .notif a:hover{
+                color: white;
             }
         </style>
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     </head>
     <body>
         <%
-            Vector<Room> vector = (Vector<Room>) request.getAttribute("vectorR");
-
+            ArrayList<Message> vector = (ArrayList<Message>) request.getAttribute("vector");
+            ArrayList<Account> listAccount = (ArrayList<Account>) request.getAttribute("listAccount");
+            UserDAOImpl dao = new UserDAOImpl();
         %>
         <section class="ftco-section">
             <div class="card" id="team">
@@ -330,120 +303,109 @@
                 </div>
 
                 <div class="card_button">
-                    <a href="ReceptionistController?do=profile"><button>Thông tin</button></a>                       
+                    <a href="ReceptionistController?do=profile"><button>Thông tin</button></a>                          
                 </div>
 
             </div>
-            <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="padding: 15px">
+            <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
                     <span class="admin"></i>Lễ Tân</span>
                     <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
                     </form>
-                    <!--search RoomName-->
-                    <form action="ReceptionistController?do=searchRoomAndStatus" class="searchform order-lg-last" method="post"  style="
+                    <form action="FeedbackController?do=SearchName" class="searchform order-lg-last" method="post"  style="
                           margin-right: 100px;
                           margin-top: 10px;
                           ">
-                        <div class="form-group d-flex"  >                
-                            <input name="nameRoom" type="text" class="form-control pl-3" placeholder="Tìm kiếm phòng" style="order-radius:8px" >
-
-                            <select name="status" style="order-radius:8px"  >
-
-
-                                <option value="-1">----------------</option>
-                                <option value="1" >Phòng trống</option>
-                                <option value="2" >Phòng đã được đặt</option>
-
-                            </select>  
-                            <button type="submit" name="submit" style=" border-radius:8px"class="form-control search"><span class="fa fa-search"></span></button>
+                        <div class="form-group d-flex" >
+                            <input name="Name" type="text" class="form-control pl-3" placeholder="Tìm kiếm tên" style="order-radius:8px">
+                            <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
                         </div>
                     </form>
-
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active"><a href="ReceptionistController" class="nav-link">Quản lí<br>Phòng</a></li>
+                            <li class="nav-item "><a href="ReceptionistController" class="nav-link">Quản lí<br>phòng </a></li>
                             <!--                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>-->
-                            <li class="nav-item "><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
+                            <li class="nav-item"><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
+                            <li class="nav-item active"><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
                         </ul>
                     </div>
+
                 </div>
                 <div class="oke" onclick="show()"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></div>
+                <div class="notif"><a href="NotificationController?do=Admin"><span class="iconify" data-icon="clarity:notification-solid"></a></span><h10 style="font-size:12px;">Admin</h10></div>
             </nav>
 
-
-
-
         </section>
-        <div class="table-wrapper">                    
-            <table class="table table-striped table-hover table-bordered"> 
+        <div class="table-wrapper">
+            <table class="table table-striped table-hover table-bordered" style="Margin-left:10px;"> 
                 <thead>
-                    <tr class="title">
-                        <th>STT</th>
-                        <th>Số phòng</th>
-                        <th>Miêu tả phòng </th>
-                        <th>Giá phòng</th>
-                        <th>Số người</th>
-                        <th>Diện tích</th>
-                        <th>Đánh giá</th>
-                        <!--<th>Note</th>-->
-                        <th>Tình trạng</th>
-
-
+                    <tr class="title" >
+                        <th></th>
+                        <th>Tên</th>
+                        <th>Điện thoại</th>
+                        <th>Email</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngày gửi feedback</th>
+                        <th>Nội dung</th>
+                        <th style="width:30px">Mã phòng</th>
+                        <th style="width:30px; color:Black">Xóa feedback</th>
+                        <th style="width:30px">Report tài khoản</th>                        
+                        <th style="width:30px">Gỡ Report tài khoản</th>                        
                     </tr>
                 </thead>
-                <%                    for (Room r : vector) {%>
-
-
-
-                <tbody>
+                <tbody>      
+                    <%for (Message m : vector) {
+                            User u = dao.getUserByaID(m.getAccountID());
+                    %>
                     <tr class="name">
-                        <td><%=r.getRoomID()%></td>
-                        <td><%=r.getRoomname()%></td>
-                        <td><%=r.getRoomdesc()%></td>
-                        <td><%=r.getRoomprice()%></td>
-                        <td><%=r.getNumberPerson()%></td>
-                        <td><%=r.getSquare()%></td>
-                        <td><%=r.getRate()%></td>
-                        <td>
-                            <form action="ReceptionistController">
-                                <input type="hidden" name="do" value="updateStatus">   
-                                <input type="hidden" name="rid" value="<%= r.getRoomID()%>"> 
-
-                                <select name="status"  >
-                                    <option value="0" <%if (r.getStatus() == 0) {%>selected<%}%>>Phòng trống</option>
-                                    <option value="1" <%if (r.getStatus() == 1) {%>selected<%}%>>Phòng đã được đặt</option>
-
-                                </select>   
-                                <button class="supprimer" type="submit" name="submit"  onclick="confirmation()">Cập Nhật</button>
-                            </form>
+                        <td><img src="https://ptetutorials.com/images/user-profile.png" style="width: 25px;height:25px"></td>
+                        <td><%= u.getUserName()%></td>
+                        <td><%=u.getUserPhone()%></td>
+                        <td><%=u.getUserEmail()%></td>
+                        <td><%=u.getUserAdress()%></td>
+                        <td><%=m.getDate()%></td>
+                        <td><%=m.getContent()%></td>
+                        <td style="width:30px"><%=m.getRoomID()%></td>
+                            <form action="FeedbackController?do=Deletefeedback" method="post">
+                    <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
+                    <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
+                    <input type="hidden" value="<%=m.getContent()%>" name="content"> 
+                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:Black">&#xE872;</i></button></td>
+                </form>
                         </td>
+                        <% boolean check = false;
+                            Cookie c[] = request.getCookies();
+                            for (Account a : listAccount) {
+                                for (Cookie o : c) {
+                                    if ((o.getName().equals(String.valueOf(a.getAccountID()))) && (Integer.parseInt(o.getValue()) == m.getMessageID())) {
+                                        check = true;
+                                    }
+                                }
+                            }
+                            if (!check) {
+                        %>
 
-                    </tr>
-                <script>
+                <form action="FeedbackController?do=ReportAccount" method="post">
+                    <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
+                    <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
+                    <input type="hidden" value="<%=m.getContent()%>" name="content"> 
+                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:red">assistant_photo</i></button></td>
+                    <td style="width:30px"></td>
+                </form>
 
-                    //Confinm Up
-                    function confirmation() {
-
-                        var result = "Bạn có muốn cập nhật bây giờ?";
-                        if (confirm(result)) {
-                            alert("Bạn đã cập nhật thành công.");
-                        }
-
-
-                    }
-                    function show() {
-                        if (document.getElementById("team").style.display == "none") {
-                            document.getElementById("team").style.display = "block";
-                        } else {
-                            document.getElementById("team").style.display = "none";
-                        }
-                    }
-                </script>
+                <% } else {%>
+                <form action="FeedbackController?do=ExitReport" method="post">
+                    <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
+                    <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
+                    <td style="width:30px"></td>
+                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:red">assistant_photo</i></button></td>                      
+                </form>       
+                <% }%>
+                </tr> 
+                <% }%>
                 </tbody>
-                <%}%>
             </table>
         </div> 
-
     </body>
 </html>

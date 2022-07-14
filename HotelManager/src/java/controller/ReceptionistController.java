@@ -1,17 +1,23 @@
 package controller;
 
-import dao.ReceptionistDAO;
+import dao.ReservationDAO;
 import dao.RoomDAO;
 import dao.UserDAO;
-import dao.impl.ReceptionistDAOImpl;
+import dao.impl.NotificationDAOImpl;
+import dao.impl.ReservationDAOImpl;
 import dao.impl.RoomDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
+import entity.Notification;
+import entity.Reservation;
 import entity.Room;
 import entity.User;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.Vector;
+import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -21,10 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Minh Hiếu
- */
 @WebServlet(name = "ReceptionistController", urlPatterns = {"/ReceptionistController"})
 public class ReceptionistController extends HttpServlet {
 
@@ -32,47 +34,53 @@ public class ReceptionistController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            ReceptionistDAO dao = new ReceptionistDAOImpl();
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            ReservationDAO reservationDAO = new ReservationDAOImpl();
+            NotificationDAOImpl daoN = new NotificationDAOImpl();
             RoomDAO daoR = new RoomDAOImpl();
             UserDAO daoU = new UserDAOImpl();
+            DecimalFormat formatter1 = new DecimalFormat("###,###,###");
             String service = request.getParameter("do");
             HttpSession session = request.getSession();
+            LocalDateTime current = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            String formatted = current.format(formatter);
+            Account a = (Account) session.getAttribute("login");
             if (service == null) {
                 service = "Room";
             }
-            if (service.equalsIgnoreCase("Room")) { //In ra tất cả các phòng
-
-                Vector<Room> vectorR = daoR.getRoomListAll("select*from Room");
-                request.setAttribute("vectorR", vectorR);
+            if (service.equals("Room")) { //In ra tất cả các phòng                
+                ArrayList<Room> listRoom = daoR.getRoomListAll();
+                request.setAttribute("listRoom", listRoom);
                 request.getRequestDispatcher("managerRoom.jsp").forward(request, response);
-
             }
-
-            if (service.equals("updateStatus")) { // cập nhật trạng thái phòng
-
+            if (service.equals("updateStatus")) { // cập nhật trạng thái phòng               
                 String rId = request.getParameter("rid");
                 String status = request.getParameter("status");
-                int Rid = Integer.parseInt(rId);
                 int status1 = Integer.parseInt(status);
+                String content = "";
+                if (status1 == 0) {
+                    content = "Phòng từ trạng thái đã được đặt sang trạng thái rỗng";
+                } else {
+                    content = "Phòng từ trạng thái rỗng sang trạng thái đã được đặt";
+                }
+                daoN.insertNotification(new Notification("Cập nhập trạng thái phòng", a.getUser().toString(), rId.toString(), content.toString(), formatted.toString()));
+                int Rid = Integer.parseInt(rId);
                 daoR.updateStatus(Rid, status1);
                 response.sendRedirect("ReceptionistController");
-
             }
             if (service.equalsIgnoreCase("Cus")) { // In ra tất cả các khách hàng
-
-                Vector<User> vectorU = dao.getCustomerListByReceptionist();
-                request.setAttribute("vectorU", vectorU);
+                ArrayList<User> listUser = daoU.getCustomerListByReceptionist();
+                request.setAttribute("listUser", listUser);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
-
             }
+
             if (service.equalsIgnoreCase("profile")) { // xem thông tin
-
                 Account ac = (Account) session.getAttribute("login");
-
                 User u = daoU.getUser(ac.getAccountID());
                 request.setAttribute("u", u);
                 request.getRequestDispatcher("profileReceptionist.jsp").forward(request, response);
-
             }
             if (service.equalsIgnoreCase("ViewupdateRecept")) { // chuyen toi update profile 
                 Account ac = (Account) session.getAttribute("login");
@@ -80,7 +88,6 @@ public class ReceptionistController extends HttpServlet {
                 session.setAttribute("u", u);
                 request.setAttribute("a", u);
                 request.getRequestDispatcher("updateProfileReceptionist.jsp").forward(request, response);
-
             }
             if (service.equalsIgnoreCase("updateRecept")) { // cập nhật thông tin
 
@@ -91,7 +98,6 @@ public class ReceptionistController extends HttpServlet {
                 String uAddress = (String) request.getParameter("inputAddress").trim();
                 String uPhone = (String) request.getParameter("inputPhone").trim();
                 Date birthday = Date.valueOf(request.getParameter("birthday").trim());
-                System.out.println(birthday);
 
                 //convert
                 int id = Integer.parseInt(uID);
@@ -144,20 +150,33 @@ public class ReceptionistController extends HttpServlet {
 
                 String nameRoom = request.getParameter("nameRoom").trim();
                 int status = Integer.parseInt(request.getParameter("status").trim());
-                System.out.println(nameRoom + "+" + status);
-                Vector<Room> vectorR = daoR.selectRoom(nameRoom, status);
+                ArrayList<Room> listRoom = daoR.selectRoom(nameRoom, status);
 
-                request.setAttribute("vectorR", vectorR);
+                request.setAttribute("listRoom", listRoom);
                 request.getRequestDispatcher("managerRoom.jsp").forward(request, response);
 
             }
 
             if (service.equalsIgnoreCase("searchName")) { // tìm tên khách hàng
                 String name = request.getParameter("Name").trim();
-                Vector<User> vectorU = dao.getSearchNameCustomerListByReceptionist(name);
-                request.setAttribute("vectorU", vectorU);
+                ArrayList<User> listUser = daoU.getSearchNameCustomerListByReceptionist(name);
+                request.setAttribute("listUser", listUser);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
 
+            }
+            if (service.equals("viewOrder")) {
+
+                long sum = 0;
+                int uID = Integer.parseInt(request.getParameter("uID").trim());
+                Reservation reservation = reservationDAO.viewOrderDetails(uID);
+                ArrayList<Reservation> listReservation = reservationDAO.OrderDetails(uID);
+                for (Reservation r1 : listReservation) {
+                    sum += r1.getTotal();
+                }
+                request.setAttribute("listReservation", listReservation);
+                request.setAttribute("sum", formatter1.format(sum));
+                request.setAttribute("reservation", reservation);
+                request.getRequestDispatcher("viewOrderCustomer.jsp").forward(request, response);
             }
         } catch (Exception ex) {
             Logger.getLogger(ReceptionistController.class.getName()).log(Level.SEVERE, null, ex);
@@ -167,14 +186,6 @@ public class ReceptionistController extends HttpServlet {
 
     }
 
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -187,14 +198,6 @@ public class ReceptionistController extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -207,14 +210,9 @@ public class ReceptionistController extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

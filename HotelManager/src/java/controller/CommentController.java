@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller;
 
 import dao.impl.BlogDAOImpl;
 import entity.Comment;
 import context.DBContext;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -19,30 +17,58 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import jdk.nashorn.internal.ir.BreakNode;
 
-/**
- *
- * @author Thai Quan
- */
 @WebServlet(name = "CommentController", urlPatterns = {"/CommentController"})
 public class CommentController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String dos = request.getParameter("do");
+        if(dos.equals("display")){
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-           
+
+            BlogDAOImpl dao = new BlogDAOImpl();
+            response.setContentType("text/html;charset=UTF-8");
+            request.setCharacterEncoding("utf-8");
+            int n = dao.getComment();
+              String BlogID = request.getParameter("blogid");
+              String page = request.getParameter("page");
+              List<Comment> list1 = null;
+              if (page == null) {
+                    list1 = dao.getCommentByPage(1);
+                } else {
+                    list1 = dao.getCommentByPage(Integer.parseInt(page));
+                }
+            
+           //  out.println("<h1>Servlet RoomcategoryController at " + list1+ "</h1>"); 
+          request.setAttribute("listcomment", list1);
+          request.setAttribute("n", n);
+          request.getRequestDispatcher("ManageComment.jsp"). forward(request, response);               
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        }
+       
+        if(dos.equals("remove")){
+           try (PrintWriter out = response.getWriter()) {
+            BlogDAOImpl dao = new BlogDAOImpl();
+            response.setContentType("text/html;charset=UTF-8");
+            request.setCharacterEncoding("utf-8");
+                String commentid = request.getParameter("commentid");
+                String ParentID = request.getParameter("commentid");
+                 dao.deleteCommentParent(commentid,ParentID);
+                   String BlogID = request.getParameter("blogid");
+             List<Comment> list2 = dao.DisplayAllComment(BlogID); 
+              // out.println("<h1>Servlet RoomcategoryController at " + BlogID+ "</h1>"); 
+             request.setAttribute("listcomment", list2);
+           request.getRequestDispatcher("CommentController?do=display&blogid="+BlogID+""). forward(request, response);
+        }catch(Exception e){
+            e.printStackTrace();
+        } 
+
         }
     }
 
@@ -72,33 +98,82 @@ public class CommentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       BlogDAOImpl dao = new BlogDAOImpl();
-        if(request.getCharacterEncoding()!=null){
-            request.setCharacterEncoding("UTF-8");
-        }
-          try (PrintWriter out = response.getWriter()) {
-        String content = request.getParameter("content");
-        String username = request.getParameter("username");
-        String BlogID = request.getParameter("blogid");
+        BlogDAOImpl dao = new BlogDAOImpl();
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        String dos = request.getParameter("do");
+        HttpSession session = request.getSession();
+        if (dos.equals("displaycomment")) {
+            if (request.getCharacterEncoding() != null) {
+                request.setCharacterEncoding("UTF-8");
+            }
+            try (PrintWriter out = response.getWriter()) {
+                Account ac = new Account();
+                ac = (Account) session.getAttribute("login");
+                if (ac == null) {
 
-        if(content.trim() == "" || username.trim() == ""){
-            
-        }else{
-        Comment cmt = new Comment();
-        cmt.setContent(content);
-        cmt.setUsername(username);
-        
-        dao.InsertComment(content, username, BlogID);
-        List<Comment> list = dao.DisplayComment(BlogID);
-          request.setAttribute("listcomment", list);
-              RequestDispatcher rd = request.getRequestDispatcher("Comment.jsp");
-             rd.forward(request, response);
-       
-        }
+                } else {
+                    String content = request.getParameter("content").trim();
+                    String username = request.getParameter("username");
+                    String BlogID = request.getParameter("blogid");
+                    String ParentID = "0";
+                    String ParentIDD = request.getParameter("commentid");
+                    if (content.trim() == "" || username.trim() == "") {
+
+                    } else {
+                        Comment cmt = new Comment();
+                        cmt.setContent(content);
+                        cmt.setUsername(username);
+                        cmt.setParentId(ParentID);
+                        cmt.setBlogid(BlogID);
+                        dao.InsertComment(content, username, BlogID, ParentID);
+                        List<Comment> list = dao.DisplayComment(BlogID);
+
+                        request.setAttribute("listcomment", list);
+                        List<Comment> list1 = dao.DisplayCommenttt(ParentIDD);
+                        request.setAttribute("listcomment1", list1);
+//                    List<Comment> list1 = dao.DisplayCommenttt(ParentIDD);
+//                     request.setAttribute("listcomment1", list1);
+                        RequestDispatcher rd = request.getRequestDispatcher("Comment.jsp");
+                        rd.forward(request, response);
+//            out.println("<h1>Servlet RoomcategoryController at " + list+ "</h1>"); 
+                    }
+                }
 //         out.println("<h1>Servlet RoomcategoryController at " + BlogID+ "</h1>"); 
-    }catch(Exception e){
-        e.printStackTrace();
-    }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (dos.equals("RemoveComment")) {
+            try (PrintWriter out = response.getWriter()) {
+                String commentid = request.getParameter("commentid");
+                String parentid = request.getParameter("commentid");
+                dao.deleteCommentParent(commentid, parentid);
+                String BlogID = request.getParameter("blogid");
+                List<Comment> list = dao.DisplayComment(BlogID);
+
+                request.setAttribute("listcomment", list);
+                RequestDispatcher rd = request.getRequestDispatcher("Comment.jsp");
+//                out.println("<h1>Servlet RoomcategoryController at " + commentid+ "</h1>"); 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (dos.equals("UpdateComment")) {
+            try (PrintWriter out = response.getWriter()) {
+                String commentid = request.getParameter("commentid");
+                String BlogID = request.getParameter("blogid");
+                String content = request.getParameter("content");
+//              request.setAttribute("Ok", "Ok");   
+                dao.updateContent(commentid, content);
+                List<Comment> list1 = dao.DisplayComment(BlogID);
+                request.setAttribute("listcomment", list1);
+                RequestDispatcher rd = request.getRequestDispatcher("Comment.jsp");
+//              out.println("<h1>Servlet RoomcategoryController at "+ list1+" </h1>"); 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

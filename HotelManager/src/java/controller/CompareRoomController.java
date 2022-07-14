@@ -2,16 +2,18 @@ package controller;
 
 import dao.DeviceDAO;
 import dao.ImageDAO;
+import dao.RoomCategoryDAO;
 import dao.RoomDAO;
 import dao.impl.DevicesDAOImpl;
 import dao.impl.ImageDAOImpl;
+import dao.impl.RoomCategoryDAOImpl;
 import dao.impl.RoomDAOImpl;
-import entity.Device;
 import entity.Image;
 import entity.Room;
+import entity.RoomCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -43,6 +45,7 @@ public class CompareRoomController extends HttpServlet {
             RoomDAO daoR = new RoomDAOImpl();
             ImageDAO daoI = new ImageDAOImpl();
             DeviceDAO daoD = new DevicesDAOImpl();
+            RoomCategoryDAO roomCategoryDAO = new RoomCategoryDAOImpl();
             String service = request.getParameter("do");
 
             if (service.equals("ViewCompare")) { // xem thông tin phòng
@@ -50,15 +53,18 @@ public class CompareRoomController extends HttpServlet {
                 String RoomID = request.getParameter("roomid").trim();
                 String cateroom = request.getParameter("cateroom").trim();
                 int roomid = Integer.parseInt(RoomID);
-                Image img = daoR.searchRoomidAndImage(roomid);
+                int cateid = Integer.parseInt(cateroom);
+                Image img = daoI.searchRoomidAndImage(roomid);
                 Room rooom = daoR.getOneRoom(roomid);
-                Vector<Device> vectorD = daoD.getDevicebycateroom(cateroom);
-
+                RoomCategory roomCategory = roomCategoryDAO.getRoomCate(cateid);
+               
+                
                 request.setAttribute("Rooom", rooom);
                 request.setAttribute("img", img);
                 request.setAttribute("roomid", RoomID);
-                request.setAttribute("cateid", cateroom);
-                request.setAttribute("vectorD", vectorD);
+                request.setAttribute("cateid", cateid);
+                request.setAttribute("roomCategory", roomCategory);
+              
                 request.getRequestDispatcher("compare.jsp").forward(request, response);
 
             }
@@ -67,18 +73,18 @@ public class CompareRoomController extends HttpServlet {
                 int RoomID = Integer.parseInt(request.getParameter("RoomID").trim());
                 int cateID = Integer.parseInt(request.getParameter("cateID").trim());
 
-                Vector<Room> vectorR = daoR.searchRoomNamebyAjax(name, cateID);
+               ArrayList<Room> listRoom = daoR.searchRoomNamebyAjax(name, cateID);
 
                 PrintWriter out = response.getWriter();
 
                 if (name.isEmpty()) {
                     out.print("");
-                } else if (vectorR.size() == 0) {
+                } else if (listRoom.isEmpty()) {
                     out.print("<p style=\"padding:20px\">Không tìm thấy kết quả cho từ khoá: <span style=\"color:red\">" + name + "</span><p>");
                 } else {
                     out.print(" <div class=\"manufactury\">");
-                    for (Room room : vectorR) {
-                        Image image = daoR.searchRoomidAndImage(room.getRoomID());
+                    for (Room room : listRoom) {
+                        Image image = daoI.searchRoomidAndImage(room.getRoomID());
                         if (room.getRoomID() != RoomID) {
 
                             out.print("  <li style=\"list-style: none\">\n"

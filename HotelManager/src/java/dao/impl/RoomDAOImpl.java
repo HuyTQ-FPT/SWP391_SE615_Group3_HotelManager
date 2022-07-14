@@ -1,23 +1,33 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
+ */
 package dao.impl;
 
 import dao.RoomDAO;
-import entity.Image;
 import entity.Room;
 import entity.RoomByDate;
 import context.DBContext;
+import entity.RoomCategory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with Room and associate tables
  *
- * @author Admin
+ * @author
  */
 public class RoomDAOImpl extends DBContext implements RoomDAO {
 
@@ -131,35 +141,6 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return null;
     }
-
-//    @Override
-//    public void insertRoom(String Roomname, String Roomdes, String RoomImageid, String roomPrice, String Number) {
-////        String query = "INSERT INTO [dbo].[Room]\n"
-////                + "           ([Roomname]\n"
-////                + "           ,[Roomdesc]\n"
-////                + "           ,[RoomcateID]\n"
-////                + "           ,[RoomimgaeID]\n"
-////                + "           ,[Roomprice]\n"
-////                + "           ,[NumberPerson]\n"
-////                + "           ,[Square]\n"
-////                + "           ,[Comment]\n"
-////                + "           ,[Rate]\n"
-////                + "           ,[Note]\n"
-////                + "           ,[Status])\n"
-////                + "     VALUES\n"
-////                + "           (?,?,?,?,?,?,?,?,?,?,?)";
-////        try {
-////            PreparedStatement pre = conn.prepareStatement(query);
-////            pre.setString(1, name);
-////            pre.setString(2, price);
-////            pre.setString(3, status);
-////            pre.setString(4, RoomcateID);
-////            pre.setString(5, Quantity);
-////            pre.execute();
-////        } catch (Exception e) {
-////            e.printStackTrace();
-////        }
-//    }
     @Override
     public void updateRoom(Room Room) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -556,15 +537,25 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
+    /**
+     * get list Room from Room table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
-    public Vector<Room> getRoomListAll(String sql) throws Exception {
-
+    public ArrayList<Room> getRoomListAll() throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
-
-        Vector<Room> vector = new Vector<Room>();
+        String sql = "select * from Room";
+        ArrayList<Room> vector = new ArrayList<>();
         try {
-            rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -587,17 +578,26 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
-
+            closeConnection(conn);
         }
 
         return vector;
 
     }
 
+    /**
+     * update Room from Room table
+     *
+     * @param rID
+     * @param rStatus
+     * @throws Exception
+     */
     @Override
     public void updateStatus(int rID, int rStatus) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sql = "UPDATE [SWPgroup3].[dbo].[Room]\n"
@@ -621,14 +621,24 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
     }
 
-    public Vector<Room> selectRoom(String rName, int status) throws Exception {
+    /**
+     * get list and search Room from Room table
+     *
+     * @param rName
+     * @param status
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<Room> selectRoom(String rName, int status) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
-        Vector<Room> vector = new Vector<Room>();
-        String sql = "select * from [Room] where Roomname like '%" + rName + "%'";
-        if (status > 0) {
+        ArrayList<Room> vector = new ArrayList<>();
+        String sql = "select * from [Room] where Roomname like N'%" + rName + "%'";
+        if (status >= 0) {
             sql = sql.concat(" and [status]=" + status);
         }
 
@@ -650,7 +660,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 String Note = rs.getString(11);
 
                 int status1 = rs.getInt(12);
-                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, status1);
+                Room im = new Room(id, name, des, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, rs.getInt("status"));
 
                 vector.add(im);
             }
@@ -665,49 +675,22 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
+    /**
+     * get list and search Room from Room table
+     *
+     * @param roomName
+     * @param cateID
+     * @return
+     * @throws Exception
+     */
     @Override
-    public Image searchRoomidAndImage(int RoomID) throws Exception {
+    public ArrayList<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
-
-        String sql = "select i.image1,i.image2,i.image3,i.image4 from [Image] i inner join [Room] r on i.RoomimgaeID = r.RoomimgaeID\n"
-                + "where r.RoomID=" + RoomID;
-        try {
-            conn = getConnection();
-            pre = conn.prepareStatement(sql);
-            rs = pre.executeQuery();
-            if (rs.next()) {
-                return new Image(rs.getString("image1"), rs.getString("image2"), rs.getString("image3"), rs.getString("image4"));
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            closeResultSet(rs);
-            closePreparedStatement(pre);
-            closeConnection(conn);
-
-        }
-        return null;
-    }
-
-    public static void main(String[] args) {
-        RoomDAOImpl r = new RoomDAOImpl();
-        try {
-            Room r1 = r.getOneRoom(1);
-            System.out.println(r1);
-        } catch (Exception ex) {
-            Logger.getLogger(RoomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    @Override
-    public Vector<Room> searchRoomNamebyAjax(String roomName, int cateID) throws Exception {
-        Connection conn = null;
-        PreparedStatement pre = null;
-        ResultSet rs = null;
-        Vector<Room> vector = new Vector<Room>();
+        ArrayList<Room> vector = new ArrayList<>();
         String sql = "select * from Room where Roomname like '%" + roomName + "%' and  RoomcateID=" + cateID;
         try {
             conn = getConnection();
@@ -741,14 +724,23 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
+    /**
+     * get a Room from Room table
+     *
+     * @param roomid
+     * @return
+     * @throws Exception
+     */
     @Override
     public Room getOneRoom(int roomid) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         String sql = "select * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"
-                + "                     JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
-                + "                   where RoomID = " + roomid;
+                + "  JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
+                + "    where RoomID = " + roomid;
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
@@ -763,6 +755,76 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
             closePreparedStatement(pre);
             closeConnection(conn);
 
+        }
+        return null;
+    }
+
+    /**
+     * get count Room from Room table
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ArrayList<Room> sumOfRoom() throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        ArrayList< Room> vector = new ArrayList<>();
+
+        String sql = "select Room.[Status],COUNT(Room.[Status]) as Sumstatus from Room \n"
+                + "group by  Room.[Status]";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                vector.add(new Room(rs.getInt("Status"), rs.getInt("Sumstatus")));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+    }
+  
+    /**
+     * check room Name from Room table
+     *
+     * @param roomName
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public String checkRoom(String roomName) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+
+        String sql = "select * from Room where Roomname = '" + roomName + "'";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            if (rs.next()) {
+                return rs.getString("Roomname");
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return null;
     }

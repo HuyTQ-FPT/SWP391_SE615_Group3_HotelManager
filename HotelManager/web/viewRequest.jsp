@@ -4,8 +4,9 @@
     Author     : MInh Hiếu
 --%>
 
-<%@page import="entity.sendFeedback"%>
+<%@page import="entity.RequestMessage"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,7 +25,7 @@
     </head>
 
     <body id="reportsPage">
-           <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
+        <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
             <div class="container h-100">
                 <a class="navbar-brand" href="AdminController">
                     <h1 class="tm-site-title mb-0">Admin</h1>
@@ -53,8 +54,8 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Báo cáo ngày</a>
-                                <a class="dropdown-item" href="#">Báo cáo tuần</a>
+                                  <a class="dropdown-item" href="AdminController?do=ReportDay">Báo cáo doanh số theo phòng</a>
+                                <a class="dropdown-item" href="AdminController?do=ReportMonth">Báo cáo tháng</a>
                                 <a class="dropdown-item" href="#">Báo cáo năm</a>
                             </div>
                         </li>
@@ -89,7 +90,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="SendFeedbackController?do=listMessFeedBack">
+                            <a class="nav-link active" href="RequestController?do=listMessFeedBack">
                                 <i class="fas fa-newspaper "></i></i> Yêu cầu
                             </a>
                         </li>
@@ -120,7 +121,7 @@
 
         </nav>
         <%
-            sendFeedback s = (sendFeedback) request.getAttribute("seen");
+            RequestMessage s = (RequestMessage) request.getAttribute("seen");
         %>
         <div class="container">
             <div class="row">
@@ -135,17 +136,17 @@
 
                 <div class="col-12 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-                        <h2 class="tm-block-title">Danh sách yêu cầu</h2>
+                        <h2 class="tm-block-title">Nội dung</h2>
 
 
                         <table class="table">
 
                             <thead>
                                 <tr>
-                                    <th scope="col">STT</th>
                                     <th scope="col"> Email</th>
                                     <th scope="col">Tiêu đề</th>
                                     <th  scope="col">Nội dung</th>
+                                    <th  scope="col"></th>
 
 
                                 </tr>
@@ -153,13 +154,10 @@
 
                             <tbody>
                                 <tr>
-                                    <th scope="row"><b><%=s.getmId()%></b></th>
-                                    <td>
-                                        <div class="tm-status-circle ">
-                                        </div><%=s.getEmail()%>
-                                    </td>
-                                    <td><b><%=s.getTitle()%></b></td>
-                                    <td ><%=s.getContent()%></td>
+                                    <td>  <%=s.getEmail()%> </td>
+                                    <td><p style="width: 150px; word-break: break-all"><%=s.getTitle()%></p></td>
+                                    <td ><p style="width: 200px; word-break: break-all"><%=s.getContent()%></p></td>
+                                    <td >   <a href="RequestController?do=viewReply&mID=<%=s.getmId()%>&email=<%=s.getEmail()%> "> <button  style=""  class="btn btn-primary">  Trả lời </button></a></td>
 
 
                                 </tr>
@@ -168,7 +166,7 @@
 
                         </table>
                         <button  style="margin-top: 20px" onclick="deleteId('<%=s.getmId()%>')" class="btn btn-primary">  Xoá </a></button>
-                        <a style="float: right; margin-top: 20px" class="btn btn-danger" href="SendFeedbackController?do=listMessFeedBack&index=${index}">Back</a>
+                        <a style="float: right; margin-top: 20px" class="btn btn-danger" href="RequestController?do=listMessFeedBack&index=${index}">Trang trước</a>
 
                     </div>
                 </div>
@@ -186,7 +184,7 @@
         <script>
                             function deleteId(id) {
                                 if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
-                                    window.location = "SendFeedbackController?do=deleteMessage&mId=" + id;
+                                    window.location = "RequestController?do=deleteMessage&mId=" + id;
                                 }
 
                             }

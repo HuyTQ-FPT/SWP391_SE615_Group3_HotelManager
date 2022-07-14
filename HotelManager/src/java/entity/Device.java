@@ -25,6 +25,11 @@ public class Device {
         this.Imagedevice = Imagedevice;
     }
 
+    public Device(String DeviceName, int Quantity) {
+        this.DeviceName = DeviceName;
+        this.Quantity = Quantity;
+    }
+
     public Device() {
     }
 

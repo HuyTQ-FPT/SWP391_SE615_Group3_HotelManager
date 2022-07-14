@@ -63,7 +63,6 @@ public class UserController extends HttpServlet {
                     request.setAttribute("error", s);
                     request.setAttribute("meserror", m);
                 }
-                System.out.println(request.getAttribute("error") + "okeee");
                 Account a = (Account) session.getAttribute("login");
                 ResultSet rs = dao.getData("select * from Account a join [User] u\n"
                         + "on a.AccountID=u.AccountID\n"
@@ -72,7 +71,6 @@ public class UserController extends HttpServlet {
                 request.getRequestDispatcher("UpdateProfile.jsp").forward(request, response);
             }
             if (service.equals("Updateprofile")) { //cập nhập thông tin profile thay đổi
-                System.out.println("oke");
                 int n = 0;
                 int uid = Integer.parseInt(request.getParameter("uid"));
                 String name = request.getParameter("name").trim();
@@ -81,7 +79,6 @@ public class UserController extends HttpServlet {
                 String address = request.getParameter("address").trim();
                 int gender = Integer.parseInt(request.getParameter("gender"));
                 Date bod = Date.valueOf(request.getParameter("bod").trim());
-                System.out.println(bod);
                 String cmt = request.getParameter("cmt").trim();
                 // điều kiện update thành công
                 boolean checkemail = false;
@@ -117,7 +114,7 @@ public class UserController extends HttpServlet {
                     response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"&me=1");
                 } else if (phone.trim().length()!=10) {
                     String messerror="So dien thoai chi duoc 10 so";
-                    response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"me=1");
+                    response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"&me=1");
                 }                
             }
             if(service.equals("Viewfeedback")){
@@ -125,8 +122,8 @@ public class UserController extends HttpServlet {
                 User u = daoU.getUser(ac.getAccountID());
                 int roomID = Integer.parseInt(request.getParameter("roomID").toString());
                 ResultSet rs =dao.getData("select * from Reservation re join Room r\n" +
-"on re.RoomID=r.RoomID join Image i\n" +
-"on i.RoomimgaeID=r.RoomimgaeID where r.RoomID="+roomID);
+                "on re.RoomID=r.RoomID join Image i\n" +
+                "on i.RoomimgaeID=r.RoomimgaeID where r.RoomID="+roomID);
                 String img="";
                 while (rs.next()) {  
                     request.setAttribute("img",rs.getString(27));
@@ -134,25 +131,25 @@ public class UserController extends HttpServlet {
                 }
                 request.setAttribute("Fname", u.getUserName());
                 request.setAttribute("aid", ac.getAccountID());
-                System.out.println(ac.getAccountID());
                 request.setAttribute("roomID", roomID);                
                 request.getRequestDispatcher("Feedback.jsp").forward(request, response);
             }
             if(service.equals("Feedback")){
                 int roomID = Integer.parseInt(request.getParameter("roomID").toString());
                 LocalDateTime current = LocalDateTime.now();
-                System.out.println(current);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 String formatted = current.format(formatter);
                 int accoutid = Integer.parseInt(request.getParameter("aid").toString());
-                String msg =request.getParameter("commentfb");
-                System.out.println(roomID+" "+formatted+" "+msg+" "+accoutid);
+                String msg =request.getParameter("commentfb").trim();
                 if(!msg.equals("")){
                     daom.insertFeedback(new Message(accoutid, formatted, msg, roomID));
-                    response.sendRedirect("OrderController?do=yourbill");
+                    response.sendRedirect("OrderController?do=yourbill&id="+accoutid);
                 }
                 else response.sendRedirect("UserController?do=Viewfeedback");
             }
+        }catch(Exception ex){
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            request.getRequestDispatcher("Filter.jsp").forward(request, response);
         }
     }
 

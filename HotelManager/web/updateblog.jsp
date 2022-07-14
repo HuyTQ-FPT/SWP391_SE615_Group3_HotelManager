@@ -26,7 +26,16 @@
         -->
         <script type="text/javascript">
             function Delete() {
-                alert("Update success");
+              var arr = document.getElementsByTagName('input');
+              var name = arr[0].value;      
+              var author = arr[2].value;
+              var arr1 = document.getElementsByTagName('textarea');
+              var description = arr1[0].value;           
+                if(name.trim() == "" && author.trim() == "" && description.trim() == "" ){
+                     alert("Vui lòng cập nhật lại thông tin");
+                }else{
+                    alert("Cập nhật thành công");
+                }
             }
         </script>
     </head>
@@ -59,7 +68,7 @@
                                                 id="name"
                                                 name="title"
                                                 value="${c.blogTitleString}"
-                                                type="text"
+                                                type="text" maxlength="40"
                                                 class="form-control validate"
                                                 required
                                                 />
@@ -77,7 +86,7 @@
                                                 name="date"
                                                 type="text"
                                                 value="${c.blogDate}"
-                                                class="form-control validate"
+                                                class="form-control validate" readonly style="background-color: #435c70;"
                                                 required
                                                 />
                                         </div>
@@ -90,7 +99,6 @@
                                             <textarea 
                                                 class="form-control validate"
                                                 rows="3" name="description"
-
                                                 required
                                                 >${c.blogDescription}</textarea>
                                         </div>
@@ -103,12 +111,11 @@
                                             <input
                                                 id="name"
                                                 name="author"
-                                                type="text"
+                                                type="text" maxlength="40"
                                                 value="${c.blogAuthor}"
                                                 class="form-control validate"
                                                 required
                                                 />
-
                                         </div>
 
 
@@ -127,25 +134,17 @@
                                         class="form-control validate"
                                         required
                                         >
-
                                     <div class="custom-file mt-1 mb-1">
-
-
                                         <input type="file" id="imageFile" onchange="chooseFile(this)" accept="image/gif,image/jpeg,image/png"
-                                               class="form-control" name="photo" placeholder="Enter photo">
-                                        <!--<input type="hidden" name="do" value="changeImgae" style="width: 200px; margin-top: 10px">-->
-
+                                               class="form-control" name="photo" placeholder="Enter photo">                                   
                                     </div>
-
-
-
+                                    <div style="padding-top: 80px;" class="form-group mb-3">  
+                                        <a type="submit" class="btn btn-primary btn-block text-uppercase" href="CommentController?do=display&blogid=${c.blogID}">Quản lý bình luận</a>
+<!--                                    <button type="submit" class="btn btn-primary btn-block text-uppercase" ></button>-->
+                                </div> 
                                 </div>
-
-
-
-                                <div class="col-12">
-                                    <!--                            <input type="hidden" value="updatebloggg" name="do">
-                                                                <input type="hidden" value="${c.blogID}" name="BlogID">-->
+                                      
+                                <div class="col-12">                               
                                     <button type="submit" class="btn btn-primary btn-block text-uppercase" onclick="Delete()">Update</button>
                                 </div>
                             </c:forEach>

@@ -56,7 +56,8 @@ public class LoginController extends HttpServlet {
                 }
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
-            if (service.equals("CheckLogin")) { // kiểm tra username/password => đăng nhập thành công hay không
+            if (service.equals("CheckLogin")) {
+                // kiểm tra username/password => đăng nhập thành công hay không
                 String username = request.getParameter("username").trim();
                 String password = request.getParameter("password").trim();
                 ResultSet rs = dao1.getData("select * from Account where [user]='" + username + "' and [password]='" + password + "'");
@@ -68,15 +69,7 @@ public class LoginController extends HttpServlet {
                         pass.setMaxAge(60 * 60 * 24 * 7);
                         response.addCookie(pass);
                         response.addCookie(user);
-                    } else {
-                        Cookie user = new Cookie("user", "");
-                        Cookie pass = new Cookie("pass", "");
-                        user.setMaxAge(0);
-                        pass.setMaxAge(0);
-                        response.addCookie(pass);
-                        response.addCookie(user);
-                    }
-                    System.out.println(rs.getString(2));
+                    } 
                     if (rs.getString(2).equals("1")) {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
                         response.sendRedirect("HomeController");
@@ -176,7 +169,7 @@ public class LoginController extends HttpServlet {
             }
             if (service.equals("ForgetPassword")) {// Quên mật khẩu
 
-                String email = request.getParameter("email");
+                String email = request.getParameter("email").trim();
 
                 if (daoU.checkUser(email.trim()) == null) {
                     if (!email.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
@@ -200,7 +193,7 @@ public class LoginController extends HttpServlet {
                     String newPass = rdP.randomAlphaNumeric(8);
                     String message = "Mật khẩu mới của bạn là:" + newPass + "\n"
                             + "Nếu bạn muốn đổi mật khẩu click vào link này:" + "http://localhost:8080/HotelManager/LoginController";
-                    sm.send(email, "Your new pass word!!!!", message, sm.getFromEmail(), sm.getPassword());
+                    sm.send(email, "Mật khẩu mới của bạn!!!!", message, sm.getFromEmail(), sm.getPassword());
                     int n = dao.updateAccountAndUser(newPass, email);
                     String mess = "Gửi email thành công.";
                     request.setAttribute("mess", mess);
@@ -287,8 +280,7 @@ public class LoginController extends HttpServlet {
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("errorMess", ex.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("Filter.jsp").forward(request, response);
         }
     }
 

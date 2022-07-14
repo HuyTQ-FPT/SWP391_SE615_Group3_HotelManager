@@ -1,5 +1,5 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="entity.User"%>
-<%@page import="java.util.Vector"%>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -42,7 +42,7 @@
                 font-size: 22px;
             }
             .search-box {
-                position: relative;        
+                position: relative;
                 float: right;
             }
             .search-box input {
@@ -95,7 +95,7 @@
             }
             table.table td i {
                 font-size: 19px;
-            }    
+            }
             .pagination {
                 float: right;
                 margin: 0 0 5px;
@@ -114,11 +114,11 @@
             }
             .pagination li a:hover {
                 color: #666;
-            }	
+            }
             .pagination li.active a {
                 background: #03A9F4;
             }
-            .pagination li.active a:hover {        
+            .pagination li.active a:hover {
                 background: #0397d6;
             }
             .pagination li.disabled i {
@@ -256,16 +256,23 @@
                 transition-delay: 0.1s;
                 transform: rotate(0deg);
             }
+            .notif{
+                position: fixed;
+                right: 40px;
+                color: #F1BC31;
+                font-size: 20px;
+            }
+            .notif a:hover{
+                color: white;
+            }
         </style>
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     </head>
     <body>
         <%
-            Vector<User> vector = (Vector<User>) request.getAttribute("vectorU");
+            ArrayList<User> list = (ArrayList<User>) request.getAttribute("listUser");
         %>
-        <!--        <div class="col-sm-8"><a class="managerPro" href="ControllerOrder"><h5>OrderList Manager</h5></a></div>
-                <div class="col-sm-8"><a class="managerCus" href="ControllerProduct"><h5>Products Manager</h5></a></div>-->
         <section class="ftco-section">
             <div class="card" id="team">
                 <div class="card_img">
@@ -314,6 +321,7 @@
                             <li class="nav-item "><a href="ReceptionistController" class="nav-link">Quản lí<br>phòng </a></li>
                             <!--                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>-->
                             <li class="nav-item active"><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
+                            <li class="nav-item"><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
                         </ul>
                     </div>
 
@@ -333,12 +341,13 @@
                         <th>Email</th>
                         <th>Giới tính</th>
                         <th>CMT</th>
+                        <th>Chi tiết đơn đặt phòng</th>
 
 
                     </tr>
                 </thead>
                 <tbody>      
-                    <%for (User u : vector) {%>
+                    <%for (User u : list) {%>
 
 
 
@@ -347,26 +356,30 @@
                         <td><%=u.getUserName()%></td>
                         <td><%=u.getUserPhone()%></td>
                         <td><%=u.getUserEmail()%></td>
-                        <td><%=u.getUserGender()%></td>
+                        <td><%if (u.getUserGender() == 1) {
+                                out.print("nam");
+                            } else {
+                                out.print("nữ");
+                            }%>
+                        </td>
 
                         <td><%=u.getCMT()%></td>
-
-
-
+                        <td><a href="ReceptionistController?do=viewOrder&uID=<%= u.getUserID()%>">Xem</a></td>
                     </tr> 
 
                     <%}%>
-                <script>
-                    function show() {
-                        if (document.getElementById("team").style.display == "none") {
-                            document.getElementById("team").style.display = "block";
-                        } else {
-                            document.getElementById("team").style.display = "none";
-                        }
-                    }
-                </script>
+
                 </tbody>
             </table>
         </div> 
+        <script>
+            function show() {
+                if (document.getElementById("team").style.display == "none") {
+                    document.getElementById("team").style.display = "block";
+                } else {
+                    document.getElementById("team").style.display = "none";
+                }
+            }
+        </script>
     </body>
 </html>

@@ -5,8 +5,8 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="entity.sendFeedback"%>
-<%@page import="java.util.Vector"%>
+<%@page import="entity.RequestMessage"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -203,8 +203,8 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Báo cáo ngày</a>
-                                <a class="dropdown-item" href="#">Báo cáo tuần</a>
+                                <a class="dropdown-item" href="AdminController?do=ReportDay">Báo cáo doanh số theo phòng</a>
+                                <a class="dropdown-item" href="AdminController?do=ReportMonth">Báo cáo tháng</a>
                                 <a class="dropdown-item" href="#">Báo cáo năm</a>
                             </div>
                         </li>
@@ -239,7 +239,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="SendFeedbackController?do=listMessFeedBack">
+                            <a class="nav-link active" href="RequestController?do=listMessFeedBack">
                                 <i class="fas fa-newspaper "></i></i> Yêu cầu
                             </a>
                         </li>
@@ -270,8 +270,8 @@
 
         </nav>
         <%
-            Vector<sendFeedback> v = (Vector<sendFeedback>) request.getAttribute("vetorS");
-            Vector<sendFeedback> v1 = (Vector<sendFeedback>) request.getAttribute("vetorS1");
+            ArrayList<RequestMessage> v = (ArrayList<RequestMessage>) request.getAttribute("vetorS");
+            ArrayList<RequestMessage> v1 = (ArrayList<RequestMessage>) request.getAttribute("vetorS1");
         %>
         <div class="container">
             <div class="row">
@@ -282,7 +282,7 @@
             <div class="row tm-content-row">
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
                     <div class="tm-bg-primary-dark tm-block" >
-                        <form action="SendFeedbackController?do=searchName" method="post">
+                        <form action="RequestController?do=searchName" method="post">
                             <input style="
                                    margin-left: 100px;
                                    " name="nameTitle" type="text"  placeholder="Tìm kiếm tiêu đề">
@@ -332,7 +332,7 @@
 
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
+                                    <th scope="col">STT</th>
                                     <th scope="col"> Email</th>
                                     <th scope="col">Tiêu đề</th>
                                     <th scope="col">Đã đọc</th>
@@ -341,18 +341,18 @@
                                 </tr>
                             </thead>
                             <%
-                                for (sendFeedback s : v) {
-
+                                for (RequestMessage s : v) {
+                                    int count = 1;
 
                             %>
                             <tbody>
                                 <tr>
-                                    <th scope="row"><b><%=s.getmId()%></b></th>
+                                    <th scope="row"><b><%=count%></b></th>
                                     <td>
                                         <div class="tm-status-circle ">
                                         </div><%=s.getEmail()%>
                                     </td>
-                                    <td><a class="btn-primary"  href="SendFeedbackController?do=SeenMessage&mid=<%=s.getmId()%>" ><%=s.getTitle()%></a></td>
+                                    <td><a class="btn-primary"  href="RequestController?do=SeenMessage&mid=<%=s.getmId()%>" ><%=s.getTitle()%></a></td>
                                         <% if (s.getIsRead().equals("0")) {%>
                                     <td>
 
@@ -373,7 +373,7 @@
                                     <td><button style="border-radius: 5px; padding: 3px" onclick="deleteId('<%=s.getmId()%>')" class="btn btn-primary">  Xoá </a></button></td>
 
                                 </tr>
-
+                                <%count = count + 1;%>
                             </tbody>
                             <%}%>
                         </table>
@@ -403,7 +403,7 @@
                                             <a class="next" href="${href}nameTitle=${nameTitle}&index=${index+1}">  ></a>
                                         </c:when>
                                         <c:otherwise>
-                                            <a class="next" href="${href}nameTitle=${nameTitle}&index=${index+1}">  ></a>
+                                            <a class="next disabled" href="${href}nameTitle=${nameTitle}&index=${index+1}">  ></a>
                                         </c:otherwise>
                                     </c:choose>
                                 </div> 
@@ -426,7 +426,7 @@
         <script>
                                         function deleteId(id) {
                                             if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
-                                                window.location = "SendFeedbackController?do=deleteMessage&mId=" + id;
+                                                window.location = "RequestController?do=deleteMessage&mId=" + id;
                                             }
 
                                         }

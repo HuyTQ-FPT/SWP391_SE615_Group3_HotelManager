@@ -1,7 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0        HieuLBM                First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
  */
 package util;
 
@@ -10,20 +15,31 @@ import javax.mail.*;
 import javax.mail.internet.*;
 
 /**
- *
- * @author Minh Hieu
+ * @author HieuLBM
  */
 public class SendMail {
 
+    /* email */
     final String fromEmail = "hieulbmhe151429@fpt.edu.vn";
-    final String password = "lebaminhhieu";
+    /* password */
+    final String password = "Lebaminhhieu1!";
 
+    /**
+     * Blank Constructor
+     */
     public SendMail() {
     }
 
+    /**
+     * @return email
+     */
     public String getFromEmail() {
         return fromEmail;
     }
+
+    /**
+     * @return password
+     */
 
     public String getPassword() {
         return password;
@@ -77,6 +93,5 @@ public class SendMail {
             e.printStackTrace();
         }
     }
-
 
 }

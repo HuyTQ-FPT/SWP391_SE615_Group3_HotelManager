@@ -1,22 +1,39 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
  */
+
+
 package dao.impl;
 
 import entity.Device;
 import entity.Service;
 import context.DBContext;
 import dao.DeviceDAO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with Devices and associate tables
  *
- * @author Admin
+ * @author
  */
 public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 
@@ -194,10 +211,11 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 
     @Override
     public Vector<Device> getDevicebycateroom(String cateRoom) {
+
         Vector<Device> vector = new Vector<Device>();
         String sql = "select * from RoomDevice INNER JOIN Device on "
                 + "RoomDevice.DeviceID = Device.DeviceID "
-                + "where RoomDevice.RoomcateID = ?";
+                + "where RoomDevice.DeviceID = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, cateRoom);
@@ -214,6 +232,33 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 
     @Override
     public Vector<Device> getDevicebyroom(String cateRoom, int n) {
+        Vector<Device> vector = new Vector<Device>();
+        int begin = 1;
+        int end = 6;
+        for (int i = 2; i <= n; i++) {
+            begin += 6;
+            end += 6;
+        }
+        String sql = "	           with t as(SELECT r.DeviceCate,r.DeviceID,r.DeviceName, r.Price,i.Quantity,\n"
+                + "	           i.RoomID,i.Note,i.[Status],i.ImageDevice,ROW_NUMBER() OVER (order by r.DeviceID)\n"
+                + "                AS RowNum FROM Device r JOIN RoomDevice i on i.DeviceID= r.DeviceID\n"
+                + "                where i.RoomID=?)\n"
+                + "                select * from t";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, cateRoom);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Device de = new Device(rs.getInt(2), rs.getInt(6), rs.getString(3), rs.getInt(1), rs.getDouble(4), rs.getInt(8), rs.getInt(5), rs.getString(7), rs.getString(9));
+                vector.add(de);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return vector;
+    }
+
+    public Vector<Device> getDevicebycateroom(String cateRoom, int n) {
         Vector<Device> vector = new Vector<Device>();
         int begin = 1;
         int end = 6;
@@ -325,6 +370,42 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
         }
 //        Device de = dao.Getdevice("select * from Roomdevice join Device on RoomDevice.DeviceID = Device.DeviceID \n"
 //                + "				where Roomdevice.DeviceID = 2 and Roomdevice.RoomID =1 ");
+    }   
+/**
+     * get list device and count from Device table
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ArrayList<Device> numberOfDevice() throws Exception {
+        Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        ArrayList<Device> vector = new ArrayList<>();
+
+        String sql = "select d.DeviceName , SUM(r.Quantity) as Quantity from  RoomDevice r INNER JOIN Device d on \n"
+                + "                r.DeviceID = d.DeviceID\n"
+                + "                group by d.DeviceName";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                vector.add(new Device(rs.getString("DeviceName"), rs.getInt("Quantity")));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
     }
 
 }
+

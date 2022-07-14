@@ -1,29 +1,87 @@
-
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 14/07/2022    1.0        HuyTQ            Comment
+ */
 package dao.impl;
 
 import dao.AccountDAO;
 import entity.Account;
-import entity.User;
 import context.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
+/**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with Account and associate tables
+ *
+ * @author HuyTQ
+ */
 public class AccountDAOImpl extends DBContext implements AccountDAO {
 
+    /**
+     * Get all Account from database
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
-    public Vector<Account> getAccountList(int aID) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Account> getAccountList() throws Exception {
+        Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+
+        ArrayList<Account> vector = new ArrayList<>();
+        try {
+            String sql = "select * from Account";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int AccountID = rs.getInt(1);
+                int RoleID = rs.getInt(2);
+                String Username = rs.getString(3);
+                String Password = rs.getString(4);
+                Account a = new Account(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
+                vector.add(a);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
     }
 
+    /**
+     * get user from Account table Using mail and password
+     *
+     * @param aName
+     * @param aPass
+     * @return
+     * @throws Exception
+     */
     @Override
     public Account getAccount(String aName, String aPass) throws Exception {
         Connection conn = null;
+         /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sql = "SELECT * FROM [SWPgroup3].[dbo].[Account] where [user]=? and [password]=?";
@@ -47,19 +105,59 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         }
         return null;
     }
+@Override
+    public ArrayList<Account> getAccountList1() throws Exception {
+        Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
 
-    @Override
-    public void insertAccount(int aRole, String aName, String aPass) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Account> vector = new ArrayList<>();
+        try {
+            String sql = "select * from Account except (select * from Account where [user] = 'Admin')";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int AccountID = rs.getInt(1);
+                int RoleID = rs.getInt(2);
+                String Username = rs.getString(3);
+                String Password = rs.getString(4);
+                Account a = new Account(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
+                vector.add(a);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
     }
-
+    /**
+     * update account from the Account table
+     *
+     * @param aUser
+     * @param aPassword
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateAccount(String aUser, String aPassword) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         int n = 0;
+
         String sql = "UPDATE [SWPgroup3].[dbo].[Account]\n"
                 + "   SET [password] =?\n"
                 + " WHERE [user]=?";
@@ -78,20 +176,24 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
             closeResultSet(rs);
             closePreparedStatement(pre);
             closeConnection(conn);
-
         }
         return n;
     }
 
-    @Override
-    public void deleteAccount(String aName) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
+    /**
+     * checks name to get user's information
+     *
+     * @param aName
+     * @return
+     * @throws
+     */
     @Override
     public Account checkAccount(String aName) throws Exception {
         Connection conn = null;
+       /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String xSql = "select * from [Account] where [user]=?";
@@ -115,16 +217,52 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         return null;
     }
 
+    /**
+     * update role user from the User table
+     *
+     * @param roleId
+     * @param user
+     * @return
+     * @throws Exception
+     */
     @Override
-    public Vector<Account> getAccountByRole(int aRole) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateRole(int roleId, String user) {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        int n = 0;
+        String sql = "UPDATE [dbo].[Account] SET [RoleID] = ? WHERE [user] = ?";
+        try {
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, roleId);
+            pre.setString(2, user);
+            n = pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
+
+    /**
+     * register account customer and insert to the Account table
+     *
+     * @param ac
+     * @param name
+     * @param email
+     * @return
+     * @throws Exception
+     */
     @Override
     public int Register(Account ac, String name, String email) throws Exception {
         Connection conn = null;
         PreparedStatement pre = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre1 = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         int n = 0;
@@ -157,10 +295,20 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         return n;
     }
 
+    /**
+     * update account and user from the Account table and User table
+     *
+     * @param aPassword
+     * @param uGmail
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateAccountAndUser(String aPassword, String uGmail) throws Exception {
         Connection conn = null;
+         /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         int n = 0;
@@ -180,7 +328,6 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
             closeResultSet(rs);
             closePreparedStatement(pre);
             closeConnection(conn);
-
         }
         return n;
     }

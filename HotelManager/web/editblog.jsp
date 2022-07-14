@@ -31,7 +31,7 @@
     </head>
     <script type="text/javascript">
         function Delete(){
-            alert("Delete success");
+            alert("Xóa thành công");
         }
     </script>
      <%@include file="headerAdmin.jsp" %>
@@ -51,6 +51,7 @@
                                         <th scope="col">Hình ảnh</th>
                                         <th scope="col">Tiêu đề</th>                                      
                                         <th scope="col">Xóa</th>
+                                       
                                         <th scope="col">Cập nhật</th>
                                     </tr>
                                 </thead>
@@ -58,6 +59,7 @@
                                     <!--<form action="BlogManagerController?do=updateblog"method="get">-->
                                         <tr>
                                             <td>${c.blogAuthor}</td>
+                                            
                                             <td>${c.blogDescription}</td>
                                             <td><img style="width: 350px; height: 250px;" src="images/anhblog/${c.blogImage}" alt=""></td>
                                             <td>${c.blogTitleString}</td>
@@ -68,7 +70,7 @@
                                          <input name="date" value="${c.blogDate}" type="hidden">
                                                <input name="blogid" value="${c.blogID}" type="hidden">
                                         <td>
-                                            <a href="BlogManagerController?do=deleteblog&blogid=${c.blogID}" class="tm-product-delete-link" onclick="Delete()"/>
+                                            <a href="BlogManagerController?do=deleteblog&blogid=${c.blogID}&page=${page}" class="tm-product-delete-link" onclick="Delete()"/>
                                                 <i class="far fa-trash-alt tm-product-delete-icon" onclick="delete()"></i>
                                             </a>
                                         </td>
