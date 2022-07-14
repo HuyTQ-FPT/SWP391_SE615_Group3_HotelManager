@@ -46,12 +46,15 @@ public class BlogManagerController extends HttpServlet {
                 String description = request.getParameter("description").trim();
                 String author = request.getParameter("author").trim();
                 String image = request.getParameter("image");
-             
+                if(description.trim().equals("") || author.trim().equals("") ||  title.trim().equals("")){
+                        response.sendRedirect("addblog.jsp");
+                } else{
                 dao.inSertBlog(accountID, author, description, image, title);
                 String blogid = dao.getBlogID(" SELECT MAX(BlogID)\n" +
-"FROM [SWPgroup3].[dbo].[Blog]");
-
+                        "FROM [SWPgroup3].[dbo].[Blog]");
+              //  out.println("<h1>Servlet RoomcategoryController at " + author+ "</h1>"); 
                request.getRequestDispatcher("BlogManagerController?do=updateblog&blogid=" + blogid + " ").forward(request, response);
+            }
             }
             if (dos.equals("editblog")) {
                 Vector<Blog> b = null;
@@ -65,13 +68,16 @@ public class BlogManagerController extends HttpServlet {
                     b = dao.getBlogByPage(Integer.parseInt(page));
                 }
                 request.setAttribute("b", b);
+              request.setAttribute("page",page);
                 request.getRequestDispatcher("editblog.jsp").forward(request, response);
             }
             if (dos.equals("deleteblog")) {
                 int n = dao.getPage();
+                   String page = request.getParameter("page");
+//                out.println("<h1>Servlet RoomcategoryController at " + page+ "</h1>"); 
                 String id = request.getParameter("blogid");
                 dao.deleteBlog(id);
-                response.sendRedirect("BlogManagerController?do=editblog&page=" + n + "");
+                response.sendRedirect("BlogManagerController?do=editblog&page=" + page + "");
             }
             if (dos.equals("updateblog")) {
                  Vector<Blog> b = null;              
@@ -83,13 +89,16 @@ public class BlogManagerController extends HttpServlet {
                 request.getRequestDispatcher("updateblog.jsp").forward(request, response);
             }
             if (dos.equals("updatebloggg")) {
-                String author = request.getParameter("author");
-                String BlogID = request.getParameter("BlogID");
-                String blogDescription = request.getParameter("description");
-                String blogTitleString = request.getParameter("title");
-
-               dao.updateBlog(BlogID, author, blogDescription, blogTitleString);
-                response.sendRedirect("BlogManagerController?do=editblog");
+                String author = request.getParameter("author").trim();
+                String BlogID = request.getParameter("BlogID").trim();
+                String blogDescription = request.getParameter("description").trim();
+                String blogTitleString = request.getParameter("title").trim();
+//              if(blogDescription.trim() == ""){
+                    out.println("<h1>Servlet RoomcategoryController at "+ author+"</h1>"); 
+//                }else{
+//               dao.updateBlog(BlogID, author, blogDescription, blogTitleString);
+//                response.sendRedirect("BlogManagerController?do=editblog");
+//            }
             }
                if (dos.equals("EditComment")) {
                    request.setAttribute("Ok", "Ok");

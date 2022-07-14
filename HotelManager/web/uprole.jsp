@@ -648,9 +648,9 @@ thead {
             alert("Delete success");
         }
     </script>
-     <%@include file="headerAdmin.jsp" %>
+   
    <body>
-       
+       <%@include file="headerAdmin.jsp" %>
         
             <div class="wrapper">
                 <table class="table table-bordered cart_summary">

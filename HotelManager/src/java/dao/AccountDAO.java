@@ -37,6 +37,15 @@ public interface AccountDAO {
      * @return <code>Account</code> object.
      * @throws java.lang.Exception
      */
+     public ArrayList<Account> getAccountList1() throws Exception;
+     /**
+     * get user from Account table Using mail and password
+     *
+     * @param aName is an String
+     * @param aPass is an String
+     * @return <code>Account</code> object.
+     * @throws java.lang.Exception
+     */
     public Account getAccount(String aName, String aPass) throws Exception;
 
     /**

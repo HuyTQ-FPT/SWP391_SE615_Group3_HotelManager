@@ -37,7 +37,6 @@ public class BlogController extends HttpServlet {
                 Vector<Blog> b = null;
                 int n = dao.getPage();
                 request.setAttribute("n", n);
-
                 String page = request.getParameter("page");
                 if (page == null) {
                     b = dao.getBlogByPage(1);
@@ -54,7 +53,6 @@ public class BlogController extends HttpServlet {
                 int n = dao.getPage();
                 int a = 1;
                 request.setAttribute("n", n);
-
                 String page = request.getParameter("page");
                 if (page == null) {
                     b = dao.getBlogByPage(1);
@@ -66,8 +64,6 @@ public class BlogController extends HttpServlet {
                 request.getRequestDispatcher("Blog.jsp").forward(request, response);
             };
             HttpSession session = request.getSession();
-           
-
             if (dos.equals("detailBlog")) {
                 Account ac = new Account();
                 ac = (Account) session.getAttribute("login");
@@ -81,6 +77,8 @@ public class BlogController extends HttpServlet {
                     request.setAttribute("c", c);
                     Vector<Blog> b = dao.getBlog("select * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
                     request.setAttribute("b", b);
+                    Vector<Blog> b1 = dao.getBlog("select top 3 * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
+                    request.setAttribute("b1", b1);
                     List<Comment> list = dao.DisplayComment(BlogID);
                     request.setAttribute("listcomment", list);
                     request.getRequestDispatcher("BlogDetail.jsp").forward(request, response);
@@ -90,6 +88,8 @@ public class BlogController extends HttpServlet {
                     request.setAttribute("c", c);
                     Vector<Blog> b = dao.getBlog("select * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
                     request.setAttribute("b", b);
+                     Vector<Blog> b1 = dao.getBlog("select top 3 * from Blog except select * from Blog where [BlogID]='" + BlogID + "'");
+                    request.setAttribute("b1", b1);
                     request.getRequestDispatcher("BlogDetail.jsp").forward(request, response);
                 }
                

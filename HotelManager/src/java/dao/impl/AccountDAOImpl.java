@@ -105,7 +105,41 @@ public class AccountDAOImpl extends DBContext implements AccountDAO {
         }
         return null;
     }
+@Override
+    public ArrayList<Account> getAccountList1() throws Exception {
+        Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
 
+        ArrayList<Account> vector = new ArrayList<>();
+        try {
+            String sql = "select * from Account except (select * from Account where [user] = 'Admin')";
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+
+            while (rs.next()) {
+                int AccountID = rs.getInt(1);
+                int RoleID = rs.getInt(2);
+                String Username = rs.getString(3);
+                String Password = rs.getString(4);
+                Account a = new Account(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
+                vector.add(a);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+    }
     /**
      * update account from the Account table
      *

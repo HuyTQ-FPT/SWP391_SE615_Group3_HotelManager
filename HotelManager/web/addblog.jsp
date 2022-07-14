@@ -29,13 +29,12 @@
         function  Add() {
             var arr = document.getElementsByTagName('input');
             var name = arr[0].value;
-
-            var
-                    var arr1 = document.getElementsByTagName('textarea');
+            var name1 = arr[2].value;
+             var arr1 = document.getElementsByTagName('textarea');
             var content = arr1[0].value;
-            if (name.trim() == "" || content.trim() == "") {
-                alert("please fill all fields");
-            }else{
+            if (name.trim() == "" && content.trim() == "" && name1.trim() == "") {
+                alert("Vui lòng điền thông tin");
+            }else if(name.trim() != "" || content.trim() != "" || name1.trim() != "" ){
                 alert("Thêm thành công");
             }
         }
@@ -74,7 +73,7 @@
                                         <input
                                             id="name"
                                             name="title"
-                                            type="text"
+                                            type="text" maxlength="40"
                                             class="form-control validate"
                                             required
                                             />
@@ -99,7 +98,7 @@
                                         <input
                                             id="author"
                                             name="author"
-                                            type="text"
+                                            type="text" maxlength="30"
                                             class="form-control validate"
                                             required
                                             />
