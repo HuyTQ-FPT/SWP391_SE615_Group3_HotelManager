@@ -1,5 +1,13 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" 
+href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" 
+src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" 
+src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -69,7 +77,7 @@
         <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
                 <a class="navbar-brand" href="index.html">
-                    <h1 class="tm-site-title mb-0">Product Admin</h1>
+                    <h1 class="tm-site-title mb-0">Admin</h1>
                 </a>
                 <button
                     class="navbar-toggler ml-auto mr-0"
@@ -87,7 +95,7 @@
                     <ul class="navbar-nav mx-auto h-100">
                         <li class="nav-item">
                             <a class="nav-link" href="index.html">
-                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                                <i class="fas fa-tachometer-alt"></i> Biểu Đồ
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -101,12 +109,12 @@
                                 aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="far fa-file-alt"></i>
-                                <span> Reports <i class="fas fa-angle-down"></i> </span>
+                                <span> Báo Cáo <i class="fas fa-angle-down"></i> </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Daily Report</a>
-                                <a class="dropdown-item" href="#">Weekly Report</a>
-                                <a class="dropdown-item" href="#">Yearly Report</a>
+                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
+                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
+                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -119,18 +127,28 @@
                                 aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="fas fa-door-open"></i>
-                                <span> Room <i class="fas fa-angle-down"></i> </span>
+                                <span> Phòng <i class="fas fa-angle-down"></i> </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="RoomsController?do=listroom">ListRoom</a>
-                                <a class="dropdown-item" href="#">Weekly Report</a>
-                                <a class="dropdown-item" href="#">Yearly Report</a>
+                                <a class="dropdown-item" href="RoomsController?do=listroom">Dann Sách Phòng</a>
+                                <a class="dropdown-item" href="DeviceController?do=listalldevice">Danh Sách Thiết Bị</a>
+                                <a class="dropdown-item" href="RoomcategoryController?do=getroombycategori">Loại Phòng</a>
                             </div>
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" href="ServiceController?do=ListService">
+                                <i class="fa fa-bars"></i> Dịch Vụ
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="accounts.html">
-                                <i class="far fa-user"></i> Accounts
+                                <i class="far fa-user"></i> Tài Khoản
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="accounts.html">
+                                <i class="far fa-user"></i> Dịch Vụ Đi Kèm
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -141,11 +159,6 @@
                                     Blog <i class="fas fa-angle-down"></i>
                                 </span>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="BlogManagerController?do=insertblog">Update Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController">Insert Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController">Delete Blog</a>
-                            </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a
@@ -157,13 +170,8 @@
                                 aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="fas fa-cog"></i>
-                                <span> Settings <i class="fas fa-angle-down"></i> </span>
+                                <span> Cài Đặt <i class="fas fa-angle-down"></i> </span>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Profile</a>
-                                <a class="dropdown-item" href="#">Billing</a>
-                                <a class="dropdown-item" href="#">Customize</a>
-                            </div>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -183,7 +191,7 @@
                         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                             <div class="row">
                                 <div class="col-12" style="text-align: center">
-                                    <h2 class="tm-block-title d-inline-block">Edit Product</h2>
+                                    <h2 class="tm-block-title d-inline-block">Chỉnh Sửa Phòng</h2>
                                 </div>
                             </div>
                             <div class="row tm-edit-product-row">
@@ -191,11 +199,11 @@
                                     <div class="form-group mb-3" style="text-align: center">
                                         <label
                                             for="name"
-                                            >RoomID 
+                                            >Số Phòng 
                                         </label>
                                         <input type="hidden" name="RoomID" value="${listroom.roomID}">
                                         <br>
-                                        <span style="color: red">${listroom.roomID}</span>
+                                        <span style="color: red">${listroom.roomname}</span>
                                     </div>
                                     <div class="form-group mb-3" style="text-align: center">
                                         <label

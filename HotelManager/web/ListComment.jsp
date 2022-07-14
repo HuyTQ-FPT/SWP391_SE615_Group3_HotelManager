@@ -11,7 +11,6 @@
 src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" 
 src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -33,7 +32,6 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <link rel="stylesheet" href="css/templatemo-style.css">
         <link rel="stylesheet" href="css/style.css">
     </head>
-
     <body id="reportsPage">
         <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
@@ -145,33 +143,44 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 </div>
             </div>
         </nav>
-        <a style="float: right; margin-bottom: 20px; border-radius: 10px" type="button" href="updateroomcate.jsp" class="btn btn-warning">Thêm Mới</a>
+        <h1 style="text-align: center; color: wheat">Danh Sách Thiết Bị</h1>
+        <a style="background-color:  red; float: right; margin-bottom: 20px; border-radius: 10px" type="button" href="InsertDevice.jsp" class="btn btn-warning">Thêm Mới</a>
         <table id="myTable" class="display table" width="90%">  
             <thead>  
                 <tr>  
-                    <th style="text-align: center">ID</th>  
-                    <th style="text-align: center">Tên</th>  
-                    <th style="text-align: center">Ghi Chú</th>  
-                    <th style="text-align: center">DS Các Phòng</th>  
-                    <th style="text-align: center">Cập Nhật</th>  
+                    <th style="text-align: center">Tên Người Dùng</th>  
+                    <th style="text-align: center">Ngày Giờ</th>  
+                    <th style="text-align: center">Đánh giá</th>  
+                    <th style="text-align: center">Trạng Thái</th>  
+                    <th style="text-align: center">Trả Lời</th>  
                     <th style="text-align: center">Xóa</th>  
                 </tr>  
             </thead>  
             <tbody>  
-                <c:forEach items="${romcate}" var="r">
-                    <tr style="background-color: 435C70">  
-                        <td style="background-color: 435C70; text-align: center"><span class="badge badge-primary badge-pill">${r.roomcateID}</span></td>  
-                        <td style="background-color: 435C70; text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.catename}</span></td>
-                        <td style="background-color: 435C70; text-align: center"><span style="max-width: 300px;">${r.note}</span></td>
-                        <td style="background-color: 435C70; text-align: center" ><a href="RoomcategoryController?do=listroombycate&cateroomid=${r.roomcateID}" class="btn btn-info" role="button">Danh Sách</a></td>
-                        <td style="background-color: 435C70; text-align: center" ><a href="RoomcategoryController?do=updateroomcates&cateroomid=${r.roomcateID}" class="btn btn-info" role="button">Chỉnh Sửa</a></td>
+                <c:forEach items="${listFeedBack}" var="r">
+                    <tr style="background-color: 435C70">
+                        <td style="background-color: 435C70; text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.note}</span></td>
+                        <td style="background-color: 435C70; text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.date}</span></td>
+                        <td style="background-color: 435C70; text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.comment}</span></td>
+                            <c:if test="${r.status==0}"> 
+                            <td style="background-color: 435C70 ; width: 10%;text-align: center">Hiển Thị</td>  
+                        </c:if>
+                        <c:if test="${r.status==1}">
+                            <td style="background-color: 435C70 ; width: 10% ;text-align: center">Block</td>  
+                        </c:if>
+                        <c:if test="${r.status==2}">
+                            <td style="background-color: 435C70 ; width: 10%;text-align: center">Khác</td>  
+                        </c:if>
+                        <td style="background-color: 435C70; text-align: center" ><a style="border-radius: 10px" href="DeviceController?do=UpdateDevice&DeviceId=" class="btn btn-info" role="button">Chỉnh Sửa</a></td>
                         <td style="background-color: 435C70; text-align: center">
-                            <a style="margin-left: 43%" href="RoomcategoryController?do=DeleteRoomCategori&cateroomid=${r.roomcateID}" class="tm-product-delete-link">
-                                <i class="far fa-trash-alt tm-product-delete-icon">
+                            <a  style="margin-left: 43%" href="ServiceController?do=DeleteComment&ServiceId=${r.serviceId}&CommentID=${r.commentID}" class="tm-product-delete-link">
+                                <i class="far fa-trash-alt tm-product-delete-icon" onclick="Delete()" >
                                 </i></a>
+
                         </td>  
                     </tr>  
                 </c:forEach>
+
             </tbody>  
         </table>
         <footer class="tm-footer row tm-mt-small">
@@ -187,18 +196,22 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             $(document).ready(function () {
                 $('#myTable').DataTable(
                         {
-                            "aLengthMenu": [[3, 6, 15, 30, -1], [3, 6, 15, 30, "All"]],
-                            "iDisplayLength": 3,
+                            "aLengthMenu": [[5, 10, 15, 30, -1], [5, 10, 15, 30, "All"]],
+                            "iDisplayLength": 5,
                             "language": {
                                 "lengthMenu": "Hiển Thị _MENU_ Trên Trang",
                                 "search": "Tìm Kiếm",
                                 "zeroRecords": "Không Có Bản Ghi Nào Phù Hợp",
                                 "info": "Hiển Thị Trang _PAGE_ Trên _PAGES_",
                                 "infoEmpty": "Danh Sách Trống",
-                                "infoFiltered": "(Không Tìm Thấy Loại Phòng/_MAX_ Dịch Vụ)"
+                                "infoFiltered": "(Không Tìm Thấy Phòng Phù Hợp/_MAX_Phòng)"
                             }
                         });
             });
+            <c:if test = "${update!=null}">
+            alert("Update Successfully");
+            </c:if>
         </script>
+
     </body>
 </html>

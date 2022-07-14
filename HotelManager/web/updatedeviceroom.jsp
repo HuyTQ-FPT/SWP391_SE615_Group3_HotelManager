@@ -183,100 +183,130 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 </div>
             </div>
         </nav>
-        <form action="RoomcategoryController?do=insetroomcate" method="post">
+        <form action="DeviceController?do=updatedeviceroom" method="post" enctype="multipart/form-data">
             <div class="container tm-mt-big tm-mb-big">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
                         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                             <div class="row">
                                 <div class="col-12" style="text-align: center">
-                                    <h2 class="tm-block-title d-inline-block">Chỉnh Sửa Loại Phòng</h2>
+                                    <h2 class="tm-block-title d-inline-block">Chỉnh Sửa Thông Tin Đồ Dùng</h2> 
+                                    <h2 style="color: orange" class="tm-block-title d-inline-block">Phòng:${getroom.roomname} </h2> <br>
+                                    <h4 style="color: black" class="tm-block-title d-inline-block">${device.deviceName}</h4>
                                 </div>
                             </div>
+                            <select hidden="" name="Status" style="text-align: center"
+                                    class="custom-select tm-select-accounts"
+                                    id="category"
+                                    >
+                                <option hidden="" value="${device.deviceID}"></option>
+                            </select>
+                            <select hidden="" name="Status" style="text-align: center"
+                                    class="custom-select tm-select-accounts"
+                                    id="category"
+                                    >
+                                <option hidden="" value="${device.roomID}"></option>
+                            </select>
                             <div class="row tm-edit-product-row">
                                 <div class="col-xl-12 col-lg-12 col-md-12">
                                     <div class="form-group mb-3" style="text-align: center">
                                         <label
                                             for="name"
-                                            >Room Number 
+                                            >Trạng Thái
                                         </label>
-                                        <input style="text-align: center"
-                                               id="stock"
-                                               name="RoomNumber"
-                                               type="number"
-                                               min="0"
-                                               max="20"
-                                               value=""
-                                               class="form-control validate"
-                                               />
+                                        <select name="Status" style="text-align: center"
+                                                class="custom-select tm-select-accounts"
+                                                id="category"
+                                                >
+                                            <option value="0"${device.status==0?"selected":""}>Hoạt Động</option>
+                                            <option value="1"${device.status==1?"selected":""}>Không Hoạt Động</option>
+                                            <option value="2"${device.status==2?"selected":""}>Khác</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3" style="text-align: center">
+                                        <label
+                                            for="name"
+                                            >Số Lượng 
+                                        </label>
+                                        <select name="Status" style="text-align: center"
+                                                class="custom-select tm-select-accounts"
+                                                id="category"
+                                                >
+                                            <option value="1"${device.quantity==1?"selected":""}>1</option>
+                                            <option value="2"${device.quantity==2?"selected":""}>2</option>
+                                            <option value="3"${device.quantity==3?"selected":""}>3</option>
+                                            <option value="4"${device.quantity==4?"selected":""}>4</option>
+                                            <option value="5"${device.quantity==5?"selected":""}>5</option>
+                                            <option value="6"${device.quantity==6?"selected":""}>6</option>
+                                            <option value="7"${device.quantity==7?"selected":""}>7</option>
+                                            <option value="8"${device.quantity==8?"selected":""}>8</option>
+                                            <option value="9"${device.quantity==9?"selected":""}>9</option>
+                                            <option value="10"${device.quantity==10?"selected":""}>10</option>
+                                        </select>
                                     </div>
                                     <div class="form-group mb-3" style="text-align: center">
                                         <label
                                             for="description"
-                                            >Mô Tả</label>
+                                            >Ghi Chú</label>
                                         <textarea style="text-align: center"               
                                                   class="form-control validate tm-small"
                                                   rows="5"
                                                   required
                                                   name="Description"
-                                                  ></textarea>
+                                                  >${device.note}</textarea>
                                     </div>
-                                    <div class="col-12">
-                                        <a  data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-block text-uppercase">
-                                            Thêm Mới
-                                        </a>
-                                    </div>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 style="text-align: center" class="modal-title" id="exampleModalLabel">Thêm Mới Loại Phòng</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body" style="font-size: 30px;color: red">
-                                                    Xác Nhận Thêm Mới
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">HỦY</button>
-                                                    <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </form>
                                 </div>
                             </div>
+                            <div class="row" style=" margin: 0 auto; margin-bottom: 20px">
+                                <div class="col-xl-12 col-lg-12 col-md-12 mb-2">
+                                    <div class="tm-product-img-edit mx-auto">
+                                        <img id="image" style="width: 300px;height: 200px" src="images/anhphong/${device.imagedevice}" alt="Product image" class="img-fluid d-block mx-auto">
+                                        <i
+                                            class="fas fa-cloud-upload-alt tm-upload-icon"
+                                            onclick="document.getElementById('fileInput').click();"
+                                            ></i>
+                                    </div>
+                                    <div style="width: 20%" class="custom-file mt-1 mb-1">
+                                        <input style=" margin-left: 200%" type="file" id="imageFile" onchange="chooseFile(this)" accept="image/gif,image/jpeg,image/png"
+                                               class="form-control" name="photo" placeholder="Enter photo"></div>
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <footer class="tm-footer row tm-mt-small">
-                    <div class="col-12 font-weight-light">
-                        <p class="text-center text-white mb-0 px-4 small">
-                            Copyright &copy; <b>2018</b> All rights reserved. 
+            </div>
+        </div>
+        <footer class="tm-footer row tm-mt-small">
+            <div class="col-12 font-weight-light">
+                <p class="text-center text-white mb-0 px-4 small">
+                    Copyright &copy; <b>2018</b> All rights reserved. 
 
-                            Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
-                        </p>
-                    </div>
-                </footer> 
+                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                </p>
+            </div>
+        </footer> 
 
-                <script src="js/jquery-3.3.1.min.js"></script>
-                <!-- https://jquery.com/download/ -->
-                <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
-                <!-- https://jqueryui.com/download/ -->
-                <script src="js/bootstrap.min.js"></script>
-                <!-- https://getbootstrap.com/ -->
-                <script>
-            $(function () {
-                $("#expire_date").datepicker({
-                    defaultDate: "10/22/2020"
-                });
-            });
-                    <c:if test = "${update!= null}">
-            alert("Update Successfully");
-                    </c:if>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <!-- https://jquery.com/download/ -->
+        <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+        <!-- https://jqueryui.com/download/ -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- https://getbootstrap.com/ -->
+        <script>
+                                            $(function () {
+                                                $("#expire_date").datepicker({
+                                                    defaultDate: "10/22/2020"
+                                                });
+                                            });
+            <c:if test = "${update!= null}">
+                                            alert("Update Successfully");
+            </c:if>
 
-                </script>
-                </body>
-                </html>
+        </script>
+</body>
+</html>

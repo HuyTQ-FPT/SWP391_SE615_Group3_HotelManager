@@ -1,26 +1,20 @@
-<%-- 
-    Document   : editroomdevice
-    Created on : Jun 8, 2022, 10:24:44 PM
-    Author     : NTD
---%>
 <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <link rel="stylesheet" 
-      href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
 <script type="text/javascript" 
 src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" 
 src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Product Page - Admin HTML Template</title>
+        <title>Edit Product - Dashboard Admin Template</title>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:400,700"
@@ -28,13 +22,57 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <!-- https://fonts.google.com/specimen/Roboto -->
         <link rel="stylesheet" href="css/fontawesome.min.css" />
         <!-- https://fontawesome.com/ -->
+        <link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+        <!-- http://api.jqueryui.com/datepicker/ -->
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <!-- https://getbootstrap.com/ -->
         <link rel="stylesheet" href="css/templatemo-style.css">
-        <link rel="stylesheet" href="css/style.css">
+        <!--
+            Product Admin CSS Template
+            https://templatemo.com/tm-524-product-admin
+        -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            function chooseFile(fileInput) {
+                if (fileInput.files && fileInput.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#image').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+            function chooseFile2(fileInput) {
+                if (fileInput.files && fileInput.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#image2').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+            function chooseFile3(fileInput) {
+                if (fileInput.files && fileInput.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#image3').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+            function chooseFile4(fileInput) {
+                if (fileInput.files && fileInput.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#image4').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            }
+        </script>
     </head>
 
-    <body id="reportsPage">
+    <body>
         <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
                 <a class="navbar-brand" href="index.html">
@@ -145,35 +183,59 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 </div>
             </div>
         </nav>
-        <a style="float: right; margin-bottom: 20px; border-radius: 10px" type="button" href="updateroomcate.jsp" class="btn btn-warning">Thêm Mới</a>
-        <table id="myTable" class="display table" width="90%">  
-            <thead>  
-                <tr>  
-                    <th style="text-align: center">ID</th>  
-                    <th style="text-align: center">Tên</th>  
-                    <th style="text-align: center">Ghi Chú</th>  
-                    <th style="text-align: center">DS Các Phòng</th>  
-                    <th style="text-align: center">Cập Nhật</th>  
-                    <th style="text-align: center">Xóa</th>  
-                </tr>  
-            </thead>  
-            <tbody>  
-                <c:forEach items="${romcate}" var="r">
-                    <tr style="background-color: 435C70">  
-                        <td style="background-color: 435C70; text-align: center"><span class="badge badge-primary badge-pill">${r.roomcateID}</span></td>  
-                        <td style="background-color: 435C70; text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.catename}</span></td>
-                        <td style="background-color: 435C70; text-align: center"><span style="max-width: 300px;">${r.note}</span></td>
-                        <td style="background-color: 435C70; text-align: center" ><a href="RoomcategoryController?do=listroombycate&cateroomid=${r.roomcateID}" class="btn btn-info" role="button">Danh Sách</a></td>
-                        <td style="background-color: 435C70; text-align: center" ><a href="RoomcategoryController?do=updateroomcates&cateroomid=${r.roomcateID}" class="btn btn-info" role="button">Chỉnh Sửa</a></td>
-                        <td style="background-color: 435C70; text-align: center">
-                            <a style="margin-left: 43%" href="RoomcategoryController?do=DeleteRoomCategori&cateroomid=${r.roomcateID}" class="tm-product-delete-link">
-                                <i class="far fa-trash-alt tm-product-delete-icon">
-                                </i></a>
-                        </td>  
-                    </tr>  
-                </c:forEach>
-            </tbody>  
-        </table>
+        <form action="DeviceController?do=InsertDevice" method="post">
+            <div class="container tm-mt-big tm-mb-big">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
+                        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                            <div class="row">
+                                <div class="col-12" style="text-align: center">
+                                    <h2 class="tm-block-title d-inline-block">Thêm Mới Thiết Bị</h2> <br>
+                                </div>
+                            </div>
+                            <div class="row tm-edit-product-row">
+                                <div class="col-xl-12 col-lg-12 col-md-12">
+                                    <div class="form-group  mb-3" style="text-align: center">
+                                        <label
+                                            for="name"
+                                            >Tên Thiết Bị
+                                        </label>
+                                        <input style="text-align: center"
+                                               id="stock"
+                                               name="DeviceName"
+                                               type="text"
+                                               required 
+                                               maxlength="45"
+                                               value=""
+                                               class="form-control validate"
+                                               />
+                                    </div>
+                                    <div class="form-group mb-3" style="text-align: center">
+                                        <label
+                                            for="name"
+                                            >Giá
+                                        </label>
+                                        <input style="text-align: center"
+                                               id="stock"
+                                               name="Price"
+                                               type="number"
+                                               min="0"
+                                               required
+                                               max="9999"
+                                               value=""
+                                               class="form-control validate"
+                                               />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
         <footer class="tm-footer row tm-mt-small">
             <div class="col-12 font-weight-light">
                 <p class="text-center text-white mb-0 px-4 small">
@@ -182,23 +244,24 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
                 </p>
             </div>
-        </footer>
+        </footer> 
+
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <!-- https://jquery.com/download/ -->
+        <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+        <!-- https://jqueryui.com/download/ -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- https://getbootstrap.com/ -->
         <script>
-            $(document).ready(function () {
-                $('#myTable').DataTable(
-                        {
-                            "aLengthMenu": [[3, 6, 15, 30, -1], [3, 6, 15, 30, "All"]],
-                            "iDisplayLength": 3,
-                            "language": {
-                                "lengthMenu": "Hiển Thị _MENU_ Trên Trang",
-                                "search": "Tìm Kiếm",
-                                "zeroRecords": "Không Có Bản Ghi Nào Phù Hợp",
-                                "info": "Hiển Thị Trang _PAGE_ Trên _PAGES_",
-                                "infoEmpty": "Danh Sách Trống",
-                                "infoFiltered": "(Không Tìm Thấy Loại Phòng/_MAX_ Dịch Vụ)"
-                            }
-                        });
+            $(function () {
+                $("#expire_date").datepicker({
+                    defaultDate: "10/22/2020"
+                });
             });
+            <c:if test = "${update!= null}">
+            alert("Update Successfully");
+            </c:if>
+
         </script>
     </body>
 </html>

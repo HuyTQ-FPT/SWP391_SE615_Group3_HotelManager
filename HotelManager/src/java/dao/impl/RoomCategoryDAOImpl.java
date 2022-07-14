@@ -54,8 +54,19 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
     }
 
     @Override
-    public RoomCategory getAccount(int cateid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public RoomCategory getRoomCategori(String cateid) {
+        try {
+            ResultSet rs = getData(cateid);
+            while (rs.next()) {
+                int RoomcateID = rs.getInt(1);
+                String Catename = rs.getString(2);
+                String Note = rs.getString(3);
+                return new RoomCategory(RoomcateID, Catename, Note);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -114,10 +125,7 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
 
     @Override
     public void deleteRoomCategory(String roomcate) {
-        String query = " DELETE FROM [dbo].[Room]\n"
-                + "      WHERE RoomcateID = ?\n"
-                + "	 DELETE FROM [dbo].[CateRoom]\n"
-                + "      WHERE RoomcateID = ?";
+        String query = "update Room set RoomcateID = replace(RoomcateID,?,6); delete from CateRoom where RoomcateID = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(query);
             pre.setString(1, roomcate);
@@ -126,6 +134,7 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
             System.out.println("done");
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(e);
         }
     }
 

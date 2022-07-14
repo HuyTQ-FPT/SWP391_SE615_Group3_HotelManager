@@ -37,7 +37,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
                 <a class="navbar-brand" href="index.html">
-                    <h1 class="tm-site-title mb-0">Product Admin</h1>
+                    <h1 class="tm-site-title mb-0">Admin</h1>
                 </a>
                 <button
                     class="navbar-toggler ml-auto mr-0"
@@ -55,7 +55,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     <ul class="navbar-nav mx-auto h-100">
                         <li class="nav-item">
                             <a class="nav-link" href="index.html">
-                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                                <i class="fas fa-tachometer-alt"></i> Biểu Đồ
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -69,12 +69,12 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="far fa-file-alt"></i>
-                                <span> Reports <i class="fas fa-angle-down"></i> </span>
+                                <span> Báo Cáo <i class="fas fa-angle-down"></i> </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Daily Report</a>
-                                <a class="dropdown-item" href="#">Weekly Report</a>
-                                <a class="dropdown-item" href="#">Yearly Report</a>
+                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
+                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
+                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -87,18 +87,28 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="fas fa-door-open"></i>
-                                <span> Room <i class="fas fa-angle-down"></i> </span>
+                                <span> Phòng <i class="fas fa-angle-down"></i> </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="RoomsController?do=listroom">ListRoom</a>
-                                <a class="dropdown-item" href="#">Weekly Report</a>
-                                <a class="dropdown-item" href="#">Yearly Report</a>
+                                <a class="dropdown-item" href="RoomsController?do=listroom">Dann Sách Phòng</a>
+                                <a class="dropdown-item" href="DeviceController?do=listalldevice">Danh Sách Thiết Bị</a>
+                                <a class="dropdown-item" href="RoomcategoryController?do=getroombycategori">Loại Phòng</a>
                             </div>
                         </li>
 
                         <li class="nav-item">
+                            <a class="nav-link" href="ServiceController?do=ListService">
+                                <i class="fa fa-bars"></i> Dịch Vụ
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="accounts.html">
-                                <i class="far fa-user"></i> Accounts
+                                <i class="far fa-user"></i> Tài Khoản
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="accounts.html">
+                                <i class="far fa-user"></i> Dịch Vụ Đi Kèm
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -109,11 +119,6 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                     Blog <i class="fas fa-angle-down"></i>
                                 </span>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="BlogManagerController?do=insertblog">Update Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController">Insert Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController">Delete Blog</a>
-                            </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a
@@ -125,13 +130,8 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="fas fa-cog"></i>
-                                <span> Settings <i class="fas fa-angle-down"></i> </span>
+                                <span> Cài Đặt <i class="fas fa-angle-down"></i> </span>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Profile</a>
-                                <a class="dropdown-item" href="#">Billing</a>
-                                <a class="dropdown-item" href="#">Customize</a>
-                            </div>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -144,19 +144,20 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 </div>
             </div>
         </nav>
-        <h1 style="text-align: center; color: wheat">List Room Manager </h1>
-        <a style="border-radius: 10px; float: right; margin-bottom: 10px" href="RoomsController?do=insertRoom" class="btn btn-danger">AddNew</a>
+        <h1 style="text-align: center; color: wheat">Danh Sách Các Phòng</h1>
+        <a style="border-radius: 10px; float: right; margin-bottom: 10px" href="RoomsController?do=insertRoom" class="btn btn-danger">Thêm Mới Phòng</a>
         <table id="myTable" class="display table" width="90%">  
             <thead>  
                 <tr>  
-                    <th style="text-align: center">RoomID</th>  
-                    <th style="text-align: center">Image</th>  
-                    <th style="text-align: center">Description</th>  
-                    <th style="text-align: center">Price</th>  
-                    <th style="text-align: center">Categori</th>  
-                    <th style="text-align: center">Status</th>  
-                    <th style="text-align: center">Update</th>  
-                    <th style="text-align: center">Delete</th>  
+                    <th style="text-align: center">ID</th>  
+                    <th style="text-align: center">Ảnh</th>  
+                    <th style="text-align: center">Mô Tả</th>  
+                    <th style="text-align: center">Giá</th>  
+                    <th style="text-align: center">Loại Phòng</th>  
+                    <th style="text-align: center">Trạng Thái</th>  
+                    <th style="text-align: center">DS Thiết Bị</th>  
+                    <th style="text-align: center">Cập Nhật</th>  
+                    <th style="text-align: center">Xóa</th>  
                 </tr>  
             </thead>  
 
@@ -177,9 +178,12 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <c:if test="${r.status==2}">
                             <td style="background-color: 435C70 ; width: 10%;text-align: center">Other</td>  
                         </c:if>
-                        <td style="background-color: 435C70 ;width: 20%" ><a style="border-radius: 10px; margin-left: 29%" href="ImageController?do=listImage&RoomID=${r.roomID}" class="btn btn-info" role="button">Update Rooms</a></td>  
+                        <td style="background-color: 435C70 ;width: 20%" >
+                            <a style="border-radius: 10px; margin-left: 29%" href="DeviceController?do=listdevicebyroom&RoomID=${r.roomID}" class="btn btn-info" role="button">
+                                Danh Sách</a></td> 
+                        <td style="background-color: 435C70 ;width: 20%" ><a style="border-radius: 10px; margin-left: 29%" href="ImageController?do=listImage&RoomID=${r.roomID}" class="btn btn-info" role="button">Chỉnh Sửa</a></td>   
                         <td style="background-color: 435C70">
-                            <a style="margin-left: 43%" href="RoomsController?do=deleteroom&RoomID=${r.roomID}" class="tm-product-delete-link">
+                            <a style="margin-left: 30%" href="RoomsController?do=deleteroom&RoomID=${r.roomID}" class="tm-product-delete-link">
                                 <i class="far fa-trash-alt tm-product-delete-icon">
                                 </i></a></td>  
                     </tr>  
@@ -196,14 +200,22 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 </p>
             </div>
         </footer>
+
         <script>
-            $(function () {
-                $(".tm-product-name").on("click", function () {
-                    window.location.href = "edit-product.html";
-                });
-            });
             $(document).ready(function () {
-                $('#myTable').dataTable();
+                $('#myTable').DataTable(
+                        {
+                            "aLengthMenu": [[5, 10, 15, 30, -1], [5, 10, 15, 30, "All"]],
+                            "iDisplayLength": 5,
+                            "language": {
+                                "lengthMenu": "Hiển Thị _MENU_ Trên Trang",
+                                "search": "Tìm Kiếm",
+                                "zeroRecords": "Không Có Bản Ghi Nào Phù Hợp",
+                                "info": "Hiển Thị Trang _PAGE_ Trên _PAGES_",
+                                "infoEmpty": "Danh Sách Trống",
+                                "infoFiltered": "(Không Tìm Thấy Phòng Phù Hợp/_MAX_Phòng)"
+                            }
+                        });
             });
             <c:if test = "${delete!= null}">
             alert("Delete Successfully RoomID=${RoomID}");
@@ -212,5 +224,6 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             alert("Insert Successfully");
             </c:if>
         </script>
+
     </body>
 </html>
