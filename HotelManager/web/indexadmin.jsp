@@ -84,7 +84,7 @@
                                 <div class="col-md-3 ">
                                     <div class="card card-tale  media tm-notification-item">
                                         <div class="card-body">
-                                            <p class="mb-4 tm-block-title">Tiền: <b class="tm-notification-link ">${sumReservation} VND</b> </p>
+                                            <p class="mb-4 tm-block-title">Tiền: <b class="tm-notification-link ">${sumReservation} đ</b> </p>
 
 
                                         </div>

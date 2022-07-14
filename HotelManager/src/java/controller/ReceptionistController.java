@@ -1,10 +1,10 @@
 package controller;
 
-import dao.ReceptionistDAO;
+import dao.ReservationDAO;
 import dao.RoomDAO;
 import dao.UserDAO;
 import dao.impl.NotificationDAOImpl;
-import dao.impl.ReceptionistDAOImpl;
+import dao.impl.ReservationDAOImpl;
 import dao.impl.RoomDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
@@ -14,6 +14,7 @@ import entity.Room;
 import entity.User;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -35,10 +36,11 @@ public class ReceptionistController extends HttpServlet {
         try {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
-            ReceptionistDAO dao = new ReceptionistDAOImpl();
+            ReservationDAO reservationDAO = new ReservationDAOImpl();
             NotificationDAOImpl daoN = new NotificationDAOImpl();
             RoomDAO daoR = new RoomDAOImpl();
             UserDAO daoU = new UserDAOImpl();
+            DecimalFormat formatter1 = new DecimalFormat("###,###,###");
             String service = request.getParameter("do");
             HttpSession session = request.getSession();
             LocalDateTime current = LocalDateTime.now();
@@ -49,7 +51,7 @@ public class ReceptionistController extends HttpServlet {
                 service = "Room";
             }
             if (service.equals("Room")) { //In ra tất cả các phòng                
-                ArrayList<Room> listRoom = daoR.getRoomListAll("select * from Room");
+                ArrayList<Room> listRoom = daoR.getRoomListAll();
                 request.setAttribute("listRoom", listRoom);
                 request.getRequestDispatcher("managerRoom.jsp").forward(request, response);
             }
@@ -69,7 +71,7 @@ public class ReceptionistController extends HttpServlet {
                 response.sendRedirect("ReceptionistController");
             }
             if (service.equalsIgnoreCase("Cus")) { // In ra tất cả các khách hàng
-                ArrayList<User> listUser = dao.getCustomerListByReceptionist();
+                ArrayList<User> listUser = daoU.getCustomerListByReceptionist();
                 request.setAttribute("listUser", listUser);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
             }
@@ -157,17 +159,22 @@ public class ReceptionistController extends HttpServlet {
 
             if (service.equalsIgnoreCase("searchName")) { // tìm tên khách hàng
                 String name = request.getParameter("Name").trim();
-                ArrayList<User> listUser = dao.getSearchNameCustomerListByReceptionist(name);
+                ArrayList<User> listUser = daoU.getSearchNameCustomerListByReceptionist(name);
                 request.setAttribute("listUser", listUser);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
 
             }
             if (service.equals("viewOrder")) {
-                int uID = Integer.parseInt(request.getParameter("uID").trim());
-                Reservation reservation = dao.viewOrderDetails(uID);
-                ArrayList<Reservation> listReservation = dao.OrderDetails(uID);
 
+                long sum = 0;
+                int uID = Integer.parseInt(request.getParameter("uID").trim());
+                Reservation reservation = reservationDAO.viewOrderDetails(uID);
+                ArrayList<Reservation> listReservation = reservationDAO.OrderDetails(uID);
+                for (Reservation r1 : listReservation) {
+                    sum += r1.getTotal();
+                }
                 request.setAttribute("listReservation", listReservation);
+                request.setAttribute("sum", formatter1.format(sum));
                 request.setAttribute("reservation", reservation);
                 request.getRequestDispatcher("viewOrderCustomer.jsp").forward(request, response);
             }

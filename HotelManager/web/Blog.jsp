@@ -65,8 +65,8 @@
                     <div class="container">
                         <div class="row align-items-center justify-content-center">
                             <div class="col-md-7 text-center" data-aos="fade">
-                                <span class="caption mb-3">Suites Hotel &amp; Resort</span>
-                                <h1 class="mb-4">About Us</h1>
+                                <span class="caption mb-3">Khách sạn &amp; Khu nghỉ dưỡng</span>
+                                <h1 class="mb-4">Tin tức</h1>
                             </div>
                         </div>
                     </div>

@@ -2,11 +2,12 @@ package controller;
 
 import dao.DeviceDAO;
 import dao.ImageDAO;
+import dao.RoomCategoryDAO;
 import dao.RoomDAO;
 import dao.impl.DevicesDAOImpl;
 import dao.impl.ImageDAOImpl;
+import dao.impl.RoomCategoryDAOImpl;
 import dao.impl.RoomDAOImpl;
-import entity.Device;
 import entity.Image;
 import entity.Room;
 import entity.RoomCategory;
@@ -44,6 +45,7 @@ public class CompareRoomController extends HttpServlet {
             RoomDAO daoR = new RoomDAOImpl();
             ImageDAO daoI = new ImageDAOImpl();
             DeviceDAO daoD = new DevicesDAOImpl();
+            RoomCategoryDAO roomCategoryDAO = new RoomCategoryDAOImpl();
             String service = request.getParameter("do");
 
             if (service.equals("ViewCompare")) { // xem thông tin phòng
@@ -52,9 +54,9 @@ public class CompareRoomController extends HttpServlet {
                 String cateroom = request.getParameter("cateroom").trim();
                 int roomid = Integer.parseInt(RoomID);
                 int cateid = Integer.parseInt(cateroom);
-                Image img = daoR.searchRoomidAndImage(roomid);
+                Image img = daoI.searchRoomidAndImage(roomid);
                 Room rooom = daoR.getOneRoom(roomid);
-                RoomCategory roomCategory = daoR.getRoomCate(cateid);
+                RoomCategory roomCategory = roomCategoryDAO.getRoomCate(cateid);
                
                 
                 request.setAttribute("Rooom", rooom);
@@ -77,12 +79,12 @@ public class CompareRoomController extends HttpServlet {
 
                 if (name.isEmpty()) {
                     out.print("");
-                } else if (listRoom.size() == 0) {
+                } else if (listRoom.isEmpty()) {
                     out.print("<p style=\"padding:20px\">Không tìm thấy kết quả cho từ khoá: <span style=\"color:red\">" + name + "</span><p>");
                 } else {
                     out.print(" <div class=\"manufactury\">");
                     for (Room room : listRoom) {
-                        Image image = daoR.searchRoomidAndImage(room.getRoomID());
+                        Image image = daoI.searchRoomidAndImage(room.getRoomID());
                         if (room.getRoomID() != RoomID) {
 
                             out.print("  <li style=\"list-style: none\">\n"

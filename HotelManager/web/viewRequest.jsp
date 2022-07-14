@@ -4,7 +4,7 @@
     Author     : MInh Hiếu
 --%>
 
-<%@page import="entity.sendFeedback"%>
+<%@page import="entity.RequestMessage"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -54,8 +54,8 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Báo cáo ngày</a>
-                                <a class="dropdown-item" href="#">Báo cáo tuần</a>
+                                  <a class="dropdown-item" href="AdminController?do=ReportDay">Báo cáo doanh số theo phòng</a>
+                                <a class="dropdown-item" href="AdminController?do=ReportMonth">Báo cáo tháng</a>
                                 <a class="dropdown-item" href="#">Báo cáo năm</a>
                             </div>
                         </li>
@@ -121,7 +121,7 @@
 
         </nav>
         <%
-            sendFeedback s = (sendFeedback) request.getAttribute("seen");
+            RequestMessage s = (RequestMessage) request.getAttribute("seen");
         %>
         <div class="container">
             <div class="row">

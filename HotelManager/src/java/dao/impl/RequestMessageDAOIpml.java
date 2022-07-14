@@ -1,24 +1,44 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 14/07/2022    1.0        HieuLBM          Comment
+ */
 package dao.impl;
 
-import entity.sendFeedback;
+import entity.RequestMessage;
 import context.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import dao.SendFeedbackDAO;
+import dao.RequestMessageDAO;
 
 /**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with RequestMessage and associate tables
  *
- * @author Minh Hiếu
+ * @author HieuLBM
  */
-public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
+public class RequestMessageDAOIpml extends DBContext implements RequestMessageDAO {
 
+    /**
+     * get a list request from the MessageRequest table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
-    public ArrayList<sendFeedback> getMessage() throws Exception {
-        ArrayList<sendFeedback> v = new ArrayList<>();
+    public ArrayList<RequestMessage> getMessage() throws Exception {
+        ArrayList<RequestMessage> v = new ArrayList<>();
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         String sql = "select * from [MessageRequest] order by mId asc";
         try {
@@ -26,7 +46,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {
-                v.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
+                v.add(new RequestMessage(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
             }
 
         } catch (Exception e) {
@@ -39,10 +59,18 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         return v;
     }
 
+    /**
+     * add request from the MessageRequest table
+     *
+     * @param message
+     * @throws Exception
+     */
     @Override
-    public void insert(sendFeedback message) throws Exception {
+    public void insert(RequestMessage message) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         String sql = "INSERT INTO [MessageRequest] VALUES (?,?,?,0)";
         try {
@@ -61,10 +89,20 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         }
     }
 
+    /**
+     * update request from the MessageRequest table
+     *
+     * @param id
+     * @param isread
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateRead(int id, String isread) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         int n = 0;
         String sql = " UPDATE [SWPgroup3].[dbo].[MessageRequest] SET [isRead] = ?  WHERE [mId] = ?";
@@ -85,13 +123,22 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         return n;
     }
 
+    /**
+     * get a request from the MessageRequest table
+     *
+     * @param Id
+     * @return
+     * @throws Exception
+     */
     @Override
-    public sendFeedback getMessageById(int Id) throws Exception {
+    public RequestMessage getMessageById(int Id) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
-        sendFeedback message = new sendFeedback();
+        RequestMessage message = new RequestMessage();
         String sql = "select * from [MessageRequest] where mId=" + Id;
         try {
             conn = getConnection();
@@ -115,10 +162,18 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         return message;
     }
 
+    /**
+     * delete a request from the MessageRequest table
+     *
+     * @param id
+     * @throws Exception
+     */
     @Override
     public void delete(int id) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sql = "DELETE FROM [SWPgroup3].[dbo].[MessageRequest]\n"
@@ -137,11 +192,19 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         }
     }
 
+    /**
+     * get a list unread request from the MessageRequest table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
-    public ArrayList<sendFeedback> getMessageUnread() throws Exception {
-        ArrayList<sendFeedback> v = new ArrayList<>();
+    public ArrayList<RequestMessage> getMessageUnread() throws Exception {
+        ArrayList<RequestMessage> v = new ArrayList<>();
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
         String sql = "  select * from [MessageRequest] where isRead=0";
@@ -150,7 +213,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {
-                v.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
+                v.add(new RequestMessage(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
             }
 
         } catch (Exception e) {
@@ -163,13 +226,22 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         return v;
     }
 
+    /**
+     * get paging from the MessageRequest table
+     *
+     * @param index
+     * @return
+     * @throws Exception
+     */
     @Override
-    public ArrayList<sendFeedback> pagingMessage(int index) throws Exception {
+    public ArrayList<RequestMessage> pagingMessage(int index) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
 
-        ArrayList<sendFeedback> ArrayList = new ArrayList<>();
+        ArrayList<RequestMessage> ArrayList = new ArrayList<>();
         String sql = "select * from \n"
                 + "(select ROW_NUMBER() over (order by mId asc) as r, * from dbo.[MessageRequest]) \n"
                 + "as x\n"
@@ -182,7 +254,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
             pre.setInt(2, index * 3);
             rs = pre.executeQuery();
             while (rs.next()) {
-                ArrayList.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
+                ArrayList.add(new RequestMessage(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
             }
         } catch (Exception e) {
             throw e;
@@ -197,12 +269,22 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         return ArrayList;
     }
 
+    /**
+     * get paging and search from the MessageRequest table
+     *
+     * @param index
+     * @param title
+     * @return
+     * @throws Exception
+     */
     @Override
-    public ArrayList<sendFeedback> searchName(int index, String title) throws Exception {
+    public ArrayList<RequestMessage> searchName(int index, String title) throws Exception {
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
-        ArrayList<sendFeedback> v = new ArrayList<>();
+        ArrayList<RequestMessage> v = new ArrayList<>();
         String sql = "select * from \n"
                 + "(select ROW_NUMBER() over (order by mId asc) as r, * from dbo.[MessageRequest] where dbo.[MessageRequest].title like N'%" + title + "%') \n"
                 + "as x\n"
@@ -214,7 +296,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
             pre.setInt(2, index * 3);
             rs = pre.executeQuery();
             while (rs.next()) {
-                v.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
+                v.add(new RequestMessage(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
             }
 
         } catch (Exception e) {
@@ -227,11 +309,21 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
         }
         return v;
     }
+
+    /**
+     * get search from the MessageRequest table
+     *
+     * @param title
+     * @return
+     * @throws Exception
+     */
     @Override
-    public ArrayList<sendFeedback> getMessageOfTitle(String title) throws Exception {
-        ArrayList<sendFeedback> v = new ArrayList<>();
+    public ArrayList<RequestMessage> getMessageOfTitle(String title) throws Exception {
+        ArrayList<RequestMessage> v = new ArrayList<>();
         Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         String sql = "select * from [MessageRequest] where title like N'%" + title + "%'  order by mId asc";
         try {
@@ -239,7 +331,7 @@ public class SendFeedbackDAOIpml extends DBContext implements SendFeedbackDAO {
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {
-                v.add(new sendFeedback(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
+                v.add(new RequestMessage(rs.getInt("mId"), rs.getString("title"), rs.getString("email"), rs.getString("content"), rs.getString("isRead")));
             }
 
         } catch (Exception e) {

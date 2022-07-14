@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -59,8 +60,6 @@
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
 
-                            <h1 class="mb-2">Welcome To Suites</h1>
-                            <h2 class="caption">Hotel &amp; Resort</h2>
                         </div>
                     </div>
                 </div>
@@ -70,8 +69,7 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
-                            <h1 class="mb-2">Unique Experience</h1>
-                            <h2 class="caption">Enjoy With Us</h2>
+
                         </div>
                     </div>
                 </div>
@@ -81,19 +79,18 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center">
                         <div class="col-md-7 text-center" data-aos="fade">
-                            <h1 class="mb-2">Relaxing Room</h1>
-                            <h2 class="caption">Your Room, Your Stay</h2>
+
                         </div>
                     </div>
                 </div>
             </div> 
 
         </div>
-
+        <h3 style="margin-top: 20px">SO SÁNH PHÒNG</h3>
         <div class="product-page-main">
             <div class="container">
 
-                <div class="row">
+                <div class="row" >
                     <div class="col-md-7 col-sm-8">
                         <div class="md-prod-page">
                             <div class="md-prod-page-in">
@@ -128,8 +125,8 @@
                                             </span>
                                         </p>
                                     </div>
-
-                                    <p style="margin-top: 9px;font-size: 15px "><span style="margin-top: 9px ;font-weight: bold" >TIỀN:</span>${Rooom.roomprice}</p>
+                                    <fmt:setLocale value="vi"/>
+                                    <p style="margin-top: 9px;font-size: 15px "><span style="margin-top: 9px ;font-weight: bold" >TIỀN: </span><fmt:formatNumber value="${Rooom.roomprice}"/> đ</p>
 
 
 
@@ -152,8 +149,38 @@
 
 
                     </div>
-                </div>
+                    <div class="hotel-room-body">
 
+                        <div class="add-to-cart">
+                            <form action="RoomController">
+                                <input type="hidden" name="do" value="roomdetail">
+                                <input type="hidden" name="roomid" value="${Rooom.roomID}">
+                                <input type="hidden" name="cateroom" value="${cateid}">
+                                <button style="position: fixed;top: 1050px; right: -45px" 
+                                        class="add-to-cart-btn" ><i class="fas fa-eye"></i><a>Chi tiết phòng</a></button>
+                            </form>
+                            <c:if test="${sessionScope.login!=null}" >
+                                <form>
+                                    <div class="add-to-cart">
+                                        <button style="position: fixed;top:1050px; right:-239px" 
+                                                class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i>  <a href="OrderController?do=user&id=${Rooom.roomID}&userid=${sessionScope.login.getAccountID()}" style="color: white">Đặt phòng </a></button>
+                                    </div>
+                                </form>
+
+                            </c:if>
+                            <c:if test="${sessionScope.login==null}" >
+
+                                <form>
+                                    <div class="add-to-cart">
+                                        <button style="position: fixed;top: 1050px; right:-239px" 
+                                                class="add-to-cart-btn" ><i class="fas fa-shopping-cart"></i> <a href="LoginController" style="color: white">Đặt phòng</a></button>
+                                    </div>
+                                </form>
+                            </c:if>
+
+                        </div>
+                    </div>
+                </div>
 
 
                 <!--main js--> 

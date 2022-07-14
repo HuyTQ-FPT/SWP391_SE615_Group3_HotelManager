@@ -44,7 +44,7 @@ public class ManagerAccount extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
                Account ac = new Account();
                 ac = (Account) session.getAttribute("login");              
-                    List<Account> list = dao.getAccountList();
+                    List<Account> list = dao.getAccountList1();
                     request.setAttribute("lista", list);
                     
                     request.getRequestDispatcher("uprole.jsp").forward(request, response);

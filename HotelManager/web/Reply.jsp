@@ -6,6 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
          <c:forEach items="${listcomment1}" var="list">
@@ -26,20 +27,18 @@
                     </span>
                     <input type="hidden" value="${list.commentId}" id="blogid" name="commentid"/>  
                     <form style="width: 1500px;" id="myform3${list.commentId}" name="myform3${list.commentId}"> 
-                        <input style="display: inline-block;width: 1200px;" value="${list.content}" id="content3" name="content3" class="be-comment-text">
+                        <input style="display: inline-block;width: 1200px;" value="${list.content}" id="content3"  name="content3" class="be-comment-text">
                          <div style="display: inline-block;"class="nav-item dropdown">
                             <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fab fa-blogger"></i>
+                                <c:if test="${list.username eq sessionScope.user}">  
                                 <span>
-                                    Blog <i class="fas fa-angle-down"></i>
+                                    <i class="fa fa-bars"></i>
                                 </span>
+                                    </c:if>
                             </a>
-
-
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">                              
                                 <input type="hidden" value="${list.commentId}" id="commentidd${list.commentId}" name="commentidd"/>
                                 <input type="hidden" value="${list.blogid}" id="blogidd" name="blogidd"/>  
 <!--                                     <input type="hidden" value="${list.content}" id="contentid" name="content3"/>-->
@@ -52,36 +51,10 @@
                                     <a class="dropdown-item"  onclick="Delete1(${list.commentId})"  >Xóa</a>
                                 </form>
                             </div>
-                        </div>
-
-                        <div class="accordion" id="myaccordion" style="max-width: 300px">   
-                            <div class="card-header btn"  data-toggle="collapse" data-target="#q${list.commentId}" aria-expanded="true"
-                                 data-parent="#myaccordion">
-                                Reply
-                            </div>
-                       <div id ="mycomment1${list.commentId}"> </div>
-                                <div class="card-body collapse"  data-toggle="collapse"  aria-expanded="false" id="q${list.commentId}">                                 
-                                    <form id="myform1${list.commentId}" name="myform1${list.commentId}">         
-                                        <div class="form-group fl_icon">
-                                            <div class="icon"><i class="fa fa-user"></i></div>
-                                            <input type="text"  value="${sessionScope.user}" readonly class="form-input" id="username1" name="username1" required readonly/>
-
-                                        </div>
-                                        <div class="form-group fl_icon">
-
-                                            <textarea style="width: 1300px;" class="form-input"  id="content1"   name="content1" required> @${list.username} </textarea>
-                                        </div>
-                                        <input type="hidden" value="${list.commentId}" id="commentid" name="commentid"/>  
-                                        <input type="hidden" value="${list.blogid}" id="blogid1" name="blogid1"/>  
-
-                                        <input style="margin-left: 1300px;" class="btn btn-primary pull-right" type="button" value="Gửi" onclick="Comment1(${list.commentId})"/>
-
-
-                                    </form>
-                                </div>
-                            </div>
+                        </div>                      
                         </div>
                 </div>
             </c:forEach>
                         </body>
+                      
                         </html>

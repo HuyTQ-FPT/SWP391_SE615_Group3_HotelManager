@@ -1,3 +1,16 @@
+
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
+ */
+
+
 package dao.impl;
 
 import entity.Device;
@@ -11,12 +24,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with Devices and associate tables
+ *
+ * @author
+ */
 public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 
-    @Override
-    public Vector<Device> getAllDevice() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void insertDevice(String name, String price, String status, String RoomcateID, String Quantity) {
@@ -184,23 +199,29 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
         return vector;
     }
 
+    /**
+     * get list device and count from Device table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
-    public ArrayList<Device> getDeviceByCateId(int cateRoom) throws Exception {
+    public ArrayList<Device> numberOfDevice() throws Exception {
         Connection conn = null;
+         /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
+        ArrayList<Device> vector = new ArrayList<>();
 
-        ArrayList<Device> vector = new ArrayList<Device>();
-        String sql = "select Device.DeviceName,RoomDevice.Quantity from RoomDevice INNER JOIN Device on \n"
-                + "RoomDevice.DeviceID = Device.DeviceID \n"
-                + "where RoomDevice.RoomID = " + cateRoom;
-
+        String sql = "select d.DeviceName , SUM(r.Quantity) as Quantity from  RoomDevice r INNER JOIN Device d on \n"
+                + "                r.DeviceID = d.DeviceID\n"
+                + "                group by d.DeviceName";
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {
-
                 vector.add(new Device(rs.getString("DeviceName"), rs.getInt("Quantity")));
             }
         } catch (Exception e) {
@@ -215,3 +236,4 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
     }
 
 }
+

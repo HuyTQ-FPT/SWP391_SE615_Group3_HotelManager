@@ -8,6 +8,7 @@
 <%@page import="entity.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -386,7 +387,7 @@
                 <h3>Địa chỉ:${reservation.getAddress()}</h3>
 <!--                <h3>Status:${reservation.getStatus()}</h3>-->
             </div>
-            <c:set  var="sum" value="0"></c:set>
+           
             <c:set  var="count" value="1"></c:set>
                 <table border="1" style="margin-left: 100px; margin-top: 50px">
                     <thead>
@@ -396,10 +397,12 @@
                             <th>Ngày đặt</th>
                             <th>Ngày trả</th>
                             <th>Giá Phòng</th>
-                            <th>Total</th>
+                            <th>Tổng tiền</th>
 
                         </tr>
                     </thead>
+                    <fmt:setLocale value="vi"/>
+
                 <c:forEach  items="${listReservation}" var="v">
                     <tbody>
 
@@ -408,37 +411,37 @@
                             <td>${v.roomname}</td>
                             <td>${v.checkin}</td>
                             <td>${v.checkout}</td>
-                            <td>${v.roomprice}</td>
-                            <td>${v.total}</td>
+                            <td> <fmt:formatNumber value="${v.roomprice}" currencySymbol=""/>đ</td>
+                            <td> <fmt:formatNumber value="${v.total} "currencySymbol="đ" />đ</td>
 
-                        </tr>
+        </tr>
 
 
-                        <c:set value="${sum=sum+v.total}" var="sum"></c:set>
-                        <c:set value="${count=count+1}" var="count"></c:set>
-                        </tbody>
-                </c:forEach>
-            </table>
-            <h3 style=" margin-top: 44px;margin-left: 500px;">Tổng tiền:<span style="color: red">${sum}</span></h3>
-            </c:if>
-            <c:if test="${empty listReservation}">
-            <h3>Chưa từng đặt phòng!!</h3>
-        </c:if>
-        <div class="hotel-room-body">
-            <form action="ReceptionistController?do=Cus" method="post">
-                <button type="submit"  style="border-radius: 5px; background-color:#F1BC31;margin-top: 40px; border: 3px solid " ><span style="color: black">Trang trước</span></button>
-            </form>
+       
+        <c:set value="${count=count+1}" var="count"></c:set>
+        </tbody>
+</c:forEach>
+</table>
+<h3 style=" margin-top: 44px;margin-left: 500px;">Tổng tiền:<span style="color: red">${sum} đ</span></h3>
+</c:if>
+<c:if test="${empty listReservation}">
+<h3>Chưa từng đặt phòng!!</h3>
+</c:if>
+<div class="hotel-room-body">
+    <form action="ReceptionistController?do=Cus" method="post">
+        <button type="submit"  style="border-radius: 5px; background-color:#F1BC31;margin-top: 40px; border: 3px solid " ><span style="color: black">Trang trước</span></button>
+    </form>
 
-        </div>
+</div>
 
-        <script>
-            function show() {
-                if (document.getElementById("team").style.display == "none") {
-                    document.getElementById("team").style.display = "block";
-                } else {
-                    document.getElementById("team").style.display = "none";
-                }
-            }
-        </script>
-    </body>
+<script>
+    function show() {
+        if (document.getElementById("team").style.display == "none") {
+            document.getElementById("team").style.display = "block";
+        } else {
+            document.getElementById("team").style.display = "none";
+        }
+    }
+</script>
+</body>
 </html>

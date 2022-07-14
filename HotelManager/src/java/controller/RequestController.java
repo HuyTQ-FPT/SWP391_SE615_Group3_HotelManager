@@ -1,8 +1,8 @@
 package controller;
 
-import dao.SendFeedbackDAO;
-import dao.impl.SendFeedbackDAOIpml;
-import entity.sendFeedback;
+import dao.RequestMessageDAO;
+import dao.impl.RequestMessageDAOIpml;
+import entity.RequestMessage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -29,7 +29,7 @@ public class RequestController extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
 
-            SendFeedbackDAO daoS = new SendFeedbackDAOIpml();
+            RequestMessageDAO daoS = new RequestMessageDAOIpml();
             HttpSession session = request.getSession();
             String service = request.getParameter("do");
             if (service == null) { // trả về trang liên lạc
@@ -38,7 +38,7 @@ public class RequestController extends HttpServlet {
                 String title = request.getParameter("title").trim();
                 String message = request.getParameter("message").trim();
 
-                daoS.insert(new sendFeedback(title, email, message, "0"));
+                daoS.insert(new RequestMessage(title, email, message, "0"));
                 String mEss = "Gửi yêu cầu thành công.";
                 request.setAttribute("mEss", mEss);
                 request.getRequestDispatcher("contact.jsp").forward(request, response);
@@ -47,8 +47,8 @@ public class RequestController extends HttpServlet {
 
             if (service.equalsIgnoreCase("listMessFeedBack")) { // in ra tất cả yêu cầu
 
-                ArrayList<sendFeedback> listS = new ArrayList<>();
-                ArrayList<sendFeedback> listS1 = new ArrayList<>();
+                ArrayList<RequestMessage> listS = new ArrayList<>();
+                ArrayList<RequestMessage> listS1 = new ArrayList<>();
                 String indexPage = request.getParameter("index");
 
                 if (indexPage == null) {
@@ -78,7 +78,7 @@ public class RequestController extends HttpServlet {
             }
             if (service.equalsIgnoreCase("SeenMessage")) { // xem nội dung yêu cầu
                 int id = Integer.parseInt(request.getParameter("mid").trim());
-                sendFeedback seen = daoS.getMessageById(id);
+                RequestMessage seen = daoS.getMessageById(id);
                 int n = daoS.updateRead(id, seen.getIsRead());
                 request.setAttribute("seen", seen);
                 request.getRequestDispatcher("viewRequest.jsp").forward(request, response);
@@ -107,8 +107,8 @@ public class RequestController extends HttpServlet {
                 String nameTitle = request.getParameter("nameTitle").trim();
                 String indexPage = request.getParameter("index");
                 // index page always start at 1
-                ArrayList<sendFeedback> listS = new ArrayList<>();
-                ArrayList<sendFeedback> listS1 = new ArrayList<>();
+                ArrayList<RequestMessage> listS = new ArrayList<>();
+                ArrayList<RequestMessage> listS1 = new ArrayList<>();
 
                 if (indexPage == null) {
                     indexPage = "1";
@@ -135,14 +135,14 @@ public class RequestController extends HttpServlet {
                 session.setAttribute("index", index);
                 request.getRequestDispatcher("requestMessage.jsp").forward(request, response);
             }
-            if (service.equalsIgnoreCase("viewReply")) {
+            if (service.equalsIgnoreCase("viewReply")) { // chuyển tới trang trả lời
                 int id = Integer.parseInt(request.getParameter("mID").trim());
                 String email = request.getParameter("email").trim();
                 request.setAttribute("email", email);
                 request.setAttribute("mID", id);
                 request.getRequestDispatcher("replyRequest.jsp").forward(request, response);
             }
-            if (service.equals("sendReply")) {
+            if (service.equals("sendReply")) { // nhập thông tin trả lời
                 SendMail sm = new SendMail();
                 String email = request.getParameter("inputEmail").trim();
                 String name = request.getParameter("name").trim();

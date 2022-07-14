@@ -43,7 +43,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="AdminController?do=ReportDay">Báo cáo doanh số theo phòng</a>
                                 <a class="dropdown-item" href="AdminController?do=ReportMonth">Báo cáo tháng</a>
-                                <a class="dropdown-item" href="#">Báo cáo năm</a>
+                              
                             </div>
                         </li>
                         <li class="nav-item">
@@ -71,7 +71,7 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="BlogManagerController?do=editblog">Chỉnh sửa blog</a>
+                                <a class="dropdown-item" href="BlogManagerController?do=editblog&page=1">Chỉnh sửa blog</a>
                                 <a class="dropdown-item" href="addblog.jsp">Thêm Blog</a>
 
                             </div>

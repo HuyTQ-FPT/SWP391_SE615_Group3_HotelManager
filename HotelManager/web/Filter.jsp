@@ -121,9 +121,9 @@
 			<div class="notfound-404">
                             <h1>4<span></span>3</h1>
 			</div>
-                    <h2 style="color: red">Oops! Access Denied</h2>
-                    <p style="font-size: 20px">You are not authorized to go through this site!!!</p>
-			<a href="HomeController">Back to homepage</a>
+                    <h2 style="color: red">Ối! Quyền truy cập bị Từ chối</h2>
+                    <p style="font-size: 20px">Bạn không được phép đi qua trang web này !!!</p>
+			<a href="HomeController">Quay trở về trang chủ.</a>
 		</div>
 	</div>
   

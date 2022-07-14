@@ -140,7 +140,7 @@ public class UserController extends HttpServlet {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 String formatted = current.format(formatter);
                 int accoutid = Integer.parseInt(request.getParameter("aid").toString());
-                String msg =request.getParameter("commentfb");
+                String msg =request.getParameter("commentfb").trim();
                 if(!msg.equals("")){
                     daom.insertFeedback(new Message(accoutid, formatted, msg, roomID));
                     response.sendRedirect("OrderController?do=yourbill&id="+accoutid);

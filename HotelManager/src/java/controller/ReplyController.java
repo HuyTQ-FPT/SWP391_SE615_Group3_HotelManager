@@ -64,9 +64,11 @@ public class ReplyController extends HttpServlet {
        BlogDAOImpl dao = new BlogDAOImpl();
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
+          String dos = request.getParameter("do");
         if (request.getCharacterEncoding() != null) {
             request.setCharacterEncoding("UTF-8");
         }
+        if(dos.equals("insertreply")){
         try (PrintWriter out = response.getWriter()) {
             String content = request.getParameter("content1").trim();
             String username = request.getParameter("username");;
@@ -92,7 +94,26 @@ public class ReplyController extends HttpServlet {
             e.printStackTrace();
         }
     }
-
+        if(dos.equals("displayreply")){
+             String content = request.getParameter("content1").trim();
+            String username = request.getParameter("username");;
+            String BlogID = request.getParameter("blogid");;
+            String ParentID = request.getParameter("commentid");
+          String CommentID = request.getParameter("commentid");
+                Comment cmt = new Comment();
+                cmt.setContent(content);
+                cmt.setUsername(username);
+                cmt.setParentId(ParentID);
+                cmt.setBlogid(BlogID);
+                cmt.setCommentId(CommentID);
+             
+                List<Comment> list1 = dao.DisplayCommenttt(ParentID);
+                request.setAttribute("listcomment1", list1);
+                RequestDispatcher rd = request.getRequestDispatcher("Reply.jsp");
+                rd.forward(request, response);
+        }
+    }
+    
     /**
      * Returns a short description of the servlet.
      *
