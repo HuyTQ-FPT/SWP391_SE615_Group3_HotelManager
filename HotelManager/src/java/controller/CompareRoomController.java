@@ -1,10 +1,18 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 15/07/2022    1.0        HieuLBM          Comment
+ */
 package controller;
 
-import dao.DeviceDAO;
 import dao.ImageDAO;
 import dao.RoomCategoryDAO;
 import dao.RoomDAO;
-import dao.impl.DevicesDAOImpl;
 import dao.impl.ImageDAOImpl;
 import dao.impl.RoomCategoryDAOImpl;
 import dao.impl.RoomDAOImpl;
@@ -32,7 +40,7 @@ public class CompareRoomController extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
+     *Search name room
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -42,23 +50,27 @@ public class CompareRoomController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            RoomDAO daoR = new RoomDAOImpl();
-            ImageDAO daoI = new ImageDAOImpl();
-            DeviceDAO daoD = new DevicesDAOImpl();
+            RoomDAO roomDAO = new RoomDAOImpl();
+            ImageDAO imageDAO = new ImageDAOImpl();
             RoomCategoryDAO roomCategoryDAO = new RoomCategoryDAOImpl();
             String service = request.getParameter("do");
-
-            if (service.equals("ViewCompare")) { // xem thông tin phòng
+             /**
+             * Service viewCompare: get a information room
+             * compare.jsp
+             */
+            if (service.equalsIgnoreCase("viewCompare")) { 
 
                 String RoomID = request.getParameter("roomid").trim();
                 String cateroom = request.getParameter("cateroom").trim();
                 int roomid = Integer.parseInt(RoomID);
                 int cateid = Integer.parseInt(cateroom);
-                Image img = daoI.searchRoomidAndImage(roomid);
-                Room rooom = daoR.getOneRoom(roomid);
+                  /*Get image by roomid*/
+                Image img = imageDAO.searchRoomidAndImage(roomid);
+                  /*Get room by roomid*/
+                Room rooom = roomDAO.getOneRoom(roomid);
+                /*Get roomCategory  by cateid*/
                 RoomCategory roomCategory = roomCategoryDAO.getRoomCate(cateid);
-               
-                
+                              
                 request.setAttribute("Rooom", rooom);
                 request.setAttribute("img", img);
                 request.setAttribute("roomid", RoomID);
@@ -68,12 +80,16 @@ public class CompareRoomController extends HttpServlet {
                 request.getRequestDispatcher("compare.jsp").forward(request, response);
 
             }
-            if (service.equalsIgnoreCase("searchRoomname")) { // tìm kiếm tên phòng
+            /**
+             * Service searchRoomName: get list name of room
+             * compare.jsp
+             */
+            if (service.equalsIgnoreCase("searchRoomName")) { 
                 String name = request.getParameter("txt").trim();
                 int RoomID = Integer.parseInt(request.getParameter("RoomID").trim());
                 int cateID = Integer.parseInt(request.getParameter("cateID").trim());
-
-               ArrayList<Room> listRoom = daoR.searchRoomNamebyAjax(name, cateID);
+                 /*Get search name by name room and cateID*/
+               ArrayList<Room> listRoom = roomDAO.searchRoomNamebyAjax(name, cateID);
 
                 PrintWriter out = response.getWriter();
 
@@ -84,7 +100,7 @@ public class CompareRoomController extends HttpServlet {
                 } else {
                     out.print(" <div class=\"manufactury\">");
                     for (Room room : listRoom) {
-                        Image image = daoI.searchRoomidAndImage(room.getRoomID());
+                        Image image = imageDAO.searchRoomidAndImage(room.getRoomID());
                         if (room.getRoomID() != RoomID) {
 
                             out.print("  <li style=\"list-style: none\">\n"

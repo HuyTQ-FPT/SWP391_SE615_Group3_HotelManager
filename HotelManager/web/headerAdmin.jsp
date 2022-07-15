@@ -81,7 +81,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="RequestController?do=listMessFeedBack">
+                            <a class="nav-link" href="RequestController?do=listRequest">
                                 <i class="fas fa-newspaper"></i></i> Yêu cầu
                             </a>
                         </li>
@@ -108,7 +108,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link d-block" href="LoginController?do=logout">
-                            Admin, <span>Đăng xuất</span>
+                            Admin,<span>Đăng xuất</span>
                             </a>
                         </li>
                     </ul>

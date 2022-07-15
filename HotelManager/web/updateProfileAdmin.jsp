@@ -11,6 +11,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" 
+        href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+        <script type="text/javascript" 
+        src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" 
+        src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
         <!-- https://fonts.google.com/specimen/Roboto -->
         <link rel="stylesheet" href="css/fontawesome.min.css">
@@ -43,101 +51,7 @@
     </style>
     <body id="reportsPage">
         <div class="" id="home">
-            <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
-                <div class="container h-100">
-                    <a class="navbar-brand" href="AdminController">
-                        <h1 class="tm-site-title mb-0">Admin</h1>
-                    </a>
-                    <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-bars tm-nav-icon"></i>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mx-auto h-100">
-                            <li class="nav-item">
-                                <a class="nav-link " href="AdminController">
-                                    <i class="fas fa-tachometer-alt"></i>
-                                    Bảng điều khiển
-                                    <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    <i class="far fa-file-alt"></i>
-                                    <span>
-                                        Báo cáo <i class="fas fa-angle-down"></i>
-                                    </span>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Báo cáo ngày</a>
-                                    <a class="dropdown-item" href="#">Báo cáo tuần</a>
-                                    <a class="dropdown-item" href="#">Báo cáo năm</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="ServiceController?do=getdeviceroom">
-                                    <i class="fas fa-shopping-cart"></i>
-                                    Phòng
-                                </a>
-                            </li>
-
-                            <li class="nav-item dropdown nav-item">
-                                <a class="nav-link dropdown-toggle" href="accountAdmin.jsp" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    <i class="far fa-user"></i>
-                                    <span>
-                                        Quản lí tài khoản <i class="fas fa-angle-down"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    <i class="fab fa-blogger"></i>
-                                    <span>
-                                        Blog <i class="fas fa-angle-down"></i>
-                                    </span>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="BlogManagerController?do=editblog">Edit Blog</a>
-                                    <a class="dropdown-item" href="addblog.jsp">Insert Blog</a>
-
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="RequestController?do=listMessFeedBack">
-                                    <i class="fas fa-newspaper"></i></i> Yêu cầu
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-cog"></i>
-                                    <span>
-                                        Cài đặt <i class="fas fa-angle-down"></i>
-                                    </span>
-                                </a>
-                                <div class="dropdown-menu active" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">Thông tin</a>
-                                    <a class="dropdown-item" href="#">Billing</a>
-                                    <a class="dropdown-item" href="#">Customize</a>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link d-block" href="LoginController?do=logout">
-                                    Admin,<sapn>Đăng xuất</sapn>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </nav>
+            <%@include file="headerAdmin.jsp" %>
             <div class="container mt-5">
 
                 <!-- row -->
@@ -151,14 +65,7 @@
                                     alt="Avatar"
                                     class="tm-avatar img-fluid mb-4"
                                     />
-                                <!--                                <a href="#" class="tm-avatar-delete-link">
-                                                                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                                                                </a>-->
                             </div>
-                            <!--                            <button class="btn btn-primary btn-block text-uppercase">
-                                                            Upload New Photo
-                                                        </button>-->
-
                             <a class="btn btn-primary btn-block " href="LoginController?do=ChangePassword1">
                                 Thay đổi mật khẩu
                             </a>

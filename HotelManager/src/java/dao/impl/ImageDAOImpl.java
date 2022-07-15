@@ -12,7 +12,6 @@ package dao.impl;
 
 import dao.ImageDAO;
 import entity.Image;
-import entity.Room;
 import context.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

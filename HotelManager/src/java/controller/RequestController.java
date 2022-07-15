@@ -1,3 +1,13 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
+ */
 package controller;
 
 import dao.RequestMessageDAO;
@@ -16,12 +26,23 @@ import javax.servlet.http.HttpSession;
 import util.SendMail;
 
 /**
+ * This class request
  *
  * @author Minh Hiếu
  */
 @WebServlet(name = "RequestController", urlPatterns = {"/RequestController"})
 public class RequestController extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods. Get list request Search and update status Delete request Reply
+     * request
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
@@ -29,26 +50,26 @@ public class RequestController extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
 
-            RequestMessageDAO daoS = new RequestMessageDAOIpml();
+            RequestMessageDAO requestMessageDAO = new RequestMessageDAOIpml();
             HttpSession session = request.getSession();
             String service = request.getParameter("do");
-            if (service == null) { // trả về trang liên lạc
+            /*Service is null,redirect contact.jsp to index */
+            if (service == null) {
 
                 String email = request.getParameter("email").trim();
                 String title = request.getParameter("title").trim();
                 String message = request.getParameter("message").trim();
-
-                daoS.insert(new RequestMessage(title, email, message, "0"));
+                /*Service is null,redirect RequestController to index */
+                requestMessageDAO.insert(new RequestMessage(title, email, message, "0"));
                 String mEss = "Gửi yêu cầu thành công.";
                 request.setAttribute("mEss", mEss);
                 request.getRequestDispatcher("contact.jsp").forward(request, response);
 
             }
-
-            if (service.equalsIgnoreCase("listMessFeedBack")) { // in ra tất cả yêu cầu
-
-                ArrayList<RequestMessage> listS = new ArrayList<>();
-                ArrayList<RequestMessage> listS1 = new ArrayList<>();
+            /**
+             * Service listRequest: get list request requestMessage.jsp
+             */
+            if (service.equalsIgnoreCase("listRequest")) {
                 String indexPage = request.getParameter("index");
 
                 if (indexPage == null) {
@@ -56,109 +77,136 @@ public class RequestController extends HttpServlet {
                 }
                 int index = Integer.parseInt(indexPage);
 
-                int count = daoS.getMessage().size();
+                int count = requestMessageDAO.getMessage().size();
 
                 int endPage = count / 3;
                 if (count % 3 != 0) {
                     endPage++;
                 }
-                listS = daoS.pagingMessage(index);
-                listS1 = daoS.getMessageUnread();
-                String href = "RequestController?do=listMessFeedBack&";
+                /*Pagination by index*/
+                ArrayList<RequestMessage> listRequest = requestMessageDAO.pagingMessage(index);
+                /*Get count unread request*/
+                ArrayList<RequestMessage> listRequest1 = requestMessageDAO.getMessageUnread();
+                String href = "RequestController?do=listRequest&";
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("count", count);
                 request.setAttribute("href", href);
                 request.setAttribute("index", index);
-                request.setAttribute("vetorS", listS);
-                request.setAttribute("vetorS1", listS1);
+                request.setAttribute("listRequest", listRequest);
+                request.setAttribute("listRequest1", listRequest1);
                 session.setAttribute("index", index);
-
                 request.getRequestDispatcher("requestMessage.jsp").forward(request, response);
 
             }
-            if (service.equalsIgnoreCase("SeenMessage")) { // xem nội dung yêu cầu
+            /**
+             * Service seenRequest: get a request 
+             * requestMessage.jsp
+             */
+            if (service.equalsIgnoreCase("seenRequest")) {
                 int id = Integer.parseInt(request.getParameter("mid").trim());
-                RequestMessage seen = daoS.getMessageById(id);
-                int n = daoS.updateRead(id, seen.getIsRead());
-                request.setAttribute("seen", seen);
+                /*Get seen request by id*/
+                RequestMessage seenRequest = requestMessageDAO.getMessageById(id);
+                int n = requestMessageDAO.updateRead(id, seenRequest.getIsRead());
+                request.setAttribute("seen", seenRequest);
                 request.getRequestDispatcher("viewRequest.jsp").forward(request, response);
 
             }
-            if (service.equalsIgnoreCase("deleteMessage")) { // xoá yêu cầu
+            /**
+             * Service deleteRequest: delete request
+             * RequestController?do=listRequest
+             */
+            if (service.equalsIgnoreCase("deleteRequest")) {
 
                 int id = Integer.parseInt(request.getParameter("mId").trim());
-                System.out.println(id);
-                daoS.delete(id);
+                /*delete request by id*/
+                requestMessageDAO.delete(id);
                 String Mess = "Xoá thành công.";
                 request.setAttribute("Mess", Mess);
-                request.getRequestDispatcher("RequestController?do=listMessFeedBack").forward(request, response);
+                request.getRequestDispatcher("RequestController?do=listRequest").forward(request, response);
 
             }
-            if (service.equalsIgnoreCase("updateIsRead")) { // cập nhật trạng thái đọc
-
+            /**
+             * Service seenRequest: update status request
+             * RequestController?do=listRequest
+             */
+            if (service.equalsIgnoreCase("updateIsRead")) {
                 int id = Integer.parseInt(request.getParameter("mID").trim());
                 String isRead = request.getParameter("isRead");
-                System.out.println(isRead);
-                daoS.updateRead(id, isRead);
-                request.getRequestDispatcher("RequestController?do=listMessFeedBack").forward(request, response);
+                /* update read status by id*/
+                requestMessageDAO.updateRead(id, isRead);
+                request.getRequestDispatcher("RequestController?do=listRequest").forward(request, response);
 
             }
-            if (service.equalsIgnoreCase("searchName")) { // tìm kiến tên tiêu đề
+            /**
+             * Service searchName: search title and pagination
+             * requestMessage.jsp
+             */
+            if (service.equalsIgnoreCase("searchName")) {
                 String nameTitle = request.getParameter("nameTitle").trim();
                 String indexPage = request.getParameter("index");
-                // index page always start at 1
-                ArrayList<RequestMessage> listS = new ArrayList<>();
-                ArrayList<RequestMessage> listS1 = new ArrayList<>();
-
+                /* index page always start at 1*/
                 if (indexPage == null) {
                     indexPage = "1";
                 }
                 int index = Integer.parseInt(indexPage);
 
-                int count = daoS.getMessageOfTitle(nameTitle).size();
+                int count = requestMessageDAO.getMessageOfTitle(nameTitle).size();
 
                 int endPage = count / 3;
 
                 if (count % 3 != 0) {
                     endPage++;
                 }
-                listS1 = daoS.getMessageUnread();
-                listS = daoS.searchName(index, nameTitle);
+                  /* Get search title and pagination */
+                ArrayList<RequestMessage> listRequest = requestMessageDAO.searchName(index, nameTitle);
+                 /*Get count unread request*/
+                ArrayList<RequestMessage> listRequest1 = requestMessageDAO.getMessageUnread();
                 String href = "RequestController?do=searchName&";
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("count", count);
                 request.setAttribute("href", href);
                 request.setAttribute("index", index);
-                request.setAttribute("vetorS", listS);
-                request.setAttribute("vetorS1", listS1);
+                request.setAttribute("listRequest", listRequest);
+                request.setAttribute("listRequest1", listRequest1);
                 request.setAttribute("nameTitle", nameTitle);
                 session.setAttribute("index", index);
                 request.getRequestDispatcher("requestMessage.jsp").forward(request, response);
             }
-            if (service.equalsIgnoreCase("viewReply")) { // chuyển tới trang trả lời
+             /**
+             * Service viewReply: get view reply
+             * replyRequest.jsp
+             */
+            if (service.equalsIgnoreCase("viewReply")) { 
                 int id = Integer.parseInt(request.getParameter("mID").trim());
                 String email = request.getParameter("email").trim();
                 request.setAttribute("email", email);
                 request.setAttribute("mID", id);
+                session.setAttribute("mID", id);
                 request.getRequestDispatcher("replyRequest.jsp").forward(request, response);
             }
-            if (service.equals("sendReply")) { // nhập thông tin trả lời
+            /**
+             * Service sendReply: Import into all fields
+             * replyRequest.jsp
+             */
+            if (service.equals("sendReply")) { 
                 SendMail sm = new SendMail();
+                int id = Integer.parseInt(request.getParameter("mID").trim());
                 String email = request.getParameter("inputEmail").trim();
                 String name = request.getParameter("name").trim();
                 String title = request.getParameter("inputTitle").trim();
                 String content = request.getParameter("inputContent").trim();
-
+                /* Get message */
                 String mess = "   Giải đáp thắc mắc!\n"
                         + "Tiêu đề:" + title + "\n"
                         + "  Nội dung:" + content + "\n"
                         + "" + name + " đã trả lời yêu cầu. Cảm ơn vì đã gửi yêu cầu tới chúng tôi!!!\n"
                         + "Có câu hỏi gì liên quan tới khách sạn vui lòng liên hệ qua đường link này:http://localhost:8080/HotelManager/contact.jsp";
-
+                /*Send email*/
                 sm.send(email, "Phản hồi yêu cầu.", mess, sm.getFromEmail(), sm.getPassword());
                 session.setAttribute("email", email);
                 String mess1 = "Gửi thành công.";
                 request.setAttribute("mess1", mess1);
+                request.setAttribute("mID", id);
                 request.getRequestDispatcher("replyRequest.jsp").forward(request, response);
 
             }

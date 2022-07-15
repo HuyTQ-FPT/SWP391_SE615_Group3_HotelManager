@@ -12,6 +12,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title> Admin - Dashboard</title>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" 
+        href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+        <script type="text/javascript" 
+        src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" 
+        src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
         <!-- https://fonts.google.com/specimen/Roboto -->
         <link rel="stylesheet" href="css/fontawesome.min.css">
@@ -32,21 +40,21 @@
         </div>
         <h4 style="font-size: 20px ; color: red">${errr}</h4>
         <h4 style="font-size: 20px ; color: red">${err1}</h4>
-        <form action="AdminController?do=ReportDay1" method="post" >
-            <label style=" color: white;margin-left: 12px">Tìm kiếm số phòng</label>
+        <form action="AdminController?do=incomeRoomAndSearch" method="post" >
+            <label style=" color: white;margin-left: -240px">Tìm kiếm số phòng</label>
             <div class="form-group col-lg-2 d-flex">
-                <input style="background-color: white; color: #54657D; border-radius: 10px" type="text" name="name" pattern=".*\S+.*"   title="Không được để khoảng trắng" maxlength="5" class="form-control" value="${name}">
-                <input style="margin-left: 20px;border-radius: 10px;padding: 5px" type="submit"  value="Báo cáo" class="btn btn-success">
+                <input style="background-color: white; color: #54657D; border-radius: 10px;margin-top: 30px; " type="text" name="name" pattern=".*\S+.*"   title="Không được để khoảng trắng" maxlength="5" class="form-control" value="${name}">
+                <input style="margin-left: 20px;border-radius: 10px;padding: 5px;margin-top: 30px" type="submit"  value="Báo cáo" class="btn btn-success">
             </div> 
-                <div class="d-flex">
+                <div class="d-flex" style="margin-top: 20px">
 
-                <div class="form-group col-lg-2">
+                    <div class="form-group col-lg-2" style="margin-top: 44px;margin-left: -256px">
                     <label>Từ ngày</label>
-                    <input style="background-color: white; color: #54657D;" type="date" name="checkin" class="form-control" value="${checkin}">
+                    <input style="background-color: white; color: #54657D" type="date" name="checkin" class="form-control" value="${checkin}">
                 </div> 
-                <div class="form-group col-lg-2">
+                <div class="form-group col-lg-2" style="margin-top: 44px">
                     <label>Đến ngày </label>
-                    <input style="background-color: white; color: #54657D;" type="date" name="checkout" class="form-control" value="${checkout}">
+                    <input style="background-color: white; color: #54657D" type="date" name="checkout" class="form-control" value="${checkout}">
                 </div>
             </div>
 

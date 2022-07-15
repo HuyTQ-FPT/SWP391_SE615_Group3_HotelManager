@@ -13,7 +13,15 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Request Message</title>       
+        <title>Request Message</title>  
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" 
+        href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+        <script type="text/javascript" 
+        src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" 
+        src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
         <!-- https://fonts.google.com/specimen/Roboto -->
         <link rel="stylesheet" href="css/fontawesome.min.css">
@@ -203,13 +211,12 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="AdminController?do=ReportDay">Báo cáo doanh số theo phòng</a>
+                                <a class="dropdown-item" href="AdminController?do=incomeRoom">Báo cáo doanh số theo phòng</a>
                                 <a class="dropdown-item" href="AdminController?do=ReportMonth">Báo cáo tháng</a>
-                                <a class="dropdown-item" href="#">Báo cáo năm</a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ServiceController?do=getdeviceroom">
+                            <a class="nav-link" href="RoomcategoryController?do=getroombycategori&i=1">
                                 <i class="fas fa-shopping-cart"></i>
                                 Phòng
                             </a>
@@ -239,7 +246,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="RequestController?do=listMessFeedBack">
+                            <a class="nav-link active" href="RequestController?do=listRequest">
                                 <i class="fas fa-newspaper "></i></i> Yêu cầu
                             </a>
                         </li>
@@ -270,8 +277,8 @@
 
         </nav>
         <%
-            ArrayList<RequestMessage> v = (ArrayList<RequestMessage>) request.getAttribute("vetorS");
-            ArrayList<RequestMessage> v1 = (ArrayList<RequestMessage>) request.getAttribute("vetorS1");
+            ArrayList<RequestMessage> listRequest = (ArrayList<RequestMessage>) request.getAttribute("listRequest");
+            ArrayList<RequestMessage> listRequest1 = (ArrayList<RequestMessage>) request.getAttribute("listRequest1");
         %>
         <div class="container">
             <div class="row">
@@ -298,7 +305,7 @@
                                 <div class="card card-tale">
                                     <div class="card-body">
                                         <a href="" style="; text-decoration: none"><p class="mb-4" style="color: black">Số yêu cầu </p>
-                                            <p class="fs-30 mb-2"><%=v.size()%></p>
+                                            <p class="fs-30 mb-2"><%=listRequest.size()%></p>
                                         </a> 
                                     </div>
                                 </div>
@@ -307,7 +314,7 @@
                                 <div class="card card-dark-blue">
                                     <div class="card-body">
                                         <a href="" style=" text-decoration: none" ><p class="mb-4" style="color: black">Chưa đọc</p>
-                                            <p class="fs-30 mb-2" ><%=v1.size()%></p>
+                                            <p class="fs-30 mb-2" ><%=listRequest1.size()%></p>
                                         </a> 
                                     </div>
                                 </div>
@@ -323,7 +330,7 @@
                         <h2 class="tm-block-title">Danh sách yêu cầu</h2>
                         <p class="text-success">${Mess}</p> 
                         <%
-                            if (v.isEmpty()) {
+                            if (listRequest.isEmpty()) {
 
                         %>
                         <div class="no-req" style="text-align: center;font-size: 30px;color: white">Không có dữ liệu, vui lòng thử lại.</div>
@@ -341,7 +348,7 @@
                                 </tr>
                             </thead>
                             <%
-                                for (RequestMessage s : v) {
+                                for (RequestMessage s : listRequest) {
                                     int count = 1;
 
                             %>
@@ -352,7 +359,7 @@
                                         <div class="tm-status-circle ">
                                         </div><%=s.getEmail()%>
                                     </td>
-                                    <td><a class="btn-primary"  href="RequestController?do=SeenMessage&mid=<%=s.getmId()%>" ><%=s.getTitle()%></a></td>
+                                    <td><a class="btn-primary"  href="RequestController?do=seenRequest&mid=<%=s.getmId()%>" ><%=s.getTitle()%></a></td>
                                         <% if (s.getIsRead().equals("0")) {%>
                                     <td>
 
@@ -380,7 +387,7 @@
                         <%}%>
 
                         <%-- Paging --%>
-                        <c:if test="${!empty vetorS}">
+                        <c:if test="${!empty listRequest}">
                             <div class="row">  
                                 <div class="paging">
                                     <%-- Previous --%>
@@ -426,7 +433,7 @@
         <script>
                                         function deleteId(id) {
                                             if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
-                                                window.location = "RequestController?do=deleteMessage&mId=" + id;
+                                                window.location = "RequestController?do=deleteReques&mId=" + id;
                                             }
 
                                         }

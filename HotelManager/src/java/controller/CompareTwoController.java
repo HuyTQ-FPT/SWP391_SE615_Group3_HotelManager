@@ -1,15 +1,21 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        HieuLBM          Comment
+ */
 package controller;
 
-import dao.DeviceDAO;
 import dao.ImageDAO;
 import dao.RoomDAO;
-import dao.impl.DevicesDAOImpl;
 import dao.impl.ImageDAOImpl;
 import dao.impl.RoomDAOImpl;
-import entity.Device;
 import entity.Image;
 import entity.Room;
-import entity.RoomCategory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -29,7 +35,7 @@ public class CompareTwoController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. Compare two room
      *
      * @param request servlet request
      * @param response servlet response
@@ -40,20 +46,24 @@ public class CompareTwoController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            RoomDAO daoR = new RoomDAOImpl();
-            ImageDAO daoI = new ImageDAOImpl();
-            DeviceDAO daoD = new DevicesDAOImpl();
+            RoomDAO roomDAO = new RoomDAOImpl();
+            ImageDAO imageDAO = new ImageDAOImpl();
             String service = request.getParameter("do");
-
-            if (service.equals("CompareTwoRoom")) { // so sánh 2 phòng
+            /**
+             * Service compareTwoRoom: get two room compareFinal.jsp
+             */
+            if (service.equalsIgnoreCase("compareTwoRoom")) {
                 int RoomID = Integer.parseInt(request.getParameter("Roomid").trim());
                 int RoomID1 = Integer.parseInt(request.getParameter("Roomid1").trim());
                 int cateID = Integer.parseInt(request.getParameter("cateID").trim());
-
-                Image img = daoI.searchRoomidAndImage(RoomID);
-                Image img1 = daoI.searchRoomidAndImage(RoomID1);
-                Room rooom = daoR.getOneRoom(RoomID);
-                Room rooom1 = daoR.getOneRoom(RoomID1);
+                /*Get image by RoomID*/
+                Image img = imageDAO.searchRoomidAndImage(RoomID);
+                /*Get image by RoomID1*/
+                Image img1 = imageDAO.searchRoomidAndImage(RoomID1);
+                /*Get room by RoomID*/
+                Room rooom = roomDAO.getOneRoom(RoomID);
+                /*Get room by RoomID1*/
+                Room rooom1 = roomDAO.getOneRoom(RoomID1);
 
                 request.setAttribute("Rooom", rooom);
                 request.setAttribute("Rooom1", rooom1);
