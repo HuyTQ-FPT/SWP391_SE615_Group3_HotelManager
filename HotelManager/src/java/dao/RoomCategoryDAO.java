@@ -23,7 +23,7 @@ public interface RoomCategoryDAO {
 
     public Vector<RoomCategory> getRoomCategoryList(String sql);
 
-    public RoomCategory getAccount(int cateid);
+    public RoomCategory getRoomCategori(String cateid);
 
     public void insertRoomCategory(String roomcatename, String roomcatedes);
 

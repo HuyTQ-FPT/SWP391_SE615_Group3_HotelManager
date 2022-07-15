@@ -4,21 +4,25 @@ package entity;
 
 public class Device {
         private int DeviceID;
-        private int RoomcateID;
+        private int RoomID;
 	private String DeviceName;
 	private int DeviceCate;
 	private double Price;
 	private int Status;
         private int Quantity ;
+        private String Note;
+        String Imagedevice;
 
-    public Device(int DeviceID, int RoomcateID, String DeviceName, int DeviceCate, double Price, int Status, int Quantity) {
+    public Device(int DeviceID, int RoomID, String DeviceName, int DeviceCate, double Price, int Status, int Quantity, String Note, String Imagedevice) {
         this.DeviceID = DeviceID;
-        this.RoomcateID = RoomcateID;
+        this.RoomID = RoomID;
         this.DeviceName = DeviceName;
         this.DeviceCate = DeviceCate;
         this.Price = Price;
         this.Status = Status;
         this.Quantity = Quantity;
+        this.Note = Note;
+        this.Imagedevice = Imagedevice;
     }
 
     public Device(String DeviceName, int Quantity) {
@@ -37,12 +41,12 @@ public class Device {
         this.DeviceID = DeviceID;
     }
 
-    public int getRoomcateID() {
-        return RoomcateID;
+    public int getRoomID() {
+        return RoomID;
     }
 
-    public void setRoomcateID(int RoomcateID) {
-        this.RoomcateID = RoomcateID;
+    public void setRoomID(int RoomID) {
+        this.RoomID = RoomID;
     }
 
     public String getDeviceName() {
@@ -85,9 +89,25 @@ public class Device {
         this.Quantity = Quantity;
     }
 
+    public String getNote() {
+        return Note;
+    }
+
+    public void setNote(String Note) {
+        this.Note = Note;
+    }
+
+    public String getImagedevice() {
+        return Imagedevice;
+    }
+
+    public void setImagedevice(String Imagedevice) {
+        this.Imagedevice = Imagedevice;
+    }
+
     @Override
     public String toString() {
-        return "Device{"+ "RoomcateID=" + RoomcateID + "DeviceID=" + DeviceID + ", DeviceName=" + DeviceName + ", DeviceCate=" + DeviceCate + ", Price=" + Price + ", Status=" + Status + "Quantity=" + Quantity + '}';
+        return "Device{" + "DeviceID=" + DeviceID + ", RoomID=" + RoomID + ", DeviceName=" + DeviceName + ", DeviceCate=" + DeviceCate + ", Price=" + Price + ", Status=" + Status + ", Quantity=" + Quantity + ", Note=" + Note + ", Imagedevice=" + Imagedevice + '}';
     }
-        
+
 }

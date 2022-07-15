@@ -95,7 +95,7 @@ public class RoomDeviceController extends HttpServlet {
             }
             if (dos.equals("insertRoomCategory")) {
                 String Roomcatename = request.getParameter("Roomcatename");
-                roomcate.insertRoomCategory(Roomcatename,"");
+                roomcate.insertRoomCategory(Roomcatename, "");
                 Vector<RoomCategory> romcate = roomcate.getRoomCategoryList("select * from CateRoom");
                 request.setAttribute("romcate", romcate);
 //                out.println("<h1>Servlet RoomcategoryController at " + romcate.lastElement().getRoomcateID()+ "</h1>");
@@ -107,7 +107,7 @@ public class RoomDeviceController extends HttpServlet {
             }
             if (dos.equals("updatetRoomCategory")) {
                 String Roomcatename = request.getParameter("Roomcatename");
-                roomcate.updateRoomCategory(cateroom, Roomcatename,"");
+                roomcate.updateRoomCategory(cateroom, Roomcatename, "");
                 response.sendRedirect("RoomsController?do=listroom&cateroom=" + cateroom + "");
             }
             if (dos.equals("insertRoom")) {
@@ -146,8 +146,9 @@ public class RoomDeviceController extends HttpServlet {
             }
             if (dos.equals("deleteroom")) {
                 String RoomID = request.getParameter("RoomID");
-                dao.crudRoom("DELETE FROM [dbo].[Room]\n"
-                        + "      WHERE RoomID = " + RoomID + "");
+                dao.crudRoom("delete from DateOfRoom where RoomID =" + RoomID + "\n"
+                        + "				delete from RoomDevice where RoomID =" + RoomID + "\n"
+                        + "				delete from Room where RoomID =" + RoomID + "");
                 request.setAttribute("delete", "delete");
                 request.setAttribute("RoomID", RoomID);
                 request.getRequestDispatcher("RoomsController?do=listroom").forward(request, response);
@@ -251,8 +252,8 @@ public class RoomDeviceController extends HttpServlet {
 //                        + "      ,[Note] = '" + Note + "'\n"
 //                        + "      ,[Status] = " + Status + "\n"
 //                        + " WHERE RoomID = " + RoomID + "</h1>");
-                    request.setAttribute("update", "update");
-                    request.getRequestDispatcher("RoomsController?do=listroom").forward(request, response);
+                request.setAttribute("update", "update");
+                request.getRequestDispatcher("RoomsController?do=listroom").forward(request, response);
             }
 
         }

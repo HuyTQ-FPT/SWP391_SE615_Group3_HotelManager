@@ -73,7 +73,6 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="BlogManagerController?do=editblog&page=1">Chỉnh sửa blog</a>
                                 <a class="dropdown-item" href="addblog.jsp">Thêm Blog</a>
-
                             </div>
                         </li>
                            <li class="nav-item">
@@ -109,8 +108,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link d-block" href="LoginController?do=logout">
-                                Admin, <span>Đăng xuất</span>
-
+                            Admin, <span>Đăng xuất</span>
                             </a>
                         </li>
                     </ul>

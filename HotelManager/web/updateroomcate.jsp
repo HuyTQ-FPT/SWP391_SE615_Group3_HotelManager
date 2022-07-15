@@ -183,100 +183,96 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 </div>
             </div>
         </nav>
-        <form action="RoomcategoryController?do=insetroomcate" method="post">
-            <div class="container tm-mt-big tm-mb-big">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
-                        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-                            <div class="row">
-                                <div class="col-12" style="text-align: center">
-                                    <h2 class="tm-block-title d-inline-block">Chỉnh Sửa Loại Phòng</h2>
+            <c:if test = "${sessionScope.update==null}">
+            <form action="RoomcategoryController?do=insetroomcate" method="post">
+            </c:if>
+            <c:if test = "${sessionScope.update!=null}">
+                <!--<h4 style="color: black" class="tm-block-title d-inline-block">hahahahah</h4>-->
+                <form action="RoomcategoryController?do=udroomcate" method="post">
+                </c:if>
+                <div class="container tm-mt-big tm-mb-big">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
+                            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                                <div class="row">
+                                    <div class="col-12" style="text-align: center">
+                                        <c:if test = "${sessionScope.update==null}">
+                                            <h2 class="tm-block-title d-inline-block">Thêm Mới Loại Phòng</h2> <br>
+                                        </c:if>
+                                        <c:if test = "${sessionScope.update!=null}">
+                                            <h2 class="tm-block-title d-inline-block">Chỉnh Sủa Loại Phòng</h2> <br>
+                                        </c:if>
+                                        <h4 style="color: black" class="tm-block-title d-inline-block">${roomcate.catename}</h4>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row tm-edit-product-row">
-                                <div class="col-xl-12 col-lg-12 col-md-12">
-                                    <div class="form-group mb-3" style="text-align: center">
-                                        <label
-                                            for="name"
-                                            >Room Number 
-                                        </label>
-                                        <input style="text-align: center"
-                                               id="stock"
-                                               name="RoomNumber"
-                                               type="number"
-                                               min="0"
-                                               max="20"
-                                               value=""
-                                               class="form-control validate"
-                                               />
-                                    </div>
-                                    <div class="form-group mb-3" style="text-align: center">
-                                        <label
-                                            for="description"
-                                            >Mô Tả</label>
-                                        <textarea style="text-align: center"               
-                                                  class="form-control validate tm-small"
-                                                  rows="5"
-                                                  required
-                                                  name="Description"
-                                                  ></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <a  data-toggle="modal" data-target="#exampleModal" class="btn btn-primary btn-block text-uppercase">
-                                            Thêm Mới
-                                        </a>
-                                    </div>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 style="text-align: center" class="modal-title" id="exampleModalLabel">Thêm Mới Loại Phòng</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body" style="font-size: 30px;color: red">
-                                                    Xác Nhận Thêm Mới
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">HỦY</button>
-                                                    <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
-                                                </div>
-                                            </div>
+                                <select hidden="" name="RoomCateId" style="text-align: center"
+                                        class="custom-select tm-select-accounts"
+                                        id="category"
+                                        >
+                                    <option hidden="" value="${roomcate.roomcateID}"></option>
+                                </select>
+                                <div class="row tm-edit-product-row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12">
+                                        <div class="form-group mb-3" style="text-align: center">
+                                            <label
+                                                for="name"
+                                                >Tên Loại Phòng
+                                            </label>
+                                            <input style="text-align: center"
+                                                   id="stock"
+                                                   onchange="this.form.submit()"
+                                                   name="RoomCateName"
+                                                   type="text"
+                                                   
+                                                   maxlength="45"
+                                                   value="${roomcate.catename}"
+                                                   class="form-control validate"
+                                                   />
+                                        </div>
+                                        <div class="form-group mb-3" style="text-align: center">
+                                            <label
+                                                for="description"
+                                                >Ghi Chú</label>
+                                            <textarea style="text-align: center"               
+                                                      class="form-control validate tm-small"
+                                                      rows="5"
+                                                      required
+                                                      name="Note"
+                                                      >${roomcate.note}</textarea>
                                         </div>
                                     </div>
-                                    </form>
                                 </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <footer class="tm-footer row tm-mt-small">
-                    <div class="col-12 font-weight-light">
-                        <p class="text-center text-white mb-0 px-4 small">
-                            Copyright &copy; <b>2018</b> All rights reserved. 
+            </form>
+            <footer class="tm-footer row tm-mt-small">
+                <div class="col-12 font-weight-light">
+                    <p class="text-center text-white mb-0 px-4 small">
+                        Copyright &copy; <b>2018</b> All rights reserved. 
 
-                            Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
-                        </p>
-                    </div>
-                </footer> 
+                        Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                    </p>
+                </div>
+            </footer> 
 
-                <script src="js/jquery-3.3.1.min.js"></script>
-                <!-- https://jquery.com/download/ -->
-                <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
-                <!-- https://jqueryui.com/download/ -->
-                <script src="js/bootstrap.min.js"></script>
-                <!-- https://getbootstrap.com/ -->
-                <script>
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <!-- https://jquery.com/download/ -->
+            <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+            <!-- https://jqueryui.com/download/ -->
+            <script src="js/bootstrap.min.js"></script>
+            <!-- https://getbootstrap.com/ -->
+            <script>
             $(function () {
                 $("#expire_date").datepicker({
                     defaultDate: "10/22/2020"
                 });
             });
-                    <c:if test = "${update!= null}">
-            alert("Update Successfully");
-                    </c:if>
-
-                </script>
-                </body>
-                </html>
+            </script>
+    </body>
+</html>

@@ -1,9 +1,10 @@
-
 package dao.impl;
 
 import dao.ServiceDAO;
 import entity.Service;
 import context.DBContext;
+import entity.FeedBackService;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,6 +35,64 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
     }
 
     @Override
+    public Vector<FeedBackService> getFeedBackBySeviceID(String Sql) {
+        Vector<FeedBackService> vector = new Vector<FeedBackService>();
+        try {
+            ResultSet rs = getData(Sql);
+            while (rs.next()) {
+                int ServiceID = rs.getInt(1);
+                int AccountID = rs.getInt(2);
+                Date Dates = rs.getDate(3);
+                String Comment = rs.getString(4);
+                int Status = rs.getInt(5);
+                int CommentID = rs.getInt(7);
+                String Note = rs.getString(10);
+                FeedBackService ser = new FeedBackService(CommentID, ServiceID, AccountID, Dates, Comment, Status, Note);
+                vector.add(ser);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vector;
+    }
+
+    @Override
+    public void insertCommentService(String ServiceID, String AccountID, String Comment) {
+        String query = "INSERT INTO [dbo].[FeedBackService]\n"
+                + "           ([ServiceID]\n"
+                + "           ,[AccountID]\n"
+                + "           ,[Date]\n"
+                + "           ,[Comment]\n"
+                + "           ,[Status]\n"
+                + "           ,[Note])\n"
+                + "     VALUES\n"
+                + "           (?,?,GETDATE(),?,0,'')";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, ServiceID);
+            pre.setString(2, AccountID);
+            pre.setString(3, Comment);
+            pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void DeleteComnent(String CommentID) {
+        String query = "UPDATE [dbo].[FeedBackService]\n"
+                + "   SET [Status] = 1 \n"
+                + " WHERE CommentID = ? ";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, CommentID);
+            pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public Vector<Service> getServiceListbyran() {
         String sql = "select top(5) * from Service\n"
                 + "ORDER BY NEWID()";
@@ -58,10 +117,11 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
 
     public static void main(String[] args) {
         ServiceDAOImpl dao = new ServiceDAOImpl();
-        Service se = dao.getServicedetail("1");
-//        for (Service room : vector) {
-        System.out.println(se);
-//        }
+//        dao.insertCommentService("1", "1", "dịch vụ raasst tốt");
+        Vector<FeedBackService> fe = dao.getFeedBackBySeviceID("select * from FeedBackService join [User] on FeedBackService.AccountID = [User].AccountID where ServiceID = 1 ");
+        for (FeedBackService feedBackService : fe) {
+            System.out.println(feedBackService);
+        }
     }
 
     @Override
@@ -80,18 +140,58 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
     }
 
     @Override
-    public void insertService(Service Service) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertService(String ServiceName, String ServiceImage, String ServiceDes, String ServicePrice) {
+        String query = "INSERT INTO [dbo].[Service]\n"
+                + "           ([ServiceName]\n"
+                + "           ,[ServiceImage]\n"
+                + "           ,[ServiceDes]\n"
+                + "           ,[ServiceNote]\n"
+                + "           ,[ServicePrice])\n"
+                + "     VALUES\n"
+                + "           (?,?,?,'',?)";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, ServiceName);
+            pre.setString(2, ServiceImage);
+            pre.setString(3, ServiceDes);
+            pre.setString(4, ServicePrice);
+            pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void updateService(Service Service) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateService(String ServiceName, String ServiceImage, String ServiceDes, String ServicePrice, String ServiceID) {
+        String query = "UPDATE [dbo].[Service]\n"
+                + "   SET [ServiceName] = ?\n"
+                + "      ,[ServiceImage] = ?\n"
+                + "      ,[ServiceDes] = ?\n"
+                + "      ,[ServiceNote] = ''\n"
+                + "      ,[ServicePrice] = ?\n"
+                + " WHERE ServiceID =  ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, ServiceName);
+            pre.setString(2, ServiceImage);
+            pre.setString(3, ServiceDes);
+            pre.setString(4, ServicePrice);
+            pre.setString(5, ServiceID);
+            pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void deleteService(int sid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteService(String sql) {
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.executeUpdate();
+            System.out.println("done");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

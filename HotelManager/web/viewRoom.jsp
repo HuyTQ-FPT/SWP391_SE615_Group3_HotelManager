@@ -45,7 +45,7 @@
         <link rel="stylesheet" href="css/viewcomment.css">                      
     </head>
     <body>
-        <% MessageDAOImpl dao =new MessageDAOImpl(); %>
+        <% MessageDAOImpl dao = new MessageDAOImpl();%>
         <div class="site-navbar-wrap js-site-navbar bg-white">
 
             <div class="container">
@@ -240,136 +240,143 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="container1 mt-5">
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-md-12">
-                                    <div class="headings d-flex justify-content-between align-items-center mb-3">
-                                        <h5>comments(<%=Integer.parseInt(request.getAttribute("countFB").toString())%>)</h5> 
-                                    </div>
-                                    <%
-                                    ResultSet rs =(ResultSet)request.getAttribute("rsfb");
-                                    %>
-                                    <%
-                                    while(rs.next()){       
-                                        System.out.println("feedback");
-                                    %>
-                                    <div class="card p-3">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="user d-flex flex-row align-items-center">
-                                                <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
-                                                <span><small class="font-weight-bold text-primary"><%=rs.getString(15)%></small> <small class="font-weight-bold"><%=rs.getString(6)%></small></span>
+                        <c:if test="${sessionScope.login!=null && sessionScope.isroomde==null}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-5 col-md-6 col-12 pb-4">
+                                        <h1 style="text-align: center">Đánh Giá</h1> <br>
+                                        <form action="ServiceController?do=CommentService" method="post">
+                                            <input class="form-control" type="text" value="" name="comment"> <br>
+                                            <input class="form-control" type="text" hidden="" value="${se.serviceID}" name="ServiceID"> <br>
+                                            <input class="form-control" type="text" hidden="" value="${sessionScope.login.accountID}" name="AccountID"> <br>
+                                            <button class="btn btn-primary" type="submit">Gửi</button>
+                                        </form> <br>
+                                        <c:forEach items="${listFeedBack}" var="c">
+                                            <div class="article-loop">
+                                                <h3>Tên: ${c.note}</h3>
+                                                <p>Nội Dung: ${c.comment}</p>
                                             </div>
-                                            <small><%=rs.getString(5)%></small>
-                                        </div>                      
-                                    </div> 
-                                    <% }%>
-                                </div>               
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:if>
+
+                        <c:if test="${sessionScope.isroomde!=null}">
+                            <h2 style="text-align: center">Các Phòng Tương Tự</h2>
+                            <div class="row cat-pd">
+                                <c:forEach items="${getroomlist}" var="c">
+                                    <div class="col-md-6" style="margin-top: 30px">
+                                        <div class="small-box-c">
+                                            <div class="small-img-b">
+                                                <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
+                                            </div>
+                                            <div class="dit-t clearfix">
+                                                <div class="left-ti">
+                                                    <h4>${c.cateroom}</h4>
+                                                    <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
+                                                </div>
+                                                <a href="#" tabindex="0">${c.roomprice}</a>
+                                            </div>
+                                            <div class="prod-btn">
+                                                <a href="#"><i aria-hidden="true"></i>Book</a>
+                                                <p>23 likes</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </c:if>
+                        <c:if test="${sessionScope.isroomde==null}">
+                            <h2 style="text-align: center">Phòng Dành Cho Bạn</h2>
+                            <div class="row cat-pd">
+                                <c:forEach items="${getroomlist2}" var="c">
+                                    <div class="col-md-6" style="margin-top: 30px">
+                                        <div class="small-box-c">
+                                            <div class="small-img-b">
+                                                <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
+                                            </div>
+                                            <div class="dit-t clearfix">
+                                                <div class="left-ti">
+                                                    <h4>${c.cateroom}</h4>
+                                                    <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
+                                                </div>
+                                                <a href="#" tabindex="0">${c.roomprice}</a>
+                                            </div>
+                                            <div class="prod-btn">
+                                                <a href="#"><i aria-hidden="true"></i>Book</a>
+                                                <p>23 likes</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </c:if>
+
+                    </div>
+                    <c:if test="${sessionScope.login!=null && sessionScope.isroomde!=null}" >
+                        <div class="col-md-3 col-sm-12">
+                            <div class="price-box-right">
+                                <h4 style="font-size: 24px">Giá tiền</h4>
+                                <h3>€${Room.roomprice}<span style="font-weight: bold"> /1 đêm</span></h3>
+                                <c:if test="${sessionScope.login!=null && sessionScope.isroomde!=null}" >
+                                    <a href="OrderController?do=user&id=${Room.roomID}&userid=${sessionScope.login.getAccountID()}">Đặt phòng </a>
+                                </c:if>
+                                <c:if test="${sessionScope.login==null}" >
+                                    <a href="LoginController">Đặt phòng</a>
+                                </c:if>
+                                <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>
                             </div>
                         </div>
-                                
-                        <div class="similar-box">
-                            <c:if test="${sessionScope.isroomde!=null}">
-                                <h2 style="text-align: center">Các Phòng Tương Tự</h2>
-                                <div class="row cat-pd">
-                                    <c:forEach items="${getroomlist}" var="c">
-                                        <div class="col-md-6" style="margin-top: 30px">
-                                            <div class="small-box-c">
-                                                <div class="small-img-b">
-                                                    <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
-                                                </div>
-                                                <div class="dit-t clearfix">
-                                                    <div class="left-ti">
-                                                        <h4>${c.cateroom}</h4>
-                                                        <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
-                                                    </div>
-                                                    <a href="#" tabindex="0">${c.roomprice}</a>
-                                                </div>
-                                                <div class="prod-btn">
-                                                    <a href="#"><i aria-hidden="true"></i>Book</a>
-                                                    <p>23 likes</p>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                            </c:if>
-                            <c:if test="${sessionScope.isroomde==null}">
-                                <h2 style="text-align: center">Phòng Dành Cho Bạn</h2>
-                                <div class="row cat-pd">
-                                    <c:forEach items="${getroomlist2}" var="c">
-                                        <div class="col-md-6" style="margin-top: 30px">
-                                            <div class="small-box-c">
-                                                <div class="small-img-b">
-                                                    <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
-                                                </div>
-                                                <div class="dit-t clearfix">
-                                                    <div class="left-ti">
-                                                        <h4>${c.cateroom}</h4>
-                                                        <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
-                                                    </div>
-                                                    <a href="#" tabindex="0">${c.roomprice}</a>
-                                                </div>
-                                                <div class="prod-btn">
-                                                    <a href="#"><i aria-hidden="true"></i>Book</a>
-                                                    <p>23 likes</p>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                            </c:if>
-                            
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12">
-                        <div class="price-box-right">
-                            <h4 style="font-size: 24px">Giá tiền</h4>
-                               <h3>€${Room.roomprice}<span style="font-weight: bold"> /1 đêm</span></h3>
-                            <c:if test="${sessionScope.login!=null}" >
-                            <a href="OrderController?do=user&id=${Room.roomID}&userid=${sessionScope.login.getAccountID()}">Đặt phòng </a>
-                            </c:if>
-                            <c:if test="${sessionScope.login==null}" >
-                            <a href="LoginController">Đặt phòng</a>
-                            </c:if>
-                            <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>
-                        </div>
-                    </div>
+                    </c:if>
                 </div>
+                <!--                <div class="col-md-3 col-sm-12">
+                                    <div class="price-box-right">
+                                        <h4 style="font-size: 24px">Giá tiền</h4>
+                                        <h3>€${Room.roomprice}<span style="font-weight: bold"> /1 đêm</span></h3>
+                <c:if test="${sessionScope.login!=null}" >
+                    <a href="OrderController?do=user&id=${Room.roomID}&user=${sessionScope.account.getAccountID()}">Đặt phòng </a>
+                </c:if>
+                <c:if test="${sessionScope.login==null}" >
+                    <a href="LoginController">Booking</a>
+                </c:if>
+                <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>
+            </div>
+        </div>-->
             </div>
         </div>
+    </div>
 
 
 
-        <!--main js--> 
-        <script src="js/jquery-1.12.4.min.js"></script> 
-        <!--bootstrap js--> 
-        <script src="js/bootstrap.min_1.js"></script> 
-        <script src="js/bootstrap-select.min.js"></script>
-        <script src="js/slick.min_1.js"></script> 
-        <script src="js/select2.full.min.js"></script> 
-        <script src="js/wow.min.js"></script> 
-        <!--custom js--> 
-        <script src="js/custom.js"></script>
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/jquery-migrate-3.0.1.min.js"></script>
-        <script src="js/jquery-ui.js"></script>
-        <script src="js/popper.min.js"></script>
+    <!--main js--> 
+    <script src="js/jquery-1.12.4.min.js"></script> 
+    <!--bootstrap js--> 
+    <script src="js/bootstrap.min_1.js"></script> 
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/slick.min_1.js"></script> 
+    <script src="js/select2.full.min.js"></script> 
+    <script src="js/wow.min.js"></script> 
+    <!--custom js--> 
+    <script src="js/custom.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/popper.min.js"></script>
 
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.stellar.min.js"></script>
-        <script src="js/jquery.countdown.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/bootstrap-datepicker.min.js"></script>
-        <script src="js/aos.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/aos.js"></script>
 
 
-        <script src="js/mediaelement-and-player.min.js"></script>
+    <script src="js/mediaelement-and-player.min.js"></script>
 
-        <script src="js/main.js"></script>
-        <script>
+    <script src="js/main.js"></script>
+    <script>
                                             var slideIndex = 1;
                                             showDivs(slideIndex);
 
@@ -391,7 +398,196 @@
                                                 }
                                                 x[slideIndex - 1].style.display = "block";
                                             }
-        </script>
 
-    </body>
+                                            (function ($) {
+
+                                                var paginate = {
+                                                    startPos: function (pageNumber, perPage) {
+                                                        // determine what array position to start from
+                                                        // based on current page and # per page
+                                                        return pageNumber * perPage;
+                                                    },
+
+                                                    getPage: function (items, startPos, perPage) {
+                                                        // declare an empty array to hold our page items
+                                                        var page = [];
+
+                                                        // only get items after the starting position
+                                                        items = items.slice(startPos, items.length);
+
+                                                        // loop remaining items until max per page
+                                                        for (var i = 0; i < perPage; i++) {
+                                                            page.push(items[i]);
+                                                        }
+
+                                                        return page;
+                                                    },
+
+                                                    totalPages: function (items, perPage) {
+                                                        // determine total number of pages
+                                                        return Math.ceil(items.length / perPage);
+                                                    },
+
+                                                    createBtns: function (totalPages, currentPage) {
+                                                        // create buttons to manipulate current page
+                                                        var pagination = $('<div class="pagination" />');
+
+                                                        // add a "first" button
+                                                        pagination.append('<span class="pagination-button">&laquo;</span>');
+
+                                                        // add pages inbetween
+                                                        for (var i = 1; i <= totalPages; i++) {
+                                                            // truncate list when too large
+                                                            if (totalPages > 5 && currentPage !== i) {
+                                                                // if on first two pages
+                                                                if (currentPage === 1 || currentPage === 2) {
+                                                                    // show first 5 pages
+                                                                    if (i > 5)
+                                                                        continue;
+                                                                    // if on last two pages
+                                                                } else if (currentPage === totalPages || currentPage === totalPages - 1) {
+                                                                    // show last 5 pages
+                                                                    if (i < totalPages - 4)
+                                                                        continue;
+                                                                    // otherwise show 5 pages w/ current in middle
+                                                                } else {
+                                                                    if (i < currentPage - 2 || i > currentPage + 2) {
+                                                                        continue;
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            // markup for page button
+                                                            var pageBtn = $('<span class="pagination-button page-num" />');
+
+                                                            // add active class for current page
+                                                            if (i == currentPage) {
+                                                                pageBtn.addClass('active');
+                                                            }
+
+                                                            // set text to the page number
+                                                            pageBtn.text(i);
+
+                                                            // add button to the container
+                                                            pagination.append(pageBtn);
+                                                        }
+
+                                                        // add a "last" button
+                                                        pagination.append($('<span class="pagination-button">&raquo;</span>'));
+
+                                                        return pagination;
+                                                    },
+
+                                                    createPage: function (items, currentPage, perPage) {
+                                                        // remove pagination from the page
+                                                        $('.pagination').remove();
+
+                                                        // set context for the items
+                                                        var container = items.parent(),
+                                                                // detach items from the page and cast as array
+                                                                items = items.detach().toArray(),
+                                                                // get start position and select items for page
+                                                                startPos = this.startPos(currentPage - 1, perPage),
+                                                                page = this.getPage(items, startPos, perPage);
+
+                                                        // loop items and readd to page
+                                                        $.each(page, function () {
+                                                            // prevent empty items that return as Window
+                                                            if (this.window === undefined) {
+                                                                container.append($(this));
+                                                            }
+                                                        });
+
+                                                        // prep pagination buttons and add to page
+                                                        var totalPages = this.totalPages(items, perPage),
+                                                                pageButtons = this.createBtns(totalPages, currentPage);
+
+                                                        container.after(pageButtons);
+                                                    }
+                                                };
+
+                                                // stuff it all into a jQuery method!
+                                                $.fn.paginate = function (perPage) {
+                                                    var items = $(this);
+
+                                                    // default perPage to 5
+                                                    if (isNaN(perPage) || perPage === undefined) {
+                                                        perPage = 5;
+                                                    }
+
+                                                    // don't fire if fewer items than perPage
+                                                    if (items.length <= perPage) {
+                                                        return true;
+                                                    }
+
+                                                    // ensure items stay in the same DOM position
+                                                    if (items.length !== items.parent()[0].children.length) {
+                                                        items.wrapAll('<div class="pagination-items" />');
+                                                    }
+
+                                                    // paginate the items starting at page 1
+                                                    paginate.createPage(items, 1, perPage);
+
+                                                    // handle click events on the buttons
+                                                    $(document).on('click', '.pagination-button', function (e) {
+                                                        // get current page from active button
+                                                        var currentPage = parseInt($('.pagination-button.active').text(), 10),
+                                                                newPage = currentPage,
+                                                                totalPages = paginate.totalPages(items, perPage),
+                                                                target = $(e.target);
+
+                                                        // get numbered page
+                                                        newPage = parseInt(target.text(), 10);
+                                                        if (target.text() == '«')
+                                                            newPage = 1;
+                                                        if (target.text() == '»')
+                                                            newPage = totalPages;
+
+                                                        // ensure newPage is in available range
+                                                        if (newPage > 0 && newPage <= totalPages) {
+                                                            paginate.createPage(items, newPage, perPage);
+                                                        }
+                                                    });
+                                                };
+
+                                            })(jQuery);
+
+                                            /* This part is just for the demo,
+                                             not actually part of the plugin */
+                                            $('.article-loop').paginate(2);
+    </script>
+    <style>
+        .pagination {
+            display: block;
+            width: 75%;
+            margin: 1em auto;
+            text-align: center;
+
+            &:after {
+                content: '';
+                clear: both;
+            }
+        }
+
+        .pagination-button {
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid #e0e0e0;  
+            background-color: #eee;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.1s, color 0.1s;
+
+            &.active {
+                background-color: red;
+                border-color: #bbb;
+                color: #3366cc;
+            }
+        }
+
+        /* arbitrary styles */
+        .heading { text-align: center; max-width: 500px; margin: 20px auto; }
+    </style>
+
+</body>
 </html>
