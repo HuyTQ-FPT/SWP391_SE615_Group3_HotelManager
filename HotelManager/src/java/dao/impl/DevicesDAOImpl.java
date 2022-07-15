@@ -213,16 +213,14 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
     public Vector<Device> getDevicebycateroom(String cateRoom) {
 
         Vector<Device> vector = new Vector<Device>();
-        String sql = "select * from RoomDevice INNER JOIN Device on "
-                + "RoomDevice.DeviceID = Device.DeviceID "
-                + "where RoomDevice.DeviceID = ?";
+        String sql = "select * from Device join RoomDevice on Device.DeviceID = RoomDevice.DeviceID where RoomDevice.RoomID =?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, cateRoom);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-//                Device de = new Device(rs.getInt(2), rs.getInt(6), rs.getString(3), rs.getInt(1), rs.getDouble(4), rs.getInt(8), rs.getInt(5),rs.getString(9));
-//                vector.add(de);
+                Device de = new Device(rs.getInt(1), rs.getInt(6), rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getInt(9), rs.getInt(8), rs.getString(10), rs.getString(11));
+                vector.add(de);
             }
         } catch (Exception e) {
             e.printStackTrace();

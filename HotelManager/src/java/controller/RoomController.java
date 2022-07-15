@@ -97,7 +97,7 @@ public class RoomController extends HttpServlet {
                 String RoomID = request.getParameter("roomid");
                 String cateroom = request.getParameter("cateroom");
                 Vector<Image> img = daos.getImageByid(RoomID);
-                Vector<Device> de = daode.getDevicebycateroom(cateroom);
+                Vector<Device> de = daode.getDevicebycateroom(RoomID);
                 Vector<Service> vector3 = dao1.getServiceListbyran();
                 Room rooom = dao.getRoom(RoomID);
                 Vector<Room> getroomlist = dao.getRoomList(""
@@ -119,6 +119,7 @@ public class RoomController extends HttpServlet {
                 request.setAttribute("getroomlist", getroomlist);
                 session.setAttribute("isroomde", "isroomde");
                 request.setAttribute("rsfb", rs);
+//                 out.println("<h1>Lỗi Trang "+de+"</h1>");
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
                 session.removeAttribute("isroomde");
             }
