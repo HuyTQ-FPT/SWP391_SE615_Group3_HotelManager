@@ -22,6 +22,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The class has methods needed for initialize connection with database and
@@ -141,6 +143,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return null;
     }
+
     @Override
     public void updateRoom(Room Room) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -793,7 +796,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return vector;
     }
-  
+
     /**
      * check room Name from Room table
      *
@@ -840,14 +843,54 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
     }
 
-    public void crudImage(String string) {
+    public ArrayList<Room> getRoomBill() throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        ArrayList<Room> vector = new ArrayList<>();
+        String sql = "Select RoomID from Reservation";
         try {
-            PreparedStatement pre = conn.prepareStatement(string);
-            pre.execute();
-            System.out.println("done");
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                Room im = new Room(id, "", "", 0, "", 0, 0, 0, "", 0, "", 0);
+
+                vector.add(im);
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
+        }
+        return vector;
+    }
+
+    public static void main(String[] args) {
+        try {
+            RoomDAOImpl dao = new RoomDAOImpl();
+            ArrayList<Room> r = dao.getRoomBill();
+            for (Room room : r) {
+                System.out.println(room);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(RoomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+//    public void crudImage(String string) {
+//        try {
+//            PreparedStatement pre = conn.prepareStatement(string);
+//            pre.execute();
+//            System.out.println("done");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

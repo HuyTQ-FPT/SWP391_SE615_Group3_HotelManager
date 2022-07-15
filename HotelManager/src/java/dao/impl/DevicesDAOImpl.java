@@ -357,12 +357,7 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 //        System.out.println(de);
 //        }
         //        int n = dao.getPage();
-        Vector<Device> de = dao.getAllDevicetoAdd("select * from\n"
-                + " ( select RoomDevice.DeviceID,Device.DeviceName from RoomDevice join Device on RoomDevice.DeviceID = Device.DeviceID) as b\n"
-                + " except\n"
-                + " select * from\n"
-                + " (select RoomDevice.DeviceID,Device.DeviceName from RoomDevice join Device on RoomDevice.DeviceID = Device.DeviceID\n"
-                + "		where RoomDevice.RoomID=4) as a");
+        Vector<Device> de = dao.getAllDevicetoAdd("Select * from Device where DeviceID not in ( Select DeviceID from RoomDevice where RoomID =3)");
         for (Device device : de) {
             System.out.println(device);
         }

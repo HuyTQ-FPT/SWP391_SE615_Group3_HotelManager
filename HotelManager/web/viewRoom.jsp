@@ -331,19 +331,6 @@
                         </div>
                     </c:if>
                 </div>
-                <!--                <div class="col-md-3 col-sm-12">
-                                    <div class="price-box-right">
-                                        <h4 style="font-size: 24px">Giá tiền</h4>
-                                        <h3>€${Room.roomprice}<span style="font-weight: bold"> /1 đêm</span></h3>
-                <c:if test="${sessionScope.login!=null}" >
-                    <a href="OrderController?do=user&id=${Room.roomID}&user=${sessionScope.account.getAccountID()}">Đặt phòng </a>
-                </c:if>
-                <c:if test="${sessionScope.login==null}" >
-                    <a href="LoginController">Booking</a>
-                </c:if>
-                <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>
-            </div>
-        </div>-->
             </div>
         </div>
     </div>
