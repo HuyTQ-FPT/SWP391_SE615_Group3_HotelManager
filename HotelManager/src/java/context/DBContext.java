@@ -36,9 +36,9 @@ public class DBContext {
             conn = DriverManager.getConnection(URL, userName, password);
             System.out.println("connected");
         } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            ex.printStackTrace();
+             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -65,12 +65,10 @@ public class DBContext {
     public ResultSet getData(String sql) {
         ResultSet rs = null;
         try {
-            Statement state = conn.createStatement(
-                    ResultSet.TYPE_SCROLL_SENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE);
+            Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             rs = state.executeQuery(sql);
         } catch (SQLException ex) {
-            ex.printStackTrace();
+             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
     }

@@ -98,9 +98,13 @@
                                     </div>
                                 </div>
                             </div>  
-
-
-
+                            <div class="col-md-auto ">
+                                <div class="card card-tale  media tm-notification-item">
+                                    <div class="card-body">
+                                        <p class="mb-4 tm-block-title">Lượt truy cập: <b class="tm-notification-link ">${totalView}</b> </p>
+                                    </div>
+                                </div>
+                            </div>  
                         </div>
                     </div>
                 </div>

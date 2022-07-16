@@ -368,7 +368,7 @@
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item "><a href="ReceptionistController" class="nav-link">Quản lí<br>phòng </a></li>
-                            <li class="nav-item active"><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
+                            <li class="nav-item active"><a href="ReceptionistController?do=Customer" class="nav-link">Quản lí<br>khách hàng</a></li>
                             <li class="nav-item "><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
                         </ul>
                     </div>
@@ -387,61 +387,64 @@
                 <h3>Địa chỉ:${reservation.getAddress()}</h3>
 <!--                <h3>Status:${reservation.getStatus()}</h3>-->
             </div>
-           
-            <c:set  var="count" value="1"></c:set>
-                <table border="1" style="margin-left: 100px; margin-top: 50px">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Số phòng</th>
-                            <th>Ngày đặt</th>
-                            <th>Ngày trả</th>
-                            <th>Giá Phòng</th>
-                            <th>Tổng tiền</th>
 
-                        </tr>
-                    </thead>
+       <% int count =1;%>
+
+                <div class="table-wrapper table-responsive-sm">
+                    <table class="table table-striped table-hover table-bordered" >
+                        <thead>
+                            <tr>
+                                <th style="width: 10px">STT</th>
+                                <th style="width: 133px" scope="col">Số phòng</th>
+                                <th style="width: 310px" scope="col">Ngày đặt</th>
+                                <th style="width: 310px" scope="col">Ngày trả</th>
+                                <th style="width: 380px" scope="col">Giá Phòng</th>
+                                <th style="width: 310px" scope="col">Tổng tiền</th>
+
+                            </tr>
+                        </thead>
                     <fmt:setLocale value="vi"/>
 
-                <c:forEach  items="${listReservation}" var="v">
-                    <tbody>
+                    <c:forEach  items="${listReservation}" var="v">
+                        <tbody>
 
-                        <tr>
-                            <td>${count}</td>
-                            <td>${v.roomname}</td>
-                            <td>${v.checkin}</td>
-                            <td>${v.checkout}</td>
-                            <td> <fmt:formatNumber value="${v.roomprice}" currencySymbol=""/>đ</td>
-                            <td> <fmt:formatNumber value="${v.total} "currencySymbol="đ" />đ</td>
+                            <tr>
+                                <td><%=count%></td>
+                                <td>${v.roomname}</td>
+                                <td>${v.checkin}</td>
+                                <td>${v.checkout}</td>
+                                <td> <fmt:formatNumber value="${v.roomprice}"/>đ</td>
+                                <td> <fmt:formatNumber value="${v.total}"/>đ</td>
 
-        </tr>
+                            </tr>
 
 
-       
-        <c:set value="${count=count+1}" var="count"></c:set>
-        </tbody>
-</c:forEach>
-</table>
-<h3 style=" margin-top: 44px;margin-left: 500px;">Tổng tiền:<span style="color: red">${sum} đ</span></h3>
-</c:if>
-<c:if test="${empty listReservation}">
-<h3>Chưa từng đặt phòng!!</h3>
-</c:if>
-<div class="hotel-room-body">
-    <form action="ReceptionistController?do=Cus" method="post">
-        <button type="submit"  style="border-radius: 5px; background-color:#F1BC31;margin-top: 40px; border: 3px solid " ><span style="color: black">Trang trước</span></button>
-    </form>
 
-</div>
+                           <%count=count+1;%>
+                            </tbody>
+                    </c:forEach>
+                </table>
+                <h3 style=" margin-top: 44px;margin-left: 1055px;">Tổng tiền:<span style="color: red">${sum} đ</span></h3>
+            </c:if>
+            <c:if test="${empty listReservation}">
+                <h3>Chưa từng đặt phòng!!</h3>
+            </c:if>
+            <div class="hotel-room-body">
+                <form action="ReceptionistController?do=customer" method="post">
+                    <button type="submit"  style="border-radius: 5px; background-color:#F1BC31;margin-top: 40px; border: 3px solid " ><span style="color: black">Trang trước</span></button>
+                </form>
 
-<script>
-    function show() {
-        if (document.getElementById("team").style.display == "none") {
-            document.getElementById("team").style.display = "block";
-        } else {
-            document.getElementById("team").style.display = "none";
-        }
-    }
-</script>
-</body>
+            </div>
+        </div>
+
+        <script>
+            function show() {
+                if (document.getElementById("team").style.display == "none") {
+                    document.getElementById("team").style.display = "block";
+                } else {
+                    document.getElementById("team").style.display = "none";
+                }
+            }
+        </script>
+    </body>
 </html>

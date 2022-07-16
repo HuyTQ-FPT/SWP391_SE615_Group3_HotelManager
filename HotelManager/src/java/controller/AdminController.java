@@ -17,6 +17,7 @@ import dao.RoomDAO;
 import dao.RequestMessageDAO;
 import dao.RoomCategoryDAO;
 import dao.UserDAO;
+import dao.ViewDAO;
 import dao.impl.DevicesDAOImpl;
 import dao.impl.MessageDAOImpl;
 import dao.impl.ReservationDAOImpl;
@@ -24,6 +25,7 @@ import dao.impl.RoomDAOImpl;
 import dao.impl.RequestMessageDAOIpml;
 import dao.impl.RoomCategoryDAOImpl;
 import dao.impl.UserDAOImpl;
+import dao.impl.ViewDAOImpl;
 import entity.Account;
 import entity.Device;
 import entity.Message;
@@ -74,6 +76,7 @@ public class AdminController extends HttpServlet {
             UserDAO userDAO = new UserDAOImpl();
             RoomDAO roomDAO = new RoomDAOImpl();
             DeviceDAO deviceDAO = new DevicesDAOImpl();
+            ViewDAO viewDAO = new ViewDAOImpl();
             RoomCategoryDAO roomCategoryDAO = new RoomCategoryDAOImpl();
 
             RequestMessageDAO daoRequest = new RequestMessageDAOIpml();
@@ -111,6 +114,9 @@ public class AdminController extends HttpServlet {
                 ArrayList<Device> listDevice = deviceDAO.numberOfDevice();
                 /*Service Statistics*/
                 ArrayList<Reservation> listReservationOfService = daoReservation.sumService();
+                int totalView = viewDAO.getTotalView();
+                String totalViewFormated = String.format("%06d", totalView);
+                request.setAttribute("totalView", totalViewFormated );
                 request.setAttribute("listroomCategory", listroomCategory);
                 request.setAttribute("listRoom", listRoom);
                 request.setAttribute("listUser", listUser);
@@ -214,8 +220,7 @@ public class AdminController extends HttpServlet {
 
             }
             /**
-             * Service incomeRoom: report gross income per room 
-             * reportRoom.jsp
+             * Service incomeRoom: report gross income per room reportRoom.jsp
              */
             if (service.equalsIgnoreCase("incomeRoom")) {
 
@@ -239,10 +244,9 @@ public class AdminController extends HttpServlet {
                     request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                 }
                 if (checkin.isEmpty() && checkout.isEmpty() && !name.isEmpty()) {
-                   
 
                     if (roomDAO.checkRoom(name) != null) {/*Room checking*/
-                    /*Search name*/
+                     /*Search name*/
                         ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, null, null);
                         request.setAttribute("listReservation", listReservation);
                         request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
