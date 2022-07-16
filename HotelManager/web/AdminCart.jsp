@@ -40,11 +40,11 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <jsp:include page="headerAdmin.jsp"></jsp:include>
             <h1 style="text-align: center; color: wheat">Quản lí đặt phòng </h1>
             <a style="border-radius: 10px; float: right; margin-bottom: 10px" href="AddCart.jsp" class="btn btn-danger">Thêm mới đặt phòng </a>
-            <form action="OrderController" method="get" style="margin-left: 20px" name="myForm" onsubmit=" return ValiDate()">
+            <form action="OrderController" method="get" style="margin-left: 20px" name="myForm" onsubmit="return ValiDate()" >
                 <input type="hidden" name="do" value="sortByDate">
-                <input type="date" name="date1" > 
+                <input type="date" name="date1" id="date1" value="${date1}"> 
                 <span style="color: yellow; font-size: 20px"> To</span>
-                <input type="date" name="date2"> 
+                <input type="date" name="date2" id="date2" value="${date2}"> 
                 <input type="submit" name="Search" style="color: blue;" value="Search">
 
             </form>

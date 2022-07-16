@@ -50,9 +50,8 @@ public class EventController extends HttpServlet {
             }if(service.equals("getEvent")){
                 String id =request.getParameter("id");
                 String userid =request.getParameter("userid");
-                session.setAttribute("id",userid);
-                Vector<Events> vector= dao.getEventsList();
                 int n=dao.updateEvents(Integer.parseInt(id));
+                Vector<Events> vector= dao.getEventsList();
                 request.setAttribute("vector", vector);
                 request.getRequestDispatcher("events.jsp").forward(request, response);
                 

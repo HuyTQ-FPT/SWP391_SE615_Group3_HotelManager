@@ -73,13 +73,6 @@ public class RoomController extends HttpServlet {
                 if (room.isEmpty()) {
                     room = "1";
                 }
-                if (Integer.parseInt(room) > Integer.parseInt(adult)) {
-                    String err = "Phòng không thể nhiều hơn số người lớn";
-                    out.print("<h3 style='font size:15px;'>Phòng không thể nhiều hơn số người lớn </h3>");
-                    return;
-//                    request.setAttribute("err", err);
-//                    response.sendRedirect("HomeController");
-                }
                 int n = (Integer.parseInt(adult) + Integer.parseInt(children)) / Integer.parseInt(room);
                 String a = "";
                 a += n;

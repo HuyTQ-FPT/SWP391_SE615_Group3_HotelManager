@@ -43,6 +43,17 @@ Author     : admin
         <link rel="stylesheet" type="text/css" href="css/datepicker.css" />
         <link rel="stylesheet" href="css/tooplate-style.css">
     </head>
+    <script>
+                                                function Validate() {
+                                                    var x = document.getElementById("adult");
+                                                    var y = document.getElementById("room");
+                                                    console.log(x);
+                                                    if(y > x){
+                                                        alert("Phòng không thể nhiều hơn số người lớn");
+                                                        return false;
+                                                    }
+                                                }
+        </script>
     <style>
 
         .card{
@@ -218,34 +229,34 @@ Author     : admin
                             <div class="site-mobile-menu-body"></div>
                         </div> <!-- .site-mobile-menu -->
 
-                        
-                </div>
-                    <div class="card" id="team">
-                            <div class="card_img">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
-                            </div>
-                        <c:if test="${sessionScope.login!=null}">
-                            <div class="card_name">
-                                <p style="color:white;">${sessionScope.login.getUser()}</p>                        
-                            </div>
-                        </c:if>
 
-                        <div class="card_logo">
-                            <a href="https://www.youtube.com/">
-                                <i class='bx bxl-facebook-circle'></i>
-                            </a>
-                            <a href="https://www.youtube.com/">
-                                <i class='bx bxl-youtube' ></i>
-                            </a>
-                            <a href="https://www.youtube.com/">
-                                <i class='bx bxl-github' ></i>
-                            </a>
-                        </div>
-
-                        <div class="card_button">
-                            <a href="UserController"><button>Edit Profile</button></a>                       
-                        </div>
                     </div>
+                    <div class="card" id="team">
+                        <div class="card_img">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                        </div>
+                    <c:if test="${sessionScope.login!=null}">
+                        <div class="card_name">
+                            <p style="color:white;">${sessionScope.login.getUser()}</p>                        
+                        </div>
+                    </c:if>
+
+                    <div class="card_logo">
+                        <a href="https://www.youtube.com/">
+                            <i class='bx bxl-facebook-circle'></i>
+                        </a>
+                        <a href="https://www.youtube.com/">
+                            <i class='bx bxl-youtube' ></i>
+                        </a>
+                        <a href="https://www.youtube.com/">
+                            <i class='bx bxl-github' ></i>
+                        </a>
+                    </div>
+
+                    <div class="card_button">
+                        <a href="UserController"><button>Edit Profile</button></a>                       
+                    </div>
+                </div>
                 <%
                     Account ac = (Account) session.getAttribute("login");
                     if (ac != null) {
@@ -259,23 +270,17 @@ Author     : admin
                         <div class="container">
                             <div class="row align-items-center justify-content-center">
                                 <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                                    <form action="RoomController" method="get" class="tm-search-form tm-section-pad-2">
+                                    <form action="RoomController" method="get" class="tm-search-form tm-section-pad-2" onsubmit="return Validate()">
                                         <input type="hidden" name="do" value="searchRoom">
                                         <div class="form-row tm-search-form-row">
                                             <div class="form-group tm-form-element tm-form-element-50">
                                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <c:if test="${empty err}">
-                                                    <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Ngày đến">
-                                                </c:if>
-                                                <c:if test="${!empty err}">
-                                                    <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="${err}">
-                                                </c:if>
+                                                <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Ngày đến">
                                             </div>
                                             <div class="form-group tm-form-element tm-form-element-50">
                                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
                                                 <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Ngày đi">
                                             </div>
-
                                         </div>
                                         <div class="form-row tm-search-form-row">
                                             <div class="form-group tm-form-element tm-form-element-2">
@@ -356,16 +361,6 @@ Author     : admin
                                                         <span style="padding-right: 6px"class="fa fa-star checked"></span>
                                                     </c:forEach>
                                                 </div>
-<!--                                        <input class="star star-4 " id="star-5+<%=v.getRoomID()%>"  name="star"/>
-                                    <label class="star star-4 " for="star-5+<%=v.getRoomID()%>"></label>
-                                    <input class="star star-4" id="star-4+<%=v.getRoomID()%>"  name="star"/>
-                                    <label class="star star-4" for="star-4+<%=v.getRoomID()%>"></label>
-                                    <input class="star star-3" id="star-3+<%=v.getRoomID()%>"  name="star"/>
-                                    <label class="star star-3" for="star-3+<%=v.getRoomID()%>"></label>
-                                    <input class="star star-2" id="star-2+<%=v.getRoomID()%>" name="star"/>
-                                    <label class="star star-2" for="star-2+<%=v.getRoomID()%>"></label>
-                                    <input class="star star-1" id="star-1+<%=v.getRoomID()%>" name="star"/>
-                                    <label class="star star-1" for="star-1+<%=v.getRoomID()%>"></label>-->
                                             </form>
                                         </div>
                                         <div class="hotel-room-body">
@@ -513,69 +508,69 @@ Author     : admin
                                 </div>
                             </div>
                         </div>
-                        </div>
-                <div class="py-5 quick-contact-info">
-                    <div class="container">
-                        <div class="row">
+                    </div>
+                    <div class="py-5 quick-contact-info">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    <div>
+                                        <span class="icon-room text-white h2 d-block"></span>
+                                        <h2>Location</h2>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6403.40234353664!2d107.08224774036356!3d20.95655790979934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a5816439d4427%3A0x199156ac489da67d!2zNDIgVHLhuqduIEjGsG5nIMSQ4bqhbywgQ2FvIFRo4bqvbmcsIFRow6BuaCBwaOG7kSBI4bqhIExvbmcsIFF14bqjbmcgTmluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1656520360741!5m2!1svi!2s" width="400" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                            </div>
                             <div class="col-md-4 text-center">
                                 <div>
-                                    <span class="icon-room text-white h2 d-block"></span>
-                                    <h2>Location</h2>
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6403.40234353664!2d107.08224774036356!3d20.95655790979934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a5816439d4427%3A0x199156ac489da67d!2zNDIgVHLhuqduIEjGsG5nIMSQ4bqhbywgQ2FvIFRo4bqvbmcsIFRow6BuaCBwaOG7kSBI4bqhIExvbmcsIFF14bqjbmcgTmluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1656520360741!5m2!1svi!2s" width="400" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    <span class="icon-clock-o text-white h2 d-block"></span>
+                                    <h2>Service Times</h2>
+                                    <p class="mb-0">Wednesdays at 6:30PM - 7:30PM <br>
+                                        Fridays at Sunset - 7:30PM <br>
+                                        Saturdays at 8:00AM - Sunset</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <div>
-                                <span class="icon-clock-o text-white h2 d-block"></span>
-                                <h2>Service Times</h2>
-                                <p class="mb-0">Wednesdays at 6:30PM - 7:30PM <br>
-                                    Fridays at Sunset - 7:30PM <br>
-                                    Saturdays at 8:00AM - Sunset</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <div>
-                                <span class="icon-comments text-white h2 d-block"></span>
-                                <h2>Get In Touch</h2>
-                                <p class="mb-0">Email: info@yoursite.com <br>
-                                    Phone: (123) 3240-345-9348 </p>
+                            <div class="col-md-4 text-center">
+                                <div>
+                                    <span class="icon-comments text-white h2 d-block"></span>
+                                    <h2>Get In Touch</h2>
+                                    <p class="mb-0">Email: info@yoursite.com <br>
+                                        Phone: (123) 3240-345-9348 </p>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                        </div>
-                    </div>
-                    <jsp:include page="footer.jsp"></jsp:include>
                 </div>
+                <jsp:include page="footer.jsp"></jsp:include>
             </div>
-            <script src="js/jquery-1.11.3.min.js"></script>    
-            <script src="js/jquery-3.3.1.min.js"></script>
-            <script src="js/jquery-migrate-3.0.1.min.js"></script>
-            <script src="js/jquery-ui.js"></script>
-            <script src="js/popper.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="js/owl.carousel.min.js"></script>
-            <script src="js/jquery.stellar.min.js"></script>
-            <script src="js/jquery.countdown.min.js"></script>
-            <script src="js/jquery.magnific-popup.min.js"></script>
-            <script src="js/bootstrap-datepicker.min.js"></script>
-            <script src="js/aos.js"></script>
-            <script src="js/mediaelement-and-player.min.js"></script>
-            <script src="js/main.js"></script>
-            <!-- load JS files -->
-            <script src="js/jquery-1.11.3.min.js"></script>
-            <!-- jQuery (https://jquery.com/download/) -->
-            <script src="js/popper.min.js"></script>
-            <!-- https://popper.js.org/ -->
-            <script src="js/bootstrap.min.js"></script>
-            <!-- https://getbootstrap.com/ -->
-            <script src="js/datepicker.min.js"></script> 
-            <!-- https://github.com/qodesmith/datepicker -->
-            <script src="js/jquery.singlePageNav.min.js"></script>
-            <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
-            <script src="slick/slick.min.js"></script>
-            <!-- http://kenwheeler.github.io/slick/ -->
-            <script>
+        </div>
+        <script src="js/jquery-1.11.3.min.js"></script>    
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/jquery-migrate-3.0.1.min.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.stellar.min.js"></script>
+        <script src="js/jquery.countdown.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/bootstrap-datepicker.min.js"></script>
+        <script src="js/aos.js"></script>
+        <script src="js/mediaelement-and-player.min.js"></script>
+        <script src="js/main.js"></script>
+        <!-- load JS files -->
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <!-- jQuery (https://jquery.com/download/) -->
+        <script src="js/popper.min.js"></script>
+        <!-- https://popper.js.org/ -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- https://getbootstrap.com/ -->
+        <script src="js/datepicker.min.js"></script> 
+        <!-- https://github.com/qodesmith/datepicker -->
+        <script src="js/jquery.singlePageNav.min.js"></script>
+        <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+        <script src="slick/slick.min.js"></script>
+        <!-- http://kenwheeler.github.io/slick/ -->
+        <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     var mediaElements = document.querySelectorAll('video, audio'),
                             total = mediaElements.length;
@@ -709,7 +704,8 @@ Author     : admin
                         document.getElementById("team").style.display = "none";
                     }
                 }
-            </script>
-            <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-        </body>
-    </html>
+            }
+        </script>
+        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    </body>
+</html>

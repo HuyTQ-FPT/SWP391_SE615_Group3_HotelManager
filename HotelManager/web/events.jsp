@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
     
     
-    
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
   
     <link rel="stylesheet" href="css/aos.css">
@@ -47,7 +46,6 @@
           position: fixed;
           right: 40px;
       }
-@import url(https://fonts.googleapis.com/css?family=Raleway:400);
 .snip1457 {
   font-family: 'Raleway', Arial, sans-serif;
   border: none;

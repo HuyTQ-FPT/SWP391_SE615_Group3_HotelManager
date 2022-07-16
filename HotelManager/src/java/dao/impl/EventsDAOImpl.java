@@ -74,7 +74,6 @@ public class EventsDAOImpl extends DBContext implements EventsDAO {
         }
         return n;
     }
-
     @Override
     public void deleteEvents(int id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
