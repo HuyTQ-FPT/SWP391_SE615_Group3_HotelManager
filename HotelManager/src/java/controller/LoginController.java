@@ -95,7 +95,6 @@ public class LoginController extends HttpServlet {
                         response.sendRedirect("HomeController");
                     } else if (rs.getString(2).equals("2")) {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
-//                        response.sendRedirect("ReceptionistController");
                         response.sendRedirect("HomeController");
                     } else {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));

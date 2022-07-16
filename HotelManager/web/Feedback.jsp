@@ -162,9 +162,9 @@
             <div class="col-sm-8" >
                 <form action="UserController?do=Feedback&roomID=${requestScope.roomID}&aid=${requestScope.aid}" method="post">
                     <label><h4>Tên khách hàng:</h4> </label><input readonly="" type="text" size="20"  class=" form-control" value="<%=request.getAttribute("Fname")%>" />
-                    <h4>Bình luận:</h4><textarea class="form-control" rows="6" name="commentfb"  placeholder="Bình luận của bạn" value="" required></textarea>
+                    <h4>Bình luận:</h4><textarea maxlength="200" id="cm" class="form-control" rows="6" name="commentfb"  placeholder="Bình luận của bạn" value="" required=""></textarea>
                     <br>
-                    <input type="submit" class="btn btn-info" id="btn" style="text-shadow:0 0 3px #000000; font-size:24px;"></button>
+                    <input onclick="mess()" type="submit" class="btn btn-info" id="btn" style="text-shadow:0 0 3px #000000; font-size:24px;"></button>
                 </form>
             </div>
         </div>
@@ -175,5 +175,15 @@
                 <p>${requestScope.describe}</p>
             </div>   
         </div>
+            <script>
+                function mess(){
+                    var mess =document.getElementById("cm").value.trim();
+                    if(mess!=""){
+                        alert("Gửi feedback thành công!")
+                    }else{
+                        alert("Không để trống feedback!")
+                    }
+                }
+            </script>
         </body>
 </html>

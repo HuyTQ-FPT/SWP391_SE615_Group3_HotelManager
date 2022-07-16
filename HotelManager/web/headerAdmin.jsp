@@ -85,6 +85,11 @@
                                 <i class="fas fa-newspaper"></i></i> Yêu cầu
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="NotificationController">
+                                <i class="fas fa-bell"></i> Thông báo
+                            </a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
@@ -99,11 +104,7 @@
                                 <a class="dropdown-item" href="#">Customize</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="NotificationController">
-                                <i class="fas fa-bell"></i> Thông báo
-                            </a>
-                        </li>
+                        
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">

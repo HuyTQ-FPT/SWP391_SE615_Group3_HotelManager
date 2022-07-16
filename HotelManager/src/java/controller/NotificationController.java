@@ -65,7 +65,7 @@ public class NotificationController extends HttpServlet {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 String formatted = current.format(formatter);
                 String title =request.getParameter("title");
-                String content =request.getParameter("content");
+                String content =request.getParameter("content").trim();
                 daoN.insertNotification(new Notification("Gửi tin nhắn đến Admin", a.getUser(), "Với", content, formatted));
                 response.sendRedirect("NotificationController?do=Admin");
             } 
@@ -75,7 +75,7 @@ public class NotificationController extends HttpServlet {
                 String formatted = current.format(formatter);
                 String nameuser =request.getParameter("NameRe");
                 String title =request.getParameter("title");
-                String content =request.getParameter("content");
+                String content =request.getParameter("content").trim();
                 daoN.insertMessageadmin(new Notification(title, nameuser, content, formatted));
                 response.sendRedirect("NotificationController");
             } 

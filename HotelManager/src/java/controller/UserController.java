@@ -126,8 +126,8 @@ public class UserController extends HttpServlet {
                 "on i.RoomimgaeID=r.RoomimgaeID where r.RoomID="+roomID);
                 String img="";
                 while (rs.next()) {  
-                    request.setAttribute("img",rs.getString(27));
-                    request.setAttribute("describe", rs.getString(16));                    
+                    request.setAttribute("img",rs.getString(30));
+                    request.setAttribute("describe", rs.getString(19));                    
                 }
                 request.setAttribute("Fname", u.getUserName());
                 request.setAttribute("aid", ac.getAccountID());
@@ -145,7 +145,7 @@ public class UserController extends HttpServlet {
                     daom.insertFeedback(new Message(accoutid, formatted, msg, roomID));
                     response.sendRedirect("OrderController?do=yourbill&id="+accoutid);
                 }
-                else response.sendRedirect("UserController?do=Viewfeedback");
+                else response.sendRedirect("UserController?do=Viewfeedback&roomID="+roomID);
             }
         }catch(Exception ex){
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);

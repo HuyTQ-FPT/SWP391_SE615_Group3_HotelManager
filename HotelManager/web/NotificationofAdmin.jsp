@@ -278,7 +278,7 @@
             bottom: 60px;
             left: 660px;
             border-radius: 5px;
-            background-color: #F5A623;
+            background-color: white;
             color: black;
             margin: 0px 30px;
         }
@@ -289,8 +289,8 @@
             width: 80px;
             height: 40px;
             border-radius: 5px;
-            background-color: #F5A623;
-            color: white;
+            background-color: white;
+            color: black;
         }
         .button:hover{
             cursor: pointer;
@@ -302,21 +302,32 @@
             width: 300px;
             height:50px;
             border-radius: 5px;
-            background-color: #F5A623;
+            background-color: white;
             color: black;
         }
         .recep{
             position: fixed;
-            bottom: 75px;
-            left: 40px;
-            width: 220px;
-            height: 70px;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            height: 230px;
             border-radius: 5px;
             background-color: #F5A623;
             color: black;
             font-weight: bold;
             margin-right: 30px;
+            z-index: -2;
         }
+        .recep span{
+            float: left;
+        }
+        .feedbackM{
+                position: fixed;
+                top: 90px;
+                left: 100px;
+                font-size: 40px;
+                color: black;
+            }
         </style>
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
@@ -382,6 +393,9 @@
                 <div class="notif"><a href=""><span class="iconify" data-icon="clarity:notification-solid"></a></span><h10 style="font-size:12px;">Admin</h10></div>
             </nav>
         </section> 
+        <div class="feedbackM">
+                        <span>Quản lý tin nhắn Admin</span>
+                    </div>
         <% if(list.size()>0){%>
         <div class="table-wrapper">
             <table class="table table-striped table-hover table-bordered" style="Margin-left:10px;overflow: hidden;" > 
@@ -409,10 +423,10 @@
             </table>
         </div>
               <% }else{%>   
-        <h1 class="emty">Hòm thư đang rỗng</h1>
+        <h3 class="emty">Hòm thư đang rỗng</h3>
                 <% }%>
                     <div>
-                        <button class="recep">Gửi thông báo tới Admin</button>
+                        <button class="recep"><span>Gửi thông báo tới Admin</span></button>
                     </div>
                     <br>
                     <form action="NotificationController?do=SentAdmin" method="post">
@@ -420,7 +434,7 @@
                         <div class="Main">
                             <input required="" id="title" name="title" type="text" maxlength="100" placeholder="Tiêu đề" class="text">
                             <textarea required="" id="content" name="content" type="text" rows="3" cols="60" placeholder="Nội dung tin nhắn" class="texxt1"></textarea>
-                            <button onclick="Showmess()" class="button" type="submit">Sent</button>
+                            <button onclick="Showmess()" class="button" type="submit">Gửi</button>
                         </div>
                     </div>
                     </form>

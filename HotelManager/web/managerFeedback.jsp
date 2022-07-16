@@ -11,7 +11,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Danh sách khách hàng</title>
+        <title>Danh sách Feedback</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -269,6 +269,13 @@
             .notif a:hover{
                 color: white;
             }
+            .feedbackM{
+                position: fixed;
+                top: 90px;
+                left: 100px;
+                font-size: 40px;
+                color: black;
+            }
         </style>
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
@@ -337,6 +344,9 @@
             </nav>
 
         </section>
+                    <div class="feedbackM">
+                        <span>Quản lý Feedback</span>
+                    </div>          
         <div class="table-wrapper">
             <table class="table table-striped table-hover table-bordered" style="Margin-left:10px;"> 
                 <thead>

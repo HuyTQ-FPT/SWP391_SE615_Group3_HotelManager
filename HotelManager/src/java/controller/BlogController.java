@@ -62,7 +62,7 @@ public class BlogController extends HttpServlet {
                 request.setAttribute("a", a);
                 request.setAttribute("b", b);
                 request.getRequestDispatcher("Blog.jsp").forward(request, response);
-            };
+            }
             HttpSession session = request.getSession();
             if (dos.equals("detailBlog")) {
                 Account ac = new Account();

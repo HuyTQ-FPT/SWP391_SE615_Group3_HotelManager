@@ -81,14 +81,17 @@
         }
         .recep{
             position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 220px;
-            height: 60px;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            height: 140px;
             border-radius: 5px;
-            background-color: #F5A623;
+            background-color: #4E657A;
             color: white;
             margin-right: 30px;
+        }
+            .recep span{
+            float: left;
         }
     </style>
     <body id="reportsPage">
@@ -162,6 +165,11 @@
                                     <i class="fas fa-newspaper"></i></i> Yêu cầu
                                 </a>
                             </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="NotificationController">
+                                    <i class="fas fa-bell"></i></i> Thông báo
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
@@ -176,11 +184,7 @@
                                     <a class="dropdown-item" href="#">Customize</a>
                                 </div>
                             </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="NotificationController">
-                                    <i class="fas fa-bell"></i></i> Thông báo
-                                </a>
-                            </li>
+                            
                         </ul>
                         <ul class="navbar-nav ">
                             <li class="nav-item">
@@ -213,7 +217,7 @@
                         </div>
                     </div>   
                     <div>
-                        <button class="recep">Gửi thông báo tới lễ tân</button>
+                        <button class="recep"><span>Gửi thông báo tới lễ tân</span></button>
                     </div>
                     <br>
                     <form action="NotificationController?do=SentMessage" method="post">
@@ -228,7 +232,7 @@
                             </select>
                             <input required="" id="title" name="title" type="text" maxlength="100" placeholder="Tiêu đề" class="text">
                             <textarea required="" id="content" name="content" type="text" rows="3" cols="60" placeholder="Nội dung tin nhắn" class="texxt1"></textarea>
-                            <button onclick="Showmess()" class="button" type="submit">Sent</button>
+                            <button onclick="Showmess()" class="button" type="submit">Gửi</button>
                         </div>
                     </div>
                      </form>

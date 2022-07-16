@@ -59,7 +59,7 @@ public class FeedbackController extends HttpServlet {
             }
             if (service.equals("Deletefeedback")) { //In ra tất cả các comment
                 Account a=(Account)session.getAttribute("login");
-                String content = request.getParameter("content");
+                String content = request.getParameter("content").trim();
                 String aid = request.getParameter("aID");
                 LocalDateTime current = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -73,7 +73,7 @@ public class FeedbackController extends HttpServlet {
                 Account a=(Account)session.getAttribute("login");
                 String aId = request.getParameter("aID").toString();
                 String mId = request.getParameter("mID").toString();
-                String content = request.getParameter("content");
+                String content = request.getParameter("content").trim();
                 LocalDateTime current = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 String formatted = current.format(formatter);
