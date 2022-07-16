@@ -204,7 +204,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                             for="name"
                                             >Loại Thiết Bị
                                         </label>
-                                        <select required name="DeviceNamess" id="selects" placeholder="Chọn 1 Loại...">
+                                        <select required name="DeviceNames" id="selects" placeholder="Chọn 1 Loại...">
                                             <option value="">Select a state...</option>
                                             <c:forEach items="${listdevices}" var="r">
                                                 <option value="${r.deviceID}">${r.deviceName}</option>

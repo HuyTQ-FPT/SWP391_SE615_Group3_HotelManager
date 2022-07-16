@@ -1,3 +1,14 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 15/07/2022    1.0        HieuLBM          Comment
+ *               1.1       
+ */
 package controller;
 
 import dao.AccountDAO;
@@ -26,13 +37,22 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods. Login account, change password, forget password
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        try{
+        try {
             HttpSession session = request.getSession();
             AccountDAOImpl dao = new AccountDAOImpl();
-            UserDAO daoU = new UserDAOImpl();
+            UserDAO userDAO = new UserDAOImpl();
             DBContext dao1 = new DBContext();
             String service = request.getParameter("do");
             if (service == null) {
@@ -69,7 +89,7 @@ public class LoginController extends HttpServlet {
                         pass.setMaxAge(60 * 60 * 24 * 7);
                         response.addCookie(pass);
                         response.addCookie(user);
-                    } 
+                    }
                     if (rs.getString(2).equals("1")) {
                         session.setAttribute("login", new Account(rs.getInt(1), rs.getInt(2), username, password));
                         response.sendRedirect("HomeController");
@@ -167,11 +187,14 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
                 }
             }
-            if (service.equals("ForgetPassword")) {// Quên mật khẩu
+            /**
+             * Service forgetPassword: send email to user forgetPassword.jsp
+             */
+            if (service.equalsIgnoreCase("forgetPassword")) {
 
                 String email = request.getParameter("email").trim();
-
-                if (daoU.checkUser(email.trim()) == null) {
+                /*Check user email exists or not*/
+                if (userDAO.checkUser(email.trim()) == null) {
                     if (!email.trim().matches("^[a-zA-Z]\\w+@gmail.com$")) {
                         String eEmail = "Email không đúng định dạng!";
                         String exampleEmail = "Ví dụ: SWPGroup3@gmail.com";
@@ -189,11 +212,14 @@ public class LoginController extends HttpServlet {
 
                 } else {
                     SendMail sm = new SendMail();
-                    randomPassword rdP = new randomPassword();
-                    String newPass = rdP.randomAlphaNumeric(8);
+                    randomPassword randomPass = new randomPassword();
+                    /*Random new password*/
+                    String newPass = randomPass.randomAlphaNumeric(8);
                     String message = "Mật khẩu mới của bạn là:" + newPass + "\n"
                             + "Nếu bạn muốn đổi mật khẩu click vào link này:" + "http://localhost:8080/HotelManager/LoginController";
+                    /*Send email to user*/
                     sm.send(email, "Mật khẩu mới của bạn!!!!", message, sm.getFromEmail(), sm.getPassword());
+                    /*Update new password*/
                     int n = dao.updateAccountAndUser(newPass, email);
                     String mess = "Gửi email thành công.";
                     request.setAttribute("mess", mess);
@@ -284,6 +310,14 @@ public class LoginController extends HttpServlet {
         }
     }
 
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -295,6 +329,15 @@ public class LoginController extends HttpServlet {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -308,6 +351,11 @@ public class LoginController extends HttpServlet {
         }
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

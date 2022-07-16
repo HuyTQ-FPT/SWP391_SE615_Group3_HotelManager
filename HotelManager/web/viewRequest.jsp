@@ -12,6 +12,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View Request</title>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" 
+        href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+        <script type="text/javascript" 
+        src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" 
+        src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
         <!-- https://fonts.google.com/specimen/Roboto -->
         <link rel="stylesheet" href="css/fontawesome.min.css">
@@ -60,7 +68,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ServiceController?do=getdeviceroom">
+                            <a class="nav-link" href="RoomcategoryController?do=getroombycategori&i=1">
                                 <i class="fas fa-shopping-cart"></i>
                                 Phòng
                             </a>
@@ -90,7 +98,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="RequestController?do=listMessFeedBack">
+                            <a class="nav-link active" href="RequestController?do=listRequest">
                                 <i class="fas fa-newspaper "></i></i> Yêu cầu
                             </a>
                         </li>
@@ -121,7 +129,7 @@
 
         </nav>
         <%
-            RequestMessage s = (RequestMessage) request.getAttribute("seen");
+            RequestMessage requestMessage = (RequestMessage) request.getAttribute("seen");
         %>
         <div class="container">
             <div class="row">
@@ -154,10 +162,10 @@
 
                             <tbody>
                                 <tr>
-                                    <td>  <%=s.getEmail()%> </td>
-                                    <td><p style="width: 150px; word-break: break-all"><%=s.getTitle()%></p></td>
-                                    <td ><p style="width: 200px; word-break: break-all"><%=s.getContent()%></p></td>
-                                    <td >   <a href="RequestController?do=viewReply&mID=<%=s.getmId()%>&email=<%=s.getEmail()%> "> <button  style=""  class="btn btn-primary">  Trả lời </button></a></td>
+                                    <td>  <%=requestMessage.getEmail()%> </td>
+                                    <td><p style="width: 150px; word-break: break-all"><%=requestMessage.getTitle()%></p></td>
+                                    <td ><p style="width: 200px; word-break: break-all"><%=requestMessage.getContent()%></p></td>
+                                    <td >   <a href="RequestController?do=viewReply&mID=<%=requestMessage.getmId()%>&email=<%=requestMessage.getEmail()%> "> <button  style=""  class="btn btn-primary">  Trả lời </button></a></td>
 
 
                                 </tr>
@@ -165,8 +173,8 @@
                             </tbody>
 
                         </table>
-                        <button  style="margin-top: 20px" onclick="deleteId('<%=s.getmId()%>')" class="btn btn-primary">  Xoá </a></button>
-                        <a style="float: right; margin-top: 20px" class="btn btn-danger" href="RequestController?do=listMessFeedBack&index=${index}">Trang trước</a>
+                        <button  style="margin-top: 20px" onclick="deleteId('<%=requestMessage.getmId()%>')" class="btn btn-primary">  Xoá </a></button>
+                        <a style="float: right; margin-top: 20px" class="btn btn-danger" href="RequestController?do=listRequest&index=${index}">Trang trước</a>
 
                     </div>
                 </div>
@@ -184,7 +192,7 @@
         <script>
                             function deleteId(id) {
                                 if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
-                                    window.location = "RequestController?do=deleteMessage&mId=" + id;
+                                    window.location = "RequestController?do=deleteRequest&mId=" + id;
                                 }
 
                             }

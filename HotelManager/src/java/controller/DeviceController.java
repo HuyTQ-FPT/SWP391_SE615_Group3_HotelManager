@@ -124,12 +124,7 @@ public class DeviceController extends HttpServlet {
             }
             if (dos.equals("InsertDeviceRoom")) {
                 String Roomid = request.getParameter("RoomID");
-                Vector<Device> listdevices = devicedao.getAllDevicetoAdd("		select * from\n"
-                        + " ( select RoomDevice.DeviceID,Device.DeviceName from RoomDevice join Device on RoomDevice.DeviceID = Device.DeviceID) as b\n"
-                        + " except\n"
-                        + " select * from\n"
-                        + " (select RoomDevice.DeviceID,Device.DeviceName from RoomDevice join Device on RoomDevice.DeviceID = Device.DeviceID\n"
-                        + "		where RoomDevice.RoomID="+Roomid+") as a");
+                Vector<Device> listdevices = devicedao.getAllDevicetoAdd("Select * from Device ");
                 Room getroom = roomdao.getRoom(Roomid);
                 request.setAttribute("listdevices", listdevices);
                 request.setAttribute("Roomid", Roomid);

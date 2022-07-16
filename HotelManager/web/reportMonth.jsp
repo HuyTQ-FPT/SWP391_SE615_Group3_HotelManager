@@ -19,6 +19,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title> Admin - Dashboard</title>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" 
+        href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+        <script type="text/javascript" 
+        src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" 
+        src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
         <!-- https://fonts.google.com/specimen/Roboto -->
         <link rel="stylesheet" href="css/fontawesome.min.css">
@@ -57,7 +65,7 @@
 
                 <div style="position: relative">
                     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-10 tm-block-col ok" style="   position: absolute;
-                         top:-90px;
+                         top:-44px;
                          left: 1106px;">
                         <div class="col-md-4">
                             <div class="card card-tale">

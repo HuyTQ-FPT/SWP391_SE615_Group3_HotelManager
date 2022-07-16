@@ -7,7 +7,8 @@
  * Record of change:
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
- * 14/07/2022    1.0        HuyTQ          Comment
+ * 13/07/2022    1.0        HieuLBM          Comment
+ * 14/07/2022    1.1        HuyTQ            Comment
  */
 package dao.impl;
 
@@ -73,7 +74,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
      * get a customer information by user id from User table
      *
      * @param Accountid
-     * @return 
+     * @return
      * @throws Exception
      */
     @Override
@@ -110,7 +111,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
      * get a customer information from User table
      *
      * @param Accountid
-     * @return 
+     * @return
      * @throws Exception
      */
     @Override
@@ -151,7 +152,7 @@ public class UserDAOImpl extends DBContext implements UserDAO {
     @Override
     public void updateUserEcept(User User) throws Exception {
         Connection conn = null;
-         /* Prepared statement for executing sql queries */
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
 
         String sqlPre = "update [User] set UserName =?, UserAdress=?, CMT=?,UserEmail =?, UserPhone=?,Birthday=? where UserID=?";
@@ -338,7 +339,6 @@ public class UserDAOImpl extends DBContext implements UserDAO {
      * @return
      * @throws Exception
      */
-
     @Override
     public ArrayList<User> getListByReceptionist() throws Exception {
         Connection conn = null;

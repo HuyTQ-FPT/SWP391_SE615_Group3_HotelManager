@@ -6,7 +6,8 @@
  * Record of change:
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
- * 13/07/2022    1.0        HuyTQ            Comment
+ * 13/07/2022    1.0        HieuLBM          Comment
+ * 13/07/2022    1.1        HuyTQ            Comment
  */
 package dao;
 

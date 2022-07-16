@@ -320,7 +320,7 @@
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item "><a href="ReceptionistController" class="nav-link">Quản lí<br>phòng </a></li>
                             <!--                            <li class="nav-item"><a href="ControllerOrder" class="nav-link">Manager<br>ListOrders</a></li>-->
-                            <li class="nav-item active"><a href="ReceptionistController?do=Cus" class="nav-link">Quản lí<br>khách hàng</a></li>
+                            <li class="nav-item active"><a href="ReceptionistController?do=customer" class="nav-link">Quản lí<br>khách hàng</a></li>
                             <li class="nav-item"><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
                         </ul>
                     </div>

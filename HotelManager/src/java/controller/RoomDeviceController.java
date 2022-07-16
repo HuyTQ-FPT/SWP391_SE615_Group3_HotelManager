@@ -146,10 +146,23 @@ public class RoomDeviceController extends HttpServlet {
             }
             if (dos.equals("deleteroom")) {
                 String RoomID = request.getParameter("RoomID");
+                int id = Integer.parseInt(RoomID);
+                ArrayList<Room> r = dao.getRoomBill();
+                for (Room room : r) {
+//                    out.println("<h1>Servlet RoomcategoryController at " + id + "room"+room.getRoomID()+ "</h1>");
+                    if (id == room.getRoomID()) {
+                        request.setAttribute("delete", "delete");
+                        request.setAttribute("RoomID", RoomID);
+                        out.println("<h1>Servlet RoomcategoryController at " + id + "room"+room.getRoomID()+ "</h1>");
+//                        request.getRequestDispatcher("RoomsController?do=listroom").forward(request, response);
+                    } 
+//                    else {
+//                        
+//                    }
+                }
                 dao.crudRoom("delete from DateOfRoom where RoomID =" + RoomID + "\n"
-                        + "				delete from RoomDevice where RoomID =" + RoomID + "\n"
+                                + "				delete from RoomDevice where RoomID =" + RoomID + "\n"
                         + "				delete from Room where RoomID =" + RoomID + "");
-                request.setAttribute("delete", "delete");
                 request.setAttribute("RoomID", RoomID);
                 request.getRequestDispatcher("RoomsController?do=listroom").forward(request, response);
             }

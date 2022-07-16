@@ -12,6 +12,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View Request</title>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" 
+        href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+        <script type="text/javascript" 
+        src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" 
+        src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
         <!-- https://fonts.google.com/specimen/Roboto -->
         <link rel="stylesheet" href="css/fontawesome.min.css">
@@ -23,7 +31,7 @@
         <!-- Font Icon -->
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     </head>
-       <style>
+    <style>
         .form-group{
             position: relative;
         }
@@ -42,108 +50,107 @@
     </style>
 </head>
 <body id="reportsPage">
-      <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
-            <div class="container h-100">
-                <a class="navbar-brand" href="AdminController">
-                    <h1 class="tm-site-title mb-0">Admin</h1>
-                </a>
-                <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars tm-nav-icon"></i>
-                </button>
+    <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
+        <div class="container h-100">
+            <a class="navbar-brand" href="AdminController">
+                <h1 class="tm-site-title mb-0">Admin</h1>
+            </a>
+            <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars tm-nav-icon"></i>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto h-100">
-                        <li class="nav-item">
-                            <a class="nav-link" href="AdminController">
-                                <i class="fas fa-tachometer-alt"></i>
-                                Bảng điều khiển
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto h-100">
+                    <li class="nav-item">
+                        <a class="nav-link" href="AdminController">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Bảng điều khiển
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
 
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="far fa-file-alt"></i>
-                                <span>
-                                    Báo cáo <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Báo cáo ngày</a>
-                                <a class="dropdown-item" href="#">Báo cáo tuần</a>
-                                <a class="dropdown-item" href="#">Báo cáo năm</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="ServiceController?do=getdeviceroom">
-                                <i class="fas fa-shopping-cart"></i>
-                                Phòng
-                            </a>
-                        </li>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-file-alt"></i>
+                            <span>
+                                Báo cáo <i class="fas fa-angle-down"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="AdminController?do=incomeRoom">Báo cáo doanh số theo phòng</a>
+                            <a class="dropdown-item" href="AdminController?do=ReportMonth">Báo cáo tháng</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="RoomcategoryController?do=getroombycategori&i=1">
+                            <i class="fas fa-shopping-cart"></i>
+                            Phòng
+                        </a>
+                    </li>
 
-                        <li class="nav-item dropdown nav-item">
-                            <a class="nav-link dropdown-toggle" href="accountAdmin.jsp" id="navbarDropdown" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="far fa-user"></i>
-                                <span>
-                                    Quản lí tài khoản <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="fab fa-blogger"></i>
-                                <span>
-                                    Blog <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="BlogManagerController?do=editblog">Edit Blog</a>
-                                <a class="dropdown-item" href="addblog.jsp">Insert Blog</a>
+                    <li class="nav-item dropdown nav-item">
+                        <a class="nav-link dropdown-toggle" href="accountAdmin.jsp" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-user"></i>
+                            <span>
+                                Quản lí tài khoản <i class="fas fa-angle-down"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fab fa-blogger"></i>
+                            <span>
+                                Blog <i class="fas fa-angle-down"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="BlogManagerController?do=editblog">Edit Blog</a>
+                            <a class="dropdown-item" href="addblog.jsp">Insert Blog</a>
 
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="RequestController?do=listMessFeedBack">
-                                <i class="fas fa-newspaper "></i></i> Yêu cầu
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-cog"></i>
-                                <span>
-                                    Cài đặt <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">Thông tin</a>
-                                <a class="dropdown-item" href="#">Billing</a>
-                                <a class="dropdown-item" href="#">Customize</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link d-block" href="LoginController?do=logout">
-                                Admin, <b>Đăng xuất</b>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="RequestController?do=listRequest">
+                            <i class="fas fa-newspaper "></i></i> Yêu cầu
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-cog"></i>
+                            <span>
+                                Cài đặt <i class="fas fa-angle-down"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">Thông tin</a>
+                            <a class="dropdown-item" href="#">Billing</a>
+                            <a class="dropdown-item" href="#">Customize</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link d-block" href="LoginController?do=logout">
+                            Admin, <b>Đăng xuất</b>
+                        </a>
+                    </li>
+                </ul>
             </div>
+        </div>
 
-        </nav>
+    </nav>
     <div class="tm-block-col tm-col-account-settings" style="margin-left: auto; margin-right: auto ">
         <div class="tm-bg-primary-dark tm-block tm-block-settings" >
 
             <h4 style="color: red;font-size: 15px;">${requestScope.err}</h4>
             <h4 style="color: red;font-size: 15px;">${requestScope.mess1}</h4>
             <form action="RequestController?do=sendReply" method="POST" class="tm-signup-form row">
-
+                <input hidden  name="mID" value="${sessionScope.mID}">
                 <div class="form-group col-lg-12">
                     <i class="fas fa-star style" style="color:red;"></i>         <label for="email">Email nhận</label>
                     <input style="background-color: white; color: #54657D;"
@@ -172,14 +179,14 @@
                 <div class="form-group col-lg-12">
                     <label for="inputCMT">Tiêu đề</label>
                     <i class="fas fa-star style" style="color:red;"></i>     <input pattern=".*\S" title="Không được để khoảng trắng" t style="background-color: white; color: #54657D;"
-                                                                                   id=""
-                                                                                   name="inputTitle"
-                                                                                   type="text"
-                                                                                   maxlength="40" required 
-                                                                                   value=""
+                                                                                    id=""
+                                                                                    name="inputTitle"
+                                                                                    type="text"
+                                                                                    maxlength="40" required 
+                                                                                    value=""
 
-                                                                                   class="form-control validate"
-                                                                                   />
+                                                                                    class="form-control validate"
+                                                                                    />
                 </div>
                 <div class="form-group col-lg-12">
                     <label for="inputAdress">Nội dung</label>
@@ -204,12 +211,19 @@
                         GỬI
                     </button>
                 </div>
-            </form>
         </div>
+    </form>
+    <div class="col-4">
+        <button style="margin-left: 609px; margin-top: 40px"
+                class="btn btn-primary btn-block text-uppercase"
+                >
+            <a href="RequestController?do=seenRequest&mid=${mID}" >Trang trước</a> 
+        </button>
     </div>
-              <script src="js/jquery-3.3.1.min.js"></script>
-        <!-- https://jquery.com/download/ -->
-        <script src="js/bootstrap.min.js"></script>
-        <!-- https://getbootstrap.com/ -->
+</div>
+<script src="js/jquery-3.3.1.min.js"></script>
+<!-- https://jquery.com/download/ -->
+<script src="js/bootstrap.min.js"></script>
+<!-- https://getbootstrap.com/ -->
 </body>
 </html>

@@ -1,3 +1,13 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 14/07/2022    1.0        HieuLBM          Comment
+ */
 package context;
 
 import java.sql.Connection;
@@ -10,8 +20,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Lớp này khởi tạo connection tới database
  *
- * @author admin
+ *
  */
 public class DBContext {
 
@@ -41,7 +52,8 @@ public class DBContext {
         }
 
     }
-      public Connection getConnection(){
+
+    public Connection getConnection() {
         try {
             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=SWPgroup3", "sa", "123456");
         } catch (SQLException ex) {
@@ -49,7 +61,6 @@ public class DBContext {
         }
         return conn;
     }
-    
 
     public ResultSet getData(String sql) {
         ResultSet rs = null;
@@ -64,17 +75,39 @@ public class DBContext {
         return rs;
     }
 
+    /**
+     * When you are done with using your connection, you need close in order to
+     * release any other database resource
+     *
+     * @param ps it is a object of <code>java.sql.PreparedStatement</code>
+     * @throws Exception
+     */
     public void closePreparedStatement(PreparedStatement ps) throws Exception {
         if (ps != null && !ps.isClosed()) {
             ps.close();
         }
     }
 
+    /**
+     * When you are done with using your connection, you need close in order to
+     * release any other database resource
+     *
+     * @param rs it is a object of <code>java.sql.ResultSet</code>
+     * @throws Exception
+     */
     public void closeResultSet(ResultSet rs) throws Exception {
         if (rs != null && !rs.isClosed()) {
             rs.close();
         }
     }
+
+    /**
+     * When you are done with using your connection, you need close in order to
+     * release any other database resource
+     *
+     * @param con it is a object of <code>java.sql.Connection</code>
+     * @throws Exception
+     */
     public void closeConnection(Connection con) throws Exception {
         if (con != null && !con.isClosed()) {
             con.close();

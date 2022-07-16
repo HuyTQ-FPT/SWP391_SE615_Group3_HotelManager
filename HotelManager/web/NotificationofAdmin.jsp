@@ -434,5 +434,14 @@
                                         }
                                     }
                                     </script>
+                                     <script>
+            function show() {
+                if (document.getElementById("team").style.display == "none") {
+                    document.getElementById("team").style.display = "block";
+                } else {
+                    document.getElementById("team").style.display = "none";
+                }
+            }
+        </script>
     </body>
 </html>

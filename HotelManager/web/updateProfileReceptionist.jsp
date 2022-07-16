@@ -145,7 +145,7 @@
                                 <!-- Form Group (username)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="inputYourname">Tên</label>
-                                    <input class="form-control" id="Username" name="Username" type="text" maxlength="50"  value="<%=user.getUserName()%>">
+                                    <input class="form-control" id="Username" name="uName" type="text" maxlength="50"  value="<%=user.getUserName()%>">
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
