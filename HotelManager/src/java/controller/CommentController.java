@@ -128,7 +128,6 @@ public class CommentController extends HttpServlet {
                         cmt.setBlogid(BlogID);
                         dao.InsertComment(content, username, BlogID, ParentID);
                         List<Comment> list = dao.DisplayComment(BlogID);
-
                         request.setAttribute("listcomment", list);
                         List<Comment> list1 = dao.DisplayCommenttt(ParentIDD);
                         request.setAttribute("listcomment1", list1);

@@ -651,7 +651,7 @@ thead {
    
    <body>
        <%@include file="headerAdmin.jsp" %>
-        
+       <p style="font-family:Playfair Display; font-size: 50px; color: white;text-align: center;"> Phân chức vụ cho tài khoản </p>
             <div class="wrapper">
                 <table class="table table-bordered cart_summary">
                     <thead>
@@ -695,7 +695,7 @@ thead {
             <div class="cart_navigation ">
          
         </div>
-            
+            </div>
         
     </body>
     <script>

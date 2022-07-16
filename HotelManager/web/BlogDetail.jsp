@@ -44,6 +44,7 @@
             position: fixed;
             right: 40px;
         }
+       
     </style>
 
     <body>
@@ -153,8 +154,8 @@
             </section>
             <!-- Blog Details Section End -->
 
-            <input style="margin:5px;" type="button" id="btn1" value="Bình luận"/> 
 
+            <p style="font-family:Playfair Display; font-size: 40px;text-align: center; margin-top: 25px;"> Bình luận </p>
         </div>
         <div id ="mycomment"> </div>  
         <div style="padding-top:20px;" class="be-comment-block">
@@ -192,7 +193,7 @@
             </div>
             <div style="padding-top: 20px;" id="displaycomment">
                 <c:forEach items="${listcomment}" var="list">
-                    <div class="be-comment">
+                    <div style="width:1500px;" onmouseover="mouseOver(${list.commentId})" onmouseout="mouseOut(${list.commentId})" class="be-comment">
                         <div class="be-img-comment">	
                             <a href="blog-detail-2.html">
                                 <img  src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
@@ -201,54 +202,63 @@
                         <div class="be-comment-content">
 
                             <span class="be-comment-name">
-                                <a href="blog-detail-2.html">${list.username}</a><input id="myButton" style="display: inline-block;margin-left: 20px;" type="button" value="sửa" onclick="Readonly(${list.commentId})">
+                                <a href="blog-detail-2.html">${list.username}</a>
                             </span>
-                            <span class="be-comment-time">
-                                <i style="padding-left: 40px;"class="fa fa-clock-o"></i>
-                                ${list.date}
-                            </span>
+
                             <input type="hidden" value="${list.commentId}" id="blogid" name="commentid"/>  
                             <form id="myform3${list.commentId}" name="myform3${list.commentId}"> 
                                 <input id="myInput${list.commentId}" value="${list.content}"style="width:1300px; display: inline-block;background-color: #DCDCDC;"id="content3" maxlength="50" readonly="" name="content3" class="be-comment-text">
 
                                 <div style="display: inline-block;"class="nav-item dropdown">
-
                                     <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="fab fa-blogger"></i>
-
+                                     
+                                        <div id="edit${list.commentId}">
                                         <c:if test="${list.username eq sessionScope.user}">  
                                             <span>   
                                                 <i class="fa fa-bars"></i>
                                             </span> 
                                         </c:if> 
+                                        </div>
                                     </a>
 
 
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                        <input style="margin-left: 1300px;float: right;" class="btn btn-primary pull-right" type="button" value="Gửi"/>
+
                                         <input type="hidden" value="${list.commentId}" id="commentidd${list.commentId}" name="commentidd"/>
                                         <input type="hidden" value="${list.blogid}" id="blogidd" name="blogidd"/>  
-     <!--                                     <input type="hidden" value="${list.content}" id="contentid" name="content3"/>-->
-                                        <a class="dropdown-item" onclick="Update1(${list.commentId})">Chỉnh sửa</a>
+
+                                        <a style="margin-bottom: 2px;"class="dropdown-item" onclick="Update1(${list.commentId})">Chỉnh sửa</a>
                                         </form>
-                                        <form id="myform2${list.commentId}" name="myform2${list.commentId}"> 
+                                        <form style="height: 10px;" id="myform2${list.commentId}" name="myform2${list.commentId}"> 
                                             <input type="hidden" value="${list.commentId}" id="blogid" name="commentid"/>
                                             <input type="hidden" value="${list.blogid}" id="blogid1" name="blogid1"/>  
-                                            <input style="margin-left: 1300px;float: right;" class="btn btn-primary pull-right" type="button" value="Gửi"/>
-                                            <a class="dropdown-item"  onclick="Delete1(${list.commentId})"  >Xóa</a>
+                     
+                                            <a style="margin-top: 2px;" class="dropdown-item"  onclick="Delete1(${list.commentId})"  >Xóa</a>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="accordion" id="myaccordion" style="max-width: 320px">   
+                                <div style="float: left;" class="be-comment-time">
                                     <form>
-                                        <div id="btn3">
+                                        <div style="float: right;text-align: center; ">
+                                            <i class="fa fa-clock-o"></i>
+                                            ${list.date}
+                                        </div>
+
+                                        <div style="text-align: center; float: right;" id="btn3">
                                             <input type="hidden" value="${list.commentId}" id="commentid" name="commentid"/>  
                                             <input type="hidden" value="${list.blogid}" id="blogid1" name="blogid1"/>  
-                                            <input style="margin-right:180px; float: right; border-style: none; background-color: white;font-family: inherit;font-weight: bold;" class="" type="button" value="Hiển thị phản hồi" onclick="Comment2(${list.commentId})"/>
+                                            <input style="border-style: none; background-color: white;font-family: inherit;font-weight: bold;" class="" type="button" value="Hiển thị phản hồi" onclick="Comment2(${list.commentId})"/>
                                         </div>
+                                        <c:if test="${list.username eq sessionScope.user}">  
+                                            <input id="myButton${list.commentId}" style="display: inline-block;float: right;border-style: none;font-size:10px;background-color: white;font-family: inherit;font-weight: bold;" class="fa-pencil-square" type="button" value="Sửa" onclick="Readonly(${list.commentId})">
+                                            <input id="back${list.commentId}" style="display: none;float: right;border-style: none;font-size:10px;background-color: white;font-family: inherit;font-weight: bold;" class="fa-pencil-square" type="button" value="Quay lại" onclick="Removereadonly(${list.commentId})">
+                                        </c:if>
                                     </form>
+                                </div>
+                                <div class="accordion" id="myaccordion" style="max-width: 320px">   
+
                                     <div class="card-header btn"  data-toggle="collapse" data-target="#q${list.commentId}" aria-expanded="true"
                                          data-parent="#myaccordion">
                                         Phản hồi    
@@ -278,7 +288,9 @@
 
                 </c:forEach>
             </div>
+            <input style="margin:5px;" type="button" id="btn1" value="Bình luận"/>
         </div>
+
         <input style="margin:50px; margin-bottom:0px;display: none;" type="button" id="btn2" value="Quay lại"/> 
         <section class="related-blog spad">
             <div class="container">
@@ -403,11 +415,7 @@
                                                     document.getElementById("btn1").style.display = 'none';
                                                 };
     </script>
-    <script language="javascript">
-        document.getElementById("btn3").onclick = function () {
-            document.getElementById("btn3").style.display = 'none';
-        };
-    </script>
+
     <script language="javascript">
         document.getElementById("btn2").onclick = function () {
             document.getElementById("displaycomment").style.display = 'block';
@@ -415,13 +423,30 @@
             document.getElementById("commentblog").style.display = 'none';
             document.getElementById("btn1").style.display = 'block';
         };
+
+
+        }
+
     </script>
     <script>
         function Readonly(commentId) {
             document.getElementById('myInput' + commentId).removeAttribute('readonly');
-           document.getElementById('myInput' + commentId).style.background = "white";
+            document.getElementById('myInput' + commentId).style.background = "white";
+            document.getElementById("back" + commentId).style.display = 'block';
+            document.getElementById("myButton" + commentId).style.display = 'none';
+        }
+
+    </script>
+    <script>
+        function Removereadonly(commentId) {
+            document.getElementById('myInput' + commentId).setAttribute('readonly', true);
+            document.getElementById('myInput' + commentId).style.background = "#DCDCDC";
+            document.getElementById("back" + commentId).style.display = 'none';
+            document.getElementById("myButton" + commentId).style.display = 'block';
+
         }
     </script>
+
     <script type="text/javascript">
         function Comment() {
             var arr1 = document.getElementsByTagName('textarea');
@@ -516,6 +541,10 @@
             }
             xhttp.open("POST", url, true);
             xhttp.send();
+            
+            alert("Chỉnh sửa thành công");
+            document.getElementById('myInput' + commentId).setAttribute('readonly', true);
+             document.getElementById('myInput' + commentId).style.background = "#DCDCDC";
         }
 
     </script>
@@ -583,11 +612,14 @@
             xhttp.send();
         }
     </script>
+<script>
+function mouseOver(commentId) {
+   document.getElementById("edit" +commentId).style.display = 'block';
+}
 
-    <script>
-        function Readonly1(commentId) {
-            document.getElementById('myInput1' + commentId).removeAttribute('readonly');
-        }
-    </script>
+function mouseOut(commentId) {
+  document.getElementById("edit"+commentId).style.display = 'none';
+}
+</script>
 </body>
 </html>
