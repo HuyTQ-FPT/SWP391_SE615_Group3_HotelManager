@@ -215,12 +215,12 @@ public interface BlogDAO {
      * Select comment base on comment parent and comment children
      * @throws java.lang.Exception
      */
-    public int getComment();
+   public int getComment(String BlogID);
  /**
      * Select page base on count of comment
      * @param n is an int
      * @return List
      * @throws java.lang.Exception
      */
-    public List<Comment> getCommentByPage(int n);
+   public List<Comment> getCommentByPage(int n,String BlogID);
 }

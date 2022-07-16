@@ -33,17 +33,18 @@ public class CommentController extends HttpServlet {
             BlogDAOImpl dao = new BlogDAOImpl();
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("utf-8");
-            int n = dao.getComment();
-              String BlogID = request.getParameter("blogid");
+             String BlogID = request.getParameter("blogid");
+             request.setAttribute("blogid", BlogID);
+            int n = dao.getComment(BlogID);            
               String page = request.getParameter("page");
               List<Comment> list1 = null;
               if (page == null) {
-                    list1 = dao.getCommentByPage(1);
+                    list1 = dao.getCommentByPage(1, BlogID);
                 } else {
-                    list1 = dao.getCommentByPage(Integer.parseInt(page));
+                    list1 = dao.getCommentByPage(Integer.parseInt(page),BlogID);
                 }
             
-           //  out.println("<h1>Servlet RoomcategoryController at " + list1+ "</h1>"); 
+//             out.println("<h1>Servlet RoomcategoryController at " + page+ "</h1>"); 
           request.setAttribute("listcomment", list1);
           request.setAttribute("n", n);
           request.getRequestDispatcher("ManageComment.jsp"). forward(request, response);               

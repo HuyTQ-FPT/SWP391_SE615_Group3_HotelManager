@@ -35,7 +35,7 @@
 
 
         <c:forEach items="${listcomment}" var="list">
-           <div style="width:1500px;" onmouseover="mouseOver(${list.commentId})" onmouseout="mouseOut(${list.commentId})" class="be-comment">
+            <div style="width:1500px;" onmouseover="mouseOver(${list.commentId})" onmouseout="mouseOut(${list.commentId})" class="be-comment">
                         <div class="be-img-comment">	
                             <a href="blog-detail-2.html">
                                 <img  src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="be-ava-comment">
@@ -54,13 +54,13 @@
                                 <div style="display: inline-block;"class="nav-item dropdown">
                                     <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
-                                     
+
                                         <div id="edit${list.commentId}">
-                                        <c:if test="${list.username eq sessionScope.user}">  
-                                            <span>   
-                                                <i class="fa fa-bars"></i>
-                                            </span> 
-                                        </c:if> 
+                                            <c:if test="${list.username eq sessionScope.user}">  
+                                                <span>   
+                                                    <i class="fa fa-bars"></i>
+                                                </span> 
+                                            </c:if> 
                                         </div>
                                     </a>
 
@@ -76,7 +76,7 @@
                                         <form style="height: 10px;" id="myform2${list.commentId}" name="myform2${list.commentId}"> 
                                             <input type="hidden" value="${list.commentId}" id="blogid" name="commentid"/>
                                             <input type="hidden" value="${list.blogid}" id="blogid1" name="blogid1"/>  
-                     
+
                                             <a style="margin-top: 2px;" class="dropdown-item"  onclick="Delete1(${list.commentId})"  >Xóa</a>
                                         </form>
                                     </div>
@@ -127,6 +127,7 @@
                                 </div>
                         </div>
                     </div>
+
         </c:forEach>
     </body>
 

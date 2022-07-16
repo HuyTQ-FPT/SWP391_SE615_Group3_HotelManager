@@ -273,7 +273,7 @@
                                             </div>
                                             <div class="form-group fl_icon">
 
-                                                <textarea style="width: 1300px;" class="form-input"  id="content1"   name="content1" required> @${list.username} </textarea>
+                                                <textarea style="width: 1300px;height: 100px;" class="form-input"  id="content1"   name="content1" required> @${list.username} </textarea>
                                             </div>
                                             <input type="hidden" value="${list.commentId}" id="commentid" name="commentid"/>  
                                             <input type="hidden" value="${list.blogid}" id="blogid1" name="blogid1"/>  

@@ -139,7 +139,7 @@
                                                class="form-control" name="photo" placeholder="Enter photo">                                   
                                     </div>
                                     <div style="padding-top: 80px;" class="form-group mb-3">  
-                                        <a type="submit" class="btn btn-primary btn-block text-uppercase" href="CommentController?do=display&blogid=${c.blogID}">Quản lý bình luận</a>
+                                        <a type="submit" class="btn btn-primary btn-block text-uppercase" href="CommentController?do=display&blogid=${c.blogID}&page=1">Quản lý bình luận</a>
 <!--                                    <button type="submit" class="btn btn-primary btn-block text-uppercase" ></button>-->
                                 </div> 
                                 </div>

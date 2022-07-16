@@ -690,7 +690,7 @@
             <div style="text-align: center;padding-top: 30px;" class="site-block-27">
                 <ul>
                     <c:forEach begin="1" end="${n}" var="c">
-                        <li><a href="CommentController?do=display&page=${c}">${c}</a></li>
+                        <li><a href="CommentController?do=display&blogid=${blogid}&page=${c}">${c}</a></li>
                         </c:forEach>
                 </ul>
             </div>    

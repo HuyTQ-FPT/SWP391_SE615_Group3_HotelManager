@@ -47,9 +47,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         return vector;
     }
 @Override
-    public int getComment() {
+    public int getComment(String BlogID) {
         int n = 0;
-        String sql = "select COUNT(*) from Comment";
+        String sql = "select COUNT(*) from Comment where BlogID = "+BlogID+"";
         Vector<Blog> vector = new Vector<Blog>();
       
         try {
@@ -57,6 +57,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             int countPage = 0;
           PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = getData(sql);
+            
             while (rs.next()) {
                 totalPage = rs.getInt(1);
                 countPage = totalPage / 4;
@@ -137,7 +138,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         return n1;
     }
        @Override
-    public List<Comment> getCommentByPage(int n) {
+    public List<Comment> getCommentByPage(int n,String BlogID) {
         List<Comment> list = new ArrayList<Comment>();
         int begin = 1;
         int end = 4;
@@ -147,7 +148,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         
         String sql = " SELECT *FROM ( SELECT *, ROW_NUMBER() OVER (ORDER BY CommentID desc) AS RowNum\n" +
-"                            FROM Comment\n" +
+"                            FROM Comment where BlogID = " + BlogID + " \n" +
 "                            ) AS RowNum\n" +
 "                              WHERE RowNum BETWEEN "+ begin + " AND " + end;
         try {
@@ -159,13 +160,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 String date = rs.getString("Date");
                 String CommentID = rs.getString("CommentId");             
                 String ParentID = rs.getString("ParentID");
-                  String Blogid = rs.getString("Blogid");     
-                comment.setContent(content);
+                              comment.setContent(content);
                 comment.setUsername(username);
                 comment.setDate(date);
                 comment.setCommentId(CommentID);
                 comment.setParentId(ParentID);
-                 comment.setBlogid(Blogid);
+                comment.setBlogid(BlogID);
                 list.add(comment);
             }
         } catch (SQLException ex) {
@@ -568,9 +568,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
 
     public static void main(String[] args) {
         BlogDAOImpl dao = new BlogDAOImpl();
-        
+//        int n = dao.getComment("8");
           List<Comment> list = new ArrayList<Comment>();
-          list = dao.getCommentByPage(1);
+          list = dao.getCommentByPage(2,"8");
         System.out.println(list);
 
     }
