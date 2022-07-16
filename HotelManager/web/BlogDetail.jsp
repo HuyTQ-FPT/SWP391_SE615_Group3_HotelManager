@@ -28,10 +28,9 @@
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">  
         <link rel="stylesheet" href="css/aos.css">
         <link rel="stylesheet" href="css/style.css">
-
-
         <link rel="stylesheet" href="css/style_2.css" type="text/css">
-
+       
+ <link rel="stylesheet" href="css/styledrop.css" type="text/css">
 
 
     </head>
@@ -44,7 +43,7 @@
             position: fixed;
             right: 40px;
         }
-       
+
     </style>
 
     <body>
@@ -212,13 +211,13 @@
                                 <div style="display: inline-block;"class="nav-item dropdown">
                                     <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">
-                                     
+
                                         <div id="edit${list.commentId}">
-                                        <c:if test="${list.username eq sessionScope.user}">  
-                                            <span>   
-                                                <i class="fa fa-bars"></i>
-                                            </span> 
-                                        </c:if> 
+                                            <c:if test="${list.username eq sessionScope.user}">  
+                                                <span>   
+                                                    <i class="fa fa-bars"></i>
+                                                </span> 
+                                            </c:if> 
                                         </div>
                                     </a>
 
@@ -234,7 +233,7 @@
                                         <form style="height: 10px;" id="myform2${list.commentId}" name="myform2${list.commentId}"> 
                                             <input type="hidden" value="${list.commentId}" id="blogid" name="commentid"/>
                                             <input type="hidden" value="${list.blogid}" id="blogid1" name="blogid1"/>  
-                     
+
                                             <a style="margin-top: 2px;" class="dropdown-item"  onclick="Delete1(${list.commentId})"  >Xóa</a>
                                         </form>
                                     </div>
@@ -406,7 +405,9 @@
     <script src="js/mediaelement-and-player.min.js"></script>
 
     <script src="js/main.js"></script>
-
+    
+    <script type="text/javascript" 
+    src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script language="javascript">
                                                 document.getElementById("btn1").onclick = function () {
                                                     document.getElementById("displaycomment").style.display = 'none';
@@ -541,10 +542,10 @@
             }
             xhttp.open("POST", url, true);
             xhttp.send();
-            
+
             alert("Chỉnh sửa thành công");
             document.getElementById('myInput' + commentId).setAttribute('readonly', true);
-             document.getElementById('myInput' + commentId).style.background = "#DCDCDC";
+            document.getElementById('myInput' + commentId).style.background = "#DCDCDC";
         }
 
     </script>
@@ -612,14 +613,14 @@
             xhttp.send();
         }
     </script>
-<script>
-function mouseOver(commentId) {
-   document.getElementById("edit" +commentId).style.display = 'block';
-}
+    <script>
+        function mouseOver(commentId) {
+            document.getElementById("edit" + commentId).style.display = 'block';
+        }
 
-function mouseOut(commentId) {
-  document.getElementById("edit"+commentId).style.display = 'none';
-}
-</script>
+        function mouseOut(commentId) {
+            document.getElementById("edit" + commentId).style.display = 'none';
+        }
+    </script>
 </body>
 </html>
