@@ -183,34 +183,38 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> <br>
+        <div style="text-align: center">
+            <h1 style="color: F5A623" class="tm-block-title d-inline-block">Chỉnh Sửa Phòng</h1>
+        </div>
         <form action="ImageController?do=changeImgae4" method="post" enctype="multipart/form-data">
             <div class="container tm-mt-big tm-mb-big">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
                         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                            <c:if test = "${insert!= null}">
+                                <a style="margin-left: 83%;border-radius: 20px" class="btn btn-primary" href="RoomsController?do=listroom" role="button">Danh Sách Phòng</a>
+                            </c:if>
                             <div class="row">
-                                <div class="col-12" style="text-align: center">
-                                    <h2 class="tm-block-title d-inline-block">Chỉnh Sửa Phòng</h2>
-                                </div>
+
                             </div>
                             <div class="row tm-edit-product-row">
                                 <div class="col-xl-12 col-lg-12 col-md-12">
+                                    <input style="text-align: center;color: ACC6DE"
+                                           id="expire_date"
+                                           name="RoomNumber"
+                                           type="hidden"
+                                           min="0" max="20"
+                                           value="${listroom.roomID}"
+                                           class="form-control validate"
+                                           data-large-mode="true"
+                                           />
                                     <div class="form-group mb-3" style="text-align: center">
                                         <label
                                             for="name"
-                                            >Số Phòng 
+                                            >Số Phòng
                                         </label>
-                                        <input type="hidden" name="RoomID" value="${listroom.roomID}">
-                                        <br>
-                                        <span style="color: red">${listroom.roomname}</span>
-                                    </div>
-                                    <div class="form-group mb-3" style="text-align: center">
-                                        <label
-                                            for="name"
-                                            >Room Number
-                                        </label>
-                                        <input style="text-align: center"
+                                        <input style="text-align: center;color: ACC6DE"
                                                id="expire_date"
                                                name="RoomNumber"
                                                type="number"
@@ -218,13 +222,14 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                value="${listroom.roomname}"
                                                class="form-control validate"
                                                data-large-mode="true"
+                                               required
                                                />
                                     </div>
                                     <div class="form-group mb-3" style="text-align: center">
                                         <label
                                             for="description"
-                                            >Description</label>
-                                        <textarea style="text-align: center"               
+                                            >Mô tả</label>
+                                        <textarea style="text-align: center;color: ACC6DE"               
                                                   class="form-control validate tm-small"
                                                   rows="5"
                                                   required
@@ -234,12 +239,12 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                     <div class="form-group mb-3" style="text-align: center">
                                         <label 
                                             for="category"
-                                            >RoomCategory</label
+                                            >Loại Phòng</label
                                         >
                                         <select style="text-align: center"
                                                 class="custom-select tm-select-accounts"
                                                 id="category" 
-                                                name="RoomCategory"
+                                                name="RoomcateID"
                                                 >
                                             <c:forEach items="${romcate}" var="rs">
                                                 <option value="${rs.roomcateID}" ${rs.roomcateID==listroom.roomcateID?"selected":""}>${rs.catename}</option>
@@ -250,9 +255,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                         <div class="form-group mb-3 col-xs-6 col-sm-4">
                                             <label
                                                 for="expire_date"
-                                                >Price
+                                                >Giá
                                             </label>
-                                            <input style="text-align: center"
+                                            <input style="text-align: center;color: ACC6DE"
                                                    id="expire_date"
                                                    name="Price"
                                                    type="number"
@@ -265,9 +270,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                         <div class="form-group mb-3 col-xs-6 col-sm-4">
                                             <label
                                                 for="stock"
-                                                >Note
+                                                >Ghi Chú
                                             </label>
-                                            <input style="text-align: center"
+                                            <input style="text-align: center;color: ACC6DE"
                                                    id="stock"
                                                    name="Note"
                                                    type="text"
@@ -278,37 +283,35 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                         <div class="form-group mb-3 col-xs-6 col-sm-4">
                                             <label
                                                 for="stock"
-                                                >Status
+                                                >Trạng Thái
                                             </label>
                                             <!--<input name="do" value="updateroom" hidden="" style="text-align: center">-->
                                             <select name="Status" style="text-align: center"
                                                     class="custom-select tm-select-accounts"
                                                     id="category"
                                                     >
-                                                <option value="0"${listroom.status==0?"selected":""}>Available</option>
-                                                <option value="1"${listroom.status==1?"selected":""}>Unavailable</option>
-                                                <option value="2"${listroom.status==2?"selected":""}>Other</option>
+                                                <option value="0"${listroom.status==0?"selected":""}>Hoạt Động</option>
+                                                <option value="1"${listroom.status==1?"selected":""}>Không Hoạt Động</option>
+                                                <option value="2"${listroom.status==2?"selected":""}>Khác</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="margin: 0 auto  ">
-                                    <div class="form-group mb-3 col-xs-6 col-sm-4" style="text-align: center;color: white">
-                                        <span>Square</span>
-                                        <span>${listroom.square}m2</span>
+                                <div class="row" style="margin: 0 auto; width: 100%">
+                                    <div class="form-group mb-6 col-xs-6 col-sm-6" style="text-align: center;color: white">
+                                        <label>Diện Tích</label> <br>
+                                        <span style="color: ACC6DE">${listroom.square}m2</span>
                                         <input type="hidden" name="Square" value="${listroom.square}"> 
                                     </div>
-                                    <div class="form-group mb-3 col-xs-6 col-sm-4" style="text-align: center;color: white">
-                                        <span>Comment</span>
-                                        <span>${listroom.comment}</span>
-                                        <input type="hidden" name="Comment" value="${listroom.comment}"> 
-                                    </div>
-                                    <div class="form-group mb-3 col-xs-6 col-sm-4" style="text-align: center;color: white">
-                                        <span>Rate</span> <br>
-                                        <span>${listroom.rate}/5</span>
+
+                                    <input type="hidden" name="Comment" value="aa"> 
+
+                                    <div class="form-group mb-6 col-xs-6 col-sm-6" style="text-align: center;color: white">
+                                        <label>Xếp Hạng</label> <br>
+                                        <span style="color: ACC6DE">${listroom.rate}/5</span>
                                         <input type="hidden" name="Rate" value="${listroom.rate}"> 
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="row" style="width: 70%; margin: 0 auto; margin-bottom: 20px">
                                     <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
                                         <div class="tm-product-img-edit mx-auto">
@@ -319,9 +322,8 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 ></i>
                                         </div>
                                         <div class="custom-file mt-1 mb-1">
-                                            <input type="file" id="imageFile" onchange="chooseFile(this)" accept="image/gif,image/jpeg,image/png"
-                                                   class="form-control" name="photo" placeholder="Enter photo"></div>
-
+                                            <input style="color: ACC6DE" type="file" id="imageFile" onchange="chooseFile(this)" accept="image/gif,image/jpeg,image/png"
+                                                   class="form-control" name="photo"></div>
                                     </div>
                                     <div class="col-xl-3 col-lg-3 col-md-6 mb-2"><div class="tm-product-img-edit mx-auto">
                                             <img id="image2" style="width: 150px;height: 100px" src="images/anhphong/${img.image2}" alt="Product image" class="img-fluid d-block mx-auto">
@@ -331,7 +333,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 ></i>
                                         </div>
                                         <div class="custom-file mt-1 mb-1">
-                                            <input type="file" id="imageFile" onchange="chooseFile2(this)" accept="image/gif,image/jpeg,image/png"
+                                            <input style="color: ACC6DE" type="file" id="imageFile" onchange="chooseFile2(this)" accept="image/gif,image/jpeg,image/png"
                                                    class="form-control" name="photo" placeholder="Enter photo">
                                         </div></div>
                                     <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
@@ -343,60 +345,65 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 ></i>
                                         </div>
                                         <div class="custom-file mt-1 mb-1">
-                                            <input type="file" id="imageFile" onchange="chooseFile3(this)" accept="image/gif,image/jpeg,image/png"
+                                            <input style="color: ACC6DE" type="file" id="imageFile" onchange="chooseFile3(this)" accept="image/gif,image/jpeg,image/png"
                                                    class="form-control" name="photo" placeholder="Enter photo">
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-3 col-md-6 mb-2">
                                         <div class="tm-product-img-edit mx-auto">
-                                            <img id="image4" style="width: 150px;height: 100px" src="images/anhphong/img1.0.jpg" alt="Product image" class="img-fluid d-block mx-auto">
+                                            <img id="image4" style="width: 150px;height: 100px" src="images/anhphong/${img.image4}" alt="Product image" class="img-fluid d-block mx-auto">
                                             <i
                                                 class="fas fa-cloud-upload-alt tm-upload-icon"
                                                 onclick="document.getElementById('fileInput').click();"
                                                 ></i>
                                         </div>
                                         <div class="custom-file mt-1 mb-1">
-                                            <input type="file" id="imageFile" onchange="chooseFile4(this)" accept="image/gif,image/jpeg,image/png"
+                                            <input style="color: ACC6DE" type="file" id="imageFile" onchange="chooseFile4(this)" accept="image/gif,image/jpeg,image/png"
                                                    class="form-control" name="photo" placeholder="Enter photo">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                                    <button type="submit" class="btn btn-primary btn-block text-uppercase" onclick="Save()">Lưu</button>
                                 </div>
-
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="tm-footer row tm-mt-small">
-                <div class="col-12 font-weight-light">
-                    <p class="text-center text-white mb-0 px-4 small">
-                        Copyright &copy; <b>2018</b> All rights reserved. 
+        </form>
+        <footer class="tm-footer row tm-mt-small">
+            <div class="col-12 font-weight-light">
+                <p class="text-center text-white mb-0 px-4 small">
+                    Copyright &copy; <b>2018</b> All rights reserved. 
 
-                        Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
-                    </p>
-                </div>
-            </footer> 
+                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                </p>
+            </div>
+        </footer> 
 
-            <script src="js/jquery-3.3.1.min.js"></script>
-            <!-- https://jquery.com/download/ -->
-            <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
-            <!-- https://jqueryui.com/download/ -->
-            <script src="js/bootstrap.min.js"></script>
-            <!-- https://getbootstrap.com/ -->
-            <script>
-                                                $(function () {
-                                                    $("#expire_date").datepicker({
-                                                        defaultDate: "10/22/2020"
-                                                    });
-                                                });
-                <c:if test = "${update!= null}">
-                                                alert("Update Successfully");
-                </c:if>
-
-            </script>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <!-- https://jquery.com/download/ -->
+        <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+        <!-- https://jqueryui.com/download/ -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- https://getbootstrap.com/ -->
+        <script>
+                                        $(function () {
+                                            $("#expire_date").datepicker({
+                                                defaultDate: "10/22/2020"
+                                            });
+                                        });
+        </script>
+        <script>
+            function Save() {
+                var arr = document.getElementsByTagName('input');
+                var roomnumber = arr[1].value;
+                var price = arr[2].value;
+                if (price != "" && price < 9999 && price > 0 && roomnumber != "") {
+                    alert("Cập Nhật Thành Công");
+                }
+            }
+        </script>
     </body>
 </html>

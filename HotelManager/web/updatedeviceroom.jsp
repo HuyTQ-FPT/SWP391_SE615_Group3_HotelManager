@@ -188,6 +188,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
                         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                            <c:if test = "${insert!= null}">
+                                <a style="margin-left: 83%;border-radius: 20px" class="btn btn-primary" href="DeviceController?do=listdevicebyroom&RoomID=${device.roomID}" role="button">Danh Sách Phòng</a>
+                            </c:if>
                             <div class="row">
                                 <div class="col-12" style="text-align: center">
                                     <h2 class="tm-block-title d-inline-block">Chỉnh Sửa Thông Tin Đồ Dùng</h2> 
@@ -273,7 +276,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase" onclick="alert('Cập Nhật ${device.deviceName} Phòng: ${getroom.roomname} Thành Công');">Lưu</button>
                             </div>
                             </form>
                         </div>
@@ -298,15 +301,11 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <script src="js/bootstrap.min.js"></script>
         <!-- https://getbootstrap.com/ -->
         <script>
-                                            $(function () {
-                                                $("#expire_date").datepicker({
-                                                    defaultDate: "10/22/2020"
-                                                });
-                                            });
-            <c:if test = "${update!= null}">
-                                            alert("Update Successfully");
-            </c:if>
-
+                                    $(function () {
+                                        $("#expire_date").datepicker({
+                                            defaultDate: "10/22/2020"
+                                        });
+                                    });
         </script>
 </body>
 </html>

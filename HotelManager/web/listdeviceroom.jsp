@@ -184,7 +184,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                             <a style="border-radius: 10px; margin-left: 29%" href="DeviceController?do=UpdateDeviceByRoom&DeviceID=${r.deviceID}&RoomID=${r.roomID}" class="btn btn-info" role="button">
                                 Cập Nhật</a></td>  
                         <td style="background-color: 435C70">
-                            <a style="margin-left: 43%" href="DeviceController?do=DeleteDeviceRoom&RoomID=${r.roomID}&DeviceID=${r.deviceID}" class="tm-product-delete-link">
+                            <a onclick="alert('Xóa Thành Công: ${r.deviceName}');" style="margin-left: 43%" href="DeviceController?do=DeleteDeviceRoom&RoomID=${r.roomID}&DeviceID=${r.deviceID}" class="tm-product-delete-link">
                                 <i class="far fa-trash-alt tm-product-delete-icon">
                                 </i></a></td>  
                     </tr>  

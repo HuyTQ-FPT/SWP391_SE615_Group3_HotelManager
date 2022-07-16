@@ -287,10 +287,10 @@ public class ImageController extends HttpServlet {
                         + " WHERE RoomID = " + RoomID + "", des.replaceAll("\\s\\s+", " ").trim(), Notes.replaceAll("\\s\\s+", " ").trim());
 
 //                out.println("<h1>UPDATE [dbo].[Image]\n"
-//                        + "   SET [image1] = '" + image1 + "'\n"
-//                        + "      ,[image2] = '" + image3 + "'\n"
-//                        + "      ,[image3] = '" + image2 + "'\n"
-//                        + "      ,[image4] = '" + image4 + "'\n"
+//                        + "   SET [image1] = '" + room + "'\n"
+//                        + "      ,[image2] = '" + image2 + "'\n"
+//                        + "      ,[image3] = '" + image3 + "'\n"
+//                        + "      ,[image4] = '" + image3 + "'\n"
 //                        + " WHERE RoomimgaeID = " + RoomID + "\n"
 //                        + "\n"
 //                        + " UPDATE [dbo].[Room]\n"
@@ -304,12 +304,12 @@ public class ImageController extends HttpServlet {
 //                        + "      ,[Comment] = '" + Comment + "'\n"
 //                        + "      ,[Rate] = " + Rate + "\n"
 //                        + "      ,[Note] = '" + Note + "'\n"
-//                        + "      ,[Status] = " + Status + "\n"
+//                        + "      ,[Status] = " + Status + "\n"  
 //                        + " WHERE RoomID = " + RoomID + "</h1>");
-                request.setAttribute("update", "update");
+                request.setAttribute("insert", "insert");
                 request.getRequestDispatcher("ImageController?do=listImage&RoomID=" + RoomID + "").forward(request, response);
             }
-          String values = "";
+            String values = "";
             ArrayList<String> blog = new ArrayList<String>();
             BlogDAOImpl dao1 = new BlogDAOImpl();
             if (service.equals("changeImgae5")) {
@@ -339,7 +339,7 @@ public class ImageController extends HttpServlet {
                             File uploadFile = new File(storePath + "/" + path.getFileName());
                             item.write(uploadFile);
                             blog.add(filename);
-                           
+
                         }
                     }
                 }
@@ -348,31 +348,29 @@ public class ImageController extends HttpServlet {
                 String BlogDescription = blog.get(2);
                 String BlogTitle = blog.get(0);
                 String image = blog.get(5);
-            Blog blogss = dao1.selectBlog1("select * from Blog where BlogID = "+BlogID+"");
-                if(image.length()<=2){
+                Blog blogss = dao1.selectBlog1("select * from Blog where BlogID = " + BlogID + "");
+                if (image.length() <= 2) {
                     image = blogss.getBlogImage();
                 }
 //                out.println("<h1>Servlet RoomcategoryController at "+ author+"</h1>");
-            if(BlogDescription.trim().equals("") || author.trim().equals("") || BlogTitle.trim().equals("")){
-                   request.getRequestDispatcher("BlogManagerController?do=updateblog&blogid="+BlogID+"").forward(request, response);
-            }else{
-                 dao.crudImage1("UPDATE [dbo].[Blog]\n"                                  
-                                    + "   SET   [BlogAuthor] = ?\n"
-                                    + "      ,[BlogDescription] = ?\n"
-                                    + "      ,[BlogImage] = '" + image  + "'\n"                                
-                                    + "      ,[BlogTitle] = ?\n"
-                                    + " WHERE [BlogID] = " + BlogID + "",author.replaceAll("\\s\\s+", " ").trim(),BlogDescription.replaceAll("\\s\\s+", " ").trim(),BlogTitle.replaceAll("\\s\\s+", " ").trim());
-                   request.setAttribute("update", "update");
-               response.sendRedirect("BlogManagerController?do=editblog&page=1");
+                if (BlogDescription.trim().equals("") || author.trim().equals("") || BlogTitle.trim().equals("")) {
+                    request.getRequestDispatcher("BlogManagerController?do=updateblog&blogid=" + BlogID + "").forward(request, response);
+                } else {
+                    dao.crudImage1("UPDATE [dbo].[Blog]\n"
+                            + "   SET   [BlogAuthor] = ?\n"
+                            + "      ,[BlogDescription] = ?\n"
+                            + "      ,[BlogImage] = '" + image + "'\n"
+                            + "      ,[BlogTitle] = ?\n"
+                            + " WHERE [BlogID] = " + BlogID + "", author.replaceAll("\\s\\s+", " ").trim(), BlogDescription.replaceAll("\\s\\s+", " ").trim(), BlogTitle.replaceAll("\\s\\s+", " ").trim());
+                    request.setAttribute("update", "update");
+                    response.sendRedirect("BlogManagerController?do=editblog&page=1");
+                }
             }
-            }
-           
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-     
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

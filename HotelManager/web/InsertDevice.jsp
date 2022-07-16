@@ -229,7 +229,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                                <button onclick="Save()" type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
                             </div>
                         </div>
                     </div>
@@ -258,10 +258,16 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     defaultDate: "10/22/2020"
                 });
             });
-            <c:if test = "${update!= null}">
-            alert("Update Successfully");
-            </c:if>
-
         </script>
+        <script>
+                function Save() {
+                     var arr = document.getElementsByTagName('input');
+                     var name = arr[0].value;   
+                     var price = arr[1].value;
+                     if (price != "" && price < 9999 && price > 0 && name != "") {
+                     alert("Thêm Thành Công: "+name+"");
+                     }
+                }
+            </script>
     </body>
 </html>

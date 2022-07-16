@@ -169,7 +169,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <td style="background-color: 435C70; text-align: center" ><a style="border-radius: 10px" href="DeviceController?do=RoomByDevice&DeviceId=${r.deviceID}" class="btn btn-info" role="button">Danh Sách</a></td>
                         <td style="background-color: 435C70; text-align: center" ><a style="border-radius: 10px" href="DeviceController?do=UpdateDevice&DeviceId=${r.deviceID}" class="btn btn-info" role="button">Chỉnh Sửa</a></td>
                         <td style="background-color: 435C70; text-align: center">
-                            <a style="margin-left: 43%" href="DeviceController?do=DeleteDevice&DeviceId=${r.deviceID}" class="tm-product-delete-link">
+                            <a onclick="alert('Đã Xóa Tất Cả: ${r.deviceName}');" style="margin-left: 43%" href="DeviceController?do=DeleteDevice&DeviceId=${r.deviceID}" class="tm-product-delete-link">
                                 <i class="far fa-trash-alt tm-product-delete-icon">
                                 </i></a>
                         </td>  

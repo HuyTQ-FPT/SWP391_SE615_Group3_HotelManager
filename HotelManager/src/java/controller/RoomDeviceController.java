@@ -149,21 +149,17 @@ public class RoomDeviceController extends HttpServlet {
                 int id = Integer.parseInt(RoomID);
                 ArrayList<Room> r = dao.getRoomBill();
                 for (Room room : r) {
-//                    out.println("<h1>Servlet RoomcategoryController at " + id + "room"+room.getRoomID()+ "</h1>");
                     if (id == room.getRoomID()) {
-                        request.setAttribute("delete", "delete");
-                        request.setAttribute("RoomID", RoomID);
-                        out.println("<h1>Servlet RoomcategoryController at " + id + "room"+room.getRoomID()+ "</h1>");
-//                        request.getRequestDispatcher("RoomsController?do=listroom").forward(request, response);
-                    } 
-//                    else {
-//                        
-//                    }
+                        request.setAttribute("wrong", "wrong");
+                        request.getRequestDispatcher("RoomsController?do=listroom").forward(request, response);
+                        break;
+                    }
                 }
-                dao.crudRoom("delete from DateOfRoom where RoomID =" + RoomID + "\n"
-                                + "				delete from RoomDevice where RoomID =" + RoomID + "\n"
-                        + "				delete from Room where RoomID =" + RoomID + "");
+                request.setAttribute("delete", "delete");
                 request.setAttribute("RoomID", RoomID);
+                dao.crudRoom("delete from DateOfRoom where RoomID =" + RoomID + "\n"
+                        + "				delete from RoomDevice where RoomID =" + RoomID + "\n"
+                        + "				delete from Room where RoomID =" + RoomID + "");
                 request.getRequestDispatcher("RoomsController?do=listroom").forward(request, response);
             }
             String value = "";
@@ -236,6 +232,7 @@ public class RoomDeviceController extends HttpServlet {
                 if (image4.length() <= 2) {
                     image4 = "";
                 }
+                Room r =  dao.getRooms();
                 daos.crudRoom("insert into [Image] (image1, image2, image3, image4)\n"
                         + "                values ('" + image1 + "','" + image2 + "','" + image3 + "','" + image4 + "');\n"
                         + "                insert into Room(Roomname, Roomdesc, RoomcateID, RoomimgaeID, Roomprice, NumberPerson, [Square], Comment, Rate, Note,[Status])\n"
@@ -265,8 +262,9 @@ public class RoomDeviceController extends HttpServlet {
 //                        + "      ,[Note] = '" + Note + "'\n"
 //                        + "      ,[Status] = " + Status + "\n"
 //                        + " WHERE RoomID = " + RoomID + "</h1>");
-                request.setAttribute("update", "update");
-                request.getRequestDispatcher("RoomsController?do=listroom").forward(request, response);
+
+                request.setAttribute("insert", "insert");
+                request.getRequestDispatcher("ImageController?do=listImage&RoomID="+r.getRoomID()+"").forward(request, response);
             }
 
         }

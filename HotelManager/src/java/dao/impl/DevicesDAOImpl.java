@@ -288,7 +288,7 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
         try {
             ResultSet rs = getData(sql);
             while (rs.next()) {
-                int DeviceID = rs.getInt(2);
+                int DeviceID = rs.getInt(7);
                 int RoomID = rs.getInt(1);
                 String DeviceName = rs.getString(8);
                 int DeviceCate = 0;

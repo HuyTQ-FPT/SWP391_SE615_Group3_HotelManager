@@ -199,13 +199,15 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                            value="${Roomid}"
                                            class="form-control validate"
                                            />
-                                    <div class="form-group  mb-3" style="text-align: center">
+                                    <div  class="form-group  mb-3" style="text-align: center">
                                         <label
                                             for="name"
                                             >Loại Thiết Bị
                                         </label>
-                                        <select required name="DeviceNames" id="selects" placeholder="Chọn 1 Loại...">
-                                            <option value="">Select a state...</option>
+                                        <select style="text-align: center" required name="DeviceNames" id="selects" placeholder="Chọn 1 Loại..."
+                                                class="custom-select tm-select-accounts"
+                                                id="category" 
+                                                >
                                             <c:forEach items="${listdevices}" var="r">
                                                 <option value="${r.deviceID}">${r.deviceName}</option>
                                             </c:forEach>
@@ -217,7 +219,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                             >Trạng Thái
                                         </label>
                                         <select required name="Status" style="text-align: center"
-
+                                                class="custom-select tm-select-accounts"
                                                 id="category"
                                                 >
                                             <option selected="" value="0">Hoạt Động</option>
@@ -231,7 +233,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                             >Số Lượng 
                                         </label>
                                         <select required name="Status" style="text-align: center"
-
+                                                class="custom-select tm-select-accounts"
                                                 id="category"
                                                 >
                                             <option selected="" value="1">1</option>
@@ -253,7 +255,6 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                         <textarea style="text-align: center"               
                                                   class="form-control validate tm-small"
                                                   rows="5"
-                                                  required
                                                   name="Description"
                                                   >${device.note}</textarea>
                                     </div>
@@ -275,7 +276,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase" onclick="alert('Thêm Mới Thiết Bị Thành Công');" >Save</button>
                             </div>
                         </div>
                     </div>
@@ -296,13 +297,5 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
-        <script>
-                                            $(document).ready(function () {
-                                                $('select').selectize({
-                                                    sortField: 'text'
-                                                });
-
-                                            });
-        </script>
     </body>
 </html>
