@@ -117,5 +117,5 @@ public interface RoomDAO {
     public Vector<RoomByDate> seachRoom(String a, String datein, String dateout) throws Exception;
 
     public int getPage(String sql);
-
+    public Vector<Room> getRoomList1(String sql) throws Exception;
 }

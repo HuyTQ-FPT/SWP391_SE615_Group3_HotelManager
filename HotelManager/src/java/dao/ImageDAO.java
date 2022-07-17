@@ -40,4 +40,11 @@ public interface ImageDAO {
      */
 
     public Image searchRoomidAndImage(int RoomID) throws Exception;
+          /**
+     * get list a image from Image table
+     *
+     * @param des,Notes is a <code>Image</code> object
+     * @throws java.lang.Exception
+     */
+    public void crudRoom(String sql, String des, String Notes) throws Exception;
 }

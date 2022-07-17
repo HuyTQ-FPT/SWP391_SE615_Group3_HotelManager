@@ -120,15 +120,26 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
         return null;
     }
 
-    public void crudRoom(String sql, String des, String Notes) {
+    /**
+     * Insert Room from Image Room
+     *
+     * @param des,Notes
+     * @throws Exception
+     */
+    @Override
+    public void crudRoom(String sql, String des, String Notes) throws Exception {
+        PreparedStatement pre = null;
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
+            pre = conn.prepareStatement(sql);
             pre.setString(1, des);
             pre.setString(2, Notes);
             pre.execute();
-            System.out.println("done");
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
     }
 

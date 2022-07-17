@@ -232,7 +232,6 @@ public class RoomDeviceController extends HttpServlet {
                 if (image4.length() <= 2) {
                     image4 = "";
                 }
-                Room r =  dao.getRooms();
                 daos.crudRoom("insert into [Image] (image1, image2, image3, image4)\n"
                         + "                values ('" + image1 + "','" + image2 + "','" + image3 + "','" + image4 + "');\n"
                         + "                insert into Room(Roomname, Roomdesc, RoomcateID, RoomimgaeID, Roomprice, NumberPerson, [Square], Comment, Rate, Note,[Status])\n"
@@ -262,9 +261,9 @@ public class RoomDeviceController extends HttpServlet {
 //                        + "      ,[Note] = '" + Note + "'\n"
 //                        + "      ,[Status] = " + Status + "\n"
 //                        + " WHERE RoomID = " + RoomID + "</h1>");
-
+                Room r = dao.getRooms();
                 request.setAttribute("insert", "insert");
-                request.getRequestDispatcher("ImageController?do=listImage&RoomID="+r.getRoomID()+"").forward(request, response);
+                request.getRequestDispatcher("ImageController?do=listImage&RoomID=" + r.getRoomID() + "").forward(request, response);
             }
 
         }
