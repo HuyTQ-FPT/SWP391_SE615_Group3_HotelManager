@@ -73,118 +73,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-xl">
-            <div class="container h-100">
-                <a class="navbar-brand" href="index.html">
-                    <h1 class="tm-site-title mb-0">Product Admin</h1>
-                </a>
-                <button
-                    class="navbar-toggler ml-auto mr-0"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                    >
-                    <i class="fas fa-bars tm-nav-icon"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto h-100">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">
-                                <i class="fas fa-tachometer-alt"></i> Dashboard
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="far fa-file-alt"></i>
-                                <span> Reports <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Daily Report</a>
-                                <a class="dropdown-item" href="#">Weekly Report</a>
-                                <a class="dropdown-item" href="#">Yearly Report</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-door-open"></i>
-                                <span> Room <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="RoomsController?do=listroom">ListRoom</a>
-                                <a class="dropdown-item" href="#">Weekly Report</a>
-                                <a class="dropdown-item" href="#">Yearly Report</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="accounts.html">
-                                <i class="far fa-user"></i> Accounts
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="fab fa-blogger"></i>
-                                <span>
-                                    Blog <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="BlogManagerController?do=insertblog">Update Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController">Insert Blog</a>
-                                <a class="dropdown-item" href="BlogManagerController">Delete Blog</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-cog"></i>
-                                <span> Settings <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Profile</a>
-                                <a class="dropdown-item" href="#">Billing</a>
-                                <a class="dropdown-item" href="#">Customize</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link d-block" href="login.html">
-                                Admin, <b>Logout</b>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav><br>
+         <%@include file="headerAdmin.jsp" %>
         <div style="text-align: center">
-            <h1 style="color: F5A623" class="tm-block-title d-inline-block">Thêm Phòng Mới</h1>
+            <h1 style="color: white" class="tm-block-title d-inline-block">Thêm Phòng Mới</h1>
         </div>
         <form action="RoomsController?do=insertrooms" method="post" enctype="multipart/form-data">
             <div class="container tm-mt-big tm-mb-big">
@@ -200,7 +91,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                             for="name"
                                             >Số Phòng
                                         </label>
-                                        <input style="text-align: center"
+                                        <input style="text-align: center; color: orange"
                                                id="stock"
                                                name="RoomNumber"
                                                type="number"
@@ -215,7 +106,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                         <label
                                             for="description"
                                             >Mô Tả</label>
-                                        <textarea style="text-align: center"               
+                                        <textarea style="text-align: center; color: orange"               
                                                   class="form-control validate tm-small"
                                                   rows="5"
                                                   required
@@ -227,7 +118,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                             for="category"
                                             >Loại Phòng</label
                                         >
-                                        <select style="text-align: center"
+                                        <select style="text-align: center; color: orange"
                                                 class="custom-select tm-select-accounts"
                                                 id="category" 
                                                 name="RoomCategory"
@@ -243,7 +134,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 for="expire_date"
                                                 >Giá
                                             </label>
-                                            <input style="text-align: center"
+                                            <input style="text-align: center;color: orange"
                                                    id="expire_date"
                                                    name="price"
                                                    type="number"
@@ -260,7 +151,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 for="stock"
                                                 >Ghi Chú
                                             </label>
-                                            <input style="text-align: center"
+                                            <input style="text-align: center; color: orange"
                                                    id="stock"
                                                    name="Note"
                                                    type="text"
@@ -273,7 +164,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 for="stock"
                                                 >Trạng Thái
                                             </label>
-                                            <select name="Status" style="text-align: center"
+                                            <select name="Status" style="text-align: center;color: orange"
                                                     class="custom-select tm-select-accounts"
                                                     id="category"
                                                     >
@@ -287,7 +178,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 for="expire_date"
                                                 >Diện Tích
                                             </label>
-                                            <input style="text-align: center"
+                                            <input style="text-align: center;color: orange"
                                                    id="expire_date"
                                                    name="Square"
                                                    type="number"
@@ -306,7 +197,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 for="expire_date"
                                                 >Số Người
                                             </label>
-                                            <input style="text-align: center"
+                                            <input style="text-align: center; color: orange"
                                                    id="expire_date"
                                                    name="NumberPerson"
                                                    type="number"

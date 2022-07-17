@@ -254,7 +254,12 @@
                                         <c:forEach items="${listFeedBack}" var="c">
                                             <div class="article-loop">
                                                 <h3>Tên: ${c.note}</h3>
-                                                <p>Nội Dung: ${c.comment}</p>
+                                                <c:if test="${c.status==1}">
+                                                    <p>Nội Dung: Bình Luận Đã Bị Xóa Do Vi Phạm Chính Sách</p>
+                                                </c:if>
+                                                <c:if test="${c.status==0}">
+                                                    <p>Nội Dung: ${c.comment}</p>
+                                                </c:if>
                                             </div>
                                         </c:forEach>
                                     </div>

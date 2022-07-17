@@ -74,118 +74,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-xl">
-            <div class="container h-100">
-                <a class="navbar-brand" href="index.html">
-                    <h1 class="tm-site-title mb-0">Admin</h1>
-                </a>
-                <button
-                    class="navbar-toggler ml-auto mr-0"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                    >
-                    <i class="fas fa-bars tm-nav-icon"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto h-100">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">
-                                <i class="fas fa-tachometer-alt"></i> Biểu Đồ
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="far fa-file-alt"></i>
-                                <span> Báo Cáo <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
-                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
-                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-door-open"></i>
-                                <span> Phòng <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="RoomsController?do=listroom">Dann Sách Phòng</a>
-                                <a class="dropdown-item" href="DeviceController?do=listalldevice">Danh Sách Thiết Bị</a>
-                                <a class="dropdown-item" href="RoomcategoryController?do=getroombycategori">Loại Phòng</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="ServiceController?do=ListService">
-                                <i class="fa fa-bars"></i> Dịch Vụ
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="accounts.html">
-                                <i class="far fa-user"></i> Tài Khoản
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="accounts.html">
-                                <i class="far fa-user"></i> Dịch Vụ Đi Kèm
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="fab fa-blogger"></i>
-                                <span>
-                                    Blog <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-cog"></i>
-                                <span> Cài Đặt <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link d-block" href="login.html">
-                                Admin, <b>Logout</b>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav> <br>
+        <%@include file="headerAdmin.jsp"%>
         <div style="text-align: center">
-            <h1 style="color: F5A623" class="tm-block-title d-inline-block">Chỉnh Sửa Phòng</h1>
+            <h1 style="color: white" class="tm-block-title d-inline-block">Chỉnh Sửa Phòng</h1>
         </div>
         <form action="ImageController?do=changeImgae4" method="post" enctype="multipart/form-data">
             <div class="container tm-mt-big tm-mb-big">
@@ -200,7 +91,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                             </div>
                             <div class="row tm-edit-product-row">
                                 <div class="col-xl-12 col-lg-12 col-md-12">
-                                    <input style="text-align: center;color: ACC6DE"
+                                    <input style="text-align: center;color: orange"
                                            id="expire_date"
                                            name="RoomNumber"
                                            type="hidden"
@@ -214,7 +105,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                             for="name"
                                             >Số Phòng
                                         </label>
-                                        <input style="text-align: center;color: ACC6DE"
+                                        <input style="text-align: center;color: orange"
                                                id="expire_date"
                                                name="RoomNumber"
                                                type="number"
@@ -229,7 +120,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                         <label
                                             for="description"
                                             >Mô tả</label>
-                                        <textarea style="text-align: center;color: ACC6DE"               
+                                        <textarea style="text-align: center;color: orange"               
                                                   class="form-control validate tm-small"
                                                   rows="5"
                                                   required
@@ -241,7 +132,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                             for="category"
                                             >Loại Phòng</label
                                         >
-                                        <select style="text-align: center"
+                                        <select style="text-align: center;color: orange"
                                                 class="custom-select tm-select-accounts"
                                                 id="category" 
                                                 name="RoomcateID"
@@ -257,7 +148,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 for="expire_date"
                                                 >Giá
                                             </label>
-                                            <input style="text-align: center;color: ACC6DE"
+                                            <input style="text-align: center;color: orange"
                                                    id="expire_date"
                                                    name="Price"
                                                    type="number"
@@ -272,7 +163,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 for="stock"
                                                 >Ghi Chú
                                             </label>
-                                            <input style="text-align: center;color: ACC6DE"
+                                            <input style="text-align: center;color: orange"
                                                    id="stock"
                                                    name="Note"
                                                    type="text"
@@ -286,7 +177,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 >Trạng Thái
                                             </label>
                                             <!--<input name="do" value="updateroom" hidden="" style="text-align: center">-->
-                                            <select name="Status" style="text-align: center"
+                                            <select name="Status" style="text-align: center;color: orange"
                                                     class="custom-select tm-select-accounts"
                                                     id="category"
                                                     >

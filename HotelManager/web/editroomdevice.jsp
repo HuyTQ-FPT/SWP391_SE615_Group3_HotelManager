@@ -35,117 +35,8 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
     </head>
 
     <body id="reportsPage">
-        <nav class="navbar navbar-expand-xl">
-            <div class="container h-100">
-                <a class="navbar-brand" href="index.html">
-                    <h1 class="tm-site-title mb-0">Admin</h1>
-                </a>
-                <button
-                    class="navbar-toggler ml-auto mr-0"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                    >
-                    <i class="fas fa-bars tm-nav-icon"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto h-100">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">
-                                <i class="fas fa-tachometer-alt"></i> Biểu Đồ
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="far fa-file-alt"></i>
-                                <span> Báo Cáo <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
-                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
-                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-door-open"></i>
-                                <span> Phòng <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="RoomsController?do=listroom">Dann Sách Phòng</a>
-                                <a class="dropdown-item" href="DeviceController?do=listalldevice">Danh Sách Thiết Bị</a>
-                                <a class="dropdown-item" href="RoomcategoryController?do=getroombycategori">Loại Phòng</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="ServiceController?do=ListService">
-                                <i class="fa fa-bars"></i> Dịch Vụ
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="accounts.html">
-                                <i class="far fa-user"></i> Tài Khoản
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="accounts.html">
-                                <i class="far fa-user"></i> Dịch Vụ Đi Kèm
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="fab fa-blogger"></i>
-                                <span>
-                                    Blog <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-cog"></i>
-                                <span> Cài Đặt <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link d-block" href="login.html">
-                                Admin, <b>Logout</b>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <a style="float: right; margin-bottom: 20px; border-radius: 10px" type="button" href="updateroomcate.jsp" class="btn btn-warning">Thêm Mới</a>
+         <%@include file="headerAdmin.jsp"%>
+        <a style="float: right; margin-bottom: 20px; border-radius: 10px;background-color: red" type="button" href="updateroomcate.jsp" class="btn btn-warning">Thêm Mới</a>
         <table id="myTable" class="display table" width="90%">  
             <thead>  
                 <tr>  
@@ -163,10 +54,10 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <td style="background-color: 435C70; text-align: center"><span class="badge badge-primary badge-pill">${r.roomcateID}</span></td>  
                         <td style="background-color: 435C70; text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.catename}</span></td>
                         <td style="background-color: 435C70; text-align: center"><span style="max-width: 300px;">${r.note}</span></td>
-                        <td style="background-color: 435C70; text-align: center" ><a href="RoomcategoryController?do=listroombycate&cateroomid=${r.roomcateID}" class="btn btn-info" role="button">Danh Sách</a></td>
-                        <td style="background-color: 435C70; text-align: center" ><a href="RoomcategoryController?do=updateroomcates&cateroomid=${r.roomcateID}" class="btn btn-info" role="button">Chỉnh Sửa</a></td>
+                        <td style="background-color: 435C70; text-align: center" ><a style="border-radius: 10px" href="RoomcategoryController?do=listroombycate&cateroomid=${r.roomcateID}" class="btn btn-info" role="button">Danh Sách</a></td>
+                        <td style="background-color: 435C70; text-align: center" ><a style="border-radius: 10px" href="RoomcategoryController?do=updateroomcates&cateroomid=${r.roomcateID}" class="btn btn-info" role="button">Chỉnh Sửa</a></td>
                         <td style="background-color: 435C70; text-align: center">
-                            <a style="margin-left: 43%" href="RoomcategoryController?do=DeleteRoomCategori&cateroomid=${r.roomcateID}" class="tm-product-delete-link">
+                            <a onclick="alert('Xóa Thành Công ${r.catename} Các Phòng Sẽ Chuyển Sang Danh Sách Phòng Bảo Trì');" style="margin-left: 43%" href="RoomcategoryController?do=DeleteRoomCategori&cateroomid=${r.roomcateID}" class="tm-product-delete-link">
                                 <i class="far fa-trash-alt tm-product-delete-icon">
                                 </i></a>
                         </td>  
@@ -199,6 +90,10 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                             }
                         });
             });
+            <c:if test = "${Wrong!= null}">
+            alert("Bạn Không Thể Thao Tác Xóa");
+            </c:if>
         </script>
+
     </body>
 </html>
