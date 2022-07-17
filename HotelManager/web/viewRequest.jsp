@@ -67,12 +67,29 @@
                             <a class="dropdown-item" href="#">Báo cáo năm</a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="RoomcategoryController?do=getroombycategori&i=1">
-                            <i class="fas fa-shopping-cart"></i>
-                            Phòng
-                        </a>
-                    </li>
+                       <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                                <i class="fas fa-door-open"></i>
+                                <span> Phòng <i class="fas fa-angle-down"></i> </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="RoomsController?do=listroom">Dann Sách Phòng</a>
+                                <a class="dropdown-item" href="DeviceController?do=listalldevice">Danh Sách Thiết Bị</a>
+                                <a class="dropdown-item" href="RoomcategoryController?do=getroombycategori">Loại Phòng</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ServiceController?do=ListService">
+                                <i class="fa fa-bars"></i> Dịch Vụ
+                            </a>
+                        </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
