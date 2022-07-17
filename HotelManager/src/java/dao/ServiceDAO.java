@@ -22,4 +22,5 @@ public interface ServiceDAO {
 
     public void insertCommentService(String ServiceID, String AccountID, String Comment);
     public void DeleteComnent(String CommentID);
+    public void UnblockComment(String CommentID);
 }

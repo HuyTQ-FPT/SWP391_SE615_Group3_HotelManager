@@ -91,6 +91,20 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
             e.printStackTrace();
         }
     }
+    
+    @Override
+    public void UnblockComment(String CommentID) {
+        String query = "UPDATE [dbo].[FeedBackService]\n"
+                + "   SET [Status] = 0 \n"
+                + " WHERE CommentID = ? ";
+        try {
+            PreparedStatement pre = conn.prepareStatement(query);
+            pre.setString(1, CommentID);
+            pre.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public Vector<Service> getServiceListbyran() {

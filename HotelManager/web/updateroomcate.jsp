@@ -73,117 +73,8 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-xl">
-            <div class="container h-100">
-                <a class="navbar-brand" href="index.html">
-                    <h1 class="tm-site-title mb-0">Admin</h1>
-                </a>
-                <button
-                    class="navbar-toggler ml-auto mr-0"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                    >
-                    <i class="fas fa-bars tm-nav-icon"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto h-100">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">
-                                <i class="fas fa-tachometer-alt"></i> Biểu Đồ
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="far fa-file-alt"></i>
-                                <span> Báo Cáo <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
-                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
-                                <a class="dropdown-item" href="#">Báo Cáo Hàng Ngày</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-door-open"></i>
-                                <span> Phòng <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="RoomsController?do=listroom">Dann Sách Phòng</a>
-                                <a class="dropdown-item" href="DeviceController?do=listalldevice">Danh Sách Thiết Bị</a>
-                                <a class="dropdown-item" href="RoomcategoryController?do=getroombycategori">Loại Phòng</a>
-                            </div>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="ServiceController?do=ListService">
-                                <i class="fa fa-bars"></i> Dịch Vụ
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="accounts.html">
-                                <i class="far fa-user"></i> Tài Khoản
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="accounts.html">
-                                <i class="far fa-user"></i> Dịch Vụ Đi Kèm
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="fab fa-blogger"></i>
-                                <span>
-                                    Blog <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-cog"></i>
-                                <span> Cài Đặt <i class="fas fa-angle-down"></i> </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link d-block" href="login.html">
-                                Admin, <b>Logout</b>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-            <c:if test = "${sessionScope.update==null}">
+        <%@include file="headerAdmin.jsp"%>
+        <c:if test = "${sessionScope.update==null}">
             <form action="RoomcategoryController?do=insetroomcate" method="post">
             </c:if>
             <c:if test = "${sessionScope.update!=null}">
@@ -194,6 +85,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
                             <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                                <c:if test = "${insert!= null}">
+                                    <a style="margin-left: 83%;border-radius: 20px" class="btn btn-primary" href="RoomcategoryController?do=getroombycategori" role="button">Danh Sách</a>
+                                </c:if>
                                 <div class="row">
                                     <div class="col-12" style="text-align: center">
                                         <c:if test = "${sessionScope.update==null}">
@@ -202,7 +96,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                         <c:if test = "${sessionScope.update!=null}">
                                             <h2 class="tm-block-title d-inline-block">Chỉnh Sủa Loại Phòng</h2> <br>
                                         </c:if>
-                                        <h4 style="color: black" class="tm-block-title d-inline-block">${roomcate.catename}</h4>
+                                        <h4 style="color: orange" class="tm-block-title d-inline-block">${roomcate.catename}</h4>
                                     </div>
                                 </div>
                                 <select hidden="" name="RoomCateId" style="text-align: center"
@@ -218,12 +112,10 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 for="name"
                                                 >Tên Loại Phòng
                                             </label>
-                                            <input style="text-align: center"
-                                                   id="stock"
-                                                   onchange="this.form.submit()"
+                                            <input style="text-align: center;color: orange"
                                                    name="RoomCateName"
                                                    type="text"
-                                                   
+                                                   required
                                                    maxlength="45"
                                                    value="${roomcate.catename}"
                                                    class="form-control validate"
@@ -233,17 +125,21 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                             <label
                                                 for="description"
                                                 >Ghi Chú</label>
-                                            <textarea style="text-align: center"               
+                                            <textarea style="text-align: center; color: orange"               
                                                       class="form-control validate tm-small"
                                                       rows="5"
-                                                      required
                                                       name="Note"
                                                       >${roomcate.note}</textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                                    <c:if test = "${sessionScope.update==null}">
+                                        <button type="submit" class="btn btn-primary btn-block text-uppercase" onclick="Save()">Save</button>
+                                    </c:if>
+                                    <c:if test = "${sessionScope.update!=null}">
+                                        <button type="submit" class="btn btn-primary btn-block text-uppercase" onclick="Saves()">Save</button>
+                                    </c:if>
                                 </div>
 
                             </div>
@@ -268,11 +164,29 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             <script src="js/bootstrap.min.js"></script>
             <!-- https://getbootstrap.com/ -->
             <script>
-            $(function () {
-                $("#expire_date").datepicker({
-                    defaultDate: "10/22/2020"
-                });
-            });
+                                            $(function () {
+                                                $("#expire_date").datepicker({
+                                                    defaultDate: "10/22/2020"
+                                                });
+                                            });
+            </script>
+            <script>
+                function Save() {
+                    var arr = document.getElementsByTagName('input');
+                    var name = arr[0].value;
+                    if (name != "") {
+                        alert("Thêm Mới Thành Công " + name + "");
+                    }
+                }
+            </script>
+            <script>
+                function Saves() {
+                    var arr = document.getElementsByTagName('input');
+                    var name = arr[0].value;
+                    if (name != "") {
+                        alert("Cập Nhật Thành Công " + name + "");
+                    }
+                }
             </script>
     </body>
 </html>

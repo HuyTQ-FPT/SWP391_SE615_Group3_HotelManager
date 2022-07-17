@@ -56,8 +56,8 @@ public class RoomcategoryController extends HttpServlet {
                 String cateroom = request.getParameter("cateroomid");
                 int ID = Integer.parseInt(cateroom);
                 if (ID == 6) {
-                    response.sendRedirect("RoomcategoryController?do=getroombycategori");
-
+                    request.setAttribute("Wrong", "Wrong");
+                    request.getRequestDispatcher("RoomcategoryController?do=getroombycategori").forward(request, response);
                 } else {
                     roomcatedao.deleteRoomCategory(cateroom);
                     response.sendRedirect("RoomcategoryController?do=getroombycategori");
@@ -97,15 +97,17 @@ public class RoomcategoryController extends HttpServlet {
                 String Note = request.getParameter("Note");
                 String RoomCateId = request.getParameter("RoomCateId");
                 roomcatedao.updateRoomCategory(RoomCateId, RoomCateName.replaceAll("\\s\\s+", " ").trim(), Note.replaceAll("\\s\\s+", " ").trim());
-               response.sendRedirect("RoomcategoryController?do=getroombycategori");
+                request.setAttribute("insert", "insert");
+                request.getRequestDispatcher("RoomcategoryController?do=updateroomcates&cateroomid=" + RoomCateId + "").forward(request, response);
 //                out.println("<h1>Servlet RoomcategoryController at"+RoomCateName+Note+RoomCateId+" </h1>");
             }
             if (doo.equals("insetroomcate")) {
                 String RoomCateName = request.getParameter("RoomCateName");
                 String Note = request.getParameter("Note");
                 roomcatedao.insertRoomCategory(RoomCateName.replaceAll("\\s\\s+", " ").trim(), Note.replaceAll("\\s\\s+", " ").trim());
-                request.setAttribute("update", "update");
-                request.getRequestDispatcher("RoomcategoryController?do=getroombycategori").forward(request, response);
+                RoomCategory roomcate = roomcatedao.getRoomCategori("select top(1)* from CateRoom order by RoomcateID desc");
+                request.setAttribute("insert", "insert");
+                request.getRequestDispatcher("RoomcategoryController?do=updateroomcates&cateroomid=" + roomcate.getRoomcateID() + "").forward(request, response);
 //                response.sendRedirect("RoomcategoryController?do=getroombycategori");
 //                out.println("<h1>Servlet RoomcategoryController at " + RoomCateName + Note+ "</h1>");
 //                response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);

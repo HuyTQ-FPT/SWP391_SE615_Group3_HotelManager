@@ -112,7 +112,6 @@ public class DeviceController extends HttpServlet {
                 String DeviceID = request.getParameter("DeviceId");
                 Device device = devicedao.Getdevices("select * from Device where DeviceID = " + DeviceID + "");
                 request.setAttribute("device", device);
-                request.setAttribute("insert", "insert");
 //                 out.println("<h1>Servlet DeviceController at " +device+ "</h1>");
                 request.getRequestDispatcher("updatedevice.jsp").forward(request, response);
             }
@@ -123,9 +122,10 @@ public class DeviceController extends HttpServlet {
                 devicedao.updateDeviceQuan(DeviceName.replaceAll("\\s\\s+", " ").trim(), DeviceID, Price);
                 Device device = devicedao.Getdevices("select * from Device where DeviceID = " + DeviceID + "");
                 request.setAttribute("device", device);
+                request.setAttribute("insert", "insert");
 //                out.println("<h1>Servlet DeviceController at " +DeviceID+ "</h1>");
 //                request.getRequestDispatcher("updatedevice.jsp").forward(request, response);
-                response.sendRedirect("DeviceController?do=listalldevice");
+                  request.getRequestDispatcher("DeviceController?do=UpdateDevice&DeviceId="+DeviceID+"").forward(request, response);
             }
             if (dos.equals("InsertDeviceRoom")) {
                 String Roomid = request.getParameter("RoomID");
