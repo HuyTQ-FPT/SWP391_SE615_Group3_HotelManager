@@ -73,7 +73,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
     </head>
 
     <body>
-<%@include file="headerAdmin.jsp"%>
+        <%@include file="headerAdmin.jsp"%>
         <form action="DeviceController?do=updatedevice" method="post">
             <div class="container tm-mt-big tm-mb-big">
                 <div class="row">
