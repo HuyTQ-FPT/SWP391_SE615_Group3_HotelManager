@@ -12,6 +12,8 @@ package listener;
 
 import dao.ViewDAO;
 import dao.impl.ViewDAOImpl;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
@@ -21,20 +23,23 @@ import javax.servlet.http.HttpSessionListener;
  * @author HieuLBM
  */
 public class countViewPage implements HttpSessionListener {
-    
-    // chạy ngay sau khi phiên làm việc đạo tạo
+
+    // chạy ngay sau khi phiên làm việc được tạo
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-         ViewDAO viewDAO = new ViewDAOImpl();
+        ViewDAO viewDAO = new ViewDAOImpl();
         if (se.getSession().isNew()) {
+
             try {
                 viewDAO.updateView();
-            } catch (Exception e) {
-                
+            } catch (Exception ex) {
+                Logger.getLogger(countViewPage.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
 
     }
+
     // chạy ngay sau khi phiên làm việc hết hạn
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {

@@ -16,38 +16,38 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <link rel="stylesheet" 
         href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
-        <script type="text/javascript" 
-        src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" 
-        src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-        <!-- https://fonts.google.com/specimen/Roboto -->
-        <link rel="stylesheet" href="css/fontawesome.min.css">
-        <!-- https://fontawesome.com/ -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <!-- https://getbootstrap.com/ -->
-        <link rel="stylesheet" href="css/templatemo-style.css">
+    <script type="text/javascript" 
+    src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" 
+    src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
 
-        <!-- Font Icon -->
-        <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
-    </head>
-    <style>
-        .form-group{
-            position: relative;
-        }
-        .style{
-            position: absolute;
-            left: 20px;
-            top:40px;
-            font-size: 10px;
-        }
-        .style1{
-            position: absolute;
-            left: 20px;
-            top:310px;
-            font-size: 10px;
-        }
-    </style>
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+</head>
+<style>
+    .form-group{
+        position: relative;
+    }
+    .style{
+        position: absolute;
+        left: 20px;
+        top:40px;
+        font-size: 10px;
+    }
+    .style1{
+        position: absolute;
+        left: 20px;
+        top:310px;
+        font-size: 10px;
+    }
+</style>
 </head>
 <body id="reportsPage">
     <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
@@ -89,16 +89,6 @@
                             Phòng
                         </a>
                     </li>
-
-                    <li class="nav-item dropdown nav-item">
-                        <a class="nav-link dropdown-toggle" href="accountAdmin.jsp" id="navbarDropdown" role="button" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-user"></i>
-                            <span>
-                                Quản lí tài khoản <i class="fas fa-angle-down"></i>
-                            </span>
-                        </a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
@@ -114,8 +104,18 @@
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="ManagerAccount">
+                            <i class="fas fa-address-card"></i></i> Role
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" href="RequestController?do=listRequest">
                             <i class="fas fa-newspaper "></i></i> Yêu cầu
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="NotificationController">
+                            <i class="fas fa-bell"></i> Thông báo
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -145,10 +145,10 @@
 
     </nav>
     <div class="tm-block-col tm-col-account-settings" style="margin-left: auto; margin-right: auto ">
-        <div class="tm-bg-primary-dark tm-block tm-block-settings" >
+        <h4 style="color: red;font-size: 15px;">${requestScope.err}</h4>
+        <h4 style="color: red;font-size: 15px;">${requestScope.mess1}</h4>
 
-            <h4 style="color: red;font-size: 15px;">${requestScope.err}</h4>
-            <h4 style="color: red;font-size: 15px;">${requestScope.mess1}</h4>
+        <div class="tm-bg-primary-dark tm-block tm-block-settings" >
             <form action="RequestController?do=sendReply" method="POST" class="tm-signup-form row">
                 <input hidden  name="mID" value="${sessionScope.mID}">
                 <div class="form-group col-lg-12">
@@ -217,7 +217,7 @@
         <button style="margin-left: 609px; margin-top: 40px"
                 class="btn btn-primary btn-block text-uppercase"
                 >
-            <a href="RequestController?do=seenRequest&mid=${mID}" >Trang trước</a> 
+            <a href="RequestController?do=seenRequest&mid=${mID}" > <b style="color: white">Trang trước</b></a> 
         </button>
     </div>
 </div>

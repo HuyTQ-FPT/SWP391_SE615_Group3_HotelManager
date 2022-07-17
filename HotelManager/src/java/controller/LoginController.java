@@ -11,7 +11,6 @@
  */
 package controller;
 
-import dao.AccountDAO;
 import dao.impl.AccountDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
@@ -20,10 +19,8 @@ import util.randomPassword;
 import context.DBContext;
 import dao.UserDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -225,9 +222,12 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
 
                 }
-
+                /**
+                 * Service forgetPassword: send email to user 
+                 * forgetPassword.jsp
+                 */
             }
-            if (service.equals("ForgetPassword1")) { // vào trang quên mật khẩu
+            if (service.equals("ForgetPassword1")) {
                 request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
             }
             if (service.equals("ChangePassword1")) { // vào trang đổi mật khẩu
@@ -337,7 +337,6 @@ public class LoginController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

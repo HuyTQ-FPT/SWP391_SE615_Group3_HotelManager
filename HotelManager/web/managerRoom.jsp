@@ -344,7 +344,7 @@
             </div>
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="padding: 15px">
                 <div class="container">
-                    <span class="admin">Lễ Tân</span>
+                    <span class="admin"><a href="HomeController">Lễ Tân</a></span>
                     
                     <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Đăng xuất</button>

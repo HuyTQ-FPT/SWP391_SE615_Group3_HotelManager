@@ -303,7 +303,7 @@
             </div>
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
-                    <span class="admin"></i>Lễ Tân</span>
+                  <span class="admin"><a href="HomeController">Lễ Tân</a></span>
                     <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
                     </form>
@@ -364,7 +364,7 @@
                         </td>
 
                         <td><%=u.getCMT()%></td>
-                        <td><a href="ReceptionistController?do=viewOrder&uID=<%= u.getUserID()%>">Xem</a></td>
+                        <td><a style="color: black" href="ReceptionistController?do=viewOrder&uID=<%= u.getUserID()%>"><ins>Xem</ins></a></td>
                     </tr> 
 
                     <%}%>

@@ -275,14 +275,7 @@ public class AdminController extends HttpServlet {
                         ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, to, from);
                         request.setAttribute("listReservation", listReservation);
                         request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
-                    } else if (roomDAO.checkRoom(name) == null) {
-                        Date to = Date.valueOf(checkin);
-                        Date from = Date.valueOf(checkout);
-                        /*Search by fields*/
-                        ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, to, from);
-                        request.setAttribute("listReservation", listReservation);
-                        request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
-                    } else {
+                    }else {
                         String err1 = "Tên phòng không tồn tại.";
                         request.setAttribute("err1", err1);
                         request.setAttribute("name", name);

@@ -52,16 +52,6 @@
                                 Phòng
                             </a>
                         </li>
-
-                        <li class="nav-item dropdown nav-item">
-                            <a class="nav-link dropdown-toggle" href="accountAdmin.jsp" id="navbarDropdown" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="far fa-user"></i>
-                                <span>
-                                    Quản lí tài khoản <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
