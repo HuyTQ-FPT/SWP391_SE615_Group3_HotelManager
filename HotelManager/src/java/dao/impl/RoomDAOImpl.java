@@ -60,7 +60,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
      /**
-     * check room Name from Room table
+     * Get List Room By command sql from Room table
      *
      * @param roomName
      * @return
