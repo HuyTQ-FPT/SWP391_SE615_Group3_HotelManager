@@ -325,7 +325,7 @@
                           margin-top: 10px;
                           ">
                         <div class="form-group d-flex" >
-                            <input name="Name" type="text" class="form-control pl-3" placeholder="Tìm kiếm tên" style="order-radius:8px">
+                            <input required="" maxlength="30" name="Name" type="text" class="form-control pl-3" placeholder="Tìm kiếm tên" style="order-radius:8px">
                             <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
                         </div>
                     </form>
@@ -340,7 +340,7 @@
 
                 </div>
                 <div class="oke" onclick="show()"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></div>
-                <div class="notif"><a href="NotificationController?do=Admin"><span class="iconify" data-icon="clarity:notification-solid"></a></span><h10 style="font-size:12px;">Admin</h10></div>
+                <div class="notif"><a href="FeedbackController?do=Admin"><span class="iconify" data-icon="clarity:notification-solid"></a></span><h10 style="font-size:12px;">Admin</h10></div>
             </nav>
 
         </section>
