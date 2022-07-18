@@ -1,3 +1,5 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="context.DBContext"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="entity.Room"%>
 <%@page import="java.util.Vector"%>
@@ -291,7 +293,7 @@
                 </div>
             </div>
             <div style="font-size: 20px;margin-left: 20%; padding-top: 50px;padding-bottom: 30px;" class="col-md-6">
-                <h2 style="color: red"class="display-4" data-aos="fade-up">Enjoy Your Stay</h2>
+                <h2 style="color: red"class="display-4" data-aos="fade-up">Tận hưởng chỗ ở của bạn</h2>
                     <p data-aos="fade-up" data-aos-delay="100" "><span style="color: blue;">Giá cả</span> và <span style="color: blue;">chất lượng</span> ngang bằng nhau chỉ giúp bạn bước chân vào cuộc chơi. <span style="color: blue;">Dịch vụ </span> sẽ giúp bạn chiến thắng cuộc chơi. </p>
             </div>
             <!-- End of /#Topic-header -->
@@ -386,23 +388,16 @@
                             <div class="blog-sidebar">
                                 <div class="block">
                                     <h4>Categories</h4>
+                                    <% DBContext db= new DBContext();
+                                                    ResultSet rs=db.getData("select * from CateRoom");
+                                                    while(rs.next()){
+                                                %>
                                     <div class="list-group" style="width: 250px">
-                                            <a href="RoomController?do=CateRoom&cate=1" class="list-group-item" style="font-size: 15px">
-                                                <i class="fa  fa-dot-circle-o"></i> Standard
-                                            </a>
-                                            <a href="RoomController?do=CateRoom&cate=2" class="list-group-item" style="font-size: 15px">
-                                                <i class="fa  fa-dot-circle-o"></i> Superior
-                                            </a>
-                                            <a href="RoomController?do=CateRoom&cate=3" class="list-group-item" style="font-size: 15px">
-                                                <i class="fa  fa-dot-circle-o"></i> Deluxe
-                                            </a>
-                                            <a href="RoomController?do=CateRoom&cate=4" class="list-group-item" style="font-size: 15px">
-                                                <i class="fa  fa-dot-circle-o"></i> Suite
-                                            </a>
-                                            <a href="RoomController?do=CateRoom&cate=5" class="list-group-item" style="font-size: 15px">
-                                                <i class="fa  fa-dot-circle-o"></i> Connecting room
+                                            <a href="RoomController?do=CateRoom&cate=<%=rs.getInt(1) %>" class="list-group-item" style="font-size: 15px">
+                                                <i class="fa  fa-dot-circle-o"></i> <%=rs.getString(2) %>
                                             </a>
                                         </div>
+                                    <%}%>
                                     </div>
                                     <div class="block">
                                         <h4>Sắp xếp :</h4>

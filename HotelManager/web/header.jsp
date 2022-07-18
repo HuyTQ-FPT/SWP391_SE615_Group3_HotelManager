@@ -4,6 +4,8 @@
     Author     : Thai Quan
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="context.DBContext"%>
 <%@page import="entity.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -34,21 +36,12 @@
                                         <li class="has-children">
                                             <a style="font-family: PlayFair Display" href="RoomController?page=1">Phòng</a>
                                             <ul class="dropdown arrow-top">
-                                                <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=1">Standard</a></li>
-                                                <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=2">Superior</a></li>
-                                                <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=3">Deluxe</a></li>
-                                                <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=4">Suite</a></li> 
-                                                <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=5">Connecting room</a></li> 
-                                                <li class="has-children">
-                                                    <a style="font-family: PlayFair Display" href="rooms.html">Dịch vụ</a>
-                                                    <ul class="dropdown">
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Phòng cao cấp</a></li>
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Tắm hơi</a></li>
-                                                        <li><a style="font-family: PlayFair Display" href="rooms.html">Ăn uống</a></li> 
-
-                                                    </ul>
-                                                </li>
-
+                                                <% DBContext db= new DBContext();
+                                                    ResultSet rs=db.getData("select * from CateRoom");
+                                                    while(rs.next()){
+                                                %>
+                                                <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=<%=rs.getInt(1) %>"><%=rs.getString(2) %></a></li>
+                                                <%}%>
                                             </ul>
                                         </li>
 

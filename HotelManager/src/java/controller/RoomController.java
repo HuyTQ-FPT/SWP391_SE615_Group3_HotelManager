@@ -116,7 +116,7 @@ public class RoomController extends HttpServlet {
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
                 session.removeAttribute("isroomde");
             }
-                       if (service.equals("CateRoom")) {
+            if (service.equals("CateRoom")) {
                 String cateid = request.getParameter("cate");
                 int id = Integer.parseInt(cateid);
                 Vector<Room> vector = dao.getRoomList("select * from Room Inner JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID \n"

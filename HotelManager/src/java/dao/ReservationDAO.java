@@ -22,13 +22,13 @@ import java.util.Vector;
  */
 public interface ReservationDAO {
 
-    public int updateReservation(Reservation re);
+    public int updateReservation(Reservation re) throws Exception;
 
-    public int addReservation(Reservation re);
+    public int addReservation(Reservation re) throws Exception;
 
-    public Vector<Reservation> Reservation(String sql);
+    public Vector<Reservation> Reservation(String sql) throws Exception;
 
-    public int removeReservation(int id);
+    public int removeReservation(int id) throws Exception;
     public int getPage() throws Exception;
     public Vector<Reservation> getReservationByPage(int n) throws Exception;
     public Vector<Reservation> searchRoom(String a, String b) throws Exception;

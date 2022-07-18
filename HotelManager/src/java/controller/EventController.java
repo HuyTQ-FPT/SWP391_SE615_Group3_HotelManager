@@ -5,11 +5,13 @@
  */
 package controller;
 
+import context.DBContext;
 import dao.impl.EventsDAOImpl;
 import entity.Account;
 import entity.Events;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,18 +44,26 @@ public class EventController extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String service = request.getParameter("do");
-            HttpSession session = request.getSession();
-            EventsDAOImpl dao = new EventsDAOImpl();
-            if (service == null) {
-                Vector<Events> vector = dao.getEventsList();
+            HttpSession session= request.getSession();
+            DBContext db= new DBContext();
+            EventsDAOImpl dao= new EventsDAOImpl();
+            if(service==null){
+                Vector<Events> vector= dao.getEventsList();
                 request.setAttribute("vector", vector);
                 request.getRequestDispatcher("events.jsp").forward(request, response);
-            }
-            if (service.equals("getEvent")) {
-                String id = request.getParameter("id");
-                String userid = request.getParameter("userid");
-                int n = dao.updateEvents(Integer.parseInt(id));
-                Vector<Events> vector = dao.getEventsList();
+            }if(service.equals("getEvent")){
+                String id =request.getParameter("id");
+                String userid =request.getParameter("userid");
+                int n=dao.updateEvents(Integer.parseInt(id));
+                int a=0;
+                ResultSet rs = db.getData("select * from [Events] where EventID="+id);
+                if(rs.next()){
+                    a=rs.getInt(7);
+                }
+                if(a<=0){
+                rs = db.getData("delete [Events] where EventID="+id);
+                }
+                Vector<Events> vector= dao.getEventsList();
                 request.setAttribute("vector", vector);
                 request.getRequestDispatcher("events.jsp").forward(request, response);
             }

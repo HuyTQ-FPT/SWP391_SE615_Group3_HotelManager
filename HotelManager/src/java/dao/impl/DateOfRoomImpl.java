@@ -5,6 +5,7 @@ import dao.DateOfRoomDAO;
 import entity.DateOfRoom;
 import entity.Reservation;
 import context.DBContext;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -12,18 +13,22 @@ import java.sql.SQLException;
 public class DateOfRoomImpl extends DBContext implements DateOfRoomDAO {
 
     @Override
-    public int updateReservation(DateOfRoom date) {
+    public int updateReservation(DateOfRoom date) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int addReservation(DateOfRoom date) {
+    public int addReservation(DateOfRoom date) throws Exception  {
         String sql = "INSERT INTO [SWPgroup3].[dbo].[DateOfRoom]\n"
                 + "           ([RoomID],[DateIn],[DateOut],[Status])\n"
                 + "     VALUES(?,?,?,?)";
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;  
         try {
             //        create statement: execute sql
-            PreparedStatement pre = conn.prepareStatement(sql);
+             conn = getConnection();
+            pre = conn.prepareStatement(sql);
             pre.setInt(1, date.getRoomID());
             pre.setDate(2, date.getDatein());
             pre.setDate(3, date.getDateout());
@@ -31,6 +36,9 @@ public class DateOfRoomImpl extends DBContext implements DateOfRoomDAO {
             pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return 0;
     }

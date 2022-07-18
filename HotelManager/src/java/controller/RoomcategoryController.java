@@ -124,7 +124,7 @@ public class RoomcategoryController extends HttpServlet {
                 request.getRequestDispatcher("RoomcategoryController?do=updateroomcates&cateroomid=" + RoomCateId + "").forward(request, response);
             }
             /**
-             * Update roomcategory : response to updateroomcate.jsp
+             * Insert roomcategory : response to updateroomcate.jsp
              * updateroomcate.jsp
              */
             if (doo.equals("insetroomcate")) {

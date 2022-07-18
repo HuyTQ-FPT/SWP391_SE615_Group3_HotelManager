@@ -295,7 +295,6 @@
                                     <c:if test="${sessionScope.login==null}" >
                                         <a href="LoginController">Đặt phòng</a>
                                     </c:if>
-                                 
                                 </div>
                             </div>
                         </c:if>
