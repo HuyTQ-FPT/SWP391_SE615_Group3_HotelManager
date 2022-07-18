@@ -1,14 +1,4 @@
-/*
- * Copyright (C) 2022, FPT University
- * SWP391 - SE1615 - Group3
- * HotelManager
- *
- * Record of change:
- * DATE          Version    Author           DESCRIPTION
- *               1.0                         First Deploy
- * 18/07/2022    1.0        HuyTQ            Comment
- *               1.1       
- */
+
 package controller;
 
 import dao.impl.AccountDAOImpl;
@@ -34,21 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "FeedbackController", urlPatterns = {"/FeedbackController"})
-/**
- * This class Feedback, Message
- *
- * @author HuyTQ
- */
 public class FeedbackController extends HttpServlet {
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods. Get list message and list message by name customer
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */ 
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -65,34 +42,22 @@ public class FeedbackController extends HttpServlet {
             if (service == null) {
                 service = "Viewfeedback";
             }
-            /**
-             * Service Viewfeedback: get the feedback to load the page 
-             * managerFeedback.jsp
-             */
-            if (service.equals("Viewfeedback")) { //Print out all comments
+            if (service.equals("Viewfeedback")) { //In ra tất cả các comment
                 ArrayList vector =dao.getAllComment();
                 ArrayList listAccount =dao2.getAccountList(); 
                 request.setAttribute("vector", vector);
                 request.setAttribute("listAccount", listAccount);
                 request.getRequestDispatcher("managerFeedback.jsp").forward(request, response);
             }
-            /**
-             * Service SearchName: get the feedback by name to load the page
-             * managerFeedback.jsp
-             */
-            if (service.equals("SearchName")) { //Print out comments by customer name
-                String name=request.getParameter("Name").trim();
+            if (service.equals("SearchName")) { //In ra tất cả các comment
+                String name=request.getParameter("Name");
                 ArrayList vector =dao.getCommentByName(name);
                 ArrayList listAccount =dao2.getAccountList(); 
                 request.setAttribute("vector", vector);
                 request.setAttribute("listAccount", listAccount);
                 request.getRequestDispatcher("managerFeedback.jsp").forward(request, response);
             }
-            /**
-             * Service Deletefeedback: remove the feedback and reload the page
-             * page FeedbackController
-             */
-            if (service.equals("Deletefeedback")) { //Delete comment
+            if (service.equals("Deletefeedback")) { //In ra tất cả các comment
                 Account a=(Account)session.getAttribute("login");
                 String content = request.getParameter("content").trim();
                 String aid = request.getParameter("aID");
@@ -104,11 +69,7 @@ public class FeedbackController extends HttpServlet {
                 dao.deleteMessage(mid);
                 response.sendRedirect("FeedbackController");
             }
-            /**
-             * Service ReportAccount: report account have feedback bad and reload the page
-             * page FeedbackController
-             */
-            if (service.equals("ReportAccount")) { //Report the account with bad comments
+            if (service.equals("ReportAccount")) { //In ra tất cả các comment
                 Account a=(Account)session.getAttribute("login");
                 String aId = request.getParameter("aID").toString();
                 String mId = request.getParameter("mID").toString();
@@ -124,11 +85,7 @@ public class FeedbackController extends HttpServlet {
                 response.addCookie(aID);
                 response.sendRedirect("FeedbackController");
             }
-            /**
-             * Service ExitReport: remove report account
-             * page FeedbackController
-             */
-            if (service.equals("ExitReport")) { //Remove account report
+            if (service.equals("ExitReport")) { //In ra tất cả các comment
                Account a=(Account)session.getAttribute("login");
                 String aId = request.getParameter("aID").toString();
                 String mId = request.getParameter("mID").toString();
@@ -143,30 +100,6 @@ public class FeedbackController extends HttpServlet {
                 aID.setMaxAge(0);
                 response.addCookie(aID);
                 response.sendRedirect("FeedbackController");
-            }
-            /**
-             * Service Admin Notification: get message of admin to load the page
-             * NotificationofAdmin.jsp
-             */
-            if (service.equals("Admin")) { // Print out the admin's messages to the front desk
-                Account a =(Account)session.getAttribute("login");
-                ArrayList<Notification> list =daoN.getMessagedmin(a.getUser());
-                request.setAttribute("list", list);
-                request.getRequestDispatcher("NotificationofAdmin.jsp").forward(request, response);
-            } 
-            /**
-             * Service Sent Admin Notification: sent message to admin and reload the page
-             * page FeedbackController?do=Admin
-             */
-            if (service.equals("SentAdmin")) { // Send a message from reception to admin
-                Account a=(Account)session.getAttribute("login");
-                 LocalDateTime current = LocalDateTime.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                String formatted = current.format(formatter);
-                String title =request.getParameter("title");
-                String content =request.getParameter("content").trim();
-                daoN.insertNotification(new Notification("Gửi tin nhắn đến Admin", a.getUser(), "Với", content, formatted));
-                response.sendRedirect("FeedbackController?do=Admin");
             }
         }catch(Exception ex){
             ex.printStackTrace();

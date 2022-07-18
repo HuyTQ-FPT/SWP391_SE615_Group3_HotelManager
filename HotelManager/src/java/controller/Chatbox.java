@@ -1,14 +1,3 @@
-/*
- * Copyright (C) 2022, FPT University
- * SWP391 - SE1615 - Group3
- * HotelManager
- *
- * Record of change:
- * DATE          Version    Author           DESCRIPTION
- *               1.0                         First Deploy
- * 18/07/2022    1.0        HuyTQ            Comment
- *               1.1       
- */
 package controller;
 
 import dao.impl.AccountDAOImpl;
@@ -34,21 +23,8 @@ import javax.websocket.server.ServerEndpoint;
 import jdk.nashorn.internal.ir.RuntimeNode;
 
 @ServerEndpoint(value = "/ChatSocket")
-/**
- * This class Message
- *
- * @author HuyTQ
- */
 public class Chatbox {
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods. Get and push message
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     static Set<Session> users = Collections.synchronizedSet(new HashSet<>());
 
     @OnOpen
@@ -71,21 +47,20 @@ public class Chatbox {
         String username = (String) userSession.getUserProperties().get("username");
         if (!message.isEmpty()) {
             if (username == null) {
-                userSession.getUserProperties().put("username", message);// Any user who sends a message will take it from the user
+                userSession.getUserProperties().put("username", message);// user nào nhắn tin sẽ lấy của user đấy 
             } else {
                 System.out.println(userSession.getUserProperties().get("username"));
                 int aid = 0;
                 int userid = 0;
                 String s1 = username;
                 String[] words = s1.split("\\s");
-                /* get the userid and accountid of the user sending the message*/
                 for (String w : words) {
                     userid = Integer.parseInt(w);
                     break;
                 }
                 for (String w : words) {
                     aid = Integer.parseInt(w);
-                }             
+                }
                 int Roleid = Mdao.getRoleIDByUserId(userid);
                 boolean exitAccount = false;
                 for (Integer a : listAc) {
@@ -103,7 +78,6 @@ public class Chatbox {
                     String ValueSS = "";
                     ValueSS = (String) session.getUserProperties().get("username");
                     String[] words1 = ValueSS.split("\\s");
-                    /*get the userid and accountid of the user who is texting*/
                     for (String w : words1) {
                         SessionUserid = Integer.parseInt(w);
                         break;
@@ -113,7 +87,7 @@ public class Chatbox {
                     }
                     String sent = "";
                     String revice = "";
-                    if (SessionUserid == userid) { // push the message to the messenger
+                    if (SessionUserid == userid) {
                         sent += "<div class=\"outgoing_msg\">\n"
                                 + "                                <div class=\"sent_msg\">\n"
                                 + "                                    <p>" + message + "</p>\n"
@@ -121,7 +95,7 @@ public class Chatbox {
                                 + "                                </div>\n"
                                 + "                            </div>";
                         session.getBasicRemote().sendText(sent);
-                    } else if (SessionAid == aid) { // push the message to the recipient
+                    } else if (SessionAid == aid) {
                         revice += "<div class=\"incoming_msg\">             \n"
                                 + "                                <div class=\"incoming_msg_img\"> <img src=\"https://ptetutorials.com/images/user-profile.png\" alt=\"sunil\"> </div>              \n"
                                 + "                                <div class=\"received_msg\">\n"
@@ -133,21 +107,21 @@ public class Chatbox {
                                 + "                            </div>";
                         session.getBasicRemote().sendText(revice);
                     }
-                    if (Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid != aid) { // Add message to database if the messager is on standby
+                    if (Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid != aid) {
                         if (Roleid == 1) {
                             Mdao.insertNewmessagecus(new Message(aid, date, message.trim()));
                         } else {
                             Mdao.insertMessageRe(new Message(aid, date, message));
                         }
                         session.getBasicRemote().sendText(aid + " " + "<span>*</span>");
-                    }else if(Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid == aid) {// Add message to database if the messager is doing it alone
+                    }else if(Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid == aid) {
                         if (Roleid == 1) {
                             Mdao.insertMessageCus(new Message(aid, date, message.trim()));
                         } else {
                             Mdao.insertMessageRe(new Message(aid, date, message.trim()));
                         }
                     }
-                    if (!exitAccount && Mdao.getRoleIDByUserId(userid) != 2) {// Add message to database if the messager is new
+                    if (!exitAccount && Mdao.getRoleIDByUserId(userid) != 2) {
                         if (Roleid == 1) {
                             Mdao.insertNewmessagecus(new Message(aid, date, message.trim()));
                         } else {
@@ -167,8 +141,9 @@ public class Chatbox {
                                 + "                            </a>");
                     }
                 }
-                if(Mdao.getRoleIDByUserId(userid)==1 && countSession==1){ // add message to data in case else
+                if(Mdao.getRoleIDByUserId(userid)==1 && countSession==1){
                             Mdao.insertNewmessagecus(new Message(aid, date, message.trim()));                       
+
                 }
             }
         }

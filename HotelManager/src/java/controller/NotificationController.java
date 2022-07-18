@@ -1,14 +1,4 @@
-/*
- * Copyright (C) 2022, FPT University
- * SWP391 - SE1615 - Group3
- * HotelManager
- *
- * Record of change:
- * DATE          Version    Author           DESCRIPTION
- *               1.0                         First Deploy
- * 18/07/2022    1.0        HuyTQ            Comment
- *               1.1       
- */
+
 package controller;
 
 import dao.impl.AccountDAOImpl;
@@ -34,21 +24,9 @@ import javax.servlet.http.HttpSession;
  * Tran Quang Huy
  */
 @WebServlet(name = "NotificationController", urlPatterns = {"/NotificationController"})
-/**
- * This class Receptionist
- *
- * @author HuyTQ
- */
 public class NotificationController extends HttpServlet {
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods. Get list notification, delete and sent notification
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -63,32 +41,35 @@ public class NotificationController extends HttpServlet {
                 service = "HomeNotification";
 
             }
-            /**
-             * Service HomeNotification: get all notification to load the page 
-             * Notification.jsp
-             */
-            if (service.equals("HomeNotification")) { // Print out all notices
-                /*get list notification*/
+            if (service.equals("HomeNotification")) {
                 ArrayList<Notification> list =daoN.getAllNotification();
                 ArrayList<Account> listA =daoA.getAccountList();
                 request.setAttribute("list", list);
                 request.setAttribute("listA", listA);
                 request.getRequestDispatcher("Notification.jsp").forward(request, response);
             } 
-            /**
-             * Service Delete: remove notification and reload the page 
-             * page NotificationController
-             */
-            if (service.equals("Delete")) { // Remove notifications
+            if (service.equals("Delete")) {
                 int nID=Integer.parseInt(request.getParameter("nID").toString());
                 daoN.deleteNotification(nID);
                 response.sendRedirect("NotificationController");
-            }   
-            /**
-             * Service SentMessage: sent message to receptionist and reload the page 
-             * page NotificationController
-             */
-            if (service.equals("SentMessage")) { // send a message to the front desk
+            } 
+            if (service.equals("Admin")) {
+                Account a =(Account)session.getAttribute("login");
+                ArrayList<Notification> list =daoN.getMessagedmin(a.getUser());
+                request.setAttribute("list", list);
+                request.getRequestDispatcher("NotificationofAdmin.jsp").forward(request, response);
+            } 
+            if (service.equals("SentAdmin")) {
+                Account a=(Account)session.getAttribute("login");
+                 LocalDateTime current = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                String formatted = current.format(formatter);
+                String title =request.getParameter("title");
+                String content =request.getParameter("content").trim();
+                daoN.insertNotification(new Notification("Gửi tin nhắn đến Admin", a.getUser(), "Với", content, formatted));
+                response.sendRedirect("NotificationController?do=Admin");
+            } 
+            if (service.equals("SentMessage")) {
                 LocalDateTime current = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                 String formatted = current.format(formatter);

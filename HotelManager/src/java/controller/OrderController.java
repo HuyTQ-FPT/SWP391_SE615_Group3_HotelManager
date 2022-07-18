@@ -1,14 +1,3 @@
-/*
- * Copyright (C) 2022, FPT University
- * SWP391 - SE1615 - Group3
- * HotelManager
- *
- * Record of change:
- * DATE          Version    Author           DESCRIPTION
- *               1.0                         First Deploy
- * 18/07/2022    1.0        HuyTQ            Comment
- *               1.1       
- */
 package controller;
 
 import dao.impl.DateOfRoomImpl;
@@ -37,23 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
-/**
- * This class Receptionist
- *
- * @author HuyTQ
- */
 public class OrderController extends HttpServlet {
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods. Get list Room and search name and update status Get list
-     * customer information and have a search function by name Get list
-     * OrderDetails a Customer
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
