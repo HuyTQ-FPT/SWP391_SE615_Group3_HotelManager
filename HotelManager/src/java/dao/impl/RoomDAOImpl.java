@@ -7,6 +7,7 @@
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
  * 13/07/2022    1.0        HieuLBM          Comment
+ * 18/07/2022    1.0        HieuHT           Comment
  */
 package dao.impl;
 
@@ -214,6 +215,12 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * count Rooms from Room table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public int getPage() throws Exception {
         int n = 0;
@@ -286,6 +293,13 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return n;
     }
 
+    /**
+     * Show Room by page from Room table
+     *
+     * @param n
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Room> getRoomByPage(int n) throws Exception {
         Vector<Room> vector = new Vector<Room>();
@@ -337,6 +351,12 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
+    /**
+     * count Rooms by status from Room table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public int getPageByPageStatus() throws Exception {
         int n = 0;
@@ -373,6 +393,13 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return n;
     }
 
+    /**
+     * Show Rooms by page and status from Room table
+     *
+     * @param n
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Room> getRoomByPageStatus(int n) throws Exception {
         Vector<Room> vector = new Vector<Room>();
@@ -424,6 +451,15 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
+    /**
+     * count Rooms by Price from Room table
+     *
+     * @param n
+     * @param from
+     * @param to
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Room> getRoomListbyPrice(int n, int from, int to) throws Exception {
         Vector<Room> vector = new Vector<Room>();
@@ -476,6 +512,14 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
+    /**
+     * count Rooms by Price from Room table
+     *
+     * @param p1
+     * @param p2
+     * @return
+     * @throws Exception
+     */
     @Override
     public int getPageByPrice(int p1, int p2) throws Exception {
         int n = 0;
@@ -512,6 +556,13 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return n;
     }
 
+    /**
+     * Show Rooms by price max from Room table
+     *
+     * @param n
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Room> getRoomByPriceMax(int n) throws Exception {
         Vector<Room> vector = new Vector<Room>();
@@ -563,6 +614,13 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
+    /**
+     * Show Rooms by price min from Room table
+     *
+     * @param n
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Room> getRoomByPriceMin(int n) throws Exception {
         Vector<Room> vector = new Vector<Room>();
@@ -614,6 +672,13 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
+    /**
+     * Show Rooms by Rate from Room table
+     *
+     * @param n
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Room> getRoomByRate(int n) throws Exception {
         Vector<Room> vector = new Vector<Room>();
@@ -665,6 +730,15 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return vector;
     }
 
+    /**
+     * search Rooms by date check in check out from Room table
+     *
+     * @param a
+     * @param datein
+     * @param dateout
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<RoomByDate> seachRoom(String a, String datein, String dateout) throws Exception {
 

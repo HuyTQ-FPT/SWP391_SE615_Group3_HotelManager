@@ -62,13 +62,13 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <td style="background-color: 435C70 ; width: 10%; color: orangered; font-style: inherit;text-align: center"><fmt:formatNumber value="${r.roomprice} "/> đ</td>  
                         <td style="background-color: 435C70 ; color: beige ; width: 10%; font-family: fantasy;text-align: center">${r.cateroom}</td> 
                         <c:if test="${r.status==0}">
-                            <td style="background-color: 435C70 ; width: 10%;text-align: center">Available</td>  
+                            <td style="background-color: 435C70 ; width: 10%;text-align: center">Hoạt Động</td>  
                         </c:if>
                         <c:if test="${r.status==1}">
-                            <td style="background-color: 435C70 ; width: 10% ;text-align: center">Unavailable</td>  
+                            <td style="background-color: 435C70 ; width: 10% ;text-align: center">Phòng Bảo Trì</td>  
                         </c:if>
                         <c:if test="${r.status==2}">
-                            <td style="background-color: 435C70 ; width: 10%;text-align: center">Other</td>  
+                            <td style="background-color: 435C70 ; width: 10%;text-align: center">Khác</td>  
                         </c:if>
                         <td style="background-color: 435C70 ;width: 20%" >
                             <a style="border-radius: 10px; margin-left: 29%" href="DeviceController?do=listdevicebyroom&RoomID=${r.roomID}" class="btn btn-info" role="button">
@@ -105,7 +105,11 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 "zeroRecords": "Không Có Bản Ghi Nào Phù Hợp",
                                 "info": "Hiển Thị Trang _PAGE_ Trên _PAGES_",
                                 "infoEmpty": "Danh Sách Trống",
-                                "infoFiltered": "(Không Tìm Thấy Phòng Phù Hợp/_MAX_Phòng)"
+                                "infoFiltered": "(Không Tìm Thấy Phòng Phù Hợp/_MAX_Phòng)",
+                                "paginate": {
+                                    "next": "Tiếp",
+                                    "previous": "Trước"
+                                },
                             }
                         });
             });

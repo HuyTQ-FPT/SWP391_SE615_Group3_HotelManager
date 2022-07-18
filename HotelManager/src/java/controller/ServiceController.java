@@ -227,7 +227,7 @@ public class ServiceController extends HttpServlet {
                 }
                 request.setAttribute("insert", "insert");
                 ServiceDao.updateService(ServiceName.replaceAll("\\s\\s+", " ").trim(), ServiceImage, ServiceDes.replaceAll("\\s\\s+", " ").trim(), ServicePrice, ServiceID);
-                request.getRequestDispatcher("ServiceController?do=UpDateService&ServiceId=5").forward(request, response);
+                request.getRequestDispatcher("ServiceController?do=UpDateService&ServiceId="+ServiceID+"").forward(request, response);
             }
             if (doo.equals("InSert")) {
                 ArrayList<String> service = new ArrayList<String>();
