@@ -90,11 +90,9 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
      */
     @Override
     public void insertRoomCategory(String roomcatename, String roomcatedes) throws Exception{
-        /* Prepared statement for executing sql queries */
-        PreparedStatement pre = null;
-        /* Result set returned by the sqlserver */
         String query = "insert into CateRoom (Catename, [note]) \n"
                 + "                values (?,?);";
+        PreparedStatement pre =null;
         try {
             pre = conn.prepareStatement(query);
             pre.setString(1, roomcatename);
@@ -105,7 +103,6 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
         }
         finally {
             closePreparedStatement(pre);
-            closeConnection(conn);
         }
     }
 
