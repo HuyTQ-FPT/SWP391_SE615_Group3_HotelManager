@@ -82,11 +82,14 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     public Vector<Room> getRoomList1(String sql) throws Exception {
         Connection conn = null;
         /* Prepared statement for executing sql queries */
- /* Result set returned by the sqlserver */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         Vector<Room> vector = new Vector<Room>();
         try {
-            rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -108,6 +111,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
             ex.printStackTrace();
         } finally {
             closeResultSet(rs);
+            closePreparedStatement(pre);
             closeConnection(conn);
         }
         return vector;
