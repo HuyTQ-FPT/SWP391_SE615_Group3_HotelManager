@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="css/hotelbill.css">
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" />
         <title>Thông tin đăng nhập</title>
         <style>
             body {
@@ -180,6 +182,14 @@
                                             <option value="4"> 6 </option>
                                         </select>
                                     </div>
+                                      <div class="col-50">
+                                      <label style="display: inline-block; padding-top: 30px;font-size: 20px;" for="state">Giảm giá</label>
+                                        <select id="id_select2_example" style="font-size: 10px;width: 140px;height: 20px;" name="Adult" selected>
+                                            <option data-img_src="images/about_3">Python programming</option>
+        <option  data-img_src="https://sdtimes.com/wp-content/uploads/2018/09/Java-logo-490x301.jpg">Java programming</option>
+        <option  data-img_src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/783373/1160/772/m1/fpnw/wm0/letter-c-cm-.png?1447712834&s=c2ab07fcddfa8acf10c5a0c40f0578c2">C programming</option>
+                                        </select>
+                                    </div>
                                     <div id="mess"></div>
                                 </div>
                             </div>
@@ -221,13 +231,13 @@
                         </div>
                 </div>
             </div>
-                                <div class="col-25">
+                                <div style="padding-top:0px;"class="col-25">
                 <% ResultSet rs = (ResultSet) request.getAttribute("rs");
                     if (rs.next()) {
                 %>
-                <div style="padding-bottom: 20px;"  class="container1">
+                <div style="padding-bottom: 50px;height:  400px;"  class="container1">
                     <div>
-                        <h4 style="margin-left: 20px; font-size: 30px;; font-weight: bold; color: red"><label class="price" style="color:black; padding-left: 50px;color: orangered;"><i class='fas fa-hotel'></i></s</label> Hoang Hon </h4>                       
+                        <h4 style="margin-top: 5px; font-size: 30px;; font-weight: bold; color: red"> Hoang Hon </h4>                       
                     </div>
                     <div>
                         <p style="font-size: 20px; font-weight: bold"><%=rs.getString(19)%>- <%=rs.getInt(2)%> </p>
@@ -247,7 +257,7 @@
                     <p style="color: green;">Miễn phí huỷ phòng đến trước <%=da%> </p>
 
                 </div>
-                <div class="container">
+                    <div style="margin-top:0px;"class="container">
                     <h4>Phòng <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4>
                     <p><a href="RoomController?do=roomdetail&roomid=<%=id%>"><%=rs.getString(19)%>- <%=rs.getInt(2)%></a> <span class="price" style="color:black;font-weight: bold" ><%=rs.getDouble(6)%></span></p>
                     <input type="hidden" name="price" value="<%=rs.getDouble(6)%>">
@@ -255,7 +265,7 @@
                     <p>Tổng giá <span class="price" style="color:black"><%=rs.getDouble(6)%></span></p>
                 </div>
             </div>
-            <input type="submit" value="Tiếp tực để xác nhận" class="btn" >
+                <input style="margin-top: 38px;height: 50px;" type="submit" value="Tiếp tục để xác nhận" class="btn" >
             </form>
         </div>
         <%}%>
@@ -305,3 +315,23 @@
 
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
+<script type="text/javascript">
+    function custom_template(obj){
+            var data = $(obj.element).data();
+            var text = $(obj.element).text();
+            if(data && data['img_src']){
+                img_src = data['img_src'];
+                template = $("<div><img src=\"" + img_src + "\" style=\"width:100%;height:150px;\"/><p style=\"font-weight: 700;font-size:14pt;text-align:center;\">" + text + "</p></div>");
+                return template;
+            }
+        }
+    var options = {
+        'templateSelection': custom_template,
+        'templateResult': custom_template,
+    }
+    $('#id_select2_example').select2(options);
+    $('.select2-container--default .select2-selection--single').css({'height': '220px'});
+
+</script>
