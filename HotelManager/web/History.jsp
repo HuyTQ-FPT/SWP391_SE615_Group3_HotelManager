@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="en">
 
@@ -75,11 +76,11 @@
                         <thead class="cart-table-head" style="background-color:gray;">
                             <tr class="table-head-row">
                                 <th class="supplier-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Phòng</th>
-                                <th class="supplier-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Check in</th>
-                                <th class="category-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Check out</th>
+                                <th class="supplier-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Từ ngày</th>
+                                <th class="category-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Đến ngày</th>
                                 <th class="product-name" style="padding-right: 60px; padding-left: 60px; color: white;font-weight: bold; ">Tổng tiền</th>
                                 <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Trạng thái</th>
-                                <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Feedback</th>
+                                <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Phản hồi</th>
                             </tr>
                         </thead> 
                         <tbody>
@@ -108,7 +109,7 @@
                             <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getRoomID() %> </th>
                             <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getCheckin()%> </th>
                             <th class="category-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getCheckout()%></th>
-                            <th class="product-name" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getTotal() %></th>
+                            <th class="product-name" style="padding-left: 50px;padding-right: 30px;" name=""><fmt:formatNumber value="<%=pro.getTotal() %>" /> đ</th>
                             <% if(pro.getStatus()==1) {%>
                             <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name="">Đã đặt</th>
                             <%while(rs1.next()){

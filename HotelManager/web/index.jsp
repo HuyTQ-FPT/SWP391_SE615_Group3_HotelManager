@@ -559,25 +559,25 @@ Author     : admin
                                 <div class="col-md-4 text-center">
                                     <div>
                                         <span class="icon-room text-white h2 d-block"></span>
-                                        <h2>Location</h2>
+                                        <h2>Địa điểm:</h2>
                                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6403.40234353664!2d107.08224774036356!3d20.95655790979934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a5816439d4427%3A0x199156ac489da67d!2zNDIgVHLhuqduIEjGsG5nIMSQ4bqhbywgQ2FvIFRo4bqvbmcsIFRow6BuaCBwaOG7kSBI4bqhIExvbmcsIFF14bqjbmcgTmluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1656520360741!5m2!1svi!2s" width="400" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center">
                                 <div>
                                     <span class="icon-clock-o text-white h2 d-block"></span>
-                                    <h2>Service Times</h2>
-                                    <p class="mb-0">Wednesdays at 6:30PM - 7:30PM <br>
-                                        Fridays at Sunset - 7:30PM <br>
-                                        Saturdays at 8:00AM - Sunset</p>
+                                    <h2>Thời gian làm việc:</h2>
+                                    <p class="mb-0">Thứ hai:6:30PM - 7:30PM <br>
+                                        Thứ bảy: 7:30PM <br>
+                                       Chủ nhật:8:00AM - Sunset</p>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center">
                                 <div>
                                     <span class="icon-comments text-white h2 d-block"></span>
-                                    <h2>Get In Touch</h2>
+                                    <h2>Liên hệ</h2>
                                     <p class="mb-0">Email: info@yoursite.com <br>
-                                        Phone: (123) 3240-345-9348 </p>
+                                       Số điện thoại: (123) 3240-345-9348 </p>
 
                                 </div>
                             </div>

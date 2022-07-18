@@ -157,7 +157,7 @@
     <br><br><br>
         <div class="col-md-8" id ="mainform">
             <div class="col-sm-8">
-                <h2  class="contact-us" style="font-size:72px; color:#000;"><strong style="font-size:5cm; color:#555;">F</strong>eedback</h2>
+                <h2  class="contact-us" style="font-size:72px; color:#000;"><strong style="font-size:5cm; color:#555;">P</strong>hản hồi</h2>
             </div>
             <div class="col-sm-8" >
                 <form action="UserController?do=Feedback&roomID=${requestScope.roomID}&aid=${requestScope.aid}" method="post">

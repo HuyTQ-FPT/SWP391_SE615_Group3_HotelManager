@@ -20,22 +20,16 @@
                             <div class="col-md-6">
                                 <h3 class="footer-heading mb-4 text-white">Nội dung</h3>
                                 <ul class="list-unstyled">
-<!--                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">Services</a></li>
-                                    <li><a href="#">Approach</a></li>
-                                    <li><a href="#">Sustainability</a></li>
-                                    <li><a href="#">News</a></li>
-                                    <li><a href="#">Careers</a></li>-->
+                                    <li><a href="#">Thông tin</a></li>
+                                    <li><a href="#">Dịch vụ</a></li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <h3 class="footer-heading mb-4 text-white">Chi tiết</h3>
                                 <ul class="list-unstyled">
-<!--                                    <li><a href="#">Children</a></li>
-                                    <li><a href="#">Women</a></li>
-                                    <li><a href="#">Bible Study</a></li>
-                                    <li><a href="#">Church</a></li>
-                                    <li><a href="#">Missionaries</a></li>-->
+                                    <li><a href="#">Trẻ con</a></li>
+                                    <li><a href="#">Phụ nữ</a></li>
+                                    <li><a href="#">Phòng học</a></li>
                                 </ul>
                             </div>
                         </div>
