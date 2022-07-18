@@ -63,7 +63,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     document.myForm.phone.focus();
                     return false;
                 } else {
-                    alert("Update success");
+                    alert("Cập nhật thành công!");
                 }
             }
         </script>

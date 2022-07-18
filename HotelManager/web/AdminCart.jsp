@@ -43,9 +43,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             <form action="OrderController" method="get" style="margin-left: 20px" name="myForm" onsubmit="return ValiDate()" >
                 <input type="hidden" name="do" value="sortByDate">
                 <input type="date" name="date1" id="date1" value="${date1}"> 
-                <span style="color: yellow; font-size: 20px"> To</span>
+                <span style="color: yellow; font-size: 20px"> Đến</span>
                 <input type="date" name="date2" id="date2" value="${date2}"> 
-                <input type="submit" name="Search" style="color: blue;" value="Search">
+                <input type="submit" name="Search" style="color: blue;" value="Tìm kiếm">
 
             </form>
             <table id="myTable" class="display table" width="90%">  
@@ -63,8 +63,8 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <th style="text-align: center">Tổng giá</th>  
                         <th style="text-align: center">Trạng thái</th>  
                         <th style="text-align: center">Ngày đặt hóa đơn</th>  
-                        <th style="text-align: center">Update</th>  
-                        <th style="text-align: center">Delete</th>  
+                        <th style="text-align: center">Cập nhật</th>  
+                        <th style="text-align: center">Xóa</th>  
                     </tr>  
                 </thead>  
 
@@ -141,7 +141,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         </footer>
         <script>
             function Delete() {
-                alert("Delete Succesfully!");
+                alert("Đã hủy đơn đặt phòng!");
             }
             function ValiDate() {
                 let checkin = document.forms["myForm"]["date1"].value;

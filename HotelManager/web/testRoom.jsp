@@ -220,22 +220,22 @@
                         <div class="container">
                             <div class="row align-items-center justify-content-center">
                                 <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                                    <form action="RoomController" method="get" class="tm-search-form tm-section-pad-2">
+                                    <form action="RoomController" method="get" class="tm-search-form tm-section-pad-2" onsubmit="return Validate()">
                                         <input type="hidden" name="do" value="searchRoom">
                                         <div class="form-row tm-search-form-row">
                                             <div class="form-group tm-form-element tm-form-element-50">
                                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+                                                <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Ngày đến">
                                             </div>
                                             <div class="form-group tm-form-element tm-form-element-50">
                                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Ngày đi">
                                             </div>
                                         </div>
                                         <div class="form-row tm-search-form-row">
                                             <div class="form-group tm-form-element tm-form-element-2">
                                                 <select name="adult" class="form-control tm-select" id="adult">
-                                                    <option value="">Adult</option>
+                                                    <option value="">Người lớn</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -251,7 +251,7 @@
                                             </div>
                                             <div class="form-group tm-form-element tm-form-element-2">
                                                 <select name="children" class="form-control tm-select" id="children">
-                                                    <option value="">Children</option>
+                                                    <option value="">Trẻ em</option>
                                                     <option value="0">0</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -268,7 +268,7 @@
                                             </div>
                                             <div class="form-group tm-form-element tm-form-element-2">
                                                 <select name="room" class="form-control tm-select" id="room">
-                                                    <option value="">Room</option>
+                                                    <option value="">Phòng</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -281,8 +281,7 @@
                                                 <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
                                             </div>
                                             <div class="form-group tm-form-element tm-form-element-2">
-                                                <button type="submit" class="btn btn-primary tm-btn-search">Check
-                                                    Availability</button>
+                                                <button type="submit" class="btn btn-primary tm-btn-search">Tìm kiếm phòng</button>
                                             </div>
                                         </div>                         
                                     </form>
@@ -327,7 +326,7 @@
                                                 <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
                                                     <h4 style="color: #b09700;font-size: 25px; text-align: center;font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%>-<%=v.getRoomname()%></h4>
                                             </a>
-                                            <h1 style="color: red;font-size: 18px" class="price""><fmt:formatNumber value="<%=v.getRoomprice()%>"/> đ/ một đêm</h1>
+                                            <h1 style="color: red;font-size: 18px" class="price"><fmt:formatNumber value="<%=v.getRoomprice()%>"/> đ/ một đêm</h1>
                                               <div class="hotel-room-body">
                                                         <div class="add-to-cart">
                                                             <form action="RoomController">
@@ -387,7 +386,7 @@
                         <div style="padding-top: 80px;" class="col-md-2">
                             <div class="blog-sidebar">
                                 <div class="block">
-                                    <h4>Categories</h4>
+                                    <h4>Loại phòng</h4>
                                     <% DBContext db= new DBContext();
                                                     ResultSet rs=db.getData("select * from CateRoom");
                                                     while(rs.next()){
@@ -406,13 +405,13 @@
                                             <input type="hidden" name="page" value="1">
                                             <table>
                                                 <tr>
-                                                    <td>From</td><td><input style="width: 100px;"type="number" name="price1" min="0" max="10000" value=""/></td>
+                                                    <td>Từ</td><td><input style="width: 100px;"type="number" name="price1" min="0" max="10000" value=""/></td>
                                             </tr>
                                             <tr>
-                                                <td>To</td><td><input style="width: 100px;" type="number" name="price2" min="0" max="100000" value=""/></td>
+                                                <td>Đến</td><td><input style="width: 100px;" type="number" name="price2" min="0" max="100000" value=""/></td>
                                             </tr>
                                             <tr>
-                                                <td></td><td><input type="submit" value="Find"/></td>
+                                                <td></td><td><input type="submit" value="Tìm kiếm"/></td>
                                             </tr>
                                         </table>
                                     </form>

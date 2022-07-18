@@ -1,9 +1,12 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="context.DBContext"%>
 <%@page import="entity.RoomByDate"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="entity.Room"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -218,22 +221,22 @@
                         <div class="container">
                             <div class="row align-items-center justify-content-center">
                                 <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                                    <form action="RoomController" method="get" class="tm-search-form tm-section-pad-2">
+                                    <form action="RoomController" method="get" class="tm-search-form tm-section-pad-2" onsubmit="return Validate()">
                                         <input type="hidden" name="do" value="searchRoom">
                                         <div class="form-row tm-search-form-row">
                                             <div class="form-group tm-form-element tm-form-element-50">
                                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+                                                <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Ngày đến">
                                             </div>
                                             <div class="form-group tm-form-element tm-form-element-50">
                                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Ngày đi">
                                             </div>
                                         </div>
                                         <div class="form-row tm-search-form-row">
                                             <div class="form-group tm-form-element tm-form-element-2">
                                                 <select name="adult" class="form-control tm-select" id="adult">
-                                                    <option value="">Adult</option>
+                                                    <option value="">Người lớn</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -249,7 +252,7 @@
                                             </div>
                                             <div class="form-group tm-form-element tm-form-element-2">
                                                 <select name="children" class="form-control tm-select" id="children">
-                                                    <option value="">Children</option>
+                                                    <option value="">Trẻ em</option>
                                                     <option value="0">0</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -266,7 +269,7 @@
                                             </div>
                                             <div class="form-group tm-form-element tm-form-element-2">
                                                 <select name="room" class="form-control tm-select" id="room">
-                                                    <option value="">Room</option>
+                                                    <option value="">Phòng</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -279,8 +282,7 @@
                                                 <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
                                             </div>
                                             <div class="form-group tm-form-element tm-form-element-2">
-                                                <button type="submit" class="btn btn-primary tm-btn-search">Check
-                                                    Availability</button>
+                                                <button type="submit" class="btn btn-primary tm-btn-search">Tìm kiếm phòng</button>
                                             </div>
                                         </div>                         
                                     </form>
@@ -334,28 +336,28 @@
                                                     <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
                                                         <h4 style="color: #b09700;font-size: 25px; text-align: center;font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%>-<%=v.getRoomname()%></h4>
                                                 </a>
-                                                <h1 style="color: red;font-size: 18px" class="price"> €<%=v.getRoomprice()%>/một đêm</h1>
-                                                    
-                                                <div class="hotel-room-body">
-                                              
-                                                <div class="add-to-cart">
-                                                        <form action="RoomController">
-                                                            <input type="hidden" name="do" value="roomdetail">
+                                                <h1 style="color: red;font-size: 18px" class="price"><fmt:formatNumber value="<%=v.getRoomprice()%>"/> đ/ một đêm</h1>
+
+                                                    <div class="hotel-room-body">
+
+                                                        <div class="add-to-cart">
+                                                            <form action="RoomController">
+                                                                <input type="hidden" name="do" value="roomdetail">
+                                                                <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
+                                                                <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
+                                                                <button  style="margin-top: 10px;position: fixed;left: 10px;" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
+                                                        </form>
+
+                                                        <form action="CompareRoomController">
+                                                            <input type="hidden" name="do" value="ViewCompare">
                                                             <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
                                                             <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
-                                                            <button  style="margin-top: 10px;position: fixed;left: 10px;" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
-                                                    </form>
-
-                                                    <form action="CompareRoomController">
-                                                        <input type="hidden" name="do" value="ViewCompare">
-                                                        <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
-                                                        <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
-                                                        <button style="margin-left: 150px;position: fixed;left: 40px;top: 29px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
-                                                    </form>
-                                                </div> 
-                                            </div>
-                                                              
+                                                            <button style="margin-left: 150px;position: fixed;left: 40px;top: 29px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
+                                                        </form>
+                                                    </div> 
                                                 </div>
+
+                                            </div>
                                             <!-- End of /.products -->
                                         </li>
                                         <%}%>
@@ -399,39 +401,32 @@
                             <div class="col-md-2">
                                 <div class="blog-sidebar">
                                     <div class="block">
-                                        <h4>Catagories</h4>
+                                        <h4>Loại phòng</h4>
+                                        <% DBContext db = new DBContext();
+                                            ResultSet rs = db.getData("select * from CateRoom");
+                                            while (rs.next()) {
+                                        %>
                                         <div class="list-group" style="width: 250px">
-                                                <a href="RoomController?do=CateRoom&cate=1" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Standard
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=2" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Superior
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=3" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Deluxe
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=4" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Suite
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=5" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Connecting room
+                                                <a href="RoomController?do=CateRoom&cate=<%=rs.getInt(1)%>" class="list-group-item" style="font-size: 15px">
+                                                    <i class="fa  fa-dot-circle-o"></i> <%=rs.getString(2)%>
                                                 </a>
                                             </div>
+                                            <%}%>
                                         </div>
                                         <div class="block">
                                             <h4>Sắp xếp :</h4>
                                             <form action="RoomController" method="get">
-                                                <input type="hidden" name="do" value="sortByPriceBetween"  >
+                                                <input type="hidden" name="do" value="sortByPriceBetween">
                                                 <input type="hidden" name="page" value="1">
                                                 <table>
                                                     <tr>
-                                                        <td>From</td><td><input type="number" name="price1" min="0" max="10000" value=""/></td>
+                                                        <td>Từ</td><td><input type="number" name="price1" min="0" max="10000" value=""/></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>To</td><td><input type="number" name="price2" min="0" max="10000" value=""/></td>
+                                                        <td>Đến</td><td><input type="number" name="price2" min="0" max="10000" value=""/></td>
                                                     </tr>
                                                     <tr>
-                                                        <td></td><td><input type="submit" value="Find"/></td>
+                                                        <td></td><td><input type="submit" value="Tìm kiếm"/></td>
                                                     </tr>
                                                 </table>
                                             </form>
@@ -480,139 +475,139 @@
                 <script src="slick/slick.min.js"></script>
                 <!-- http://kenwheeler.github.io/slick/ -->
                 <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        var mediaElements = document.querySelectorAll('video, audio'),
-                                total = mediaElements.length;
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            var mediaElements = document.querySelectorAll('video, audio'),
+                                                    total = mediaElements.length;
 
-                        for (var i = 0; i < total; i++) {
-                            new MediaElementPlayer(mediaElements[i], {
-                                pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                                shimScriptAccess: 'always',
-                                success: function () {
-                                    var target = document.body.querySelectorAll('.player'),
-                                            targetTotal = target.length;
-                                    for (var j = 0; j < targetTotal; j++) {
-                                        target[j].style.visibility = 'visible';
-                                    }
-                                }
-                            });
-                        }
-                    });
-                    /* Google map
-                     ------------------------------------------------*/
-                    var map = '';
-                    var center;
-                    function initialize() {
-                        var mapOptions = {
-                            zoom: 16,
-                            center: new google.maps.LatLng(13.7567928, 100.5653741),
-                            scrollwheel: false
-                        };
-                        map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
-                        google.maps.event.addDomListener(map, 'idle', function () {
-                            calculateCenter();
-                        });
-                        google.maps.event.addDomListener(window, 'resize', function () {
-                            map.setCenter(center);
-                        });
-                    }
-                    function calculateCenter() {
-                        center = map.getCenter();
-                    }
-                    function loadGoogleMap() {
-                        var script = document.createElement('script');
-                        script.type = 'text/javascript';
-                        script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
-                        document.body.appendChild(script);
-                    }
-                    function setCarousel() {
-                        if ($('.tm-article-carousel').hasClass('slick-initialized')) {
-                            $('.tm-article-carousel').slick('destroy');
-                        }
-                        if ($(window).width() < 438) {
-                            // Slick carousel
-                            $('.tm-article-carousel').slick({
-                                infinite: false,
-                                dots: true,
-                                slidesToShow: 1,
-                                slidesToScroll: 1
-                            });
-                        } else {
-                            $('.tm-article-carousel').slick({
-                                infinite: false,
-                                dots: true,
-                                slidesToShow: 2,
-                                slidesToScroll: 1
-                            });
-                        }
-                    }
-                    function setPageNav() {
-                        if ($(window).width() > 991) {
-                            $('#tm-top-bar').singlePageNav({
-                                currentClass: 'active',
-                                offset: 79
-                            });
-                        } else {
-                            $('#tm-top-bar').singlePageNav({
-                                currentClass: 'active',
-                                offset: 65
-                            });
-                        }
-                    }
-                    function togglePlayPause() {
-                        vid = $('.tmVideo').get(0);
-                        if (vid.paused) {
-                            vid.play();
-                            $('.tm-btn-play').hide();
-                            $('.tm-btn-pause').show();
-                        } else {
-                            vid.pause();
-                            $('.tm-btn-play').show();
-                            $('.tm-btn-pause').hide();
-                        }
-                    }
-                    $(document).ready(function () {
-                        $(window).on("scroll", function () {
-                            if ($(window).scrollTop() > 100) {
-                                $(".tm-top-bar").addClass("active");
-                            } else {
-                                //remove the background property so it comes transparent again (defined in your css)
-                                $(".tm-top-bar").removeClass("active");
-                            }
-                        });
-                        // Google Map
-                        loadGoogleMap();
-                        // Date Picker
-                        const pickerCheckIn = datepicker('#inputCheckIn');
-                        const pickerCheckOut = datepicker('#inputCheckOut');
-                        // Slick carousel
-                        setCarousel();
-                        setPageNav();
-                        $(window).resize(function () {
-                            setCarousel();
-                            setPageNav();
-                        });
-                        // Close navbar after clicked
-                        $('.nav-link').click(function () {
-                            $('#mainNav').removeClass('show');
-                        });
-                        // Control video
-                        $('.tm-btn-play').click(function () {
-                            togglePlayPause();
-                        });
-                        $('.tm-btn-pause').click(function () {
-                            togglePlayPause();
-                        });
-                        // Update the current year in copyright
-                        $('.tm-current-year').text(new Date().getFullYear());
-                    });
-                    function show() {
-                        if (document.getElementById("team").style.display == "none") {
-                            document.getElementById("team").style.display = "block";
-                        } else {
-                            document.getElementById("team").style.display = "none";
-                        }
-                    }
+                                            for (var i = 0; i < total; i++) {
+                                                new MediaElementPlayer(mediaElements[i], {
+                                                    pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                                                    shimScriptAccess: 'always',
+                                                    success: function () {
+                                                        var target = document.body.querySelectorAll('.player'),
+                                                                targetTotal = target.length;
+                                                        for (var j = 0; j < targetTotal; j++) {
+                                                            target[j].style.visibility = 'visible';
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        /* Google map
+                                         ------------------------------------------------*/
+                                        var map = '';
+                                        var center;
+                                        function initialize() {
+                                            var mapOptions = {
+                                                zoom: 16,
+                                                center: new google.maps.LatLng(13.7567928, 100.5653741),
+                                                scrollwheel: false
+                                            };
+                                            map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+                                            google.maps.event.addDomListener(map, 'idle', function () {
+                                                calculateCenter();
+                                            });
+                                            google.maps.event.addDomListener(window, 'resize', function () {
+                                                map.setCenter(center);
+                                            });
+                                        }
+                                        function calculateCenter() {
+                                            center = map.getCenter();
+                                        }
+                                        function loadGoogleMap() {
+                                            var script = document.createElement('script');
+                                            script.type = 'text/javascript';
+                                            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
+                                            document.body.appendChild(script);
+                                        }
+                                        function setCarousel() {
+                                            if ($('.tm-article-carousel').hasClass('slick-initialized')) {
+                                                $('.tm-article-carousel').slick('destroy');
+                                            }
+                                            if ($(window).width() < 438) {
+                                                // Slick carousel
+                                                $('.tm-article-carousel').slick({
+                                                    infinite: false,
+                                                    dots: true,
+                                                    slidesToShow: 1,
+                                                    slidesToScroll: 1
+                                                });
+                                            } else {
+                                                $('.tm-article-carousel').slick({
+                                                    infinite: false,
+                                                    dots: true,
+                                                    slidesToShow: 2,
+                                                    slidesToScroll: 1
+                                                });
+                                            }
+                                        }
+                                        function setPageNav() {
+                                            if ($(window).width() > 991) {
+                                                $('#tm-top-bar').singlePageNav({
+                                                    currentClass: 'active',
+                                                    offset: 79
+                                                });
+                                            } else {
+                                                $('#tm-top-bar').singlePageNav({
+                                                    currentClass: 'active',
+                                                    offset: 65
+                                                });
+                                            }
+                                        }
+                                        function togglePlayPause() {
+                                            vid = $('.tmVideo').get(0);
+                                            if (vid.paused) {
+                                                vid.play();
+                                                $('.tm-btn-play').hide();
+                                                $('.tm-btn-pause').show();
+                                            } else {
+                                                vid.pause();
+                                                $('.tm-btn-play').show();
+                                                $('.tm-btn-pause').hide();
+                                            }
+                                        }
+                                        $(document).ready(function () {
+                                            $(window).on("scroll", function () {
+                                                if ($(window).scrollTop() > 100) {
+                                                    $(".tm-top-bar").addClass("active");
+                                                } else {
+                                                    //remove the background property so it comes transparent again (defined in your css)
+                                                    $(".tm-top-bar").removeClass("active");
+                                                }
+                                            });
+                                            // Google Map
+                                            loadGoogleMap();
+                                            // Date Picker
+                                            const pickerCheckIn = datepicker('#inputCheckIn');
+                                            const pickerCheckOut = datepicker('#inputCheckOut');
+                                            // Slick carousel
+                                            setCarousel();
+                                            setPageNav();
+                                            $(window).resize(function () {
+                                                setCarousel();
+                                                setPageNav();
+                                            });
+                                            // Close navbar after clicked
+                                            $('.nav-link').click(function () {
+                                                $('#mainNav').removeClass('show');
+                                            });
+                                            // Control video
+                                            $('.tm-btn-play').click(function () {
+                                                togglePlayPause();
+                                            });
+                                            $('.tm-btn-pause').click(function () {
+                                                togglePlayPause();
+                                            });
+                                            // Update the current year in copyright
+                                            $('.tm-current-year').text(new Date().getFullYear());
+                                        });
+                                        function show() {
+                                            if (document.getElementById("team").style.display == "none") {
+                                                document.getElementById("team").style.display = "block";
+                                            } else {
+                                                document.getElementById("team").style.display = "none";
+                                            }
+                                        }
                 </script>
                 <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
                 <jsp:include page="footer.jsp"></jsp:include>

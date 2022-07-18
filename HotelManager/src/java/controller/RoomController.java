@@ -1,5 +1,6 @@
 package controller;
 
+import context.DBContext;
 import dao.impl.DevicesDAOImpl;
 import dao.impl.ImageDAOImpl;
 import dao.impl.RoomDAOImpl;
@@ -45,6 +46,7 @@ public class RoomController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
+            DBContext db= new DBContext();
             RoomDAOImpl dao = new RoomDAOImpl();
             ImageDAOImpl daos = new ImageDAOImpl();
             String service = request.getParameter("do");
@@ -99,8 +101,8 @@ public class RoomController extends HttpServlet {
                         + "where Room.Status =0 and Room.RoomcateID = " + cateroom + "\n"
                         + "ORDER BY NEWID()");
 
-                ResultSet rs = dao.getData("select * from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
-                ResultSet rs1 = dao.getData("select count(*) from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
+                ResultSet rs = db.getData("select * from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
+                ResultSet rs1 = db.getData("select count(*) from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
                 while (rs1.next()) {
                     request.setAttribute("countFB", rs1.getInt(1));
                 }
