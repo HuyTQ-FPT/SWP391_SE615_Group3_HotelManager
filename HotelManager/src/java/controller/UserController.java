@@ -1,4 +1,14 @@
-
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 18/07/2022    1.0        HuyTQ            Comment
+ *               1.1       
+ */
 package controller;
 
 import entity.Message;
@@ -27,8 +37,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @WebServlet(name = "UserController", urlPatterns = {"/UserController"})
+/**
+ * This class User
+ *
+ * @author HuyTQ
+ */
 public class UserController extends HttpServlet {
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods. Get list profile and update profile Get list
+     * feedback and insert feedback
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
@@ -45,7 +69,11 @@ public class UserController extends HttpServlet {
             if (service == null) {
                 service = "Profile";
             }
-            if (service.equals("Profile")) { //vào trang profile user
+            /**
+             * Service Profile: get information user to load the page 
+             * Profile.jsp
+             */
+            if (service.equals("Profile")) { //go to user profile page
                 Account a = (Account) session.getAttribute("login");
                 ResultSet rs = dao.getData("select u.* from Account a join [User] u\n"
                         + "on a.AccountID=u.AccountID\n"
@@ -53,7 +81,11 @@ public class UserController extends HttpServlet {
                 request.setAttribute("profile", rs);
                 request.getRequestDispatcher("Profile.jsp").forward(request, response);
             }
-            if (service.equals("Viewupdateprofile")) { // vào trang updateprofile
+            /**
+             * Service Viewupdateprofile: get information should update to load the page 
+             * UpdateProfile.jsp
+             */
+            if (service.equals("Viewupdateprofile")) { // go to updateprofile page
                 String s = "";
                 String m= "";
                 if (request.getParameter("er") != null) {
@@ -70,7 +102,11 @@ public class UserController extends HttpServlet {
                 request.setAttribute("viewupdateprofile", rs);
                 request.getRequestDispatcher("UpdateProfile.jsp").forward(request, response);
             }
-            if (service.equals("Updateprofile")) { //cập nhập thông tin profile thay đổi
+            /**
+             * Service Updateprofile: Update profile and reload the page 
+             * page UserController
+             */
+            if (service.equals("Updateprofile")) { //Update profile information changes
                 int n = 0;
                 int uid = Integer.parseInt(request.getParameter("uid"));
                 String name = request.getParameter("name").trim();
@@ -80,11 +116,11 @@ public class UserController extends HttpServlet {
                 int gender = Integer.parseInt(request.getParameter("gender"));
                 Date bod = Date.valueOf(request.getParameter("bod").trim());
                 String cmt = request.getParameter("cmt").trim();
-                // điều kiện update thành công
+                // successful update condition
                 boolean checkemail = false;
                 boolean checkphone = false;
                 boolean checkcmnd = false;
-               
+               /*check conditions to update*/
                 if (phone.trim().length()==10 && cmt.trim().length()==12 && dao2.isNumeric(cmt) && dao2.isNumeric(phone)) {
                     n=dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));                    
                 }
@@ -117,7 +153,11 @@ public class UserController extends HttpServlet {
                     response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"&me=1");
                 }                
             }
-            if(service.equals("Viewfeedback")){
+            /**
+             * Service Viewfeedback: request feedback of customer to load the page 
+             * Feedback.jsp
+             */
+            if(service.equals("Viewfeedback")){ // Show feedback form
                 Account ac = (Account) session.getAttribute("login");
                 User u = daoU.getUser(ac.getAccountID());
                 int roomID = Integer.parseInt(request.getParameter("roomID").toString());
@@ -134,7 +174,11 @@ public class UserController extends HttpServlet {
                 request.setAttribute("roomID", roomID);                
                 request.getRequestDispatcher("Feedback.jsp").forward(request, response);
             }
-            if(service.equals("Feedback")){
+            /**
+             * Service Feedback: Add feedback and reload the page 
+             * managerRoom.jsp
+             */
+            if(service.equals("Feedback")){ // Handling feedback
                 int roomID = Integer.parseInt(request.getParameter("roomID").toString());
                 LocalDateTime current = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");

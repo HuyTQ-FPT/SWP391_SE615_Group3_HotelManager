@@ -7,7 +7,7 @@
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
  * 15/07/2022    1.0        HieuLBM          Comment
- *               1.1       
+ * 18/07/2022    1.1        HuyTQ            Comment
  */
 package controller;
 
@@ -32,6 +32,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
+/**
+ * This class Account, User
+ *
+ * @author HuyTQ
+ */
 public class LoginController extends HttpServlet {
 
     /**
@@ -55,8 +60,13 @@ public class LoginController extends HttpServlet {
             if (service == null) {
                 service = "Login";
             }
-            if (service.equals("Login")) { // Set thông tin username, password vào trang login
+            /**
+            * Service Login: load to page login
+            * login.jsp
+            */
+            if (service.equals("Login")) { // Set username and password information on login page
                 Cookie c[] = request.getCookies();
+                /*get data from cookies if use remember password*/
                 for (Cookie o : c) {
                     if (o.getName().equals("user")) {
                         request.setAttribute("user", o.getValue());
@@ -66,6 +76,7 @@ public class LoginController extends HttpServlet {
                     }
                 }
                 String s = "";
+                /* Printing error*/
                 if (request.getParameter("mess") != null) {
                     request.setAttribute("mess", request.getParameter("mess"));
                 } else {
@@ -73,11 +84,15 @@ public class LoginController extends HttpServlet {
                 }
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
-            if (service.equals("CheckLogin")) {
-                // kiểm tra username/password => đăng nhập thành công hay không
+            /**
+            * Service CheckLogin: get username and password to check
+            * login.jsp
+            */
+            if (service.equals("CheckLogin")) {// check username/password => successful login or not               
                 String username = request.getParameter("username").trim();
                 String password = request.getParameter("password").trim();
                 ResultSet rs = dao1.getData("select * from Account where [user]='" + username + "' and [password]='" + password + "'");
+                /* Check account in data*/
                 if (rs.next() == true) {
                     if (request.getParameterValues("remember") != null) {
                         Cookie user = new Cookie("user", username);
@@ -106,14 +121,18 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
             }
-            if (service.equals("CheckRegister")) { // kiểm tra đăng ký thành công hay không
+            /**
+            * Service CheckRegister: On home page
+            * Register.jsp
+            */
+            if (service.equals("CheckRegister")) { // Check registration is successful or not
                 String email = request.getParameter("email").trim();
                 String username = request.getParameter("username").trim();
                 String password = request.getParameter("password").trim();
                 String re_password = request.getParameter("re_password").trim();
                 String name = request.getParameter("name").trim();
                 ResultSet rs = dao.getData("select * from Account");
-
+                /*Check email and user were existed */
                 boolean user = true;
                 boolean checkemail = true;
                 int count = 0;
@@ -129,7 +148,8 @@ public class LoginController extends HttpServlet {
                         break;
                     }
                 }
-                if (!user) {
+                /*Check the conditions*/
+                if (!user) {// user exist
                     request.setAttribute("name", name);
                     request.setAttribute("username", username);
                     request.setAttribute("password", password);
@@ -138,7 +158,7 @@ public class LoginController extends HttpServlet {
                     String error = "Tên đăng nhập đã tồn tại";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
-                } else if (!checkemail) {
+                } else if (!checkemail) { // email exist
                     request.setAttribute("name", name);
                     request.setAttribute("username", username);
                     request.setAttribute("password", password);
@@ -147,7 +167,7 @@ public class LoginController extends HttpServlet {
                     String error = "Tên email đã tồn tại";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
-                } else if (username.length() < 4 || password.length() < 8) {
+                } else if (username.length() < 4 || password.length() < 8) { // charactor > 4 and charactor <8
                     request.setAttribute("name", name);
                     request.setAttribute("username", username);
                     request.setAttribute("password", password);
@@ -156,7 +176,7 @@ public class LoginController extends HttpServlet {
                     String error = "Mật khẩu lớn hơn 8 ký tự và tên dăng nhập lớn hơn 4 ký tự";
                     request.setAttribute("errorpass", error);
                     request.getRequestDispatcher("Register.jsp").forward(request, response);
-                } else if (!password.equalsIgnoreCase(re_password)) {
+                } else if (!password.equalsIgnoreCase(re_password)) { // repassword not correct
                     request.setAttribute("name", name);
                     request.setAttribute("username", username);
                     request.setAttribute("password", password);
@@ -169,6 +189,7 @@ public class LoginController extends HttpServlet {
                     count = dao.Register(new Account(1, username, password), name, email);
 
                 }
+                /*Register success*/
                 if (count > 0) {
                     session.setAttribute("login", new Account(1, 1, username, password));
                     response.sendRedirect("LoginController?do=Login&mess=register");
@@ -187,7 +208,6 @@ public class LoginController extends HttpServlet {
              * Service forgetPassword: send email to user forgetPassword.jsp
              */
             if (service.equalsIgnoreCase("forgetPassword")) {
-
                 String email = request.getParameter("email").trim();
                 /*Check user email exists or not*/
                 if (userDAO.checkUser(email.trim()) == null) {
@@ -230,16 +250,17 @@ public class LoginController extends HttpServlet {
             if (service.equals("ForgetPassword1")) {
                 request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
             }
-            if (service.equals("ChangePassword1")) { // vào trang đổi mật khẩu
+            if (service.equals("ChangePassword1")) { // Go to password change page
                 request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
             }
-            if (service.equals("ChangePassword")) { // đổi mật khẩu 
+            if (service.equals("ChangePassword")) { // change Password
                 String error = "";
                 Account a = (Account) session.getAttribute("login");
                 String oldpassword = request.getParameter("oldpassword").trim();
                 String newpassword = request.getParameter("password").trim();
                 String re_password = request.getParameter("re_password").trim();
                 ResultSet rs = dao1.getData("select * from Account where [user]='" + a.getUser().trim() + "' and [password]='" + oldpassword + "'");
+                /*Check old password is correct*/
                 if (!a.getPassword().equals(oldpassword)) {
                     error = "Mật khẩu cũ không chính xác";
                     request.setAttribute("errorpass", error);
@@ -248,8 +269,8 @@ public class LoginController extends HttpServlet {
                     request.setAttribute("re_password", re_password);
                     request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                 }
+                /*perform password change*/
                 if (rs.next() == true) {
-
                     if (newpassword.trim().length() >= 8) {
                         if (newpassword.equals(re_password)) {
                             dao.updateAccount(rs.getString(3), re_password);
@@ -287,7 +308,7 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                 }
             }
-            if (service.equals("logout")) { // xử lý đăng xuất
+            if (service.equals("logout")) { // handle logout
                 Cookie user = new Cookie("user", "");
                 Cookie pass = new Cookie("pass", "");
                 Cookie mess = new Cookie("mess", "");

@@ -1,3 +1,14 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 18/07/2022    1.0        HuyTQ            Comment
+ *               1.1       
+ */
 package controller;
 
 import entity.Message;
@@ -18,7 +29,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "MessageController", urlPatterns = {"/MessageController"})
+/**
+ * This class Message
+ *
+ * @author HuyTQ
+ */
 public class MessageController extends HttpServlet {
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods. Get list message and list message by name customer
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
@@ -32,7 +57,11 @@ public class MessageController extends HttpServlet {
             if (service == null) {
                 service = "Viewchatbox";
             }
-            if (service.equals("Viewchatbox")) {                
+            /**
+             * Service Viewchatbox: get message by account to load the page 
+             * ViewChatbox.jsp
+             */
+            if (service.equals("Viewchatbox")) { //Print out the latest 1 person's messages            
                 Account a = (Account) session.getAttribute("login");
                 if (a.getRoleID() == 1) {
                     request.setAttribute("accountid", a.getAccountID());
@@ -45,7 +74,12 @@ public class MessageController extends HttpServlet {
                     request.getRequestDispatcher("ViewChatbox.jsp").forward(request, response);
                 }
             }
-            if (service.equals("SearchChatCustomer")) {
+            /**
+             * Service SearchChatCustomer: get message first to load the page 
+             * ViewChatbox.jsp
+             * page MessageController
+             */
+            if (service.equals("SearchChatCustomer")) { // Print out the message by the customer's name
                 String name = request.getParameter("name");
                 if (!name.isEmpty()) {
                     ResultSet rs = dao.getData("select u.* from Account a join [User] u\n"
@@ -59,7 +93,11 @@ public class MessageController extends HttpServlet {
                     response.sendRedirect("MessageController");
                 }
             }
-            if (service.equals("Search_Chat_people")) {
+            /**
+             * Service Search_Chat_people: get Account have message to load the page 
+             * ViewChatbox.jsp
+             */
+            if (service.equals("Search_Chat_people")) {// Print out the customers who have texted with the front desk
                 request.setAttribute("accountid", Integer.parseInt(request.getParameter("accountid")));
                 System.out.println(request.getParameter("accountid"));
                 ResultSet rs = dao.getData("select u.* from Account a join [User] u\n"
@@ -70,7 +108,11 @@ public class MessageController extends HttpServlet {
                 request.setAttribute("rs", rs);
                 request.getRequestDispatcher("ViewChatbox.jsp").forward(request, response);
             }
-            if (service.equals("Chat_people")) {
+            /**
+             * Service Chat_people: target Account to load message to the page 
+             * ViewChatbox.jsp
+             */
+            if (service.equals("Chat_people")) { // Print out the message according to the right customer
                 request.setAttribute("accountid", Integer.parseInt(request.getParameter("accountid")));
                 dao.resetNewmessage(Integer.parseInt(request.getParameter("accountid")));
                 request.setAttribute("showmess", "");
