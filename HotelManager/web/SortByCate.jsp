@@ -3,6 +3,7 @@
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -333,7 +334,7 @@
                                                     <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
                                                         <h4 style="color: #b09700;font-size: 25px; text-align: center;font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%>-<%=v.getRoomname()%></h4>
                                                 </a>
-                                                <h1 style="color: red;font-size: 18px" class="price"> €<%=v.getRoomprice()%>/một đêm</h1>
+                                                <h1 style="color: red;font-size: 18px" class="price"> <fmt:formatNumber value="<%=v.getRoomprice()%>"/> đ/ một đêm</h1>
                                                     <!--                                                    <div>
                                                                                                             <a class="view-link shutter" href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
                                                                                                                 <i class="fa fa-plus-circle"></i>Đặt Phòng</a>
