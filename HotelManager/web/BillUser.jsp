@@ -165,6 +165,8 @@
                                             <option value="2"> 2 </option>
                                             <option value="3"> 3 </option>
                                             <option value="4"> 4 </option>
+                                            <option value="4"> 5 </option>
+                                            <option value="4"> 6 </option>
                                         </select>
                                     </div>
                                     <div class="col-50">
@@ -174,6 +176,8 @@
                                             <option value="2"> 2 </option>
                                             <option value="3"> 3 </option>
                                             <option value="4"> 4 </option>
+                                            <option value="4"> 5 </option>
+                                            <option value="4"> 6 </option>
                                         </select>
                                     </div>
                                     <div id="mess"></div>
@@ -207,9 +211,9 @@
                                 <input  type="checkbox" name="service" value="<%=e.getServiceID()%>">
                                 <label style="display:inline-block;"for="vehicle1"><%=e.getServiceName()%> </label><br>
                                 <%}%>
-                                <label style="padding-top: 30px;">Check in</label>
+                                <label style="padding-top: 30px;">Ngày đến</label>
                                 <input name="checkin" type="date" class="form-control" id="inputCheckIn" style="font-size: 20px" min="<%=date%>" required>
-                                <label for="expmonth" style="padding-top: 10px">Check out</label>
+                                <label for="expmonth" style="padding-top: 10px">Ngày đi</label>
                                 <input name="checkout" type="date" class="form-control" id="inputCheckOut" style="font-size: 20px" min="<%=date%>" required>
 
                             </div>
@@ -225,10 +229,6 @@
                     <div>
                         <h4 style="margin-left: 20px; font-size: 30px;; font-weight: bold; color: red"><label class="price" style="color:black; padding-left: 50px;color: orangered"><i class='fas fa-hotel'></i></s</label> Hoang Hon </h4>                       
                     </div>
-                    <!--                    <div style="background-color: #f7f9fa; height: 150px;padding-top: 10px;" class="nhanphong">
-                                            <p style="margin-left: 20px;"> Ngày nhận phòng: Sun, 12 Jun 2022, Từ 11:00 <p>                         
-                                            <p style="margin-left: 20px;"> Ngày trả phòng:  Mon, 13 Jun 2022, Trước 13:00</p>            
-                                        </div>-->
                     <div>
                         <p style="font-size: 20px; font-weight: bold"><%=rs.getString(19)%>- <%=rs.getInt(2)%> </p>
                         <p style="color: #0b9af4; font-size: 20px">Thanh toán khi nhận phòng</p>
@@ -248,14 +248,14 @@
 
                 </div>
                 <div class="container">
-                    <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4>
+                    <h4>Phòng <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4>
                     <p><a href="RoomController?do=roomdetail&roomid=<%=id%>"><%=rs.getString(19)%>- <%=rs.getInt(2)%></a> <span class="price" style="color:black;font-weight: bold" ><%=rs.getDouble(6)%></span></p>
                     <input type="hidden" name="price" value="<%=rs.getDouble(6)%>">
                     <hr>
-                    <p>Total <span class="price" style="color:black"><%=rs.getDouble(6)%></span></p>
+                    <p>Tổng giá <span class="price" style="color:black"><%=rs.getDouble(6)%></span></p>
                 </div>
             </div>
-            <input type="submit" value="Continue to confirm" class="btn" >
+            <input type="submit" value="Tiếp tực để xác nhận" class="btn" >
             </form>
         </div>
         <%}%>

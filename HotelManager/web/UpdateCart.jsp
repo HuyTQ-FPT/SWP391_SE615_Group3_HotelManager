@@ -108,16 +108,16 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
 
                                     <div class="form-group mb-3">
                                         <label for="name">Tên khách hàng </label>
-                                        <input name="cname" value="<%=rs.getString(3)%>"type="text"class="form-control validate"required />
+                                        <input name="cname" value="<%=rs.getString(3)%>"type="text"class="form-control validate"required maxlength="50" />
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label for="name">Email </label>
-                                        <input name="email" value="<%=rs.getString(4)%>"type="text"class="form-control validate"required />
+                                        <input name="email" value="<%=rs.getString(4)%>"type="text"class="form-control validate"required maxlength="50" />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Địa chỉ </label>
-                                        <input name="address" value="<%=rs.getString(5)%>"type="text" maxlength="70" class="form-control validate"required />
+                                        <input name="address" value="<%=rs.getString(5)%>"type="text" maxlength="70" class="form-control validate"required  maxlength="50"/>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Số điện thoại </label>
@@ -155,7 +155,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                             <div class="col-12">
                                 <!--                            <input type="hidden" value="updatebloggg" name="do">
                                                             <input type="hidden" value="" name="BlogID">-->
-                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Update</button>
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Cập nhật</button>
                             </div>
                             </form>
                             <%}%>
@@ -164,15 +164,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 </div>
             </div>
         </div>
-        <footer class="tm-footer row tm-mt-small">
-            <div class="col-12 font-weight-light">
-                <p class="text-center text-white mb-0 px-4 small">
-                    Copyright &copy; <b>2018</b> All rights reserved. 
-
-                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
-                </p>
-            </div>
-        </footer> 
+        
 
         <script src="js/jquery-3.3.1.min.js"></script>
         <!-- https://jquery.com/download/ -->

@@ -22,15 +22,67 @@ import java.util.Vector;
  */
 public interface ReservationDAO {
 
+    /**
+     * update information from Reservation table
+     *
+     * @param re is a Reservation object
+     * @return int,
+     * @throws java.lang.Exception
+     */
     public int updateReservation(Reservation re) throws Exception;
 
+    /**
+     * add information from Reservation table
+     *
+     * @param re is a Reservation object
+     * @return int,
+     * @throws java.lang.Exception
+     */
     public int addReservation(Reservation re) throws Exception;
+    /**
+     * show information from Reservation table
+     *
+     * @param sql is string
+     * @return <code>Reservation</code> object.
+     * @throws java.lang.Exception
+     */
 
     public Vector<Reservation> Reservation(String sql) throws Exception;
+    /**
+     * remove booking information from Reservation table
+     *
+     * @param id is int
+     * @return int,
+     * @throws java.lang.Exception
+     */
 
     public int removeReservation(int id) throws Exception;
+    /**
+     * count ID in Reservation
+     *
+     * @return int
+     * @throws java.lang.Exception
+     */
+
     public int getPage() throws Exception;
+    /**
+     * show Reservation information from Reservation table by Page
+     *
+     * @param n is a int
+     * @return <code>Reservation</code> object.
+     * @throws java.lang.Exception
+     */
+
     public Vector<Reservation> getReservationByPage(int n) throws Exception;
+    /**
+     * search booking information from Reservation table
+     *
+     * @param a is string
+     * @param b is string
+     * @return <code>Reservation</code> object.
+     * @throws java.lang.Exception
+     */
+
     public Vector<Reservation> searchRoom(String a, String b) throws Exception;
 
     /**

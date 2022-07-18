@@ -153,7 +153,7 @@
                                     da = sdf.format(c.getTime());  // dt is now the new date
                                     for (Reservation r : vector) {
                                 %>
-                                <h3>Billing Address</h3>
+                                <h3>Đơn đặt phòng</h3>
                                 <label for="firstname"><i class="fa fa-user"></i> Tên đầy đủ</label>
                                 <p style="font-weight: bold; color: orangered"><%=r.getName()%></p>
                                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
@@ -174,14 +174,14 @@
                                 
                                 <div class="row">
                                     <div class="col-100">
-                                        <label style="display: inline-block; padding-top: 20px; padding-left: 15px;font-size: 20px;" for="state">Number Of Person</label>
+                                        <label style="display: inline-block; padding-top: 20px; padding-left: 15px;font-size: 20px;" for="state">Số người</label>
                                         <p style="padding-left: 20px;font-weight: bold; color: orangered"><%=r.getNumberOfPerson()%></p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-50">
-                                <h3>Payment</h3>
+                                <h3>Thanh toán</h3>
                                 <div class="icon-container">
                                     <i class="fa fa-cc-visa" style="color:navy;"></i>
                                     <i class="fa fa-cc-amex" style="color:blue;"></i>
@@ -191,9 +191,9 @@
                                 <label for="cname">Dịch vụ</label>
                                 <label style="display:inline-block;"for="vehicle1"></label><br>
                                 <p style="font-weight: bold; color: orangered">${ser}</p>
-                                <label style="padding-top: 30px;"for="ccnum">Check in</label>
+                                <label style="padding-top: 30px;"for="ccnum">Ngày đến</label>
                                 <p style="font-weight: bold; color: orangered"><%=r.getCheckin()%></p>
-                                <label for="expmonth" style="padding-top: 10px">Check out</label>
+                                <label for="expmonth" style="padding-top: 10px">Ngày đi</label>
                                 <p style="font-weight: bold; color: orangered"><%=r.getCheckout() %></p>
                             </div>
 
@@ -229,14 +229,13 @@
 
                 </div>
                 <div class="container">
-                    <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b></b></span></h4>
                     <p><a href="#"></a> <span class="price"></span></p>
                     <hr>
-                    <p style="font-weight: bold; color: red">Total <span class="price" style="color:black"><p style="font-weight: bold; color: black;font-size: 30px">$${total}</p></span></p>
+                    <p style="font-weight: bold; color: red">Tổng giá <span class="price" style="color:black"><p style="font-weight: bold; color: black;font-size: 30px">$${total}</p></span></p>
                 </div>
             </div>
         </div>
-                <input type="submit" value="Check out" class="btn">
+                <input type="submit" value="Hoàn tất" class="btn">
                     </form>
         <%}%>
     </body>

@@ -1,3 +1,13 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 19/07/2022    1.0        HieuHT          Comment
+ */
 package dao.impl;
 
 import context.DBContext;
@@ -18,6 +28,12 @@ import java.util.Vector;
  */
 public class EventsDAOImpl extends DBContext implements EventsDAO {
 
+    /**
+     * get a list events from the Events table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Events> getEventsList() throws Exception {
         Connection conn = null;
@@ -53,31 +69,53 @@ public class EventsDAOImpl extends DBContext implements EventsDAO {
         return vector;
     }
 
+    /**
+     * insert events from the Events table
+     *
+     * @param event
+     * @return
+     * @throws Exception
+     */
     @Override
     public void insertEvents(Events event) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * update events from the Events table
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateEvents(int id) throws Exception {
         int n = 0;
         Connection conn = null;
         PreparedStatement pre = null;
         String sql = "update [Events] set Quantity= Quantity-1\n"
-                + "where EventId= "+id;
+                + "where EventId= " + id;
         try {
             conn = getConnection();
             pre = conn.prepareStatement(sql);
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             closePreparedStatement(pre);
             closeConnection(conn);
 
         }
         return n;
     }
+
+    /**
+     * delete events from the Events table
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @Override
     public void deleteEvents(int id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -31,6 +31,13 @@ import java.util.Vector;
  */
 public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
+    /**
+     * update Reservation in Reservation table of database
+     *
+     * @param re
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateReservation(Reservation re) throws Exception {
         int n = 0;
@@ -77,6 +84,13 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return n;
     }
 
+    /**
+     * add Reservation in Reservation table of database
+     *
+     * @param re
+     * @return
+     * @throws Exception
+     */
     @Override
     public int addReservation(Reservation re) throws Exception {
         String sql = "INSERT INTO [SWPgroup3].[dbo].[Reservation]\n"
@@ -110,6 +124,13 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return 0;
     }
 
+    /**
+     * show Reservation in Reservation table of database
+     *
+     * @param sql
+     * @return
+     * @throws Exception
+     */
     public Vector<Reservation> Reservation(String sql) throws Exception {
         Vector<Reservation> re = new Vector<Reservation>();
         Connection conn = null;
@@ -151,6 +172,13 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return re;
     }
 
+    /**
+     * delete Reservation in Reservation table of database
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
     public int removeReservation(int id) throws Exception {
         int n = 0;
         Connection conn = null;
@@ -442,6 +470,12 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
     }
 
+    /**
+     * Count Reservation in Reservation table in database
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public int getPage() throws Exception {
         int n = 0;
@@ -477,6 +511,13 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return n;
     }
 
+    /**
+     * Show Reservation by page in Reservation table in database
+     *
+     * @param n
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Reservation> getReservationByPage(int n) throws Exception {
         Vector<Reservation> vector = new Vector<Reservation>();
@@ -530,6 +571,14 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
         return vector;
     }
 
+    /**
+     * search Reservation by date in , date out from Reservation table
+     *
+     * @param a
+     * @param b
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Reservation> searchRoom(String a, String b) throws Exception {
         Vector<Reservation> vector = new Vector<Reservation>();

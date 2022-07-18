@@ -320,7 +320,7 @@ public class OrderController extends HttpServlet {
                 dispath.forward(request, response);
 
             }
-            if (service.equals("getUser")) {
+            if (service.equals("del")) {
                 String cid = request.getParameter("cus");
                 String number= request.getParameter("number");
                 String rname= request.getParameter("rname");
