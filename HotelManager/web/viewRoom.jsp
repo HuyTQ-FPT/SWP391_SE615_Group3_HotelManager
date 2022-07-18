@@ -12,6 +12,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -244,11 +245,11 @@
                                                         <h4>${c.cateroom}</h4>
                                                         <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
                                                     </div>
-                                                    <a href="#" tabindex="0">${c.roomprice}</a>
+                                                    <a href="#" tabindex="0"><fmt:formatNumber value="${c.roomprice}" /> đ</a>
                                                 </div>
                                                 <div class="prod-btn">
-                                                    <a href="#"><i aria-hidden="true"></i>Book</a>
-                                                    <p>23 likes</p>
+                                                    <a href="#"><i aria-hidden="true"></i>Đặt phòng</a>
+                                                    <p>23 thích</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -269,11 +270,11 @@
                                                         <h4>${c.cateroom}</h4>
                                                         <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
                                                     </div>
-                                                    <a href="#" tabindex="0">${c.roomprice}</a>
+                                                    <a href="#" tabindex="0"><fmt:formatNumber value="${c.roomprice}" /> đ/đêm</a>
                                                 </div>
                                                 <div class="prod-btn">
-                                                    <a href="#"><i aria-hidden="true"></i>Book</a>
-                                                    <p>23 likes</p>
+                                                    <a href="#"><i aria-hidden="true"></i>Đặt phòng</a>
+                                                    <p>23 thích</p>
                                                 </div>
 
                                             </div>
@@ -287,14 +288,14 @@
                             <div class="col-md-3 col-sm-12">
                                 <div class="price-box-right">
                                     <h4 style="font-size: 24px">Giá tiền</h4>
-                                    <h3>€${Room.roomprice}<span style="font-weight: bold"> /1 đêm</span></h3>
+                                    <h3><fmt:formatNumber value="${Room.roomprice}" /><span style="font-weight: bold"> đ/1 đêm</span></h3>
                                     <c:if test="${sessionScope.login!=null && sessionScope.isroomde!=null}" >
                                         <a href="OrderController?do=user&id=${Room.roomID}&userid=${sessionScope.login.getAccountID()}">Đặt phòng </a>
                                     </c:if>
                                     <c:if test="${sessionScope.login==null}" >
                                         <a href="LoginController">Đặt phòng</a>
                                     </c:if>
-                                    <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>
+                                 
                                 </div>
                             </div>
                         </c:if>
