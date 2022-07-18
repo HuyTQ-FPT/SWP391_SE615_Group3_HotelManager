@@ -27,9 +27,12 @@ public class CommentController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String dos = request.getParameter("do");
+           /**
+             * Service display: Displaycomment from comment table
+             * ManageComment.jsp
+           */
         if(dos.equals("display")){
         try (PrintWriter out = response.getWriter()) {
-
             BlogDAOImpl dao = new BlogDAOImpl();
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("utf-8");
@@ -39,12 +42,12 @@ public class CommentController extends HttpServlet {
               String page = request.getParameter("page");
               List<Comment> list1 = null;
               if (page == null) {
+                  /*display comment base on blogid */
                     list1 = dao.getCommentByPage(1, BlogID);
                 } else {
+                        // display comment base on blogid
                     list1 = dao.getCommentByPage(Integer.parseInt(page),BlogID);
-                }
-            
-//             out.println("<h1>Servlet RoomcategoryController at " + page+ "</h1>"); 
+                }           
           request.setAttribute("listcomment", list1);
           request.setAttribute("n", n);
           request.getRequestDispatcher("ManageComment.jsp"). forward(request, response);               
@@ -52,7 +55,10 @@ public class CommentController extends HttpServlet {
             e.printStackTrace();
         }
         }
-       
+        /**
+             * Service:remove: Delete comment from comment table
+             * ManageComment.jsp
+           */
         if(dos.equals("remove")){
            try (PrintWriter out = response.getWriter()) {
             BlogDAOImpl dao = new BlogDAOImpl();
@@ -60,8 +66,10 @@ public class CommentController extends HttpServlet {
             request.setCharacterEncoding("utf-8");
                 String commentid = request.getParameter("commentid");
                 String ParentID = request.getParameter("commentid");
+                  /*delete comment base on commentid */
                  dao.deleteCommentParent(commentid,ParentID);
                    String BlogID = request.getParameter("blogid");
+                    /*display comment base on commentid */
              List<Comment> list2 = dao.DisplayAllComment(BlogID); 
               // out.println("<h1>Servlet RoomcategoryController at " + BlogID+ "</h1>"); 
              request.setAttribute("listcomment", list2);

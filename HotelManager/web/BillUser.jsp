@@ -221,13 +221,13 @@
                         </div>
                 </div>
             </div>
-            <div class="col-25">
+                                <div class="col-25">
                 <% ResultSet rs = (ResultSet) request.getAttribute("rs");
                     if (rs.next()) {
                 %>
-                <div style="padding-bottom: 20px;" class="container1">
+                <div style="padding-bottom: 20px;"  class="container1">
                     <div>
-                        <h4 style="margin-left: 20px; font-size: 30px;; font-weight: bold; color: red"><label class="price" style="color:black; padding-left: 50px;color: orangered"><i class='fas fa-hotel'></i></s</label> Hoang Hon </h4>                       
+                        <h4 style="margin-left: 20px; font-size: 30px;; font-weight: bold; color: red"><label class="price" style="color:black; padding-left: 50px;color: orangered;"><i class='fas fa-hotel'></i></s</label> Hoang Hon </h4>                       
                     </div>
                     <div>
                         <p style="font-size: 20px; font-weight: bold"><%=rs.getString(19)%>- <%=rs.getInt(2)%> </p>

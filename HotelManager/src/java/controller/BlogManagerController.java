@@ -39,7 +39,10 @@ public class BlogManagerController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             BlogDAOImpl dao = new BlogDAOImpl();
             String dos = request.getParameter("do");
-           
+           /**
+             * Service insertblog: get insert blog 
+             * addblog.jsp
+             */
             if (dos.equals("insertblog")) {          
                 String title = request.getParameter("title").trim();
                 int accountID = 9;
@@ -49,6 +52,7 @@ public class BlogManagerController extends HttpServlet {
                 if(description.trim().equals("") || author.trim().equals("") ||  title.trim().equals("")){
                         response.sendRedirect("addblog.jsp");
                 } else{
+                    // insert blog
                 dao.inSertBlog(accountID, author, description, image, title);
                 String blogid = dao.getBlogID(" SELECT MAX(BlogID)\n" +
                         "FROM [SWPgroup3].[dbo].[Blog]");
@@ -56,55 +60,76 @@ public class BlogManagerController extends HttpServlet {
                request.getRequestDispatcher("BlogManagerController?do=updateblog&blogid=" + blogid + " ").forward(request, response);
             }
             }
+             /**
+             * Service editblog: edit information blog 
+             * addblog.jsp
+             */
             if (dos.equals("editblog")) {
                 Vector<Blog> b = null;
                 int n = dao.getPage();
-                request.setAttribute("n", n);
-         
+                request.setAttribute("n", n);         
                 String page = request.getParameter("page");
                 if (page == null) {
+                    // get blog by page
                     b = dao.getBlogByPage(1);
                 } else {
+                     // get blog by page
                     b = dao.getBlogByPage(Integer.parseInt(page));
                 }
                 request.setAttribute("b", b);
               request.setAttribute("page",page);
                 request.getRequestDispatcher("editblog.jsp").forward(request, response);
             }
+              /**
+             * Service deleteblog: delete information blog 
+             * editblog.jsp
+             */
             if (dos.equals("deleteblog")) {
                 int n = dao.getPage();
-                   String page = request.getParameter("page");
-//                out.println("<h1>Servlet RoomcategoryController at " + page+ "</h1>"); 
+                String page = request.getParameter("page");
                 String id = request.getParameter("blogid");
+                //delete blog
                 dao.deleteBlog(id);
                 response.sendRedirect("BlogManagerController?do=editblog&page=" + page + "");
             }
+             /**
+             * Service updateblog: take information before update information blog 
+             * updateblog.jsp
+             */
             if (dos.equals("updateblog")) {
                  Vector<Blog> b = null;              
                 request.setAttribute("b", b);       
                 String blogid = request.getParameter("blogid");
+                // show information blogdetail
                 b= dao.getBlog("select * from Blog where BlogID ="+blogid+"");
                 request.setAttribute("b", b);
 
                 request.getRequestDispatcher("updateblog.jsp").forward(request, response);
             }
+             /**
+             * Service updateblog: update information blog 
+             * updateblog.jsp
+             */
             if (dos.equals("updatebloggg")) {
                 String author = request.getParameter("author").trim();
                 String BlogID = request.getParameter("BlogID").trim();
                 String blogDescription = request.getParameter("description").trim();
                 String blogTitleString = request.getParameter("title").trim();
 //              if(blogDescription.trim() == ""){
-                    out.println("<h1>Servlet RoomcategoryController at "+ author+"</h1>"); 
+//                    out.println("<h1>Servlet RoomcategoryController at "+ author+"</h1>"); 
 //                }else{
-//               dao.updateBlog(BlogID, author, blogDescription, blogTitleString);
-//                response.sendRedirect("BlogManagerController?do=editblog");
-//            }
+               dao.updateBlog(BlogID, author, blogDescription, blogTitleString);
+                response.sendRedirect("BlogManagerController?do=editblog");
+            
             }
+             /**
+             * Service EditComment: Show notification
+             * BlogDetail.jsp
+             */
                if (dos.equals("EditComment")) {
                    request.setAttribute("Ok", "Ok");
                  request.getRequestDispatcher("BlogDetail.jsp").forward(request, response);
-               }
-          
+               }        
         } catch (Exception e) {
             e.printStackTrace();
         }

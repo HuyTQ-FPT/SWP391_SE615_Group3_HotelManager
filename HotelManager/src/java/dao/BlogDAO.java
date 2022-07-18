@@ -40,7 +40,7 @@ public interface BlogDAO {
      * @param BlogTitleString is an String
      * @throws java.lang.Exception
      */
-    public void updateBlog(String BlogID, String BlogAuthor, String BlogDescription, String BlogTitleString);
+    public void updateBlog(String BlogID, String BlogAuthor, String BlogDescription, String BlogTitleString) throws Exception;
 
     /**
      * delete Blog from the Blog table
@@ -56,7 +56,7 @@ public interface BlogDAO {
      * @return Vector
      * @throws java.lang.Exception
      */
-    public Vector<Blog> getBlog(String sql);
+    public Vector<Blog> getBlog(String sql) throws Exception;
 
     /**
      * select page from the Blog table
@@ -64,7 +64,7 @@ public interface BlogDAO {
      * @return Integer
      * @throws java.lang.Exception
      */
-    public int getPage();
+    public int getPage() throws Exception;
 
     /**
      * select Blog base on page from the Blog table
@@ -73,7 +73,7 @@ public interface BlogDAO {
      * @return Vector
      * @throws java.lang.Exception
      */
-    public Vector<Blog> getBlogByPage(int n);
+    public Vector<Blog> getBlogByPage(int n) throws Exception;
 
     /**
      * select Blog base on page and sort by date asc from the Blog table
@@ -82,7 +82,7 @@ public interface BlogDAO {
      * @return Vector
      * @throws java.lang.Exception
      */
-    public Vector<Blog> getBlogByPagesortnew(int n);
+    public Vector<Blog> getBlogByPagesortnew(int n) throws Exception;
 
     /**
      * select Blog base on page and sort by date desc from the Blog table
@@ -91,8 +91,7 @@ public interface BlogDAO {
      * @return Vector
      * @throws java.lang.Exception
      */
-    public Vector<Blog> getBlogByPagesortold(int n);
-
+   public Vector<Blog> getBlogByPagesortold(int n) throws Exception;
     /**
      * select Blog base on page and author from the Blog table
      *
@@ -101,7 +100,7 @@ public interface BlogDAO {
      * @return Vector
      * @throws java.lang.Exception
      */
-    public Vector<Blog> getBlogByPagesearch(int n, String author);
+    public Vector<Blog> getBlogByPagesearch(int n, String author) throws Exception;
  /**
      * Insert data blog and insert to database
      *
@@ -112,13 +111,13 @@ public interface BlogDAO {
        * @param BlogTitle is an String
      * @throws java.lang.Exception
      */
-    public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String BlogTitle);
+    public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String BlogTitle) throws Exception;
  /**
      * Delete blog and update to database
      * @param BlogID is an String
      * @throws java.lang.Exception
      */
-    public void deleteBlog(String BlogID);
+    public void deleteBlog(String BlogID) throws Exception;
  /**
      * Select comment from BlogDetail
      *
@@ -126,7 +125,7 @@ public interface BlogDAO {
      * @return List
      * @throws java.lang.Exception
      */
-    public List<Comment> DisplayComment(String BlogID);
+    public List<Comment> DisplayComment(String BlogID) throws Exception;
  /**
      Insert data comment and insert to database
      * @param content is an String
@@ -135,12 +134,12 @@ public interface BlogDAO {
      * @param ParentID is an String
      * @throws java.lang.Exception
      */
-    public void InsertComment(String content, String username, String BlogID, String ParentID);
+    public void InsertComment(String content, String username, String BlogID,String ParentID) throws Exception;
  /**
      * Insert command sql
      * @throws java.lang.Exception
      */
-    public void crudImage(String sql);
+    public void crudImage(String sql) throws Exception;
  /**
      * Select blog base on id from blogtable
      *
@@ -148,13 +147,13 @@ public interface BlogDAO {
      * @return Vector
      * @throws java.lang.Exception
      */
-    public Vector<Blog> selectBlog(String BlogID);
+    public Vector<Blog> selectBlog(String BlogID) throws Exception;
  /**
      Select blogid base on command from blogtable
      * @return String
      * @throws java.lang.Exception
      */
-    public String getBlogID(String sql);
+    public String getBlogID(String sql) throws Exception;
  /**
      * Select username customer from Customertable
      *
@@ -162,65 +161,65 @@ public interface BlogDAO {
      * @return String
      * @throws java.lang.Exception
      */
-    public String selectUsername(String AccountID);
+    public String selectUsername(String AccountID) throws Exception;
  /**
      * Select reply comment from Blogdetail
      * @param CommentID is an String
      * @return List
      * @throws java.lang.Exception
      */
-    public List<Comment> DisplayCommenttt(String CommentID);
+    public List<Comment> DisplayCommenttt(String CommentID) throws Exception;
  /**
      * Delete comment parent and update to database
      * @param CommentID is an String
      * @param ParentID is an String
      * @throws java.lang.Exception
      */
-    public void deleteCommentParent(String CommentID, String ParentID);
+    public void deleteCommentParent(String CommentID,String ParentID) throws Exception;
  /**
      * Delete comment base on id and update to database
      * @param CommentID is an String
      * @throws java.lang.Exception
      */
-    public void deleteComment(String CommentID);
+    public void deleteComment(String CommentID) throws Exception;
  /**
      * Update content comment base on commentid from commentlist
      * @param CommentID is an String
      * @param Content is an String   
      * @throws java.lang.Exception
      */
-    public void updateContent(String CommentID, String Content);
+    public void updateContent(String CommentID, String Content) throws Exception;
  /**
      * Select blog base on blogid from blog table
      * @param BlogID is an String
      * @return object Blog
      * @throws java.lang.Exception
      */
-    public Blog selectBlog1(String BlogID);
+   public Blog selectBlog1(String sql) throws Exception;
  /**
      * Displaycomment base on blogid 
      * @param BlogID is an String
      * @return List
      * @throws java.lang.Exception
      */
-    public List<Comment> DisplayCommentBlog(String BlogID);
+    public List<Comment> DisplayCommentBlog(String BlogID) throws Exception;
  /**
      * Display all comment base on blogid
      * @param BlogID is an String
      * @return List
      * @throws java.lang.Exception
      */
-    public List<Comment> DisplayAllComment(String BlogID);
+    public List<Comment> DisplayAllComment(String BlogID) throws Exception ;
  /**
      * Select comment base on comment parent and comment children
      * @throws java.lang.Exception
      */
-   public int getComment(String BlogID);
+   public int getComment(String BlogID) throws Exception;
  /**
      * Select page base on count of comment
      * @param n is an int
      * @return List
      * @throws java.lang.Exception
      */
-   public List<Comment> getCommentByPage(int n,String BlogID);
+   public List<Comment> getCommentByPage(int n,String BlogID) throws Exception;
 }
