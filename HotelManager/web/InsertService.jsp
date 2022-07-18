@@ -145,7 +145,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                                <button onclick="alert('Thêm Mới Service Thành Công');" type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
                             </div>
                         </div>
                     </div>
@@ -155,7 +155,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <footer class="tm-footer row tm-mt-small">
             <div class="col-12 font-weight-light">
                 <p class="text-center text-white mb-0 px-4 small">
-                    Copyright &copy; <b>2018</b> All rights reserved. 
+                    
 
                     Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
                 </p>

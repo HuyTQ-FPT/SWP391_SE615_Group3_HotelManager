@@ -114,7 +114,7 @@
                                                 <h4 style="text-align: center">${c.serviceName}</h4>
                                                 <!--                                <div class="check-box"></div>-->
                                             </div>
-                                            <a href="#">Visit store</a>
+                                            <a href="ServiceController?do=servicedetail&ServiceID=${c.serviceID}">Chi Tiết</a>
                                         </div>
                                     </form>
                                 </c:forEach>
@@ -130,7 +130,7 @@
                                                 <h4 style="text-align: center">${c.cateroom}</h4>
                                                 <!--                                <div class="check-box"></div>-->
                                             </div>
-                                            <a href="#">Visit store</a>
+                                            <a href="RoomController?do=roomdetail&roomid=${c.roomID}">Chi Tiết</a>
                                         </div>
                                     </form>
                                 </c:forEach>

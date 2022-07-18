@@ -79,6 +79,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
                         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                            <c:if test = "${insert!= null}">
+                                <a style="margin-left: 83%;border-radius: 20px" class="btn btn-primary" href="ServiceController?do=ListService" role="button">Danh Sách Dịch Vụ</a>
+                            </c:if>
                             <div class="row">
                                 <div class="col-12" style="text-align: center">
                                     <h2 class="tm-block-title d-inline-block">Chỉnh Sửa Thông Tin Dịch Vụ</h2> <br>
@@ -153,7 +156,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                                <button onclick="alert('Cập Nhật Thành Công');" type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
                             </div>
                         </div>
                     </div>
