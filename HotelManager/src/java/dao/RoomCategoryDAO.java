@@ -21,7 +21,13 @@ import java.util.Vector;
  */
 public interface RoomCategoryDAO {
 
-    public Vector<RoomCategory> getRoomCategoryList(String sql);
+    /**
+     * get list RoomCategory
+     *
+     * @return <code>Vector<RoomCategory></code> object.
+     * @throws java.lang.Exception
+     */
+    public Vector<RoomCategory> getRoomCategoryList(String sql) throws Exception;
 
     public RoomCategory getRoomCategori(String cateid);
 
@@ -38,12 +44,14 @@ public interface RoomCategoryDAO {
      * @throws java.lang.Exception
      */
     public ArrayList<RoomCategory> numberOfRoomsByCategory() throws Exception;
-     /**
+
+    /**
      * get count RoomcateID from RoomCategory table
-     *@param cateID is an <code>RoomCategory</code> object.
+     *
+     * @param cateID is an <code>RoomCategory</code> object.
      * @return <code>ArrayList<RoomCategory></code> object.
      * @throws java.lang.Exception
      */
-    
+
     public RoomCategory getRoomCate(int cateID) throws Exception;
 }

@@ -28,11 +28,18 @@ import java.util.Vector;
  */
 public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
 
+    /**
+     * get count RoomcateID from RoomCategory table
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
-    public Vector<RoomCategory> getRoomCategoryList(String sql) {
+    public Vector<RoomCategory> getRoomCategoryList(String sql) throws Exception {
+        ResultSet rs = null;
         Vector<RoomCategory> vector = new Vector<RoomCategory>();
         try {
-            ResultSet rs = getData(sql);
+            rs = getData(sql);
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -42,6 +49,8 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closeResultSet(rs);
         }
         return vector;
     }
@@ -130,14 +139,13 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
             System.out.println(e);
         }
     }
-    
+
     /**
      * get count RoomcateID from RoomCategory table
      *
-     * @return 
+     * @return
      * @throws Exception
      */
-
     @Override
     public ArrayList< RoomCategory> numberOfRoomsByCategory() throws Exception {
         Connection conn = null;
@@ -153,7 +161,7 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
             rs = pre.executeQuery();
             while (rs.next()) {
 
-                 listRoomCategory.add(new RoomCategory(rs.getInt("RoomcateID"), rs.getString("Catename"), rs.getInt("count")));
+                listRoomCategory.add(new RoomCategory(rs.getInt("RoomcateID"), rs.getString("Catename"), rs.getInt("count")));
 
             }
         } catch (Exception e) {
@@ -164,15 +172,16 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
             closeConnection(conn);
 
         }
-        return  listRoomCategory;
+        return listRoomCategory;
     }
+
     /**
      * get count RoomcateID from RoomCategory table
-     *@param cateID 
+     *
+     * @param cateID
      * @return
      * @throws Exception
      */
-    
     @Override
     public RoomCategory getRoomCate(int cateID) throws Exception {
         Connection conn = null;
@@ -180,7 +189,7 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
         PreparedStatement pre = null;
         /* Result set returned by the sqlserver */
         ResultSet rs = null;
-     
+
         String sql = "select c.* from Room r inner join CateRoom c on r.RoomcateID = c.RoomcateID where r.RoomcateID=" + cateID;
         try {
             conn = getConnection();
