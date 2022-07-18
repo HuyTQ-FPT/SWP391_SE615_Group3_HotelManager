@@ -73,11 +73,11 @@ public class RoomcategoryController extends HttpServlet {
                 } else {
                     cate = "(Room.RoomcateID=" + cateroom + ") and";
                 }
-                Vector<Room> listroom
-                        = roomdao.getRoomList1("select * from room  join CateRoom  on Room.RoomcateID = CateRoom.RoomcateID join [Image] on Room.RoomimgaeID = [Image].RoomimgaeID\n"
-                                + "                             	where " + cate + " (Roomdesc like'%" + "" + "%' or Roomprice like'%" + "" + "%') \n"
-                                + "                               	order by Room.RoomID asc");
-                request.setAttribute("listroom", listroom);
+//                Vector<Room> listroom
+//                        = roomdao.getRoomList1("select * from room  join CateRoom  on Room.RoomcateID = CateRoom.RoomcateID join [Image] on Room.RoomimgaeID = [Image].RoomimgaeID\n"
+//                                + "                             	where " + cate + " (Roomdesc like'%" + "" + "%' or Roomprice like'%" + "" + "%') \n"
+//                                + "                               	order by Room.RoomID asc");
+//                request.setAttribute("listroom", listroom);
 //                out.println("<h1>Servlet RoomcategoryController at " + cate + "</h1>");
                 request.getRequestDispatcher("AdListRom.jsp").forward(request, response);
             }

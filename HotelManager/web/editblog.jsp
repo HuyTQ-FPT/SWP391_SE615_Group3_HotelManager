@@ -33,11 +33,11 @@
         alert("Xóa thành công");
     }
 </script>
-<%@include file="headerAdmin.jsp" %>
-<link href="css/navdropdown.css" rel="stylesheet">   
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" 
-src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <%@include file="headerAdmin.jsp" %>
+    <link href="css/navdropdown.css" rel="stylesheet">   
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" 
+    src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <body id="reportsPage">
 
     <div class="">
