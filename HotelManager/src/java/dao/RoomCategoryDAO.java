@@ -29,13 +29,13 @@ public interface RoomCategoryDAO {
      */
     public Vector<RoomCategory> getRoomCategoryList(String sql) throws Exception;
 
-    public RoomCategory getRoomCategori(String cateid);
+    public RoomCategory getRoomCategori(String sql) throws Exception;
 
     public void insertRoomCategory(String roomcatename, String roomcatedes);
 
-    public void updateRoomCategory(String RoomCategoryid, String roomcatename, String roomcatedes);
+    public void updateRoomCategory(String RoomCategoryid, String roomcatename, String roomcatedes) throws Exception;
 
-    public void deleteRoomCategory(String roomcate);
+    public void deleteRoomCategory(String roomcate) throws Exception;
 
     /**
      * get count RoomcateID from RoomCategory table

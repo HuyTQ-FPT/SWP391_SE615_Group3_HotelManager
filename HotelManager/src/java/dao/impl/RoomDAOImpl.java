@@ -59,6 +59,13 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         }
         return vector;
     }
+     /**
+     * check room Name from Room table
+     *
+     * @param roomName
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Room> getRoomList1(String sql) throws Exception{
         Connection conn = null;
