@@ -4,11 +4,14 @@ import dao.ServiceDAO;
 import entity.Service;
 import context.DBContext;
 import entity.FeedBackService;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ServiceDAOImpl extends DBContext implements ServiceDAO {
 
@@ -34,11 +37,21 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
         return vector;
     }
 
+    /**
+     * get list feedback by sql FeedbackService table
+     *
+     * @param getFeedBackBySeviceID
+     * @return
+     * @throws Exception
+     */
     @Override
-    public Vector<FeedBackService> getFeedBackBySeviceID(String Sql) {
+    public Vector<FeedBackService> getFeedBackBySeviceID(String Sql) throws Exception {
+        Connection conn = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<FeedBackService> vector = new Vector<FeedBackService>();
         try {
-            ResultSet rs = getData(Sql);
+            rs = getData(Sql);
             while (rs.next()) {
                 int ServiceID = rs.getInt(1);
                 int AccountID = rs.getInt(2);
@@ -52,12 +65,25 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closeConnection(conn);
         }
         return vector;
     }
 
+    /**
+     * insertCommentService from FeedbackService table
+     *
+     * @param insertCommentService
+     * @return
+     * @throws Exception
+     */
     @Override
-    public void insertCommentService(String ServiceID, String AccountID, String Comment) {
+    public void insertCommentService(String ServiceID, String AccountID, String Comment) throws Exception {
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         String query = "INSERT INTO [dbo].[FeedBackService]\n"
                 + "           ([ServiceID]\n"
                 + "           ,[AccountID]\n"
@@ -68,41 +94,68 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
                 + "     VALUES\n"
                 + "           (?,?,GETDATE(),?,0,'')";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+            pre = conn.prepareStatement(query);
             pre.setString(1, ServiceID);
             pre.setString(2, AccountID);
             pre.setString(3, Comment);
             pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
 
+    /**
+     * Block Comnent from FeedbackService table
+     *
+     * @param DeleteComnent
+     * @return
+     * @throws Exception
+     */
     @Override
-    public void DeleteComnent(String CommentID) {
+    public void BlockComnent(String CommentID) throws Exception {
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         String query = "UPDATE [dbo].[FeedBackService]\n"
                 + "   SET [Status] = 1 \n"
                 + " WHERE CommentID = ? ";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+            pre = conn.prepareStatement(query);
             pre.setString(1, CommentID);
             pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
-    
+
+    /**
+     * Unblock Comnent from FeedbackService table
+     *
+     * @param DeleteComnent
+     * @return
+     * @throws Exception
+     */
     @Override
-    public void UnblockComment(String CommentID) {
+    public void UnblockComment(String CommentID) throws Exception {
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         String query = "UPDATE [dbo].[FeedBackService]\n"
                 + "   SET [Status] = 0 \n"
                 + " WHERE CommentID = ? ";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+            pre = conn.prepareStatement(query);
             pre.setString(1, CommentID);
             pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
 
@@ -130,12 +183,20 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
     }
 
     public static void main(String[] args) {
-        ServiceDAOImpl dao = new ServiceDAOImpl();
+        try {
+            ServiceDAOImpl dao = new ServiceDAOImpl();
+
+            Service se = dao.getLastService();
 //        dao.insertCommentService("1", "1", "dịch vụ raasst tốt");
-        Vector<FeedBackService> fe = dao.getFeedBackBySeviceID("select * from FeedBackService join [User] on FeedBackService.AccountID = [User].AccountID where ServiceID = 1 ");
-        for (FeedBackService feedBackService : fe) {
+        Vector<Service> fe = dao.getServiceListbyran();
+        for (Service feedBackService : fe) {
             System.out.println(feedBackService);
+//            System.out.println(se);
         }
+        } catch (Exception ex) {
+            Logger.getLogger(ServiceDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
@@ -195,6 +256,39 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * get Last Service from Service table
+     *
+     * @param getLastService
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Service getLastService() throws Exception {
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        String sql = "select top(1)* from Service order by ServiceID desc";
+        try {
+            rs = getData(sql);
+            while (rs.next()) {
+                int ServiceID = rs.getInt(1);
+                String ServiceName = rs.getString(2);
+                String ServiceImage = rs.getString(3);
+                String ServiceDes = rs.getString(4);
+                String ServiceNote = rs.getString(5);
+                double ServicePrice = rs.getDouble(6);
+                return new Service(ServiceID, ServiceName, ServiceImage, ServiceDes, ServiceNote, ServicePrice);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally {
+            closeResultSet(rs);
+            closeConnection(conn);
+        }
+        return null;
     }
 
     @Override

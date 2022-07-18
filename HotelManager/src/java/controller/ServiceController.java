@@ -69,15 +69,13 @@ public class ServiceController extends HttpServlet {
             DevicesDAOImpl DeviceDao = new DevicesDAOImpl();
             RoomCategoryDAOImpl RoomCateDao = new RoomCategoryDAOImpl();
             /**
-             * Service Validate do null
-             * Filter.jsp
+             * Service Validate do null Filter.jsp
              */
             if (doo.equals("") || doo == null) {
                 response.sendRedirect("Filter.jsp");
             }
             /**
-             * Insert Comment Service
-             * viewRoom.jsp
+             * Insert Comment Service viewRoom.jsp
              */
             if (doo.equals("CommentService")) {
                 String ServiceID = request.getParameter("ServiceID");
@@ -88,25 +86,25 @@ public class ServiceController extends HttpServlet {
                 response.sendRedirect("ServiceController?do=servicedetail&ServiceID=" + ServiceID + "");
             }
             /**
-             * Get all comment and send to ListComment.jsp
-             * ListComment.jsp
+             * Get all comment and send to ListComment.jsp ListComment.jsp
              */
             if (doo.equals("ListComment")) {
                 String ServiceID = request.getParameter("ServiceID");
+                /*Get all feedback*/
                 Vector<FeedBackService> listFeedBack = ServiceDao.getFeedBackBySeviceID("select * from FeedBackService join "
                         + "[User] on FeedBackService.AccountID = [User].AccountID where ServiceID = " + ServiceID + " order by FeedBackService.Date desc");
                 request.setAttribute("listFeedBack", listFeedBack);
                 request.getRequestDispatcher("ListComment.jsp").forward(request, response);
             }
             /**
-             * Deletecomment by commentid, serviceid and response to ListComment.jsp
-             * ListComment.jsp
+             * Deletecomment by commentid, serviceid and response to
+             * ListComment.jsp ListComment.jsp
              */
             if (doo.equals("DeleteComment")) {
                 String ServiceID = request.getParameter("ServiceId");
                 String CommnetID = request.getParameter("CommentID");
-                /*Deletecomment by commentid, serviceid and response to ListComment.jsp*/
-                ServiceDao.DeleteComnent(CommnetID);
+                /*Blockcomment by commentid, serviceid and response to ListComment.jsp*/
+                ServiceDao.BlockComnent(CommnetID);
                 response.sendRedirect("ServiceController?do=ListComment&ServiceID=" + ServiceID + "");
             }
             /**
@@ -120,38 +118,55 @@ public class ServiceController extends HttpServlet {
                 ServiceDao.UnblockComment(CommnetID);
                 response.sendRedirect("ServiceController?do=ListComment&ServiceID=" + ServiceID + "");
             }
-
+            /**
+             * get rand room, top room and response to viewRoom.jsp
+             * viewRoom.jsp
+             */
             if (doo.equals("servicedetail")) {
                 String ServiceID = request.getParameter("ServiceID");
+                /*Get rand 5 room*/
                 Vector<Room> getroomlist = RoomDao.getRoomList("select top (5) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID\n"
                         + "                        JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
                         + "                        where Room.Status =0 \n"
                         + "			   ORDER BY NEWID()");
+                /*Get rand 5 room*/
                 Vector<Room> getroomlist2 = RoomDao.getRoomList("select top (4) * from Room INNER JOIN Image on Image.RoomimgaeID= Room.RoomimgaeID\n"
                         + "                        JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
                         + "                        where Room.Status =0 \n"
                         + "			   ORDER BY NEWID()");
                 Service se = ServiceDao.getServicedetail(ServiceID);
+                /*Get all feedback*/
                 Vector<FeedBackService> listFeedBack = ServiceDao.getFeedBackBySeviceID("select * from FeedBackService join "
                         + "[User] on FeedBackService.AccountID = [User].AccountID where ServiceID = " + ServiceID + " order by FeedBackService.Date desc");
                 request.setAttribute("se", se);
                 request.setAttribute("vector", getroomlist);
                 request.setAttribute("getroomlist2", getroomlist2);
                 request.setAttribute("listFeedBack", listFeedBack);
-//                out.println("<h1>Lỗi Trang "+listFeedBack+"</h1>");
                 request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
             }
+            /**
+             * get all service and response to ListService.jsp
+             * ListService.jsp
+             */
             if (doo.equals("ListService")) {
                 Vector<Service> ListService = ServiceDao.getServiceList();
                 request.setAttribute("ListService", ListService);
+                /*Get all service*/
                 request.getRequestDispatcher("ListService.jsp").forward(request, response);
-//                out.println("<h1>Lỗi Trang "+ListService+"</h1>");
             }
+            /**
+             * delete service by serviceid and response to ListService.jsp
+             * ListService.jsp
+             */
             if (doo.equals("DeleteService")) {
                 String DeviceId = request.getParameter("ServiceId");
                 ServiceDao.deleteService("delete from Service where ServiceID =" + DeviceId + "");
                 response.sendRedirect("ServiceController?do=ListService");
             }
+            /**
+             * get service by serviceid and response to ListService.jsp
+             * ListService.jsp
+             */
             if (doo.equals("UpDateService")) {
                 String DeviceId = request.getParameter("ServiceId");
                 Service Services = ServiceDao.getServicedetail(DeviceId);
@@ -210,8 +225,9 @@ public class ServiceController extends HttpServlet {
                 if (ServiceImage.length() <= 2 || ServiceImage == null) {
                     ServiceImage = Services.getServiceImage();
                 }
+                request.setAttribute("insert", "insert");
                 ServiceDao.updateService(ServiceName.replaceAll("\\s\\s+", " ").trim(), ServiceImage, ServiceDes.replaceAll("\\s\\s+", " ").trim(), ServicePrice, ServiceID);
-                response.sendRedirect("ServiceController?do=ListService");
+                request.getRequestDispatcher("ServiceController?do=UpDateService&ServiceId=5").forward(request, response);
             }
             if (doo.equals("InSert")) {
                 ArrayList<String> service = new ArrayList<String>();
@@ -246,9 +262,10 @@ public class ServiceController extends HttpServlet {
                 String ServiceDes = service.get(2);
                 String ServicePrice = service.get(1);
                 String ServiceImage = service.get(3);
+                request.setAttribute("insert", "insert");
                 ServiceDao.insertService(ServiceName.replaceAll("\\s\\s+", " ").trim(), ServiceImage, ServiceDes.replaceAll("\\s\\s+", " ").trim(), ServicePrice);
-//                out.println("<h1>Lỗi Trang "+service+"</h1>");
-                response.sendRedirect("ServiceController?do=ListService");
+                Service se = ServiceDao.getLastService();
+                request.getRequestDispatcher("ServiceController?do=UpDateService&ServiceId="+se.getServiceID()+"").forward(request, response);
             }
         }
 

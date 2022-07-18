@@ -18,9 +18,10 @@ public interface ServiceDAO {
 
     public void deleteService(String sql);
 
-    public Vector<FeedBackService> getFeedBackBySeviceID(String Sql);
+    public Vector<FeedBackService> getFeedBackBySeviceID(String Sql) throws Exception;
 
-    public void insertCommentService(String ServiceID, String AccountID, String Comment);
-    public void DeleteComnent(String CommentID);
-    public void UnblockComment(String CommentID);
+    public void insertCommentService(String ServiceID, String AccountID, String Comment) throws Exception;
+    public void BlockComnent(String CommentID) throws Exception;
+    public void UnblockComment(String CommentID) throws Exception;
+    public Service getLastService()  throws Exception;
 }
