@@ -7,6 +7,7 @@ package controller;
 
 import context.DBContext;
 import dao.impl.EventsDAOImpl;
+import entity.Account;
 import entity.Events;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,7 +41,7 @@ public class EventController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String service = request.getParameter("do");
             HttpSession session= request.getSession();
@@ -65,10 +66,9 @@ public class EventController extends HttpServlet {
                 Vector<Events> vector= dao.getEventsList();
                 request.setAttribute("vector", vector);
                 request.getRequestDispatcher("events.jsp").forward(request, response);
-                
             }
         } catch (Exception ex) {
-           ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
 

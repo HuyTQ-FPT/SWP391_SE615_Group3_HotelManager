@@ -14,6 +14,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -55,7 +56,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     <tr style="background-color: 435C70">  
                         <td style="background-color: 435C70; text-align: center"><span class="badge badge-primary badge-pill">${r.deviceID}</span></td>  
                         <td style="background-color: 435C70; text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.deviceName}</span></td>
-                        <td style="background-color: 435C70; text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.price}</span></td>
+                        <td style="background-color: 435C70; text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;"><fmt:formatNumber value="${r.price}"/> đ</span></td>
                         <td style="background-color: 435C70; text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.deviceCate}</span></td>
                         <td style="background-color: 435C70; text-align: center" ><a style="border-radius: 10px" href="DeviceController?do=RoomByDevice&DeviceId=${r.deviceID}" class="btn btn-info" role="button">Danh Sách</a></td>
                         <td style="background-color: 435C70; text-align: center" ><a style="border-radius: 10px" href="DeviceController?do=UpdateDevice&DeviceId=${r.deviceID}" class="btn btn-info" role="button">Chỉnh Sửa</a></td>

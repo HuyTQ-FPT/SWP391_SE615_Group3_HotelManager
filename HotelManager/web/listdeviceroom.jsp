@@ -13,6 +13,7 @@ src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -59,7 +60,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <td style="background-color: 435C70 ; width: 3%"><span class="badge badge-primary badge-pill">${r.deviceID}</span></td>  
                         <td style="background-color: 435C70 ; width: 10%" ><img style="width: 150px; height: 100px" src="images/anhphong/${r.imagedevice}" class="img-thumbnail"></td>
                         <td style="background-color: 435C70 ; width: 20%; text-align: center "><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.deviceName}</span></td>  
-                        <td style="background-color: 435C70 ; width: 10%; color: orangered; font-style: inherit;text-align: center">${r.price} $</td>  
+                        <td style="background-color: 435C70 ; width: 10%; color: orangered; font-style: inherit;text-align: center"> <fmt:formatNumber value="${r.price}"/> đ</td>  
                         <c:if test="${r.status==0}"> 
                             <td style="background-color: 435C70 ; width: 10%;text-align: center">Hoạt Động</td>  
                         </c:if>

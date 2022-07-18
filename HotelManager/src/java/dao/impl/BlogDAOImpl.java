@@ -1,4 +1,13 @@
-
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 13/07/2022    1.0        QuanNT            Comment
+ */
 package dao.impl;
 
 import dao.BlogDAO;
@@ -18,15 +27,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * The class has methods needed for initialize connection with database and
+ * execute queries with Blog and associate tables
  *
- * @author Admin
+ * @author QuanNT
  */
 public class BlogDAOImpl extends DBContext implements BlogDAO {
-
+/**
+     * Get all Blog from database
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Blog> getBlog(String sql) {
-        Vector<Blog> vector = new Vector<Blog>();
-         
+        Vector<Blog> vector = new Vector<Blog>();        
         try {
           ResultSet rs = getData(sql);
             while (rs.next()) {
@@ -46,6 +61,13 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
+    
+    /**
+     * get Comment from Blog table using BlogID
+     * @param BlogID
+     * @return int 
+     * @throws Exception
+     */
 @Override
     public int getComment(String BlogID) {
         int n = 0;
@@ -74,6 +96,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return n;
     }
+   /**
+     * get count page from Blog table 
+     * @return int 
+     * @throws Exception
+     */ 
     @Override
     public int getPage() {
         int n = 0;
@@ -101,7 +128,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return n;
     }
-
+/**
+     * get BlogID from Blog table 
+     * @param BlogID
+     * @return String
+     * @throws Exception
+     */
     @Override
     public String getBlogID(String sql) {
         String n1="";
@@ -121,6 +153,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return n1;
     }
+    /**
+     * get ussername from Account table using AccountID
+     * @param AccountID
+     * @return String 
+     * @throws Exception
+     */
 @Override
     public String selectUsername(String AccountID) {
         String sql = "select UserName from [User] where AccountID = "+AccountID+"";
@@ -137,6 +175,13 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return n1;
     }
+    /**
+     * get count page Comment from Blog table using BlogID
+     * @param BlogID
+     * @param n is int
+     * @return List 
+     * @throws Exception
+     */
        @Override
     public List<Comment> getCommentByPage(int n,String BlogID) {
         List<Comment> list = new ArrayList<Comment>();
@@ -173,6 +218,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return list;
     }
+    /**
+     * get count Page Blog from Blog table 
+     * @param n
+     * @return Vector 
+     * @throws Exception
+     */
     @Override
     public Vector<Blog> getBlogByPage(int n) {
         Vector<Blog> vector = new Vector<Blog>();
@@ -204,7 +255,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
-
+/**
+     * get count page Blog from Blog table base on date desc
+     * @param n
+     * @return Vector 
+     * @throws Exception
+     */
     @Override
     public Vector<Blog> getBlogByPagesortnew(int n) {
         Vector<Blog> vector = new Vector<Blog>();
@@ -236,7 +292,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
-
+/**
+     * delete Blog from Blog table using BlogID
+     * @param BlogID
+     * @throws Exception
+     */
     @Override
     public void deleteBlog(String BlogID) {
         String query = "DELETE FROM [dbo].[Blog]\n"
@@ -249,6 +309,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             e.printStackTrace();
         }
     }
+    /**
+     * get CommentParent from Blog table using CommentID
+     * @param CommentID
+     * @param ParentID 
+     * @throws Exception
+     */
   @Override
     public void deleteCommentParent(String CommentID,String ParentID) {
         String query = "delete from Comment where CommentID = ? or ParentID = ?";
@@ -261,6 +327,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             e.printStackTrace();
         }
     }
+    /**
+     * delete Comment from Comment table using CommentID
+     * @param CommentID
+     * @throws Exception
+     */
     @Override
     public void deleteComment(String CommentID) {
         String query = "delete from Comment where CommentID = ?";
@@ -272,6 +343,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             e.printStackTrace();
         }
     }
+    /**
+     * get countpage Blog from Blog table base on date asc
+     * @param n
+     * @return Vector 
+     * @throws Exception
+     */
     @Override
     public Vector<Blog> getBlogByPagesortold(int n) {
         Vector<Blog> vector = new Vector<Blog>();
@@ -303,7 +380,13 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
-
+/**
+     * get countpage Blog from Blog table using search name author
+     * @param author
+     * @param n
+     * @return vector 
+     * @throws Exception
+     */
     @Override
     public Vector<Blog> getBlogByPagesearch(int n, String author) {
         Vector<Blog> vector = new Vector<Blog>();
@@ -336,7 +419,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
-
+/**
+     * get Blog from Blog table using BlogID
+     * @param BlogID
+     * @return Vector 
+     * @throws Exception
+     */
     @Override
     public Vector<Blog> selectBlog(String BlogID) {
         Vector<Blog> vector = new Vector<Blog>();
@@ -351,6 +439,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return vector;
     }
+    /**
+     * get Blog from Blog table using BlogID
+     * @param BlogID
+     * @return Blog 
+     * @throws Exception
+     */
  @Override
     public Blog selectBlog1(String sql) {
 
@@ -371,7 +465,16 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
      return null;
     }
-    
+    /**
+     * insert Blog from database using data input
+     * @param AccountID
+     * @param BlogAuthor  
+     * @param BlogDescription
+     * @param BlogImage
+     * @param BlogTitle
+     * @return int 
+     * @throws Exception
+     */
     @Override
     public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String BlogTitle) {
         String query = "INSERT INTO [dbo].[Blog]\n"
@@ -396,7 +499,14 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             e.printStackTrace();
         }
     }
-
+/**
+     * update Blog from Blog table using BlogID
+     * @param BlogID
+     * @param BlogAuthor
+     * @param BlogDescription
+     * @param BlogTitleString
+     * @throws Exception
+     */
     @Override
     public void updateBlog(String BlogID, String BlogAuthor, String BlogDescription, String BlogTitleString) {
         String query = "UPDATE [dbo].[Blog]\n"
@@ -416,6 +526,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             e.printStackTrace();
         }
     }
+    /**
+     * get update Content from Comment table using CommentID
+     * @param CommentID
+     * @param Content
+     * @throws Exception
+     */
 @Override
     public void updateContent(String CommentID, String Content) {
         String query = "UPDATE [dbo].[Comment] SET [Content] = ? WHERE CommentID = ?";
@@ -428,6 +544,14 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             e.printStackTrace();
         }
     }
+    /**
+     * get insertComment from Comment table using data input
+     * @param Content
+     * @param Username
+     * @param BlogID
+     * @param ParentID
+     * @throws Exception
+     */
     @Override
     public void InsertComment(String content, String username, String BlogID,String ParentID) {
         String sql = "INSERT INTO [dbo].[Comment]([Content],[username],[Date],[ParentID],[BlogID])VALUES(?,?,GETDATE(),?,?)";
@@ -443,6 +567,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             e.printStackTrace();
         }
     }
+    /**
+     * get AllComment from Comment table using BlogID
+     * @param BlogID
+     * @return List 
+     * @throws Exception
+     */
     @Override
     public List<Comment> DisplayAllComment(String BlogID) {
         List<Comment> list = new ArrayList<Comment>();
@@ -471,6 +601,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return list;
     }
+    /**
+     * get Comment BLog from Blog table using BlogID
+     * @param BlogID
+     * @return List 
+     * @throws Exception
+     */
  @Override
     public List<Comment> DisplayCommentBlog(String BlogID) {
         List<Comment> list = new ArrayList<Comment>();
@@ -499,6 +635,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return list;
     }
+    /**
+     * get Comment from Blog table using BlogID
+     * @param BlogID
+     * @return List 
+     * @throws Exception
+     */
     @Override
     public List<Comment> DisplayComment(String BlogID) {
         List<Comment> list = new ArrayList<Comment>();
@@ -527,6 +669,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         }
         return list;
     }
+    /**
+     * get CommentParent from Blog table using BlogID
+     * @param BlogID
+     * @return List 
+     * @throws Exception
+     */
  @Override
     public List<Comment> DisplayCommenttt(String CommentID) {
         List<Comment> list = new ArrayList<Comment>();

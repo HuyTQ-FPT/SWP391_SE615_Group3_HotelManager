@@ -13,6 +13,7 @@ Author     : admin
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -44,16 +45,16 @@ Author     : admin
         <link rel="stylesheet" href="css/tooplate-style.css">
     </head>
     <script>
-                                                function Validate() {
-                                                    var x = document.getElementById("adult");
-                                                    var y = document.getElementById("room");
-                                                    console.log(x);
-                                                    if(y > x){
-                                                        alert("Phòng không thể nhiều hơn số người lớn");
-                                                        return false;
-                                                    }
-                                                }
-        </script>
+        function Validate() {
+            var x = document.getElementById("adult");
+            var y = document.getElementById("room");
+            console.log(x);
+            if (y > x) {
+                alert("Phòng không thể nhiều hơn số người lớn");
+                return false;
+            }
+        }
+    </script>
     <style>
 
         .card{
@@ -151,7 +152,9 @@ Author     : admin
             right: 100px;
         }
 
-        input.star { display: none; }
+        input.star {
+            display: none;
+        }
 
         label.star {
             float: right;
@@ -185,16 +188,26 @@ Author     : admin
                 transition-delay: 0.1s;
                 transform: rotate(20deg);
             }
-            input.star-1:checked ~ label.star:before { color: #F62; }
+            input.star-1:checked ~ label.star:before {
+                color: #F62;
+            }
 
-            label.star:hover { transform: rotate(-15deg) scale(1.3); }
+            label.star:hover {
+                transform: rotate(-15deg) scale(1.3);
+            }
 
             label.star:before {
                 content: '\f006';
                 font-family: FontAwesome;
             }
             .feedback{
-                color:#1E90FF; font-size: 50px;position: fixed; right: 25px; bottom: 25px;z-index: 10; cursor: pointer; 
+                color:#1E90FF;
+                font-size: 50px;
+                position: fixed;
+                right: 25px;
+                bottom: 25px;
+                z-index: 10;
+                cursor: pointer;
             }
             .iconfb{
                 position: fixed;
@@ -262,7 +275,13 @@ Author     : admin
                     if (ac != null) {
                 %>
                 <a href="MessageController">          
-                    <span style="color:#1E90FF; font-size: 50px;position: fixed; right: 25px; bottom: 25px;z-index: 10; cursor: pointer" class="iconify" data-icon="bx:message-rounded"></span>                
+                    <span style="color:#1E90FF;
+                    font-size: 50px;
+                    position: fixed;
+                    right: 25px;
+                    bottom: 25px;
+                    z-index: 10;
+                    cursor: pointer" class="iconify" data-icon="bx:message-rounded"></span>                
                     </a> 
                     <% }%>
                     <div class="slide-one-item home-slider owl-carousel">
@@ -352,11 +371,14 @@ Author     : admin
                             <%for (Room v : vector) {%>
                             <div class="col-md-6 col-lg-4 mb-5">
                                 <div class="hotel-room text-center">
-                                    <a  href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>&cateroom=<%=v.getRoomcateID()%>" class="d-block mb-0 thumbnail"><img style="width: 350px; height: 250px;" src="images/anhphong/<%= v.getImage()%>" 
+                                    <a  href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>&cateroom=<%=v.getRoomcateID()%>" class="d-block mb-0 thumbnail"><img style="width: 350px;
+                                                                                                                                                                          height: 250px;" src="images/anhphong/<%= v.getImage()%>" 
                                                                                                                                                                           alt="Image" class="img-fluid"></a>
                                     <div class="stars">
                                         <form action="">
-                                            <div class="h" style="font-size: 20px;padding-left: 35%;padding-top: 5px">
+                                            <div class="h" style="font-size: 20px;
+                                                padding-left: 35%;
+                                                padding-top: 5px">
                                                     <c:forEach begin="1" end="<%=v.getRate()%>">
                                                         <span style="padding-right: 6px"class="fa fa-star checked"></span>
                                                     </c:forEach>
@@ -365,21 +387,32 @@ Author     : admin
                                         </div>
                                         <div class="hotel-room-body">
 
-                                            <h3 class="heading mb-0"><a style="font-size: 20px; text-align: center; margin: 0 auto; font-weight: bold; color: #b09700; font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
-                                        <strong class="price" style="font-weight: bold; font-size: 14px">€<%=v.getRoomprice()%>/ một đêm</strong>
+                                            <h3 class="heading mb-0"><a style="font-size: 20px;
+                                            text-align: center;
+                                            margin: 0 auto;
+                                            font-weight: bold;
+                                            color: #b09700;
+                                            font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
+                                        <strong class="price" style="font-weight: bold;
+                                        font-size: 14px"><fmt:formatNumber value="<%=v.getRoomprice()%>" /> đ/ một đêm</strong>
                                             <div class="add-to-cart">
                                                 <form action="RoomController">
                                                     <input type="hidden" name="do" value="roomdetail">
                                                     <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
                                                     <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
-                                                    <button  style="margin-top: 10px;position: fixed;left: 10px;" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
+                                                    <button  style="margin-top: 10px;
+                                                position: fixed;
+                                                left: 10px;" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
                                             </form>
 
                                             <form action="CompareRoomController">
                                                 <input type="hidden" name="do" value="ViewCompare">
                                                 <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
                                                 <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
-                                                <button style="margin-left: 150px;position: fixed;left: 40px;top: 29px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
+                                                <button style="margin-left: 150px;
+                                                        position: fixed;
+                                                        left: 40px;
+                                                        top: 29px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
                                             </form>
                                         </div> 
                                     </div>
@@ -401,8 +434,14 @@ Author     : admin
                             <div class="col-sm-6 col-md-4 col-lg-3">
                                 <div class="text-center p-4 item">
                                     <a href="ServiceController?do=servicedetail&ServiceID=<%=s.getServiceID()%>">
-                                        <img style="width:250px; height: 200px" src="images/anhdevice/<%=s.getServiceImage()%>">
-                                            <h2 style="font-weight: bold; padding-top: 20px; font-family: 'Times New Roman'; font-size: 22px; color: orangered;padding-left: 28px; "class="h5"><%=s.getServiceName()%></h2>
+                                        <img style="width:250px;
+                                        height: 200px" src="images/anhdevice/<%=s.getServiceImage()%>">
+                                            <h2 style="font-weight: bold;
+                                        padding-top: 20px;
+                                        font-family: 'Times New Roman';
+                                        font-size: 22px;
+                                        color: orangered;
+                                        padding-left: 28px; "class="h5"><%=s.getServiceName()%></h2>
                                     </a>
                                 </div>
                             </div>
@@ -420,7 +459,8 @@ Author     : admin
                         <div class="row no-gutters">
                             <%for (Room r : vector4) {%>
                             <div class="col-md-6 col-lg-4">
-                                <a href="RoomController?do=roomdetail&roomid=<%=r.getRoomID()%>&cateroom=<%=r.getRoomcateID()%>" class="img-opacity"><img style="width: 400px; height: 250px;" src="images/anhphong/<%=r.getImage()%>" alt="Image" class="img-fluid"></a>                        
+                                <a href="RoomController?do=roomdetail&roomid=<%=r.getRoomID()%>&cateroom=<%=r.getRoomcateID()%>" class="img-opacity"><img style="width: 400px;
+                                    height: 250px;" src="images/anhphong/<%=r.getImage()%>" alt="Image" class="img-fluid"></a>                        
                             </div>
                             <%}%>
                         </div>
@@ -450,11 +490,15 @@ Author     : admin
                                 <div class="img-border-sm mb-4">
 
                                     <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" class="popup-vimeo image-play">
-                                        <img style="width: 250px; height: 200px;" src="images/anhphong/<%=e.getImage()%>" alt="Image" class="img-fluid">
+                                        <img style="width: 250px;
+                                        height: 200px;" src="images/anhphong/<%=e.getImage()%>" alt="Image" class="img-fluid">
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" style="font-weight: bold; font-size: 25px;color: black;font-family: Didot"><%=e.getCateroom()%></a>
+                                    <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" style="font-weight: bold;
+                                    font-size: 25px;
+                                    color: black;
+                                    font-family: Didot"><%=e.getCateroom()%></a>
                                         <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
                                         <p><%=e.getRoomdesc().substring(0, 100)%>...</p>
                                     </div>
@@ -571,140 +615,140 @@ Author     : admin
         <script src="slick/slick.min.js"></script>
         <!-- http://kenwheeler.github.io/slick/ -->
         <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    var mediaElements = document.querySelectorAll('video, audio'),
-                            total = mediaElements.length;
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            var mediaElements = document.querySelectorAll('video, audio'),
+                                                    total = mediaElements.length;
 
-                    for (var i = 0; i < total; i++) {
-                        new MediaElementPlayer(mediaElements[i], {
-                            pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
-                            shimScriptAccess: 'always',
-                            success: function () {
-                                var target = document.body.querySelectorAll('.player'),
-                                        targetTotal = target.length;
-                                for (var j = 0; j < targetTotal; j++) {
-                                    target[j].style.visibility = 'visible';
-                                }
-                            }
-                        });
-                    }
-                });
-                /* Google map
-                 ------------------------------------------------*/
-                var map = '';
-                var center;
-                function initialize() {
-                    var mapOptions = {
-                        zoom: 16,
-                        center: new google.maps.LatLng(13.7567928, 100.5653741),
-                        scrollwheel: false
-                    };
-                    map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
-                    google.maps.event.addDomListener(map, 'idle', function () {
-                        calculateCenter();
-                    });
-                    google.maps.event.addDomListener(window, 'resize', function () {
-                        map.setCenter(center);
-                    });
-                }
-                function calculateCenter() {
-                    center = map.getCenter();
-                }
-                function loadGoogleMap() {
-                    var script = document.createElement('script');
-                    script.type = 'text/javascript';
-                    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
-                    document.body.appendChild(script);
-                }
-                function setCarousel() {
-                    if ($('.tm-article-carousel').hasClass('slick-initialized')) {
-                        $('.tm-article-carousel').slick('destroy');
-                    }
-                    if ($(window).width() < 438) {
-                        // Slick carousel
-                        $('.tm-article-carousel').slick({
-                            infinite: false,
-                            dots: true,
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        });
-                    } else {
-                        $('.tm-article-carousel').slick({
-                            infinite: false,
-                            dots: true,
-                            slidesToShow: 2,
-                            slidesToScroll: 1
-                        });
-                    }
-                }
-                function setPageNav() {
-                    if ($(window).width() > 991) {
-                        $('#tm-top-bar').singlePageNav({
-                            currentClass: 'active',
-                            offset: 79
-                        });
-                    } else {
-                        $('#tm-top-bar').singlePageNav({
-                            currentClass: 'active',
-                            offset: 65
-                        });
-                    }
-                }
-                function togglePlayPause() {
-                    vid = $('.tmVideo').get(0);
-                    if (vid.paused) {
-                        vid.play();
-                        $('.tm-btn-play').hide();
-                        $('.tm-btn-pause').show();
-                    } else {
-                        vid.pause();
-                        $('.tm-btn-play').show();
-                        $('.tm-btn-pause').hide();
-                    }
-                }
-                $(document).ready(function () {
-                    $(window).on("scroll", function () {
-                        if ($(window).scrollTop() > 100) {
-                            $(".tm-top-bar").addClass("active");
-                        } else {
-                            //remove the background property so it comes transparent again (defined in your css)
-                            $(".tm-top-bar").removeClass("active");
-                        }
-                    });
-                    // Google Map
-                    loadGoogleMap();
-                    // Date Picker
-                    const pickerCheckIn = datepicker('#inputCheckIn');
-                    const pickerCheckOut = datepicker('#inputCheckOut');
-                    // Slick carousel
-                    setCarousel();
-                    setPageNav();
-                    $(window).resize(function () {
-                        setCarousel();
-                        setPageNav();
-                    });
-                    // Close navbar after clicked
-                    $('.nav-link').click(function () {
-                        $('#mainNav').removeClass('show');
-                    });
-                    // Control video
-                    $('.tm-btn-play').click(function () {
-                        togglePlayPause();
-                    });
-                    $('.tm-btn-pause').click(function () {
-                        togglePlayPause();
-                    });
-                    // Update the current year in copyright
-                    $('.tm-current-year').text(new Date().getFullYear());
-                });
-                function show() {
-                    if (document.getElementById("team").style.display == "none") {
-                        document.getElementById("team").style.display = "block";
-                    } else {
-                        document.getElementById("team").style.display = "none";
-                    }
-                }
-            }
+                                            for (var i = 0; i < total; i++) {
+                                                new MediaElementPlayer(mediaElements[i], {
+                                                    pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                                                    shimScriptAccess: 'always',
+                                                    success: function () {
+                                                        var target = document.body.querySelectorAll('.player'),
+                                                                targetTotal = target.length;
+                                                        for (var j = 0; j < targetTotal; j++) {
+                                                            target[j].style.visibility = 'visible';
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        /* Google map
+                                         ------------------------------------------------*/
+                                        var map = '';
+                                        var center;
+                                        function initialize() {
+                                            var mapOptions = {
+                                                zoom: 16,
+                                                center: new google.maps.LatLng(13.7567928, 100.5653741),
+                                                scrollwheel: false
+                                            };
+                                            map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+                                            google.maps.event.addDomListener(map, 'idle', function () {
+                                                calculateCenter();
+                                            });
+                                            google.maps.event.addDomListener(window, 'resize', function () {
+                                                map.setCenter(center);
+                                            });
+                                        }
+                                        function calculateCenter() {
+                                            center = map.getCenter();
+                                        }
+                                        function loadGoogleMap() {
+                                            var script = document.createElement('script');
+                                            script.type = 'text/javascript';
+                                            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
+                                            document.body.appendChild(script);
+                                        }
+                                        function setCarousel() {
+                                            if ($('.tm-article-carousel').hasClass('slick-initialized')) {
+                                                $('.tm-article-carousel').slick('destroy');
+                                            }
+                                            if ($(window).width() < 438) {
+                                                // Slick carousel
+                                                $('.tm-article-carousel').slick({
+                                                    infinite: false,
+                                                    dots: true,
+                                                    slidesToShow: 1,
+                                                    slidesToScroll: 1
+                                                });
+                                            } else {
+                                                $('.tm-article-carousel').slick({
+                                                    infinite: false,
+                                                    dots: true,
+                                                    slidesToShow: 2,
+                                                    slidesToScroll: 1
+                                                });
+                                            }
+                                        }
+                                        function setPageNav() {
+                                            if ($(window).width() > 991) {
+                                                $('#tm-top-bar').singlePageNav({
+                                                    currentClass: 'active',
+                                                    offset: 79
+                                                });
+                                            } else {
+                                                $('#tm-top-bar').singlePageNav({
+                                                    currentClass: 'active',
+                                                    offset: 65
+                                                });
+                                            }
+                                        }
+                                        function togglePlayPause() {
+                                            vid = $('.tmVideo').get(0);
+                                            if (vid.paused) {
+                                                vid.play();
+                                                $('.tm-btn-play').hide();
+                                                $('.tm-btn-pause').show();
+                                            } else {
+                                                vid.pause();
+                                                $('.tm-btn-play').show();
+                                                $('.tm-btn-pause').hide();
+                                            }
+                                        }
+                                        $(document).ready(function () {
+                                            $(window).on("scroll", function () {
+                                                if ($(window).scrollTop() > 100) {
+                                                    $(".tm-top-bar").addClass("active");
+                                                } else {
+                                                    //remove the background property so it comes transparent again (defined in your css)
+                                                    $(".tm-top-bar").removeClass("active");
+                                                }
+                                            });
+                                            // Google Map
+                                            loadGoogleMap();
+                                            // Date Picker
+                                            const pickerCheckIn = datepicker('#inputCheckIn');
+                                            const pickerCheckOut = datepicker('#inputCheckOut');
+                                            // Slick carousel
+                                            setCarousel();
+                                            setPageNav();
+                                            $(window).resize(function () {
+                                                setCarousel();
+                                                setPageNav();
+                                            });
+                                            // Close navbar after clicked
+                                            $('.nav-link').click(function () {
+                                                $('#mainNav').removeClass('show');
+                                            });
+                                            // Control video
+                                            $('.tm-btn-play').click(function () {
+                                                togglePlayPause();
+                                            });
+                                            $('.tm-btn-pause').click(function () {
+                                                togglePlayPause();
+                                            });
+                                            // Update the current year in copyright
+                                            $('.tm-current-year').text(new Date().getFullYear());
+                                        });
+                                        function show() {
+                                            if (document.getElementById("team").style.display == "none") {
+                                                document.getElementById("team").style.display = "block";
+                                            } else {
+                                                document.getElementById("team").style.display = "none";
+                                            }
+                                        }
+                                        }
         </script>
         <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
     </body>

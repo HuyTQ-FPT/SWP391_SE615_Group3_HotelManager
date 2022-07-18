@@ -12,6 +12,8 @@ import entity.RoomCategory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,26 +46,39 @@ public class RoomcategoryController extends HttpServlet {
             RoomCategoryDAOImpl roomcatedao = new RoomCategoryDAOImpl();
             RoomDAOImpl roomdao = new RoomDAOImpl();
             if (doo.equals(null) || doo.equals("")) {
-                out.println("<h1>Lỗi Trang</h1>");
-
+                response.sendRedirect("Filter.jsp");
             }
+            /**
+             * RoomCategry get all RoomCategory : response to editroomdevice.jsp
+             * editroomdevice.jsp
+             */
             if (doo.equals("getroombycategori")) {
+                /*Get all RoomCategory*/
                 Vector<RoomCategory> romcate = roomcatedao.getRoomCategoryList("select * from CateRoom");
                 request.setAttribute("romcate", romcate);
                 request.getRequestDispatcher("editroomdevice.jsp").forward(request, response);
             }
+            /**
+             * RoomCategry Delete RoomCategori : response to editroomdevice.jsp
+             * editroomdevice.jsp
+             */
             if (doo.equals("DeleteRoomCategori")) {
                 String cateroom = request.getParameter("cateroomid");
                 int ID = Integer.parseInt(cateroom);
                 if (ID == 6) {
-                    request.setAttribute("Wrong", "Wrong");
+                    request.setAttribute("Wrong", 2);
                     request.getRequestDispatcher("RoomcategoryController?do=getroombycategori").forward(request, response);
                 } else {
+                    request.setAttribute("Wrong", 1);
+                    /*Delete RoomCategory*/
                     roomcatedao.deleteRoomCategory(cateroom);
-                    response.sendRedirect("RoomcategoryController?do=getroombycategori");
+                    request.getRequestDispatcher("RoomcategoryController?do=getroombycategori").forward(request, response);
                 }
             }
-
+            /**
+             * Get List Room by roomcategory : response to AdListRom.jsp
+             * AdListRom.jsp
+             */
             if (doo.equals("listroombycate")) {
                 String cateroom = request.getParameter("cateroomid");
                 String cate;
@@ -73,46 +88,56 @@ public class RoomcategoryController extends HttpServlet {
                 } else {
                     cate = "(Room.RoomcateID=" + cateroom + ") and";
                 }
+                /*Get list room By RoomCategory*/
                 Vector<Room> listroom
                         = roomdao.getRoomList1("select * from room  join CateRoom  on Room.RoomcateID = CateRoom.RoomcateID join [Image] on Room.RoomimgaeID = [Image].RoomimgaeID\n"
                                 + "                             	where " + cate + " (Roomdesc like'%" + "" + "%' or Roomprice like'%" + "" + "%') \n"
                                 + "                               	order by Room.RoomID asc");
                 request.setAttribute("listroom", listroom);
-//                out.println("<h1>Servlet RoomcategoryController at " + cate + "</h1>");
                 request.getRequestDispatcher("AdListRom.jsp").forward(request, response);
             }
-
+            /**
+             * Update roomcategory : response to updateroomcate.jsp
+             * updateroomcate.jsp
+             */
             if (doo.equals("updateroomcates")) {
                 String cateroom = request.getParameter("cateroomid");
+                /*Get Roomcategory By RoomCategoryID*/
                 RoomCategory roomcate = roomcatedao.getRoomCategori("select * from CateRoom where RoomcateID = " + cateroom + "");
                 request.setAttribute("roomcate", roomcate);
                 HttpSession sesson = request.getSession();
                 sesson.setMaxInactiveInterval(1 * 1);
                 sesson.setAttribute("update", "update");
-//                out.println("<h1>Servlet RoomcategoryController at " + roomcate + "</h1>");
                 request.getRequestDispatcher("updateroomcate.jsp").forward(request, response);
             }
+            /**
+             * Update roomcategory : response to updateroomcate.jsp
+             * updateroomcate.jsp
+             */
             if (doo.equals("udroomcate")) {
                 String RoomCateName = request.getParameter("RoomCateName");
                 String Note = request.getParameter("Note");
                 String RoomCateId = request.getParameter("RoomCateId");
+                /*Update RoomCategory by roomcateid*/
                 roomcatedao.updateRoomCategory(RoomCateId, RoomCateName.replaceAll("\\s\\s+", " ").trim(), Note.replaceAll("\\s\\s+", " ").trim());
                 request.setAttribute("insert", "insert");
                 request.getRequestDispatcher("RoomcategoryController?do=updateroomcates&cateroomid=" + RoomCateId + "").forward(request, response);
-//                out.println("<h1>Servlet RoomcategoryController at"+RoomCateName+Note+RoomCateId+" </h1>");
             }
+            /**
+             * Update roomcategory : response to updateroomcate.jsp
+             * updateroomcate.jsp
+             */
             if (doo.equals("insetroomcate")) {
                 String RoomCateName = request.getParameter("RoomCateName");
                 String Note = request.getParameter("Note");
+                /*Insert RoomCategory by roomcateid*/
                 roomcatedao.insertRoomCategory(RoomCateName.replaceAll("\\s\\s+", " ").trim(), Note.replaceAll("\\s\\s+", " ").trim());
                 RoomCategory roomcate = roomcatedao.getRoomCategori("select top(1)* from CateRoom order by RoomcateID desc");
                 request.setAttribute("insert", "insert");
                 request.getRequestDispatcher("RoomcategoryController?do=updateroomcates&cateroomid=" + roomcate.getRoomcateID() + "").forward(request, response);
-//                response.sendRedirect("RoomcategoryController?do=getroombycategori");
-//                out.println("<h1>Servlet RoomcategoryController at " + RoomCateName + Note+ "</h1>");
-//                response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-//                response.setHeader("Location", "RoomcategoryController?do=getroombycategori&i=3");
             }
+        } catch (Exception ex) {
+            Logger.getLogger(RoomcategoryController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

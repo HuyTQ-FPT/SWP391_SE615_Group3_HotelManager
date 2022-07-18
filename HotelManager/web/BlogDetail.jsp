@@ -112,7 +112,7 @@
                         <c:forEach items="${c}" var="c">
                             <div class="col-lg-8 col-md-7 order-md-1 order-1">
                                 <div class="blog__details__text">
-                                    <img src="images/anhblog/${c.blogImage}" alt="">
+                                    <img style="width: 750px; height: 500px;" src="images/anhblog/${c.blogImage}" alt="">
                                     <h5><p style="font-weight: bold; color: #00bbf3; font-size: 28px;">${c.blogTitleString}</p></h5>
                                     <p>${c.blogDescription}</p>
                                 </div>
@@ -296,7 +296,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-title related-blog-title">
-                            <h2>Post You May Like</h2>
+                            <h2>Bạn có thể thích</h2>
                         </div>
                     </div>
                 </div>                 

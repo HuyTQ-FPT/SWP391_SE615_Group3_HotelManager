@@ -24,6 +24,10 @@
             Product Admin CSS Template
             https://templatemo.com/tm-524-product-admin
         -->
+        <link href="css/navdropdown.css" rel="stylesheet">   
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" 
+        src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     </head>
     <script type="text/javascript">
         function  Add() {

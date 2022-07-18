@@ -13,6 +13,7 @@ src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -56,7 +57,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <td style="background-color: 435C70 ; width: 10%;text-align: center"><span class="d-inline-block text-truncate" style="max-width: 300px;">${r.serviceName}</span></td>  
                         <td style="background-color: 435C70 ; width: 10%" ><img style="width: 150px; height: 100px" src="images/anhdevice/${r.serviceImage}" class="img-thumbnail"></td>  
                         <td style="background-color: 435C70 ; width: 30%; font-style: inherit;text-align: center">${r.serviceDes}</td>  
-                        <td style="background-color: 435C70 ; color: red ; width: 10%; font-family: fantasy;text-align: center">${r.servicePrice} $</td> 
+                        <td style="background-color: 435C70 ; color: red ; width: 10%; font-family: fantasy;text-align: center"><fmt:formatNumber value="${r.servicePrice} "/> đ</td> 
                         <td style="background-color: 435C70 ;width: 20%" >
                             <a style="border-radius: 10px; margin-left: 32%" href="ServiceController?do=UpDateService&ServiceId=${r.serviceID}" class="btn btn-info" role="button">
                                 Chỉnh Sửa</a></td>   

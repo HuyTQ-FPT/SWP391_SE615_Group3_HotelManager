@@ -35,7 +35,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
     </head>
 
     <body id="reportsPage">
-         <%@include file="headerAdmin.jsp"%>
+        <%@include file="headerAdmin.jsp"%>
         <a style="float: right; margin-bottom: 20px; border-radius: 10px;background-color: red" type="button" href="updateroomcate.jsp" class="btn btn-warning">Thêm Mới</a>
         <table id="myTable" class="display table" width="90%">  
             <thead>  
@@ -57,13 +57,13 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                         <td style="background-color: 435C70; text-align: center" ><a style="border-radius: 10px" href="RoomcategoryController?do=listroombycate&cateroomid=${r.roomcateID}" class="btn btn-info" role="button">Danh Sách</a></td>
                         <td style="background-color: 435C70; text-align: center" ><a style="border-radius: 10px" href="RoomcategoryController?do=updateroomcates&cateroomid=${r.roomcateID}" class="btn btn-info" role="button">Chỉnh Sửa</a></td>
                         <td style="background-color: 435C70; text-align: center">
-                            <a onclick="alert('Xóa Thành Công ${r.catename} Các Phòng Sẽ Chuyển Sang Danh Sách Phòng Bảo Trì');" style="margin-left: 43%" href="RoomcategoryController?do=DeleteRoomCategori&cateroomid=${r.roomcateID}" class="tm-product-delete-link">
+                            <a onclick="Save()" style="margin-left: 43%" href="RoomcategoryController?do=DeleteRoomCategori&cateroomid=${r.roomcateID}" class="tm-product-delete-link">
                                 <i class="far fa-trash-alt tm-product-delete-icon">
                                 </i></a>
                         </td>  
                     </tr>  
                 </c:forEach>
-            </tbody>  
+            </tbody> 
         </table>
         <footer class="tm-footer row tm-mt-small">
             <div class="col-12 font-weight-light">
@@ -90,10 +90,14 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                             }
                         });
             });
-            <c:if test = "${Wrong!= null}">
+            <c:if test = "${Wrong== 2}">
             alert("Bạn Không Thể Thao Tác Xóa");
             </c:if>
+            <c:if test = "${Wrong==1}">
+            alert("Xóa Loại Phòng Thành Công");
+            </c:if>
         </script>
+
 
     </body>
 </html>
