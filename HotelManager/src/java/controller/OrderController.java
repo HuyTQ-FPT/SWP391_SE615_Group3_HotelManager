@@ -80,9 +80,12 @@ public class OrderController extends HttpServlet {
                         + "join CateRoom c on \n"
                         + "r.RoomcateID =c.RoomcateID \n"
                         + "where RoomID=" + id);
+                ResultSet rs2 = db.getData("select * from [Events] e join [EventsDetails] ed on e.EventID=ed.EventID "
+                        + "where UserID=" + userid);
                 request.setAttribute("vector", vector);
                 request.setAttribute("rs", rs);
                 request.setAttribute("rs1", rs1);
+                request.setAttribute("rs2", rs2);
                 request.setAttribute("id", id);
                 request.getRequestDispatcher("BillUser.jsp").forward(request, response);
             }
@@ -98,6 +101,7 @@ public class OrderController extends HttpServlet {
                 String phone = request.getParameter("phone").trim();
                 String checkin = request.getParameter("checkin");
                 String checkout = request.getParameter("checkout");
+                String event = request.getParameter("event");
                 String adult = request.getParameter("Adult").trim();
                 String child = request.getParameter("Child").trim();
                 // Lấy price service
@@ -128,6 +132,16 @@ public class OrderController extends HttpServlet {
                 java.sql.Date cDate = new java.sql.Date(date2.getTime());
 
                 double total = price + Double.parseDouble(money);
+                // discount
+                double c = 0;
+                if (Integer.parseInt(event) != 0) {
+                    ResultSet rs2 = db.getData("select EventValue from [Events] where EventID=" + event);
+                    if (rs2.next()) {
+                        c = rs2.getDouble(1);
+                        total = (total * c) / 100;
+                    }
+                    rs2=db.getData("delete [EventsDetails]  where EventID="+event);
+                }
                 long millis = System.currentTimeMillis();
                 java.sql.Date date = new java.sql.Date(millis);
                 int user = Integer.parseInt(userid);
@@ -265,7 +279,7 @@ public class OrderController extends HttpServlet {
             if (service.equals("sortByDate")) {
                 String cin = request.getParameter("date1");
                 String cout = request.getParameter("date2");
-                 Vector<Reservation> vector=dao1.searchRoom(cin, cout);
+                Vector<Reservation> vector = dao1.searchRoom(cin, cout);
                 request.setAttribute("rs", vector);
                 request.setAttribute("date1", cin);
                 request.setAttribute("date2", cout);
@@ -322,56 +336,56 @@ public class OrderController extends HttpServlet {
             }
             if (service.equals("del")) {
                 String cid = request.getParameter("cus");
-                String number= request.getParameter("number");
-                String rname= request.getParameter("rname");
-                if(number!=null && number!=""){
-                String rid = request.getParameter("ID");
-                String cname = request.getParameter("cname");
-                String email = request.getParameter("email").trim();
-                String address = request.getParameter("address").trim();
-                String phone = request.getParameter("phone").trim();
-                String cin = request.getParameter("cin").trim();
-                String cout = request.getParameter("cout");
-                String total = request.getParameter("total");
-                String status = request.getParameter("status").trim();
+                String number = request.getParameter("number");
+                String rname = request.getParameter("rname");
+                if (number != null && number != "") {
+                    String rid = request.getParameter("ID");
+                    String cname = request.getParameter("cname");
+                    String email = request.getParameter("email").trim();
+                    String address = request.getParameter("address").trim();
+                    String phone = request.getParameter("phone").trim();
+                    String cin = request.getParameter("cin").trim();
+                    String cout = request.getParameter("cout");
+                    String total = request.getParameter("total");
+                    String status = request.getParameter("status").trim();
 
-                double total1 = Double.parseDouble(total);
-                int roomid = Integer.parseInt(rname);
-                int csid = Integer.parseInt(cid);
-                int NOP = Integer.parseInt(number);
-                int stt = Integer.parseInt(status);
+                    double total1 = Double.parseDouble(total);
+                    int roomid = Integer.parseInt(rname);
+                    int csid = Integer.parseInt(cid);
+                    int NOP = Integer.parseInt(number);
+                    int stt = Integer.parseInt(status);
 
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                Date date1 = (Date) format.parse(cin);
-                java.sql.Date sDate = new java.sql.Date(date1.getTime());
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date1 = (Date) format.parse(cin);
+                    java.sql.Date sDate = new java.sql.Date(date1.getTime());
 
-                Date date2 = (Date) format.parse(cout);
-                java.sql.Date cDate = new java.sql.Date(date2.getTime());
-                
-                long millis = System.currentTimeMillis();
-                java.sql.Date date = new java.sql.Date(millis);
-                java.sql.Date dDate = new java.sql.Date(date.getTime());
+                    Date date2 = (Date) format.parse(cout);
+                    java.sql.Date cDate = new java.sql.Date(date2.getTime());
 
-                ResultSet rs1 = dao1.getData("select * from [User] where UserID=" + cid);
-                if (rs1.next()) {
-                    cname = rs1.getString(3);
+                    long millis = System.currentTimeMillis();
+                    java.sql.Date date = new java.sql.Date(millis);
+                    java.sql.Date dDate = new java.sql.Date(date.getTime());
+
+                    ResultSet rs1 = dao1.getData("select * from [User] where UserID=" + cid);
+                    if (rs1.next()) {
+                        cname = rs1.getString(3);
+                    }
+                    Reservation re = new Reservation(csid, roomid, cname, email, address, phone, NOP, sDate, cDate, total1, stt, dDate);
+                    int n = dao1.addReservation(re);
+                    Vector<Reservation> vector = null;
+                    int c = dao1.getPage();
+                    String page = request.getParameter("page");
+                    if (page == null) {
+                        vector = dao1.getReservationByPage(1);
+                    } else {
+                        vector = dao1.getReservationByPage(Integer.parseInt(page));
+                    }
+                    request.setAttribute("rs", vector);
+                    request.setAttribute("n", c);
+                    RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
+                    dispath.forward(request, response);
                 }
-                Reservation re = new Reservation(csid, roomid, cname, email, address, phone, NOP, sDate, cDate, total1, stt, dDate);
-                int n = dao1.addReservation(re);
-                Vector<Reservation> vector = null;
-                int c = dao1.getPage();
-                String page = request.getParameter("page");
-                if (page == null) {
-                    vector = dao1.getReservationByPage(1);
-                } else {
-                    vector = dao1.getReservationByPage(Integer.parseInt(page));
-                }
-                request.setAttribute("rs", vector);
-                request.setAttribute("n", c);
-                RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
-                dispath.forward(request, response);
-                }
-                
+
                 request.setAttribute("name", cid);
                 request.setAttribute("total", number);
                 request.setAttribute("cid", rname);

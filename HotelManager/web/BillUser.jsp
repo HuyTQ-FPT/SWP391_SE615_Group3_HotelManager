@@ -4,6 +4,7 @@
     Author     : Trong Hieu
 --%>
 
+<%@page import="context.DBContext"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -18,8 +19,8 @@
         <link rel="stylesheet" href="css/hotelbill.css">
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" />
         <title>Thông tin đăng nhập</title>
         <style>
             body {
@@ -143,22 +144,22 @@
                         <div class="row">
                             <div class="col-50">
                                 <h3>Đơn đặt phòng</h3>
-                                <% ResultSet rs1= (ResultSet)request.getAttribute("rs1");
-                                    if(rs1.next()){
+                                <% ResultSet rs1 = (ResultSet) request.getAttribute("rs1");
+                                    if (rs1.next()) {
                                 %>
                                 <label for="fname"><i class="fa fa-user"></i> Tên đầy đủ(*)</label>
-                                <input type="hidden" name="firstname" placeholder="<%=rs1.getString(7) %>" value="<%=rs1.getString(7) %>" readonly>
-                                <p style="font-weight: bold;"><%=rs1.getString(7) %></p>
+                                <input type="hidden" name="firstname" placeholder="<%=rs1.getString(7)%>" value="<%=rs1.getString(7)%>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(7)%></p>
                                 <label for="email"><i class="fa fa-envelope"></i> Email(*)</label>
-                                <p style="font-weight: bold;"><%=rs1.getString(9) %></p>
-                                <input type="hidden" id="email" name="email" placeholder="<%=rs1.getString(9) %>" value="<%=rs1.getString(9) %>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(9)%></p>
+                                <input type="hidden" id="email" name="email" placeholder="<%=rs1.getString(9)%>" value="<%=rs1.getString(9)%>" readonly>
                                 <label for="address"><i class="fa fa-address-card-o"></i> Địa chỉ</label>
-                                <p style="font-weight: bold;"><%=rs1.getString(12) %></p>
-                                <input type="hidden" id="adr" name="address" placeholder="<%=rs1.getString(12) %>" value="<%=rs1.getString(12) %>" readonly>
+                                <p style="font-weight: bold;"><%=rs1.getString(12)%></p>
+                                <input type="hidden" id="adr" name="address" placeholder="<%=rs1.getString(12)%>" value="<%=rs1.getString(12)%>" readonly>
                                 <label for="city"><i class="fa fa-institution"></i> Số điện thoại(*)</label>
-                                <p style="font-weight: bold;"><%=rs1.getString(8) %></p>
-                                <input type="hidden" id="city" name="phone" placeholder="<%=rs1.getString(8) %>"  value="<%=rs1.getString(8) %>" readonly>
-                                    <%}%>
+                                <p style="font-weight: bold;"><%=rs1.getString(8)%></p>
+                                <input type="hidden" id="city" name="phone" placeholder="<%=rs1.getString(8)%>"  value="<%=rs1.getString(8)%>" readonly>
+                                <%}%>
                                 <div class="row">
                                     <div class="col-50">
                                         <label style="display: inline-block; padding-top: 30px;font-size: 20px;" for="state">Người lớn</label>
@@ -182,12 +183,14 @@
                                             <option value="4"> 6 </option>
                                         </select>
                                     </div>
-                                      <div class="col-50">
-                                      <label style="display: inline-block; padding-top: 30px;font-size: 20px;" for="state">Giảm giá</label>
-                                        <select id="id_select2_example" style="font-size: 10px;width: 140px;height: 20px;" name="Adult" selected>
-                                            <option data-img_src="images/about_3">Python programming</option>
-        <option  data-img_src="https://sdtimes.com/wp-content/uploads/2018/09/Java-logo-490x301.jpg">Java programming</option>
-        <option  data-img_src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/783373/1160/772/m1/fpnw/wm0/letter-c-cm-.png?1447712834&s=c2ab07fcddfa8acf10c5a0c40f0578c2">C programming</option>
+                                    <% ResultSet rs2 = (ResultSet) request.getAttribute("rs2"); %>
+                                    <div class="col-50">
+                                        <label style="display: inline-block; padding-top: 30px;padding-right: 12px;font-size: 20px;" for="state">Giảm giá:</label>
+                                        <select style="font-size: 18px;" name="event" selected>
+                                            <option value="0">Selected</option>
+                                            <% while (rs2.next()) {%>
+                                            <option value="<%=rs2.getInt(9)%>"><%=rs2.getString(2)%></option>
+                                            <%}%>
                                         </select>
                                     </div>
                                     <div id="mess"></div>
@@ -215,7 +218,7 @@
                                     c.setTime(sdf.parse(da));
                                     c.add(Calendar.DATE, 1);  // number of days to add
                                     da = sdf.format(c.getTime());  // dt is now the new date
-                                    
+
                                     for (Service e : vector) {
                                 %>
                                 <input  type="checkbox" name="service" value="<%=e.getServiceID()%>">
@@ -231,7 +234,7 @@
                         </div>
                 </div>
             </div>
-                                <div style="padding-top:0px;"class="col-25">
+            <div style="padding-top:0px;"class="col-25">
                 <% ResultSet rs = (ResultSet) request.getAttribute("rs");
                     if (rs.next()) {
                 %>
@@ -257,7 +260,7 @@
                     <p style="color: green;">Miễn phí huỷ phòng đến trước <%=da%> </p>
 
                 </div>
-                    <div style="margin-top:0px;"class="container">
+                <div style="margin-top:0px;"class="container">
                     <h4>Phòng <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4>
                     <p><a href="RoomController?do=roomdetail&roomid=<%=id%>"><%=rs.getString(19)%>- <%=rs.getInt(2)%></a> <span class="price" style="color:black;font-weight: bold" ><%=rs.getDouble(6)%></span></p>
                     <input type="hidden" name="price" value="<%=rs.getDouble(6)%>">
@@ -265,7 +268,7 @@
                     <p>Tổng giá <span class="price" style="color:black"><%=rs.getDouble(6)%></span></p>
                 </div>
             </div>
-                <input style="margin-top: 38px;height: 50px;" type="submit" value="Tiếp tục để xác nhận" class="btn" >
+            <input style="margin-top: 38px;height: 50px;" type="submit" value="Tiếp tục để xác nhận" class="btn" >
             </form>
         </div>
         <%}%>
@@ -318,15 +321,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
 <script type="text/javascript">
-    function custom_template(obj){
-            var data = $(obj.element).data();
-            var text = $(obj.element).text();
-            if(data && data['img_src']){
-                img_src = data['img_src'];
-                template = $("<div><img src=\"" + img_src + "\" style=\"width:100%;height:150px;\"/><p style=\"font-weight: 700;font-size:14pt;text-align:center;\">" + text + "</p></div>");
-                return template;
-            }
+    function custom_template(obj) {
+        var data = $(obj.element).data();
+        var text = $(obj.element).text();
+        if (data && data['img_src']) {
+            img_src = data['img_src'];
+            template = $("<div><img src=\"" + img_src + "\" style=\"width:100%;height:150px;\"/><p style=\"font-weight: 700;font-size:14pt;text-align:center;\">" + text + "</p></div>");
+            return template;
         }
+    }
     var options = {
         'templateSelection': custom_template,
         'templateResult': custom_template,

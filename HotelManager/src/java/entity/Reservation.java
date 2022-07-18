@@ -7,6 +7,7 @@
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
  * 13/07/2022    1.0        HieuLBM          Comment
+ * 18/07/2022    1.0        HieuHT           Comment
  */
 package entity;
 
@@ -156,6 +157,25 @@ public class Reservation {
         this.Date = Date;
     }
 
+    /**
+     * Complete Constructor
+     *
+     * @param BillID
+     * @param UserID
+     * @param RoomID
+     * @param Roomname
+     * @param img
+     * @param Name
+     * @param Email
+     * @param Address
+     * @param Phone
+     * @param NumberOfPerson
+     * @param Checkin
+     * @param Checkout
+     * @param Total
+     * @param Status
+     * @param Date
+     */
     public Reservation(int BillID, int UserID, int RoomID, String Roomname, String img, String Name, String Email, String Address, String Phone, int NumberOfPerson, Date Checkin, Date Checkout, double Total, int Status, Date Date) {
         this.BillID = BillID;
         this.UserID = UserID;
@@ -281,14 +301,19 @@ public class Reservation {
     public double getRoomprice() {
         return Roomprice;
     }
-     /**
+
+    /**
      * @return Roomimg
      */
-
     public String getImg() {
         return img;
     }
 
+    /**
+     * Set img
+     *
+     * @param img
+     */
     public void setImg(String img) {
         this.img = img;
     }

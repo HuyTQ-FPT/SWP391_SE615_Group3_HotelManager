@@ -41,29 +41,32 @@ public class EventController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String service = request.getParameter("do");
-            HttpSession session= request.getSession();
-            DBContext db= new DBContext();
-            EventsDAOImpl dao= new EventsDAOImpl();
-            if(service==null){
-                Vector<Events> vector= dao.getEventsList();
+            HttpSession session = request.getSession();
+            DBContext db = new DBContext();
+            EventsDAOImpl dao = new EventsDAOImpl();
+            if (service == null) {
+                Vector<Events> vector = dao.getEventsList();
                 request.setAttribute("vector", vector);
                 request.getRequestDispatcher("events.jsp").forward(request, response);
-            }if(service.equals("getEvent")){
-                String id =request.getParameter("id");
-                String userid =request.getParameter("userid");
-                int n=dao.updateEvents(Integer.parseInt(id));
-                int a=0;
-                ResultSet rs = db.getData("select * from [Events] where EventID="+id);
-                if(rs.next()){
-                    a=rs.getInt(7);
+            }
+            if (service.equals("getEvent")) {
+                String id = request.getParameter("id");
+                String userid = request.getParameter("userid");
+                int n = dao.updateEvents(Integer.parseInt(id));
+                int a = 0;
+                ResultSet rs = db.getData("select * from [Events] where EventID=" + id);
+                if (rs.next()) {
+                    a = rs.getInt(7);
                 }
-                if(a<=0){
-                rs = db.getData("delete [Events] where EventID="+id);
+                if (a <= 0) {
+                    rs = db.getData("delete [Events] where EventID=" + id);
                 }
-                Vector<Events> vector= dao.getEventsList();
+                rs = db.getData("INSERT INTO [SWPgroup3].[dbo].[EventsDetails]\n"
+                        + "           ([EventID],[UserID])VALUES("+id+","+userid+")");
+                Vector<Events> vector = dao.getEventsList();
                 request.setAttribute("vector", vector);
                 request.getRequestDispatcher("events.jsp").forward(request, response);
             }
