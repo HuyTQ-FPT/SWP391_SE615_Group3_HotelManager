@@ -1,3 +1,5 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="context.DBContext"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="entity.Room"%>
 <%@page import="java.util.Vector"%>
@@ -398,23 +400,16 @@
                                 <div class="blog-sidebar">
                                     <div class="block">
                                         <h4>Catagories</h4>
-                                        <div class="list-group" style="width: 250px">
-                                                <a href="RoomController?do=CateRoom&cate=1" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Standard
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=2" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Superior
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=3" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Deluxe
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=4" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Suite
-                                                </a>
-                                                <a href="RoomController?do=CateRoom&cate=5" class="list-group-item" style="font-size: 15px">
-                                                    <i class="fa  fa-dot-circle-o"></i> Connecting room
-                                                </a>
-                                            </div>
+                                         <% DBContext db= new DBContext();
+                                                  ResultSet rs=db.getData("select * from CateRoom");
+                                                    while(rs.next()){
+                                                %>
+                                    <div class="list-group" style="width: 250px">
+                                            <a href="RoomController?do=CateRoom&cate=<%=rs.getInt(1) %>" class="list-group-item" style="font-size: 15px">
+                                                <i class="fa  fa-dot-circle-o"></i> <%=rs.getString(2) %>
+                                            </a>
+                                        </div>
+                                    <%}%>
                                         </div>
                                         <div class="block">
                                             <h4>Sắp xếp :</h4>
@@ -423,10 +418,10 @@
                                                 <input type="hidden" name="page" value="1">
                                                 <table>
                                                     <tr>
-                                                        <td>From</td><td><input type="number" name="price1" min="0" max="10000" value=""/></td>
+                                                        <td>From</td><td><input type="number" style="width: 100px;" name="price1" min="0" max="10000" value=""/></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>To</td><td><input type="number" name="price2" min="0" max="100000" value=""/></td>
+                                                        <td>To</td><td><input type="number"  style="width: 100px;" name="price2" min="0" max="100000" value=""/></td>
                                                     </tr>
                                                     <tr>
                                                         <td></td><td><input type="submit" value="Find"/></td>

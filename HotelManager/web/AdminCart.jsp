@@ -89,6 +89,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     <%} else if (rs.getStatus() == 2) {%>
                     <td style="background-color: 435C70 ; text-align: center">Hoàn thành</td>  
                     <%}%>
+                     <%if (rs.getStatus() == 3) {%>
+                    <td style="background-color: 435C70 ; text-align: center">Đã hủy</td>  
+                    <%}%>
                     <td style="background-color: 435C70 ; text-align: center"><%=rs.getDate()%></td> 
                     <td style="background-color: 435C70 " ><a style="border-radius: 10px;" href="OrderController?do=ShowUpdateCartAdmin&id=<%=rs.getBillID()%>" class="btn btn-info" role="button">Cập nhật hoá đơn</a></td>  
                     <td style="background-color: 435C70">

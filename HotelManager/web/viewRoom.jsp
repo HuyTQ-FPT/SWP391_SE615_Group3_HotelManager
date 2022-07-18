@@ -294,7 +294,6 @@
                                     <c:if test="${sessionScope.login==null}" >
                                         <a href="LoginController">Đặt phòng</a>
                                     </c:if>
-                                    <h5><i class="fa fa-clock-o" aria-hidden="true"></i> <strong>16 hours</strong> avg. responsive time</h5>
                                 </div>
                             </div>
                         </c:if>

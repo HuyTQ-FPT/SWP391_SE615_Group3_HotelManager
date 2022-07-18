@@ -71,6 +71,10 @@ public class EventsDAOImpl extends DBContext implements EventsDAO {
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return n;
     }

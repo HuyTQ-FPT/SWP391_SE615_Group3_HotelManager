@@ -105,7 +105,7 @@
                                 ResultSet rs1=db.getData("select COUNT(*) from Message m join Account a on m.AccountID=a.AccountID where m.RoomID="+pro.getRoomID()+" and m.AccountID="+aid);
                         %>
                         <tr class="table-body-row"> 
-                            <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=a%>-<%=b%> </th>
+                            <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getRoomID() %> </th>
                             <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getCheckin()%> </th>
                             <th class="category-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getCheckout()%></th>
                             <th class="product-name" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getTotal() %></th>

@@ -32,8 +32,11 @@ import java.util.Vector;
 public class ReservationDAOImpl extends DBContext implements ReservationDAO {
 
     @Override
-    public int updateReservation(Reservation re) {
+    public int updateReservation(Reservation re) throws Exception {
         int n = 0;
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         String sql = "UPDATE [SWPgroup3].[dbo].[Reservation]\n"
                 + "   SET [UserID] = ?\n"
                 + "      ,[RoomID] = ?\n"
@@ -49,7 +52,8 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
                 + "      ,[Date] =?\n"
                 + " WHERE BillID=?";
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
             pre.setInt(1, re.getUserID());
             pre.setInt(2, re.getRoomID());
             pre.setString(3, re.getName());
@@ -66,17 +70,24 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return n;
     }
 
     @Override
-    public int addReservation(Reservation re) {
+    public int addReservation(Reservation re) throws Exception {
         String sql = "INSERT INTO [SWPgroup3].[dbo].[Reservation]\n"
                 + "([UserID],[RoomID],[Name],[Email],[Address],[Phone],[NumberOfPerson],[Checkin],[Checkout],[Total],[Status],[Date]) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         try {
             //        create statement: execute sql
-            PreparedStatement pre = conn.prepareStatement(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
             pre.setInt(1, re.getUserID());
             pre.setInt(2, re.getRoomID());
             pre.setString(3, re.getName());
@@ -92,15 +103,25 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return 0;
     }
 
-    public Vector<Reservation> Reservation(String sql) {
+    public Vector<Reservation> Reservation(String sql) throws Exception {
         Vector<Reservation> re = new Vector<Reservation>();
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         try {
             //        create statement: execute sql
-            ResultSet rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int UserID = rs.getInt(2);
@@ -121,18 +142,31 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return re;
     }
 
-    public int removeReservation(int id) {
+    public int removeReservation(int id) throws Exception {
         int n = 0;
-        String sql = "delete from Reservation where BillID=" + id;
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        String sql = "update Reservation set [Status] =3\n"
+                + "where BillID=" + id;
         try {
-            Statement state = conn.createStatement();
-            n = state.executeUpdate(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return n;
     }
@@ -371,7 +405,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
     /**
      * Show the service that the customer has used from Reservation table
      *
-     * @return 
+     * @return
      * @throws Exception
      */
     @Override
@@ -411,12 +445,18 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
     @Override
     public int getPage() throws Exception {
         int n = 0;
-        String sql="select Count(*) from Reservation";
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+        String sql = "select Count(*) from Reservation";
         try {
             int totalPage = 0;
             int countPage = 0;
-            PreparedStatement pre = conn.prepareStatement(sql);
-            ResultSet rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 totalPage = rs.getInt(1);
                 countPage = totalPage / 6;
@@ -428,15 +468,25 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return n;
     }
 
     @Override
-    public Vector<Reservation>getReservationByPage(int n) throws Exception {
+    public Vector<Reservation> getReservationByPage(int n) throws Exception {
         Vector<Reservation> vector = new Vector<Reservation>();
         int begin = 1;
         int end = 6;
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         for (int i = 2; i <= n; i++) {
             begin += 6;
             end += 6;
@@ -447,7 +497,9 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
                 + ")\n"
                 + "select * from t Where RowNum between " + begin + " AND " + end;
         try {
-            ResultSet rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 String Roomname = rs.getString(1);
                 String image1 = rs.getString(2);
@@ -469,20 +521,31 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
     }
 
     @Override
     public Vector<Reservation> searchRoom(String a, String b) throws Exception {
-       Vector<Reservation> vector = new Vector<Reservation>();
-        
+        Vector<Reservation> vector = new Vector<Reservation>();
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         String sql = "select r.Roomname,i.image1,re.Name,re.Email,re.[Address],re.Phone,re.NumberOfPerson,re.Checkin,re.Checkout,re.Total,re.[Status],re.[Date],re.RoomID,re.BillID,re.UserID \n"
                 + "  FROM Reservation re join Room r on r.RoomID=re.RoomID\n"
                 + " join [Image] i on r.RoomimgaeID=i.RoomimgaeID \n"
-                + " where re.Checkout <='"+b+"'and re.Checkin >='"+a+"'" ;
+                + " where re.Checkout <='" + b + "'and re.Checkin >='" + a + "'";
         try {
-            ResultSet rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 String Roomname = rs.getString(1);
                 String image1 = rs.getString(2);
@@ -504,9 +567,14 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return vector;
     }
+
     /**
      * show month from Reservation table
      *
