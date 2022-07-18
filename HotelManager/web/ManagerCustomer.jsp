@@ -312,7 +312,7 @@
                           margin-top: 10px;
                           ">
                         <div class="form-group d-flex" >
-                            <input name="Name" type="text" class="form-control pl-3" placeholder="Tìm kiếm tên" style="order-radius:8px">
+                            <input name="Name" type="text" class="form-control pl-3" placeholder="Tìm kiếm tên" maxlength="50" style="order-radius:8px">
                             <button type="submit" placeholder="" class="form-control search"><span class="fa fa-search"></span></button>
                         </div>
                     </form>

@@ -31,7 +31,7 @@ public interface RoomCategoryDAO {
 
     public RoomCategory getRoomCategori(String sql) throws Exception;
 
-    public void insertRoomCategory(String roomcatename, String roomcatedes);
+    public void insertRoomCategory(String roomcatename, String roomcatedes) throws Exception;
 
     public void updateRoomCategory(String RoomCategoryid, String roomcatename, String roomcatedes) throws Exception;
 

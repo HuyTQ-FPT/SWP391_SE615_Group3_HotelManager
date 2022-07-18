@@ -355,7 +355,7 @@
                           margin-top: 10px;
                           ">
                         <div class="form-group d-flex"  >                
-                            <input name="nameRoom" type="text" class="form-control pl-3" placeholder="Tìm kiếm phòng" style="order-radius:8px" >
+                            <input name="nameRoom" type="text" class="form-control pl-3" maxlength="5" placeholder="Tìm kiếm phòng" style="order-radius:8px" >
 
                             <select name="status" style="order-radius:8px"  >
 

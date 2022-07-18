@@ -111,7 +111,7 @@
                                                                                                    id="email"
                                                                                                    name="inputCMT"
                                                                                                    type="text"
-                                                                                                   maxlength="20" required 
+                                                                                                   maxlength="15" required 
                                                                                                    value="<%=user.getCMT()%>"
 
                                                                                                    class="form-control validate"

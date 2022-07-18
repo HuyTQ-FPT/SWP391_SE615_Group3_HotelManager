@@ -310,7 +310,7 @@
                     <form action="RequestController?do=searchName" method="post">
                         <input style="
                                margin-left: 100px;
-                               " name="nameTitle" type="text"  placeholder="Tìm kiếm tiêu đề">
+                               " name="nameTitle" type="text" maxlength="100"  placeholder="Tìm kiếm tiêu đề">
                         <button   type="submit" name="submit" class="search " style=" border-radius:8px;border: none"><span class="fa fa-search " ></span></button>
 
                     </form>

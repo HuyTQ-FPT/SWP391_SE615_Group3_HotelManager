@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Minh Hiếu
  */
-@WebFilter(filterName = "ReceptionistFilter", urlPatterns = {"/ReceptionistController"})
+@WebFilter(filterName = "ReceptionistFilter", urlPatterns = {"/ReceptionistController","/FeedbackController"})
 public class ReceptionistFilter implements Filter {
 
     private static final boolean debug = true;

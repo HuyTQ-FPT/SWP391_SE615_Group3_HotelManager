@@ -101,7 +101,7 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
             pre.setString(2, roomcatedes);
             pre.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         finally {
             closePreparedStatement(pre);
