@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -68,6 +70,10 @@ public class ReplyController extends HttpServlet {
         if (request.getCharacterEncoding() != null) {
             request.setCharacterEncoding("UTF-8");
         }
+          /**
+             * Service insertreply: insert and display reply
+             * Reply.jsp
+             */
         if(dos.equals("insertreply")){
         try (PrintWriter out = response.getWriter()) {
             String content = request.getParameter("content1").trim();
@@ -81,7 +87,9 @@ public class ReplyController extends HttpServlet {
                 cmt.setParentId(ParentID);
                 cmt.setBlogid(BlogID);
                 cmt.setCommentId(CommentID);
+                 /*insert comment */
                dao.InsertComment(content, username, BlogID, ParentID);
+                /* display comment base on parentid */
                 List<Comment> list1 = dao.DisplayCommenttt(ParentID);
                 request.setAttribute("listcomment1", list1);
                 RequestDispatcher rd = request.getRequestDispatcher("Reply.jsp");
@@ -94,23 +102,30 @@ public class ReplyController extends HttpServlet {
             e.printStackTrace();
         }
     }
+        /**
+             * Service insertreply: insert and display reply is comment children
+             * Reply.jsp
+             */
         if(dos.equals("displayreply")){
-             String content = request.getParameter("content1").trim();
-            String username = request.getParameter("username");;
-            String BlogID = request.getParameter("blogid");;
-            String ParentID = request.getParameter("commentid");
-          String CommentID = request.getParameter("commentid");
-                Comment cmt = new Comment();
-                cmt.setContent(content);
-                cmt.setUsername(username);
-                cmt.setParentId(ParentID);
-                cmt.setBlogid(BlogID);
-                cmt.setCommentId(CommentID);
-             
-                List<Comment> list1 = dao.DisplayCommenttt(ParentID);
-                request.setAttribute("listcomment1", list1);
-                RequestDispatcher rd = request.getRequestDispatcher("Reply.jsp");
-                rd.forward(request, response);
+           try {
+               String content = request.getParameter("content1").trim();
+               String username = request.getParameter("username");;
+               String BlogID = request.getParameter("blogid");;
+               String ParentID = request.getParameter("commentid");
+               String CommentID = request.getParameter("commentid");
+               Comment cmt = new Comment();
+               cmt.setContent(content);
+               cmt.setUsername(username);
+               cmt.setParentId(ParentID);
+               cmt.setBlogid(BlogID);
+               cmt.setCommentId(CommentID);
+               List<Comment> list1 = dao.DisplayCommenttt(ParentID);
+               request.setAttribute("listcomment1", list1);
+               RequestDispatcher rd = request.getRequestDispatcher("Reply.jsp");
+               rd.forward(request, response);
+           } catch (Exception ex) {
+               Logger.getLogger(ReplyController.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
     }
     

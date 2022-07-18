@@ -38,7 +38,7 @@
             var content = arr1[0].value;
             if (name.trim() == "" && content.trim() == "" && name1.trim() == "") {
                 alert("Vui lòng điền thông tin");
-            }else if(name.trim() != "" || content.trim() != "" || name1.trim() != "" ){
+            }else if(name.trim() != "" && content.trim() != "" && name1.trim() != "" ){
                 alert("Thêm thành công");
             }
         }
@@ -112,7 +112,7 @@
                             
                         <div class="col-12">
                             <input type="hidden" value="insertblog" name="do"> 
-                            <button type="submit"  class="btn btn-primary btn-block text-uppercase" onclick="Add()">Add Blog Now</button>
+                            <button type="submit"  class="btn btn-primary btn-block text-uppercase" onclick="Add()">Thêm tin tức</button>
                         </div>
                         </form>
                     </div>

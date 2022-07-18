@@ -40,10 +40,16 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public Vector<Blog> getBlog(String sql) {
+    public Vector<Blog> getBlog(String sql) throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Blog> vector = new Vector<Blog>();        
         try {
-          ResultSet rs = getData(sql);
+             conn = getConnection();
+           rs = getData(sql);
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int AccountID = rs.getInt(2);
@@ -58,6 +64,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         } catch (SQLException ex) {
             ex.printStackTrace();
  
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
     }
@@ -69,7 +80,13 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
 @Override
-    public int getComment(String BlogID) {
+    public int getComment(String BlogID) throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
+ 
         int n = 0;
         String sql = "select COUNT(*) from Comment where BlogID = "+BlogID+"";
         Vector<Blog> vector = new Vector<Blog>();
@@ -77,8 +94,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         try {
             int totalPage = 0;
             int countPage = 0;
-          PreparedStatement pre = conn.prepareStatement(sql);
-            ResultSet rs = getData(sql);
+          conn = getConnection();
+            pre = conn.prepareStatement(sql);
+         rs = pre.executeQuery();
             
             while (rs.next()) {
                 totalPage = rs.getInt(1);
@@ -93,6 +111,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             ex.printStackTrace();
         
 
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return n;
     }
@@ -102,7 +125,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */ 
     @Override
-    public int getPage() {
+    public int getPage() throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         int n = 0;
         String sql = "select COUNT(*) from Blog";
         Vector<Blog> vector = new Vector<Blog>();
@@ -110,8 +138,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         try {
             int totalPage = 0;
             int countPage = 0;
-          PreparedStatement pre = conn.prepareStatement(sql);
-            ResultSet rs = getData(sql);
+           conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 totalPage = rs.getInt(1);
                 countPage = totalPage / 3;
@@ -125,6 +154,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             ex.printStackTrace();
         
 
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return n;
     }
@@ -135,12 +169,19 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public String getBlogID(String sql) {
+    public String getBlogID(String sql) throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         String n1="";
         int n = 0;
       
         try {
-          ResultSet rs = getData(sql);
+           conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
 
@@ -150,6 +191,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return n1;
     }
@@ -160,18 +206,30 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
 @Override
-    public String selectUsername(String AccountID) {
+    public String selectUsername(String AccountID) throws Exception  {
+        Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         String sql = "select UserName from [User] where AccountID = "+AccountID+"";
         String n1="";
         int n = 0;
         try {
-            ResultSet rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
               n1 = rs.getString(1);
 
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return n1;
     }
@@ -183,7 +241,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
        @Override
-    public List<Comment> getCommentByPage(int n,String BlogID) {
+    public List<Comment> getCommentByPage(int n,String BlogID) throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         List<Comment> list = new ArrayList<Comment>();
         int begin = 1;
         int end = 4;
@@ -197,7 +260,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
 "                            ) AS RowNum\n" +
 "                              WHERE RowNum BETWEEN "+ begin + " AND " + end;
         try {
-            ResultSet rs = getData(sql);
+              conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 Comment comment = new Comment();
                 String content = rs.getString("Content");
@@ -215,6 +280,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return list;
     }
@@ -225,7 +295,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public Vector<Blog> getBlogByPage(int n) {
+    public Vector<Blog> getBlogByPage(int n) throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Blog> vector = new Vector<Blog>();
         int begin = 1;
         int end = 3;
@@ -238,7 +313,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 + "               ) AS RowNum\n"
                 + "                WHERE RowNum BETWEEN " + begin + " AND " + end;
         try {
-            ResultSet rs = getData(sql);
+           conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int AccountID = rs.getInt(2);
@@ -252,6 +329,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
     }
@@ -262,7 +344,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public Vector<Blog> getBlogByPagesortnew(int n) {
+    public Vector<Blog> getBlogByPagesortnew(int n) throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Blog> vector = new Vector<Blog>();
         int begin = 1;
         int end = 3;
@@ -275,7 +362,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 + "                              ) AS RowNum\n"
                 + "                              WHERE RowNum BETWEEN " + begin + " AND " + end;
         try {
-            ResultSet rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int AccountID = rs.getInt(2);
@@ -289,6 +378,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
     }
@@ -298,15 +392,26 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public void deleteBlog(String BlogID) {
+    public void deleteBlog(String BlogID) throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         String query = "DELETE FROM [dbo].[Blog]\n"
                 + "      WHERE BlogID = ?";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+             conn = getConnection();
+            pre = conn.prepareStatement(query);          
             pre.setString(1, BlogID);
-            pre.executeUpdate();
+            rs = pre.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
     }
     /**
@@ -316,15 +421,25 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
   @Override
-    public void deleteCommentParent(String CommentID,String ParentID) {
+    public void deleteCommentParent(String CommentID,String ParentID) throws Exception {
+          Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         String query = "delete from Comment where CommentID = ? or ParentID = ?";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+              conn = getConnection();
+            pre = conn.prepareStatement(query);         
             pre.setString(1, CommentID);    
             pre.setString(2, ParentID);    
-            pre.executeUpdate();
+            rs = pre.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
     /**
@@ -333,14 +448,25 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public void deleteComment(String CommentID) {
+    public void deleteComment(String CommentID) throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         String query = "delete from Comment where CommentID = ?";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+             conn = getConnection();
+            pre = conn.prepareStatement(query);
             pre.setString(1, CommentID);             
-            pre.executeUpdate();
+         rs = pre.executeQuery(); 
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
     }
     /**
@@ -350,7 +476,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public Vector<Blog> getBlogByPagesortold(int n) {
+    public Vector<Blog> getBlogByPagesortold(int n) throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Blog> vector = new Vector<Blog>();
         int begin = 1;
         int end = 3;
@@ -363,7 +494,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 + "                              ) AS RowNum\n"
                 + "                              WHERE RowNum BETWEEN " + begin + " AND " + end;
         try {
-            ResultSet rs = getData(sql);
+              conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int AccountID = rs.getInt(2);
@@ -377,6 +510,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
     }
@@ -388,7 +526,12 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public Vector<Blog> getBlogByPagesearch(int n, String author) {
+    public Vector<Blog> getBlogByPagesearch(int n, String author) throws Exception  {
+        Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Blog> vector = new Vector<Blog>();
         int begin = 1;
         int end = 3;
@@ -402,7 +545,9 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 + "                              ) AS RowNum\n"
                 + "                              WHERE RowNum BETWEEN " + begin + " AND " + end;
         try {
-            ResultSet rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 int AccountID = rs.getInt(2);
@@ -416,6 +561,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
     }
@@ -426,16 +576,28 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public Vector<Blog> selectBlog(String BlogID) {
+    public Vector<Blog> selectBlog(String BlogID) throws Exception  {
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Blog> vector = new Vector<Blog>();
 
         String sql = "select * from Blog where BlogID = ?";
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             pre.setString(1, BlogID);
 
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return vector;
     }
@@ -446,10 +608,17 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
  @Override
-    public Blog selectBlog1(String sql) {
+    public Blog selectBlog1(String sql) throws Exception  {
+             Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
 
         try {
-           ResultSet rs = getData(sql);
+          conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
          while (rs.next()) {
                 int AccountID = rs.getInt(2);
                 String BlogAuthor = rs.getString(3);
@@ -462,6 +631,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
      return null;
     }
@@ -476,7 +650,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String BlogTitle) {
+    public void inSertBlog(int AccountID, String BlogAuthor, String BlogDescription, String BlogImage, String BlogTitle) throws Exception  {
         String query = "INSERT INTO [dbo].[Blog]\n"
                 + "           ([AccountID]\n"
                 + "           ,[BlogAuthor]\n"
@@ -486,17 +660,29 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
                 + "           ,[BlogTitle])\n"
                 + "     VALUES \n"
                 + "           (?,?,?,?,GETDATE(),?)";
+         Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         try {
 
-            PreparedStatement pre = conn.prepareStatement(query);
+             conn = getConnection();
+            pre = conn.prepareStatement(query);
+           
             pre.setInt(1, AccountID);
             pre.setString(2, BlogAuthor);
             pre.setString(3, BlogDescription);
             pre.setString(4, BlogImage);
             pre.setString(5, BlogTitle);
-            pre.executeUpdate();
+         rs = pre.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
     }
 /**
@@ -508,22 +694,34 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public void updateBlog(String BlogID, String BlogAuthor, String BlogDescription, String BlogTitleString) {
+    public void updateBlog(String BlogID, String BlogAuthor, String BlogDescription, String BlogTitleString) throws Exception  {
+        Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         String query = "UPDATE [dbo].[Blog]\n"
                 + "   SET [BlogAuthor] = ?\n"
                 + "      ,[BlogDescription] = ?\n"
                 + "      ,[BlogTitle] = ?\n"
                 + " WHERE BlogID = ?";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+            conn = getConnection();
+            pre = conn.prepareStatement(query);
+           
             pre.setString(1, BlogAuthor);
             pre.setString(2, BlogDescription);
             pre.setString(3, BlogTitleString);
             pre.setString(4, BlogID);
 
-            pre.executeUpdate();
+           rs = pre.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
     }
     /**
@@ -533,15 +731,26 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
 @Override
-    public void updateContent(String CommentID, String Content) {
+    public void updateContent(String CommentID, String Content) throws Exception  {
+        Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         String query = "UPDATE [dbo].[Comment] SET [Content] = ? WHERE CommentID = ?";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);    
+            conn = getConnection();
+            pre = conn.prepareStatement(query);         
             pre.setString(1, Content);
             pre.setString(2, CommentID);
-            pre.executeUpdate();
+           rs = pre.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
     }
     /**
@@ -553,16 +762,23 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public void InsertComment(String content, String username, String BlogID,String ParentID) {
+    public void InsertComment(String content, String username, String BlogID,String ParentID) throws Exception  {
         String sql = "INSERT INTO [dbo].[Comment]([Content],[username],[Date],[ParentID],[BlogID])VALUES(?,?,GETDATE(),?,?)";
+        Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         try {
 //            ResultSet rs = null;
-            PreparedStatement pre = conn.prepareStatement(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+          
             pre.setString(1, content);
             pre.setString(2, username);
             pre.setString(4, BlogID);
             pre.setString(3, ParentID);
-            pre.executeUpdate();
+           rs = pre.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -574,12 +790,18 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public List<Comment> DisplayAllComment(String BlogID) {
+    public List<Comment> DisplayAllComment(String BlogID) throws Exception  {
+          Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         List<Comment> list = new ArrayList<Comment>();
             String sql = "select * from Comment where BlogID = " + BlogID ;
         try {
-            PreparedStatement ptmt = conn.prepareStatement(sql);
-            ResultSet rs = ptmt.executeQuery();
+           conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 Comment comment = new Comment();
                 String content = rs.getString("Content");
@@ -598,6 +820,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return list;
     }
@@ -608,12 +835,18 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
  @Override
-    public List<Comment> DisplayCommentBlog(String BlogID) {
+    public List<Comment> DisplayCommentBlog(String BlogID) throws Exception  {
         List<Comment> list = new ArrayList<Comment>();
             String sql = "select * from Comment where BlogID = " + BlogID + " and ParentID = 0";
+             Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         try {
-            PreparedStatement ptmt = conn.prepareStatement(sql);
-            ResultSet rs = ptmt.executeQuery();
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 Comment comment = new Comment();
                 String content = rs.getString("Content");
@@ -632,6 +865,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return list;
     }
@@ -642,12 +880,18 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public List<Comment> DisplayComment(String BlogID) {
-        List<Comment> list = new ArrayList<Comment>();
+    public List<Comment> DisplayComment(String BlogID) throws Exception  {
+        List<Comment> list = new ArrayList<Comment>();     
             String sql = "select * from Comment where BlogID = " + BlogID + " and ParentID = 0";
+             Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         try {
-            PreparedStatement ptmt = conn.prepareStatement(sql);
-            ResultSet rs = ptmt.executeQuery();
+              conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 Comment comment = new Comment();
                 String content = rs.getString("Content");
@@ -666,6 +910,11 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return list;
     }
@@ -676,12 +925,18 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
  @Override
-    public List<Comment> DisplayCommenttt(String CommentID) {
+    public List<Comment> DisplayCommenttt(String CommentID) throws Exception  {
+          Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         List<Comment> list = new ArrayList<Comment>();
         String sql = "select * from Comment where ParentID = " + CommentID + "";
         try {
-            PreparedStatement ptmt = conn.prepareStatement(sql);
-            ResultSet rs = ptmt.executeQuery();
+              conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 Comment comment = new Comment();
                 String content = rs.getString("Content");
@@ -700,17 +955,33 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return list;
     }
     @Override
-    public void crudImage(String sql) {
+    public void crudImage(String sql) throws Exception  {
+        Connection conn = null;
+         /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.executeUpdate();
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);    
+            rs = pre.executeQuery();
             System.out.println("done");
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
     }
 
@@ -718,7 +989,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
         BlogDAOImpl dao = new BlogDAOImpl();
 //        int n = dao.getComment("8");
           List<Comment> list = new ArrayList<Comment>();
-          list = dao.getCommentByPage(2,"8");
+//          list = dao.getCommentByPage(2,"8");
         System.out.println(list);
 
     }

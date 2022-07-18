@@ -217,13 +217,13 @@
                         </div>
                 </div>
             </div>
-            <div class="col-25">
+                                <div class="col-25">
                 <% ResultSet rs = (ResultSet) request.getAttribute("rs");
                     if (rs.next()) {
                 %>
-                <div style="padding-bottom: 20px;" class="container1">
+                <div style="padding-bottom: 20px;"  class="container1">
                     <div>
-                        <h4 style="margin-left: 20px; font-size: 30px;; font-weight: bold; color: red"><label class="price" style="color:black; padding-left: 50px;color: orangered"><i class='fas fa-hotel'></i></s</label> Hoang Hon </h4>                       
+                        <h4 style="margin-left: 20px; font-size: 30px;; font-weight: bold; color: red"><label class="price" style="color:black; padding-left: 50px;color: orangered;"><i class='fas fa-hotel'></i></s</label> Hoang Hon </h4>                       
                     </div>
                     <!--                    <div style="background-color: #f7f9fa; height: 150px;padding-top: 10px;" class="nhanphong">
                                             <p style="margin-left: 20px;"> Ngày nhận phòng: Sun, 12 Jun 2022, Từ 11:00 <p>                         
@@ -247,7 +247,7 @@
                     <p style="color: green;">Miễn phí huỷ phòng đến trước <%=da%> </p>
 
                 </div>
-                <div class="container">
+                <div " class="container">
                     <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4>
                     <p><a href="RoomController?do=roomdetail&roomid=<%=id%>"><%=rs.getString(19)%>- <%=rs.getInt(2)%></a> <span class="price" style="color:black;font-weight: bold" ><%=rs.getDouble(6)%></span></p>
                     <input type="hidden" name="price" value="<%=rs.getDouble(6)%>">
