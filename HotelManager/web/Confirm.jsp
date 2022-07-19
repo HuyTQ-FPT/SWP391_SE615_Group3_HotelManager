@@ -155,13 +155,13 @@
                                 %>
                                 <h3>Đơn đặt phòng</h3>
                                 <label for="firstname"><i class="fa fa-user"></i> Tên đầy đủ</label>
-                                <p style="font-weight: bold; color: orangered"><%=r.getName()%></p>
+                                <p style="font-weight: bold; color: black"><%=r.getName()%></p>
                                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                                <p style="font-weight: bold; color: orangered"><%=r.getEmail()%></p>
+                                <p style="font-weight: bold; color: black"><%=r.getEmail()%></p>
                                 <label for="adr"><i class="fa fa-address-card-o"></i> Địa chỉ </label>
-                                <p style="font-weight: bold; color: orangered"><%=r.getAddress()%></p>
+                                <p style="font-weight: bold; color: black"><%=r.getAddress()%></p>
                                 <label for="city"><i class="fa fa-institution"></i> Số điện thoại</label>
-                                <p style="font-weight: bold; color: orangered"><%=r.getPhone()%></p>
+                                <p style="font-weight: bold; color: black"><%=r.getPhone()%></p>
                                 
                                 <input type="hidden" name="firstname" value="<%=r.getName()%>">
                                 <input type="hidden" name="email" value="<%=r.getEmail()%>">
@@ -175,7 +175,7 @@
                                 <div class="row">
                                     <div class="col-100">
                                         <label style="display: inline-block; padding-top: 20px; padding-left: 15px;font-size: 20px;" for="state">Số người</label>
-                                        <p style="padding-left: 20px;font-weight: bold; color: orangered"><%=r.getNumberOfPerson()%></p>
+                                        <p style="padding-left: 20px;font-weight: bold; color: black"><%=r.getNumberOfPerson()%></p>
                                     </div>
                                 </div>
                             </div>
@@ -190,11 +190,11 @@
                                 </div>
                                 <label for="cname">Dịch vụ</label>
                                 <label style="display:inline-block;"for="vehicle1"></label><br>
-                                <p style="font-weight: bold; color: orangered">${ser}</p>
+                                <p style="font-weight: bold; color: black">${ser}</p>
                                 <label style="padding-top: 30px;"for="ccnum">Ngày đến</label>
-                                <p style="font-weight: bold; color: orangered"><%=r.getCheckin()%></p>
+                                <p style="font-weight: bold; color: black"><%=r.getCheckin()%></p>
                                 <label for="expmonth" style="padding-top: 10px">Ngày đi</label>
-                                <p style="font-weight: bold; color: orangered"><%=r.getCheckout() %></p>
+                                <p style="font-weight: bold; color: black"><%=r.getCheckout() %></p>
                             </div>
 
                         </div>
@@ -205,9 +205,9 @@
                 </div>
             </div>
             <div class="col-25">
-                <div style="padding-bottom: 20px;" class="container1">
+                 <div style="padding-bottom: 50px;height:  400px;"  class="container1">
                     <div>
-                        <h4 style="margin-left: 20px; font-size: 30px;; font-weight: bold; color: red"><label class="price" style="color:black"><i class='fas fa-hotel'></i></s</label> Hoang Hon </h4>                       
+                        <h4 style="margin-top: 5px; font-size: 30px;; font-weight: bold; color: red"> Hoang Hon </h4>                       
                     </div>
                     <div style="background-color: #f7f9fa; height: 150px;padding-top: 10px;" class="nhanphong">
                         <p style="margin-left: 20px;"> Ngày nhận phòng: <%=r.getCheckin() %>, Từ 11:00 <p>                         
@@ -231,7 +231,7 @@
                 <div class="container">
                     <p><a href="#"></a> <span class="price"></span></p>
                     <hr>
-                    <p style="font-weight: bold; color: red">Tổng giá <span class="price" style="color:black"><p style="font-weight: bold; color: black;font-size: 30px">$${total}</p></span></p>
+                    <p style="font-weight: bold; color: red">Tổng giá <span class="price" style="color:black"><p style="font-weight: bold; color: black;font-size: 30px">${total}</p></span></p>
                 </div>
             </div>
         </div>

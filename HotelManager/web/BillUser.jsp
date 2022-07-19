@@ -12,6 +12,7 @@
 <%@page import="java.util.Vector"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -262,10 +263,10 @@
                 </div>
                 <div style="margin-top:0px;"class="container">
                     <h4>Phòng <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span></h4>
-                    <p><a href="RoomController?do=roomdetail&roomid=<%=id%>"><%=rs.getString(19)%>- <%=rs.getInt(2)%></a> <span class="price" style="color:black;font-weight: bold" ><%=rs.getDouble(6)%></span></p>
-                    <input type="hidden" name="price" value="<%=rs.getDouble(6)%>">
+                    <p><a href="RoomController?do=roomdetail&roomid=<%=id%>"><%=rs.getString(19)%>- <%=rs.getInt(2)%></a> <span class="price" style="color:black;font-weight: bold" ><fmt:formatNumber value="<%=rs.getInt(6)%>"/>,000đ/ 1 đêm</span></p>
+                    <input type="hidden" name="price" value="<%=rs.getInt(6)%>000">
                     <hr>
-                    <p>Tổng giá <span class="price" style="color:black"><%=rs.getDouble(6)%></span></p>
+                    <p>Tổng giá <span class="price" style="color:black"><fmt:formatNumber value="<%=rs.getInt(6)%>"/>,000</h1></p>
                 </div>
             </div>
             <input style="margin-top: 38px;height: 50px;" type="submit" value="Tiếp tục để xác nhận" class="btn" >
@@ -281,11 +282,12 @@
         let p = document.forms["myForm"]["phone"].value;
         let checkin = document.forms["myForm"]["checkin"].value;
         let checkout = document.forms["myForm"]["checkout"].value;
+        let number = document.forms["myForm"]["checkout"].value;
         var regexPhone = /0[0-9]{9,10}/;
         var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        if (!(checkout >= checkin)) {
+        if (!(checkout > checkin)) {
             alert('Ngày check out phải lớn hơn Checkin');
             document.myForm.checkin.focus();
             return false;

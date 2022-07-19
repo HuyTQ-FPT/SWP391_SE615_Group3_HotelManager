@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -106,23 +107,6 @@ public class OrderController extends HttpServlet {
                 String child = request.getParameter("Child").trim();
                 // Lấy price service
                 String[] serviceId = request.getParameterValues("service");
-                String serv = "";
-                double price = 0;
-                // lay service price and name
-                if (serviceId != null) {
-                    if (!(serviceId.length == 0)) {
-                        for (int i = 0; i < serviceId.length; i++) {
-                            Integer f = Integer.parseInt(serviceId[i]);
-                            ResultSet rs = db.getData("select * from Service where ServiceID=" + f);
-                            while (rs.next()) {
-                                price += rs.getDouble(6);
-                                serv += rs.getString(2) + ";";
-                            }
-                        }
-                    }
-                }
-                int a = Integer.parseInt(adult) + Integer.parseInt(child); // number of person
-                int id = Integer.parseInt(key);
                 // ép type date check in check out
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 Date date1 = (Date) format.parse(checkin);
@@ -131,17 +115,41 @@ public class OrderController extends HttpServlet {
                 Date date2 = (Date) format.parse(checkout);
                 java.sql.Date cDate = new java.sql.Date(date2.getTime());
 
-                double total = price + Double.parseDouble(money);
+                // price by night
+                long getDiff = date2.getTime() - date1.getTime();
+
+                // using TimeUnit class from java.util.concurrent package
+                long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
+                
+                String serv = "";
+                int price = 0;
+                // lay service price and name
+                if (serviceId != null) {
+                    if (!(serviceId.length == 0)) {
+                        for (int i = 0; i < serviceId.length; i++) {
+                            Integer f = Integer.parseInt(serviceId[i]);
+                            ResultSet rs = db.getData("select * from Service where ServiceID=" + f);
+                            while (rs.next()) {
+                                price += rs.getInt(6);
+                                serv += rs.getString(2) + ";";
+                            }
+                        }
+                    }
+                }
+                int a = Integer.parseInt(adult) + Integer.parseInt(child); // number of person
+                int id = Integer.parseInt(key);
+                long total = price + Integer.parseInt(money)*getDaysDiff;
                 // discount
-                double c = 0;
+                int c = 0;
                 if (Integer.parseInt(event) != 0) {
                     ResultSet rs2 = db.getData("select EventValue from [Events] where EventID=" + event);
                     if (rs2.next()) {
-                        c = rs2.getDouble(1);
+                        c = rs2.getInt(1);
                         total = (total * c) / 100;
                     }
-                    rs2=db.getData("delete [EventsDetails]  where EventID="+event);
+                    rs2 = db.getData("delete [EventsDetails]  where EventID=" + event);
                 }
+
                 long millis = System.currentTimeMillis();
                 java.sql.Date date = new java.sql.Date(millis);
                 int user = Integer.parseInt(userid);

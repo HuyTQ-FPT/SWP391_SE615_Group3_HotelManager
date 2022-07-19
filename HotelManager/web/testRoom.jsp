@@ -293,7 +293,7 @@
             </div>
             <div style="font-size: 20px;margin-left: 20%; padding-top: 50px;padding-bottom: 30px;" class="col-md-6">
                 <h2 style="color: red"class="display-4" data-aos="fade-up">Tận hưởng chỗ ở của bạn</h2>
-                    <p data-aos="fade-up" data-aos-delay="100" "><span style="color: blue;">Giá cả</span> và <span style="color: blue;">chất lượng</span> ngang bằng nhau chỉ giúp bạn bước chân vào cuộc chơi. <span style="color: blue;">Dịch vụ </span> sẽ giúp bạn chiến thắng cuộc chơi. </p>
+                    <p data-aos="fade-up" data-aos-delay="100" ><span style="color: blue;">Giá cả</span> và <span style="color: blue;">chất lượng</span> ngang bằng nhau chỉ giúp bạn bước chân vào cuộc chơi. <span style="color: blue;">Dịch vụ </span> sẽ giúp bạn chiến thắng cuộc chơi. </p>
             </div>
             <!-- End of /#Topic-header -->
 
