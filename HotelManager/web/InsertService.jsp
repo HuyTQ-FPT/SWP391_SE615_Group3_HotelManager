@@ -155,9 +155,6 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <footer class="tm-footer row tm-mt-small">
             <div class="col-12 font-weight-light">
                 <p class="text-center text-white mb-0 px-4 small">
-                    
-
-                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
                 </p>
             </div>
         </footer> 
