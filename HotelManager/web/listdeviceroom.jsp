@@ -86,9 +86,6 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <footer class="tm-footer row tm-mt-small">
             <div class="col-12 font-weight-light">
                 <p class="text-center text-white mb-0 px-4 small">
-                    Copyright &copy; <b>2018</b> All rights reserved. 
-
-                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
                 </p>
             </div>
         </footer>
@@ -109,7 +106,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 "zeroRecords": "Không Có Bản Ghi Nào Phù Hợp",
                                 "info": "Hiển Thị Trang _PAGE_ Trên _PAGES_",
                                 "infoEmpty": "Danh Sách Trống",
-                                "infoFiltered": "(Không Tìm Thấy Thiết Bị/_MAX_ Dịch Vụ)"
+                                "infoFiltered": "(Không Tìm Thấy Thiết Bị/_MAX_ Dịch Vụ)",
+                                
+                                
                             }
                         });
             });

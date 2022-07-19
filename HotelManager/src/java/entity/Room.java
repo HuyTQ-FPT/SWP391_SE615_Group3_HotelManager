@@ -6,11 +6,15 @@
  * Record of change:
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
+
  * 18/07/2022    1.0        HieuHT            Comment
+ * 19/07/2022    1.0        HieuLBM          Comment
+
  */
 package entity;
 
 /**
+
  * @author This class represents the Events table in database
  */
 public class Room {
@@ -45,6 +49,13 @@ public class Room {
     private int Sumstatus;
 
     /**
+     * Blank Constructor
+     */
+    public Room() {
+    }
+
+    /**
+
      * Complete Constructor
      *
      * @param RoomID
@@ -194,13 +205,6 @@ public class Room {
     public void setSumstatus(int Sumstatus) {
         this.Sumstatus = Sumstatus;
     }
-
-    /**
-     * Blank Constructor
-     */
-    public Room() {
-    }
-
     /**
      * @return status
      */
@@ -408,6 +412,7 @@ public class Room {
     public void setCateroom(String cateroom) {
         this.cateroom = cateroom;
     }
+
 
     @Override
     public String toString() {

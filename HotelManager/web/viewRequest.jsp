@@ -91,25 +91,24 @@
                             </a>
                         </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            <i class="fab fa-blogger"></i>
-                            <span>
-                                Blog <i class="fas fa-angle-down"></i>
-                            </span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="BlogManagerController?do=editblog">Edit Blog</a>
-                            <a class="dropdown-item" href="addblog.jsp">Insert Blog</a>
-
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="ManagerAccount">
-                            <i class="fas fa-address-card"></i></i> Role
-                        </a>
-                    </li>
+                     <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fab fa-blogger"></i>
+                                <span>
+                                    Tin tức <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="BlogManagerController?do=editblog&page=1">Chỉnh sửa tin tức</a>
+                                <a class="dropdown-item" href="addblog.jsp">Thêm tin tức</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ManagerAccount">
+                                <i class="fas fa-address-card"></i></i> Phân quyền
+                            </a>
+                        </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="RequestController?do=listRequest">
                             <i class="fas fa-newspaper "></i></i> Yêu cầu
@@ -130,8 +129,6 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">Thông tin</a>
-                            <a class="dropdown-item" href="#">Billing</a>
-                            <a class="dropdown-item" href="#">Customize</a>
                         </div>
                     </li>
                 </ul>

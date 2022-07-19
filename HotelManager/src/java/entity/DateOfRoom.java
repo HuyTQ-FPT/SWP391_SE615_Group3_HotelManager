@@ -110,10 +110,4 @@ public class DateOfRoom {
     public void setStatus(int status) {
         this.status = status;
     }
-
-    @Override
-    public String toString() {
-        return "DateOfRoom{" + "RoomID=" + RoomID + ", Datein=" + Datein + ", Dateout=" + Dateout + ", status=" + status + '}';
-    }
-
 }

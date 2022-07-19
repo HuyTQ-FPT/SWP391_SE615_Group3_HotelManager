@@ -1,11 +1,19 @@
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ *
+ */
+
 package controller;
 
 import dao.impl.DateOfRoomImpl;
-import dao.impl.ReservationDAOImpl;
-import dao.impl.ServiceDAOImpl;
 import entity.DateOfRoom;
 import entity.Reservation;
-import entity.Service;
 import dao.impl.ReservationDAOImpl;
 import dao.impl.ServiceDAOImpl;
 import entity.Service;
@@ -18,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +42,7 @@ public class OrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             String service = request.getParameter("do");
             DBContext db = new DBContext();
             ReservationDAOImpl dao1 = new ReservationDAOImpl();
@@ -418,22 +428,45 @@ public class OrderController extends HttpServlet {
             }
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMess", ex.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
