@@ -499,7 +499,7 @@ Author     : admin
                                     font-size: 25px;
                                     color: black;
                                     font-family: Didot"><%=e.getCateroom()%></a>
-                                        <span class="mb-3 d-block post-date">Dec 20th, 2018 &bullet; By <a href="#">Admin</a></span>
+                                        <span class="mb-3 d-block post-date">Tháng 12, 2018 &bullet; Bởi <a href="#">Admin</a></span>
                                         <p><%=e.getRoomdesc().substring(0, 100)%>...</p>
                                     </div>
                                 </div>         
