@@ -89,10 +89,10 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
      * @throws Exception
      */
     @Override
-    public void insertRoomCategory(String roomcatename, String roomcatedes) throws Exception{
+    public void insertRoomCategory(String roomcatename, String roomcatedes) throws Exception {
         String query = "insert into CateRoom (Catename, [note]) \n"
                 + "                values (?,?);";
-        PreparedStatement pre =null;
+        PreparedStatement pre = null;
         try {
             pre = conn.prepareStatement(query);
             pre.setString(1, roomcatename);
@@ -100,8 +100,7 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
             pre.execute();
         } catch (Exception e) {
             throw e;
-        }
-        finally {
+        } finally {
             closePreparedStatement(pre);
         }
     }
@@ -166,12 +165,15 @@ public class RoomCategoryDAOImpl extends DBContext implements RoomCategoryDAO {
      */
     @Override
     public void deleteRoomCategory(String roomcate) throws Exception {
-        String query = "update Room set RoomcateID = replace(RoomcateID,?,6);update Room set Status = replace(Status,0,1) ; delete from CateRoom where RoomcateID = ?";
+        String query = "update Room set RoomcateID = replace(RoomcateID,?,6);\n"
+                + "update Room set Status = replace(Status,0,1) where RoomcateID =? ; \n"
+                + "delete from CateRoom where RoomcateID = ?";
         PreparedStatement pre = null;
         try {
             pre = conn.prepareStatement(query);
             pre.setString(1, roomcate);
             pre.setString(2, roomcate);
+            pre.setString(3, roomcate);
             pre.executeUpdate();
             System.out.println("done");
         } catch (Exception e) {

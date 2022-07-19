@@ -46,12 +46,10 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
      */
     @Override
     public Vector<FeedBackService> getFeedBackBySeviceID(String Sql) throws Exception {
-        Connection conn = null;
-        /* Result set returned by the sqlserver */
-        ResultSet rs = null;
+
         Vector<FeedBackService> vector = new Vector<FeedBackService>();
         try {
-            rs = getData(Sql);
+            ResultSet rs = getData(Sql);
             while (rs.next()) {
                 int ServiceID = rs.getInt(1);
                 int AccountID = rs.getInt(2);
@@ -65,9 +63,6 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally {
-            closeResultSet(rs);
-            closeConnection(conn);
         }
         return vector;
     }
@@ -81,9 +76,7 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
      */
     @Override
     public void insertCommentService(String ServiceID, String AccountID, String Comment) throws Exception {
-        /* Prepared statement for executing sql queries */
-        PreparedStatement pre = null;
-        /* Result set returned by the sqlserver */
+
         String query = "INSERT INTO [dbo].[FeedBackService]\n"
                 + "           ([ServiceID]\n"
                 + "           ,[AccountID]\n"
@@ -94,16 +87,13 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
                 + "     VALUES\n"
                 + "           (?,?,GETDATE(),?,0,'')";
         try {
-            pre = conn.prepareStatement(query);
+            PreparedStatement pre = conn.prepareStatement(query);
             pre.setString(1, ServiceID);
             pre.setString(2, AccountID);
             pre.setString(3, Comment);
             pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(pre);
-            closeConnection(conn);
         }
     }
 
@@ -142,23 +132,26 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
      */
     @Override
     public void UnblockComment(String CommentID) throws Exception {
-        /* Prepared statement for executing sql queries */
-        PreparedStatement pre = null;
+
         String query = "UPDATE [dbo].[FeedBackService]\n"
                 + "   SET [Status] = 0 \n"
                 + " WHERE CommentID = ? ";
         try {
-            pre = conn.prepareStatement(query);
+            PreparedStatement pre = conn.prepareStatement(query);
             pre.setString(1, CommentID);
             pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            closePreparedStatement(pre);
-            closeConnection(conn);
         }
     }
 
+    /**
+     * Get rand Service
+     *
+     * @param getServiceListbyran
+     * @return
+     * @throws Exception
+     */
     @Override
     public Vector<Service> getServiceListbyran() {
         String sql = "select top(5) * from Service\n"
@@ -188,11 +181,11 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
 
             Service se = dao.getLastService();
 //        dao.insertCommentService("1", "1", "dịch vụ raasst tốt");
-        Vector<Service> fe = dao.getServiceListbyran();
-        for (Service feedBackService : fe) {
-            System.out.println(feedBackService);
+            Vector<Service> fe = dao.getServiceListbyran();
+            for (Service feedBackService : fe) {
+                System.out.println(feedBackService);
 //            System.out.println(se);
-        }
+            }
         } catch (Exception ex) {
             Logger.getLogger(ServiceDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -214,8 +207,16 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
         return null;
     }
 
+    /**
+     * Insert Service in Service Table
+     *
+     * @param updateService
+     * @return
+     * @throws Exception
+     */
     @Override
-    public void insertService(String ServiceName, String ServiceImage, String ServiceDes, String ServicePrice) {
+    public void insertService(String ServiceName, String ServiceImage, String ServiceDes, String ServicePrice) throws Exception {
+
         String query = "INSERT INTO [dbo].[Service]\n"
                 + "           ([ServiceName]\n"
                 + "           ,[ServiceImage]\n"
@@ -236,8 +237,16 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
         }
     }
 
+    /**
+     * Update Service in Service Table
+     *
+     * @param updateService
+     * @return
+     * @throws Exception
+     */
     @Override
-    public void updateService(String ServiceName, String ServiceImage, String ServiceDes, String ServicePrice, String ServiceID) {
+    public void updateService(String ServiceName, String ServiceImage, String ServiceDes, String ServicePrice, String ServiceID) throws Exception {
+
         String query = "UPDATE [dbo].[Service]\n"
                 + "   SET [ServiceName] = ?\n"
                 + "      ,[ServiceImage] = ?\n"
@@ -267,11 +276,10 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
      */
     @Override
     public Service getLastService() throws Exception {
-        /* Result set returned by the sqlserver */
-        ResultSet rs = null;
+
         String sql = "select top(1)* from Service order by ServiceID desc";
         try {
-            rs = getData(sql);
+            ResultSet rs = getData(sql);
             while (rs.next()) {
                 int ServiceID = rs.getInt(1);
                 String ServiceName = rs.getString(2);
@@ -283,10 +291,6 @@ public class ServiceDAOImpl extends DBContext implements ServiceDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        finally {
-            closeResultSet(rs);
-            closeConnection(conn);
         }
         return null;
     }

@@ -247,7 +247,7 @@ public class RoomDeviceController extends HttpServlet {
                         + "                insert into Room(Roomname, Roomdesc, RoomcateID, RoomimgaeID, Roomprice, NumberPerson, [Square], Comment, Rate, Note,[Status])\n"
                         + "                values ('" + RoomNumber + "',?," + RoomCategory + ",@@identity," + Price + "," + NumberPerson + "," + Square + ",'','',?," + Status + ");", des, Note);
                 /*Get Last Room*/
-                Room r = dao.getRooms();
+                Room r = dao.getLastRooms();
                 request.setAttribute("insert", "insert");
                 request.getRequestDispatcher("ImageController?do=listImage&RoomID=" + r.getRoomID() + "").forward(request, response);
             }
