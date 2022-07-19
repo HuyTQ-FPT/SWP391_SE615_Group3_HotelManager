@@ -277,6 +277,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">Thông tin</a>
+                             <a class="dropdown-item" href="OrderController?do=showCartAdmin">Hóa đơn</a>
                         </div>
                     </li>
                 </ul>

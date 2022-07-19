@@ -129,7 +129,7 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                         <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
 
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
@@ -144,7 +144,7 @@
 
                             </div>
                         </li>
-                         <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="#"
@@ -168,13 +168,13 @@
                                 Phòng
                             </a>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="ServiceController?do=ListService">
                                 <i class="fa fa-bars"></i> Dịch Vụ
                             </a>
                         </li>
 
-                            <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fab fa-blogger"></i>
@@ -187,7 +187,7 @@
                                 <a class="dropdown-item" href="addblog.jsp">Thêm tin tức</a>
                             </div>
                         </li>
-                       <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="ManagerAccount">
                                 <i class="fas fa-address-card"></i></i> Phân quyền
                             </a>
@@ -212,6 +212,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">Thông tin</a>
+                                <a class="dropdown-item" href="OrderController?do=showCartAdmin">Hóa đơn</a>
                             </div>
                         </li>
 

@@ -63,7 +63,7 @@ public class RequestController extends HttpServlet {
                 requestMessageDAO.insert(new RequestMessage(title, email, message, "0"));
                 String mEss = "Gửi yêu cầu thành công.";
                 request.setAttribute("mEss", mEss);
-                request.getRequestDispatcher("contact.jsp").forward(request, response);
+                    request.getRequestDispatcher("contact.jsp").forward(request, response);
 
             }
             /**
