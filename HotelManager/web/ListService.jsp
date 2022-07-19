@@ -94,7 +94,11 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 "zeroRecords": "Không Có Bản Ghi Nào Phù Hợp",
                                 "info": "Hiển Thị Trang _PAGE_ Trên _PAGES_",
                                 "infoEmpty": "Danh Sách Trống",
-                                "infoFiltered": "(Không Tìm Thấy Dịch Vụ Nào/_MAX_ Dịch Vụ)"
+                                "infoFiltered": "(Không Tìm Thấy Dịch Vụ Nào/_MAX_ Dịch Vụ)",
+                                "paginate": {
+                                    "next": "Tiếp",
+                                    "previous": "Trước"
+                                },
                             }
                         });
                 $(row).find('td:eq(2)').css('color', 'red');

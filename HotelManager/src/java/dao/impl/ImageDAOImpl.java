@@ -139,6 +139,7 @@ public class ImageDAOImpl extends DBContext implements ImageDAO {
         } finally {
             closePreparedStatement(pre);
             closeConnection(conn);
+
         }
     }
 

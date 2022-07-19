@@ -20,13 +20,13 @@ public interface ServiceDAO {
 
     public Vector<Service> getServiceListbyran();
 
-    public Service getServicedetail(String sid);
+    public Service getServicedetail(String sid) throws Exception;
 
-    public void insertService(String ServiceName, String ServiceImage, String ServiceDes, String ServicePrice);
+    public void insertService(String ServiceName, String ServiceImage, String ServiceDes, String ServicePrice) throws Exception;
 
-    public void updateService(String ServiceName, String ServiceImage, String ServiceDes, String ServicePrice, String ServiceID);
+    public void updateService(String ServiceName, String ServiceImage, String ServiceDes, String ServicePrice, String ServiceID) throws  Exception;
 
-    public void deleteService(String sql);
+    public void deleteService(String sql) throws Exception;
 
     public Vector<FeedBackService> getFeedBackBySeviceID(String Sql) throws Exception;
 

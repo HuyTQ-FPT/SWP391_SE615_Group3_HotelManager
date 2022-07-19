@@ -196,4 +196,5 @@ public interface RoomDAO {
     public int getPage(String sql) throws Exception;
 
     public Vector<Room> getRoomList1(String sql) throws Exception;
+    public Room getLastRooms() throws Exception;
 }

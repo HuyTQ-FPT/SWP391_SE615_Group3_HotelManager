@@ -184,16 +184,23 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         return null;
     }
 
-    public Room getRooms() throws Exception {
+    /**
+     * Get List Room By command sql from Room table
+     *
+     * @param roomName
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Room getLastRooms() throws Exception {
         String query = "select top(1)* from Room join CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
                 + "order by RoomID desc";
-        Connection conn = null;
         /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
         /* Result set returned by the sqlserver */
         ResultSet rs = null;
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
+            pre = conn.prepareStatement(query);
             conn = getConnection();
             pre = conn.prepareStatement(query);
             rs = pre.executeQuery();
@@ -201,6 +208,11 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 return new Room(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(11), rs.getDouble(6), rs.getInt(7), rs.getFloat(8), rs.getString(9), rs.getInt(10), rs.getString(11), rs.getString(14));
             }
         } catch (Exception e) {
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
+
         }
         return null;
     }

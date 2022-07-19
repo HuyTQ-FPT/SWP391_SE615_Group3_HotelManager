@@ -234,6 +234,10 @@ public class ServiceController extends HttpServlet {
                 ServiceDao.updateService(ServiceName.replaceAll("\\s\\s+", " ").trim(), ServiceImage, ServiceDes.replaceAll("\\s\\s+", " ").trim(), ServicePrice, ServiceID);
                 request.getRequestDispatcher("ServiceController?do=UpDateService&ServiceId="+ServiceID+"").forward(request, response);
             }
+             /**
+             * get service by serviceid and response to UpdateService.jsp
+             * UpdateService.jsp
+             */
             if (doo.equals("InSert")) {
                 ArrayList<String> service = new ArrayList<String>();
                 while (iter.hasNext()) {
