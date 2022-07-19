@@ -1,14 +1,23 @@
-
+/*
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 
+ */
 package controller;
 
 import dao.impl.RoomDAOImpl;
 import dao.impl.ServiceDAOImpl;
-import entity.Account;
 import entity.Room;
 import entity.Service;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +32,7 @@ public class HomeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try{
             HttpSession session = request.getSession();
             RoomDAOImpl dao = new RoomDAOImpl();
             ServiceDAOImpl dao1 = new ServiceDAOImpl();
@@ -56,8 +65,10 @@ public class HomeController extends HttpServlet {
                 RequestDispatcher dispath = request.getRequestDispatcher("index.jsp");
                 dispath.forward(request, response);
             }
-        }catch(Exception ex){
-            ex.printStackTrace();
+        }catch (Exception ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMess", ex.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

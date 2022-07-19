@@ -17,14 +17,13 @@ import dao.impl.NotificationDAOImpl;
 import dao.impl.UserDAOImpl;
 import entity.Account;
 import entity.Notification;
-import entity.Room;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -168,10 +167,11 @@ public class FeedbackController extends HttpServlet {
                 daoN.insertNotification(new Notification("Gửi tin nhắn đến Admin", a.getUser(), "Với", content, formatted));
                 response.sendRedirect("FeedbackController?do=Admin");
             }
-        }catch(Exception ex){
-            ex.printStackTrace();
+        }catch (Exception ex) {
+            Logger.getLogger(FeedbackController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMess", ex.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
-        } 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

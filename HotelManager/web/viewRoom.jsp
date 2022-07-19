@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hoang Hon &mdash; Hotel</title>
+        <title>Hoang Hon</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700|Work+Sans:300,400,700" rel="stylesheet">
@@ -67,8 +67,8 @@
                             <div class="row align-items-center justify-content-center">
                                 <div class="col-md-7 text-center" data-aos="fade">
 
-                                    <h1 class="mb-2">Welcome To Suites</h1>
-                                    <h2 class="caption">Hotel &amp; Resort</h2>
+                                    <h1 class="mb-2"></h1>
+                                    <h2 class="caption"></h2>
                                 </div>
                             </div>
                         </div>
@@ -78,8 +78,8 @@
                         <div class="container">
                             <div class="row align-items-center justify-content-center">
                                 <div class="col-md-7 text-center" data-aos="fade">
-                                    <h1 class="mb-2">Unique Experience</h1>
-                                    <h2 class="caption">Enjoy With Us</h2>
+                                    <h1 class="mb-2">Trải nghiệm</h1>
+                                    <h2 class="caption">và bạn sẽ thích</h2>
                                 </div>
                             </div>
                         </div>

@@ -1,13 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 
  */
 package controller;
 
 import dao.impl.AccountDAOImpl;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +40,7 @@ public class Updateaccount extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         AccountDAOImpl dao = new AccountDAOImpl();
-        try (PrintWriter out = response.getWriter()) {
+        try {
             String user = request.getParameter("user");
             String customer = request.getParameter("customer");
             int ad = 0;        
@@ -47,6 +53,10 @@ public class Updateaccount extends HttpServlet {
                     dao.updateRole(ad, user);
                     response.sendRedirect("ManagerAccount");
             
+        } catch (Exception ex) {
+            Logger.getLogger(Updateaccount.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMess", ex.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 

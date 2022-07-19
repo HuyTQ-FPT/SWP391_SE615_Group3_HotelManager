@@ -129,7 +129,7 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
+                         <li class="nav-item dropdown">
 
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
@@ -139,9 +139,27 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Báo cáo ngày</a>
-                                <a class="dropdown-item" href="#">Báo cáo tuần</a>
-                                <a class="dropdown-item" href="#">Báo cáo năm</a>
+                                <a class="dropdown-item" href="AdminController?do=incomeRoom">Báo cáo doanh số theo phòng</a>
+                                <a class="dropdown-item" href="AdminController?do=ReportMonth">Báo cáo tháng</a>
+
+                            </div>
+                        </li>
+                         <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                id="navbarDropdown"
+                                role="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">
+                                <i class="fas fa-door-open"></i>
+                                <span> Phòng <i class="fas fa-angle-down"></i> </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="RoomsController?do=listroom">Dann Sách Phòng</a>
+                                <a class="dropdown-item" href="DeviceController?do=listalldevice">Danh Sách Thiết Bị</a>
+                                <a class="dropdown-item" href="RoomcategoryController?do=getroombycategori">Loại Phòng</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -150,24 +168,28 @@
                                 Phòng
                             </a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="ServiceController?do=ListService">
+                                <i class="fa fa-bars"></i> Dịch Vụ
+                            </a>
+                        </li>
 
-                        <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fab fa-blogger"></i>
                                 <span>
-                                    Blog <i class="fas fa-angle-down"></i>
+                                    Tin tức <i class="fas fa-angle-down"></i>
                                 </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="BlogManagerController?do=editblog">Chỉnh sửa blog</a>
-                                <a class="dropdown-item" href="addblog.jsp">Thêm Blog</a>
-
+                                <a class="dropdown-item" href="BlogManagerController?do=editblog&page=1">Chỉnh sửa tin tức</a>
+                                <a class="dropdown-item" href="addblog.jsp">Thêm tin tức</a>
                             </div>
                         </li>
-                        <li class="nav-item">
+                       <li class="nav-item">
                             <a class="nav-link" href="ManagerAccount">
-                                <i class="fas fa-address-card"></i></i> Role
+                                <i class="fas fa-address-card"></i></i> Phân quyền
                             </a>
                         </li>
                         <li class="nav-item">
@@ -190,8 +212,6 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="AdminController?do=viewProfileAdmin">Thông tin</a>
-                                <a class="dropdown-item" href="OrderController?do=showCartAdmin">Hóa đơn</a>
-                                <a class="dropdown-item" href="#">Customize</a>
                             </div>
                         </li>
 

@@ -1,13 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 
  */
 package controller;
 
 import context.DBContext;
 import dao.impl.EventsDAOImpl;
-import entity.Account;
 import entity.Events;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -71,7 +75,9 @@ public class EventController extends HttpServlet {
                 request.getRequestDispatcher("events.jsp").forward(request, response);
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Logger.getLogger(EventController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMess", ex.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 

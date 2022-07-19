@@ -100,7 +100,7 @@ public class NotificationController extends HttpServlet {
                 response.sendRedirect("NotificationController");
             } 
         }catch(Exception ex){
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NotificationController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("errorMess", ex.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
