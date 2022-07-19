@@ -1,7 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 
  */
 package controller;
 
@@ -57,7 +62,7 @@ public class RoomDeviceController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FileUploadException, Exception {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try  {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
             String dos = request.getParameter("do");
@@ -252,6 +257,10 @@ public class RoomDeviceController extends HttpServlet {
                 request.getRequestDispatcher("ImageController?do=listImage&RoomID=" + r.getRoomID() + "").forward(request, response);
             }
 
+        }catch (Exception ex) {
+            Logger.getLogger(RoomDeviceController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMess", ex.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 

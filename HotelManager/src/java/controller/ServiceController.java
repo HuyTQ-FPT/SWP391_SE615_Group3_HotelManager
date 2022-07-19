@@ -1,7 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2022, FPT University
+ * SWP391 - SE1615 - Group3
+ * HotelManager
+ *
+ * Record of change:
+ * DATE          Version    Author           DESCRIPTION
+ *               1.0                         First Deploy
+ * 
  */
 package controller;
 
@@ -60,7 +65,7 @@ public class ServiceController extends HttpServlet {
             throws ServletException, IOException, FileUploadException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try{
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             String doo = request.getParameter("do");
@@ -267,6 +272,10 @@ public class ServiceController extends HttpServlet {
                 Service se = ServiceDao.getLastService();
                 request.getRequestDispatcher("ServiceController?do=UpDateService&ServiceId="+se.getServiceID()+"").forward(request, response);
             }
+        } catch (Exception ex) {
+            Logger.getLogger(ServiceController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorMess", ex.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
 
     }
