@@ -17,6 +17,7 @@ src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -83,7 +84,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     <td style="background-color: 435C70 ; text-align: center"><%=rs.getNumberOfPerson()%></td>  
                     <td style="background-color: 435C70 ; text-align: center"><%=rs.getCheckin()%></td>  
                     <td style="background-color: 435C70 ; text-align: center"><%=rs.getCheckout()%></td>  
-                    <td style="background-color: 435C70 ; text-align: center"><%=rs.getTotal()%></td>  
+                    <td style="background-color: 435C70 ; text-align: center"><fmt:formatNumber value="<%=rs.getTotal()%>" /> đ</td>  
                     <%if (rs.getStatus() == 1) {%>
                     <td style="background-color: 435C70 ; text-align: center">Đang xử lí</td>  
                     <%} else if (rs.getStatus() == 2) {%>
@@ -120,7 +121,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             }
             }
         %>
-        <p style="text-align: right; font-size: 30px;color: red">Tổng giá: <%=a%> </p>
+        <p style="text-align: right; font-size: 30px;color: red">Tổng giá: <fmt:formatNumber value="<%=a%>" />  đ</p>
         <div class="row mt-5">
             <div class="col-md-12 text-center">
                 <div class="site-block-27">

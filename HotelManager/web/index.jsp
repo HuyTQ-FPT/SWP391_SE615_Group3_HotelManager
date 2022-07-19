@@ -569,7 +569,7 @@ Author     : admin
                                     <h2>Thời gian làm việc:</h2>
                                     <p class="mb-0">Thứ hai:6:30PM - 7:30PM <br>
                                         Thứ bảy: 7:30PM <br>
-                                       Chủ nhật:8:00AM - Sunset</p>
+                                       Chủ nhật:8:00AM</p>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center">
