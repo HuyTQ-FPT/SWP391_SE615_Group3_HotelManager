@@ -185,9 +185,9 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     }
 
     /**
-     * Get List Room By command sql from Room table
+     * Get last room  from Room table
      *
-     * @param roomName
+     * @param getLastRooms
      * @return
      * @throws Exception
      */
