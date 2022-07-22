@@ -56,6 +56,8 @@
             Vector<Service> vector3 = (Vector<Service>) request.getAttribute("vector3");
             Vector<Room> vector4 = (Vector<Room>) request.getAttribute("vector4");
             Account a = (Account) session.getAttribute("login");
+            ResultSet rs = (ResultSet) request.getAttribute("rsfb");
+
         %>
         <div class="site-wrap">
             <jsp:include page="header.jsp"></jsp:include>
@@ -231,6 +233,32 @@
                                 </div>
                             </c:if>
 
+
+
+                            <div class="container1 mt-5" style="margin-bottom: 30px">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="headings d-flex justify-content-between align-items-center mb-3">
+                                            <h5>comments(<%=Integer.parseInt(request.getAttribute("countFB").toString())%>)</h5> 
+                                        </div>
+
+                                        <%
+                                            while (rs.next()) {
+                                                System.out.println("feedback");
+                                        %>
+                                        <div class="card p-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="user d-flex flex-row align-items-center">
+                                                    <img src="https://i.imgur.com/hczKIze.jpg" width="30" class="user-img rounded-circle mr-2">
+                                                    <span><small class="font-weight-bold text-primary"><%=rs.getString(15)%></small> <small class="font-weight-bold"><%=rs.getString(6)%></small></span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </div>
                             <c:if test="${sessionScope.isroomde!=null}">
                                 <h2 style="text-align: center">Các Phòng Tương Tự</h2>
                                 <div class="row cat-pd">
@@ -284,13 +312,22 @@
                             </c:if>
 
                         </div>
+
                         <c:if test="${sessionScope.isroomde!=null}" >
                             <div class="col-md-3 col-sm-12">
                                 <div class="price-box-right">
                                     <h4 style="font-size: 24px">Giá tiền</h4>
                                     <h3><fmt:formatNumber value="${Room.roomprice}" /><span style="font-weight: bold"> đ/1 đêm</span></h3>
                                     <c:if test="${sessionScope.login!=null && sessionScope.isroomde!=null}" >
-                                        <a href="OrderController?do=user&id=${Room.roomID}&userid=${sessionScope.login.getAccountID()}">Đặt phòng </a>
+                                        <c:choose>
+                                            <c:when test="${sessionScope.login.getRoleID()==1}">
+                                                <a href="OrderController?do=user&id=${Room.roomID}&userid=${sessionScope.login.getAccountID()}">Đặt phòng </a>
+
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a onclick="showMess(${sessionScope.login.getRoleID()})">Đặt phòng </a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:if>
                                     <c:if test="${sessionScope.login==null}" >
                                         <a href="LoginController">Đặt phòng</a>
@@ -298,251 +335,263 @@
                                 </div>
                             </div>
                         </c:if>
+
                     </div>
                 </div>
             </div>
-        </div>
 
 
 
-        <!--main js--> 
-        <script src="js/jquery-1.12.4.min.js"></script> 
-        <!--bootstrap js--> 
-        <script src="js/bootstrap.min_1.js"></script> 
-        <script src="js/bootstrap-select.min.js"></script>
-        <script src="js/slick.min_1.js"></script> 
-        <script src="js/select2.full.min.js"></script> 
-        <script src="js/wow.min.js"></script> 
-        <!--custom js--> 
-        <script src="js/custom.js"></script>
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/jquery-migrate-3.0.1.min.js"></script>
-        <script src="js/jquery-ui.js"></script>
-        <script src="js/popper.min.js"></script>
+            <!--main js--> 
+            <script src="js/jquery-1.12.4.min.js"></script> 
+            <!--bootstrap js--> 
+            <script src="js/bootstrap.min_1.js"></script> 
+            <script src="js/bootstrap-select.min.js"></script>
+            <script src="js/slick.min_1.js"></script> 
+            <script src="js/select2.full.min.js"></script> 
+            <script src="js/wow.min.js"></script> 
+            <!--custom js--> 
+            <script src="js/custom.js"></script>
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src="js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="js/jquery-ui.js"></script>
+            <script src="js/popper.min.js"></script>
 
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.stellar.min.js"></script>
-        <script src="js/jquery.countdown.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/bootstrap-datepicker.min.js"></script>
-        <script src="js/aos.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.stellar.min.js"></script>
+            <script src="js/jquery.countdown.min.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/bootstrap-datepicker.min.js"></script>
+            <script src="js/aos.js"></script>
 
 
-        <script src="js/mediaelement-and-player.min.js"></script>
+            <script src="js/mediaelement-and-player.min.js"></script>
 
-        <script src="js/main.js"></script>
-        <script>
-                                                var slideIndex = 1;
-                                                showDivs(slideIndex);
+            <script src="js/main.js"></script>
+            <script>
 
-                                                function plusDivs(n) {
-                                                    showDivs(slideIndex += n);
-                                                }
-
-                                                function showDivs(n) {
-                                                    var i;
-                                                    var x = document.getElementsByClassName("mySlides");
-                                                    if (n > x.length) {
-                                                        slideIndex = 1
+                                                    function showMess(id) {
+                                                        if (id == 2) {
+                                                            alert('Bạn không thể đặt phòng với vai trò là Lễ Tân.');
+                                                        } else if (id == 3) {
+                                                            alert('Bạn không thể đặt phòng với vai trò là Admin.');
+                                                        }
                                                     }
-                                                    if (n < 1) {
-                                                        slideIndex = x.length
+                                                    var slideIndex = 1;
+                                                    showDivs(slideIndex);
+
+                                                    function plusDivs(n) {
+                                                        showDivs(slideIndex += n);
                                                     }
-                                                    for (i = 0; i < x.length; i++) {
-                                                        x[i].style.display = "none";
+
+                                                    function showDivs(n) {
+                                                        var i;
+                                                        var x = document.getElementsByClassName("mySlides");
+                                                        if (n > x.length) {
+                                                            slideIndex = 1
+                                                        }
+                                                        if (n < 1) {
+                                                            slideIndex = x.length
+                                                        }
+                                                        for (i = 0; i < x.length; i++) {
+                                                            x[i].style.display = "none";
+                                                        }
+                                                        x[slideIndex - 1].style.display = "block";
                                                     }
-                                                    x[slideIndex - 1].style.display = "block";
-                                                }
 
-                                                (function ($) {
+                                                    (function ($) {
 
-                                                    var paginate = {
-                                                        startPos: function (pageNumber, perPage) {
-                                                            // determine what array position to start from
-                                                            // based on current page and # per page
-                                                            return pageNumber * perPage;
-                                                        },
+                                                        var paginate = {
+                                                            startPos: function (pageNumber, perPage) {
+                                                                // determine what array position to start from
+                                                                // based on current page and # per page
+                                                                return pageNumber * perPage;
+                                                            },
 
-                                                        getPage: function (items, startPos, perPage) {
-                                                            // declare an empty array to hold our page items
-                                                            var page = [];
+                                                            getPage: function (items, startPos, perPage) {
+                                                                // declare an empty array to hold our page items
+                                                                var page = [];
 
-                                                            // only get items after the starting position
-                                                            items = items.slice(startPos, items.length);
+                                                                // only get items after the starting position
+                                                                items = items.slice(startPos, items.length);
 
-                                                            // loop remaining items until max per page
-                                                            for (var i = 0; i < perPage; i++) {
-                                                                page.push(items[i]);
-                                                            }
+                                                                // loop remaining items until max per page
+                                                                for (var i = 0; i < perPage; i++) {
+                                                                    page.push(items[i]);
+                                                                }
 
-                                                            return page;
-                                                        },
+                                                                return page;
+                                                            },
 
-                                                        totalPages: function (items, perPage) {
-                                                            // determine total number of pages
-                                                            return Math.ceil(items.length / perPage);
-                                                        },
+                                                            totalPages: function (items, perPage) {
+                                                                // determine total number of pages
+                                                                return Math.ceil(items.length / perPage);
+                                                            },
 
-                                                        createBtns: function (totalPages, currentPage) {
-                                                            // create buttons to manipulate current page
-                                                            var pagination = $('<div class="pagination" />');
+                                                            createBtns: function (totalPages, currentPage) {
+                                                                // create buttons to manipulate current page
+                                                                var pagination = $('<div class="pagination" />');
 
-                                                            // add a "first" button
-                                                            pagination.append('<span class="pagination-button">&laquo;</span>');
+                                                                // add a "first" button
+                                                                pagination.append('<span class="pagination-button">&laquo;</span>');
 
-                                                            // add pages inbetween
-                                                            for (var i = 1; i <= totalPages; i++) {
-                                                                // truncate list when too large
-                                                                if (totalPages > 5 && currentPage !== i) {
-                                                                    // if on first two pages
-                                                                    if (currentPage === 1 || currentPage === 2) {
-                                                                        // show first 5 pages
-                                                                        if (i > 5)
-                                                                            continue;
-                                                                        // if on last two pages
-                                                                    } else if (currentPage === totalPages || currentPage === totalPages - 1) {
-                                                                        // show last 5 pages
-                                                                        if (i < totalPages - 4)
-                                                                            continue;
-                                                                        // otherwise show 5 pages w/ current in middle
-                                                                    } else {
-                                                                        if (i < currentPage - 2 || i > currentPage + 2) {
-                                                                            continue;
+                                                                // add pages inbetween
+                                                                for (var i = 1; i <= totalPages; i++) {
+                                                                    // truncate list when too large
+                                                                    if (totalPages > 5 && currentPage !== i) {
+                                                                        // if on first two pages
+                                                                        if (currentPage === 1 || currentPage === 2) {
+                                                                            // show first 5 pages
+                                                                            if (i > 5)
+                                                                                continue;
+                                                                            // if on last two pages
+                                                                        } else if (currentPage === totalPages || currentPage === totalPages - 1) {
+                                                                            // show last 5 pages
+                                                                            if (i < totalPages - 4)
+                                                                                continue;
+                                                                            // otherwise show 5 pages w/ current in middle
+                                                                        } else {
+                                                                            if (i < currentPage - 2 || i > currentPage + 2) {
+                                                                                continue;
+                                                                            }
                                                                         }
                                                                     }
+
+                                                                    // markup for page button
+                                                                    var pageBtn = $('<span class="pagination-button page-num" />');
+
+                                                                    // add active class for current page
+                                                                    if (i == currentPage) {
+                                                                        pageBtn.addClass('active');
+                                                                    }
+
+                                                                    // set text to the page number
+                                                                    pageBtn.text(i);
+
+                                                                    // add button to the container
+                                                                    pagination.append(pageBtn);
                                                                 }
 
-                                                                // markup for page button
-                                                                var pageBtn = $('<span class="pagination-button page-num" />');
+                                                                // add a "last" button
+                                                                pagination.append($('<span class="pagination-button">&raquo;</span>'));
 
-                                                                // add active class for current page
-                                                                if (i == currentPage) {
-                                                                    pageBtn.addClass('active');
-                                                                }
+                                                                return pagination;
+                                                            },
 
-                                                                // set text to the page number
-                                                                pageBtn.text(i);
+                                                            createPage: function (items, currentPage, perPage) {
+                                                                // remove pagination from the page
+                                                                $('.pagination').remove();
 
-                                                                // add button to the container
-                                                                pagination.append(pageBtn);
+                                                                // set context for the items
+                                                                var container = items.parent(),
+                                                                        // detach items from the page and cast as array
+                                                                        items = items.detach().toArray(),
+                                                                        // get start position and select items for page
+                                                                        startPos = this.startPos(currentPage - 1, perPage),
+                                                                        page = this.getPage(items, startPos, perPage);
+
+                                                                // loop items and readd to page
+                                                                $.each(page, function () {
+                                                                    // prevent empty items that return as Window
+                                                                    if (this.window === undefined) {
+                                                                        container.append($(this));
+                                                                    }
+                                                                });
+
+                                                                // prep pagination buttons and add to page
+                                                                var totalPages = this.totalPages(items, perPage),
+                                                                        pageButtons = this.createBtns(totalPages, currentPage);
+
+                                                                container.after(pageButtons);
+                                                            }
+                                                        };
+
+                                                        // stuff it all into a jQuery method!
+                                                        $.fn.paginate = function (perPage) {
+                                                            var items = $(this);
+
+                                                            // default perPage to 5
+                                                            if (isNaN(perPage) || perPage === undefined) {
+                                                                perPage = 5;
                                                             }
 
-                                                            // add a "last" button
-                                                            pagination.append($('<span class="pagination-button">&raquo;</span>'));
+                                                            // don't fire if fewer items than perPage
+                                                            if (items.length <= perPage) {
+                                                                return true;
+                                                            }
 
-                                                            return pagination;
-                                                        },
+                                                            // ensure items stay in the same DOM position
+                                                            if (items.length !== items.parent()[0].children.length) {
+                                                                items.wrapAll('<div class="pagination-items" />');
+                                                            }
 
-                                                        createPage: function (items, currentPage, perPage) {
-                                                            // remove pagination from the page
-                                                            $('.pagination').remove();
+                                                            // paginate the items starting at page 1
+                                                            paginate.createPage(items, 1, perPage);
 
-                                                            // set context for the items
-                                                            var container = items.parent(),
-                                                                    // detach items from the page and cast as array
-                                                                    items = items.detach().toArray(),
-                                                                    // get start position and select items for page
-                                                                    startPos = this.startPos(currentPage - 1, perPage),
-                                                                    page = this.getPage(items, startPos, perPage);
+                                                            // handle click events on the buttons
+                                                            $(document).on('click', '.pagination-button', function (e) {
+                                                                // get current page from active button
+                                                                var currentPage = parseInt($('.pagination-button.active').text(), 10),
+                                                                        newPage = currentPage,
+                                                                        totalPages = paginate.totalPages(items, perPage),
+                                                                        target = $(e.target);
 
-                                                            // loop items and readd to page
-                                                            $.each(page, function () {
-                                                                // prevent empty items that return as Window
-                                                                if (this.window === undefined) {
-                                                                    container.append($(this));
+                                                                // get numbered page
+                                                                newPage = parseInt(target.text(), 10);
+                                                                if (target.text() == '«')
+                                                                    newPage = 1;
+                                                                if (target.text() == '»')
+                                                                    newPage = totalPages;
+
+                                                                // ensure newPage is in available range
+                                                                if (newPage > 0 && newPage <= totalPages) {
+                                                                    paginate.createPage(items, newPage, perPage);
                                                                 }
                                                             });
+                                                        };
 
-                                                            // prep pagination buttons and add to page
-                                                            var totalPages = this.totalPages(items, perPage),
-                                                                    pageButtons = this.createBtns(totalPages, currentPage);
+                                                    })(jQuery);
 
-                                                            container.after(pageButtons);
-                                                        }
-                                                    };
+                                                    /* This part is just for the demo,
+                                                     not actually part of the plugin */
+                                                    $('.article-loop').paginate(2);
+            </script>
+            <style>
+                .pagination {
+                    display: block;
+                    width: 75%;
+                    margin: 1em auto;
+                    text-align: center;
 
-                                                    // stuff it all into a jQuery method!
-                                                    $.fn.paginate = function (perPage) {
-                                                        var items = $(this);
-
-                                                        // default perPage to 5
-                                                        if (isNaN(perPage) || perPage === undefined) {
-                                                            perPage = 5;
-                                                        }
-
-                                                        // don't fire if fewer items than perPage
-                                                        if (items.length <= perPage) {
-                                                            return true;
-                                                        }
-
-                                                        // ensure items stay in the same DOM position
-                                                        if (items.length !== items.parent()[0].children.length) {
-                                                            items.wrapAll('<div class="pagination-items" />');
-                                                        }
-
-                                                        // paginate the items starting at page 1
-                                                        paginate.createPage(items, 1, perPage);
-
-                                                        // handle click events on the buttons
-                                                        $(document).on('click', '.pagination-button', function (e) {
-                                                            // get current page from active button
-                                                            var currentPage = parseInt($('.pagination-button.active').text(), 10),
-                                                                    newPage = currentPage,
-                                                                    totalPages = paginate.totalPages(items, perPage),
-                                                                    target = $(e.target);
-
-                                                            // get numbered page
-                                                            newPage = parseInt(target.text(), 10);
-                                                            if (target.text() == '«')
-                                                                newPage = 1;
-                                                            if (target.text() == '»')
-                                                                newPage = totalPages;
-
-                                                            // ensure newPage is in available range
-                                                            if (newPage > 0 && newPage <= totalPages) {
-                                                                paginate.createPage(items, newPage, perPage);
-                                                            }
-                                                        });
-                                                    };
-
-                                                })(jQuery);
-
-                                                /* This part is just for the demo,
-                                                 not actually part of the plugin */
-                                                $('.article-loop').paginate(2);
-        </script>
-        <style>
-            .pagination {
-                display: block;
-                width: 75%;
-                margin: 1em auto;
-                text-align: center;
-
-                &:after {
-                    content: '';
-                    clear: both;
+                    &:after {
+                        content: '';
+                        clear: both;
+                    }
                 }
-            }
 
-            .pagination-button {
-                display: inline-block;
-                padding: 5px 10px;
-                border: 1px solid #e0e0e0;  
-                background-color: #eee;
-                color: #333;
-                cursor: pointer;
-                transition: background 0.1s, color 0.1s;
+                .pagination-button {
+                    display: inline-block;
+                    padding: 5px 10px;
+                    border: 1px solid #e0e0e0;
+                    background-color: #eee;
+                    color: #333;
+                    cursor: pointer;
+                    transition: background 0.1s, color 0.1s;
 
-                &.active {
-                    background-color: red;
-                    border-color: #bbb;
-                    color: #3366cc;
+                    &.active {
+                        background-color: red;
+                        border-color: #bbb;
+                        color: #3366cc;
+                    }
                 }
-            }
 
-            /* arbitrary styles */
-            .heading { text-align: center; max-width: 500px; margin: 20px auto; }
-        </style>
+                /* arbitrary styles */
+                .heading {
+                    text-align: center;
+                    max-width: 500px;
+                    margin: 20px auto;
+                }
+            </style>
 
     </body>
 </html>

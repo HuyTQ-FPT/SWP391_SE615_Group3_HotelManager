@@ -45,7 +45,7 @@
                 font-size: 22px;
             }
             .search-box {
-                position: relative;        
+                position: relative;
                 float: right;
             }
             .search-box input {
@@ -98,7 +98,7 @@
             }
             table.table td i {
                 font-size: 19px;
-            }    
+            }
             .pagination {
                 float: right;
                 margin: 0 0 5px;
@@ -117,11 +117,11 @@
             }
             .pagination li a:hover {
                 color: #666;
-            }	
+            }
             .pagination li.active a {
                 background: #03A9F4;
             }
-            .pagination li.active a:hover {        
+            .pagination li.active a:hover {
                 background: #0397d6;
             }
             .pagination li.disabled i {
@@ -308,11 +308,16 @@
             .notif a:hover{
                 color: white;
             }
+            .managerRoom{
+                position: fixed;
+                font-size: 40px;
+                color: black;
+            }
         </style>
     </head>
     <body>
         <%
-            ArrayList<Room> list = (ArrayList<Room>)request.getAttribute("listRoom");
+            ArrayList<Room> list = (ArrayList<Room>) request.getAttribute("listRoom");
 
         %>
         <section class="ftco-section">
@@ -345,7 +350,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar" style="padding: 15px">
                 <div class="container">
                     <span class="admin"><a href="HomeController">Lễ Tân</a></span>
-                    
+
                     <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
                     </form>
@@ -372,21 +377,23 @@
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active"><a href="ReceptionistController" class="nav-link">Quản lí<br>Phòng</a></li>
-                                                      
+
                             <li class="nav-item "><a href="ReceptionistController?do=customer" class="nav-link">Quản lí<br>khách hàng</a></li>
                             <li class="nav-item "><a href="FeedbackController" class="nav-link">Quản lí<br>feedback</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="oke" onclick="show()"><span style=" font-size: 30px;" class="iconify" data-icon="bxs:user-circle"></span></div>
-                           
+
             </nav>
 
-
-
-
         </section>
-        <div class="table-wrapper">                    
+        <div>
+            <span ><h2 style="margin-top: -50px">Quản lý phòng</h2></span>
+        </div>
+
+        <div class="table-wrapper" >   
+
             <table class="table table-striped table-hover table-bordered"> 
                 <thead>
                     <tr class="title">
@@ -429,10 +436,9 @@
                     </tr>
                 <script>
 
-                    //Confinm Up
+
                     function confirmation() {
-                        var result = "Bạn có muốn cập nhật bây giờ?";
-                        confirm(result);
+                        alert('Bạn đã cập nhật thành công!');
                     }
                     function show() {
                         if (document.getElementById("team").style.display == "none") {

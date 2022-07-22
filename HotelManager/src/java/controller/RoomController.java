@@ -56,9 +56,9 @@ public class RoomController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try{
             HttpSession session = request.getSession();
-            DBContext db= new DBContext();
+            DBContext db = new DBContext();
             RoomDAOImpl dao = new RoomDAOImpl();
             ImageDAOImpl daos = new ImageDAOImpl();
             String service = request.getParameter("do");
@@ -103,6 +103,11 @@ public class RoomController extends HttpServlet {
                 DevicesDAOImpl daode = new DevicesDAOImpl();
                 String RoomID = request.getParameter("roomid");
                 String cateroom = request.getParameter("cateroom");
+                ResultSet rs = db.getData("select * from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
+                ResultSet rs1 = db.getData("select count(*) from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
+                while (rs1.next()) {
+                    request.setAttribute("countFB", rs1.getInt(1));
+                }   
                 Vector<Image> img = daos.getImageByid(RoomID);
                 Vector<Device> de = daode.getDevicebycateroom(RoomID);
                 Vector<Service> vector3 = dao1.getServiceListbyran();
@@ -112,12 +117,6 @@ public class RoomController extends HttpServlet {
                         + "JOIN CateRoom on Room.RoomcateID = CateRoom.RoomcateID\n"
                         + "where Room.Status =0 and Room.RoomcateID = " + cateroom + "\n"
                         + "ORDER BY NEWID()");
-
-                ResultSet rs = db.getData("select * from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
-                ResultSet rs1 = db.getData("select count(*) from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
-                while (rs1.next()) {
-                    request.setAttribute("countFB", rs1.getInt(1));
-                }
 
                 request.setAttribute("Room", rooom);
                 request.setAttribute("vector3", vector3);
@@ -181,7 +180,7 @@ public class RoomController extends HttpServlet {
                 RequestDispatcher dispatch = request.getRequestDispatcher("testRoom.jsp");
                 dispatch.forward(request, response);
             }
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(RoomController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("errorMess", ex.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);

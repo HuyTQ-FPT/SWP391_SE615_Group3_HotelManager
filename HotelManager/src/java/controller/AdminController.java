@@ -116,7 +116,7 @@ public class AdminController extends HttpServlet {
                 ArrayList<Reservation> listReservationOfService = daoReservation.sumService();
                 int totalView = viewDAO.getTotalView();
                 String totalViewFormated = String.format("%06d", totalView);
-                request.setAttribute("totalView", totalViewFormated );
+                request.setAttribute("totalView", totalViewFormated);
                 request.setAttribute("listroomCategory", listroomCategory);
                 request.setAttribute("listRoom", listRoom);
                 request.setAttribute("listUser", listUser);
@@ -246,7 +246,7 @@ public class AdminController extends HttpServlet {
                 if (checkin.isEmpty() && checkout.isEmpty() && !name.isEmpty()) {
 
                     if (roomDAO.checkRoom(name) != null) {/*Room checking*/
-                     /*Search name*/
+ /*Search name*/
                         ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, null, null);
                         request.setAttribute("listReservation", listReservation);
                         request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
@@ -258,33 +258,41 @@ public class AdminController extends HttpServlet {
                     }
 
                 }
-                if (!name.isEmpty() && !checkin.isEmpty() && checkout.isEmpty() || !name.isEmpty() && checkin.isEmpty() && !checkout.isEmpty()
-                        || name.isEmpty() && !checkin.isEmpty() && checkout.isEmpty() || name.isEmpty() && checkin.isEmpty() && !checkout.isEmpty()) {/*Check input satisfy required field has 2 fields*/
+                if (name.isEmpty() && !checkin.isEmpty() && checkout.isEmpty() || name.isEmpty() && checkin.isEmpty() && !checkout.isEmpty()) {
                     String errr = "Vui lòng nhập vào 2 trường Từ ngày và Đến ngày.";
                     request.setAttribute("errr", errr);
                     request.setAttribute("name", name);
                     request.setAttribute("checkin", checkin);
                     request.setAttribute("checkout", checkout);
                     request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
-                } else {
+                }
+                if (!name.isEmpty() && !checkin.isEmpty() && checkout.isEmpty() || !name.isEmpty() && checkin.isEmpty() && !checkout.isEmpty()) {/*Check input satisfy required field has 2 fields*/
 
-                    if (roomDAO.checkRoom(name) != null) {/*Room checking*/
-                        Date to = Date.valueOf(checkin);
-                        Date from = Date.valueOf(checkout);
-                        /*Search by fields*/
-                        ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, to, from);
-                        request.setAttribute("listReservation", listReservation);
-                        request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
-                    }else {
-                        String err1 = "Tên phòng không tồn tại.";
-                        request.setAttribute("err1", err1);
+                    if (roomDAO.checkRoom(name) != null) {
+                        String errr = "Vui lòng nhập vào 2 trường Từ ngày và Đến ngày.";
+                        request.setAttribute("errr", errr);
                         request.setAttribute("name", name);
                         request.setAttribute("checkin", checkin);
                         request.setAttribute("checkout", checkout);
                         request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+                    } else {
+                        String errr = "Vui lòng nhập vào 2 trường Từ ngày và Đến ngày.";
+                        request.setAttribute("errr", errr);
+                        request.setAttribute("checkin", checkin);
+                        request.setAttribute("checkout", checkout);
+                        request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
                     }
-                }
 
+                } else {
+
+                    Date to = Date.valueOf(checkin);
+                    Date from = Date.valueOf(checkout);
+                    /*Search by fields*/
+                    ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, to, from);
+                    request.setAttribute("listReservation", listReservation);
+                    request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
+
+                }
             }
             /**
              * Service reportMonth: report gross income per room by month and

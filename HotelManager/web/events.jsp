@@ -148,7 +148,7 @@
                                 </c:if>
 
                                 <c:if test="${sessionScope.login.getRoleID()!=1}">
-                                    <a  onclick="add1()"> <button style="margin-left: 10px" class="snip1457">Lưu</button></a>
+                                    <a  onclick="add1(${sessionScope.login.getRoleID()})"> <button style="margin-left: 10px" class="snip1457">Lưu</button></a>
                                 </c:if>
 
 
@@ -203,8 +203,13 @@
                                         function add() {
                                             alert("Lưu thành công!");
                                         }
-                                        function add1() {
-                                            alert("Bạn không thể thêm !");
+                                        function add1(id) {
+                                            if (id == 2) {
+                                                alert("Bạn không thể lưu với vai trò là 'Lễ Tân' ");
+                                            } else if (id == 3) {
+                                                alert("Bạn không thể lưu với vai trò là 'Admin'");
+                                            }
+
                                         }
 
         </script>

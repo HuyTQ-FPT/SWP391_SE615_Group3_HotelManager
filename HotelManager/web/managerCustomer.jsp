@@ -303,7 +303,7 @@
             </div>
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
-                  <span class="admin"><a href="HomeController">Lễ Tân</a></span>
+                    <span class="admin"><a href="HomeController">Lễ Tân</a></span>
                     <form action="LoginController?do=logout" method="post">
                         <button type="submit" name="log-out" class="log-out">Đăng xuất</button>
                     </form>
@@ -331,6 +331,9 @@
             </nav>
 
         </section>
+        <div>
+            <span ><h2 style="margin-top: -50px">Quản lý khách hàng</h2></span>
+        </div>
         <div class="table-wrapper">
             <table class="table table-striped table-hover table-bordered" style="Margin-left:10px;"> 
                 <thead>

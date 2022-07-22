@@ -61,17 +61,8 @@ public class ViewDAOImpl extends DBContext implements ViewDAO {
             closeConnection(conn);
         }
     }
-    public static void main(String[] args) {
-        ViewDAO v = new ViewDAOImpl();
-        try {
-            int n = v.getTotalView();
-            System.out.println(n);
-        } catch (Exception ex) {
-            Logger.getLogger(ViewDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
-     /**
+    /**
      * get total view count
      *
      * @return <code>int</code>
