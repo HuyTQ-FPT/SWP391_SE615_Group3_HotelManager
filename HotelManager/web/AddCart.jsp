@@ -109,23 +109,18 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             }if(request.getAttribute("total") != null){
                 String d= (String) request.getAttribute("total");
                 c=c+d;
-                System.out.println(c);
             }
         %>
         <%@include file="headerAdmin.jsp" %>
+        <h1 style="text-align: center; color: wheat; padding-top: 10px">Thêm đặt phòng </h1>
         <div class="container tm-mt-big tm-mb-big">
             <div class="row">
                 <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
                     <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-                        <div class="row">
-                            <div class="col-12">
-                                <h2 class="tm-block-title d-inline-block">Thêm đặt phòng</h2>             
-                            </div>
-                        </div>
                         <div class="row tm-edit-product-row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <form action="OrderController" method="get" class="tm-edit-product-form" name="myForm" onsubmit="return Reload()">
-                                    <input type="hidden" name="do" value="getUser">
+                                    <input type="hidden" name="do" value="del">
                                     <div class="form-group mb-3">
                                         <label for="name">Tên khách hàng </label>
                                         <select style="text-align: center"

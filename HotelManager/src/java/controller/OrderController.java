@@ -100,6 +100,7 @@ public class OrderController extends HttpServlet {
                 String event = request.getParameter("event");
                 String adult = request.getParameter("Adult").trim();
                 String child = request.getParameter("Child").trim();
+                String img = request.getParameter("imga").trim();
                 // Lấy price service
                 String[] serviceId = request.getParameterValues("service");
                 // ép type date check in check out
@@ -126,7 +127,7 @@ public class OrderController extends HttpServlet {
                             ResultSet rs = db.getData("select * from Service where ServiceID=" + f);
                             while (rs.next()) {
                                 price += rs.getInt(6);
-                                serv += rs.getString(2) + ";";
+                                serv += rs.getString(2)+ ". ";
                             }
                         }
                     }
@@ -155,6 +156,7 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("id", key);
                 request.setAttribute("total", total);
                 request.setAttribute("ser", serv);
+                request.setAttribute("img", img);
                 request.getRequestDispatcher("Confirm.jsp").forward(request, response);
             }
             if (service.equalsIgnoreCase("Bill")) {

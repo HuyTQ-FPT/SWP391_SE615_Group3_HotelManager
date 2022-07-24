@@ -394,7 +394,7 @@ Author     : admin
                                             color: #b09700;
                                             font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
                                         <strong class="price" style="font-weight: bold;
-                                        font-size: 14px"><fmt:formatNumber value="<%=v.getRoomprice()%>" /> đ/ một đêm</strong>
+                                        font-size: 14px"><fmt:formatNumber value="<%=v.getRoomprice()%>" />,000 đ/ một đêm</strong>
                                             <div class="add-to-cart">
                                                 <form action="RoomController">
                                                     <input type="hidden" name="do" value="roomdetails">
@@ -618,8 +618,6 @@ Author     : admin
                 document.addEventListener('DOMContentLoaded', function () {
                     var mediaElements = document.querySelectorAll('video, audio'),
                             total = mediaElements.length;
-
-<<<<<<< Updated upstream
                     for (var i = 0; i < total; i++) {
                         new MediaElementPlayer(mediaElements[i], {
                             pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',

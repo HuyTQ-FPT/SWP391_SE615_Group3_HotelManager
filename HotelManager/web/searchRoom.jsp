@@ -310,56 +310,51 @@
                     <!-- PRODUCTS Start
                     ================================================== -->
                     <%Vector<RoomByDate> vector = (Vector<RoomByDate>) request.getAttribute("vector"); %>
-                    <section id="shop">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-10">
-                                    <div class="products-heading" style="padding-top: 30px">
-                                        <h2 style="font-family: Orbitron">Danh sách các phòng</h2>
-                                    </div>
-                                    <!-- End of /.Products-heading -->
-                                    <div class="product-grid">
-                                        <ul>
+                    <section style="background-color: #f6f6f6" id="shop">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="products" style="padding-top: 50px;">
+                                <h2 style="font-family: Orbitron;">Danh sách các phòng</h2>
+                            </div>
+                            <!-- End of /.Products-heading -->
+                            <div class="product-grid">
+                                <ul>
                                             <%for (RoomByDate v : vector) {%>
                                             <li style="position: relative">
-                                                <div class="products">
-                                                    <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
-                                                        <img src="images/anhphong/<%=v.getImage()%>" alt="">
-                                                    </a>
-                                                    <div class="h" style="font-size: 20px">
-                                                        <c:forEach begin="1" end="<%=v.getRate()%>">
-                                                            <span class="fa fa-star checked"></span>
-                                                        </c:forEach>
+                                        <div class="products">
+                                            <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
+                                                <img src="images/anhphong/<%=v.getImage()%>" alt="" style="margin-top: 30px">
+                                            </a>
+                                            <div class="h" style="font-size: 20px">
+                                                    <c:forEach begin="1" end="<%=v.getRate()%>">
+                                                        <span class="fa fa-star checked"></span>
+                                                    </c:forEach>
 
-                                                    </div>
-                                                    <h4 style="font-size: 25px; text-align: center; padding-top: 20px; font-weight: bold;  font-family: Orbitron;"><i class='fas fa-user-alt' style="font-size:25px;padding-right: 15px">:</i><%=v.getNumberPerson()%></p></h4>
-                                                    <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
-                                                        <h4 style="color: #b09700;font-size: 25px; text-align: center;font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%>-<%=v.getRoomname()%></h4>
-                                                </a>
-                                                <h1 style="color: red;font-size: 18px" class="price"><fmt:formatNumber value="<%=v.getRoomprice()%>"/> đ/ một đêm</h1>
-
-                                                    <div class="hotel-room-body">
-
+                                                </div>
+                                                <h4 style="font-size: 25px; text-align: center; padding-top: 20px; font-weight: bold;  font-family: Orbitron;"><i class='fas fa-user-alt' style="font-size:25px;padding-right: 15px">:</i><%=v.getNumberPerson()%></p></h4>
+                                                <a href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>">
+                                                    <h4 style="color: #b09700;font-size: 25px; text-align: center;font-weight: bold;  font-family: Times New Roman;"><%=v.getCateroom()%>-<%=v.getRoomname()%></h4>
+                                            </a>
+                                            <h1 style="color: red;font-size: 18px" class="price"><fmt:formatNumber value="<%=v.getRoomprice()%>"/> đ/ một đêm</h1>
+                                              <div class="hotel-room-body">
                                                         <div class="add-to-cart">
                                                             <form action="RoomController">
                                                                 <input type="hidden" name="do" value="roomdetail">
                                                                 <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
+                                                                <button  style="margin-top: 10px;position: fixed;top:29px;left:-47px" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
+                                                            </form>
+                                                            <form action="CompareRoomController">
+                                                                <input type="hidden" name="do" value="ViewCompare">
+                                                                <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
                                                                 <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
-                                                                <button  style="margin-top: 10px;position: fixed;left: 10px;" class="add-to-cart-btn" type="submit"><i class="fa fa-shopping-cart"></i>Đặt phòng</a></button>
+                                                                <button style="margin-left: 150px;position: fixed;left: -28px;top: 39px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
                                                         </form>
-
-                                                        <form action="CompareRoomController">
-                                                            <input type="hidden" name="do" value="ViewCompare">
-                                                            <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
-                                                            <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
-                                                            <button style="margin-left: 150px;position: fixed;left: 40px;top: 29px;" class="add-to-cart-btn" ><i class="fa fa-compress"></i><a>So sánh</a></button>
-                                                        </form>
-                                                    </div> 
+                                                    </div>
                                                 </div>
-
-                                            </div>
-                                            <!-- End of /.products -->
-                                        </li>
+                                        </div>
+                                        <!-- End of /.products -->
+                                    </li>
                                         <%}%>
                                     </ul>
                                 </div>

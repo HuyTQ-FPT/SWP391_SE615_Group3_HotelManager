@@ -57,12 +57,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     alert('Địa chỉ Email không hợp lệ');
                     document.myForm.email.focus();
                     return false;
-                }
-                if (!regexPhone.test(p)) {
-                    alert('Số điện thoại không hợp lệ');
-                    document.myForm.phone.focus();
-                    return false;
-                } else {
+                }else {
                     alert("Cập nhật thành công!");
                 }
             }

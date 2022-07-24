@@ -374,7 +374,7 @@
                                                 </c:if>
                                                 <c:if test="${!empty n4}">
                                                     <c:forEach begin="1" end="${n4}" var="c" >
-                                                    <li><a href="RoomController?do=sortByPriceBetween&page=${c}">${c}</a></li>
+                                                    <li><a href="RoomController?do=sortByPriceBetween&page=${c}&price1=${pri1}&price2=${pri2}">${c}</a></li>
                                                     </c:forEach>
                                                 </c:if>
                                         </ul>

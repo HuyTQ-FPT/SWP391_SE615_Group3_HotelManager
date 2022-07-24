@@ -89,10 +89,10 @@ public class RoomController extends HttpServlet {
                 }
                 int n = (Integer.parseInt(adult) + Integer.parseInt(children)) / Integer.parseInt(room);
                 String a = "";
-                a += n;
                 if (n % 2 != 0) {
                     n++;
                 }
+                a += n;
                 Vector<RoomByDate> vector = dao.seachRoom(a, checkin, checkout);
                 request.setAttribute("vector", vector);
                 RequestDispatcher dispatch = request.getRequestDispatcher("searchRoom.jsp");
@@ -208,6 +208,8 @@ public class RoomController extends HttpServlet {
                 Vector<Room> vector = dao.getRoomListbyPrice(Integer.parseInt(page), pri1, pri2);
                 request.setAttribute("n4", n);
                 request.setAttribute("vector", vector);
+                request.setAttribute("pri1", pri1);
+                request.setAttribute("pri2", pri2);
                 RequestDispatcher dispatch = request.getRequestDispatcher("testRoom.jsp");
                 dispatch.forward(request, response);
             }
