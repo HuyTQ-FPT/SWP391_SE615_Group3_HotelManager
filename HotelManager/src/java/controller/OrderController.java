@@ -64,21 +64,6 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("id", id);
                 request.getRequestDispatcher("BillHotel.jsp").forward(request, response);
             }
-            if (service.equalsIgnoreCase("guest")) {
-                String i = request.getParameter("id");
-                int id = Integer.parseInt(i);
-                Vector<Service> vector = daos.getServiceList();
-
-                ResultSet rs = db.getData("select* from Room r\n"
-                        + " inner join Image i on r.RoomimgaeID=i.RoomimgaeID \n"
-                        + "join CateRoom c on \n"
-                        + "r.RoomcateID =c.RoomcateID \n"
-                        + "where RoomID=" + id);
-                request.setAttribute("vector", vector);
-                request.setAttribute("rs", rs);
-                request.setAttribute("id", id);
-                request.getRequestDispatcher("BillHotel.jsp").forward(request, response);
-            }
             if (service.equalsIgnoreCase("user")) {
                 String userid = request.getParameter("userid");
                 String i = request.getParameter("id");

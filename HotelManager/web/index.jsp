@@ -291,7 +291,7 @@ Author     : admin
                                 <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
                                     <form action="RoomController" method="get" class="tm-search-form tm-section-pad-2" onsubmit="return Validate()">
                                         <input type="hidden" name="do" value="searchRoom">
-                                        <div class="form-row tm-search-form-row">
+                                         <div class="form-row tm-search-form-row">
                                             <div class="form-group tm-form-element tm-form-element-50">
                                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
                                                 <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Ngày đến">

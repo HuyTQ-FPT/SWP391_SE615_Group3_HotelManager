@@ -126,6 +126,7 @@
 
             <div class="site-section">
                 <h3 style="margin-left: 100px">${mess}</h3>
+               <h2 style="font-family: Orbitron; padding-left: 570px;padding-bottom: 50px;font-weight: bold;font-size: 40px">Danh sách khuyến mãi</h2>
             <div class="container">
                 <div class="row">
                     <% Vector<Events> vector = (Vector<Events>) request.getAttribute("vector");

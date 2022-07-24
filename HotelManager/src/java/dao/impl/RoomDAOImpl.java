@@ -754,7 +754,10 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
     @Override
     public Vector<RoomByDate> seachRoom(String a, String datein, String dateout) throws Exception {
 
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
         ResultSet rs = null;
         SimpleDateFormat format = new SimpleDateFormat("E MMM dd yyyy");
         Vector<RoomByDate> vector = new Vector<RoomByDate>();
@@ -775,7 +778,9 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
             sql += "and r.NumberPerson= " + a;
         }
         try {
-            rs = getData(sql);
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);
@@ -789,8 +794,6 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 int Rate = rs.getInt(10);
                 String Note = rs.getString(11);
                 String cateroom = rs.getString(19);
-//                Date date1 = rs.getDate(23);
-//                Date date2 = rs.getDate(24);
                 RoomByDate im = new RoomByDate(cateid, name, Comment, cateid, image, Roomprice, NumberPerson, Square, Comment, Rate, Note, cateroom, null, null);
                 vector.add(im);
             }
@@ -799,6 +802,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
         } finally {
             closeResultSet(rs);
             closePreparedStatement(pre);
+            closeConnection(conn);
 
         }
         return vector;
