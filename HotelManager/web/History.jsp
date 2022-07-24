@@ -122,8 +122,12 @@
                                 <% }%>
                         </tr>                        
                         <% }
-                                }
-                            }%>
+                          }%>
+
+                            <%if (pro.getStatus() == 2){%>
+                            <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name="">Đang xử lí</th>
+                            <%}%>
+                            <%}%>
                     </tbody>
                 </table>
             </div>
