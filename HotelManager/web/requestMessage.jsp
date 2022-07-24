@@ -452,9 +452,9 @@
     <script>
                                     function deleteId(id) {
                                         if (confirm("Bạn có muốn xoá yêu cầu này không?")) {
-                                            window.location = "RequestController?do=deleteReques&mId=" + id;
+                                             window.location = "RequestController?do=deleteRequest&mId=" + id;
                                         }
-
+                                       
                                     }
 
     </script>
