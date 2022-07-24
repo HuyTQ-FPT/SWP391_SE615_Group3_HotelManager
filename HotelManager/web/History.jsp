@@ -21,10 +21,10 @@
         <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700' rel='stylesheet' type='text/css'>
 
         <!-- Css -->
-        
-       
+
+
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        
+
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/responsive.css">
 
@@ -38,7 +38,7 @@
         <script src="js/main.js" type="text/javascript"></script>
         <style>
             .hd button{
-                background-color: #4CAF50; 
+                background-color: #4CAF50;
                 border: none;
                 color: white;
                 padding: 15px 32px;
@@ -52,81 +52,84 @@
                 width:50%;
             }
             .hh{
-            position: fixed;
-            top:10px;
-            left: 120px;
-            color: white;
-        }
+                position: fixed;
+                top:10px;
+                left: 120px;
+                color: white;
+            }
         </style>    
     </head>
+
     <body style="padding-top: 100px; height: 200px;">
         <h2 class="mb-0 site-logo hh"><a href="HomeController">Hoang Hon</a></h2>
-         <section id="topic-header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h1 style="color: orangered">Lịch sử đặt phòng</h1>
-                        </div>
+        <section id="topic-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6" style="margin-bottom: 100px">
+                        <h1 style="color: orangered">Lịch sử đặt phòng</h1>
                     </div>
                 </div>
-            </section>
-            <div class="hd">
-                <div style="padding-left: 400px; padding-bottom:100px;">
-                    <table border="1px" >
-                        <thead class="cart-table-head" style="background-color:gray;">
-                            <tr class="table-head-row">
-                                <th class="supplier-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Phòng</th>
-                                <th class="supplier-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Từ ngày</th>
-                                <th class="category-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Đến ngày</th>
-                                <th class="product-name" style="padding-right: 60px; padding-left: 60px; color: white;font-weight: bold; ">Tổng tiền</th>
-                                <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Trạng thái</th>
-                                <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Phản hồi</th>
-                            </tr>
-                        </thead> 
-                        <tbody>
+            </div>
+        </section>
+        <div class="hd">
+            <div style="padding-left: 400px; padding-bottom:100px;margin-right: 200px; margin-bottom: 100px">
+                <table class="table table-striped table-hover table-bordered" >
+                    <thead class="cart-table-head" style="background-color:gray;">
+                        <tr class="table-head-row">
+                            <th class="supplier-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Phòng</th>
+                            <th class="supplier-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Từ ngày</th>
+                            <th class="category-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Đến ngày</th>
+                            <th class="product-name" style="padding-right: 60px; padding-left: 60px; color: white;font-weight: bold; ">Tổng tiền</th>
+                            <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Trạng thái</th>
+                            <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Phản hồi</th>
+                        </tr>
+                    </thead> 
+                    <tbody>
                         <% Vector<Reservation> vector = (Vector<Reservation>) request.getAttribute("vector");
-                        DBContext db = new DBContext();
-                        ResultSet rs=db.getData("select * from  Room r join Reservation j  on r.RoomID= j.RoomID join CateRoom c on c.RoomcateID=r.RoomcateID ");
-                        String a="";
-                        String b="";
-                        int aid =Integer.parseInt(request.getAttribute("aid").toString());
-                        if(rs.next()){
-                            a+=rs.getInt(2);
-                            b+=rs.getString(27);
-                        }
+                            DBContext db = new DBContext();
+                            ResultSet rs = db.getData("select * from  Room r join Reservation j  on r.RoomID= j.RoomID join CateRoom c on c.RoomcateID=r.RoomcateID ");
+                            String a = "";
+                            String b = "";
+                            int aid = Integer.parseInt(request.getAttribute("aid").toString());
+                            if (rs.next()) {
+                                a += rs.getInt(2);
+                                b += rs.getString(27);
+                            }
                             for (Reservation pro : vector) {
-                                    boolean check = false;
-                                    Cookie c[] = request.getCookies();       
-                                        for (Cookie o : c) {
-                                            if (o.getName().equals(String.valueOf(pro.getUserID()))) {
-                                                check = true;
-                                            }
-                                        }
-   
-                                ResultSet rs1=db.getData("select COUNT(*) from Message m join Account a on m.AccountID=a.AccountID where m.RoomID="+pro.getRoomID()+" and m.AccountID="+aid);
+                                boolean check = false;
+                                Cookie c[] = request.getCookies();
+                                for (Cookie o : c) {
+                                    if (o.getName().equals(String.valueOf(pro.getUserID()))) {
+                                        check = true;
+                                    }
+                                }
+
+                                ResultSet rs1 = db.getData("select COUNT(*) from Message m join Account a on m.AccountID=a.AccountID where m.RoomID=" + pro.getRoomID() + " and m.AccountID=" + aid);
                         %>
                         <tr class="table-body-row"> 
-                            <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getRoomID() %> </th>
+                            <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getRoomID()%> </th>
                             <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getCheckin()%> </th>
                             <th class="category-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getCheckout()%></th>
-                            <th class="product-name" style="padding-left: 50px;padding-right: 30px;" name=""><fmt:formatNumber value="<%=pro.getTotal() %>" /> đ</th>
-                            <% if(pro.getStatus()==1) {%>
+                            <th class="product-name" style="padding-left: 50px;padding-right: 30px;" name=""><fmt:formatNumber value="<%=pro.getTotal()%>" /> đ</th>
+                                <% if (pro.getStatus() == 1) {%>
                             <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name="">Đã đặt</th>
-                            <%while(rs1.next()){
-                                if(!check){
-                            %>                         
+                                <%while (rs1.next()) {
+                                        if (!check) {
+                                %>                         
                             <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name=""><a href="UserController?do=Viewfeedback&roomID=<%=pro.getRoomID()%>"><img style="width: 30px; height: 30px;" src="images/fb.png"><%=rs1.getInt(1)%></a></th>
-                            <% } else {%>
+                                    <% } else {%>
                             <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name="">Tài khoản đang bị report</th>
-                            <% }%>
+                                <% }%>
                         </tr>                        
-                        <% } } }%>
+                        <% }
+                                }
+                            }%>
                     </tbody>
                 </table>
             </div>
         </div>
-    </body>
         <jsp:include page="footer.jsp"></jsp:include>
+    </body>
 
 </html>
 
