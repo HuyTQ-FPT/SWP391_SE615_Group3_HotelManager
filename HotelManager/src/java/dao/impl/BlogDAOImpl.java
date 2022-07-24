@@ -880,7 +880,7 @@ public class BlogDAOImpl extends DBContext implements BlogDAO {
      * @throws Exception
      */
     @Override
-    public List<Comment> DisplayComment(String BlogID) throws Exception  {
+        public List<Comment> DisplayComment(String BlogID) throws Exception  {
         List<Comment> list = new ArrayList<Comment>();     
             String sql = "select * from Comment where BlogID = " + BlogID + " and ParentID = 0 order by Date asc";
              Connection conn = null;
