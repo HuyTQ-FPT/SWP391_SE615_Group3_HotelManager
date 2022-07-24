@@ -12,8 +12,11 @@ package controller;
 
 import dao.impl.BlogDAOImpl;
 import entity.Blog;
+import entity.Comment;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +59,30 @@ public class BlogManagerController extends HttpServlet {
                     request.getRequestDispatcher("BlogManagerController?do=updateblog&blogid=" + blogid + " ").forward(request, response);
                 }
             }
+             if(dos.equals("display")){
+        try (PrintWriter out = response.getWriter()) {
+          
+            response.setContentType("text/html;charset=UTF-8");
+            request.setCharacterEncoding("utf-8");
+             String BlogID = request.getParameter("blogid");
+             request.setAttribute("blogid", BlogID);
+            int n = dao.getComment(BlogID);            
+              String page = request.getParameter("page");
+              List<Comment> list1 = null;
+              if (page == null) {
+                  /*display comment base on blogid */
+                    list1 = dao.getCommentByPage(1, BlogID);
+                } else {
+                        // display comment base on blogid
+                    list1 = dao.getCommentByPage(Integer.parseInt(page),BlogID);
+                }           
+          request.setAttribute("listcomment", list1);
+          request.setAttribute("n", n);
+          request.getRequestDispatcher("ManageComment.jsp"). forward(request, response);               
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        }
             /**
              * Service editblog: edit information blog addblog.jsp
              */
