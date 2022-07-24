@@ -99,7 +99,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                     <input type="hidden" name="BID" value="<%=rs.getInt(14)%>">
                                     <div class="form-group mb-3">
                                         <label for="name">Số phòng </label>
-                                        <input name="rname" value="<%=rs.getString(1)%>"type="number" min="1" max="30"  class="form-control validate"required />
+                                        <input name="rname" value="<%=rs.getString(1)%>" style="background-color: #435c70;"type="number" min="1" max="30"  class="form-control validate" readonly />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name" style="padding-right: 10px">Hình ảnh </label>
@@ -108,36 +108,36 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
 
                                     <div class="form-group mb-3">
                                         <label for="name">Tên khách hàng </label>
-                                        <input name="cname" value="<%=rs.getString(3)%>"type="text"class="form-control validate"required maxlength="50" />
+                                        <input name="cname" value="<%=rs.getString(3)%>"type="text"class="form-control validate" style="background-color: #435c70;" required maxlength="50" readonly/>
                                     </div>
 
                                     <div class="form-group mb-3">
                                         <label for="name">Email </label>
-                                        <input name="email" value="<%=rs.getString(4)%>"type="text"class="form-control validate"required maxlength="50" />
+                                        <input name="email" value="<%=rs.getString(4)%>"type="text"class="form-control validate" style="background-color: #435c70;" required maxlength="50" readonly />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Địa chỉ </label>
-                                        <input name="address" value="<%=rs.getString(5)%>"type="text" maxlength="70" class="form-control validate"required  maxlength="50"/>
+                                        <input name="address" value="<%=rs.getString(5)%>"type="text" maxlength="70" style="background-color: #435c70;" class="form-control validate"required  maxlength="50" readonly/>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Số điện thoại </label>
-                                        <input name="phone" value="<%=rs.getString(6)%>"type="text" class="form-control validate"required />
+                                        <input name="phone" value="<%=rs.getString(6)%>"type="text" style="background-color: #435c70;" class="form-control validate"readonly />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Số người đến </label>
-                                        <input name="number" value="<%=rs.getInt(7)%>"type="number" max="12" class="form-control validate"required />
+                                        <input name="number" value="<%=rs.getInt(7)%>"type="number" max="12" style="background-color: #435c70;" class="form-control validate"readonly />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Ngày đến </label>
-                                        <input name="cin" value="<%=cDate%>" type="date"class="form-control validate"required />
+                                        <input name="cin" value="<%=cDate%>" type="date" style="background-color: #435c70;" class="form-control validate"readonly />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Ngày đi </label>
-                                        <input name="cout" value="<%=sDate%>" type="date"class="form-control validate"required />
+                                        <input name="cout" value="<%=sDate%>" type="date" style="background-color: #435c70;" class="form-control validate"readonly />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name">Tổng giá </label>
-                                        <input name="total" value="<%=rs.getString(10)%>" type="number" min="100" max="5000000" class="form-control validate"required />
+                                        <input name="total" value="<%=rs.getString(10)%>" style="background-color: #435c70;" type="number" min="100" max="5000000" class="form-control validate"readonly />
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name" style="padding-right: 10px">Trạng thái </label>
