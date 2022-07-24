@@ -74,7 +74,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
 
     <body>
         <%@include file="headerAdmin.jsp"%>
-        <form action="DeviceController?do=updatedevice" method="post">
+        <form action="DeviceController?do=updatedevices" method="post">
             <div class="container tm-mt-big tm-mb-big">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
@@ -155,7 +155,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     defaultDate: "10/22/2020"
                 });
             });
-            <c:if test = "${update!= null}">
+            <c:if test = "${insert!= null}">
             alert("Update Successfully");
             </c:if>
 

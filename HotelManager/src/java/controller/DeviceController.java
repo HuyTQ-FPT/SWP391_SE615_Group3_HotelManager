@@ -63,8 +63,12 @@ public class DeviceController extends HttpServlet {
             DevicesDAOImpl devicedao = new DevicesDAOImpl();
             RoomDAOImpl roomdao = new RoomDAOImpl();
             if (dos.equals("") || dos.equals(null)) {
-                out.println("<h1>Lỗi Trang.</h1>");
+                response.sendRedirect("Filter.jsp");
             }
+            /**
+             * RoomDevceController listDeviceByRoom:  List All Device
+             * listdeviceroom.jsp
+             */
             if (dos.equals("listdevicebyroom")) {
                 String Roomid = request.getParameter("RoomID");
                 String page = request.getParameter("page");
@@ -79,23 +83,32 @@ public class DeviceController extends HttpServlet {
                 request.setAttribute("listdevice", listdevice);
                 request.setAttribute("room", getroom);
                 request.getRequestDispatcher("listdeviceroom.jsp").forward(request, response);
-//                out.println("<h1>Servlet DeviceController at " + listdevice + "</h1>");
             }
+            /**
+             * RoomDevceController RoomByDevice:  Get Room By Price
+             * AdListRom.jsp
+             */
             if (dos.equals("RoomByDevice")) {
                 String DeviceId = request.getParameter("DeviceId");
                 Vector<Room> listroom = roomdao.getRoomList1("select * from room  join CateRoom  on Room.RoomcateID = CateRoom.RoomcateID join [Image] on Room.RoomimgaeID = [Image].RoomimgaeID join RoomDevice on   Room.RoomID = RoomDevice.RoomID\n"
                         + "              	where RoomDevice.DeviceID =" + DeviceId + "");
                 request.setAttribute("listroom", listroom);
-//                out.println("<h1>Servlet RoomcategoryController at " + cate + "</h1>");
                 request.getRequestDispatcher("AdListRom.jsp").forward(request, response);
                 out.println("<h1>Servlet DeviceController at " + DeviceId + " </h1>");
             }
+            /**
+             * RoomDevceController listalldevice:  List All Device
+             * ListDevices.jsp
+             */
             if (dos.equals("listalldevice")) {
                 Vector<Device> listdevices = devicedao.getAllDevice("select * from Device x left join (select DeviceID,Count(*) as quantity from RoomDevice Group by DeviceID) y on x.DeviceID = y.DeviceID");
                 request.setAttribute("listdevices", listdevices);
                 request.getRequestDispatcher("ListDevices.jsp").forward(request, response);
-//                out.println("<h1>Servlet DeviceController at " + listdevices + "</h1>");
             }
+            /**
+             * RoomDevceController InsertDevice:  Insert Device
+             * updatedevice.jsp
+             */
             if (dos.equals("InsertDevice")) {
                 String DeviceName = request.getParameter("DeviceName");
                 String Price = request.getParameter("Price");
@@ -103,35 +116,43 @@ public class DeviceController extends HttpServlet {
                 Device de = devicedao.Getdevice("select top(1)* from Roomdevice right join Device\n"
                         + "on RoomDevice.DeviceID = Device.DeviceID \n"
                         + "order by Device.DeviceID desc");
-                request.setAttribute("insert", "insert");
-//              out.println("<h1>Servlet DeviceController at " + Price + "</h1>");
                 request.getRequestDispatcher("DeviceController?do=UpdateDevice&DeviceId=" + de.getDeviceID() + "").forward(request, response);
             }
+            /**
+             * RoomDevceController DeleteDevice:  Delete Device
+             * ListDevices.jsp
+             */
             if (dos.equals("DeleteDevice")) {
                 String DeviceId = request.getParameter("DeviceId");
                 devicedao.deleteDevice(DeviceId);
                 response.sendRedirect("DeviceController?do=listalldevice");
-//                out.println("<h1>Servlet DeviceController at " + DeviceId + "</h1>");
             }
+            /**
+             * RoomDevceController UpdateDevice:  Get Infor Device
+             * updatedevice.jsp
+             */
             if (dos.equals("UpdateDevice")) {
                 String DeviceID = request.getParameter("DeviceId");
                 Device device = devicedao.Getdevices("select * from Device where DeviceID = " + DeviceID + "");
                 request.setAttribute("device", device);
-//                 out.println("<h1>Servlet DeviceController at " +device+ "</h1>");
                 request.getRequestDispatcher("updatedevice.jsp").forward(request, response);
             }
-            if (dos.equals("updatedevice")) {
+            /**
+             * RoomDevceController updatedevices:  Update Device
+             * updatedevice.jsp
+             */
+            if (dos.equals("updatedevices")) {
                 String DeviceID = request.getParameter("DeviceID");
                 String DeviceName = request.getParameter("DeviceName");
                 String Price = request.getParameter("Price");
                 devicedao.updateDeviceQuan(DeviceName.replaceAll("\\s\\s+", " ").trim(), DeviceID, Price);
-                Device device = devicedao.Getdevices("select * from Device where DeviceID = " + DeviceID + "");
-                request.setAttribute("device", device);
-                request.setAttribute("insert", "insert");
-//                out.println("<h1>Servlet DeviceController at " +DeviceID+ "</h1>");
-//                request.getRequestDispatcher("updatedevice.jsp").forward(request, response);
-                  request.getRequestDispatcher("DeviceController?do=UpdateDevice&DeviceId="+DeviceID+"").forward(request, response);
+                request.setAttribute("insert", "update");
+                request.getRequestDispatcher("DeviceController?do=UpdateDevice&DeviceId=" + DeviceID + "").forward(request, response);
             }
+            /**
+             * RoomDevceController updatedevices:  Insert Room Device
+             * InsertDeviceRoom.jsp
+             */
             if (dos.equals("InsertDeviceRoom")) {
                 String Roomid = request.getParameter("RoomID");
                 Vector<Device> listdevices = devicedao.getAllDevicetoAdd("Select * from Device where DeviceID not in ( Select DeviceID from RoomDevice where RoomID =" + Roomid + ")");
@@ -139,9 +160,12 @@ public class DeviceController extends HttpServlet {
                 request.setAttribute("listdevices", listdevices);
                 request.setAttribute("Roomid", Roomid);
                 request.setAttribute("getroom", getroom);
-//                                out.println("<h1>Servlet DeviceController at "+Roomid+"  </h1>");
                 request.getRequestDispatcher("InsertDeviceRoom.jsp").forward(request, response);
             }
+            /**
+             * RoomDevceController DeleteDeviceRoom:  Delete Room Device
+             * ListDeviceRoom.jsp
+             */
             if (dos.equals("DeleteDeviceRoom")) {
                 String DeviceID = request.getParameter("DeviceID");
                 String Roomid = request.getParameter("RoomID");
@@ -149,6 +173,10 @@ public class DeviceController extends HttpServlet {
                 request.getRequestDispatcher("DeviceController?do=listdevicebyroom&RoomID=" + Roomid + "").forward(request, response);
 
             }
+             /**
+             * RoomDevceController DeleteDeviceRoom:  Get Infor Device Room
+             * UpdateDeviceRoom.jsp
+             */
             if (dos.equals("UpdateDeviceByRoom")) {
                 String DeviceID = request.getParameter("DeviceID");
                 String Roomid = request.getParameter("RoomID");
@@ -158,7 +186,6 @@ public class DeviceController extends HttpServlet {
                         + "where Roomdevice.DeviceID = " + DeviceID + " and Roomdevice.RoomID =" + Roomid + "");
                 request.setAttribute("device", device);
                 request.setAttribute("getroom", getroom);
-//                out.println("<h1>Servlet DeviceController at " +device.getImagedevice()+ "</h1>");
                 request.getRequestDispatcher("updatedeviceroom.jsp").forward(request, response);
             }
             String value = "";
@@ -218,7 +245,10 @@ public class DeviceController extends HttpServlet {
                 request.setAttribute("insert", "insert");
                 request.getRequestDispatcher("DeviceController?do=UpdateDeviceByRoom&DeviceID=" + DeviceID + "&RoomID=" + RoomID + "").forward(request, response);
             }
-
+              /**
+             * RoomDevceController DeleteDeviceRoom:  UpDate Device Room
+             * UpdateDeviceRoom.jsp
+             */
             if (dos.equals("updatedeviceroom")) {
                 ArrayList<String> device = new ArrayList<String>();
                 while (iter.hasNext()) {
@@ -263,8 +293,6 @@ public class DeviceController extends HttpServlet {
                 devicedao.updateDeviceinfor(RoomID, quantity, status, note, DeviceID, image);
                 request.setAttribute("insert", "insert");
                 request.getRequestDispatcher("DeviceController?do=UpdateDeviceByRoom&DeviceID=" + DeviceID + "&RoomID=" + RoomID + "").forward(request, response);
-//                request.getRequestDispatcher("DeviceController?do=listdevicebyroom&RoomID=" + RoomID + "").forward(request, response);
-//            out.println("<h1>RoomID " + RoomID + " DeviceID" + DeviceID + "Status" + status + " quan" + quantity + " note " + note + "</h1>");
             }
         }
     }

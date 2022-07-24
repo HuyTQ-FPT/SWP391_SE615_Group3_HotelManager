@@ -28,13 +28,24 @@ public interface RoomCategoryDAO {
      * @throws java.lang.Exception
      */
     public Vector<RoomCategory> getRoomCategoryList(String sql) throws Exception;
-
+    /**
+     * get RoomCategory
+     *
+     * @return <code>Object<RoomCategory></code> object.
+     * @throws java.lang.Exception
+     */ 
     public RoomCategory getRoomCategori(String sql) throws Exception;
-
+    /**
+     * Insert RoomCategory
+     */ 
     public void insertRoomCategory(String roomcatename, String roomcatedes) throws Exception;
-
+    /**
+     * Update RoomCategory
+     */ 
     public void updateRoomCategory(String RoomCategoryid, String roomcatename, String roomcatedes) throws Exception;
-
+    /**
+     * Delete RoomCategory
+     */ 
     public void deleteRoomCategory(String roomcate) throws Exception;
 
     /**

@@ -32,39 +32,62 @@ import java.util.Vector;
 public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 
     @Override
-    public Vector<Device> getAllDevice(String sql) {
+    public Vector<Device> getAllDevice(String sql) throws Exception{
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Device> vector = new Vector<Device>();
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 Device de = new Device(rs.getInt(1), 0, rs.getString(2), rs.getInt(7), rs.getDouble(4), 0, 0, "", "");
                 vector.add(de);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return vector;
     }
 
     @Override
-    public Vector<Device> getAllDevicetoAdd(String sql) {
+    public Vector<Device> getAllDevicetoAdd(String sql) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Device> vector = new Vector<Device>();
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 Device de = new Device(rs.getInt(1), 0, rs.getString(2), 0, 0, 0, 0, "", "");
                 vector.add(de);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return vector;
     }
 
     @Override
-    public void insertDevice(String DeviceName, String Price) {
+    public void insertDevice(String DeviceName, String Price) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         Vector<Device> vector = getAllDevice("select * from Device");
         String query = "INSERT INTO [dbo].[Device]\n"
                 + "           ([DeviceName]\n"
@@ -74,31 +97,45 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
                 + "     VALUES\n"
                 + "           (?, null, ?, null)";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+            conn = getConnection();
+            pre = conn.prepareStatement(query);
             pre.setString(1, DeviceName);
             pre.setString(2, Price);
             pre.execute();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
 
     @Override
-    public void deletetDevice(String RoomID, String DeviceID) {
+    public void deletetDevice(String RoomID, String DeviceID) throws Exception{
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         String query = "DELETE FROM [dbo].[RoomDevice]\n"
                 + "      WHERE RoomID = ? and DeviceID = ?";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+            conn = getConnection();
+            pre = conn.prepareStatement(query);
             pre.setString(1, RoomID);
             pre.setString(2, DeviceID);
             pre.execute();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
 
     @Override
-    public void insertDeviceRoom(String RoomID, String DeviceID, String Quantity, String Status, String Note, String ImageDevice) {
+    public void insertDeviceRoom(String RoomID, String DeviceID, String Quantity, String Status, String Note, String ImageDevice) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         String query = "INSERT INTO [dbo].[RoomDevice]\n"
                 + "           ([RoomID]\n"
                 + "           ,[DeviceID]\n"
@@ -109,7 +146,8 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
                 + "     VALUES\n"
                 + "           (?,?,?,?,?,?)";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+            conn = getConnection();
+            pre = conn.prepareStatement(query);
             pre.setString(1, RoomID);
             pre.setString(2, DeviceID);
             pre.setString(3, Quantity);
@@ -119,11 +157,17 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
             pre.execute();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
 
     @Override
-    public void updateDeviceQuan(String name, String deviceid, String price) {
+    public void updateDeviceQuan(String name, String deviceid, String price) throws Exception{
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         String query = "UPDATE [dbo].[Device]\n"
                 + "   SET [DeviceName] = ?\n"
                 + "     \n"
@@ -131,19 +175,25 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
                 + "      \n"
                 + " WHERE DeviceID =?";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+            conn = getConnection();
+            pre = conn.prepareStatement(query);
             pre.setString(1, name);
             pre.setString(2, price);
             pre.setString(3, deviceid);
             pre.executeUpdate();
-            System.out.println("done");
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
 
     @Override
-    public void updateDeviceinfor(String roomid, String quantity, String status, String note, String deviceid, String image) {
+    public void updateDeviceinfor(String roomid, String quantity, String status, String note, String deviceid, String image)throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         String query = "UPDATE [dbo].[RoomDevice]\n"
                 + "   SET [Quantity] = ?\n"
                 + "      ,[Status] = ?\n"
@@ -151,7 +201,8 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
                 + "      ,[ImageDevice] = ?\n"
                 + " WHERE RoomID = ? and DeviceID = ? ";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+            conn = getConnection();
+            pre = conn.prepareStatement(query);
             pre.setString(1, quantity);
             pre.setString(2, status);
             pre.setString(3, note);
@@ -161,19 +212,29 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
             pre.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
 
     @Override
-    public void deleteDevice(String Roomcateid) {
+    public void deleteDevice(String Roomcateid) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         String query = "delete from RoomDevice where DeviceID = "+Roomcateid+"\n"
                 + "delete from Device where DeviceID = "+Roomcateid+"";
         try {
-            PreparedStatement pre = conn.prepareStatement(query);
+            conn = getConnection();
+            pre = conn.prepareStatement(query);
             pre.executeUpdate();
             System.out.println("done");
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
     }
 
@@ -204,26 +265,37 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
     }
 
     @Override
-    public Vector<Device> getDevicebycateroom(String cateRoom) {
-
+    public Vector<Device> getDevicebycateroom(String cateRoom) throws Exception{
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
         Vector<Device> vector = new Vector<Device>();
         String sql = "select * from Device join RoomDevice on Device.DeviceID = RoomDevice.DeviceID where RoomDevice.RoomID =?";
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, cateRoom);
-            ResultSet rs = ps.executeQuery();
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1, cateRoom);
+            ResultSet rs = pre.executeQuery();
             while (rs.next()) {
                 Device de = new Device(rs.getInt(1), rs.getInt(6), rs.getString(2), rs.getInt(3), rs.getDouble(4), rs.getInt(9), rs.getInt(8), rs.getString(10), rs.getString(11));
                 vector.add(de);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return vector;
     }
 
     @Override
-    public Vector<Device> getDevicebyroom(String cateRoom, int n) {
+    public Vector<Device> getDevicebyroom(String cateRoom, int n) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Device> vector = new Vector<Device>();
         int begin = 1;
         int end = 6;
@@ -237,20 +309,30 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
                 + "                where i.RoomID=?)\n"
                 + "                select * from t";
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, cateRoom);
-            ResultSet rs = ps.executeQuery();
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1, cateRoom);
+            rs = pre.executeQuery();
             while (rs.next()) {
                 Device de = new Device(rs.getInt(2), rs.getInt(6), rs.getString(3), rs.getInt(1), rs.getDouble(4), rs.getInt(8), rs.getInt(5), rs.getString(7), rs.getString(9));
                 vector.add(de);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return vector;
     }
 
-    public Vector<Device> getDevicebycateroom(String cateRoom, int n) {
+    public Vector<Device> getDevicebycateroom(String cateRoom, int n) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Device> vector = new Vector<Device>();
         int begin = 1;
         int end = 6;
@@ -264,23 +346,32 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
                 + "                where i.RoomID=?)\n"
                 + "                select * from t";
         try {
+            conn = getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, cateRoom);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Device de = new Device(rs.getInt(2), rs.getInt(6), rs.getString(3), rs.getInt(1), rs.getDouble(4), rs.getInt(8), rs.getInt(5), rs.getString(7), rs.getString(9));
                 vector.add(de);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return vector;
     }
 
     @Override
-    public Device Getdevice(String sql) {
+    public Device Getdevice(String sql) throws Exception {
+        Connection conn = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         try {
-            ResultSet rs = getData(sql);
+            conn = getConnection();
+            rs = getData(sql);
             while (rs.next()) {
                 int DeviceID = rs.getInt(7);
                 int RoomID = rs.getInt(1);
@@ -295,14 +386,21 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closeConnection(conn);
         }
         return null;
     }
 
     @Override
-    public Device Getdevices(String sql) {
+    public Device Getdevices(String sql) throws Exception {
+        Connection conn = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         try {
-            ResultSet rs = getData(sql);
+            conn = getConnection();
+            rs = getData(sql);
             while (rs.next()) {
                 int DeviceID = rs.getInt(1);
                 String DeviceName = rs.getString(2);
@@ -312,30 +410,43 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closeConnection(conn);
         }
         return null;
     }
 
     @Override
-    public Vector<Device> searchDevicebyname(String mess, String roomcateid) {
+    public Vector<Device> searchDevicebyname(String mess, String roomcateid) throws Exception {
+        Connection conn = null;
+        /* Prepared statement for executing sql queries */
+        PreparedStatement pre = null;
+        /* Result set returned by the sqlserver */
+        ResultSet rs = null;
         Vector<Device> vector = new Vector<Device>();
         String sql = "select * from RoomDevice INNER JOIN Device on RoomDevice.DeviceID = Device.DeviceID\n"
                 + "where (RoomDevice.RoomcateID = ?)\n"
                 + "and (DeviceName like ? or Price like ? or Quantity like ?)"
                 + "order by Device.DeviceID desc";
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, roomcateid);
-            ps.setString(2, "%" + mess + "%");
-            ps.setString(3, "%" + mess + "%");
-            ps.setString(4, "%" + mess + "%");
-            ResultSet rs = ps.executeQuery();
+            conn = getConnection();
+            pre = conn.prepareStatement(sql);
+            pre.setString(1, roomcateid);
+            pre.setString(2, "%" + mess + "%");
+            pre.setString(3, "%" + mess + "%");
+            pre.setString(4, "%" + mess + "%");
+            rs = pre.executeQuery();
             while (rs.next()) {
 //                Device de = new Device(rs.getInt(2), rs.getInt(1), rs.getString(5), rs.getInt(1), rs.getDouble(7), rs.getInt(8), rs.getInt(3));
 //                vector.add(de);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeResultSet(rs);
+            closePreparedStatement(pre);
+            closeConnection(conn);
         }
         return vector;
     }
@@ -351,10 +462,10 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
 //        System.out.println(de);
 //        }
         //        int n = dao.getPage();
-        Vector<Device> de = dao.getAllDevicetoAdd("Select * from Device where DeviceID not in ( Select DeviceID from RoomDevice where RoomID =3)");
-        for (Device device : de) {
-            System.out.println(device);
-        }
+//        Vector<Device> de = dao.getAllDevicetoAdd("Select * from Device where DeviceID not in ( Select DeviceID from RoomDevice where RoomID =3)");
+//        for (Device device : de) {
+//            System.out.println(device);
+//        }
 //        Device de = dao.Getdevice("select * from Roomdevice join Device on RoomDevice.DeviceID = Device.DeviceID \n"
 //                + "				where Roomdevice.DeviceID = 2 and Roomdevice.RoomID =1 ");
     }   
@@ -365,7 +476,8 @@ public class DevicesDAOImpl extends DBContext implements DeviceDAO {
      * @throws Exception
      */
     @Override
-    public ArrayList<Device> numberOfDevice() throws Exception {
+    public ArrayList<Device> numberOfDevice() throws Exception  {
+        
         Connection conn = null;
          /* Prepared statement for executing sql queries */
         PreparedStatement pre = null;

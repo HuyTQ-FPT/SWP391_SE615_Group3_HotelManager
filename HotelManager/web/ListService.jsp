@@ -65,7 +65,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                             <a style="border-radius: 10px; margin-left: 32%" href="ServiceController?do=ListComment&ServiceID=${r.serviceID}"  class="btn btn-info" role="button">
                                 Hiển Thị</a></td>   
                         <td style="background-color: 435C70">
-                            <a style="margin-left: 45%" href="ServiceController?do=DeleteService&ServiceId=${r.serviceID}" class="tm-product-delete-link">
+                            <a onclick="alert('Xóa Thành Công: ${r.serviceName}');" style="margin-left: 45%" href="ServiceController?do=DeleteService&ServiceId=${r.serviceID}" class="tm-product-delete-link">
                                 <i class="far fa-trash-alt tm-product-delete-icon">
                                 </i></a></td>  
                     </tr>  

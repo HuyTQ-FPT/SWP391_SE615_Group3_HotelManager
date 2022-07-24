@@ -22,7 +22,7 @@ public interface ServiceDAO {
      * <code>java.util.Vector</code> object
      * @throws java.lang.Exception
      */
-    public Vector<Service> getServiceList();
+    public Vector<Service> getServiceList() throws Exception;
     /**
      * Get Service from database
      *
@@ -30,7 +30,7 @@ public interface ServiceDAO {
      * <code>java.util.Vector</code> object
      * @throws java.lang.Exception
      */
-    public Vector<Service> getServiceListbyran();
+    public Vector<Service> getServiceListbyran() throws Exception;
     /**
      * Get Service from database
      * @throws java.lang.Exception
