@@ -5,17 +5,14 @@
  *
  * Record of change:
  * DATE          Version    Author           DESCRIPTION
- *               1.0                         First Deploy
- * 13/07/2022    1.0        HieuLBM          Comment
+ *  22/07/2022    1.0        HieuLBM           First Deploy
+ *  22/07/2022    1.0        HieuLBM           Comment
  */
 package controller;
 
-import dao.ImageDAO;
-import dao.RoomDAO;
-import dao.impl.ImageDAOImpl;
-import dao.impl.RoomDAOImpl;
-import entity.Image;
-import entity.Room;
+import dao.RequestMessageDAO;
+import dao.impl.RequestMessageDAOIpml;
+import entity.RequestMessage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,17 +21,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Minh Hiếu
+ * @author HieuLBM
  */
-@WebServlet(name = "CompareTwoController", urlPatterns = {"/CompareTwoController"})
-public class CompareTwoController extends HttpServlet {
+@WebServlet(name = "ContactController", urlPatterns = {"/ContactController"})
+public class ContactController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods. Compare two room
+     * methods. Insert request from requester
      *
      * @param request servlet request
      * @param response servlet response
@@ -45,37 +43,21 @@ public class CompareTwoController extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            RoomDAO roomDAO = new RoomDAOImpl();
-            ImageDAO imageDAO = new ImageDAOImpl();
-            String service = request.getParameter("do");
-            /**
-             * Service compareTwoRoom: get two room compareFinal.jsp
-             */
-            if (service.equalsIgnoreCase("compareTwoRoom")) {
-                int RoomID = Integer.parseInt(request.getParameter("Roomid").trim());
-                int RoomID1 = Integer.parseInt(request.getParameter("Roomid1").trim());
-                int cateID = Integer.parseInt(request.getParameter("cateID").trim());
-                /*Get image by RoomID*/
-                Image img = imageDAO.searchRoomidAndImage(RoomID);
-                /*Get image by RoomID1*/
-                Image img1 = imageDAO.searchRoomidAndImage(RoomID1);
-                /*Get room by RoomID*/
-                Room rooom = roomDAO.getOneRoom(RoomID);
-                /*Get room by RoomID1*/
-                Room rooom1 = roomDAO.getOneRoom(RoomID1);
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
 
-                request.setAttribute("Rooom", rooom);
-                request.setAttribute("Rooom1", rooom1);
-                request.setAttribute("img", img);
-                request.setAttribute("img1", img1);
-                request.setAttribute("cateid", cateID);
-
-                request.getRequestDispatcher("compareFinal.jsp").forward(request, response);
-
-            }
-
+            RequestMessageDAO requestMessageDAO = new RequestMessageDAOIpml();
+            HttpSession session = request.getSession();
+            String email = request.getParameter("email").trim();
+            String title = request.getParameter("title").trim();
+            String message = request.getParameter("message").trim();
+            /*redirect RequestController to index */
+            requestMessageDAO.insert(new RequestMessage(title, email, message, "0"));
+            String mEss = "Gửi yêu cầu thành công.";
+            request.setAttribute("mEss", mEss);
+            request.getRequestDispatcher("contact.jsp").forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(CompareTwoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ContactController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("errorMess", ex.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
@@ -96,7 +78,7 @@ public class CompareTwoController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(CompareTwoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ContactController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -114,7 +96,7 @@ public class CompareTwoController extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(CompareTwoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ContactController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

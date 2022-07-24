@@ -52,6 +52,7 @@
     <body id="reportsPage">
         <div class="" id="home">
             <%@include file="headerAdmin.jsp" %>
+             <h2 style="color:white;margin-bottom: 20px;text-align: center">Chỉnh sửa thông tin cá nhân</h2>
             <div class="container mt-5">
 
                 <!-- row -->

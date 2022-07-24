@@ -100,6 +100,7 @@
     <body>
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
+            <h2>   <a class="nav-link" href="ReceptionistController?do=profile"  target="__blank">Thông tin cá nhân</a></h2>
             <nav class="nav nav-borders">
 
                 <a class="nav-link" href="ReceptionistController"  target="__blank">Trang chủ</a>

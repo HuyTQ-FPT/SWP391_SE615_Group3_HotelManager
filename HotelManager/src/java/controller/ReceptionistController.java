@@ -116,11 +116,9 @@ public class ReceptionistController extends HttpServlet {
              * managerCustomer.jsp
              */
             if (service.equalsIgnoreCase("customer")) {
-                int count =1;
                 /*Get list customer*/
                 ArrayList<User> listUser = userDAO.getCustomerListByReceptionist();
                 request.setAttribute("listUser", listUser);
-                request.setAttribute("count", count);
                 request.getRequestDispatcher("managerCustomer.jsp").forward(request, response);
             }
             /**

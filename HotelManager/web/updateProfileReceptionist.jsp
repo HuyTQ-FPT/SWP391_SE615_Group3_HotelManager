@@ -22,9 +22,10 @@
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
         <style>
-            body{margin-top:20px;
-                 background-color:#f2f6fc;
-                 color:#69707a;
+            body{
+                margin-top:20px;
+                background-color:#f2f6fc;
+                color:#69707a;
             }
             .img-account-profile {
                 height: 10rem;
@@ -110,6 +111,7 @@
 
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
+            <h2 style="margin-left: -100px; margin-top: 0px"><a class="nav-link" href="ReceptionistController?do=viewUpdateRecept"  target="__blank">Chỉnh sửa thông tin cá nhân</a></h2>
             <nav class="nav nav-borders">
                 <a class="nav-link active ms-0" href="ReceptionistController?do=profile" target="__blank">Thông tin</a>
                 <a class="nav-link" href="ReceptionistController"  target="__blank">Trang chủ</a>

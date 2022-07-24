@@ -38,6 +38,7 @@
             <%
                 User user = (User) request.getAttribute("u");
             %>
+            <h2 style="color:white;margin-bottom: 20px;text-align: center">Thông tin cá nhân</h2>
             <div class="container mt-5">
 
                 <!-- row -->

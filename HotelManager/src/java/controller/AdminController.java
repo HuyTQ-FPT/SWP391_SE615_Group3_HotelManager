@@ -246,7 +246,6 @@ public class AdminController extends HttpServlet {
                 if (checkin.isEmpty() && checkout.isEmpty() && !name.isEmpty()) {
 
                     if (roomDAO.checkRoom(name) != null) {/*Room checking*/
- /*Search name*/
                         ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, null, null);
                         request.setAttribute("listReservation", listReservation);
                         request.getRequestDispatcher("reportRoom.jsp").forward(request, response);
@@ -287,6 +286,8 @@ public class AdminController extends HttpServlet {
 
                     Date to = Date.valueOf(checkin);
                     Date from = Date.valueOf(checkout);
+                    request.setAttribute("checkin", checkin);
+                    request.setAttribute("checkout", checkout);
                     /*Search by fields*/
                     ArrayList<Reservation> listReservation = daoReservation.totalOfRoomSearch(name, to, from);
                     request.setAttribute("listReservation", listReservation);
@@ -356,6 +357,7 @@ public class AdminController extends HttpServlet {
                         ArrayList<Reservation> listReservationTotalOfMotnh = daoReservation.totalOfRoomByMonth(month, year);
                         request.setAttribute("listReservationTotalOfMotnh", listReservationTotalOfMotnh);
                         request.setAttribute("year", year);
+                        request.setAttribute("month", month);
                         request.getRequestDispatcher("reportMonth.jsp").forward(request, response);
                     }
                 }

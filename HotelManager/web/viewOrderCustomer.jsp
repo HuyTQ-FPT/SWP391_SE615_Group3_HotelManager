@@ -379,30 +379,34 @@
             </nav>
 
         </section>
+        <div >
+            <span  ><h2  style="margin-top: -50px; margin-bottom: 30px">Lịch sử đặt hàng</h2></span>
+        </div>
         <c:if test="${!empty listReservation}">
-            <div style="margin-left: 30px">
-                <h3>Tên:${reservation.getName()}</h3>
-                <h3>Email:${reservation.getEmail()}</h3>
-                <h3>Số điện thoại:${reservation.getPhone()}</h3>
-                <h3>Địa chỉ:${reservation.getAddress()}</h3>
-<!--                <h3>Status:${reservation.getStatus()}</h3>-->
-            </div>
 
-       <% int count =1;%>
+            <% int count = 1;%>
 
-                <div class="table-wrapper table-responsive-sm">
-                    <table class="table table-striped table-hover table-bordered" >
-                        <thead>
-                            <tr>
-                                <th style="width: 10px">STT</th>
-                                <th style="width: 133px" scope="col">Số phòng</th>
-                                <th style="width: 310px" scope="col">Ngày đặt</th>
-                                <th style="width: 310px" scope="col">Ngày trả</th>
-                                <th style="width: 380px" scope="col">Giá Phòng</th>
-                                <th style="width: 310px" scope="col">Tổng tiền</th>
+            <div class="table-wrapper table-responsive-sm">
+                <div style="margin-left: 30px">
+                    <h3>Tên:${reservation.getName()}</h3>
+                    <h3>Email:${reservation.getEmail()}</h3>
+                    <h3>Số điện thoại:${reservation.getPhone()}</h3>
+                    <h3>Địa chỉ:${reservation.getAddress()}</h3>
+    <!--                <h3>Status:${reservation.getStatus()}</h3>-->
+                </div>
 
-                            </tr>
-                        </thead>
+                <table class="table table-striped table-hover table-bordered" >
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">STT</th>
+                            <th style="width: 133px" scope="col">Số phòng</th>
+                            <th style="width: 310px" scope="col">Ngày đặt</th>
+                            <th style="width: 310px" scope="col">Ngày trả</th>
+                            <th style="width: 380px" scope="col">Giá Phòng</th>
+                            <th style="width: 310px" scope="col">Tổng tiền</th>
+
+                        </tr>
+                    </thead>
                     <fmt:setLocale value="vi"/>
 
                     <c:forEach  items="${listReservation}" var="v">
@@ -420,8 +424,8 @@
 
 
 
-                           <%count=count+1;%>
-                            </tbody>
+                            <%count = count + 1;%>
+                        </tbody>
                     </c:forEach>
                 </table>
                 <h3 style=" margin-top: 44px;margin-left: 1055px;">Tổng tiền:<span style="color: red">${sum} đ</span></h3>

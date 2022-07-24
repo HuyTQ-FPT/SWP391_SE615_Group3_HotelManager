@@ -49,23 +49,10 @@ public class RequestController extends HttpServlet {
         try {
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
-
             RequestMessageDAO requestMessageDAO = new RequestMessageDAOIpml();
             HttpSession session = request.getSession();
             String service = request.getParameter("do");
-            /*Service is null,redirect contact.jsp to index */
-            if (service == null) {
 
-                String email = request.getParameter("email").trim();
-                String title = request.getParameter("title").trim();
-                String message = request.getParameter("message").trim();
-                /*Service is null,redirect RequestController to index */
-                requestMessageDAO.insert(new RequestMessage(title, email, message, "0"));
-                String mEss = "Gửi yêu cầu thành công.";
-                request.setAttribute("mEss", mEss);
-                    request.getRequestDispatcher("contact.jsp").forward(request, response);
-
-            }
             /**
              * Service listRequest: get list request requestMessage.jsp
              */
@@ -99,8 +86,7 @@ public class RequestController extends HttpServlet {
 
             }
             /**
-             * Service seenRequest: get a request 
-             * requestMessage.jsp
+             * Service seenRequest: get a request requestMessage.jsp
              */
             if (service.equalsIgnoreCase("seenRequest")) {
                 int id = Integer.parseInt(request.getParameter("mid").trim());
@@ -157,9 +143,9 @@ public class RequestController extends HttpServlet {
                 if (count % 3 != 0) {
                     endPage++;
                 }
-                  /* Get search title and pagination */
+                /* Get search title and pagination */
                 ArrayList<RequestMessage> listRequest = requestMessageDAO.searchName(index, nameTitle);
-                 /*Get count unread request*/
+                /*Get count unread request*/
                 ArrayList<RequestMessage> listRequest1 = requestMessageDAO.getMessageUnread();
                 String href = "RequestController?do=searchName&";
                 request.setAttribute("endPage", endPage);
@@ -172,11 +158,10 @@ public class RequestController extends HttpServlet {
                 session.setAttribute("index", index);
                 request.getRequestDispatcher("requestMessage.jsp").forward(request, response);
             }
-             /**
-             * Service viewReply: get view reply
-             * replyRequest.jsp
+            /**
+             * Service viewReply: get view reply replyRequest.jsp
              */
-            if (service.equalsIgnoreCase("viewReply")) { 
+            if (service.equalsIgnoreCase("viewReply")) {
                 int id = Integer.parseInt(request.getParameter("mID").trim());
                 String email = request.getParameter("email").trim();
                 request.setAttribute("email", email);
@@ -185,10 +170,9 @@ public class RequestController extends HttpServlet {
                 request.getRequestDispatcher("replyRequest.jsp").forward(request, response);
             }
             /**
-             * Service sendReply: Import into all fields
-             * replyRequest.jsp
+             * Service sendReply: Import into all fields replyRequest.jsp
              */
-            if (service.equals("sendReply")) { 
+            if (service.equals("sendReply")) {
                 SendMail sm = new SendMail();
                 int id = Integer.parseInt(request.getParameter("mID").trim());
                 String email = request.getParameter("inputEmail").trim();
