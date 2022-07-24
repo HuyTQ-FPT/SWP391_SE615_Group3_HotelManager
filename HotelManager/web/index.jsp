@@ -371,7 +371,7 @@ Author     : admin
                             <%for (Room v : vector) {%>
                             <div class="col-md-6 col-lg-4 mb-5">
                                 <div class="hotel-room text-center">
-                                    <a  href="RoomController?do=roomdetail&roomid=<%=v.getRoomID()%>&cateroom=<%=v.getRoomcateID()%>" class="d-block mb-0 thumbnail"><img style="width: 350px;
+                                    <a  href="RoomController?do=roomdetails&roomid=<%=v.getRoomID()%>&cateroom=<%=v.getRoomcateID()%>" class="d-block mb-0 thumbnail"><img style="width: 350px;
                                                                                                                                                                           height: 250px;" src="images/anhphong/<%= v.getImage()%>" 
                                                                                                                                                                           alt="Image" class="img-fluid"></a>
                                     <div class="stars">
@@ -397,7 +397,7 @@ Author     : admin
                                         font-size: 14px"><fmt:formatNumber value="<%=v.getRoomprice()%>" /> đ/ một đêm</strong>
                                             <div class="add-to-cart">
                                                 <form action="RoomController">
-                                                    <input type="hidden" name="do" value="roomdetail">
+                                                    <input type="hidden" name="do" value="roomdetails">
                                                     <input type="hidden" name="roomid" value="<%=v.getRoomID()%>">
                                                     <input type="hidden" name="cateroom" value="<%=v.getRoomcateID()%>">
                                                     <button  style="margin-top: 10px;
@@ -459,7 +459,7 @@ Author     : admin
                         <div class="row no-gutters">
                             <%for (Room r : vector4) {%>
                             <div class="col-md-6 col-lg-4">
-                                <a href="RoomController?do=roomdetail&roomid=<%=r.getRoomID()%>&cateroom=<%=r.getRoomcateID()%>" class="img-opacity"><img style="width: 400px;
+                                <a href="RoomController?do=roomdetails&roomid=<%=r.getRoomID()%>&cateroom=<%=r.getRoomcateID()%>" class="img-opacity"><img style="width: 400px;
                                     height: 250px;" src="images/anhphong/<%=r.getImage()%>" alt="Image" class="img-fluid"></a>                        
                             </div>
                             <%}%>
@@ -489,13 +489,13 @@ Author     : admin
                             <div class="media-with-text p-md-5">
                                 <div class="img-border-sm mb-4">
 
-                                    <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" class="popup-vimeo image-play">
+                                    <a href="RoomController?do=roomdetails&roomid=<%=e.getRoomID()%>" class="popup-vimeo image-play">
                                         <img style="width: 250px;
                                         height: 200px;" src="images/anhphong/<%=e.getImage()%>" alt="Image" class="img-fluid">
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="RoomController?do=roomdetail&roomid=<%=e.getRoomID()%>" style="font-weight: bold;
+                                    <a href="RoomController?do=roomdetails&roomid=<%=e.getRoomID()%>" style="font-weight: bold;
                                     font-size: 25px;
                                     color: black;
                                     font-family: Didot"><%=e.getCateroom()%></a>
