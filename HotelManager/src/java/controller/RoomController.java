@@ -126,7 +126,7 @@ public class RoomController extends HttpServlet {
                 session.setAttribute("isroomde", "isroomde");
                 request.setAttribute("rsfb", rs);
 //                 out.println("<h1>Lỗi Trang "+de+"</h1>");
-                request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
+                request.getRequestDispatcher("ListServiceCustomner.jsp").forward(request, response);
                 session.removeAttribute("isroomde");
             }
             if (service.equals("CateRoom")) {

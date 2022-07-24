@@ -147,7 +147,7 @@ public class ServiceController extends HttpServlet {
                 request.setAttribute("vector", getroomlist);
                 request.setAttribute("getroomlist2", getroomlist2);
                 request.setAttribute("listFeedBack", listFeedBack);
-                request.getRequestDispatcher("viewRoom.jsp").forward(request, response);
+                request.getRequestDispatcher("ListServiceCustomner.jsp").forward(request, response);
             }
             /**
              * get all service and response to ListService.jsp
