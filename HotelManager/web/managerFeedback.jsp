@@ -271,9 +271,9 @@
             }
             .feedbackM{
                 position: fixed;
-                top: 90px;
-                left: 100px;
-                font-size: 40px;
+                top: 100px;
+                left: 10px;
+                font-size: 30px;
                 color: black;
             }
         </style>
@@ -381,7 +381,7 @@
                     <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
                     <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
                     <input type="hidden" value="<%=m.getContent()%>" name="content"> 
-                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:Black">&#xE872;</i></button></td>
+                    <td style="width:30px"><button  onclick="deleteN()" type="submit"><i class="material-icons" style="color:Black">&#xE872;</i></button></td>
                 </form>
                         </td>
                         <% boolean check = false;
@@ -400,7 +400,7 @@
                     <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
                     <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
                     <input type="hidden" value="<%=m.getContent()%>" name="content"> 
-                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:red">assistant_photo</i></button></td>
+                    <td style="width:30px"><button  onclick="report()" type="submit"><i class="material-icons" style="color:red">assistant_photo</i></button></td>
                     <td style="width:30px"></td>
                 </form>
 
@@ -409,7 +409,7 @@
                     <input type="hidden" value="<%=m.getAccountID()%>" name="aID"> 
                     <input type="hidden" value="<%=m.getMessageID()%>" name="mID"> 
                     <td style="width:30px"></td>
-                    <td style="width:30px"><button type="submit"><i class="material-icons" style="color:red">assistant_photo</i></button></td>                      
+                    <td style="width:30px"><button onclick="exitreport()" type="submit"><i class="material-icons" style="color:red">assistant_photo</i></button></td>                      
                 </form>       
                 <% }%>
                 </tr> 
@@ -425,6 +425,15 @@
                     document.getElementById("team").style.display = "none";
                 }
             }
+            function exitreport(){
+                        alert("Gỡ tố cáo tài khoản thành công!");
+                }
+                function report(){
+                        alert("Tố cáo tài khoản thành công!");
+                }
+                function deleteN(){
+                        alert("Xóa phản hồi thành công!");
+                }
         </script>
     </body>
 </html>

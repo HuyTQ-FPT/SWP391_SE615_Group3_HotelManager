@@ -150,12 +150,18 @@
     width: 690px;
     height: 200px;
 }
-
+.hh{
+                position: fixed;
+                top:10px;
+                left: 120px;
+                color: white;
+            }
 
 </style>	
 <body>
-    <br><br><br>
-        <div class="col-md-8" id ="mainform">
+    <h2 class="mb-0 site-logo hh"><a href="HomeController">Hoang Hon</a></h2>
+    <<br><br><br>
+        <div class="col-md-8" id ="mainform">          
             <div class="col-sm-8">
                 <h2  class="contact-us" style="font-size:72px; color:#000;"><strong style="font-size:5cm; color:#555;">P</strong>hản hồi</h2>
             </div>
@@ -164,7 +170,7 @@
                     <label><h4>Tên khách hàng:</h4> </label><input readonly="" type="text" size="20"  class=" form-control" value="<%=request.getAttribute("Fname")%>" />
                     <h4>Bình luận:</h4><textarea maxlength="200" id="cm" class="form-control" rows="6" name="commentfb"  placeholder="Bình luận của bạn" value="" required=""></textarea>
                     <br>
-                    <input onclick="mess()" type="submit" class="btn btn-info" id="btn" style="text-shadow:0 0 3px #000000; font-size:24px;"></button>
+                    <input onclick="mess()" value="Gửi" type="submit" class="btn btn-info" id="btn" style="text-shadow:0 0 3px #000000; font-size:24px;">
                 </form>
             </div>
         </div>

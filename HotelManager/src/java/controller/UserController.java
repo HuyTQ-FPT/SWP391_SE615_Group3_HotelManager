@@ -113,7 +113,7 @@ public class UserController extends HttpServlet {
                 String name = request.getParameter("name").trim();
                 String email = request.getParameter("email").trim();
                 String phone = request.getParameter("phone").trim();
-                String address = request.getParameter("address").trim();
+                String address="";
                 int gender = Integer.parseInt(request.getParameter("gender"));
                 Date bod = Date.valueOf(request.getParameter("bod").trim());
                 String cmt = request.getParameter("cmt").trim();
@@ -121,6 +121,9 @@ public class UserController extends HttpServlet {
                 boolean checkemail = false;
                 boolean checkphone = false;
                 boolean checkcmnd = false;
+                if(request.getParameter("address").trim().equals("")) address="";
+                else address=request.getParameter("address").trim();
+                if(request.getParameter("bod").trim().equals("")) address="";
                 /*check conditions to update*/
                 if (phone.trim().length()==10 && cmt.trim().length()==12 && dao2.isNumeric(cmt) && dao2.isNumeric(phone)) {
                     n=dao2.updateUser(new User(uid, name, phone, email, gender, bod, address, cmt));                    
@@ -140,7 +143,7 @@ public class UserController extends HttpServlet {
                     session.setAttribute("gender", gender);
                     
                 }
-                if (dao2.isNumeric(phone)) {
+                if (!dao2.isNumeric(phone)) {
                     String messerror="SDT chi gom cac ky tu tu 0-9";
                     response.sendRedirect("UserController?do=Viewupdateprofile&er="+messerror+"&me=1");
                 } else if (cmt.trim().length()!=12) { 

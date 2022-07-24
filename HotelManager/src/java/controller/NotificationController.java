@@ -96,8 +96,12 @@ public class NotificationController extends HttpServlet {
                 String nameuser =request.getParameter("NameRe");
                 String title =request.getParameter("title");
                 String content =request.getParameter("content").trim();
+                if (!title.equals("") && !content.equals("")) {
                 daoN.insertMessageadmin(new Notification(title, nameuser, content, formatted));
                 response.sendRedirect("NotificationController");
+                }else{
+                    response.sendRedirect("NotificationController");
+                }
             } 
         }catch(Exception ex){
             Logger.getLogger(NotificationController.class.getName()).log(Level.SEVERE, null, ex);

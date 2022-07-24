@@ -65,9 +65,10 @@ public interface UserDAO {
      * @throws java.lang.Exception
      */
     public boolean isNumeric(String str) throws Exception;
+    
 
     /**
-     * Check customer information by email from User table
+     * Check email information have exist into datbase
      *
      * @param uGmail is an <code>User</code> object
      * @return <code>User</code> object.

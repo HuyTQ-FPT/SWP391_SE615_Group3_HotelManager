@@ -18,6 +18,7 @@ import util.SendMail;
 import util.randomPassword;
 import context.DBContext;
 import dao.UserDAO;
+import entity.User;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -129,7 +130,7 @@ public class LoginController extends HttpServlet {
                 String re_password = request.getParameter("re_password").trim();
                 String name = request.getParameter("name").trim();
                 ResultSet rs = dao.getData("select * from Account");
-
+                User u =userDAO.checkUser(email);
                 boolean user = true;
                 boolean checkemail = true;
                 int count = 0;
@@ -139,12 +140,11 @@ public class LoginController extends HttpServlet {
                         break;
                     }
                 }
-                while (rs.next()) {
-                    if (rs.getString(3).equals(username)) {
+                    if (u!=null) {
                         checkemail = false;
-                        break;
                     }
-                }
+                
+                
                  /*Check the conditions*/
                 if (!user) {// user exist
                     request.setAttribute("name", name);

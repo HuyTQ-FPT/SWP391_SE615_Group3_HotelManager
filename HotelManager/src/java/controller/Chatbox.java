@@ -133,44 +133,43 @@ public class Chatbox {
                                 + "                            </div>";
                         session.getBasicRemote().sendText(revice);
                     }
-                    if (Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid != aid) {// Add message to database if the messager is on standby
+                    if (exitAccount && Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid != aid) {// Add message to database if the messager is on standby
                         if (Roleid == 1) {
                             Mdao.insertNewmessagecus(new Message(aid, date, message.trim()));
                         } else {
                             Mdao.insertMessageRe(new Message(aid, date, message));
                         }
                         session.getBasicRemote().sendText(aid + " " + "<span>*</span>");
-                    }else if(Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid == aid) {// Add message to database if the messager is doing it alone
+                    }else if(exitAccount && Mdao.getRoleIDByUserId(SessionUserid) == 2 && SessionAid == aid) {// Add message to database if the messager is doing it alone
                         if (Roleid == 1) {
                             Mdao.insertMessageCus(new Message(aid, date, message.trim()));
                         } else {
                             Mdao.insertMessageRe(new Message(aid, date, message.trim()));
                         }
                     }
-                    if (!exitAccount && Mdao.getRoleIDByUserId(userid) != 2) {// Add message to database if the messager is new
+                    else if (!exitAccount && Mdao.getRoleIDByUserId(SessionUserid) == 2) {// Add message to database if the messager is new
                         if (Roleid == 1) {
                             Mdao.insertNewmessagecus(new Message(aid, date, message.trim()));
                         } else {
                             Mdao.insertMessageRe(new Message(aid, date, message.trim()));
                         }
-                        session.getBasicRemote().sendText("<a href=\"MessageController?do=Chat_people&accountid=" + aid + "\">                               \n"
-                                + "                                <div class=\"chat_list\">\n"
-                                + "                                    <div class=\"chat_people\">\n"
-                                + "                                        <div class=\"chat_img\"> <img src=\"https://ptetutorials.com/images/user-profile.png\" alt=\"sunil\"> </div>\n"
-                                + "                                        <div id=\"" + aid + "\" class=\"chat_ib\">\n"
-                                + "                                            <!--<h5 style=\"font-weight: bold;font-size:14px;\"></h5>-->\n"
-                                + "                                            <h5>" + u.getUserName() + "</h5>\n"
-                                + "                                            <span>*</span>\n"
-                                + "                                        </div>\n"
-                                + "                                    </div>\n"
-                                + "                                </div>       \n"
-                                + "                            </a>");
+                        if (Mdao.getRoleIDByUserId(userid) != 2) {
+                            session.getBasicRemote().sendText("<a href=\"MessageController?do=Chat_people&accountid=" + aid + "\">                               \n"
+                                    + "                                <div class=\"chat_list\">\n"
+                                    + "                                    <div class=\"chat_people\">\n"
+                                    + "                                        <div class=\"chat_img\"> <img src=\"https://ptetutorials.com/images/user-profile.png\" alt=\"sunil\"> </div>\n"
+                                    + "                                        <div id=\"" + aid + "\" class=\"chat_ib\">\n"
+                                    + "                                            <!--<h5 style=\"font-weight: bold;font-size:14px;\"></h5>-->\n"
+                                    + "                                            <h5>" + u.getUserName() + "</h5>\n"
+                                    + "                                            <span>*</span>\n"
+                                    + "                                        </div>\n"
+                                    + "                                    </div>\n"
+                                    + "                                </div>       \n"
+                                    + "                            </a>");
+                        }
                     }
                 }
-                if(Mdao.getRoleIDByUserId(userid)==1 && countSession==1){// add message to data in case else
-                            Mdao.insertNewmessagecus(new Message(aid, date, message.trim()));                       
-
-                }
+                 if(countSession==1 && Mdao.getRoleIDByUserId(userid) == 1)Mdao.insertNewmessagecus(new Message(aid, date, message.trim()));
             }
         }
     }

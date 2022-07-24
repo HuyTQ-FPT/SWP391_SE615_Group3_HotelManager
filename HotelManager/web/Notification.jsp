@@ -283,14 +283,15 @@
     <script>
         function Showmess() {
             var user = document.getElementById("user").value;
-            var title = document.getElementById("title").value;
-            var content = document.getElementById("content").value;
+            var title = document.getElementById("title").value.trim();
+            var content = document.getElementById("content").value.trim();
             if (title != "" && content != "") {
                 alert("Tin nhắn đã được gửi thành công đến lễ tân " + user);
+            }else{
+                alert("Không được để rỗng thông tin!");
             }
         }
         function deleteN() {
-
             alert("Xóa thông báo thành công");
         }
     </script>
