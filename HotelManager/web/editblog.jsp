@@ -38,6 +38,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" 
     src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <h2 style="color:white;margin-bottom: 20px;text-align: center;margin-top:20px;font-size:35px;">Thông tin bài viết</h2>
 <body id="reportsPage">
 
     <div class="">

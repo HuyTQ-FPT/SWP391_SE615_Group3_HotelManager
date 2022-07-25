@@ -31,8 +31,8 @@
         <link rel="stylesheet" href="css/aos.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/style_2.css" type="text/css">
-       
- <link rel="stylesheet" href="css/styledrop.css" type="text/css">
+
+        <link rel="stylesheet" href="css/styledrop.css" type="text/css">
 
 
     </head>
@@ -85,17 +85,17 @@
                                         <h4 >Thể loại</h4>
                                         <ul>
 
-                                            <% DBContext db= new DBContext();
-                                                    ResultSet rs=db.getData("select * from CateRoom");
-                                                    while(rs.next()){
-                                                %>
-                                                <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=<%=rs.getInt(1) %>"><%=rs.getString(2) %></a></li>
-                                                <%}%>
+                                        <% DBContext db = new DBContext();
+                                            ResultSet rs = db.getData("select * from CateRoom");
+                                            while (rs.next()) {
+                                        %>
+                                        <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=<%=rs.getInt(1)%>"><%=rs.getString(2)%></a></li>
+                                            <%}%>
 
-                                        </ul>
-                                    </div>
-                                    <div class="blog__sidebar__item">
-                                        <h4>Tin tức nổi bật</h4>
+                                    </ul>
+                                </div>
+                                <div class="blog__sidebar__item">
+                                    <h4>Tin tức nổi bật</h4>
                                     <c:forEach items="${b1}" var="c">
                                         <div class="blog__sidebar__recent">
                                             <a href="BlogController?do=detailBlog&blogID=${c.blogID}" class="blog__sidebar__recent__item">
@@ -328,7 +328,7 @@
 
 
 
-       <jsp:include page="footer.jsp"></jsp:include>
+        <jsp:include page="footer.jsp"></jsp:include>
     </div>
 
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -347,15 +347,15 @@
     <script src="js/mediaelement-and-player.min.js"></script>
 
     <script src="js/main.js"></script>
-    
+
     <script type="text/javascript" 
     src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script language="javascript">
-                                                document.getElementById("btn1").onclick = function () {
-                                                    document.getElementById("displaycomment").style.display = 'none';
-                                                    document.getElementById("commentblog").style.display = 'block';
-                                                    document.getElementById("btn2").style.display = 'block';
-                                                    document.getElementById("btn1").style.display = 'none';
+            document.getElementById("btn1").onclick = function () {
+            document.getElementById("displaycomment").style.display = 'none';
+            document.getElementById("commentblog").style.display = 'block';
+            document.getElementById("btn2").style.display = 'block';
+            document.getElementById("btn1").style.display = 'none';
                                                 };
     </script>
 
@@ -366,10 +366,6 @@
             document.getElementById("commentblog").style.display = 'none';
             document.getElementById("btn1").style.display = 'block';
         };
-
-
-        }
-
     </script>
     <script>
         function Readonly(commentId) {

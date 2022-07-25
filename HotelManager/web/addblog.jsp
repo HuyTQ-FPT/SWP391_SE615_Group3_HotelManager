@@ -62,11 +62,11 @@
                     <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                         <div class="row">
                             <div class="col-12">
-                                <h2 class="tm-block-title d-inline-block">Thêm blog</h2>             
+                              <h2 style="color:white;margin-bottom: 20px;text-align: center;margin-top:20px;font-size:35px;">Thêm tin tức</h2>
                             </div>
                         </div>
                         <div class="row tm-edit-product-row">
-                            <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div  class="col-xl-6 col-lg-6 col-md-12">
                                 <form action="BlogManagerController" method="post" class="tm-edit-product-form">
                                     <input type="hidden" value="" name="blogid"/>
                                     <div class="form-group mb-3">
@@ -77,7 +77,7 @@
                                         <input
                                             id="name"
                                             name="title"
-                                            type="text" maxlength="40"
+                                            type="text" maxlength="150"
                                             class="form-control validate"
                                             required
                                             />
