@@ -61,7 +61,7 @@
             <div class="main-body">
                 <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="UserController">Profile</a></li>
+                    <li class="breadcrumb-item"><a href="UserController?do=Profile">Thông tin cá nhân</a></li>
                 </ol>
             </nav>
                 <div class="row">
@@ -74,7 +74,7 @@
                                         <%while (rs.next()) {
                                         %>
                                         <h4><%=rs.getString(3)%></h4>
-                                        <p class="text-secondary mb-1">Full Stack Developer</p>
+                                        <p class="text-secondary mb-1">Ngôn ngữ:Java</p>
                                         <p class="text-muted font-size-sm">22 tuổi</p>
                                         <a href="LoginController?do=ChangePassword1"><button class="btn btn-primary">Đổi mật khẩu</button></a>
 

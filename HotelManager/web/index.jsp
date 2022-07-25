@@ -246,7 +246,7 @@ Author     : admin
                     </div>
                     <div class="card" id="team">
                         <div class="card_img">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
                         </div>
                     <c:if test="${sessionScope.login!=null}">
                         <div class="card_name">
@@ -267,7 +267,7 @@ Author     : admin
                     </div>
 
                     <div class="card_button">
-                        <a href="UserController"><button>Cài đặt</button></a>                       
+                        <a href="UserController"><button>Thôn tin</button></a>                       
                     </div>
                 </div>
                 <%
@@ -394,7 +394,7 @@ Author     : admin
                                             color: #b09700;
                                             font-family: Times New Roman;" href="#"><%=v.getCateroom()%></a></h3>
                                         <strong class="price" style="font-weight: bold;
-                                        font-size: 14px"><fmt:formatNumber value="<%=v.getRoomprice()%>" />,000 đ/ một đêm</strong>
+                                        font-size: 14px"><fmt:formatNumber value="<%=v.getRoomprice()%>" />đ/ một đêm</strong>
                                             <div class="add-to-cart">
                                                 <form action="RoomController">
                                                     <input type="hidden" name="do" value="roomdetails">
