@@ -6,7 +6,7 @@
  * Record of change:
  * DATE          Version    Author           DESCRIPTION
  *               1.0                         First Deploy
- * 
+ * 24/07/2022    1.0        HieuHT           Comment
  */
 package controller;
 
