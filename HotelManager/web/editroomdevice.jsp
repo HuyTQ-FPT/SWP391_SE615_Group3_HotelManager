@@ -20,7 +20,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Product Page - Admin HTML Template</title>
+        <title>Loại phòng</title>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:400,700"
@@ -36,6 +36,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
 
     <body id="reportsPage">
         <%@include file="headerAdmin.jsp"%>
+                <h2 style="color:wheat;margin-bottom: 20px;text-align: center">Danh sách loại phòng</h2>
         <a style="float: right; margin-bottom: 20px; border-radius: 10px;background-color: red" type="button" href="updateroomcate.jsp" class="btn btn-warning">Thêm Mới</a>
         <table id="myTable" class="display table" width="90%">  
             <thead>  

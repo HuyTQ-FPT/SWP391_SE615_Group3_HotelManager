@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Thông tin</title>
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <link rel="stylesheet" 
@@ -38,7 +38,7 @@
             <%
                 User user = (User) request.getAttribute("u");
             %>
-            <h2 style="color:white;margin-bottom: 20px;text-align: center">Thông tin cá nhân</h2>
+            <h2 style="color:wheat;margin-bottom: 20px;text-align: center">Thông tin cá nhân</h2>
             <div class="container mt-5">
 
                 <!-- row -->

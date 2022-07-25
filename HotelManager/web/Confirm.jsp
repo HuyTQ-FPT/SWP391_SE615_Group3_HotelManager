@@ -134,7 +134,7 @@
         <div class="row">
             <div class="col-75">
                 <div class="container">
-                    <form action="OrderController" method="get" name="myForm" onsubmit="return ok()" >
+                    <form action="OrderController" method="post" name="myForm" onsubmit="return ok()" >
                         <input type="hidden" name="do" value="Bill">
                         <input type="hidden" name="id" value="${id}">
                         <input type="hidden" name="total" value="${total}">

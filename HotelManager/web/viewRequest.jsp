@@ -150,7 +150,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h2 style="color:white;margin-bottom: 20px;text-align: center">Nội dung yêu cầu</h2>
+                <h2 style="color:wheat;margin-bottom: 20px;text-align: center">Nội dung yêu cầu</h2>
                 <p class="text-white mt-5 mb-5"></p>
             </div>
         </div>

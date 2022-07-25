@@ -159,7 +159,7 @@
         </div>
 
     </nav>
-      <h2 style="color:white;margin-bottom: 20px;text-align: center">Trả lời yêu cầu</h2>
+      <h2 style="color:wheat;margin-bottom: 20px;text-align: center">Trả lời yêu cầu</h2>
     <div class="tm-block-col tm-col-account-settings" style="margin-left: auto; margin-right: auto ">
         <h4 style="color: red;font-size: 25px;">${requestScope.err}</h4>
         <h4 style="color: red;font-size: 25px;">${requestScope.mess1}</h4>

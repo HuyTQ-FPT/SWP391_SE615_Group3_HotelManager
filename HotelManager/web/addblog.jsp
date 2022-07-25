@@ -7,7 +7,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Add Product - Dashboard HTML Template</title>
+        <title>Thêm tin tức</title>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:400,700"
@@ -62,7 +62,7 @@
                     <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                         <div class="row">
                             <div class="col-12">
-                              <h2 style="color:white;margin-bottom: 20px;text-align: center;margin-top:20px;font-size:35px;">Thêm tin tức</h2>
+                              <h2 style="color:wheat;margin-bottom: 20px;text-align: center;margin-top:20px;font-size:35px;">Thêm tin tức</h2>
                             </div>
                         </div>
                         <div class="row tm-edit-product-row">

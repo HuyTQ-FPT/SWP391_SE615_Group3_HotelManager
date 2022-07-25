@@ -38,7 +38,7 @@
             <%@include file="headerAdmin.jsp" %>
 
         </div>
-            <h2 style="color:white;margin-bottom: 20px;text-align: center">Báo cáo doanh số theo phòng</h2>
+            <h2 style="color:wheat;margin-bottom: 20px;text-align: center">Báo cáo doanh số theo phòng</h2>
         <h4 style="font-size: 20px ; color: red">${errr}</h4>
         <h4 style="font-size: 20px ; color: red">${err1}</h4>
         <form action="AdminController?do=incomeRoomAndSearch" method="post" >

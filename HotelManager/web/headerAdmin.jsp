@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Admin</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-xl" style="margin-bottom: 15px">
@@ -59,7 +59,7 @@
                                 <span> Phòng <i class="fas fa-angle-down"></i> </span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="RoomsController?do=listroom">Dann Sách Phòng</a>
+                                <a class="dropdown-item" href="RoomsController?do=listroom">Danh Sách Phòng</a>
                                 <a class="dropdown-item" href="DeviceController?do=listalldevice">Danh Sách Thiết Bị</a>
                                 <a class="dropdown-item" href="RoomcategoryController?do=getroombycategori">Loại Phòng</a>
                             </div>

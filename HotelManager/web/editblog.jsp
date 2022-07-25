@@ -12,7 +12,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Product Page - Admin HTML Template</title>
+        <title>Tin tức</title>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:400,700"
@@ -38,7 +38,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" 
     src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <h2 style="color:white;margin-bottom: 20px;text-align: center;margin-top:20px;font-size:35px;">Thông tin bài viết</h2>
+    <h2 style="color:wheat;margin-bottom: 20px;text-align: center;margin-top:20px;font-size:35px;">Thông tin bài viết</h2>
 <body id="reportsPage">
 
     <div class="">

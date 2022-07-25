@@ -137,7 +137,7 @@
         <div class="row">
             <div class="col-75">
                 <div class="container">
-                    <form name="myForm"  action="OrderController" method="get" id="form" onsubmit="return Validate()">
+                    <form name="myForm"  action="OrderController" method="post" id="form" onsubmit="return Validate()">
                         <input type="hidden" name="do" value="infor"> 
                         <% int id = (Integer) request.getAttribute("id");%>
                         <input type="hidden" name="id" value="<%=id%>">
