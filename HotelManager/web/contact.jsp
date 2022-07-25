@@ -74,7 +74,7 @@
                             <div class="row form-group ">
                                 <div class="col-md-12">
                                     <i class='bx bxs-star style' style="color:red;"></i>    <label class="font-weight-bold " for="email">Email</label>
-                                    <input type="email" id="email" class="form-control" name="email"  pattern="[a-zA-Z]\w+@(\w+.)+([a-zA-Z]+)"  maxlength="40" placeholder="Email*">
+                                    <input type="email" id="email" class="form-control" name="email"  pattern="[a-zA-Z]\w+@(\w+.)+([a-zA-Z]+)" required  maxlength="40" placeholder="Email*">
                                 </div>
                             </div>
 
