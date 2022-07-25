@@ -103,11 +103,6 @@ public class RoomController extends HttpServlet {
                 DevicesDAOImpl daode = new DevicesDAOImpl();
                 String RoomID = request.getParameter("roomid");
                 String cateroom = request.getParameter("cateroom");
-                ResultSet rs = db.getData("select * from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
-                ResultSet rs1 = db.getData("select count(*) from Message m join Account a on m.AccountID=a.AccountID join [User] u on a.AccountID=u.AccountID where RoomID=" + Integer.parseInt(RoomID));
-                while (rs1.next()) {
-                    request.setAttribute("countFB", rs1.getInt(1));
-                }   
                 Vector<Image> img = daos.getImageByid(RoomID);
                 Vector<Device> de = daode.getDevicebycateroom(RoomID);
                 Vector<Service> vector3 = dao1.getServiceListbyran();
@@ -124,8 +119,6 @@ public class RoomController extends HttpServlet {
                 request.setAttribute("img", img);
                 request.setAttribute("getroomlist", getroomlist);
                 session.setAttribute("isroomde", "isroomde");
-                request.setAttribute("rsfb", rs);
-//                 out.println("<h1>Lỗi Trang "+de+"</h1>");
                 request.getRequestDispatcher("ListServiceCustomner.jsp").forward(request, response);
                 session.removeAttribute("isroomde");
             }
