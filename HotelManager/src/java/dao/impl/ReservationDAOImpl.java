@@ -158,7 +158,7 @@ public class ReservationDAOImpl extends DBContext implements ReservationDAO {
                 int Status = rs.getInt(12);
                 Date dat = rs.getDate(13);
 
-                Reservation im = new Reservation(UserID, RoomID, Name, Email, Address, Phone, NumberOfPerson, checkin, checkout, total, Status, dat);
+                Reservation im = new Reservation(id,UserID, RoomID, Name, Email, Address, Phone, NumberOfPerson, checkin, checkout, total, Status, dat);
                 re.add(im);
             }
         } catch (SQLException ex) {

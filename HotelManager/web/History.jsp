@@ -1,4 +1,7 @@
 
+<%@page import="java.util.Calendar"%>
+<%@page import="java.sql.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="context.DBContext"%>
 <%@page import="entity.Reservation"%>
@@ -72,16 +75,18 @@
             </div>
         </section>
         <div class="hd">
-            <div style="padding-left: 400px; padding-bottom:100px;margin-right: 200px; margin-bottom: 100px">
+            <div style="padding-left: 180px; padding-bottom:100px;margin-right: 150px; margin-bottom: 100px">
                 <table class="table table-striped table-hover table-bordered" >
                     <thead class="cart-table-head" style="background-color:gray;">
                         <tr class="table-head-row">
                             <th class="supplier-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Phòng</th>
+                            <th class="supplier-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Hình ảnh</th>
                             <th class="supplier-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Từ ngày</th>
                             <th class="category-id" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Đến ngày</th>
                             <th class="product-name" style="padding-right: 60px; padding-left: 60px; color: white;font-weight: bold; ">Tổng tiền</th>
                             <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Trạng thái</th>
                             <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Phản hồi</th>
+                            <th class="product-year" style="padding-right: 30px; padding-left: 30px; color: white;font-weight: bold; ">Hủy đặt</th>
                         </tr>
                     </thead> 
                     <tbody>
@@ -108,6 +113,7 @@
                         %>
                         <tr class="table-body-row"> 
                             <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getRoomID()%> </th>
+                            <th class="supplier-id" style="padding-left: 30px;padding-right: 30px;"><a href="RoomController?do=roomdetails&roomid=<%=pro.getRoomID()%>&cateroom=<%=pro.getAddress()%>"><img style="width: 200px; height: 120px" src="images/anhphong/<%=pro.getEmail()%>" class="img-thumbnail"></a></th>
                             <th class="supplier-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getCheckin()%> </th>
                             <th class="category-id" style="padding-left: 50px;padding-right: 30px;" name=""><%=pro.getCheckout()%></th>
                             <th class="product-name" style="padding-left: 50px;padding-right: 30px;" name=""><fmt:formatNumber value="<%=pro.getTotal()%>" /> đ</th>
@@ -120,20 +126,35 @@
                                     <% } else {%>
                             <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name="">Tài khoản đang bị report</th>
                                 <% }%>
-                        </tr>                        
-                        <% }
-                          }%>
 
-                            <%if (pro.getStatus() == 2){%>
+                            <% }
+                                }%>
+
+                            <%if (pro.getStatus() == 0) {%>
                             <th class="product-year" style="padding-left: 50px;padding-right: 30px;" name="">Đang xử lí</th>
-                            <%}%>
-                            <%}%>
+                                <%}%>
+                                <%  long millis = System.currentTimeMillis();
+                                    java.sql.Date date = new java.sql.Date(millis);
+                                    java.sql.Date sDate = new java.sql.Date(pro.getCheckin().getTime());
+                                    java.sql.Date cDate = new java.sql.Date(pro.getCheckout().getTime());
+                                    if (date.before(cDate)) {
+                                %>
+                            
+                            <th class="category-id" style="padding-left: 30px;padding-right: 30px;" name=""><a href="OrderController?do=delete1&rid=<%=pro.getBillID()%>" onclick="ok()"> Hủy đặt</a></th>
+                                <%}%>    
+                                <%}%>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <jsp:include page="footer.jsp"></jsp:include>
     </body>
-
+<script>
+    function ok(){
+        alert("Bạn đã hủy đơn hàng thành công");
+    }
+    
+    </script>
 </html>
 

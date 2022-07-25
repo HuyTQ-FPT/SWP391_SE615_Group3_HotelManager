@@ -160,7 +160,7 @@
 </style>	
 <body>
     <h2 class="mb-0 site-logo hh"><a href="HomeController">Hoang Hon</a></h2>
-    <<br><br><br>
+    <br><br><br>
         <div class="col-md-8" id ="mainform">          
             <div class="col-sm-8">
                 <h2  class="contact-us" style="font-size:72px; color:#000;"><strong style="font-size:5cm; color:#555;">P</strong>hản hồi</h2>
