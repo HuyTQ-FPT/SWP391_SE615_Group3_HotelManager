@@ -29,7 +29,7 @@
         <div class="main-body">
             <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="HomeController">Home</a></li>
+                    <li class="breadcrumb-item"><a href="HomeController">Trang chủ</a></li>
                 </ol>
             </nav>
 
@@ -38,13 +38,13 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle" width="150">
                                 <div class="mt-3">
                                     <%while (rs.next()) {                                            
                                     %>
                                     <h4><%=rs.getString(3)%></h4>
                                     
-                                    <p class="text-secondary mb-1">Full Stack Developer</p>
+                                    <p class="text-secondary mb-1">Ngôn ngữ:Java</p>
                                     <p class="text-muted font-size-sm">22 Tuổi</p>
                                     <a href="LoginController?do=ChangePassword1"><button class="btn btn-primary">Đổi mật khẩu</button></a>
                                     

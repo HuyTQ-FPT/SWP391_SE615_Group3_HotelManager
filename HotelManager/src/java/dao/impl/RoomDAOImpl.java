@@ -766,6 +766,8 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
                 + "r.RoomcateID =c.RoomcateID \n"
                 + "left join DateOfRoom d \n"
                 + "on r.RoomID=d.RoomID \n";
+        int b =Integer.parseInt(a);
+        int c =b+1;
         if (datein != null && dateout != null && datein != "" && dateout != "") {
             java.util.Date date1 = (java.util.Date) format.parse(datein);
             java.sql.Date sDate = new java.sql.Date(date1.getTime());
@@ -775,7 +777,7 @@ public class RoomDAOImpl extends DBContext implements RoomDAO {
             sql += "where((d.DateOut < " + sDate + " or d.DateIn> " + cDate + ") or (d.DateIn is null and d.DateOut is null))\n";
         }
         if (a != null && a != "") {
-            sql += "and r.NumberPerson= " + a;
+            sql += "and (r.NumberPerson= " + a +"or r.NumberPerson= "+b+")";
         }
         try {
             conn = getConnection();

@@ -144,44 +144,45 @@
                         <input type="hidden" name="user" value="${sessionScope.login.getAccountID()}"> 
                         <div class="row">
                             <div class="col-50">
-                                <h3>Đơn đặt phòng</h3>
+                                <h3 style="padding-bottom: 30px">Đơn đặt phòng</h3>
                                 <% ResultSet rs1 = (ResultSet) request.getAttribute("rs1");
                                     if (rs1.next()) {
                                 %>
-                                <label for="fname"><i class="fa fa-user"></i> Tên đầy đủ(*)</label>
+                                <label for="fname" style=""><i class="fa fa-user"></i> Tên đầy đủ</label>
                                 <input type="hidden" name="firstname" placeholder="<%=rs1.getString(7)%>" value="<%=rs1.getString(7)%>" readonly>
                                 <p style="font-weight: bold;"><%=rs1.getString(7)%></p>
-                                <label for="email"><i class="fa fa-envelope"></i> Email(*)</label>
+                                <label for="email"><i class="fa fa-envelope"></i> Email</label>
                                 <p style="font-weight: bold;"><%=rs1.getString(9)%></p>
                                 <input type="hidden" id="email" name="email" placeholder="<%=rs1.getString(9)%>" value="<%=rs1.getString(9)%>" readonly>
                                 <label for="address"><i class="fa fa-address-card-o"></i> Địa chỉ</label>
                                 <p style="font-weight: bold;"><%=rs1.getString(12)%></p>
                                 <input type="hidden" id="adr" name="address" placeholder="<%=rs1.getString(12)%>" value="<%=rs1.getString(12)%>" readonly>
-                                <label for="city"><i class="fa fa-institution"></i> Số điện thoại(*)</label>
+                                <label for="city"><i class="fa fa-institution"></i> Số điện thoại</label>
                                 <p style="font-weight: bold;"><%=rs1.getString(8)%></p>
                                 <input type="hidden" id="city" name="phone" placeholder="<%=rs1.getString(8)%>"  value="<%=rs1.getString(8)%>" readonly>
                                 <%}%>
                                 <div class="row">
                                     <div class="col-50">
                                         <label style="display: inline-block; padding-top: 30px;font-size: 20px;" for="state">Người lớn</label>
-                                        <select style="font-size: 20px;width: 180px;" name="Adult" selected>
+                                        <select style="font-size: 20px;width: 180px;" name="Adult" selected id="Adult">
                                             <option value="1" selected> 1 </option>
                                             <option value="2"> 2 </option>
                                             <option value="3"> 3 </option>
                                             <option value="4"> 4 </option>
-                                            <option value="4"> 5 </option>
-                                            <option value="4"> 6 </option>
+                                            <option value="5"> 5 </option>
+                                            <option value="6"> 6 </option>
+                                            <option value="7"> 7 </option>
+                                            <option value="8"> 8 </option>
                                         </select>
                                     </div>
                                     <div class="col-50">
                                         <label style="display: inline-block; padding-top: 30px;font-size: 20px;margin-left: 0px;" for="state">Trẻ nhỏ</label>
-                                        <select style="font-size: 20px;width: 180px;"  name="Child" selected>
+                                        <select style="font-size: 20px;width: 180px;"  name="Child" id="Child" selected>
                                             <option value="1"> 1 </option>
                                             <option value="2"> 2 </option>
                                             <option value="3"> 3 </option>
                                             <option value="4"> 4 </option>
-                                            <option value="4"> 5 </option>
-                                            <option value="4"> 6 </option>
+                                            <option value="5"> 5</option>
                                         </select>
                                     </div>
                                     <% ResultSet rs2 = (ResultSet) request.getAttribute("rs2"); %>
@@ -200,7 +201,7 @@
 
                             <div class="col-50">
                                 <h3>Thanh toán</h3>
-                                <label for="fname">Chấp nhận thẻ</label>
+                                <h4>Chấp nhận thanh toán bằng thẻ</h4>
                                 <div class="icon-container">
                                     <i class="fa fa-cc-visa" style="color:navy;"></i>
                                     <i class="fa fa-cc-amex" style="color:blue;"></i>
@@ -246,12 +247,14 @@
                     <div>
                         <p style="font-size: 20px; font-weight: bold"><%=rs.getString(19)%>- <%=rs.getInt(2)%> </p>
                         <p style="color: #0b9af4; font-size: 20px">Thanh toán khi nhận phòng</p>
-                        <p>Số người<span style="padding-left: 100px; font-weight: bold;"><%=rs.getInt(7)%> </span> </p>
+                        <p>Số người<span style="padding-left: 100px; font-weight: bold;" ><%=rs.getInt(7)%> </span> </p>
+                        <input type="hidden" id="person" value="<%=rs.getInt(7)%>">
                         <p>Kiểu phòng<span style="padding-left: 85px;font-weight: bold;"><%=rs.getString(19)%></span> </p>
                     </div>
                     <div class="row">
                         <div class="col-md-5">
                             <img style="width: 100px;height: 80px; margin-left: 20px;"src="images/anhphong/<%=rs.getString(14)%>" alt="">
+                            <input type="hidden" name="imga" value="<%=rs.getString(14)%>">
                         </div>
                         <div class="col-md-7">
                             <i style="padding-left: 65px;color: green"class='fas fa-utensils'> Miễn phí wifi </i>
@@ -283,6 +286,8 @@
         let checkin = document.forms["myForm"]["checkin"].value;
         let checkout = document.forms["myForm"]["checkout"].value;
         let number = document.forms["myForm"]["checkout"].value;
+        var person=document.getElementById("person").value;
+        var Adult=document.getElementById("Adult").value;
         var regexPhone = /0[0-9]{9,10}/;
         var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
         var today = new Date();
@@ -291,7 +296,11 @@
             alert('Ngày check out phải lớn hơn Checkin');
             document.myForm.checkin.focus();
             return false;
-        } else {
+        }if (Adult > person) {
+                alert("Quá số người qui định");
+                document.myForm.Adult.focus();
+                return false;
+        }else {
             return true;
         }
     }

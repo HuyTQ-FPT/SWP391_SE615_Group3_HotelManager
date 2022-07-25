@@ -323,9 +323,9 @@
         }
         .feedbackM{
                 position: fixed;
-                top: 90px;
-                left: 100px;
-                font-size: 40px;
+                top: 100px;
+                left: 10px;
+                font-size: 30px;
                 color: black;
             }
         </style>
@@ -429,7 +429,7 @@
                         <button class="recep"><span>Gửi thông báo tới Admin</span></button>
                     </div>
                     <br>
-                    <form action="NotificationController?do=SentAdmin" method="post">
+                    <form action="FeedbackController?do=SentAdmin" method="post">
                         <div class="BoxSentMess">                  
                         <div class="Main">
                             <input required="" id="title" name="title" type="text" maxlength="100" placeholder="Tiêu đề" class="text">
@@ -441,12 +441,15 @@
                       
                         <script>
                                         function Showmess(){
-                                        var title =document.getElementById("title").value;
-                                        var content =document.getElementById("content").value;
+                                        var title =document.getElementById("title").value.trim();
+                                        var content =document.getElementById("content").value.trim();
                                         if(title!="" && content!=""){
                                             alert("Tin nhắn đã được gửi thành công đến Admin!");
+                                        }else{
+                                            alert("Không được để rỗng thông tin!");
                                         }
                                     }
+                                    
                                     </script>
                                      <script>
             function show() {

@@ -57,12 +57,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     alert('Địa chỉ Email không hợp lệ');
                     document.myForm.email.focus();
                     return false;
-                }
-                if (!regexPhone.test(p)) {
-                    alert('Số điện thoại không hợp lệ');
-                    document.myForm.phone.focus();
-                    return false;
-                } else {
+                }else {
                     alert("Cập nhật thành công!");
                 }
             }
@@ -71,15 +66,11 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
 
     <body>
         <%@include file="headerAdmin.jsp" %>
+        <h1 style="text-align: center; color: wheat; padding-top: 10px">Thông tin hóa đơn </h1>
         <div class="container tm-mt-big tm-mb-big">
             <div class="row">
                 <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
                     <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-                        <div class="row">
-                            <div class="col-12">
-                                <h2 class="tm-block-title d-inline-block" style="color: yellowgreen;font-size: 30px">Cập nhật hóa đơn</h2>             
-                            </div>
-                        </div>
                         <div class="row tm-edit-product-row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <% ResultSet rs = (ResultSet) request.getAttribute("rs");
@@ -141,7 +132,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="name" style="padding-right: 10px">Trạng thái </label>
-                                        <select name="status" style="font-size: 18px; ">
+                                        <select name="status" style="font-size: 18px; " class="custom-select tm-select-accounts">
                                             <option value="1" <%=rs.getInt(11) == 1 ? "selected" : ""%>>Đang xử lí</option>
                                             <option value="2" <%=rs.getInt(11) == 2 ? "selected" : ""%>>Hoàn thành</option>
                                         </select>

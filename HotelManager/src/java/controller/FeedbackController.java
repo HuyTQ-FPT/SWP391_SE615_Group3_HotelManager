@@ -164,8 +164,12 @@ public class FeedbackController extends HttpServlet {
                 String formatted = current.format(formatter);
                 String title =request.getParameter("title");
                 String content =request.getParameter("content").trim();
-                daoN.insertNotification(new Notification("Gửi tin nhắn đến Admin", a.getUser(), "Với", content, formatted));
-                response.sendRedirect("FeedbackController?do=Admin");
+                if (!title.equals("") && !content.equals("")) {
+                    daoN.insertNotification(new Notification("Gửi tin nhắn đến Admin", a.getUser(), "Với", content, formatted));
+                    response.sendRedirect("FeedbackController?do=Admin");
+                }else{
+                    response.sendRedirect("FeedbackController?do=Admin");
+                }
             }
         }catch (Exception ex) {
             Logger.getLogger(FeedbackController.class.getName()).log(Level.SEVERE, null, ex);

@@ -79,14 +79,14 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         }
     </style>
     <script>
-    function Reload(){
+        function Reload() {
             let checkin = document.forms["myForm"]["cin"].value;
             let checkout = document.forms["myForm"]["cout"].value;
             if (!(checkout >= checkin)) {
-            alert('Ngày check out phải lớn hơn Checkin');
-            document.myForm.cin.focus();
-            return false;
-            } else{
+                alert('Ngày check out phải lớn hơn Checkin');
+                document.myForm.cin.focus();
+                return false;
+            } else {
                 alert('Thêm thành công!');
             }
         }
@@ -97,35 +97,32 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
             ResultSet rs = db.getData("select * from Room");
             ResultSet rs1 = db.getData("select * from [User]");
             ResultSet rs2 = db.getData("select * from [User] where UserID=1");
-            String a="1";
-            String b="1";
-            String c="null";
+            String a = "1";
+            String b = "1";
+            String c = "null";
             if (request.getAttribute("name") != null) {
                 System.out.println("ok");
                 a = (String) request.getAttribute("name");
                 rs2 = db.getData("select * from [User] where UserID=" + a);
-            }if(request.getAttribute("name") != null){
-                b= (String) request.getAttribute("cid");
-            }if(request.getAttribute("total") != null){
-                String d= (String) request.getAttribute("total");
-                c=c+d;
-                System.out.println(c);
+            }
+            if (request.getAttribute("name") != null) {
+                b = (String) request.getAttribute("cid");
+            }
+            if (request.getAttribute("total") != null) {
+                String d = (String) request.getAttribute("total");
+                c = c + d;
             }
         %>
         <%@include file="headerAdmin.jsp" %>
+        <h1 style="text-align: center; color: wheat; padding-top: 10px">Thêm đặt phòng </h1>
         <div class="container tm-mt-big tm-mb-big">
             <div class="row">
                 <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
                     <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-                        <div class="row">
-                            <div class="col-12">
-                                <h2 class="tm-block-title d-inline-block">Thêm đặt phòng</h2>             
-                            </div>
-                        </div>
                         <div class="row tm-edit-product-row">
                             <div class="col-xl-6 col-lg-6 col-md-12">
                                 <form action="OrderController" method="get" class="tm-edit-product-form" name="myForm" onsubmit="return Reload()">
-                                    <input type="hidden" name="do" value="getUser">
+                                    <input type="hidden" name="do" value="del">
                                     <div class="form-group mb-3">
                                         <label for="name">Tên khách hàng </label>
                                         <select style="text-align: center"
@@ -135,7 +132,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 onchange="this.form.submit()"
                                                 >
                                             <%
-                                            while (rs1.next()) {
+                                                while (rs1.next()) {
                                             %>
                                             <option value="<%=rs1.getInt(1)%>" <%=rs1.getInt(1) == Integer.parseInt(a) ? "selected" : ""%>><%=rs1.getString(3)%></option>
                                             <%}%>
@@ -172,8 +169,8 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                         <label for="name">Số người đến </label>
                                         <input name="number" id="number" type="number" min="1" max="12" class="form-control validate"required />
                                     </div>
-                                         <%long millis = System.currentTimeMillis();
-                                    java.sql.Date date = new java.sql.Date(millis);%>
+                                    <%long millis = System.currentTimeMillis();
+                                             java.sql.Date date = new java.sql.Date(millis);%>
                                     <div class="form-group mb-3" >
                                         <label for="name">Ngày đi </label>
                                         <input name="cin" min="<%=date%>"  type="date"class="form-control validate"required />
@@ -203,15 +200,6 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 </div>
             </div>
         </div>
-        <footer class="tm-footer row tm-mt-small">
-            <div class="col-12 font-weight-light">
-                <p class="text-center text-white mb-0 px-4 small">
-                    Copyright &copy; <b>2018</b> All rights reserved. 
-
-                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
-                </p>
-            </div>
-        </footer> 
 
         <script src="js/jquery-3.3.1.min.js"></script>
         <!-- https://jquery.com/download/ -->
@@ -220,9 +208,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
         <script src="js/bootstrap.min.js"></script>
         <!-- https://getbootstrap.com/ -->
         <script>
-                                    $(function () {
-                                        $("#expire_date").datepicker();
-                                    });
+                                                    $(function () {
+                                                        $("#expire_date").datepicker();
+                                                    });
         </script>
     </body>
 </html>

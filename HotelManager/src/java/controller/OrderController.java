@@ -8,7 +8,6 @@
  *               1.0                         First Deploy
  *18/09/2022     1.0        HieuHT
  */
-
 package controller;
 
 import dao.impl.DateOfRoomImpl;
@@ -42,7 +41,7 @@ public class OrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             String service = request.getParameter("do");
             DBContext db = new DBContext();
             ReservationDAOImpl dao1 = new ReservationDAOImpl();
@@ -100,6 +99,7 @@ public class OrderController extends HttpServlet {
                 String event = request.getParameter("event");
                 String adult = request.getParameter("Adult").trim();
                 String child = request.getParameter("Child").trim();
+                String img = request.getParameter("imga").trim();
                 // Lấy price service
                 String[] serviceId = request.getParameterValues("service");
                 // ép type date check in check out
@@ -115,7 +115,7 @@ public class OrderController extends HttpServlet {
 
                 // using TimeUnit class from java.util.concurrent package
                 long getDaysDiff = TimeUnit.MILLISECONDS.toDays(getDiff);
-                
+
                 String serv = "";
                 int price = 0;
                 // lay service price and name
@@ -126,14 +126,14 @@ public class OrderController extends HttpServlet {
                             ResultSet rs = db.getData("select * from Service where ServiceID=" + f);
                             while (rs.next()) {
                                 price += rs.getInt(6);
-                                serv += rs.getString(2) + ";";
+                                serv += rs.getString(2) + ". ";
                             }
                         }
                     }
                 }
                 int a = Integer.parseInt(adult) + Integer.parseInt(child); // number of person
                 int id = Integer.parseInt(key);
-                long total = price + Integer.parseInt(money)*getDaysDiff;
+                long total = price + Integer.parseInt(money) * getDaysDiff;
                 // discount
                 int c = 0;
                 if (Integer.parseInt(event) != 0) {
@@ -155,6 +155,7 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("id", key);
                 request.setAttribute("total", total);
                 request.setAttribute("ser", serv);
+                request.setAttribute("img", img);
                 request.getRequestDispatcher("Confirm.jsp").forward(request, response);
             }
             if (service.equalsIgnoreCase("Bill")) {
@@ -186,7 +187,7 @@ public class OrderController extends HttpServlet {
                 Account acc = (Account) session.getAttribute("login");
                 int l = acc.getAccountID();
                 double total = Double.parseDouble(money);
-                Reservation re = new Reservation(l, id, firstname, email, address, phone, Integer.parseInt(a), sDate, cDate, total, 1, date);
+                Reservation re = new Reservation(l, id, firstname, email, address, phone, Integer.parseInt(a), sDate, cDate, total, 0, date);
                 vector.add(re);
                 // lưu trong session
                 session.setAttribute(key, re);
@@ -199,7 +200,11 @@ public class OrderController extends HttpServlet {
             if (service.equals("yourbill")) {// Lịch sử mua hàng
                 Vector<Reservation> vector = new Vector<Reservation>();
                 String cid = request.getParameter("id");
-                vector = dao1.Reservation("select BillID,UserID,RoomID,Name,Email,[Address],Phone,NumberOfPerson,Checkin,Checkout,Total,[Status], [Date] from Reservation where UserID=" + cid);
+                vector = dao1.Reservation("select r.BillID,r.UserID,r.RoomID,r.Name,i.image1,c.RoomcateID,r.Phone,r.NumberOfPerson,r.Checkin,r.Checkout,r.Total,r.[Status], r.[Date] from Reservation r\n"
+                        + "join Room re on re.RoomID=r.RoomID\n"
+                        + "join [Image] i on i.RoomimgaeID= re.RoomID\n"
+                        + "join CateRoom c on c.RoomcateID=re.RoomcateID\n"
+                        + "where r.UserID="+cid+" and (r.Status=0 or r.Status=1)");
                 request.setAttribute("vector", vector);
                 request.setAttribute("aid", cid);
                 RequestDispatcher dispath = request.getRequestDispatcher("History.jsp");
@@ -410,6 +415,10 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("n", c);
                 RequestDispatcher dispath = request.getRequestDispatcher("AdminCart.jsp");
                 dispath.forward(request, response);
+            }if (service.equals("delete1")) {
+                String cid = request.getParameter("rid");
+                dao1.removeReservation(Integer.parseInt(cid));
+                response.sendRedirect("HomeController");
             }
 
         } catch (Exception ex) {

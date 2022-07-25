@@ -12,6 +12,7 @@
 <%@page import="java.util.Vector"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -128,20 +129,19 @@
         </style>
     </head>
     <body>
-
         <h2>Đặt phòng khách sạn</h2>
         <p>Điền thông tin người liên lạc và khách bên dưới</p>
         <div class="row">
             <div class="col-75">
                 <div class="container">
-                    <form action="OrderController" method="get" onsubmit="ok()" >
+                    <form action="OrderController" method="get" name="myForm" onsubmit="return ok()" >
                         <input type="hidden" name="do" value="Bill">
                         <input type="hidden" name="id" value="${id}">
                         <input type="hidden" name="total" value="${total}">
                         <div class="row">
                             <div class="col-50">
                                 <% Vector<Reservation> vector = (Vector<Reservation>) request.getAttribute("vector");
-                                long millis = System.currentTimeMillis();
+                                    long millis = System.currentTimeMillis();
                                     java.sql.Date date = new java.sql.Date(millis);
 
                                     String da = "";
@@ -162,7 +162,7 @@
                                 <p style="font-weight: bold; color: black"><%=r.getAddress()%></p>
                                 <label for="city"><i class="fa fa-institution"></i> Số điện thoại</label>
                                 <p style="font-weight: bold; color: black"><%=r.getPhone()%></p>
-                                
+
                                 <input type="hidden" name="firstname" value="<%=r.getName()%>">
                                 <input type="hidden" name="email" value="<%=r.getEmail()%>">
                                 <input type="hidden" name="address" value="<%=r.getAddress()%>">
@@ -171,7 +171,7 @@
                                 <input type="hidden" name="checkin" value="<%=r.getCheckin()%>">
                                 <input type="hidden" name="checkout" value="<%=r.getCheckout()%>">
                                 <input type="hidden" name="number" value="<%=r.getNumberOfPerson()%>">
-                                
+
                                 <div class="row">
                                     <div class="col-100">
                                         <label style="display: inline-block; padding-top: 20px; padding-left: 15px;font-size: 20px;" for="state">Số người</label>
@@ -190,59 +190,66 @@
                                 </div>
                                 <label for="cname">Dịch vụ</label>
                                 <label style="display:inline-block;"for="vehicle1"></label><br>
-                                <p style="font-weight: bold; color: black">${ser}</p>
+                                <% if(request.getAttribute("ser")!=null){%>
+                                <% String a= (String)request.getAttribute("ser"); 
+                                %>
+                                <p style="font-weight: bold; color: black"><%=a%></p>
+                                <%}%>
                                 <label style="padding-top: 30px;"for="ccnum">Ngày đến</label>
                                 <p style="font-weight: bold; color: black"><%=r.getCheckin()%></p>
                                 <label for="expmonth" style="padding-top: 10px">Ngày đi</label>
-                                <p style="font-weight: bold; color: black"><%=r.getCheckout() %></p>
+                                <p style="font-weight: bold; color: black"><%=r.getCheckout()%></p>
                             </div>
 
                         </div>
                         <label>
-                            <input type="checkbox" checked="checked" name="sameadr"> Bạn đã đọc đầy đủ luật
+                            <input type="checkbox" name="sameadr" id="oke" > Bạn xác nhận thông tin
                         </label>
-                       
+
                 </div>
             </div>
             <div class="col-25">
-                 <div style="padding-bottom: 50px;height:  400px;"  class="container1">
+                <div style="padding-bottom: 70px;height:  400px;"  class="container1">
                     <div>
                         <h4 style="margin-top: 5px; font-size: 30px;; font-weight: bold; color: red"> Hoang Hon </h4>                       
                     </div>
-                    <div style="background-color: #f7f9fa; height: 150px;padding-top: 10px;" class="nhanphong">
-                        <p style="margin-left: 20px;"> Ngày nhận phòng: <%=r.getCheckin() %>, Từ 11:00 <p>                         
-                        <p style="margin-left: 20px;"> Ngày trả phòng:  <%=r.getCheckout() %>, Trước 13:00</p>            
+                    <div style="background-color: #f7f9fa; height: 100px;padding-top: 5px;" class="nhanphong">
+                        <p style="margin-left: 20px;"> Ngày nhận phòng: <%=r.getCheckin()%>, Từ 11:00 <p>                         
+                        <p style="margin-left: 20px;"> Ngày trả phòng:  <%=r.getCheckout()%>, Trước 13:00</p>            
                     </div>
                     <div>
                         <p style="font-size: 20px; font-weight: bold"> </p>
-                        <p style="color: #0b9af4; font-size: 20px">Thanh toán khi nhận phòng</p>
-                        <p><span style="padding-left: 100px;"></span> </p>
-                        <p><span style="padding-left: 100px;"></span> </p>
+                        <p style="color: #0b9af4; font-size: 20px;font-weight: bold">Thanh toán khi nhận phòng</p>
                     </div>
-                    <div class="row">
-                        <div class="col-md-7">
-                            <i style="padding-left: 90px;color: green"class='fas fa-utensils'> Miễn phí wifi </i>
-                        </div>
+                    <div >
+                        <img style="width: 200px;height: 110px; margin-left: 20px;"src="images/anhphong/${img}" alt="">
                     </div>
                     <hr>
                     <p style="color: green;">Miễn phí huỷ phòng đến trước <%=da%> </p>
 
                 </div>
-                <div class="container">
-                    <p><a href="#"></a> <span class="price"></span></p>
-                    <hr>
-                    <p style="font-weight: bold; color: red">Tổng giá <span class="price" style="color:black"><p style="font-weight: bold; color: black;font-size: 30px">${total}</p></span></p>
+                    <div style="padding-top: 20px">
+                    <div class="container">
+                        <hr>
+                        <p style="font-weight: bold; color: red">Tổng giá <span class="price" style="color:black"><p style="font-weight: bold; color: black;font-size: 30px"><fmt:formatNumber value="${total}"/>đ</p></span></p>
+                    </div>
                 </div>
             </div>
         </div>
-                <input type="submit" value="Hoàn tất" class="btn">
-                    </form>
-        <%}%>
-    </body>
+        <input type="submit" value="Hoàn tất" class="btn">
+    </form>
+    <%}%>
+</body>
 </html>
 <script>
-    function ok(){
-        alert("Bạn đã đặt chỗ thành công");
+    function ok() {
+        if (!document.getElementById("oke").checked) {
+            alert("Bạn chưa điền đầy đủ");
+            document.myForm.oke.focus();
+            return false;
+        } else {
+            alert("Bạn đã đặt chỗ thành công");
+        }
     }
 </script>
-    
+

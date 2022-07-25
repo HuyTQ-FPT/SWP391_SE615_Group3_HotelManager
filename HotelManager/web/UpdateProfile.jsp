@@ -61,7 +61,7 @@
             <div class="main-body">
                 <nav aria-label="breadcrumb" class="main-breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="UserController">Profile</a></li>
+                    <li class="breadcrumb-item"><a href="UserController?do=Profile">Thông tin cá nhân</a></li>
                 </ol>
             </nav>
                 <div class="row">
@@ -74,7 +74,7 @@
                                         <%while (rs.next()) {
                                         %>
                                         <h4><%=rs.getString(3)%></h4>
-                                        <p class="text-secondary mb-1">Full Stack Developer</p>
+                                        <p class="text-secondary mb-1">Ngôn ngữ:Java</p>
                                         <p class="text-muted font-size-sm">22 tuổi</p>
                                         <a href="LoginController?do=ChangePassword1"><button class="btn btn-primary">Đổi mật khẩu</button></a>
 
@@ -183,30 +183,30 @@
                                             <% }%>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    <div class="row mb-3 form-group">
                                         <div class="col-sm-3">
                                             <h6 class="mb-0">Giới tính</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
                                             <%if(request.getAttribute("messerror")==null){%>
                                             <%if (rs.getInt(10) == 0) {%>
-                                            <input type="radio" name="gender" value="0" checked>Nữ    
+                                            <i class='bx bxs-star style' style="color:red;"></i><input type="radio" name="gender" value="0" checked>Nữ    
                                             <input type="radio" name="gender" value="1">Nam
                                             <%} else if(rs.getInt(10) == 1) {%>
-                                            <input type="radio" name="gender" value="0" >Nữ    
+                                           <i class='bx bxs-star style' style="color:red;"></i> <input type="radio" name="gender" value="0" >Nữ    
                                             <input type="radio" name="gender" value="1" checked>Nam
                                             <%} else{%>
-                                           <input type="radio" name="gender" value="0">Nữ    
+                                           <i class='bx bxs-star style' style="color:red;"></i><input type="radio" name="gender" value="0">Nữ    
                                             <input type="radio" name="gender" value="1">Nam
                                             <% } }else{%>
                                             <%if (Integer.parseInt(session.getAttribute("gender").toString()) == 0) {%>
-                                            <input type="radio" name="gender" value="0" checked>Nữ    
+                                            <i class='bx bxs-star style' style="color:red;"></i><input type="radio" name="gender" value="0" checked>Nữ    
                                             <input type="radio" name="gender" value="1">Nam
                                             <%} else if(Integer.parseInt(session.getAttribute("gender").toString()) == 1) {%>
-                                            <input type="radio" name="gender" value="0" >Nữ    
+                                           <i class='bx bxs-star style' style="color:red;"></i><input type="radio" name="gender" value="0" >Nữ    
                                             <input type="radio" name="gender" value="1" checked>Nam
                                             <%} else{%>
-                                           <input type="radio" name="gender" value="0">Nữ    
+                                           <i class='bx bxs-star style' style="color:red;"></i><input type="radio" name="gender" value="0">Nữ    
                                             <input type="radio" name="gender" value="1">Nam
                                       
                                             <% }}%>

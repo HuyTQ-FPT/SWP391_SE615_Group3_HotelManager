@@ -91,8 +91,8 @@
                         <div class="container">
                             <div class="row align-items-center justify-content-center">
                                 <div class="col-md-7 text-center" data-aos="fade">
-                                    <h1 class="mb-2">Relaxing Room</h1>
-                                    <h2 class="caption">Your Room, Your Stay</h2>
+                                    <h1 class="mb-2">Sự thư giãn</h1>
+                                    <h2 class="caption">Phòng của bạn, Chuyến đi của bạn</h2>
                                 </div>
                             </div>
                         </div>

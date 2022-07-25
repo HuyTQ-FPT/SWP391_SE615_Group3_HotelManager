@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
- *
+ * Web application lifecycle listener.
  *
  * @author HieuLBM
  */
@@ -27,7 +27,7 @@ public class countViewPage implements HttpSessionListener {
     // chạy ngay sau khi phiên làm việc được tạo
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        ViewDAO viewDAO = new ViewDAOImpl();
+            ViewDAO viewDAO = new ViewDAOImpl();
         if (se.getSession().isNew()) {
 
             try {
@@ -39,9 +39,9 @@ public class countViewPage implements HttpSessionListener {
         }
 
     }
-
-    // chạy ngay sau khi phiên làm việc hết hạn
+  // chạy ngay sau khi phiên làm việc hết hạn
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
+        System.out.println("-1 View");
     }
 }
