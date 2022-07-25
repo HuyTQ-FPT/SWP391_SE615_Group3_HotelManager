@@ -300,7 +300,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                      var price = arr[1].value;
                      var dt = arr[3].value;
                      var sn = arr[4].value;
-                     if(name!= "" && price!= "" && dt!="" && sn!=""&&dt>=20 && dt<=100 &&price>=0 && price<=9999){
+                     if(name!= "" && price!= "" && dt!="" && sn!=""&&dt>=20 && dt<=100 &&price>=0 && price<=9999999){
                      alert("Thêm Thành Công Phòng: "+name+" Bấm Danh Sách Phòng Để Quay Lại");
                      }
                 }

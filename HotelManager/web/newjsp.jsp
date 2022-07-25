@@ -288,7 +288,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                 var arr = document.getElementsByTagName('input');
                 var roomnumber = arr[1].value;
                 var price = arr[2].value;
-                if (price != "" && price < 9999 && price > 0 && roomnumber != "") {
+                if (price != "" && price < 9999999 && price > 0 && roomnumber != "") {
                     alert("Cập Nhật Thành Công");
                 }
             }

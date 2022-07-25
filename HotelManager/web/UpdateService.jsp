@@ -123,7 +123,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                type="number"
                                                min="0"
                                                required
-                                               max="9999"
+                                               max="9999999"
                                                value="${services.servicePrice}"
                                                class="form-control validate"
                                                />
@@ -156,7 +156,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button onclick="alert('Cập Nhật Thành Công');" type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                                <button onclick="Save()" type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
                             </div>
                         </div>
                     </div>
@@ -183,5 +183,14 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                 });
                                             });
         </script>
+        <script>
+                function Save() {
+                     var arr = document.getElementsByTagName('input');
+                     var price = arr[2].value;
+                     if(price!= "" price>=0 && price<=9999999){
+                     alert("Cập Nhật Dịch vụ Thành Công Phòng");
+                     }
+                }
+            </script>
     </body>
 </html>

@@ -152,7 +152,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                      var arr = document.getElementsByTagName('input');
                      var name = arr[0].value;   
                      var price = arr[1].value;
-                     if (price != "" && price < 9999 && price > 0 && name != "") {
+                     if (price != "" && price < 9999999 && price > 0 && name != "") {
                      alert("Thêm Thành Công: "+name+"");
                      }
                 }
