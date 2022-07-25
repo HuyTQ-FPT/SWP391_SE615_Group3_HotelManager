@@ -294,11 +294,11 @@ Author     : admin
                                          <div class="form-row tm-search-form-row">
                                             <div class="form-group tm-form-element tm-form-element-50">
                                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Ngày đến">
+                                                <input name="check-in" type="text"  class="form-control" id="inputCheckIn" placeholder="Ngày đến" required>
                                             </div>
                                             <div class="form-group tm-form-element tm-form-element-50">
                                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Ngày đi">
+                                                <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Ngày đi" required>
                                             </div>
                                         </div>
                                         <div class="form-row tm-search-form-row">

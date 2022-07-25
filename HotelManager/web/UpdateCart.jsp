@@ -133,8 +133,8 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                     <div class="form-group mb-3">
                                         <label for="name" style="padding-right: 10px">Trạng thái </label>
                                         <select name="status" style="font-size: 18px; " class="custom-select tm-select-accounts">
-                                            <option value="1" <%=rs.getInt(11) == 1 ? "selected" : ""%>>Đang xử lí</option>
-                                            <option value="2" <%=rs.getInt(11) == 2 ? "selected" : ""%>>Hoàn thành</option>
+                                            <option value="0" <%=rs.getInt(11) == 0 ? "selected" : ""%>>Đang xử lí</option>
+                                            <option value="1" <%=rs.getInt(11) == 1 ? "selected" : ""%>>Hoàn thành</option>
                                         </select>
                                     </div>
                                     <div class="form-group mb-3">

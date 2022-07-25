@@ -85,9 +85,9 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                     <td style="background-color: 435C70 ; text-align: center"><%=rs.getCheckin()%></td>  
                     <td style="background-color: 435C70 ; text-align: center"><%=rs.getCheckout()%></td>  
                     <td style="background-color: 435C70 ; text-align: center"><fmt:formatNumber value="<%=rs.getTotal()%>" /> đ</td>  
-                    <%if (rs.getStatus() == 1) {%>
+                    <%if (rs.getStatus() == 0) {%>
                     <td style="background-color: 435C70 ; text-align: center">Đang xử lí</td>  
-                    <%} else if (rs.getStatus() == 2) {%>
+                    <%} else if (rs.getStatus() == 1) {%>
                     <td style="background-color: 435C70 ; text-align: center">Hoàn thành</td>  
                     <%}%>
                      <%if (rs.getStatus() == 3) {%>

@@ -137,11 +137,13 @@
                                     java.sql.Date date = new java.sql.Date(millis);
                                     java.sql.Date sDate = new java.sql.Date(pro.getCheckin().getTime());
                                     java.sql.Date cDate = new java.sql.Date(pro.getCheckout().getTime());
-                                    if (date.before(cDate)) {
+                                    if (date.before(cDate) && pro.getStatus() == 0 ) {
                                 %>
-                            
+                            <th></th>
                             <th class="category-id" style="padding-left: 30px;padding-right: 30px;" name=""><a href="OrderController?do=delete1&rid=<%=pro.getBillID()%>" onclick="ok()"> Hủy đặt</a></th>
-                                <%}%>    
+                                <%} if (date.before(cDate) && pro.getStatus() == 1 ) {%>  
+                             <th class="category-id" style="padding-left: 30px;padding-right: 30px;" name=""><a href="OrderController?do=delete1&rid=<%=pro.getBillID()%>" onclick="ok()"> Hủy đặt</a></th>
+                            <%}%>
                                 <%}%>
                         </tr>
                     </tbody>

@@ -186,8 +186,8 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                     <div class="form-group mb-3">
                                         <label for="name" style="padding-right: 10px">Trạng thái </label>
                                         <select name="status" style="font-size: 18px;  " class="custom-select tm-select-accounts">
-                                            <option value="1">Đang xử lí</option>
-                                            <option value="2">Hoàn thành</option>
+                                            <option value="0">Đang xử lí</option>
+                                            <option value="1">Hoàn thành</option>
                                         </select>
                                     </div>
                             </div>
