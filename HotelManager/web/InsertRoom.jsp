@@ -140,7 +140,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                    type="number"
                                                    value=""
                                                    min="0"
-                                                   max="9999"
+                                                   max="99999999"
                                                    required
                                                    class="form-control validate"
                                                    data-large-mode="true"

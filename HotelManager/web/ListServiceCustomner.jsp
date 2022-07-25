@@ -230,18 +230,17 @@
                                         <div class="col-md-6" style="margin-top: 30px">
                                             <div class="small-box-c">
                                                 <div class="small-img-b">
-                                                    <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
+                                                    <a href="RoomController?do=roomdetails&roomid=${c.roomID}&cateroom=${c.roomcateID}"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
                                                 </div>
                                                 <div class="dit-t clearfix">
                                                     <div class="left-ti">
                                                         <h4>${c.cateroom}</h4>
                                                         <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
                                                     </div>
-                                                    <a href="#" tabindex="0"><fmt:formatNumber value="${c.roomprice}" /> đ</a>
+                                                    <a href="RoomController?do=roomdetails&roomid=${c.roomID}&cateroom=${c.roomcateID}" tabindex="0"><fmt:formatNumber value="${c.roomprice}" /> đ</a>
                                                 </div>
                                                 <div class="prod-btn">
-                                                    <a href="#"><i aria-hidden="true"></i>Đặt phòng</a>
-                                                    <p>23 thích</p>
+                                                    <a href="RoomController?do=roomdetails&roomid=${c.roomID}&cateroom=${c.roomcateID}"><i aria-hidden="true"></i>Chi Tiết</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -255,20 +254,18 @@
                                         <div class="col-md-6" style="margin-top: 30px">
                                             <div class="small-box-c">
                                                 <div class="small-img-b">
-                                                    <a href="#"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
+                                                    <a href="RoomController?do=roomdetails&roomid=${c.roomID}&cateroom=${c.roomcateID}"><img class="img-responsive" src="images/anhphong/${c.image}" alt="#" style="height: 160px; width: 280px"/></a>
                                                 </div>
                                                 <div class="dit-t clearfix">
                                                     <div class="left-ti">
                                                         <h4>${c.cateroom}</h4>
                                                         <p>Diện Tích Phòng: <span>${c.square}m2</span></p>
                                                     </div>
-                                                    <a href="#" tabindex="0"><fmt:formatNumber value="${c.roomprice}" /> đ/đêm</a>
+                                                    <a href="RoomController?do=roomdetails&roomid=${c.roomID}&cateroom=${c.roomcateID}" tabindex="0"><fmt:formatNumber value="${c.roomprice}" /> đ/đêm</a>
                                                 </div>
                                                 <div class="prod-btn">
-                                                    <a href="#"><i aria-hidden="true"></i>Đặt phòng</a>
-                                                    <p>23 thích</p>
+                                                    <a href="RoomController?do=roomdetails&roomid=${c.roomID}&cateroom=${c.roomcateID}"><i aria-hidden="true"></i>Chi Tiết</a>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </c:forEach>

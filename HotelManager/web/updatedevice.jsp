@@ -121,7 +121,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                type="number"
                                                min="0"
                                                required
-                                               max="9999"
+                                               max="9999999"
                                                value="${device.price}"
                                                class="form-control validate"
                                                />

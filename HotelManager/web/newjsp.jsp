@@ -152,7 +152,7 @@ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></scrip
                                                    id="expire_date"
                                                    name="Price"
                                                    type="number"
-                                                   min="10" max="9999"
+                                                   min="10" max="9999999"
                                                    value="${listroom.roomprice}"
                                                    class="form-control validate"
                                                    data-large-mode="true"

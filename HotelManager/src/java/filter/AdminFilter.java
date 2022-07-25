@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Minh Hiếu
  */
-@WebFilter(filterName = "AdminFilter", urlPatterns = {"/AdminController","/RequestController","/ManagerAccount","/RoomsController","/ImageController","/RoomcategoryController"})
+@WebFilter(filterName = "AdminFilter", urlPatterns = {"/AdminController","/RequestController","/ManagerAccount","/RoomsController","/ImageController"})
 public class AdminFilter implements Filter {
 
     private static final boolean debug = true;
