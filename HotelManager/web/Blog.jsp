@@ -4,6 +4,8 @@
     Author     : Thai Quan
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="context.DBContext"%>
 <%@page import="entity.Blog"%>
 <%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -83,14 +85,17 @@
                                 <div class="blog__sidebar">
 
                                     <div class="blog__sidebar__item">
-                                        <h4>Thể loại</h4>
+                                         <h4 >Thể loại</h4>
                                         <ul>
-                                            <li><a href="#">Phòng đơn</a></li>
-                                            <li><a href="#">Phòng đôi</a></li>
-                                            <li><a href="#">Gia đình</a></li>
-                                            <li><a href="#">Dịch vụ</a></li>
 
-                                        </ul>
+                                        <% DBContext db = new DBContext();
+                                            ResultSet rs = db.getData("select * from CateRoom");
+                                            while (rs.next()) {
+                                        %>
+                                        <li><a style="font-family: PlayFair Display" href="RoomController?do=CateRoom&cate=<%=rs.getInt(1)%>"><%=rs.getString(2)%></a></li>
+                                            <%}%>
+
+                                    </ul>
                                     </div>
                                     <div class="blog__sidebar__item">
                                         <h4>Tin tức nổi bật</h4>
