@@ -246,7 +246,7 @@
                                         <p class="mb-2"><b>${n.name}</b> ${n.title} <b>${n.focus}</b> Noi dung: 
                                             <a href="#" class="tm-notification-link">${n.content}</a>.</p>
                                         <span class="tm-small tm-text-color-secondary">${n.date}.</span>
-                                        <a href="NotificationController?do=Delete&nID=${n.getNID()}"><i class='bx bxs-message-square-x notifi' style="color:window" onclick="deleteN()"></i></a>
+                                        <a href="NotificationController?do=Delete&nID=${n.getNID()}"><span class="iconify notifi" style="color:window" onclick="deleteN()" data-icon="bx:message-square-x"></span></a>
                                     </div>
                                 </div> 
                             </c:forEach> 
