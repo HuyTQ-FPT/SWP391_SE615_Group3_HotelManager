@@ -20,9 +20,9 @@ import javax.mail.internet.*;
 public class SendMail {
 
     /* email */
-    final String fromEmail = "hieulbmhe151429@fpt.edu.vn";
+    final String fromEmail = "";
     /* password */
-    final String password = "Lebaminhhieu1!";
+    final String password = "!";
 
     /**
      * Blank Constructor
